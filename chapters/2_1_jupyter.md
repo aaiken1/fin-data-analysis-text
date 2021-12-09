@@ -6,6 +6,6 @@ called **MyST Markdown**.
 
 ## Anaconoda python distribution
 
-## VS Code install
+## VS Code
 
 
