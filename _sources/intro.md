@@ -1,4 +1,4 @@
-# Welcome to Financial Data Analysis in Python
+# Welcome!
 
 This online text contains my notes and code examples. It will be updated throughout the semester.
 
