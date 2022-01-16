@@ -1,4 +1,5 @@
-# Welcome!
+# Welcome to Data Analysis in Finance
+
 
 This online text contains my notes and code examples. It will be updated throughout the semester.
 

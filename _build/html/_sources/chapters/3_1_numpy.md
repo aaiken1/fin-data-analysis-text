@@ -1,0 +1,8 @@
+# Numpy
+
+Using numpy arrays.
+
+
+
+
+
