@@ -1,9 +1,8 @@
 # Why python and finance?
 
-## How is python used in finance?
+[DataCamp tutorial on algorithmic trading in finance](https://www.datacamp.com/community/tutorials/finance-python-trading)
 
-
-## Our textbook and these notes.
+## Our textbook and these notes
 
 Our book covers a wide range of topics in finance.
 
@@ -13,8 +12,6 @@ The most important part is to make sure that you are up and running with Anacond
 
 Our textbook goes into more detail in many cases than we are going to have time for. 
 
-## Other Resources
 
-[Coding for Economists](https://aeturrell.github.io/coding-for-economists/intro.html) is an excellent online book that discusses getting Python set up, importing and exploring your data, as well as more advanced econometrics topics that we won't get into here. But, if you're using STATA in another class, I recommend taking a look at what you can do for free in Python. You might not have that STATA license on the job!
 
 

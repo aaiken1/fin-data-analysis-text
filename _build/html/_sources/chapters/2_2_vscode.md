@@ -1,6 +1,9 @@
 # Using VS Code
 
 
+[VS Code and Python](https://code.visualstudio.com/docs/languages/python)
+
+
 ## File Set Up
 
 ### Using Explorer
