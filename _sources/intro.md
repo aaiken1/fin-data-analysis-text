@@ -1,6 +1,6 @@
 # Welcome to data analysis in finance
 
-![elon](images/elon-signature.png)
+<img src="images/elon-signature.png" alt="elon" width="400"/>
 
 **Spring 2022 with Prof. [Adam Aiken](https://aaiken1.github.io)** 
 
@@ -37,7 +37,7 @@ I have pulled material from many different sources in order to create these note
 
 [Coding for Economists](https://aeturrell.github.io/coding-for-economists/intro.html) is an excellent online book that discusses getting Python set up, importing and exploring your data, as well as more advanced econometrics topics that we won't get into here. But, if you're using STATA in another class, I recommend taking a look at what you can do for free in Python. You might not have that STATA license on the job!
 
-[Python Programming for Data Science](https://www.tomasbeuzen.com/python-programming-for-data-science/README.html) is another great, general resource. You'll find a discussion of the basics, along with a Python style guide for writing readable code, details and about NumPy and Pandas, and data wrangling.
+[Python Programming for Data Science](https://www.tomasbeuzen.com/python-programming-for-data-science/README.html) is another great, general resource. You'll find a discussion of the basics, along with a Python style guide for writing readable code, details and about NumPy and Pandas, and tips for data wrangling and cleaning.
 
 While neither of these guides are finance-related, *per se*, both cover material that will come up in any sort of data science project. I thank the authors for making these resources available and I use examples from them in my notes. 
 
@@ -53,8 +53,6 @@ We are also using [DataCamp](https://www.datacamp.com) throughout the semester. 
 - [Seaborn - another visualization package with better looking output](http://datacamp-community-prod.s3.amazonaws.com/263130e2-2c92-4348-a356-9ed9b5034247)
 -  [Scikit Lean - basic machine learning in Python](http://datacamp-community-prod.s3.amazonaws.com/eb807da5-dce5-4b97-a54d-74e89f14266b)
 -  [SciPy - linear algebra in Python because everything is linear algebra](http://datacamp-community-prod.s3.amazonaws.com/dfdb6d58-e044-4b38-bab3-5de0b825909b)
-
-I'd save these PDFs in a folder or as bookmarks for easy access.
 
 
 ## Getting help
