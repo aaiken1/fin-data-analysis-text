@@ -1,9 +1,6 @@
 # Welcome to data analysis in finance
 
-
-<p align="center">
-  <img src="images/elon-signature.png" width="260">
-</p>
+![elon](/images/elon-signature.png)
 
 **Spring 2022 with Prof. [Adam Aiken](https://aaiken1.github.io)** 
 
@@ -34,7 +31,7 @@ Our textbook goes into more detail in many cases than we are going to have time 
 Bookmark important links so that you don't have to go searching for them.
 ```
 
-## Acknowledgements and other resources
+## Acknowledgements
 
 I have pulled material from many different sources in order to create these notes. For example, I include commentary on examples from our book. There are also many other excellent and free guides to using Python, Jupyter notebooks, and VS Code.
 
