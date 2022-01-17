@@ -1,8 +1,9 @@
 # Welcome to data analysis in finance
 
+**Spring 2022 with Prof. [Adam Aiken](https://aaiken1.github.io)** 
+
 <img src="_images/elon-signature.png" alt="elon" width="400" class="center"/>
 
-**Spring 2022 with Prof. [Adam Aiken](https://aaiken1.github.io)** 
 
 ```{note}
 These notes will be updated through the semester.
@@ -22,9 +23,9 @@ Finally, we also have a course [YouTube page](https://www.youtube.com/playlist?l
 
 Our book covers a wide range of topics in finance. Chapters 1 and 2 discuss Python, why it is used in finance, and a lot of terms and concepts that we aren't really going to be getting into. For example, we are definitely not going to be creating Ubuntu and Python Docker images. This 
 
-The most important part is to make sure that you are up and running with Anaconda, Jupyter Notebooks, and VS Code. We'll discuss how to get started in [Chapter 2](#Python set-up)
+The most important part is to make sure that you are up and running with Anaconda, Jupyter Notebooks, and VS Code. We'll discuss how to get started in [Chapter 2](chapters/2_intro.html#python_set-up).
 
-Our textbook goes into more detail in many cases than we are going to have time for. 
+Our textbook goes into more detail in many cases than we are going to have time for.
 
 
 ```{note}
