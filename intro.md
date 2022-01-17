@@ -1,4 +1,4 @@
-# Welcome to Data Analysis in Finance
+# Welcome to data analysis in finance
 
 
 <p align="center">
@@ -7,7 +7,7 @@
 
 **Spring 2022 with Prof. [Adam Aiken](https://aaiken1.github.io)** 
 
-```{warning}
+```{note}
 These notes will be updated through the semester.
 ```
 
@@ -21,12 +21,20 @@ Our textbook also has a Github repository that [contains the code used in the bo
 
 Finally, we also have a course [YouTube page](https://www.youtube.com/playlist?list=PLo4Q9ijN3eTG6t2-Lwzf7KlOooypFQak8), where I will post the occasional video, as needed. Most of our work will of course be down in class together. 
 
+## Our textbook and these notes
+
+Our book covers a wide range of topics in finance. Chapters 1 and 2 discuss Python, why it is used in finance, and a lot of terms and concepts that we aren't really going to be getting into. For example, we are definitely not going to be creating Ubuntu and Python Docker images. This 
+
+The most important part is to make sure that you are up and running with Anaconda, Jupyter Notebooks, and VS Code. We'll discuss how to get started in [Chapter 2](#Python set-up)
+
+Our textbook goes into more detail in many cases than we are going to have time for. 
+
 
 ```{note}
 Bookmark important links so that you don't have to go searching for them.
 ```
 
-## Acknowledgements and Other Resources
+## Acknowledgements and other resources
 
 I have pulled material from many different sources in order to create these notes. For example, I include commentary on examples from our book. There are also many other excellent and free guides to using Python, Jupyter notebooks, and VS Code.
 
@@ -34,7 +42,7 @@ I have pulled material from many different sources in order to create these note
 
 [Python Programming for Data Science](https://www.tomasbeuzen.com/python-programming-for-data-science/README.html) is another great, general resource. You'll find a discussion of the basics, along with a Python style guide for writing readable code, details and about NumPy and Pandas, and data wrangling.
 
-While neither of these guides are finance-related, per se, both cover material that will come up in any sort of data science project. I thank the authors for making these resources available and I use examples from them in my notes. 
+While neither of these guides are finance-related, *per se*, both cover material that will come up in any sort of data science project. I thank the authors for making these resources available and I use examples from them in my notes. 
 
 We are also using [DataCamp](https://www.datacamp.com) throughout the semester. See our Moodle page for the log in instructions - I have already set up our class page on DataCamp. Once you've completed all of the assignments, you'll have earned two different certificates. DataCamp also has lots of mini-tutorials and **cheatsheets** that can help get you started.
 
@@ -47,16 +55,19 @@ We are also using [DataCamp](https://www.datacamp.com) throughout the semester. 
 - [Matplotlib - visualizing our data](http://datacamp-community-prod.s3.amazonaws.com/e1a8f39d-71ad-4d13-9a6b-618fe1b8c9e9)
 - [Seaborn - another visualization package with better looking output](http://datacamp-community-prod.s3.amazonaws.com/263130e2-2c92-4348-a356-9ed9b5034247)
 -  [Scikit Lean - basic machine learning in Python](http://datacamp-community-prod.s3.amazonaws.com/eb807da5-dce5-4b97-a54d-74e89f14266b)
+-  [SciPy - linear algebra in Python because everything is linear algebra](http://datacamp-community-prod.s3.amazonaws.com/dfdb6d58-e044-4b38-bab3-5de0b825909b)
 
 I'd save these PDFs in a folder or as bookmarks for easy access.
 
 
-### Getting Help
+## Getting help
 
 ```{note}
 No programming background is required for this class.
 ```
 
-Learning to code means learning how to get help. No one has all of this stuff in their head at all times. 
+Learning to code means learning how to get help. No one has all of this stuff in their head at all times. That means using our textbook, the online books above, cheatsheets, and other resources. 
+
+You'll also Google stuff - a lot. Stack
 
 I want to use use the Discord server to discuss our weekly labs and projects. If you have a question, I'm sure others do as well! Ask your classmates for help there and I can follow along and add my two-cents. Just don't post all of your code - the only way to learn is by doing.
