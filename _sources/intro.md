@@ -1,6 +1,6 @@
 # Welcome to data analysis in finance
 
-![elon](/images/elon-signature.png)
+![elon](images/elon-signature.png)
 
 **Spring 2022 with Prof. [Adam Aiken](https://aaiken1.github.io)** 
 
