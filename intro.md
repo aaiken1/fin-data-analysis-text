@@ -56,8 +56,8 @@ We are also using [DataCamp](https://www.datacamp.com) throughout the semester. 
 - [Data Wrangling in Python - cleaning up that mess of data](http://datacamp-community-prod.s3.amazonaws.com/d4efb29b-f9c6-4f1c-8c98-6f568d88b48f)
 - [Matplotlib - visualizing our data](http://datacamp-community-prod.s3.amazonaws.com/e1a8f39d-71ad-4d13-9a6b-618fe1b8c9e9)
 - [Seaborn - another visualization package with better looking output](http://datacamp-community-prod.s3.amazonaws.com/263130e2-2c92-4348-a356-9ed9b5034247)
--  [Scikit Lean - basic machine learning in Python](http://datacamp-community-prod.s3.amazonaws.com/eb807da5-dce5-4b97-a54d-74e89f14266b)
--  [SciPy - linear algebra in Python because everything is linear algebra](http://datacamp-community-prod.s3.amazonaws.com/dfdb6d58-e044-4b38-bab3-5de0b825909b)
+- [Scikit Lean - basic machine learning in Python](http://datacamp-community-prod.s3.amazonaws.com/eb807da5-dce5-4b97-a54d-74e89f14266b)
+- [SciPy - linear algebra in Python because everything is linear algebra](http://datacamp-community-prod.s3.amazonaws.com/dfdb6d58-e044-4b38-bab3-5de0b825909b)
 
 
 ## Getting help
@@ -66,8 +66,8 @@ We are also using [DataCamp](https://www.datacamp.com) throughout the semester. 
 No programming background is required for this class. For both students and instructor.
 ```
 
-Learning to code means learning how to get help. No one has all of this stuff in their head at all times. That means using our textbook, the online books above, cheatsheets, and other resources. 
+Learning to code means learning how to get help. No one has all of this stuff in their head at all times. That means using our textbook, the online books above, cheatsheets, and other resources. The links posted above will help a lot.
 
-You'll also Google stuff - a lot. Stack
+You'll also Google stuff - a lot. You can find a lot of help on [Stackoverflow](https://stackoverflow.com), though "copy and paste" isn't really the best way to learn to code. 
 
 I want to use use the Discord server to discuss our weekly labs and projects. If you have a question, I'm sure others do as well! Ask your classmates for help there and I can follow along and add my two-cents. Just don't post all of your code - the only way to learn is by doing.
