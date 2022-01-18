@@ -8,19 +8,34 @@ That said, I really like VS Code. I'm going to show you the basics, how to navig
 
 And, it is not just for Python. You know Java? Here you go. C/C++, same. You design web pages? Works for that. Want to learn [OCAML](https://ocaml.org) and [become a rich](https://blog.janestreet.com)? Start coding!
 
-
 You can learn more about this popular coding environment on [their web page tutorials](https://code.visualstudio.com/learn). 
 
 ## Using VS Code
 
+We'll discuss the basics of using VS Code in class. We don't need to be experts. But, we'll need to understand our coding environment, how to use extensions, how to see what data we have in memory, how cells and Markdown work, etc. 
 
-```{figure} ../images/02-vs-blank-notebook.png
----
-height: 400px
-name: 02-vs-blank-notebook
----
-A blank VS Code Jupyter notebook. You can see my folder structure on the left. Three folders, one for code, one fo data, and one for images (img). 
-```
+
+<figure style="text-align: center;">
+    <img src="../_images/02-vs-gettingstarted.png"
+         alt="02-vs-blank-notebook" style="border: 1px solid #ccc; padding: 1em;">
+    <figcaption style="font-style: italic; color: #6d6d6d; font-size: .8em;">When you open up VS Code for the first time.</figcaption>
+</figure>
+
+VS Code can be used for just about any programming language. We'll be using two types of files: regular Python scripts (.py) and Jupyter notebooks (.ipynb). The latter lets us mix Python and Markdown to create integrated reports.
+
+<figure style="text-align: center;">
+    <img src="../_images/02-vs-blank-notebook.png"
+         alt="02-vs-blank-notebook" style="border: 1px solid #ccc; padding: 1em;">
+    <figcaption style="font-style: italic; color: #6d6d6d; font-size: .8em;">A blank Jupyter notebook. You can see my folder structure on the left.</figcaption>
+</figure>
+
+You can add different extensions to VS Code. Here are mine.
+
+<figure style="text-align: center;">
+    <img src="../_images/02-vs-extensions.png"
+         alt="02-vs-extensions" style="border: 1px solid #ccc; padding: 1em;">
+    <figcaption style="font-style: italic; color: #6d6d6d; font-size: .8em;">A list of my extensions.</figcaption>
+</figure>
 
 Visual studio has many helpful tutorials, like this one on using [VS Code with Python](https://code.visualstudio.com/docs/languages/python).
 
