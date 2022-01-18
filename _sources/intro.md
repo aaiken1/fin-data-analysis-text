@@ -2,11 +2,15 @@
 
 **Spring 2022 with Prof. [Adam Aiken](https://aaiken1.github.io)** 
 
-<img src="_images/elon-signature.png" alt="elon" width="400" class="center"/>
-
+```{image} /images/elon-signature.png
+:alt: elon-signature
+:class: bg-primary mb-1
+:width: 400px
+:align: center
+```
 
 ```{note}
-These notes will be updated through the semester.
+I will be updating these notes throughout the semester as I stay one chapter ahead of you.
 ```
 
 Welcome! This online text contains my notes and code examples. You can use it to follow along with our main textbook, [Python for Finance, 2e](https://www.oreilly.com/library/view/python-for-finance/9781492024323/).
@@ -28,7 +32,7 @@ The most important part is to make sure that you are up and running with Anacond
 Our textbook goes into more detail in many cases than we are going to have time for.
 
 
-```{note}
+```{hint}
 Bookmark important links so that you don't have to go searching for them.
 ```
 
@@ -59,7 +63,7 @@ We are also using [DataCamp](https://www.datacamp.com) throughout the semester. 
 ## Getting help
 
 ```{note}
-No programming background is required for this class.
+No programming background is required for this class. For both students and instructor.
 ```
 
 Learning to code means learning how to get help. No one has all of this stuff in their head at all times. That means using our textbook, the online books above, cheatsheets, and other resources. 
