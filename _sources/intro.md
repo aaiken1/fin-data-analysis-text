@@ -25,7 +25,7 @@ Finally, we also have a course [YouTube page](https://www.youtube.com/playlist?l
 
 ## Our textbook and these notes
 
-Our book covers a wide range of topics in finance. Chapters 1 and 2 discuss Python, why it is used in finance, and a lot of terms and concepts that we aren't really going to be getting into. For example, we are definitely not going to be creating Ubuntu and Python Docker images. This 
+Our book covers a wide range of topics in finance. Chapters 1 and 2 discuss Python, why it is used in finance, and a lot of terms and concepts that we aren't really going to be getting into. For example, we are definitely not going to be creating Ubuntu and Python Docker images. Those are very cool things, but we only have a single semester. 
 
 The most important part is to make sure that you are up and running with Anaconda, Jupyter Notebooks, and VS Code. We'll discuss how to get started in [Chapter 2](chapters/2_intro.html#python_set-up).
 
@@ -38,9 +38,9 @@ Bookmark important links so that you don't have to go searching for them.
 
 ## Acknowledgements
 
-I have pulled material from many different sources in order to create these notes. For example, I include commentary on examples from our book. There are also many other excellent and free guides to using Python, Jupyter notebooks, and VS Code.
+I have pulled material from many different sources in order to create these notes and I am very grateful that they have made their work available. For example, I include commentary on examples from our book. There are also many other excellent and free guides to using Python, Jupyter notebooks, and VS Code.
 
-[Coding for Economists](https://aeturrell.github.io/coding-for-economists/intro.html) is an excellent online book that discusses getting Python set up, importing and exploring your data, as well as more advanced econometrics topics that we won't get into here. But, if you're using STATA in another class, I recommend taking a look at what you can do for free in Python. You might not have that STATA license on the job!
+[Coding for Economists](https://aeturrell.github.io/coding-for-economists/intro.html) is an excellent online book that discusses getting Python set up, importing and exploring your data, as well as more advanced econometrics topics that we won't get into here. But, if you're using STATA in another class, I recommend taking a look at what you can do for free in Python. You might not have that STATA license on the job! He even tells you how to automate your VS Code set-up, if you're into that kind of thing.
 
 [Python Programming for Data Science](https://www.tomasbeuzen.com/python-programming-for-data-science/README.html) is another great, general resource. You'll find a discussion of the basics, along with a Python style guide for writing readable code, details and about NumPy and Pandas, and tips for data wrangling and cleaning.
 
