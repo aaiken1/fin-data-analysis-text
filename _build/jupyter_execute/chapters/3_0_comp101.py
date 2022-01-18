@@ -39,13 +39,7 @@
 # 
 # [DataCamp tutorial on Python strings](https://www.datacamp.com/community/tutorials/python-string-tutorial)
 # 
-# ## Writing functions
 # 
-# ```{note}
-# This is just a first look at writing functions. We'll do more later.
-# ```
-# 
-# [DataCamp tutorial](https://www.datacamp.com/community/tutorials/functions-python-tutorial)
 # 
 
 # In[1]:
@@ -53,3 +47,15 @@
 
 type(23)
 
+
+# ## Writing functions
+# 
+# ```{note}
+# This is just a first look at writing functions. We'll do more later.
+# ```
+# 
+# [DataCamp tutorial](https://www.datacamp.com/community/tutorials/functions-python-tutorial)
+
+# ```{note}
+# Want to really learn how computers work? Checkout [Code by Charles Petzold](http://www.charlespetzold.com/code/). It is over 20 years old now, but the basics haven't changed and never will.
+# ```
