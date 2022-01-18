@@ -1,4 +1,4 @@
-# Welcome to data analysis in finance
+# Welcome!
 
 **Spring 2022 with Prof. [Adam Aiken](https://aaiken1.github.io)** 
 

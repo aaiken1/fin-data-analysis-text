@@ -52,7 +52,7 @@
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
     <link rel="next" title="Python set-up" href="2_intro.html" />
-    <link rel="prev" title="Welcome to data analysis in finance" href="../intro.html" />
+    <link rel="prev" title="Welcome!" href="../intro.html" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="docsearch:language" content="None">
     
@@ -92,7 +92,7 @@
         <ul class="nav bd-sidenav">
  <li class="toctree-l1">
   <a class="reference internal" href="../intro.html">
-   Welcome to data analysis in finance
+   Welcome!
   </a>
  </li>
 </ul>
@@ -343,6 +343,19 @@
         <!-- Table of contents -->
         <div class="d-none d-md-block col-md-2 bd-toc show noprint">
             
+            <div class="tocsection onthispage pt-5 pb-3">
+                <i class="fas fa-list"></i> Contents
+            </div>
+            <nav id="bd-toc-nav" aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#a-first-look-at-python">
+   A first look at Python
+  </a>
+ </li>
+</ul>
+
+            </nav>
         </div>
     </div>
 </div>
@@ -355,6 +368,19 @@
                 <div id="print-main-content">
                     <div id="jb-print-toc">
                         
+                        <div>
+                            <h2> Contents </h2>
+                        </div>
+                        <nav aria-label="Page">
+                            <ul class="visible nav section-nav flex-column">
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#a-first-look-at-python">
+   A first look at Python
+  </a>
+ </li>
+</ul>
+
+                        </nav>
                     </div>
                 </div>
             </div>
@@ -379,11 +405,78 @@
          alt="JP Morgan" style="border: 1px solid #ccc; padding: 1em;">
     <figcaption style="font-style: italic; color: #6d6d6d; font-size: .8em;">Might as well learn now!</figcaption>
 </figure>
-<p>Wealth management? Many are using <a class="reference external" href="https://www.wealthfront.com/careers">model portfolios that are rebalanced automatically</a>. Some wealth management firms have <a class="reference external" href="https://ofdollarsanddata.com/how-to-invest-your-money-when-inflation-is-high/">data scientists</a>. Even the traditional firms, like <a class="reference external" href="https://www.vanguardjobs.com/job-search-results/?category=Data%20%26%20Analytics">Vanguard</a> are hiring for data analysts.</p>
+<p>Wealth management? Roboadvisors (and traditional firms) are using <a class="reference external" href="https://www.wealthfront.com/careers">model portfolios that are rebalanced automatically</a>. Some wealth management firms have <a class="reference external" href="https://ofdollarsanddata.com/how-to-invest-your-money-when-inflation-is-high/">data scientists</a>. Even the traditional firms, like <a class="reference external" href="https://www.vanguardjobs.com/job-search-results/?category=Data%20%26%20Analytics">Vanguard</a> are hiring for data analysts. And they have their own <a class="reference external" href="https://investor.vanguard.com/advice/digital-advisor/">digital advisor too</a>.</p>
 <p>We are going to learn Python because it is <a class="reference external" href="https://bootcamp.cvn.columbia.edu/blog/best-programming-languages-finance-fintech/">ubiquitous in finance</a>. It’s not the fastest language, or the latest, or the one being used to <a class="reference external" href="https://solana.com/news/getting-started-with-solana-development">write smart contracts on the Blockchain</a>. But, it is the one everyone kind of assumes that you will know if you look for a more technical role.</p>
 <p>I want to prove to you that Python, and coding more generally, is extremely helpful even outside of a purely technical role. Python and Excel even <a class="reference external" href="https://www.efinancialcareers.com/news/2021/11/python-excel">go well together</a>! And you don’t have to be a computer science major to get these skills, <a class="reference external" href="https://www.hamiltonproject.org/papers/major_decisions_what_graduates_earn_over_their_lifetimes">though that never hurt anyone</a>. Life-long learning is important, even for <a class="reference external" href="https://www.efinancialcareers.co.uk/news/2022/01/top-machine-learning-courses">Goldman MDs apparently</a>.</p>
 <p>So, <strong>what are we going to do</strong>? Our textbook and these notes cover the basics of Python, enough to be dangerous. We’ll learn how to get our data into Python, how to clean it, how to visualize it, how to explore it, and how to use it. We’ll learn how to integrate our code with our finance knowledge, creating Markdown reports that combine code, output, and text. We’ll do all of this with a goal of creating a simple trading algorithm in mind. The trading algo isn’t really the end-product, though. I want you to get a foundation that will then let you explore on your own.</p>
 <p>This <a class="reference external" href="https://www.datacamp.com/community/tutorials/finance-python-trading">DataCamp tutorial on algorithmic trading in finance</a> will give you an idea of where we are going.</p>
+<div class="section" id="a-first-look-at-python">
+<h2>A first look at Python<a class="headerlink" href="#a-first-look-at-python" title="Permalink to this headline">¶</a></h2>
+<p>Let’s use an example from Chapter 1 of our textbook, just to see what Python can help us with. We’ll bring in some data and make a graph of returns and volatility. Something that comes up all the time. Python makes this not just easy - by writing down the code, we have a <strong>reproducible</strong> example. Compare this to Excel, where it can be difficult, if not impossible, to tell how someone got from start to finish. Our code gives us a <strong>recipe</strong> for how to do something.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Bring in the packages that we need. </span>
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>  
+<span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>  
+<span class="kn">from</span> <span class="nn">pylab</span> <span class="kn">import</span> <span class="n">plt</span><span class="p">,</span> <span class="n">mpl</span> 
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Set up some graphics configuration. Just changes things from the default.</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">style</span><span class="o">.</span><span class="n">use</span><span class="p">(</span><span class="s1">&#39;seaborn&#39;</span><span class="p">)</span>  
+<span class="n">mpl</span><span class="o">.</span><span class="n">rcParams</span><span class="p">[</span><span class="s1">&#39;font.family&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="s1">&#39;serif&#39;</span>  
+<span class="o">%</span><span class="k">config</span> InlineBackend.figure_format = &#39;svg&#39;
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Read in some eod prices and select just the S&amp;P 500</span>
+<span class="n">data</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s1">&#39;../data/tr_eikon_eod_data.csv&#39;</span><span class="p">,</span>
+                  <span class="n">index_col</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">parse_dates</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>  
+<span class="n">data</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">data</span><span class="p">[</span><span class="s1">&#39;.SPX&#39;</span><span class="p">])</span> 
+<span class="n">data</span><span class="o">.</span><span class="n">dropna</span><span class="p">(</span><span class="n">inplace</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>  
+<span class="n">data</span><span class="o">.</span><span class="n">info</span><span class="p">()</span>  
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;class &#39;pandas.core.frame.DataFrame&#39;&gt;
+DatetimeIndex: 2138 entries, 2010-01-04 to 2018-06-29
+Data columns (total 1 columns):
+ #   Column  Non-Null Count  Dtype  
+---  ------  --------------  -----  
+ 0   .SPX    2138 non-null   float64
+dtypes: float64(1)
+memory usage: 33.4 KB
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Calculate returns and vol, creating two new columns of data. We&#39;ll use rolling 252 day periods to capture volatility. We multiply by the standard deviation of 252 to annualize the vol.</span>
+<span class="n">data</span><span class="p">[</span><span class="s1">&#39;rets&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">log</span><span class="p">(</span><span class="n">data</span> <span class="o">/</span> <span class="n">data</span><span class="o">.</span><span class="n">shift</span><span class="p">(</span><span class="mi">1</span><span class="p">))</span>  
+<span class="n">data</span><span class="p">[</span><span class="s1">&#39;vol&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">data</span><span class="p">[</span><span class="s1">&#39;rets&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">rolling</span><span class="p">(</span><span class="mi">252</span><span class="p">)</span><span class="o">.</span><span class="n">std</span><span class="p">()</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="mi">252</span><span class="p">)</span>  
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Make a graph</span>
+<span class="n">data</span><span class="p">[[</span><span class="s1">&#39;.SPX&#39;</span><span class="p">,</span> <span class="s1">&#39;vol&#39;</span><span class="p">]]</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">subplots</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span> <span class="mi">6</span><span class="p">));</span> 
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../_images/1_finpyth_6_0.svg" src="../_images/1_finpyth_6_0.svg" /></div>
+</div>
+</div>
 </div>
 
     <script type="text/x-thebe-config">
@@ -415,7 +508,7 @@
         <i class="fas fa-angle-left"></i>
         <div class="prev-next-info">
             <p class="prev-next-subtitle">previous</p>
-            <p class="prev-next-title">Welcome to data analysis in finance</p>
+            <p class="prev-next-title">Welcome!</p>
         </div>
     </a>
     <a class='right-next' id="next-link" href="2_intro.html" title="next page">
