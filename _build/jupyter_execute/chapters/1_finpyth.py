@@ -25,7 +25,7 @@
 # </figure>
 # 
 # 
-# Wealth management? Many are using [model portfolios that are rebalanced automatically](https://www.wealthfront.com/careers). Some wealth management firms have [data scientists](https://ofdollarsanddata.com/how-to-invest-your-money-when-inflation-is-high/). Even the traditional firms, like [Vanguard](https://www.vanguardjobs.com/job-search-results/?category=Data%20%26%20Analytics) are hiring for data analysts.  
+# Wealth management? Roboadvisors (and traditional firms) are using [model portfolios that are rebalanced automatically](https://www.wealthfront.com/careers). Some wealth management firms have [data scientists](https://ofdollarsanddata.com/how-to-invest-your-money-when-inflation-is-high/). Even the traditional firms, like [Vanguard](https://www.vanguardjobs.com/job-search-results/?category=Data%20%26%20Analytics) are hiring for data analysts. And they have their own [digital advisor too](https://investor.vanguard.com/advice/digital-advisor/).  
 # 
 # We are going to learn Python because it is [ubiquitous in finance](https://bootcamp.cvn.columbia.edu/blog/best-programming-languages-finance-fintech/). It's not the fastest language, or the latest, or the one being used to [write smart contracts on the Blockchain](https://solana.com/news/getting-started-with-solana-development). But, it is the one everyone kind of assumes that you will know if you look for a more technical role. 
 # 
@@ -35,3 +35,51 @@
 # 
 # This [DataCamp tutorial on algorithmic trading in finance](https://www.datacamp.com/community/tutorials/finance-python-trading) will give you an idea of where we are going. 
 # 
+
+# ## A first look at Python
+# 
+# Let's use an example from Chapter 1 of our textbook, just to see what Python can help us with. We'll bring in some data and make a graph of returns and volatility. Something that comes up all the time. Python makes this not just easy - by writing down the code, we have a **reproducible** example. Compare this to Excel, where it can be difficult, if not impossible, to tell how someone got from start to finish. Our code gives us a **recipe** for how to do something.
+
+# In[1]:
+
+
+# Bring in the packages that we need. 
+import numpy as np  
+import pandas as pd  
+from pylab import plt, mpl 
+
+
+# In[2]:
+
+
+# Set up some graphics configuration. Just changes things from the default.
+plt.style.use('seaborn')  
+mpl.rcParams['font.family'] = 'serif'  
+get_ipython().run_line_magic('config', "InlineBackend.figure_format = 'svg'")
+
+
+# In[3]:
+
+
+# Read in some eod prices and select just the S&P 500
+data = pd.read_csv('../data/tr_eikon_eod_data.csv',
+                  index_col=0, parse_dates=True)  
+data = pd.DataFrame(data['.SPX']) 
+data.dropna(inplace=True)  
+data.info()  
+
+
+# In[4]:
+
+
+# Calculate returns and vol, creating two new columns of data. We'll use rolling 252 day periods to capture volatility. We multiply by the standard deviation of 252 to annualize the vol.
+data['rets'] = np.log(data / data.shift(1))  
+data['vol'] = data['rets'].rolling(252).std() * np.sqrt(252)  
+
+
+# In[5]:
+
+
+# Make a graph
+data[['.SPX', 'vol']].plot(subplots=True, figsize=(10, 6)); 
+
