@@ -110,6 +110,8 @@
  <li class="toctree-l1 has-children">
   <a class="reference internal" href="2_intro.html">
    Python set-up
+   <a id="python_set-up">
+   </a>
   </a>
   <input class="toctree-checkbox" id="toctree-checkbox-1" name="toctree-checkbox-1" type="checkbox"/>
   <label for="toctree-checkbox-1">
@@ -283,9 +285,9 @@
         <!-- ipynb file if we had a myst markdown file -->
         
         <!-- Download raw file -->
-        <a class="dropdown-buttons" href="../_sources/chapters/3_0_comp101.md"><button type="button"
+        <a class="dropdown-buttons" href="../_sources/chapters/3_0_comp101.ipynb"><button type="button"
                 class="btn btn-secondary topbarbtn" title="Download source file" data-toggle="tooltip"
-                data-placement="left">.md</button></a>
+                data-placement="left">.ipynb</button></a>
         <!-- Download PDF via print -->
         <button type="button" id="download-print" class="btn btn-secondary topbarbtn" title="Print to PDF"
                 onclick="printPdf(this)" data-toggle="tooltip" data-placement="left">.pdf</button>
@@ -319,6 +321,23 @@
 
             <!-- Launch buttons -->
 
+<div class="dropdown-buttons-trigger">
+    <button id="dropdown-buttons-trigger" class="btn btn-secondary topbarbtn"
+        aria-label="Launch interactive content"><i class="fas fa-rocket"></i></button>
+    <div class="dropdown-buttons">
+        
+        <a class="binder-button" href="https://mybinder.org/v2/gh/executablebooks/jupyter-book/master?urlpath=tree/docs/chapters/3_0_comp101.ipynb"><button type="button"
+                class="btn btn-secondary topbarbtn" title="Launch Binder" data-toggle="tooltip"
+                data-placement="left"><img class="binder-button-logo"
+                    src="../_static/images/logo_binder.svg"
+                    alt="Interact on binder">Binder</button></a>
+        
+        
+        
+        
+    </div>
+</div>
+
         </div>
 
         <!-- Table of contents -->
@@ -333,6 +352,13 @@
   <a class="reference internal nav-link" href="#data-types">
    Data types
   </a>
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#common-built-in-python-data-types">
+     Common built-in Python data types
+    </a>
+   </li>
+  </ul>
  </li>
  <li class="toc-h2 nav-item toc-entry">
   <a class="reference internal nav-link" href="#writing-functions">
@@ -363,6 +389,13 @@
   <a class="reference internal nav-link" href="#data-types">
    Data types
   </a>
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#common-built-in-python-data-types">
+     Common built-in Python data types
+    </a>
+   </li>
+  </ul>
  </li>
  <li class="toc-h2 nav-item toc-entry">
   <a class="reference internal nav-link" href="#writing-functions">
@@ -380,10 +413,83 @@
                 
   <div class="tex2jax_ignore mathjax_ignore section" id="the-basics">
 <h1>The Basics<a class="headerlink" href="#the-basics" title="Permalink to this headline">¶</a></h1>
+<p>This section covers some ideas that I call <strong>CompSci 101</strong>. These are the sorts of topics that come up in any Intro to Computer Science class. Let’s cover the basics, so that we can have some idea of what’s going on with our data.</p>
+<p>I can’t let you get out of this course without seeing some of this stuff. I’d feel bad.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>You’ll find more details in Chapter 3 of our textbook. I am also borrowing heavily from <a class="reference external" href="https://www.tomasbeuzen.com/python-programming-for-data-science/chapters/chapter1-basics.html">Chapter 1 of Python for Data Science</a></p>
+</div>
 <div class="section" id="data-types">
 <h2>Data types<a class="headerlink" href="#data-types" title="Permalink to this headline">¶</a></h2>
+<p>Computers think of data, or a <strong>value</strong>, as a <strong>type</strong>. For example, in Python, there are three types of numbers: integers, floats, and complex. A <strong>variable</strong> is a name that refers to a value. Python let’s you create any variable name as long as it begins with a letter or an underscore, so no numbers to start. It should also not be what is called a r<a class="reference external" href="https://docs.python.org/3.3/reference/lexical_analysis.html#keywords">eserved word</a> in Python such as <code class="docutils literal notranslate"><span class="pre">for</span></code>, <code class="docutils literal notranslate"><span class="pre">while</span></code>, or <code class="docutils literal notranslate"><span class="pre">class</span></code>. All programming languages have special, reserved words that they don’t want us using as variable names. It would get confused.</p>
+<p>A common metaphor is to think of a variable as a box that holds some information (like a number, a vector, or a string). We use the <strong>assignment operator</strong> <code class="docutils literal notranslate"><span class="pre">=</span></code> to assign a value to a variable.</p>
+<div class="section" id="common-built-in-python-data-types">
+<h3>Common built-in Python data types<a class="headerlink" href="#common-built-in-python-data-types" title="Permalink to this headline">¶</a></h3>
+<p>Chapter 3 of our textbook covers the basic data types.</p>
+<table class="colwidths-auto table">
+<thead>
+<tr class="row-odd"><th class="text-align:left head"><p>English name</p></th>
+<th class="text-align:left head"><p>Type name</p></th>
+<th class="text-align:left head"><p>Type Category</p></th>
+<th class="text-align:left head"><p>Description</p></th>
+<th class="text-align:left head"><p>Example</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td class="text-align:left"><p>integer</p></td>
+<td class="text-align:left"><p><code class="docutils literal notranslate"><span class="pre">int</span></code></p></td>
+<td class="text-align:left"><p>Numeric Type</p></td>
+<td class="text-align:left"><p>positive/negative whole numbers</p></td>
+<td class="text-align:left"><p><code class="docutils literal notranslate"><span class="pre">42</span></code></p></td>
+</tr>
+<tr class="row-odd"><td class="text-align:left"><p>floating point number</p></td>
+<td class="text-align:left"><p><code class="docutils literal notranslate"><span class="pre">float</span></code></p></td>
+<td class="text-align:left"><p>Numeric Type</p></td>
+<td class="text-align:left"><p>real number in decimal form</p></td>
+<td class="text-align:left"><p><code class="docutils literal notranslate"><span class="pre">3.14159</span></code></p></td>
+</tr>
+<tr class="row-even"><td class="text-align:left"><p>boolean</p></td>
+<td class="text-align:left"><p><code class="docutils literal notranslate"><span class="pre">bool</span></code></p></td>
+<td class="text-align:left"><p>Boolean Values</p></td>
+<td class="text-align:left"><p>true or false</p></td>
+<td class="text-align:left"><p><code class="docutils literal notranslate"><span class="pre">True</span></code></p></td>
+</tr>
+<tr class="row-odd"><td class="text-align:left"><p>string</p></td>
+<td class="text-align:left"><p><code class="docutils literal notranslate"><span class="pre">str</span></code></p></td>
+<td class="text-align:left"><p>Sequence Type</p></td>
+<td class="text-align:left"><p>text</p></td>
+<td class="text-align:left"><p><code class="docutils literal notranslate"><span class="pre">&quot;I</span> <span class="pre">Can</span> <span class="pre">Has</span> <span class="pre">Cheezburger?&quot;</span></code></p></td>
+</tr>
+<tr class="row-even"><td class="text-align:left"><p>list</p></td>
+<td class="text-align:left"><p><code class="docutils literal notranslate"><span class="pre">list</span></code></p></td>
+<td class="text-align:left"><p>Sequence Type</p></td>
+<td class="text-align:left"><p>a collection of objects - mutable &amp; ordered</p></td>
+<td class="text-align:left"><p><code class="docutils literal notranslate"><span class="pre">['Ali',</span> <span class="pre">'Xinyi',</span> <span class="pre">'Miriam']</span></code></p></td>
+</tr>
+<tr class="row-odd"><td class="text-align:left"><p>tuple</p></td>
+<td class="text-align:left"><p><code class="docutils literal notranslate"><span class="pre">tuple</span></code></p></td>
+<td class="text-align:left"><p>Sequence Type</p></td>
+<td class="text-align:left"><p>a collection of objects - immutable &amp; ordered</p></td>
+<td class="text-align:left"><p><code class="docutils literal notranslate"><span class="pre">('Thursday',</span> <span class="pre">6,</span> <span class="pre">9,</span> <span class="pre">2018)</span></code></p></td>
+</tr>
+<tr class="row-even"><td class="text-align:left"><p>dictionary</p></td>
+<td class="text-align:left"><p><code class="docutils literal notranslate"><span class="pre">dict</span></code></p></td>
+<td class="text-align:left"><p>Mapping Type</p></td>
+<td class="text-align:left"><p>mapping of key-value pairs</p></td>
+<td class="text-align:left"><p><code class="docutils literal notranslate"><span class="pre">{'name':'DSCI',</span> <span class="pre">'code':511,</span> <span class="pre">'credits':2}</span></code></p></td>
+</tr>
+<tr class="row-odd"><td class="text-align:left"><p>none</p></td>
+<td class="text-align:left"><p><code class="docutils literal notranslate"><span class="pre">NoneType</span></code></p></td>
+<td class="text-align:left"><p>Null Object</p></td>
+<td class="text-align:left"><p>represents no value</p></td>
+<td class="text-align:left"><p><code class="docutils literal notranslate"><span class="pre">None</span></code></p></td>
+</tr>
+</tbody>
+</table>
+<p>Source: <a class="reference external" href="https://www.tomasbeuzen.com/python-programming-for-data-science/chapters/chapter1-basics.html">Chapter 1 of Python for Data Science</a></p>
 <p><a class="reference external" href="https://www.datacamp.com/community/tutorials/data-structures-python">DataCamp tutorial on Python data structures</a></p>
 <p><a class="reference external" href="https://www.datacamp.com/community/tutorials/python-string-tutorial">DataCamp tutorial on Python strings</a></p>
+</div>
 </div>
 <div class="section" id="writing-functions">
 <h2>Writing functions<a class="headerlink" href="#writing-functions" title="Permalink to this headline">¶</a></h2>
@@ -392,6 +498,18 @@
 <p>This is just a first look at writing functions. We’ll do more later.</p>
 </div>
 <p><a class="reference external" href="https://www.datacamp.com/community/tutorials/functions-python-tutorial">DataCamp tutorial</a></p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="nb">type</span><span class="p">(</span><span class="mi">23</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>int
+</pre></div>
+</div>
+</div>
+</div>
 </div>
 </div>
 
