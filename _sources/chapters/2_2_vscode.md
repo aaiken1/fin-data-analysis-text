@@ -4,42 +4,48 @@ I am new to VS Code. I've used R Studio for years, which is a development enviro
 
 I am not much of a programmer by training. I've dabbled for over 25 years in a variety of languages, but with only a few years of combined formal training (but only if [Pascal in 1995 counts](https://en.wikipedia.org/wiki/Pascal_(programming_language))). I'm coming to a lot of these tools with fresh, inexperienced eyes.
 
-That said, I really like VS Code. I'm going to show you the basics, how to navigate it, where to find stuff, how to run your code, how to write Markdown in it, and how to get your output. You can do a lot from this one set of windows. 
+That said, I really like VS Code. I'm going to show you the basics, how to navigate it, where to find stuff, how to run your code, how to write Markdown in it, and how to get your output. You can do a lot from this one set of windows.
 
 And, it is not just for Python. You know Java? Here you go. C/C++, same. You design web pages? Works for that. Want to learn [OCAML](https://ocaml.org) and [become a rich](https://blog.janestreet.com)? Start coding!
 
-You can learn more about this popular coding environment on [their web page tutorials](https://code.visualstudio.com/learn). 
+You can learn more about this popular coding environment on [their web page tutorials](https://code.visualstudio.com/learn).
 
 ## Using VS Code
 
-We'll discuss the basics of using VS Code in class. We don't need to be experts. But, we'll need to understand our coding environment, how to use extensions, how to see what data we have in memory, how cells and Markdown work, etc. 
+We'll discuss the basics of using VS Code in class. We don't need to be experts. But, we'll need to understand our coding environment, how to use extensions, how to see what data we have in memory, how cells and Markdown work, etc.
 
-
-<figure style="text-align: center;">
-    <img src="../_images/02-vs-gettingstarted.png"
-         alt="02-vs-blank-notebook" style="border: 1px solid #ccc; padding: 1em;">
-    <figcaption style="font-style: italic; color: #6d6d6d; font-size: .8em;">When you open up VS Code for the first time.</figcaption>
-</figure>
+```{figure} ../images/02-vs-gettingstarted.png
+---
+name: 02-vs-gettingstarted.png
+align: center
+class: with-border
+---
+Opening up VS Code.
+```
 
 VS Code can be used for just about any programming language. We'll be using two types of files: regular Python scripts (.py) and Jupyter notebooks (.ipynb). The latter lets us mix Python and Markdown to create integrated reports.
 
-<figure style="text-align: center;">
-    <img src="../_images/02-vs-blank-notebook.png"
-         alt="02-vs-blank-notebook" style="border: 1px solid #ccc; padding: 1em;">
-    <figcaption style="font-style: italic; color: #6d6d6d; font-size: .8em;">A blank Jupyter notebook. You can see my folder structure on the left.</figcaption>
-</figure>
-
-You can add different extensions to VS Code. Here are mine.
-
-<figure style="text-align: center;">
-    <img src="../_images/02-vs-extensions.png"
-         alt="02-vs-extensions" style="border: 1px solid #ccc; padding: 1em;">
-    <figcaption style="font-style: italic; color: #6d6d6d; font-size: .8em;">A list of my extensions.</figcaption>
-</figure>
+```{figure} ../images/02-vs-blank-notebook.png
+---
+name: 02-vs-blank-notebook.png
+align: center
+class: with-border
+---
+A blank Jupyter notebook.
+```
 
 Visual studio has many helpful tutorials, like this one on using [VS Code with Python](https://code.visualstudio.com/docs/languages/python).
 
 
+```{figure} ../images/02-vs-extensions.png
+---
+name: 02-vs-extensions.png
+align: center
+class: with-border
+---
+Some extensions that I have installed.
+```
+
 ### Using Live Share in VS Code
 
-OK, I'll admit it. I've never used this feature, but I have tested it and it seems cool. You'll need a Github account to set-up the [Live Share extension in VS Code](https://code.visualstudio.com/learn/collaboration/live-share). 
+OK, I'll admit it. I've never used this feature, but I have tested it and it seems cool. You'll need a Github account to set-up the [Live Share extension in VS Code](https://code.visualstudio.com/learn/collaboration/live-share).
