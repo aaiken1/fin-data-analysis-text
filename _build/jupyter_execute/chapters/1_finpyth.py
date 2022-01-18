@@ -18,11 +18,10 @@
 # FinTech? Outside of customer support roles, FinTech is [10% Fin and 90% Tech](https://jobs.solana.com/jobs). 
 # 
 # 
-# <figure style=“text-align: center”>
+# <figure style="text-align: center;">
 #     <img src="../_images/01-jpmorgan.png"
-#          width="400" 
-#          alt="JP Morgan">
-#     <figcaption>Might as well learn now!</figcaption>
+#          alt="JP Morgan" style="border: 1px solid #ccc; padding: 1em;">
+#     <figcaption style="font-style: italic; color: #6d6d6d; font-size: .8em;">Might as well learn now!</figcaption>
 # </figure>
 # 
 # 
