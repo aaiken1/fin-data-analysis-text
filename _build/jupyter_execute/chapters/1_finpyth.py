@@ -17,12 +17,15 @@
 # 
 # FinTech? Outside of customer support roles, FinTech is [10% Fin and 90% Tech](https://jobs.solana.com/jobs). 
 # 
+# ```{figure} ../images/01-jpmorgan.png
+# ---
+# name: 01-jpmorgan.png
+# align: center
+# class: with-border
+# ---
+# Might as well learn now!
+# ```
 # 
-# <figure style="text-align: center;">
-#     <img src="../_images/01-jpmorgan.png"
-#          alt="JP Morgan" style="border: 1px solid #ccc; padding: 1em;">
-#     <figcaption style="font-style: italic; color: #6d6d6d; font-size: .8em;">Might as well learn now!</figcaption>
-# </figure>
 # 
 # 
 # Wealth management? Roboadvisors (and traditional firms) are using [model portfolios that are rebalanced automatically](https://www.wealthfront.com/careers). Some wealth management firms have [data scientists](https://ofdollarsanddata.com/how-to-invest-your-money-when-inflation-is-high/). Even the traditional firms, like [Vanguard](https://www.vanguardjobs.com/job-search-results/?category=Data%20%26%20Analytics) are hiring for data analysts. And they have their own [digital advisor too](https://investor.vanguard.com/advice/digital-advisor/).  
