@@ -53,8 +53,23 @@ My Anaconda Navigator layout when I open it. See the Jupyter Notebook button? Th
 
 ## An Aside: Files and file paths
 
-```{note}
-It is very important that you use a consistent organization and structure. Files, folders, and paths are very important. Know where your files are!
+We'll go over absolute and relative file paths in class. You can see the notebook `1-file-paths.ipynb` on our Github page for some examples.
+
+```{margin} Know where you stuff is!
+It is very important that you use a consistent organization and structure. Files, folders, and paths are very important. **If you are using the lab computers, bring your own USB Drive**.
 ```
 
-In our [course Github page](https://github.com/aaiken1/fin-data-analysis-python), 
+My layout is simple. A folder for this class. Then, inside that folder, I have the following sub-folders: data, output, images, and code. 
+
+```{figure} ../images/02-my-files.png
+---
+name: 02-my-files.png
+align: center
+class: with-border
+---
+My class folder, **fin-data-analysis-python** and sub-folders. You won't have the readme.md file. That is generating the Read Me text on Github. You also probably don't have hidden files and folders visible on your machine.
+```
+
+When I open up Juypter or VS Code, I open up that class folder. Then, I can see my folder structure. I then use **relative file paths** to open and save files. 
+
+
