@@ -70,6 +70,6 @@ class: with-border
 My class folder, **fin-data-analysis-python** and sub-folders. You won't have the readme.md file. That is generating the Read Me text on Github. You also probably don't have hidden files and folders visible on your machine.
 ```
 
-When I open up Juypter or VS Code, I open up that class folder. Then, I can see my folder structure. I then use **relative file paths** to open and save files. 
+When I open up Jupyter or VS Code, I open up that class folder. Then, I can see my folder structure. I then use **relative file paths** to open and save files. 
 
 

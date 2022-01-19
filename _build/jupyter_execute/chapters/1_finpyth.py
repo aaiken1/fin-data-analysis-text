@@ -21,7 +21,7 @@
 # ---
 # name: 01-jpmorgan.png
 # align: center
-# class: with-border
+# figclass: margin
 # ---
 # Might as well learn now!
 # ```
@@ -30,18 +30,23 @@
 # 
 # We are going to learn Python because it is [ubiquitous in finance](https://bootcamp.cvn.columbia.edu/blog/best-programming-languages-finance-fintech/). It's not the fastest language, or the latest, or the one being used to [write smart contracts on the Blockchain](https://solana.com/news/getting-started-with-solana-development). But, it is the one everyone kind of assumes that you will know if you look for a more technical role. 
 # 
+# I want to prove to you that Python, and coding more generally, is extremely helpful even outside of a purely technical role. Python and Excel even [go well together](https://www.efinancialcareers.com/news/2021/11/python-excel)! And you don't have to be a computer science major to get these skills, [though that never hurt anyone](https://www.hamiltonproject.org/papers/major_decisions_what_graduates_earn_over_their_lifetimes). Life-long learning is important, even for [Goldman MDs apparently](https://www.efinancialcareers.co.uk/news/2022/01/top-machine-learning-courses). 
+# 
+# 
+# > Before you start a sales and trading internship, I'd also suggest that you make sure you know quite a bit about Excel, Python and VBA. - Those three things will really make a difference to your ability to do real work.
+# 
+# > Source: <https://www.efinancialcareers.co.uk/news/2022/01/investment-bank-internship>
+# 
+# So, **what are we going to do**? Our textbook and these notes cover the basics of Python, enough to be dangerous. We'll learn how to get our data into Python, how to clean it, how to visualize it, how to explore it, and how to use it. We'll learn how to integrate our code with our finance knowledge, creating Markdown reports that combine code, output, and text. We'll do all of this with a goal of creating a simple trading algorithm in mind. The trading algo isn't really the end-product, though. I want you to get a foundation that will then let you explore on your own.
+# 
 # ```{figure} ../images/01-compliance.png
 # ---
 # name: 01-compliance.png
 # align: center
-# class: with-border
+# figclass: margin
 # ---
 # Even jobs that don't seem like tech, have some coding these days.
 # ```
-# 
-# I want to prove to you that Python, and coding more generally, is extremely helpful even outside of a purely technical role. Python and Excel even [go well together](https://www.efinancialcareers.com/news/2021/11/python-excel)! And you don't have to be a computer science major to get these skills, [though that never hurt anyone](https://www.hamiltonproject.org/papers/major_decisions_what_graduates_earn_over_their_lifetimes). Life-long learning is important, even for [Goldman MDs apparently](https://www.efinancialcareers.co.uk/news/2022/01/top-machine-learning-courses). 
-# 
-# So, **what are we going to do**? Our textbook and these notes cover the basics of Python, enough to be dangerous. We'll learn how to get our data into Python, how to clean it, how to visualize it, how to explore it, and how to use it. We'll learn how to integrate our code with our finance knowledge, creating Markdown reports that combine code, output, and text. We'll do all of this with a goal of creating a simple trading algorithm in mind. The trading algo isn't really the end-product, though. I want you to get a foundation that will then let you explore on your own.
 # 
 # This [DataCamp tutorial on algorithmic trading in finance](https://www.datacamp.com/community/tutorials/finance-python-trading) will give you an idea of where we are going. 
 # 
