@@ -4,7 +4,7 @@ It is time for our first Python library! **Chapter 4** of our text covers the [n
 
 Why do we need arrays? Math stuff. Linear algebra. They allow us to perform mathematical operations on numbers, like stock prices and returns. Arrays are also necessary for machine learning, image recognition, and anything else that requires computation. In short, you really can't do much with arrays.
 
-You may have already seen [arrays in Exce]l(https://support.microsoft.com/en-us/office/guidelines-and-examples-of-array-formulas-7d94a64e-3ff3-4686-9372-ecfd5caa57c7)
+You may have already seen [arrays in Exce](https://support.microsoft.com/en-us/office/guidelines-and-examples-of-array-formulas-7d94a64e-3ff3-4686-9372-ecfd5caa57c7)
 
 Check out this [DataCamp tutorial on arrays in Python](https://www.datacamp.com/community/tutorials/python-arrays) for more. 
 
