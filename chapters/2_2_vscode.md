@@ -10,7 +10,7 @@ And, it is not just for Python. You know Java? Here you go. C/C++, same. You des
 
 You can learn more about this popular coding environment on [their web page tutorials](https://code.visualstudio.com/learn).
 
-I also have a [video overview of VS Code](INSERT LATER).
+They also have a [series of introduction videos](https://code.visualstudio.com/docs/introvideos/basics) that you can watch.
 
 ## Using VS Code
 
@@ -100,3 +100,15 @@ I recommend:
 ### Using Live Share in VS Code
 
 OK, I'll admit it. I've never used this feature, but I have tested it and it seems cool. You'll need a Github account to set-up the [Live Share extension in VS Code](https://code.visualstudio.com/learn/collaboration/live-share).
+
+
+### Tips, Tricks, and Shortcuts
+
+The more you use VS Code, the faster you'll get. They have a [tips and tricks](https://code.visualstudio.com/docs/getstarted/tips-and-tricks) guide that is helpful.
+
+```{margin}
+```{note}
+If you want the Linux cheat sheet, then you get to teach the class. Those are the rules.
+``````
+
+You can also find a [shortcut sheet for Macs](https://code.visualstudio.com/shortcuts/keyboard-shortcuts-macos.pdf) and [one for Windows](https://code.visualstudio.com/shortcuts/keyboard-shortcuts-windows.pdf). 

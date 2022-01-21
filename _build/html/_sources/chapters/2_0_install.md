@@ -51,11 +51,11 @@ class: with-border
 My Anaconda Navigator layout when I open it. See the Jupyter Notebook button? This is what you'll want. Your layout will likely look a bit different from mine.
 ```
 
-## An Aside: Files and file paths
+## An Aside: Files, file paths, and the names of things
 
 We'll go over absolute and relative file paths in class. You can see the notebook `1-file-paths.ipynb` on our Github page for some examples.
 
-```{margin} Know where you stuff is!
+```{margin} Know where your stuff is!
 It is very important that you use a consistent organization and structure. Files, folders, and paths are very important. **If you are using the lab computers, bring your own USB Drive**.
 ```
 
@@ -72,4 +72,7 @@ My class folder, **fin-data-analysis-python** and sub-folders. You won't have th
 
 When I open up Jupyter or VS Code, I open up that class folder. Then, I can see my folder structure. I then use **relative file paths** to open and save files. 
 
+And, this is a [great presentation](https://speakerdeck.com/jennybc/how-to-name-files) on how to name files. You want your file names to be machine readable, human readable, easily searchable, and easily sorted. There's something of a science to doing this correctly. 
+
+Getting this stuff right will make your life easier.
 
