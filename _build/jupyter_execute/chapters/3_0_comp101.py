@@ -14,6 +14,11 @@
 # 
 # The table below highlights important items that you should look for as you read our text. Also, the author quickly starts to use basic control structures, like `if`, `then`, and `while`. We'll discuss these in more detail, but he does a good job of going line-by-line and demonstrating the logic. Follow along with the examples.
 # 
+# There are additional resources on Datacamp, as well. Here is a [DataCamp tutorial on Python data structures](https://www.datacamp.com/community/tutorials/data-structures-python) and here is a [DataCamp tutorial on Python strings](https://www.datacamp.com/community/tutorials/python-string-tutorial), or dealing with text.
+# 
+# Do not feel like you need to look at this stuff and understand everything all at once. The key is to **know these ideas and tools exist**, try them, get an error message, and iterate. 
+# 
+# 
 # 
 # ## Chapter Three Highlights
 # 
@@ -37,9 +42,9 @@
 # 
 # A common metaphor is to think of a variable as a box that holds some information (like a number, a vector, or a string). We use the **assignment operator** `=` to assign a value to a variable.
 
-# ### Common built-in Python data types
+# ### Common built-in Python data types and structures
 # 
-# Chapter 3 of our textbook covers the basic data types.
+# Chapter 3 of our textbook covers the basic data types and structures.
 # 
 # | English name          | Type name  | Type Category  | Description                                   | Example                                    |
 # | :-------------------- | :--------- | :------------- | :-------------------------------------------- | :----------------------------------------- |
@@ -54,25 +59,420 @@
 # 
 # Source: [Chapter 1 of Python for Data Science](https://www.tomasbeuzen.com/python-programming-for-data-science/chapters/chapter1-basics.html)
 
-# [DataCamp tutorial on Python data structures](https://www.datacamp.com/community/tutorials/data-structures-python)
+# ### Arithmetic Operators
 # 
-# [DataCamp tutorial on Python strings](https://www.datacamp.com/community/tutorials/python-string-tutorial)
+# You can do all of the arithmetic that you'd expect.
 # 
+# | Operator |   Description    |
+# | :------: | :--------------: |
+# |   `+`    |     addition     |
+# |   `-`    |   subtraction    |
+# |   `*`    |  multiplication  |
+# |   `/`    |     division     |
+# |   `**`   |  exponentiation  |
+# |   `//`   | integer division / floor division |
+# |   `%`    |      modulo      |
 # 
+# Source: [Chapter 1 of Python for Data Science](https://www.tomasbeuzen.com/python-programming-for-data-science/chapters/chapter1-basics.html)
+
+# ### Integers
 # 
+# We can assign the value 10 to the variable `a` using `=`. We can then use the `type` function to see what data type `a` is. 
 
 # In[1]:
 
 
-type(23)
+a = 10
+type(a)
 
 
-# ## Writing functions
+# Python can be used as a calculator.
+
+# In[2]:
+
+
+1 / 4
+
+
+# In[3]:
+
+
+type(1/4)
+
+
+# ### Floats
+
+# Floats are the other way Python stores numbers. The book goes into more detail about the way computers represent numbers internally, but just know that you may sometimes need to be aware of **precision**. See below.
+
+# In[4]:
+
+
+b = 0.35
+type(b)
+
+
+# In[5]:
+
+
+b + 0.1
+
+
+# I guess that's close, right? By the way, run cell [7] before cell [6] and get an error. Why? The variable `b` hasn't been defined if you haven't run cell 6. Also, click on **Jupyter: Variables** below. You'll see the types and values for `a` and `b.` 
+# 
+# You can click **restart** above to clear all of the variables out of memory. 
+
+# Also, operations may change one type to another. For example, an `int` into a `float`. Floor division will round down and retain the `int` type.
+
+# In[6]:
+
+
+type(2 / 2)
+
+
+# In[7]:
+
+
+type(2 // 2)
+
+
+# The **Modulo** operator gives the remainder.
+
+# In[8]:
+
+
+5 % 2
+
+
+# ### Booleans
+# 
+# Booleans are `True` or `False`. We'll see **relational operators**, like `>`, `<`, `==`, `<=`, `>=`, and `!=`. We can also use `and`, `or`, and `not`. These are all **keywords**, which means that we can't use them as variable names. 
+# 
+# We can compare objects using comparison operators, and we'll get back a Boolean result:
+# 
+# | Operator  | Description                          |
+# | :-------- | :----------------------------------- |
+# | `x == y ` | is `x` equal to `y`?                 |
+# | `x != y`  | is `x` not equal to `y`?             |
+# | `x > y`   | is `x` greater than `y`?             |
+# | `x >= y`  | is `x` greater than or equal to `y`? |
+# | `x < y`   | is `x` less than `y`?                |
+# | `x <= y`  | is `x` less than or equal to `y`?    |
+# | `x is y`  | is `x` the same object as `y`?       |
+# 
+# **Boolean operators** also evaluate to either `True` or `False`:
+# 
+# | Operator | Description |
+# | :---: | :--- |
+# |`x and y`| are `x` and `y` both True? |
+# |`x or y` | is at least one of `x` and `y` True? |
+# | `not x` | is `x` False? | 
+# 
+# Source: [Chapter 1 of Python for Data Science](https://www.tomasbeuzen.com/python-programming-for-data-science/chapters/chapter1-basics.html)
+# 
+
+# In[9]:
+
+
+42 > 23
+
+
+# In[10]:
+
+
+42 >= 42
+
+
+# In[11]:
+
+
+42 == 42
+
+
+# In[12]:
+
+
+# Nope! Need to use ==. 
+42 = 42
+
+
+# In[ ]:
+
+
+# Common way to say "not equal"
+42 != 42
+
+
+# In[ ]:
+
+
+# Can make compound statements too. See why this is true?
+
+(4 == 3) or (2 != 3)
+
+
+# ### Strings
+# 
+# Strings are **text**. We could spend half this semester or more just dealing with text, [regular expressions](https://www.datacamp.com/community/tutorials/python-regular-expression-tutorial), [natural language programming](https://www.datacamp.com/tracks/natural-language-processing-in-python) (NLP). To start, though, we need to know that strings are a basic and essential data type across all programming languages.
+# 
+# You can use either `'` or `"` around text. This is helpful when the string has a `'` in it.
+
+# In[ ]:
+
+
+# Define our string. Check the Jupyter:Variables in your VS Code! Note the size.
+txt = 'elon university'
+print(txt)
+
+
+# In[ ]:
+
+
+txt2 = "Prof Aiken's Class"
+print(txt2)
+
+
+# There are many different string methods. Being able to deal with text is a crucial part of data wrangling, or cleaning. And, text is usually part of what people refer to as [unstructered data](https://en.wikipedia.org/wiki/Unstructured_data). For example, could you write code to [read 10K filings](https://papers.ssrn.com/sol3/papers.cfm?abstract_id=3576098)? Yes! How about using the [news to predict stock returns](https://papers.ssrn.com/sol3/papers.cfm?abstract_id=2944826)? Maybe! Lots of people are trying.
+
+# In[ ]:
+
+
+txt.capitalize()
+
+
+# In[ ]:
+
+
+txt.split()
+
+
+# In[ ]:
+
+
+txt.replace(' ', '******')
+
+
+# ### Casting
+# 
+# Sometimes we need to explicitly **cast** a value from one type to another. We can do this using functions like `str()`, `int()`, and `float()`. Python tries to do the conversion, or throws an error if it can't.
+
+# ## Data Structures
+# 
+# Our book differentiates between data types and data structures. Of the basic data structures, I think we'll deal with **lists** the most. We'll see arrays and data frames in the next few chapters. We'll use those two and their associated methods all of the time.
+
+# ### Lists and tuples
+# Lists and tuples allow us to store multiple things ("elements") in a single object. The elements are **ordered**. We'll start with lists. Lists are defined with square brackets `[]`.
+# 
+# They can both hold different data types. They can even hold other lists.
+# 
+# Lists can be modified, while tuples can not. 
+
+# In[ ]:
+
+
+my_list = [1, 2, "THREE", 4, "Elon"]
+
+
+# In[ ]:
+
+
+my_list
+
+
+# In[ ]:
+
+
+type(my_list)
+
+
+# We can `append` something to a list, like another list. We can also `extend`, `insert`, and `remove` items.
+
+# In[ ]:
+
+
+my_list.append([4, 3])  
+my_list
+
+
+# In[ ]:
+
+
+my_list.extend([1.0, 1.5, 2.0])  
+my_list
+
+
+# In[ ]:
+
+
+my_list.insert(1, 'insert')  
+my_list
+
+
+# In[ ]:
+
+
+my_list.remove('THREE')  
+my_list
+
+
+# In[ ]:
+
+
+len(my_list)
+
+
+# We can access values inside a list, tuple, or string using square bracket syntax. Python uses **zero-based indexing**, which means the first element of the list is in position 0, not position 1.
+# 
+
+# In[ ]:
+
+
+my_list[0]
+
+
+# We can use the a `:` to **slice** a list. Note that the start of the slice is inclusive and the end is exclusive. So, you start counting at 0... 0, 1, 2 and you get "2". Then, keep going... 3, 4, 5. The 5th element is the list [4,3]. So, the 4th Element, the string "Elon" is the last element sliced.
+
+# In[ ]:
+
+
+my_list[2:5]  
+
+
+# We can use negative indices to count backwards from the end of the list.
+
+# In[ ]:
+
+
+my_list[-1]
+
+
+# ### Dictionaries and sets
+# 
+# See our text for more on these. As mentioned, we aren't going to be using them much, but they are other data structures available in Python.
+
+# ## Control Structures
+
+# [Control structures] allow you to control the flow of your code. For example, you can create [a loop using `for`](https://www.datacamp.com/community/tutorials/for-loop-python) that will run the code included in the loop only for values that meet certain conditions. There are also [`while` loops](https://www.datacamp.com/community/tutorials/loops-python-tutorial).
+# 
+# [Conditional statements](https://www.datacamp.com/community/tutorials/elif-statements-python) make it so that only certain blocks of code will run (i.e. get executed), depending, or **conditional**, on the state of the code at that time (i.e. what is true).
+# 
+# ```{figure} ../images/03-loop.png
+# ---
+# name: 03-loop.png
+# align: center
+# figclass: margin
+# ---
+# The difference between a `for` loop and a `while` loop.
+# ```
+
+# In[ ]:
+
+
+num_list = [1,2,3,4,5]
+num_list
+
+
+# In[ ]:
+
+
+for element in num_list[0:3]:
+    print(element ** 2)
+
+
+# **Conditional statements** introduce *if/then/else-style* logic. The main points to notice:
+# - Use keywords `if`, `elif` and `else`
+# - The colon `:` ends each conditional expression
+# - Indentation (by 4 empty space) defines code blocks
+# - In an `if` statement, the first block whose conditional statement returns `True` is executed and the program exits the `if` block
+# - `if` statements don't necessarily need `elif` or `else`
+# - `elif` lets us check several conditions
+# - `else` lets us evaluate a default block if all other conditions are `False`
+# - the end of the entire `if` statement is where the indentation returns to the same level as the first `if` keyword
+# 
+# We can use control structures and modulo operations to see if numbers are even or odd. We can also combine loops and if/else statements.
+
+# In[ ]:
+
+
+for i in range(1, 10):
+    if i % 2 == 0:  
+        print("%d is even" % i)
+    elif i % 3 == 0:
+        print("%d is multiple of 3" % i)
+    else:
+        print("%d is odd" % i)
+
+
+# Check out the text for string replacement to see what the `print("%d is even" % i)` code is doing. In short, the code is substituting `i` into the string for `%d`. 
+# 
+# Let's look at a while loop and some if-else logic together. Again, note the use of the `print` function. I am taking the integer number and **casting** it as a string to be included in the `print` output. The `+` operator with strings means [concatenation in Python](https://www.freecodecamp.org/news/python-print-variable-how-to-print-a-string-and-variable/).
+
+# In[30]:
+
+
+# Take user input
+number = 2 
+
+# Condition of the while loop
+while number < 5 :  
+    # Find the mod of 2
+    if number%2 == 0:  
+        print("The number "+str(number)+" is even")
+    else:
+        print("The number "+str(number)+" is odd")
+    # Increment `number` by 1
+    number = number+1
+
+
+# ## Functions and Functional Programming
+# 
+# I just want to introduce the idea of functions and **functional programming**, since our textbook does. You can, of course, write your own functions in Python. Functions take input and give you an output.
+# 
+# See the example below for the basic syntax. You **call** the function with `function()`. In the example, I define a function `square` that takes an argument, or input, `x` and raises it to the power of 2. 
+# 
+# Always pick a good name for you functions!
+# 
 # 
 # ```{note}
 # This is just a first look at writing functions. We'll do more later.
 # ```
 # 
-# [DataCamp tutorial](https://www.datacamp.com/community/tutorials/functions-python-tutorial)
+# You can again find more at this [DataCamp tutorial](https://www.datacamp.com/community/tutorials/functions-python-tutorial).
 
 # 
+
+# In[ ]:
+
+
+def square(x):
+    return x ** 2
+square(2)
+
+
+# In[ ]:
+
+
+We can also print the [Fibonacci Sequence](https://en.wikipedia.org/wiki/Fibonacci_number) up to some term `n`, which can be an input into your function.
+
+
+# In[ ]:
+
+
+def fib(n):
+    a = 0
+    b = 1
+    if n == 1:
+        print(a)
+    else:
+        print(a)
+        print(b)
+        for i in range(2,n):
+            c = a + b
+            a = b
+            b = c
+            print(c)
+fib(10)
+
+
+# [Functional programming](https://realpython.com/python-functional-programming/) is a way of telling the computer what to do in an efficient manner. This is the world of **lambda functions**, and `map()`, `filter()`, `reduce()`. We'll do more of this in [Chapter 7](chapters/7_comp201html#compsci201) of our notes.
+# 
+# [Excel can even do some of this now](https://support.microsoft.com/en-us/office/lambda-function-bd212d27-1cd1-4321-a34a-ccbf254b8b67).
