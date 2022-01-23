@@ -70,4 +70,4 @@ Learning to code means learning how to get help. No one has all of this stuff in
 
 You'll also Google stuff. You can find help on [Stackoverflow](https://stackoverflow.com), though "copy and paste" isn't really the best way to learn to code. Go slowly, line-by-line, and try to think like a computer. They do exactly what you tell them to do. No more, no less. 
 
-I want to use use the Discord server to discuss our weekly labs and projects. If you have a question, I'm sure others do as well! Ask your classmates for help there and I can follow along and add my two-cents. Just don't post all of your code - the only way to learn is by doing.
+I want to use the Discord server to discuss our weekly labs and projects. If you have a question, I'm sure others do as well! Ask your classmates for help there and I can follow along and add my two-cents. Just don't post all of your code - the only way to learn is by doing.
