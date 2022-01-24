@@ -192,17 +192,17 @@ type(2 // 2)
 
 
 # Nope! Need to use ==. 
-42 = 42
+# 42 = 42
 
 
-# In[ ]:
+# In[13]:
 
 
 # Common way to say "not equal"
 42 != 42
 
 
-# In[ ]:
+# In[14]:
 
 
 # Can make compound statements too. See why this is true?
@@ -216,7 +216,7 @@ type(2 // 2)
 # 
 # You can use either `'` or `"` around text. This is helpful when the string has a `'` in it.
 
-# In[ ]:
+# In[15]:
 
 
 # Define our string. Check the Jupyter:Variables in your VS Code! Note the size.
@@ -224,7 +224,7 @@ txt = 'elon university'
 print(txt)
 
 
-# In[ ]:
+# In[16]:
 
 
 txt2 = "Prof Aiken's Class"
@@ -233,19 +233,19 @@ print(txt2)
 
 # There are many different string methods. Being able to deal with text is a crucial part of data wrangling, or cleaning. And, text is usually part of what people refer to as [unstructered data](https://en.wikipedia.org/wiki/Unstructured_data). For example, could you write code to [read 10K filings](https://papers.ssrn.com/sol3/papers.cfm?abstract_id=3576098)? Yes! How about using the [news to predict stock returns](https://papers.ssrn.com/sol3/papers.cfm?abstract_id=2944826)? Maybe! Lots of people are trying.
 
-# In[ ]:
+# In[17]:
 
 
 txt.capitalize()
 
 
-# In[ ]:
+# In[18]:
 
 
 txt.split()
 
 
-# In[ ]:
+# In[19]:
 
 
 txt.replace(' ', '******')
@@ -266,19 +266,19 @@ txt.replace(' ', '******')
 # 
 # Lists can be modified, while tuples can not. 
 
-# In[ ]:
+# In[20]:
 
 
 my_list = [1, 2, "THREE", 4, "Elon"]
 
 
-# In[ ]:
+# In[21]:
 
 
 my_list
 
 
-# In[ ]:
+# In[22]:
 
 
 type(my_list)
@@ -286,35 +286,35 @@ type(my_list)
 
 # We can `append` something to a list, like another list. We can also `extend`, `insert`, and `remove` items.
 
-# In[ ]:
+# In[23]:
 
 
 my_list.append([4, 3])  
 my_list
 
 
-# In[ ]:
+# In[24]:
 
 
 my_list.extend([1.0, 1.5, 2.0])  
 my_list
 
 
-# In[ ]:
+# In[25]:
 
 
 my_list.insert(1, 'insert')  
 my_list
 
 
-# In[ ]:
+# In[26]:
 
 
 my_list.remove('THREE')  
 my_list
 
 
-# In[ ]:
+# In[27]:
 
 
 len(my_list)
@@ -323,7 +323,7 @@ len(my_list)
 # We can access values inside a list, tuple, or string using square bracket syntax. Python uses **zero-based indexing**, which means the first element of the list is in position 0, not position 1.
 # 
 
-# In[ ]:
+# In[28]:
 
 
 my_list[0]
@@ -331,7 +331,7 @@ my_list[0]
 
 # We can use the a `:` to **slice** a list. Note that the start of the slice is inclusive and the end is exclusive. So, you start counting at 0... 0, 1, 2 and you get "2". Then, keep going... 3, 4, 5. The 5th element is the list [4,3]. So, the 4th Element, the string "Elon" is the last element sliced.
 
-# In[ ]:
+# In[29]:
 
 
 my_list[2:5]  
@@ -339,7 +339,7 @@ my_list[2:5]
 
 # We can use negative indices to count backwards from the end of the list.
 
-# In[ ]:
+# In[30]:
 
 
 my_list[-1]
@@ -359,19 +359,18 @@ my_list[-1]
 # ---
 # name: 03-loop.png
 # align: center
-# figclass: margin
 # ---
 # The difference between a `for` loop and a `while` loop.
 # ```
 
-# In[ ]:
+# In[31]:
 
 
 num_list = [1,2,3,4,5]
 num_list
 
 
-# In[ ]:
+# In[32]:
 
 
 for element in num_list[0:3]:
@@ -390,7 +389,7 @@ for element in num_list[0:3]:
 # 
 # We can use control structures and modulo operations to see if numbers are even or odd. We can also combine loops and if/else statements.
 
-# In[ ]:
+# In[33]:
 
 
 for i in range(1, 10):
@@ -406,7 +405,7 @@ for i in range(1, 10):
 # 
 # Let's look at a while loop and some if-else logic together. Again, note the use of the `print` function. I am taking the integer number and **casting** it as a string to be included in the `print` output. The `+` operator with strings means [concatenation in Python](https://www.freecodecamp.org/news/python-print-variable-how-to-print-a-string-and-variable/).
 
-# In[30]:
+# In[34]:
 
 
 # Take user input
@@ -440,7 +439,7 @@ while number < 5 :
 
 # 
 
-# In[ ]:
+# In[35]:
 
 
 def square(x):
@@ -448,13 +447,9 @@ def square(x):
 square(2)
 
 
-# In[ ]:
+# We can also print the [Fibonacci Sequence](https://en.wikipedia.org/wiki/Fibonacci_number) up to some term `n`, which can be an input into your function.
 
-
-We can also print the [Fibonacci Sequence](https://en.wikipedia.org/wiki/Fibonacci_number) up to some term `n`, which can be an input into your function.
-
-
-# In[ ]:
+# In[36]:
 
 
 def fib(n):
