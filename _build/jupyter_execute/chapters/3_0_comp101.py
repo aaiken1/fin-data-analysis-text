@@ -100,6 +100,8 @@ type(a)
 type(1/4)
 
 
+# By the way, we just created our first **variable**, `a`.  Variable names even have [rules](https://www.w3schools.com/python/python_variables_names.asp) associated with them. 
+
 # ### Floats
 
 # Floats are the other way Python stores numbers. The book goes into more detail about the way computers represent numbers internally, but just know that you may sometimes need to be aware of **precision**. See below.
@@ -210,13 +212,37 @@ type(2 // 2)
 (4 == 3) or (2 != 3)
 
 
+# This is also a good time to point out that Python is **case sensitive**. 
+
+# In[15]:
+
+
+x = 23
+X = 42
+
+print(x)
+
+
+# In[16]:
+
+
+print(X)
+
+
+# In[17]:
+
+
+# Nope!
+# Print(x)
+
+
 # ### Strings
 # 
 # Strings are **text**. We could spend half this semester or more just dealing with text, [regular expressions](https://www.datacamp.com/community/tutorials/python-regular-expression-tutorial), [natural language programming](https://www.datacamp.com/tracks/natural-language-processing-in-python) (NLP). To start, though, we need to know that strings are a basic and essential data type across all programming languages.
 # 
 # You can use either `'` or `"` around text. This is helpful when the string has a `'` in it.
 
-# In[15]:
+# In[18]:
 
 
 # Define our string. Check the Jupyter:Variables in your VS Code! Note the size.
@@ -224,7 +250,7 @@ txt = 'elon university'
 print(txt)
 
 
-# In[16]:
+# In[19]:
 
 
 txt2 = "Prof Aiken's Class"
@@ -233,19 +259,19 @@ print(txt2)
 
 # There are many different string methods. Being able to deal with text is a crucial part of data wrangling, or cleaning. And, text is usually part of what people refer to as [unstructered data](https://en.wikipedia.org/wiki/Unstructured_data). For example, could you write code to [read 10K filings](https://papers.ssrn.com/sol3/papers.cfm?abstract_id=3576098)? Yes! How about using the [news to predict stock returns](https://papers.ssrn.com/sol3/papers.cfm?abstract_id=2944826)? Maybe! Lots of people are trying.
 
-# In[17]:
+# In[20]:
 
 
 txt.capitalize()
 
 
-# In[18]:
+# In[21]:
 
 
 txt.split()
 
 
-# In[19]:
+# In[22]:
 
 
 txt.replace(' ', '******')
@@ -266,19 +292,19 @@ txt.replace(' ', '******')
 # 
 # Lists can be modified, while tuples can not. 
 
-# In[20]:
+# In[23]:
 
 
 my_list = [1, 2, "THREE", 4, "Elon"]
 
 
-# In[21]:
+# In[24]:
 
 
 my_list
 
 
-# In[22]:
+# In[25]:
 
 
 type(my_list)
@@ -286,35 +312,35 @@ type(my_list)
 
 # We can `append` something to a list, like another list. We can also `extend`, `insert`, and `remove` items.
 
-# In[23]:
+# In[26]:
 
 
 my_list.append([4, 3])  
 my_list
 
 
-# In[24]:
+# In[27]:
 
 
 my_list.extend([1.0, 1.5, 2.0])  
 my_list
 
 
-# In[25]:
+# In[28]:
 
 
 my_list.insert(1, 'insert')  
 my_list
 
 
-# In[26]:
+# In[29]:
 
 
 my_list.remove('THREE')  
 my_list
 
 
-# In[27]:
+# In[30]:
 
 
 len(my_list)
@@ -323,15 +349,15 @@ len(my_list)
 # We can access values inside a list, tuple, or string using square bracket syntax. Python uses **zero-based indexing**, which means the first element of the list is in position 0, not position 1.
 # 
 
-# In[28]:
+# In[31]:
 
 
 my_list[0]
 
 
-# We can use the a `:` to **slice** a list. Note that the start of the slice is inclusive and the end is exclusive. So, you start counting at 0... 0, 1, 2 and you get "2". Then, keep going... 3, 4, 5. The 5th element is the list [4,3]. So, the 4th Element, the string "Elon" is the last element sliced.
+# We can use a `:` to **slice** a list. Note that the start of the slice is inclusive and the end is exclusive. So, you start counting at 0... 0, 1, 2 and you get 2. Then, keep going... 3, 4, 5. The 5th element of the list is another list [4,3]. So, the 4th Element, the string "Elon", is the last element sliced.
 
-# In[29]:
+# In[32]:
 
 
 my_list[2:5]  
@@ -339,7 +365,7 @@ my_list[2:5]
 
 # We can use negative indices to count backwards from the end of the list.
 
-# In[30]:
+# In[33]:
 
 
 my_list[-1]
@@ -349,28 +375,48 @@ my_list[-1]
 # 
 # See our text for more on these. As mentioned, we aren't going to be using them much, but they are other data structures available in Python.
 
+# ## Syntax in Python
+# Syntax, or the way you write your code, is really important. As mentioned `=` and `==` are not the same thing. Python is case sensitive, as we saw.
+# 
+# If you're coming from another programming language, you might have also noticed that you don't need a semi-colon `;` to end a line. However, you can use a `;` to separate different statements on the same line.
+# 
+# You'll see below that we end conditional statements with a `:`.
+# 
+# Most importantly, **we don't use brackets in Python** to tell our code what statements go with which control structure. Instead, we use **indentation**. Let me show you what I mean.
+# 
+
 # ## Control Structures
 
-# [Control structures] allow you to control the flow of your code. For example, you can create [a loop using `for`](https://www.datacamp.com/community/tutorials/for-loop-python) that will run the code included in the loop only for values that meet certain conditions. There are also [`while` loops](https://www.datacamp.com/community/tutorials/loops-python-tutorial).
+# **Control structures** allow you to determine the flow of your code. First, we will see two types of **loops**. You can create [a loop using `for`](https://www.datacamp.com/community/tutorials/for-loop-python) that will run the code included in the loop only for values contained in a list. There are also [`while` loops](https://www.datacamp.com/community/tutorials/loops-python-tutorial), where the loop will run until a certain criteria, specified by the code, is met. There are subtle differences between the two. `While` loops need to check boolean conditions to see if a condition is `True` or `False` in order to keep going. `For` loops go until the end range is reached. This makes `for` loops faster than `while` loops -- the Python compiler doesn't have to work as hard. 
 # 
-# [Conditional statements](https://www.datacamp.com/community/tutorials/elif-statements-python) make it so that only certain blocks of code will run (i.e. get executed), depending, or **conditional**, on the state of the code at that time (i.e. what is true).
+# In general, loops can slow down your code. **Functional programming** can speed things up. The book mentions this. We will get to it later.
+# 
+# [Conditional statements](https://www.datacamp.com/community/tutorials/elif-statements-python) make it so that only certain blocks of code will run (i.e. get executed), depending, or **conditional**, on the state of the code at that time (i.e. what is true). This is where `if`, `elif`, and `else` come in. You've probably used something like this in Excel.
 # 
 # ```{figure} ../images/03-loop.png
 # ---
 # name: 03-loop.png
 # align: center
 # ---
-# The difference between a `for` loop and a `while` loop.
+# The difference between a `for` loop and a `while` loop. They do very similar things, but the logic is different. Try to follow the logic of each.
 # ```
+# 
+# Each line of code has some logic. For example, we are using `for element in num_list[0:3]:` below in our first example. Let's parse that:
+# 
+# - `for` means that Python is going to work across a certain number of elements from something, like a `list`. 
+# - `element` is going to represent an item from the `list`, like a single integer. But, it doesn't have to be an integer.
+# - `num_list` is our list. In this case, we are `slicing` to only use three elements: 0, 1, and 2. Remember, slicing is inclusive of the first element and exclusive of the last.
+# - We then end the line of logic with a `:`. This is **really important**. `for`, `while`, `if`, `elif`, and `else` all need to end with a `:`. 
+# - **Indentation matters in Python**. To do the indentation, you want to hit **tab**. The indentation tells Python which lines of code go with which lines of logic. See our examples below and in the text. 
 
-# In[31]:
+# In[34]:
 
 
 num_list = [1,2,3,4,5]
 num_list
 
 
-# In[32]:
+# In[35]:
 
 
 for element in num_list[0:3]:
@@ -379,17 +425,18 @@ for element in num_list[0:3]:
 
 # **Conditional statements** introduce *if/then/else-style* logic. The main points to notice:
 # - Use keywords `if`, `elif` and `else`
-# - The colon `:` ends each conditional expression
-# - Indentation (by 4 empty space) defines code blocks
+# - As with `for` and `while`, a colon `:` ends each conditional expression
+# - Indentation (by 4 empty space) defines code blocks. **Very important!**
 # - In an `if` statement, the first block whose conditional statement returns `True` is executed and the program exits the `if` block
 # - `if` statements don't necessarily need `elif` or `else`
 # - `elif` lets us check several conditions
 # - `else` lets us evaluate a default block if all other conditions are `False`
 # - the end of the entire `if` statement is where the indentation returns to the same level as the first `if` keyword
 # 
+
 # We can use control structures and modulo operations to see if numbers are even or odd. We can also combine loops and if/else statements.
 
-# In[33]:
+# In[36]:
 
 
 for i in range(1, 10):
@@ -401,18 +448,20 @@ for i in range(1, 10):
         print("%d is odd" % i)
 
 
+# Again, note the `:` to end each line **control structure**, as well as the tab-based indentation. Try deleting the indentation before the first `if` and running this code. What happens?
+# 
 # Check out the text for string replacement to see what the `print("%d is even" % i)` code is doing. In short, the code is substituting `i` into the string for `%d`. 
 # 
-# Let's look at a while loop and some if-else logic together. Again, note the use of the `print` function. I am taking the integer number and **casting** it as a string to be included in the `print` output. The `+` operator with strings means [concatenation in Python](https://www.freecodecamp.org/news/python-print-variable-how-to-print-a-string-and-variable/).
+# Let's look at a while loop and some if-else logic together. We again see the use of the `print` function. I am taking the integer number and **casting** it as a string to be included in the `print` output. The `+` operator with strings means [concatenation in Python](https://www.freecodecamp.org/news/python-print-variable-how-to-print-a-string-and-variable/).
 
-# In[34]:
+# In[37]:
 
 
 # Take user input
 number = 2 
 
 # Condition of the while loop
-while number < 5 :  
+while number < 5:  
     # Find the mod of 2
     if number%2 == 0:  
         print("The number "+str(number)+" is even")
@@ -421,6 +470,8 @@ while number < 5 :
     # Increment `number` by 1
     number = number+1
 
+
+# I will again point out the `:` and the indentation. If you're control structures are getting your error messages, those are the first two things to check.
 
 # ## Functions and Functional Programming
 # 
@@ -435,11 +486,12 @@ while number < 5 :
 # This is just a first look at writing functions. We'll do more later.
 # ```
 # 
+# Like with control structures we have a `:` after the first line defining the function. We then have **indentation** to indicate what code is part of the function.
+# 
 # You can again find more at this [DataCamp tutorial](https://www.datacamp.com/community/tutorials/functions-python-tutorial).
-
 # 
 
-# In[35]:
+# In[38]:
 
 
 def square(x):
@@ -449,7 +501,7 @@ square(2)
 
 # We can also print the [Fibonacci Sequence](https://en.wikipedia.org/wiki/Fibonacci_number) up to some term `n`, which can be an input into your function.
 
-# In[36]:
+# In[39]:
 
 
 def fib(n):
@@ -470,4 +522,4 @@ fib(10)
 
 # [Functional programming](https://realpython.com/python-functional-programming/) is a way of telling the computer what to do in an efficient manner. This is the world of **lambda functions**, and `map()`, `filter()`, `reduce()`. We'll do more of this in [Chapter 7](chapters/7_comp201html#compsci201) of our notes.
 # 
-# [Excel can even do some of this now](https://support.microsoft.com/en-us/office/lambda-function-bd212d27-1cd1-4321-a34a-ccbf254b8b67).
+# [Excel can even use lambda functions now.](https://support.microsoft.com/en-us/office/lambda-function-bd212d27-1cd1-4321-a34a-ccbf254b8b67). 
