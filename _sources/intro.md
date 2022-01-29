@@ -1,6 +1,6 @@
 # Welcome!
 
-**Spring 2022 with Prof. [Adam Aiken](https://aaiken1.github.io)** 
+**Spring 2022 with Prof. [Adam Aiken](https://aaiken1.github.io)**
 
 ```{image} /images/elon-signature.png
 :alt: elon-signature
@@ -21,22 +21,20 @@ I have set up a [Discord server](https://discord.com) for class discussion and a
 
 Our textbook also has a Github repository that [contains the code used in the book](https://github.com/yhilpisch/py4fi2nd).
 
-Finally, we also have a course [YouTube page](https://www.youtube.com/playlist?list=PLo4Q9ijN3eTG6t2-Lwzf7KlOooypFQak8), where I will post the occasional video, as needed. Most of our work will of course be down in class together. 
+Finally, we also have a course [YouTube page](https://www.youtube.com/playlist?list=PLo4Q9ijN3eTG6t2-Lwzf7KlOooypFQak8), where I will post the occasional video, as needed. Most of our work will of course be done in class together.
 
 ## Our textbook and these notes
 
-Our book covers a wide range of topics in finance. Chapters 1 and 2 discuss Python, why it is used in finance, and a lot of terms and concepts that we aren't really going to be getting into. For example, we are definitely not going to be creating Ubuntu and Python Docker images. Those are very cool things, but we only have a single semester. 
+Our book covers a wide range of topics in finance. Chapters 1 and 2 discuss Python, why it is used in finance, and a lot of terms and concepts that we aren't really going to be getting into. For example, we are definitely not going to be creating Ubuntu and Python Docker images. Those are cool, but we only have a single semester.
 
 The most important part is to make sure that you are up and running with Anaconda, Jupyter Notebooks, and VS Code. We'll discuss how to get started in [Chapter 2](chapters/2_intro.html#python_set-up).
-
-Our textbook goes into more detail in many cases than we are going to have time for.
 
 
 ```{hint}
 Bookmark important links so that you don't have to go searching for them.
 ```
 
-## Acknowledgements
+## Sources
 
 I have pulled material from many different sources in order to create these notes and I am very grateful that they have made their work available. For example, I include commentary on examples from our book. There are also many other excellent and free guides to using Python, Jupyter notebooks, and VS Code.
 
@@ -44,7 +42,9 @@ I have pulled material from many different sources in order to create these note
 
 [Python Programming for Data Science](https://www.tomasbeuzen.com/python-programming-for-data-science/README.html) is another great, general resource. You'll find a discussion of the basics, along with a Python style guide for writing readable code, details and about NumPy and Pandas, and tips for data wrangling and cleaning.
 
-While neither of these guides are finance-related, *per se*, both cover material that will come up in any sort of data science project. I thank the authors for making these resources available and I use examples from them in my notes. 
+[Python for Data Analysis, 3E](https://wesmckinney.com/book/) is also available for free online. The author has just updated to a third edition.
+
+While these guides are not finance-related, *per se*, they cover material that will come up in any sort of data science project. I thank the authors for making these resources available and I use examples from them in my notes.
 
 We are also using [DataCamp](https://www.datacamp.com) throughout the semester. See our Moodle page for the log in instructions - I have already set up our class page on DataCamp. Once you've completed all of the assignments, you'll have earned two different certificates. DataCamp also has lots of mini-tutorials and **cheatsheets** that can help get you started.
 
@@ -68,6 +68,6 @@ No programming background is required for this class. For both students and inst
 
 Learning to code means learning how to get help. No one has all of this stuff in their head at all times. That means using our textbook, the online books above, cheatsheets, and other resources. The links posted above will help a lot.
 
-You'll also Google stuff. You can find help on [Stackoverflow](https://stackoverflow.com), though "copy and paste" isn't really the best way to learn to code. Go slowly, line-by-line, and try to think like a computer. They do exactly what you tell them to do. No more, no less. 
+You'll also Google stuff. You can find help on [Stackoverflow](https://stackoverflow.com), though "copy and paste" isn't really the best way to learn to code. Go slowly, line-by-line, and try to think like a computer. They do exactly what you tell them to do. No more, no less.
 
-I want to use the Discord server to discuss our weekly labs and projects. If you have a question, I'm sure others do as well! Ask your classmates for help there and I can follow along and add my two-cents. Just don't post all of your code - the only way to learn is by doing.
+I want to use the Discord server to discuss our weekly labs and projects. If you have a question, I'm sure others do as well! Ask your classmates for help there and I can follow along and add my two-cents. Just don't post all of your code - the only way to learn is **by doing**.
