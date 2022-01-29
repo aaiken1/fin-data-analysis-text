@@ -241,7 +241,9 @@
  </li>
  <li class="toctree-l1">
   <a class="reference internal" href="7_comp201.html">
-   CompSci 201: OOPs and lambdas
+   CompSci 201: OOP and lambdas
+   <a id="compsci201">
+   </a>
   </a>
  </li>
 </ul>
@@ -285,9 +287,9 @@
         <!-- ipynb file if we had a myst markdown file -->
         
         <!-- Download raw file -->
-        <a class="dropdown-buttons" href="../_sources/chapters/3_1_numpy.md"><button type="button"
+        <a class="dropdown-buttons" href="../_sources/chapters/3_1_numpy.ipynb"><button type="button"
                 class="btn btn-secondary topbarbtn" title="Download source file" data-toggle="tooltip"
-                data-placement="left">.md</button></a>
+                data-placement="left">.ipynb</button></a>
         <!-- Download PDF via print -->
         <button type="button" id="download-print" class="btn btn-secondary topbarbtn" title="Print to PDF"
                 onclick="printPdf(this)" data-toggle="tooltip" data-placement="left">.pdf</button>
@@ -317,6 +319,23 @@
             class="fas fa-expand"></i></button></a>
 
             <!-- Launch buttons -->
+
+<div class="dropdown-buttons-trigger">
+    <button id="dropdown-buttons-trigger" class="btn btn-secondary topbarbtn"
+        aria-label="Launch interactive content"><i class="fas fa-rocket"></i></button>
+    <div class="dropdown-buttons">
+        
+        <a class="binder-button" href="https://mybinder.org/v2/gh/executablebooks/jupyter-book/master?urlpath=tree/docs/chapters/3_1_numpy.ipynb"><button type="button"
+                class="btn btn-secondary topbarbtn" title="Launch Binder" data-toggle="tooltip"
+                data-placement="left"><img class="binder-button-logo"
+                    src="../_static/images/logo_binder.svg"
+                    alt="Interact on binder">Binder</button></a>
+        
+        
+        
+        
+    </div>
+</div>
 
         </div>
 
@@ -369,10 +388,14 @@
                 
   <div class="tex2jax_ignore mathjax_ignore section" id="numpy-and-arrays">
 <h1>Numpy and arrays<a class="headerlink" href="#numpy-and-arrays" title="Permalink to this headline">¶</a></h1>
-<p>It is time for our first Python library! <strong>Chapter 4</strong> of our text covers the <a class="reference external" href="https://numpy.org">numpy</a>library and <code class="docutils literal notranslate"><span class="pre">arrays</span></code>. Arrays can hold many different values, which you then reference or perform operations on. For example, a <strong>matrix</strong> is a two-dimensional array of numbers. However, arrays themselves can have any number <em>n</em> dimensions.</p>
+<p>It is time for our first Python library! <strong>Chapter 4</strong> of our text covers the <a class="reference external" href="https://numpy.org">numpy</a> library and <code class="docutils literal notranslate"><span class="pre">arrays</span></code>. Arrays can hold many different values, which you then reference or perform operations on. For example, a <strong>matrix</strong> is a two-dimensional array of numbers. However, arrays themselves can have any number <em>n</em> dimensions.</p>
 <p>Why do we need arrays? Math stuff. Linear algebra. They allow us to perform mathematical operations on numbers, like stock prices and returns. Arrays are also necessary for machine learning, image recognition, and anything else that requires computation. In short, you really can’t do much with arrays.</p>
 <p>You may have already seen <a class="reference external" href="https://support.microsoft.com/en-us/office/guidelines-and-examples-of-array-formulas-7d94a64e-3ff3-4686-9372-ecfd5caa57c7">arrays in Exce</a></p>
 <p>Check out this <a class="reference external" href="https://www.datacamp.com/community/tutorials/python-arrays">DataCamp tutorial on arrays in Python</a> for more.</p>
+<div class="margin sidebar">
+<p class="sidebar-title">Our textbook calls this numerical computing.</p>
+<p>Numerical computing and numerical methods are an entire field of computer science and mathematics.</p>
+</div>
 <p>This set of <a class="reference external" href="https://www.w3schools.com/python/numpy/default.asp">notes from W3</a> is also a good resource.</p>
 <div class="section" id="chapter-four-highlights">
 <h2>Chapter Four Highlights<a class="headerlink" href="#chapter-four-highlights" title="Permalink to this headline">¶</a></h2>
@@ -383,17 +406,14 @@
 </tr>
 </thead>
 <tbody>
-<tr class="row-even"><td class="text-align:left"><p><strong>Integers vs. floats</strong>. Precision and how computers represent numbers. These are foundational concepts in computer science.</p></td>
-<td class="text-align:left"><p>62 - 65</p></td>
+<tr class="row-even"><td class="text-align:left"><p><strong>Numpy arrays basics</strong>. Lists and arrays are built-in to Python, but we really want <strong>numpy arrays</strong>. This section covers basic math with them.</p></td>
+<td class="text-align:left"><p>90 - 97</p></td>
 </tr>
-<tr class="row-odd"><td class="text-align:left"><p><strong>Booleans</strong>. How computers represent true and false. We see logical operators, such as <code class="docutils literal notranslate"><span class="pre">&gt;</span></code>, <code class="docutils literal notranslate"><span class="pre">&lt;</span></code>, <code class="docutils literal notranslate"><span class="pre">==</span></code> and <code class="docutils literal notranslate"><span class="pre">!=</span></code>. <code class="docutils literal notranslate"><span class="pre">==</span></code> and <code class="docutils literal notranslate"><span class="pre">=</span></code> are not the same thing.</p></td>
-<td class="text-align:left"><p>66 - 69</p></td>
+<tr class="row-odd"><td class="text-align:left"><p><strong>Reshaping numpy arrays</strong>. Arrays have dimensions, like n x k. How can we change their shape?</p></td>
+<td class="text-align:left"><p>97 - 101</p></td>
 </tr>
-<tr class="row-even"><td class="text-align:left"><p><strong>Strings</strong>. How computers represent text. Table 3-1 has a good list of string <strong>methods</strong>. We’ll talk more about methods, objects, and functions. Skim the two excursions. <strong>Regex</strong> is an important tool in data work, but we won’t get into it now.</p></td>
-<td class="text-align:left"><p>69 - 70</p></td>
-</tr>
-<tr class="row-odd"><td class="text-align:left"><p><strong>Data Structures</strong>. How computers group together other objects. For example, many stock prices or tickers. We’ll use <strong>lists</strong> the most, though <strong>numpy arrays</strong> and <strong>pandas data frames</strong> are going to what we really focus on. These data structures are more primitive, in the sense that they are foundational to Python, but people have created new ones that are more suited for our purposes. Note <strong>zero indexing</strong>, where the first item in a list is 0, not 1. Table 3-2 is useful for things that you can with lists.</p></td>
-<td class="text-align:left"><p>75 - 84; 76 - 79 are the most important</p></td>
+<tr class="row-even"><td class="text-align:left"><p><strong>Vectorization</strong>. We saw loops in the last chapter. They can be slow. <strong>Vectorization</strong> is a way of doing loop-like things, but without the speed penalty.</p></td>
+<td class="text-align:left"><p>106 - 110</p></td>
 </tr>
 </tbody>
 </table>
