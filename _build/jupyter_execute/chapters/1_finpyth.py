@@ -3,9 +3,9 @@
 
 # # Why Python and finance?
 # 
-# Being able to code, even just a bit, is becoming an [integral part of finance](https://www.efinancialcareers.co.uk/news/2018/11/python-for-finance). [Everything is tech now](https://www.wsj.com/articles/wall-street-erases-the-line-between-its-jocks-and-nerds-1534564810?mod=article_inline).
+# Being able to code, even just a little, is becoming an [integral part of finance](https://www.efinancialcareers.co.uk/news/2018/11/python-for-finance). [Everything is tech now](https://www.wsj.com/articles/wall-street-erases-the-line-between-its-jocks-and-nerds-1534564810?mod=article_inline).
 # 
-# I think of finance career paths as having two stages. First, you get paid for what you know and how fast you can do it. Then, you get paid for convincing other people that your ideas make sense, that your firm's product is the best, that you can make money. Now is the time to work on Stage One and learn as much as we can.
+# I think of finance career paths as having two stages. First, you get paid for what you know, helping your team, and how fast you can do it. Then, you get paid for convincing other people that your ideas make sense, that your firm's product is the best, that you can make money. Now is the time to work on Stage One and learn as much as we can.
 # 
 # Want to work at a [bank](https://www.efinancialcareers.co.uk/news/2019/11/python-replaced-excel-banking)? [Coding is a key skill](https://www.ft.com/content/4c17d6ce-c8b2-11e8-ba8f-ee390057b8c9) 
 # 
@@ -26,7 +26,11 @@
 # Might as well learn now!
 # ```
 # 
-# Wealth management? Roboadvisors (and traditional firms) are using [model portfolios that are rebalanced automatically](https://www.wealthfront.com/careers). Some wealth management firms have [data scientists](https://ofdollarsanddata.com/how-to-invest-your-money-when-inflation-is-high/). Even the traditional firms, like [Vanguard](https://www.vanguardjobs.com/job-search-results/?category=Data%20%26%20Analytics) are hiring for data analysts. And they have their own [digital advisor too](https://investor.vanguard.com/advice/digital-advisor/).  
+# Wealth management? Roboadvisors (and traditional firms) are using [model portfolios that are rebalanced automatically](https://www.wealthfront.com/careers). Some wealth management firms have [data scientists](https://ofdollarsanddata.com/how-to-invest-your-money-when-inflation-is-high/). Even the traditional firms, like [Vanguard](https://www.vanguardjobs.com/job-search-results/?category=Data%20%26%20Analytics) are hiring for data analysts. And they have their own [digital advisor too](https://investor.vanguard.com/advice/digital-advisor/). 
+# 
+# ```{margin} Finance knowledge is still crucial!
+# Even if an entire financial product, like a Roboadvisor, is code-based, you still need finance theory to understand what you should be doing in the first place. Or else you end up making [mistakes](https://blog.wealthfront.com/updates-to-smart-beta/) and creating products that underperform for predictable reasons. 
+# ```
 # 
 # We are going to learn Python because it is [ubiquitous in finance](https://bootcamp.cvn.columbia.edu/blog/best-programming-languages-finance-fintech/). It's not the fastest language, or the latest, or the one being used to [write smart contracts on the Blockchain](https://solana.com/news/getting-started-with-solana-development). But, it is the one everyone kind of assumes that you will know if you look for a more technical role. 
 # 

@@ -16,7 +16,7 @@
 # 
 # There are additional resources on Datacamp, as well. Here is a [DataCamp tutorial on Python data structures](https://www.datacamp.com/community/tutorials/data-structures-python) and here is a [DataCamp tutorial on Python strings](https://www.datacamp.com/community/tutorials/python-string-tutorial), or dealing with text. 
 # 
-# [Chapter 3 of Python for Data Analysis, 3E] also covers data structures and functions.
+# [Chapter 3 of Python for Data Analysis, 3E](https://wesmckinney.com/book/python-builtin.html) also covers data structures and functions.
 # 
 # Do not feel like you need to look at this stuff and understand everything all at once. The key is to **know that these ideas and tools exist**, try them, get an error message, and iterate. 
 # 
