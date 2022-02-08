@@ -8,3 +8,15 @@ This section begins with Chapter 5 of our text and getting data into Python. We'
 
 You'll see more about `pandas` in the second DataCamp assignment.
 
+## Chapter Five Highlights
+
+| Topic         | Pages  |
+| :-------------------------------------------------------------------------------------- | :--------- | 
+| **What are DataFrames?**. The way we are going to store our data. Indexes and column names.                | 114 - 118      | 
+| **Arrays to DataFrames**. We can convert `numpy` arrays to `pandas` DataFrames. Dates are discussed as well. | 119 - 123    | 
+| **Looking at DataFrames**. Describing our data. Some basic descriptive statistics.              | 123 - 126     | 
+| **Basic Plotting**. More on this later. | 126 - 130
+| **Group By**. When summarizing data, we often want to do that **by group**, like by firm or by year. | 130 - 132
+| **Data Manipulation**. Selection, or **filtering our data**. Joining data together. Merging data together. **Really important!** | 132 - 140
+
+
