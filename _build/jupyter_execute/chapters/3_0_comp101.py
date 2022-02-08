@@ -287,12 +287,10 @@ txt.replace(' ', '******')
 # 
 # Our book differentiates between data types and data structures. Of the basic data structures, I think we'll deal with **lists** the most. We'll see arrays and data frames in the next few chapters. We'll use those two and their associated methods all of the time.
 
-# ### Lists and tuples
-# Lists and tuples allow us to store multiple things ("elements") in a single object. The elements are **ordered**. We'll start with lists. Lists are defined with square brackets `[]`.
+# ### Lists 
+# Lists allow us to store multiple things ("elements") in a single object. The elements are **ordered**. We'll start with lists. Lists are defined with square brackets `[]`.
 # 
 # They can both hold different data types. They can even hold other lists.
-# 
-# Lists can be modified, while tuples can not. 
 
 # In[23]:
 
@@ -373,9 +371,11 @@ my_list[2:5]
 my_list[-1]
 
 
-# ### Dictionaries and sets
+# ### Dictionaries, sets, and tuples
 # 
 # See our text for more on these. As mentioned, we aren't going to be using them much, but they are other data structures available in Python.
+# 
+# Lists can be modified, while tuples can not. 
 
 # ## Syntax in Python
 # Syntax, or the way you write your code, is really important. As mentioned `=` and `==` are not the same thing. Python is case sensitive, as we saw.
@@ -389,12 +389,40 @@ my_list[-1]
 
 # ## Control Structures
 
-# **Control structures** allow you to determine the flow of your code. First, we will see two types of **loops**. You can create [a loop using `for`](https://www.datacamp.com/community/tutorials/for-loop-python) that will run the code included in the loop only for values contained in a list. There are also [`while` loops](https://www.datacamp.com/community/tutorials/loops-python-tutorial), where the loop will run until a certain criteria, specified by the code, is met. There are subtle differences between the two. `While` loops need to check boolean conditions to see if a condition is `True` or `False` in order to keep going. `For` loops go until the end range is reached. This makes `for` loops faster than `while` loops -- the Python compiler doesn't have to work as hard. 
+# **Control structures** allow you to determine the flow of your code. We'll start with **conditional statements**. [Conditional statements](https://www.datacamp.com/community/tutorials/elif-statements-python) make it so that only certain blocks of code will run (i.e. get executed), depending, or **conditional**, on the state of the code at that time (i.e. what is true). This is where `if`, `elif`, and `else` come in. You've probably used something like this in Excel.
+# 
+# We will also see two types of **loops**. You can create [a loop using `for`](https://www.datacamp.com/community/tutorials/for-loop-python) that will run the code included in the loop only for values contained in a list. There are also [`while` loops](https://www.datacamp.com/community/tutorials/loops-python-tutorial), where the loop will run until a certain criteria, specified by the code, is met. There are subtle differences between the two. `While` loops need to check boolean conditions to see if a condition is `True` or `False` in order to keep going. `For` loops go until the end range is reached. This makes `for` loops faster than `while` loops -- the Python compiler doesn't have to work as hard. 
 # 
 # In general, loops can slow down your code. **Functional programming** can speed things up. The book mentions this. We will get to it later.
 # 
-# [Conditional statements](https://www.datacamp.com/community/tutorials/elif-statements-python) make it so that only certain blocks of code will run (i.e. get executed), depending, or **conditional**, on the state of the code at that time (i.e. what is true). This is where `if`, `elif`, and `else` come in. You've probably used something like this in Excel.
+# Let's start with conditional statements and then humble `if`.
 # 
+# **Conditional statements** introduce *if/then/else-style* logic. The main points to notice:
+# - Use keywords `if`, `elif` and `else`
+# - As with `for` and `while`, a colon `:` ends each conditional expression
+# - Indentation (by 4 empty space) defines code blocks. **Very important!**
+# - In an `if` statement, the first block whose conditional statement returns `True` is executed and the program exits the `if` block
+# - `if` statements don't necessarily need `elif` or `else`
+# - `elif` lets us check several conditions
+# - `else` lets us evaluate a default block if all other conditions are `False`
+# - the end of the entire `if` statement is where the indentation returns to the same level as the first `if` keyword
+# 
+# Let's check if some numbers are even or odd. The modulo operator `%` gives us the remainder from division. We'll check and see if 7 is even or odd.
+
+# In[34]:
+
+
+i = 7
+
+if i % 2 == 0:
+    print("%d is even" % i)
+else:
+    print("%d is odd" % i)
+
+
+# Note the format - you need those `:` and the indentation. Check out the text for string replacement to see what the `print("%d is even" % i)` code is doing. In short, the code is substituting `i` into the string for `%d`. Our text does this all of the time. Also note how there is no condition after the `else`. You do this when the logic above is `false`. 
+
+# Let's turn to **loops**. We'll also put some `if`, `elif`, and `else` logic inside of a loop.
 # 
 # 
 # ```{figure} ../images/03-loop.png
@@ -417,34 +445,23 @@ my_list[-1]
 # You can find more on loops and functions in [Chapter 2 of Python Programming for Data Science](https://www.tomasbeuzen.com/python-programming-for-data-science/chapters/chapter2-loops-functions.html).
 # ```
 
-# In[34]:
+# In[35]:
 
 
 num_list = [1,2,3,4,5]
 num_list
 
 
-# In[35]:
+# In[36]:
 
 
 for element in num_list[0:3]:
     print(element ** 2)
 
 
-# **Conditional statements** introduce *if/then/else-style* logic. The main points to notice:
-# - Use keywords `if`, `elif` and `else`
-# - As with `for` and `while`, a colon `:` ends each conditional expression
-# - Indentation (by 4 empty space) defines code blocks. **Very important!**
-# - In an `if` statement, the first block whose conditional statement returns `True` is executed and the program exits the `if` block
-# - `if` statements don't necessarily need `elif` or `else`
-# - `elif` lets us check several conditions
-# - `else` lets us evaluate a default block if all other conditions are `False`
-# - the end of the entire `if` statement is where the indentation returns to the same level as the first `if` keyword
-# 
-
 # We can use control structures and modulo operations to see if numbers are even or odd. We can also combine loops and if/else statements.
 
-# In[36]:
+# In[37]:
 
 
 for i in range(1, 10):
@@ -458,11 +475,9 @@ for i in range(1, 10):
 
 # Again, note the `:` to end each line **control structure**, as well as the tab-based indentation. Try deleting the indentation before the first `if` and running this code. What happens?
 # 
-# Check out the text for string replacement to see what the `print("%d is even" % i)` code is doing. In short, the code is substituting `i` into the string for `%d`. 
-# 
 # Let's look at a while loop and some if-else logic together. We again see the use of the `print` function. I am taking the integer number and **casting** it as a string to be included in the `print` output. The `+` operator with strings means [concatenation in Python](https://www.freecodecamp.org/news/python-print-variable-how-to-print-a-string-and-variable/).
 
-# In[37]:
+# In[38]:
 
 
 # Take user input
@@ -499,7 +514,7 @@ while number < 5:
 # You can again find more at this [DataCamp tutorial](https://www.datacamp.com/community/tutorials/functions-python-tutorial).
 # 
 
-# In[38]:
+# In[39]:
 
 
 def square(x):
@@ -509,7 +524,7 @@ square(2)
 
 # We can also print the [Fibonacci Sequence](https://en.wikipedia.org/wiki/Fibonacci_number) up to some term `n`, which can be an input into your function.
 
-# In[39]:
+# In[40]:
 
 
 def fib(n):

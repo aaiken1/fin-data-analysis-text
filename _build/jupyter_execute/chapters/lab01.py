@@ -10,7 +10,7 @@
 # 
 # Use our online notes to complete our labs. I have my own commentary and links that will help. You can work through the parts below in order.
 # 
-# In particular, this will help: https://code.visualstudio.com/docs/datascience/jupyter-notebooks
+# In particular, [this from Visual Studio will help](https://code.visualstudio.com/docs/datascience/jupyter-notebooks).
 # 
 # In our online notes, I point your towards the [Coding for Economists](https://aeturrell.github.io/coding-for-economists/intro.html) site. His [coding basics page](https://aeturrell.github.io/coding-for-economists/code-basics.html) is also a great resource for the basic Python concepts that we're going to discuss here. You'll see a lot of this material in our first Datacamp as well.
 # 
@@ -123,7 +123,7 @@
 # 
 # Let's look at a two-dimensional array:
 # 
-# - Create a 4 $\times$ 4 diagonal matrix with ones along with diagonal and save this as array _c_. You can do this with the `np.eye` function. [Matrices that look like this](https://en.wikipedia.org/wiki/Identity_matrix) come up all of the time, which is why there's a special command. Get it, "eye"? "I"? Math is funny.
+# - Create a 4 x 4 diagonal matrix with ones along with diagonal and save this as array _c_. You can do this with the `np.eye` function. [Matrices that look like this](https://en.wikipedia.org/wiki/Identity_matrix) come up all of the time, which is why there's a special command. Get it, "eye"? "I"? Math is funny.
 # - Use the appropriate `np` attributes to check the following for _c_: size, number of dimensions, shape, and type. See pg. 97. Notice how the syntax changes when we move from a function that is creating an object to checking an attribute of an existing object?
 # - Multiply each element of this array by 3. This is an example of **vectorization**. No need to create loops that look at each element separately and then performs an operation.
 # - Print the element in the 2nd row and 2nd column. And by "2nd", we are talking about **indexing**, so you want to start counting from zero. Do you get 1 or 3? Why?

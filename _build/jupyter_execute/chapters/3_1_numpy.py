@@ -41,6 +41,8 @@
 # ```
 # 
 # We need to import the `numpy` package in order to use `narrays`. Here's the syntax for bringing in a package to our code. We're going to type this at the start of basically all of our code. We are going to use the _np_ part to tell Python where to look for a function/method in the `numpy` package. This is important, as `numpy` contains functions like `min` or `max` that are also built-in the standard Python. If you just write `max(x)`, Python is going to wonder what `max` you mean!
+# 
+# You only need to import once per Python session. But, if you restart your Python kernel, you'll need to run the import again.
 
 # In[1]:
 
@@ -333,7 +335,9 @@ np.resize(x, (1,2))
 
 # ## Indexing and Slicing
 # 
-# We've seen indexing and slicing already. Let's look at how we can pull a particular number, row, or column out of an array. Let's create a simple 1-D array to start, the numbers 0 - 9. Remember how Python starts indexing at 0?
+# We've seen indexing and slicing already. Let's look at how we can pull a particular number, row, or column out of an array. There are three particular pieces of syntax to pay attention to: we are using square brackets with arrays `[]`, use are using a comma `,` to separate the different axis (e.g. rows and columns in a two-dimensional array), and we are using a colon `:` to **slice** and get back certain parts of the array.
+# 
+# Let's create a simple 1-D array to start, the numbers 0 - 9. Remember how Python starts indexing at 0?
 
 # In[227]:
 
@@ -350,11 +354,15 @@ x
 x[3] 
 
 
+# Let's **slice**. What if wanted to start on 2 (the third item in the array) and then get everything else after that?
+
 # In[229]:
 
 
 x[2:] # Starting on the third item
 
+
+# How about just items 0, 1, and 2?
 
 # In[230]:
 
@@ -362,11 +370,15 @@ x[2:] # Starting on the third item
 x[:3] # Up until the 4th item, exclusive.
 
 
+# We can select something in the middle too.
+
 # In[231]:
 
 
 x[2:5] # Start on the third item, go up until the 6th item, exclusive. 
 
+
+# And we can even start from the end of the array when selecting items.
 
 # In[232]:
 
@@ -376,30 +388,30 @@ x[-1] # Start counting backwards
 
 # We do similar things for 2-D arrays. Let's create a 4 $\times$ 6 matrix out of random integers from 0 to 9 (0 to 10, exclusive).
 
-# In[233]:
+# In[4]:
 
 
 x = np.random.randint(10, size=(4, 6))
 x
 
 
-# We can then pick out the row $\times$ column that we want. Using [3,4] gets us the 4th row and the 5th column, since, again, we have zero indexing. We need to start just referring to these as the 3rd row and 4th column and assuming that we start at zero.
+# We can then pick out the row $\times$ column that we want. Using [3,4] gets us the 4th row and the 5th column, since, again, we have zero indexing. We need to start just referring to these as the 3rd row and 4th column and assuming that we start at 0.
 
-# In[234]:
+# In[5]:
 
 
 x[3,4]
 
 
-# We can pick out just the 3rd row:
+# We can pick out just the 3rd row. Now, notice how I'm using `,` and `:`. The 3 means 3rd row, where we start counting from 0. The `,` separates our axis, so we have `rows,columns`. The `:` is telling Python to **slice** all of the columns. This way, we'll get each element of the 3rd row.
 
-# In[235]:
-
-
-x[3]
+# In[6]:
 
 
-# We can pick out just the 4th column using `:` and `,` together. This means choose all rows, just the 4th column.
+x[3,:]
+
+
+# We can also pick out just the 4th column using `:` and `,` together. This means choose all rows, just the 4th column.
 
 # In[236]:
 
@@ -409,7 +421,15 @@ x[:,4]
 
 # We can select multiple rows and columns, also using `:` and `,` together.
 
-# In[237]:
+# In[7]:
+
+
+x[0:2,:] # Choose the first two rows.
+
+
+# You could have also written that like this. If you don't put the `,:`, Python will assume that you want all of the columns.
+
+# In[8]:
 
 
 x[0:2] # Choose the first two rows.
@@ -421,6 +441,16 @@ x[0:2] # Choose the first two rows.
 
 
 x[:,0:2]
+
+
+# Notice how you do need the `:,` to get all of the rows. 
+# 
+# You can also get a piece of the array, not just whole rows and columns.
+
+# In[10]:
+
+
+x[1:3,2:4]
 
 
 # Finally, you can change a number in an array. 
