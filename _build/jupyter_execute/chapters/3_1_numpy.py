@@ -323,7 +323,7 @@ x.resize(1, 2)
 
 # See the error message? It is telling us to use the `np.resize()` function.
 
-# In[226]:
+# In[42]:
 
 
 np.resize(x, (1,2))
@@ -339,7 +339,7 @@ np.resize(x, (1,2))
 # 
 # Let's create a simple 1-D array to start, the numbers 0 - 9. Remember how Python starts indexing at 0?
 
-# In[227]:
+# In[43]:
 
 
 x = np.arange(10)
@@ -348,7 +348,7 @@ x
 
 # We can then pull just pieces of that array. Note that we're using brackets and not parentheses now. Item 3 is the 4th number when you have zero indexing. 
 
-# In[228]:
+# In[44]:
 
 
 x[3] 
@@ -356,7 +356,7 @@ x[3]
 
 # Let's **slice**. What if wanted to start on 2 (the third item in the array) and then get everything else after that?
 
-# In[229]:
+# In[45]:
 
 
 x[2:] # Starting on the third item
@@ -364,7 +364,7 @@ x[2:] # Starting on the third item
 
 # How about just items 0, 1, and 2?
 
-# In[230]:
+# In[46]:
 
 
 x[:3] # Up until the 4th item, exclusive.
@@ -372,7 +372,7 @@ x[:3] # Up until the 4th item, exclusive.
 
 # We can select something in the middle too.
 
-# In[231]:
+# In[47]:
 
 
 x[2:5] # Start on the third item, go up until the 6th item, exclusive. 
@@ -380,7 +380,7 @@ x[2:5] # Start on the third item, go up until the 6th item, exclusive.
 
 # And we can even start from the end of the array when selecting items.
 
-# In[232]:
+# In[48]:
 
 
 x[-1] # Start counting backwards
@@ -388,7 +388,7 @@ x[-1] # Start counting backwards
 
 # We do similar things for 2-D arrays. Let's create a 4 $\times$ 6 matrix out of random integers from 0 to 9 (0 to 10, exclusive).
 
-# In[4]:
+# In[49]:
 
 
 x = np.random.randint(10, size=(4, 6))
@@ -397,7 +397,7 @@ x
 
 # We can then pick out the row $\times$ column that we want. Using [3,4] gets us the 4th row and the 5th column, since, again, we have zero indexing. We need to start just referring to these as the 3rd row and 4th column and assuming that we start at 0.
 
-# In[5]:
+# In[50]:
 
 
 x[3,4]
@@ -405,7 +405,7 @@ x[3,4]
 
 # We can pick out just the 3rd row. Now, notice how I'm using `,` and `:`. The 3 means 3rd row, where we start counting from 0. The `,` separates our axis, so we have `rows,columns`. The `:` is telling Python to **slice** all of the columns. This way, we'll get each element of the 3rd row.
 
-# In[6]:
+# In[51]:
 
 
 x[3,:]
@@ -413,7 +413,7 @@ x[3,:]
 
 # We can also pick out just the 4th column using `:` and `,` together. This means choose all rows, just the 4th column.
 
-# In[236]:
+# In[52]:
 
 
 x[:,4]
@@ -421,7 +421,7 @@ x[:,4]
 
 # We can select multiple rows and columns, also using `:` and `,` together.
 
-# In[7]:
+# In[53]:
 
 
 x[0:2,:] # Choose the first two rows.
@@ -429,7 +429,7 @@ x[0:2,:] # Choose the first two rows.
 
 # You could have also written that like this. If you don't put the `,:`, Python will assume that you want all of the columns.
 
-# In[8]:
+# In[54]:
 
 
 x[0:2] # Choose the first two rows.
@@ -437,7 +437,7 @@ x[0:2] # Choose the first two rows.
 
 # How about the first two columns? The first `:` means "all rows". Then, we separate the rows and columns with `,`. Finally, we select the two columns with `0:2`.
 
-# In[238]:
+# In[55]:
 
 
 x[:,0:2]
@@ -447,7 +447,7 @@ x[:,0:2]
 # 
 # You can also get a piece of the array, not just whole rows and columns.
 
-# In[10]:
+# In[56]:
 
 
 x[1:3,2:4]
@@ -455,7 +455,7 @@ x[1:3,2:4]
 
 # Finally, you can change a number in an array. 
 
-# In[239]:
+# In[57]:
 
 
 x[1,1] = 1000
@@ -466,7 +466,7 @@ x
 
 # Vectorization let's us avoid slow, inefficient loops. Let's look at example. 
 
-# In[240]:
+# In[58]:
 
 
 array = np.array(range(1000000))
@@ -474,7 +474,7 @@ for i, element in enumerate(array):
     array[i] = element ** 2
 
 
-# In[241]:
+# In[59]:
 
 
 array = np.array(range(1000000))
@@ -490,7 +490,7 @@ array **= 2
 # By the way, you'll see the "operation"= thing a lot in code. It means take the thing on the left-hand side, do the operation, in this case "**2", or square the number, and replace the original array with all of the squared terms. Here's another example:
 # 
 
-# In[242]:
+# In[60]:
 
 
 x = 10
@@ -500,7 +500,7 @@ x
 
 # We can compare the two methods from above directly. We'll just do five numbers here, so that the comparison doesn't take forever.
 
-# In[243]:
+# In[61]:
 
 
 # loop method
@@ -516,7 +516,7 @@ print(f"Vectorized operation is {time_loop.average / time_vec.average:.2f}x fast
 
 # We'll end with **broadcasting**. Arrays of different dimensions can't be directly used in arithmetic, element-by-element, operations. For example, let's create two arrays of different sizes and try adding them together.
 
-# In[244]:
+# In[63]:
 
 
 a = np.ones((2, 2))
@@ -528,7 +528,7 @@ a + b
 # 
 #  Let's create a 1-D array of prices for three different products: $10, $15, and $20. 1-D arrays can be confusing, as they can actually have [several different types of shapes](https://www.tomasbeuzen.com/python-programming-for-data-science/chapters/chapter5-numpy.html#d-arrays).
 
-# In[245]:
+# In[64]:
 
 
 price = np.array([10, 15, 20])
@@ -537,7 +537,7 @@ price
 
 # Let's also create an array of quantity sold for the three products. They need to be in the same order as the prices above.
 
-# In[246]:
+# In[65]:
 
 
 sales = np.array([100, 150, 200])
@@ -546,7 +546,7 @@ sales
 
 # We can multiply the two matrices together to get **total revenue by product**. 
 
-# In[247]:
+# In[66]:
 
 
 sales * price
@@ -554,7 +554,7 @@ sales * price
 
 # We can also do something called the [dot product](https://towardsdatascience.com/linear-algebra-basics-dot-product-and-matrix-multiplication-2a7624942810) using `np.dot()`. This takes the first element from price and multiplies it by the first element from sales and then adds this to the second item from price times the second item from sales, etc. This results in the **total revenue across all products**.
 
-# In[248]:
+# In[67]:
 
 
 np.dot(sales, price)
@@ -562,7 +562,7 @@ np.dot(sales, price)
 
 # OK, but what if we have three days of sales across the three products. Now, each row is a different product and each column is a different day.
 
-# In[249]:
+# In[68]:
 
 
 sales = np.array([[100, 120, 130], [150, 110, 125], [200, 150, 190]])
@@ -571,13 +571,13 @@ sales
 
 # Let's look at our shapes for `price` and `sales`. 
 
-# In[250]:
+# In[69]:
 
 
 price.shape # A 1-D array, with 3 numbers along axis-0.
 
 
-# In[251]:
+# In[70]:
 
 
 sales.shape # A 3-D array, with 3 numbers along each axis.
@@ -585,7 +585,7 @@ sales.shape # A 3-D array, with 3 numbers along each axis.
 
 # Let's just multiply these together and see what we get.
 
-# In[252]:
+# In[71]:
 
 
 price * sales
@@ -595,7 +595,7 @@ price * sales
 # 
 # We can use `.reshape()` to fix this. 
 
-# In[253]:
+# In[72]:
 
 
 price = price.reshape(3,1)
@@ -604,7 +604,7 @@ price
 
 # See how the numbers are going up and down? OK, now let's `np.repeat()` price to get all 10's in the first row, etc. The syntax is saying to repeat each item three times across the first axis (the columns). 
 
-# In[254]:
+# In[73]:
 
 
 price = np.repeat(price, 3, axis = 1)
@@ -613,7 +613,7 @@ price
 
 # Now, let's try multiplying.
 
-# In[255]:
+# In[74]:
 
 
 price * sales
@@ -621,7 +621,7 @@ price * sales
 
 # This looks good! But, there has to be an easier way, right? Yeah. Let'e set up our original prices again and reshape it, all in one step.
 
-# In[256]:
+# In[75]:
 
 
 price = np.array([10, 15, 20]).reshape(3,1)
@@ -630,7 +630,7 @@ price
 
 # See how we can "chain" functions and methods together? This creates the object, uses a method, and saves it, all in one line. OK, now just multiply.
 
-# In[257]:
+# In[76]:
 
 
 price * sales
