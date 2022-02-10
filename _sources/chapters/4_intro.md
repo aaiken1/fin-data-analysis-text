@@ -6,7 +6,7 @@ DataFrames are a `class`. A `class` is like a blueprint. We create a dataframe `
 
 This section begins with Chapter 5 of our text and getting data into Python. We'll look at some stock data as an example. 
 
-You'll see more about `pandas` in the second DataCamp assignment.
+You'll see more about `pandas` in the second DataCamp assignment, **Intermediate Python for Finance**. You'll see dates and times using `datatime`. 
 
 ## Chapter Five Highlights
 

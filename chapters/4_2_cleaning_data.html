@@ -304,9 +304,9 @@
         <!-- ipynb file if we had a myst markdown file -->
         
         <!-- Download raw file -->
-        <a class="dropdown-buttons" href="../_sources/chapters/4_2_cleaning_data.md"><button type="button"
+        <a class="dropdown-buttons" href="../_sources/chapters/4_2_cleaning_data.ipynb"><button type="button"
                 class="btn btn-secondary topbarbtn" title="Download source file" data-toggle="tooltip"
-                data-placement="left">.md</button></a>
+                data-placement="left">.ipynb</button></a>
         <!-- Download PDF via print -->
         <button type="button" id="download-print" class="btn btn-secondary topbarbtn" title="Print to PDF"
                 onclick="printPdf(this)" data-toggle="tooltip" data-placement="left">.pdf</button>
@@ -337,6 +337,23 @@
 
             <!-- Launch buttons -->
 
+<div class="dropdown-buttons-trigger">
+    <button id="dropdown-buttons-trigger" class="btn btn-secondary topbarbtn"
+        aria-label="Launch interactive content"><i class="fas fa-rocket"></i></button>
+    <div class="dropdown-buttons">
+        
+        <a class="binder-button" href="https://mybinder.org/v2/gh/executablebooks/jupyter-book/master?urlpath=tree/docs/chapters/4_2_cleaning_data.ipynb"><button type="button"
+                class="btn btn-secondary topbarbtn" title="Launch Binder" data-toggle="tooltip"
+                data-placement="left"><img class="binder-button-logo"
+                    src="../_static/images/logo_binder.svg"
+                    alt="Interact on binder">Binder</button></a>
+        
+        
+        
+        
+    </div>
+</div>
+
         </div>
 
         <!-- Table of contents -->
@@ -347,6 +364,11 @@
             </div>
             <nav id="bd-toc-nav" aria-label="Page">
                 <ul class="visible nav section-nav flex-column">
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#getting-set-up">
+   Getting set up
+  </a>
+ </li>
  <li class="toc-h2 nav-item toc-entry">
   <a class="reference internal nav-link" href="#pyjanitor">
    Pyjanitor
@@ -373,6 +395,11 @@
                         <nav aria-label="Page">
                             <ul class="visible nav section-nav flex-column">
  <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#getting-set-up">
+   Getting set up
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
   <a class="reference internal nav-link" href="#pyjanitor">
    Pyjanitor
   </a>
@@ -388,10 +415,634 @@
                 
   <div class="tex2jax_ignore mathjax_ignore section" id="cleaning-our-data">
 <h1>Cleaning our data<a class="headerlink" href="#cleaning-our-data" title="Permalink to this headline">¶</a></h1>
+<p>Cleaning your data and dealing with dates. That’s the life of anyone who deals with data, especially in finance. Most data sets are messy. This is especially true if you or your firm is the one collecting the data and not just purchasing something.</p>
 <p>DataCamp has an article on (cleaning data in <code class="docutils literal notranslate"><span class="pre">pandas</span></code>)[https://www.datacamp.com/community/tutorials/data-preparation-with-pandas].</p>
+<div class="section" id="getting-set-up">
+<h2>Getting set up<a class="headerlink" href="#getting-set-up" title="Permalink to this headline">¶</a></h2>
+<p>We’ll start by bringing in our Zillow data again.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
+
+<span class="n">uw</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s1">&#39;https://github.com/aaiken1/fin-data-analysis-python/raw/main/data/zestimatesAndCutoffs_byGeo_uw_2017-10-10_forDataPage.csv&#39;</span><span class="p">)</span>
+<span class="n">uw</span><span class="o">.</span><span class="n">info</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;class &#39;pandas.core.frame.DataFrame&#39;&gt;
+RangeIndex: 2610 entries, 0 to 2609
+Data columns (total 24 columns):
+ #   Column                        Non-Null Count  Dtype  
+---  ------                        --------------  -----  
+ 0   RegionType                    2610 non-null   object 
+ 1   RegionName                    2610 non-null   object 
+ 2   StateName                     2609 non-null   object 
+ 3   MSAName                       1071 non-null   object 
+ 4   AllHomes_Tier1                2610 non-null   float64
+ 5   AllHomes_Tier2                2610 non-null   float64
+ 6   AllHomes_Tier3                2610 non-null   float64
+ 7   AllHomes_AllTiers             2610 non-null   float64
+ 8   UWHomes_Tier1                 2610 non-null   float64
+ 9   UWHomes_Tier2                 2610 non-null   int64  
+ 10  UWHomes_Tier3                 2610 non-null   float64
+ 11  UWHomes_AllTiers              2610 non-null   float64
+ 12  UWHomes_TotalValue_Tier1      2610 non-null   float64
+ 13  UWHomes_TotalValue_Tier2      2610 non-null   float64
+ 14  UWHomes_TotalValue_Tier3      2610 non-null   float64
+ 15  UWHomes_TotalValue_AllTiers   2610 non-null   float64
+ 16  UWHomes_MedianValue_AllTiers  2610 non-null   float64
+ 17  AllHomes_Tier1_ShareUW        2610 non-null   float64
+ 18  AllHomes_Tier2_ShareUW        2610 non-null   float64
+ 19  AllHomes_Tier3_ShareUW        2610 non-null   float64
+ 20  AllHomes_AllTiers_ShareUW     2610 non-null   float64
+ 21  UWHomes_ShareInTier1          2610 non-null   float64
+ 22  UWHomes_ShareInTier2          2610 non-null   float64
+ 23  UWHomes_ShareInTier3          2610 non-null   float64
+dtypes: float64(19), int64(1), object(4)
+memory usage: 489.5+ KB
+</pre></div>
+</div>
+</div>
+</div>
+<p>Once of the most important steps in data cleaning is just looking at what we have. What are the variables? What are their types? How many unique values of each variable do we have? Any missings? Do we see anything unexpected?</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">uw</span><span class="p">[</span><span class="s1">&#39;UWHomes_Tier2&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">uw</span><span class="p">[</span><span class="s2">&quot;UWHomes_Tier2&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="s1">&#39;float64&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">uw</span><span class="p">[</span><span class="s1">&#39;RegionType&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">value_counts</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Zip       1247
+City      1017
+County     227
+MSA         95
+State       23
+Nation       1
+Name: RegionType, dtype: int64
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">uw</span><span class="o">.</span><span class="n">isna</span><span class="p">()</span><span class="o">.</span><span class="n">sum</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>RegionType                         0
+RegionName                         0
+StateName                          1
+MSAName                         1539
+AllHomes_Tier1                     0
+AllHomes_Tier2                     0
+AllHomes_Tier3                     0
+AllHomes_AllTiers                  0
+UWHomes_Tier1                      0
+UWHomes_Tier2                      0
+UWHomes_Tier3                      0
+UWHomes_AllTiers                   0
+UWHomes_TotalValue_Tier1           0
+UWHomes_TotalValue_Tier2           0
+UWHomes_TotalValue_Tier3           0
+UWHomes_TotalValue_AllTiers        0
+UWHomes_MedianValue_AllTiers       0
+AllHomes_Tier1_ShareUW             0
+AllHomes_Tier2_ShareUW             0
+AllHomes_Tier3_ShareUW             0
+AllHomes_AllTiers_ShareUW          0
+UWHomes_ShareInTier1               0
+UWHomes_ShareInTier2               0
+UWHomes_ShareInTier3               0
+dtype: int64
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">uw</span><span class="o">.</span><span class="n">RegionName</span><span class="o">.</span><span class="n">unique</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>array([&#39;United States&#39;, &#39;Alabama&#39;, &#39;California&#39;, ..., &#39;98612&#39;, &#39;32081&#39;,
+       &#39;33578&#39;], dtype=object)
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">uw</span><span class="o">.</span><span class="n">RegionName</span><span class="o">.</span><span class="n">nunique</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>2496
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">uw</span><span class="p">[</span><span class="n">uw</span><span class="p">[</span><span class="s1">&#39;RegionType&#39;</span><span class="p">]</span> <span class="o">==</span> <span class="s1">&#39;MSA&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">MSAName</span><span class="o">.</span><span class="n">nunique</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>95
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">uw</span><span class="p">[</span><span class="n">uw</span><span class="p">[</span><span class="s1">&#39;RegionType&#39;</span><span class="p">]</span> <span class="o">==</span> <span class="s1">&#39;MSA&#39;</span><span class="p">][</span><span class="s1">&#39;MSAName&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">nunique</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>95
+</pre></div>
+</div>
+</div>
+</div>
+<p>We can bring back the stock data too, as that data has some missing values.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">prices</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s1">&#39;https://github.com/aaiken1/fin-data-analysis-python/raw/main/data/tr_eikon_eod_data.csv&#39;</span><span class="p">,</span>
+                      <span class="n">index_col</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">parse_dates</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>Why are there missing values? Holidays and weekends, when trading doesn’t take place.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">prices</span><span class="o">.</span><span class="n">isna</span><span class="p">()</span><span class="o">.</span><span class="n">sum</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>AAPL.O    78
+MSFT.O    78
+INTC.O    78
+AMZN.O    78
+GS.N      78
+SPY       78
+.SPX      78
+.VIX      78
+EUR=       0
+XAU=       5
+GDX       78
+GLD       78
+dtype: int64
+</pre></div>
+</div>
+</div>
+</div>
+<p>We can drop these rows. We’ll specify <code class="docutils literal notranslate"><span class="pre">axis=0</span></code>, or rows.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">prices</span> <span class="o">=</span> <span class="n">prices</span><span class="o">.</span><span class="n">dropna</span><span class="p">(</span><span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+<span class="n">prices</span><span class="o">.</span><span class="n">isna</span><span class="p">()</span><span class="o">.</span><span class="n">sum</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>AAPL.O    0
+MSFT.O    0
+INTC.O    0
+AMZN.O    0
+GS.N      0
+SPY       0
+.SPX      0
+.VIX      0
+EUR=      0
+XAU=      0
+GDX       0
+GLD       0
+dtype: int64
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">prices</span><span class="o">.</span><span class="n">head</span><span class="p">(</span><span class="mi">15</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>AAPL.O</th>
+      <th>MSFT.O</th>
+      <th>INTC.O</th>
+      <th>AMZN.O</th>
+      <th>GS.N</th>
+      <th>SPY</th>
+      <th>.SPX</th>
+      <th>.VIX</th>
+      <th>EUR=</th>
+      <th>XAU=</th>
+      <th>GDX</th>
+      <th>GLD</th>
+    </tr>
+    <tr>
+      <th>Date</th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>2010-01-04</th>
+      <td>30.572827</td>
+      <td>30.950</td>
+      <td>20.880</td>
+      <td>133.900</td>
+      <td>173.08</td>
+      <td>113.33</td>
+      <td>1132.99</td>
+      <td>20.04</td>
+      <td>1.4411</td>
+      <td>1120.00</td>
+      <td>47.71</td>
+      <td>109.80</td>
+    </tr>
+    <tr>
+      <th>2010-01-05</th>
+      <td>30.625684</td>
+      <td>30.960</td>
+      <td>20.870</td>
+      <td>134.690</td>
+      <td>176.14</td>
+      <td>113.63</td>
+      <td>1136.52</td>
+      <td>19.35</td>
+      <td>1.4368</td>
+      <td>1118.65</td>
+      <td>48.17</td>
+      <td>109.70</td>
+    </tr>
+    <tr>
+      <th>2010-01-06</th>
+      <td>30.138541</td>
+      <td>30.770</td>
+      <td>20.800</td>
+      <td>132.250</td>
+      <td>174.26</td>
+      <td>113.71</td>
+      <td>1137.14</td>
+      <td>19.16</td>
+      <td>1.4412</td>
+      <td>1138.50</td>
+      <td>49.34</td>
+      <td>111.51</td>
+    </tr>
+    <tr>
+      <th>2010-01-07</th>
+      <td>30.082827</td>
+      <td>30.452</td>
+      <td>20.600</td>
+      <td>130.000</td>
+      <td>177.67</td>
+      <td>114.19</td>
+      <td>1141.69</td>
+      <td>19.06</td>
+      <td>1.4318</td>
+      <td>1131.90</td>
+      <td>49.10</td>
+      <td>110.82</td>
+    </tr>
+    <tr>
+      <th>2010-01-08</th>
+      <td>30.282827</td>
+      <td>30.660</td>
+      <td>20.830</td>
+      <td>133.520</td>
+      <td>174.31</td>
+      <td>114.57</td>
+      <td>1144.98</td>
+      <td>18.13</td>
+      <td>1.4412</td>
+      <td>1136.10</td>
+      <td>49.84</td>
+      <td>111.37</td>
+    </tr>
+    <tr>
+      <th>2010-01-11</th>
+      <td>30.015684</td>
+      <td>30.270</td>
+      <td>20.950</td>
+      <td>130.308</td>
+      <td>171.56</td>
+      <td>114.73</td>
+      <td>1146.98</td>
+      <td>17.55</td>
+      <td>1.4513</td>
+      <td>1152.60</td>
+      <td>50.17</td>
+      <td>112.85</td>
+    </tr>
+    <tr>
+      <th>2010-01-12</th>
+      <td>29.674256</td>
+      <td>30.070</td>
+      <td>20.608</td>
+      <td>127.350</td>
+      <td>167.82</td>
+      <td>113.66</td>
+      <td>1136.22</td>
+      <td>18.25</td>
+      <td>1.4494</td>
+      <td>1127.30</td>
+      <td>48.35</td>
+      <td>110.49</td>
+    </tr>
+    <tr>
+      <th>2010-01-13</th>
+      <td>30.092827</td>
+      <td>30.350</td>
+      <td>20.960</td>
+      <td>129.110</td>
+      <td>169.07</td>
+      <td>114.62</td>
+      <td>1145.68</td>
+      <td>17.85</td>
+      <td>1.4510</td>
+      <td>1138.40</td>
+      <td>48.86</td>
+      <td>111.54</td>
+    </tr>
+    <tr>
+      <th>2010-01-14</th>
+      <td>29.918542</td>
+      <td>30.960</td>
+      <td>21.480</td>
+      <td>127.350</td>
+      <td>168.53</td>
+      <td>114.93</td>
+      <td>1148.46</td>
+      <td>17.63</td>
+      <td>1.4502</td>
+      <td>1142.85</td>
+      <td>48.60</td>
+      <td>112.03</td>
+    </tr>
+    <tr>
+      <th>2010-01-15</th>
+      <td>29.418542</td>
+      <td>30.860</td>
+      <td>20.800</td>
+      <td>127.140</td>
+      <td>165.21</td>
+      <td>113.64</td>
+      <td>1136.03</td>
+      <td>17.91</td>
+      <td>1.4382</td>
+      <td>1129.90</td>
+      <td>47.42</td>
+      <td>110.86</td>
+    </tr>
+    <tr>
+      <th>2010-01-19</th>
+      <td>30.719969</td>
+      <td>31.100</td>
+      <td>21.050</td>
+      <td>127.610</td>
+      <td>166.86</td>
+      <td>115.06</td>
+      <td>1150.23</td>
+      <td>17.58</td>
+      <td>1.4298</td>
+      <td>1137.70</td>
+      <td>47.69</td>
+      <td>111.52</td>
+    </tr>
+    <tr>
+      <th>2010-01-20</th>
+      <td>30.246398</td>
+      <td>30.585</td>
+      <td>21.080</td>
+      <td>125.780</td>
+      <td>167.79</td>
+      <td>113.89</td>
+      <td>1138.04</td>
+      <td>18.68</td>
+      <td>1.4101</td>
+      <td>1111.30</td>
+      <td>45.73</td>
+      <td>108.94</td>
+    </tr>
+    <tr>
+      <th>2010-01-21</th>
+      <td>29.724542</td>
+      <td>30.010</td>
+      <td>20.840</td>
+      <td>126.620</td>
+      <td>160.87</td>
+      <td>111.70</td>
+      <td>1116.48</td>
+      <td>22.27</td>
+      <td>1.4090</td>
+      <td>1094.75</td>
+      <td>43.75</td>
+      <td>107.37</td>
+    </tr>
+    <tr>
+      <th>2010-01-22</th>
+      <td>28.249972</td>
+      <td>28.960</td>
+      <td>19.910</td>
+      <td>121.430</td>
+      <td>154.12</td>
+      <td>109.21</td>
+      <td>1091.76</td>
+      <td>27.31</td>
+      <td>1.4137</td>
+      <td>1092.60</td>
+      <td>43.79</td>
+      <td>107.17</td>
+    </tr>
+    <tr>
+      <th>2010-01-25</th>
+      <td>29.010685</td>
+      <td>29.320</td>
+      <td>20.320</td>
+      <td>120.310</td>
+      <td>154.98</td>
+      <td>109.77</td>
+      <td>1096.78</td>
+      <td>25.41</td>
+      <td>1.4150</td>
+      <td>1097.85</td>
+      <td>43.19</td>
+      <td>107.48</td>
+    </tr>
+  </tbody>
+</table>
+</div></div></div>
+</div>
+</div>
 <div class="section" id="pyjanitor">
 <h2>Pyjanitor<a class="headerlink" href="#pyjanitor" title="Permalink to this headline">¶</a></h2>
 <p>We are going to look at a fun package that is based on something from the <a class="reference external" href="https://www.r-project.org">R</a> statistical programming language, called <a class="reference external" href="https://pyjanitor-devs.github.io/pyjanitor/">pyjanitor</a>.</p>
+<p>To use this package, you’ll need to type the following in the terminal (Mac) or command prompt (Windows)</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">conda</span> <span class="n">install</span> <span class="o">-</span><span class="n">c</span> <span class="n">conda</span><span class="o">-</span><span class="n">forge</span> <span class="n">pyjanitor</span>
+</pre></div>
+</div>
+<p>There are even <a class="reference external" href="https://pyjanitor-devs.github.io/pyjanitor/api/finance/">finance specific tools</a>.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">janitor</span>
+<span class="kn">from</span> <span class="nn">janitor</span> <span class="kn">import</span> <span class="n">clean_names</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">prices</span> <span class="o">=</span> <span class="p">(</span>
+    <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s1">&#39;https://github.com/aaiken1/fin-data-analysis-python/raw/main/data/tr_eikon_eod_data.csv&#39;</span><span class="p">,</span>
+                      <span class="n">index_col</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">parse_dates</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+    <span class="o">.</span><span class="n">remove_columns</span><span class="p">([</span><span class="s1">&#39;GLD&#39;</span><span class="p">])</span>
+    <span class="o">.</span><span class="n">dropna</span><span class="p">()</span>
+    <span class="o">.</span><span class="n">rename_column</span><span class="p">(</span><span class="s1">&#39;AAPL.O&#39;</span><span class="p">,</span> <span class="s1">&#39;AAPL&#39;</span><span class="p">)</span>
+    <span class="o">.</span><span class="n">rename_column</span><span class="p">(</span><span class="s1">&#39;MSFT.O&#39;</span><span class="p">,</span> <span class="s1">&#39;MSFT&#39;</span><span class="p">)</span>
+<span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">prices</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s1">&#39;https://github.com/aaiken1/fin-data-analysis-python/raw/main/data/tr_eikon_eod_data.csv&#39;</span><span class="p">,</span>
+                      <span class="n">index_col</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">parse_dates</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+
+<span class="n">prices</span> <span class="o">=</span> <span class="n">prices</span><span class="o">.</span><span class="n">clean_names</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">prices</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s1">&#39;https://github.com/aaiken1/fin-data-analysis-python/raw/main/data/tr_eikon_eod_data.csv&#39;</span><span class="p">,</span>
+                      <span class="n">index_col</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">parse_dates</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+
+<span class="n">prices</span> <span class="o">=</span> <span class="n">clean_names</span><span class="p">(</span><span class="n">prices</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">prices</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s1">&#39;https://github.com/aaiken1/fin-data-analysis-python/raw/main/data/tr_eikon_eod_data.csv&#39;</span><span class="p">,</span>
+                      <span class="n">index_col</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">parse_dates</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+
+<span class="n">prices</span> <span class="o">=</span> <span class="n">prices</span><span class="o">.</span><span class="n">flag_nulls</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">prices</span><span class="o">.</span><span class="n">get_dupes</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>AAPL.O</th>
+      <th>MSFT.O</th>
+      <th>INTC.O</th>
+      <th>AMZN.O</th>
+      <th>GS.N</th>
+      <th>SPY</th>
+      <th>.SPX</th>
+      <th>.VIX</th>
+      <th>EUR=</th>
+      <th>XAU=</th>
+      <th>GDX</th>
+      <th>GLD</th>
+      <th>null_flag</th>
+    </tr>
+    <tr>
+      <th>Date</th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+  </tbody>
+</table>
+</div></div></div>
+</div>
 </div>
 </div>
 
