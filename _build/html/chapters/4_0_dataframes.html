@@ -150,7 +150,7 @@
 <ul class="current nav bd-sidenav">
  <li class="toctree-l1 has-children">
   <a class="reference internal" href="3_intro.html">
-   CompSci 101: Datatypes, functions, and arrays
+   CompSci 101: Data and arrays
   </a>
   <input class="toctree-checkbox" id="toctree-checkbox-2" name="toctree-checkbox-2" type="checkbox"/>
   <label for="toctree-checkbox-2">
@@ -241,7 +241,26 @@
  </li>
  <li class="toctree-l1">
   <a class="reference internal" href="7_comp201.html">
-   CompSci 201: OOP, Lambdas, and I/O
+   CompSci 201: OOP and lambdas
+   <a id="compsci201">
+   </a>
+  </a>
+ </li>
+</ul>
+<p aria-level="2" class="caption" role="heading">
+ <span class="caption-text">
+  Labs
+ </span>
+</p>
+<ul class="nav bd-sidenav">
+ <li class="toctree-l1">
+  <a class="reference internal" href="lab_intro.html">
+   Our labs
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="lab01.html">
+   Lab 01
   </a>
  </li>
 </ul>
@@ -285,9 +304,9 @@
         <!-- ipynb file if we had a myst markdown file -->
         
         <!-- Download raw file -->
-        <a class="dropdown-buttons" href="../_sources/chapters/4_0_dataframes.md"><button type="button"
+        <a class="dropdown-buttons" href="../_sources/chapters/4_0_dataframes.ipynb"><button type="button"
                 class="btn btn-secondary topbarbtn" title="Download source file" data-toggle="tooltip"
-                data-placement="left">.md</button></a>
+                data-placement="left">.ipynb</button></a>
         <!-- Download PDF via print -->
         <button type="button" id="download-print" class="btn btn-secondary topbarbtn" title="Print to PDF"
                 onclick="printPdf(this)" data-toggle="tooltip" data-placement="left">.pdf</button>
@@ -318,6 +337,23 @@
 
             <!-- Launch buttons -->
 
+<div class="dropdown-buttons-trigger">
+    <button id="dropdown-buttons-trigger" class="btn btn-secondary topbarbtn"
+        aria-label="Launch interactive content"><i class="fas fa-rocket"></i></button>
+    <div class="dropdown-buttons">
+        
+        <a class="binder-button" href="https://mybinder.org/v2/gh/executablebooks/jupyter-book/master?urlpath=tree/docs/chapters/4_0_dataframes.ipynb"><button type="button"
+                class="btn btn-secondary topbarbtn" title="Launch Binder" data-toggle="tooltip"
+                data-placement="left"><img class="binder-button-logo"
+                    src="../_static/images/logo_binder.svg"
+                    alt="Interact on binder">Binder</button></a>
+        
+        
+        
+        
+    </div>
+</div>
+
         </div>
 
         <!-- Table of contents -->
@@ -343,7 +379,119 @@
                 
   <div class="tex2jax_ignore mathjax_ignore section" id="data-importing">
 <h1>Data importing<a class="headerlink" href="#data-importing" title="Permalink to this headline">¶</a></h1>
-<p><a class="reference external" href="https://www.datacamp.com/community/tutorials/python-excel-tutorial">DataCamp tutorial on Excel files and Python</a></p>
+<p>Let’s start by getting some data into Python. This will usually be the first step in our code, right after we import any of the libraries, like <code class="docutils literal notranslate"><span class="pre">numpy</span></code> and <code class="docutils literal notranslate"><span class="pre">pandas</span></code> that we need.</p>
+<p>There is a <a class="reference external" href="https://www.datacamp.com/community/tutorials/python-excel-tutorial">DataCamp tutorial on Excel files and Python</a> that you might find helpful. You can read also more about <a class="reference external" href="https://www.datacamp.com/community/tutorials/pandas-read-csv">reading in CSV files at DataCamp</a>.</p>
+<p>There’s some price data up on our <a class="reference external" href="https://github.com/aaiken1/fin-data-analysis-python">course Github page</a>. Let’s import this both as a downloaded CSV file and directly from Github, with no download.</p>
+<p>First, we need to import <code class="docutils literal notranslate"><span class="pre">pandas</span></code>. Just like <code class="docutils literal notranslate"><span class="pre">numpy</span></code>. In fact, at the top of basically all of your code, you will import both of these libraries (and more!).</p>
+<p>Everyone imports <code class="docutils literal notranslate"><span class="pre">pandas</span></code> as pd.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>Let’s start by making a DataFrame ourself, just to see how they are different from <code class="docutils literal notranslate"><span class="pre">numpy</span></code> arrays.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">([</span><span class="mi">75</span><span class="p">,</span><span class="mi">79</span><span class="p">,</span><span class="mi">82</span><span class="p">,</span><span class="mi">60</span><span class="p">],</span> <span class="n">columns</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;Prices&#39;</span><span class="p">],</span> <span class="n">index</span> <span class="o">=</span><span class="p">[</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">3</span><span class="p">,</span><span class="mi">4</span><span class="p">])</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>This is similar to the example on pgs. 114 - 115 of our textbook. I am creating a DataFrame with one column. This column has four stock prices. I am labeling that column as <code class="docutils literal notranslate"><span class="pre">Prices</span></code>. I then have an <code class="docutils literal notranslate"><span class="pre">index</span></code> value that refers to each row. I am using numbers. This could easily be a date!</p>
+<p>See how this is kind of like a spreadsheet? And, unlike an array, we have <strong>labels</strong> or <strong>headers</strong> for columns. And we have indexes for each row that aren’t really part of the data.</p>
+<p>We’ll do more with this in the next section.</p>
+<p>Ok, let’s import that CSV file into a <code class="docutils literal notranslate"><span class="pre">DataFrame</span></code>.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">prices</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s1">&#39;../data/tr_eikon_eod_data.csv&#39;</span><span class="p">,</span>
+                  <span class="n">index_col</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">parse_dates</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>First, click the <strong>Variables</strong> button at the top. You’ll see the two DataFrames that we now have in memory appear below. Click the pop-out button to view them.</p>
+<p>Notice how I did the path name. <code class="docutils literal notranslate"><span class="pre">../</span></code> means to start start from my home directory. What’s my home directory? That’s where you <code class="docutils literal notranslate"><span class="pre">.ipynb</span></code> file lives. <strong>Relative</strong> to that directory, Python looks for a folder called <code class="docutils literal notranslate"><span class="pre">data</span></code>. Finally, it looks for the .csv file called <code class="docutils literal notranslate"><span class="pre">tr_eikon_eod_data.csv</span></code> inside of that folder.</p>
+<p>What are those other options doing? <code class="docutils literal notranslate"><span class="pre">index_col=0</span></code> tells <code class="docutils literal notranslate"><span class="pre">pandas</span></code> to create a DataFrame where column 0 (the first column in the .csv file) is the index. Check out the CSV file - that’s the date. With finance data, the date will often be the index, since we are dealing with time series data (e.g. stock prices or returns).</p>
+<p>The option <code class="docutils literal notranslate"><span class="pre">parse_dates</span></code> is telling <code class="docutils literal notranslate"><span class="pre">pandas</span></code> to look at the index column and try to turn what it sees into official Python dates. That works in this case. Finance coders will joke that 90% of their time is spend doing date corrections. For example, what happens if you have multiple markets in different time zones and you’re trying to deal with time series at a trade-level frequency (i.e. less than a second)? Have fun!</p>
+<p>You can read about the <code class="docutils literal notranslate"><span class="pre">pd.read_csv</span></code> method on the <a class="reference external" href="https://pandas.pydata.org/docs/reference/api/pandas.read_csv.html"><code class="docutils literal notranslate"><span class="pre">pandas</span></code> web page</a>.</p>
+<p>You can also write Python data to a .csv or Excel file. Our DataCamp assignments will go over all of this.</p>
+<p>Let’s now read in this file directly from our class Github. I’ll call the resulting DataFrame <code class="docutils literal notranslate"><span class="pre">prices2</span></code>, just so that we can see that we actually have the same thing twice.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">prices2</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s1">&#39;https://github.com/aaiken1/fin-data-analysis-python/raw/main/data/tr_eikon_eod_data.csv&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>I made a “mistake” on purpose there. Notice how I didn’t do the <code class="docutils literal notranslate"><span class="pre">index_col</span></code>? Check out the <code class="docutils literal notranslate"><span class="pre">prices2</span></code> DataFrame below. You’ll see an index column with 1, 2, 3,.. and then the date column. The <code class="docutils literal notranslate"><span class="pre">read_csv</span></code> created an index for me, since I didn’t specify one. Let’s redo that.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">prices2</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s1">&#39;https://github.com/aaiken1/fin-data-analysis-python/raw/main/data/tr_eikon_eod_data.csv&#39;</span><span class="p">,</span>
+                      <span class="n">index_col</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">parse_dates</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>That’s better! We’ll end by looking at some of the <strong>attributes</strong> of our <code class="docutils literal notranslate"><span class="pre">prices</span></code> DataFrame.</p>
+<p>First, let’s check our index. Is it really a date?</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">prices</span><span class="o">.</span><span class="n">index</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>DatetimeIndex([&#39;2010-01-01&#39;, &#39;2010-01-04&#39;, &#39;2010-01-05&#39;, &#39;2010-01-06&#39;,
+               &#39;2010-01-07&#39;, &#39;2010-01-08&#39;, &#39;2010-01-11&#39;, &#39;2010-01-12&#39;,
+               &#39;2010-01-13&#39;, &#39;2010-01-14&#39;,
+               ...
+               &#39;2018-06-18&#39;, &#39;2018-06-19&#39;, &#39;2018-06-20&#39;, &#39;2018-06-21&#39;,
+               &#39;2018-06-22&#39;, &#39;2018-06-25&#39;, &#39;2018-06-26&#39;, &#39;2018-06-27&#39;,
+               &#39;2018-06-28&#39;, &#39;2018-06-29&#39;],
+              dtype=&#39;datetime64[ns]&#39;, name=&#39;Date&#39;, length=2216, freq=None)
+</pre></div>
+</div>
+</div>
+</div>
+<p>It is! We’ll do more with dates. A lot more.</p>
+<p>Let’s look at the columns.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">prices</span><span class="o">.</span><span class="n">columns</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Index([&#39;AAPL.O&#39;, &#39;MSFT.O&#39;, &#39;INTC.O&#39;, &#39;AMZN.O&#39;, &#39;GS.N&#39;, &#39;SPY&#39;, &#39;.SPX&#39;, &#39;.VIX&#39;,
+       &#39;EUR=&#39;, &#39;XAU=&#39;, &#39;GDX&#39;, &#39;GLD&#39;],
+      dtype=&#39;object&#39;)
+</pre></div>
+</div>
+</div>
+</div>
+<p>Yup, those are our column headers from the .csv file.</p>
+<p>There are many options that can go into the <code class="docutils literal notranslate"><span class="pre">pd.read_csv</span></code> function. For example, you can load just a certain number of rows.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">prices100</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s1">&#39;https://github.com/aaiken1/fin-data-analysis-python/raw/main/data/tr_eikon_eod_data.csv&#39;</span><span class="p">,</span>
+                      <span class="n">index_col</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">parse_dates</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">nrows</span><span class="o">=</span><span class="mi">100</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>You can bring in just certain columns. In <code class="docutils literal notranslate"><span class="pre">pandas</span></code>, we select columns using <code class="docutils literal notranslate"><span class="pre">['COLUMN']</span></code>.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">prices_spx</span><span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s1">&#39;https://github.com/aaiken1/fin-data-analysis-python/raw/main/data/tr_eikon_eod_data.csv&#39;</span><span class="p">,</span>
+                      <span class="n">index_col</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">parse_dates</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">usecols</span><span class="o">=</span><span class="p">([</span><span class="s2">&quot;.SPX&quot;</span><span class="p">]))</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>We have our data in Python! Now, we can manipulate it, clean it, merge it with something else, summarize it, plot it, and do some actual finance.</p>
+<p>The second DataCamp assignment, <strong>Intermediate Python for Finance</strong>, covers how to create <code class="docutils literal notranslate"><span class="pre">DataFrames</span></code> from <code class="docutils literal notranslate"><span class="pre">dictionaries</span></code> and <code class="docutils literal notranslate"><span class="pre">lists</span></code>. We’ll typically be importing our data from CSV and Excel files.</p>
 </div>
 
     <script type="text/x-thebe-config">

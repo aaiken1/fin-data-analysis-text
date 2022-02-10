@@ -61,7 +61,7 @@ my_array = np.array([1, 2, 3, 4, 5])
 type(my_array)
 
 
-# We we talk about arrays, we talk about **dimensions**. A **vector** just has one dimension, _n_. A **matrix** has _n_ **rows** and _k_ **columns**. We write this as n $\times$ k. You can have an array with as many dimensions as you want. Vectors, matrices, cubes, _n_-dimensions, etc. 
+# We we talk about arrays, we talk about **dimensions**. A **vector** just has one dimension, _n_. A **matrix** has _n_ **rows** and _k_ **columns**. We write this as n x k. You can have an array with as many dimensions as you want. Vectors, matrices, cubes, _n_-dimensions, etc. 
 # 
 # In Python, we talk about the **axis** of an array. A 1-D array has only one axis, axis-0. A 2-D array, or matrix, has axis-0 (rows) and axis-1 (columns). See the graphic above.
 # 
@@ -102,7 +102,7 @@ np.linspace(0, 10, 5)  # 5 equally spaced points between 0 and 10
 np.ones((2, 2))  # an array of ones with size 2 x 2
 
 
-# Any many others. See Chapter 5 of Python for Data Science](https://www.tomasbeuzen.com/python-programming-for-data-science/chapters/chapter5-numpy.html).
+# Any many others. See [Chapter 5 of Python for Data Science](https://www.tomasbeuzen.com/python-programming-for-data-science/chapters/chapter5-numpy.html).
 # 
 # `numpy` has several functions for looking at the **shapes** of our arrays. Let's create another matrix of random numbers from the [standard normal distribution](https://online.stat.psu.edu/stat500/lesson/3/3.3/3.3.2). We will then use `.ndim()`, `.shape()`, and `.size()`. 
 
@@ -193,7 +193,7 @@ x = np.array([1, 2, 3, 4, 5, 6, 7, 8])
 x.shape 
 
 
-# Let's use `.reshape()` to change the dimensions of this array. `.reshape()` lets you go from, say, 1-D to 2-D, using the same data. We'll a 2 $\times$ 4 2-D array.
+# Let's use `.reshape()` to change the dimensions of this array. `.reshape()` lets you go from, say, 1-D to 2-D, using the same data. We'll a 2 x 4 2-D array.
 
 # In[19]:
 
@@ -205,7 +205,7 @@ x.reshape(2,4)
 # 
 # If you've taken a math class that deals with matrices, then you've seen **transposition**.
 # 
-# Let's create an array of random numbers between 0 and 1 using `.rand()`, different from `.randn()`, that is a 5 $\times$ 2 matrix. Then, we'll `.transpose()` the array object. This means that we will flip the rows and columns, such that the first row becomes the first column, the second row becomes the second column, and so on. This will result in a 2 $\times$ 5 matrix.
+# Let's create an array of random numbers between 0 and 1 using `.rand()`, different from `.randn()`, that is a 5 x 2 matrix. Then, we'll `.transpose()` the array object. This means that we will flip the rows and columns, such that the first row becomes the first column, the second row becomes the second column, and so on. This will result in a 2 x 5 matrix.
 
 # In[20]:
 
@@ -224,7 +224,7 @@ x.transpose()
 
 # Now we have 2 rows and 5 columns. 
 # 
-# See how reshape and transpose are doing different things? We can reshape a 2-D array to make this clearer. How about going from 6 $\times$ 2 to 3 $\times$ 4? That requires a `.reshape()`. If we instead use `.transpose()`, we go from 6 $\times$ 2 to 2 $\times$ 6. No need to specify any rows or columns with transpose.
+# See how reshape and transpose are doing different things? We can reshape a 2-D array to make this clearer. How about going from 6 x 2 to 3 x 4? That requires a `.reshape()`. If we instead use `.transpose()`, we go from 6 x 2 to 2 x 6. No need to specify any rows or columns with transpose.
 
 # In[22]:
 
@@ -386,7 +386,7 @@ x[2:5] # Start on the third item, go up until the 6th item, exclusive.
 x[-1] # Start counting backwards
 
 
-# We do similar things for 2-D arrays. Let's create a 4 $\times$ 6 matrix out of random integers from 0 to 9 (0 to 10, exclusive).
+# We do similar things for 2-D arrays. Let's create a 4 x 6 matrix out of random integers from 0 to 9 (0 to 10, exclusive).
 
 # In[49]:
 
@@ -395,7 +395,7 @@ x = np.random.randint(10, size=(4, 6))
 x
 
 
-# We can then pick out the row $\times$ column that we want. Using [3,4] gets us the 4th row and the 5th column, since, again, we have zero indexing. We need to start just referring to these as the 3rd row and 4th column and assuming that we start at 0.
+# We can then pick out the row x column that we want. Using [3,4] gets us the 4th row and the 5th column, since, again, we have zero indexing. We need to start just referring to these as the 3rd row and 4th column and assuming that we start at 0.
 
 # In[50]:
 
@@ -524,7 +524,7 @@ b = np.ones((3, 3))
 a + b
 
 
-# We can't add a 2 $\times$ 2 matrix to a 3 $\times$ 3 matrix. It just doesn't work! So, we need some rules for doing element-by-element operations on our arrays.
+# We can't add a 2 x 2 matrix to a 3 x 3 matrix. It just doesn't work! So, we need some rules for doing element-by-element operations on our arrays.
 # 
 #  Let's create a 1-D array of prices for three different products: $10, $15, and $20. 1-D arrays can be confusing, as they can actually have [several different types of shapes](https://www.tomasbeuzen.com/python-programming-for-data-science/chapters/chapter5-numpy.html#d-arrays).
 
