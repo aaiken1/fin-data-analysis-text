@@ -370,8 +370,13 @@
             <nav id="bd-toc-nav" aria-label="Page">
                 <ul class="visible nav section-nav flex-column">
  <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#getting-set-up">
-   Getting set up
+  <a class="reference internal nav-link" href="#underwater-exploration">
+   Underwater exploration
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#back-to-stocks">
+   Back to stocks
   </a>
  </li>
  <li class="toc-h2 nav-item toc-entry">
@@ -400,8 +405,13 @@
                         <nav aria-label="Page">
                             <ul class="visible nav section-nav flex-column">
  <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#getting-set-up">
-   Getting set up
+  <a class="reference internal nav-link" href="#underwater-exploration">
+   Underwater exploration
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#back-to-stocks">
+   Back to stocks
   </a>
  </li>
  <li class="toc-h2 nav-item toc-entry">
@@ -422,8 +432,9 @@
 <h1>Cleaning our data<a class="headerlink" href="#cleaning-our-data" title="Permalink to this headline">¶</a></h1>
 <p>Cleaning your data and dealing with dates. That’s the life of anyone who deals with data, especially in finance. Most data sets are messy. This is especially true if you or your firm is the one collecting the data and not just purchasing something.</p>
 <p>DataCamp has an article on <a class="reference external" href="https://www.datacamp.com/community/tutorials/data-preparation-with-pandas">cleaning data in <code class="docutils literal notranslate"><span class="pre">pandas</span></code></a>.</p>
-<div class="section" id="getting-set-up">
-<h2>Getting set up<a class="headerlink" href="#getting-set-up" title="Permalink to this headline">¶</a></h2>
+<p><a class="reference external" href="https://wesmckinney.com/book/data-cleaning.html">Chapter 7</a> of <em>Python for Data Analysis</em> for more data cleaning tips.</p>
+<div class="section" id="underwater-exploration">
+<h2>Underwater exploration<a class="headerlink" href="#underwater-exploration" title="Permalink to this headline">¶</a></h2>
 <p>We’ll start by bringing in our Zillow data again.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -1000,6 +1011,83 @@ dtype: int64
 </div>
 </div>
 <p>We have 95 unique MSA is our data. Seems reasonable. MSAs are like city-regions.</p>
+<p>Finally, let’s try some more complicated code. I found this example <a class="reference external" href="https://towardsdatascience.com/a-better-eda-with-pandas-profiling-e842a00e1136">here</a>.</p>
+<p>First, we will create a DataFrame that has the total number of missing values for each variable. We can sort the data using <code class="docutils literal notranslate"><span class="pre">sort_values()</span></code>. The <code class="docutils literal notranslate"><span class="pre">ascending=False</span></code> option will have the variable with the largest number of missings at the top.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">total</span> <span class="o">=</span> <span class="n">uw</span><span class="o">.</span><span class="n">isna</span><span class="p">()</span><span class="o">.</span><span class="n">sum</span><span class="p">()</span><span class="o">.</span><span class="n">sort_values</span><span class="p">(</span><span class="n">ascending</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>By the way, you’ll also see a <code class="docutils literal notranslate"><span class="pre">isnull()</span></code> method that does the same thing as <code class="docutils literal notranslate"><span class="pre">isna()</span></code>.</p>
+<p>Next, let’s create a DataFrame that that has the percentage of values that are missing for each variable. This is neat one - we are creating a DataFrame of values (total number missing) for the numerator and another DataFrame of values (total number) for the denominator. Then, we are dividing two DataFrames, giving us another DataFrame of the resulting division. We then sort.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">percent</span> <span class="o">=</span> <span class="p">(</span><span class="n">uw</span><span class="o">.</span><span class="n">isnull</span><span class="p">()</span><span class="o">.</span><span class="n">sum</span><span class="p">()</span><span class="o">/</span><span class="n">uw</span><span class="o">.</span><span class="n">isnull</span><span class="p">()</span><span class="o">.</span><span class="n">count</span><span class="p">())</span><span class="o">.</span><span class="n">sort_values</span><span class="p">(</span><span class="n">ascending</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>We can use a new function called <code class="docutils literal notranslate"><span class="pre">concat</span></code> from <code class="docutils literal notranslate"><span class="pre">pandas</span></code> that combines data, either as rows (stacking) or columns (combining). We’ll combine columns, with means concatenating along axis=1. We’ll name both columns. We can do this because each DataFrame has the same index created by <code class="docutils literal notranslate"><span class="pre">pandas</span></code>, all of our variable names. So, there’s a one-to-one correspondence between the two DataFrames.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">missing_data</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">concat</span><span class="p">([</span><span class="n">total</span><span class="p">,</span> <span class="n">percent</span><span class="p">],</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">keys</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;Total&#39;</span><span class="p">,</span> <span class="s1">&#39;Missing Percent&#39;</span><span class="p">])</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>Let’s take the percents and multiply all of them by 100, just to make them look like percents. And to show you, again, that you can.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">missing_data</span><span class="p">[</span><span class="s1">&#39;Missing Percent&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">missing_data</span><span class="p">[</span><span class="s1">&#39;Missing Percent&#39;</span><span class="p">]</span> <span class="o">*</span> <span class="mi">100</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>For the last step, we can filter and just get the variable names where more than 10% of our data are missing.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">missing_data</span><span class="p">[</span><span class="n">missing_data</span><span class="p">[</span><span class="s1">&#39;Missing Percent&#39;</span><span class="p">]</span> <span class="o">&gt;</span> <span class="mi">10</span><span class="p">]</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>Total</th>
+      <th>Missing Percent</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>MSAName</th>
+      <td>1539</td>
+      <td>58.965517</td>
+    </tr>
+  </tbody>
+</table>
+</div></div></div>
+</div>
+</div>
+<div class="section" id="back-to-stocks">
+<h2>Back to stocks<a class="headerlink" href="#back-to-stocks" title="Permalink to this headline">¶</a></h2>
 <p>We can bring back the stock data too, as that data has some missing values.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -1348,10 +1436,11 @@ dtype: int64
 <div class="section" id="pyjanitor">
 <h2>Pyjanitor<a class="headerlink" href="#pyjanitor" title="Permalink to this headline">¶</a></h2>
 <p>We are going to look at a fun package that is based on something from the <a class="reference external" href="https://www.r-project.org">R</a> statistical programming language, called <a class="reference external" href="https://pyjanitor-devs.github.io/pyjanitor/">pyjanitor</a>.</p>
-<p>To use this package, you’ll need to type the following in the terminal (Mac) or command prompt (Windows)</p>
+<p>To use this package, you’ll need to type the following in the terminal (Mac) or command prompt (Windows).</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">conda</span> <span class="n">install</span> <span class="o">-</span><span class="n">c</span> <span class="n">conda</span><span class="o">-</span><span class="n">forge</span> <span class="n">pyjanitor</span>
 </pre></div>
 </div>
+<p>This will install <code class="docutils literal notranslate"><span class="pre">pyjanitor</span></code> using Ananconda. So, it should show up when you select the Anaconda distribution of Python. You’ll need to restart VS Code once you’ve installed it.</p>
 <p>There are even <a class="reference external" href="https://pyjanitor-devs.github.io/pyjanitor/api/finance/">finance specific tools</a>.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">

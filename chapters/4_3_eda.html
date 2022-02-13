@@ -263,6 +263,11 @@
    Lab 01
   </a>
  </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="lab02.html">
+   Lab 02
+  </a>
+ </li>
 </ul>
 
     </div>
@@ -359,6 +364,19 @@
         <!-- Table of contents -->
         <div class="d-none d-md-block col-md-2 bd-toc show noprint">
             
+            <div class="tocsection onthispage pt-5 pb-3">
+                <i class="fas fa-list"></i> Contents
+            </div>
+            <nav id="bd-toc-nav" aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#pandas-profiling">
+   pandas profiling
+  </a>
+ </li>
+</ul>
+
+            </nav>
         </div>
     </div>
 </div>
@@ -371,6 +389,19 @@
                 <div id="print-main-content">
                     <div id="jb-print-toc">
                         
+                        <div>
+                            <h2> Contents </h2>
+                        </div>
+                        <nav aria-label="Page">
+                            <ul class="visible nav section-nav flex-column">
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#pandas-profiling">
+   pandas profiling
+  </a>
+ </li>
+</ul>
+
+                        </nav>
                     </div>
                 </div>
             </div>
@@ -379,7 +410,53 @@
                 
   <div class="tex2jax_ignore mathjax_ignore section" id="exploratory-data-analysis-eda">
 <h1>Exploratory data analysis (EDA)<a class="headerlink" href="#exploratory-data-analysis-eda" title="Permalink to this headline">¶</a></h1>
-<p><a class="reference external" href="https://www.datacamp.com/community/tutorials/exploratory-data-analysis-python">DataCamp tutorial</a></p>
+<p>Exploratory data analysis, or <strong>EDA</strong>, means just that. We are going look at and summarize our idea. The data cleaning that we’ve already done, the looking for missings and understanding our variables, is actually part of EDA. In these notes, howerver, we’ll focus on <strong>grouping</strong>, or <strong>aggregating</strong>, and summarizing our data.</p>
+<p><a class="reference external" href="https://www.datacamp.com/community/tutorials/exploratory-data-analysis-python">DataCamp</a>, of course, has a tutorial on some EDA ideas, perhaps more related to what people are doing in machine learning.</p>
+<p><a class="reference external" href="https://wesmckinney.com/book/data-aggregation.html">Chapter 10</a> of <em>Python for Data Analysis</em> discusses aggregation and summarizing our data. <a class="reference external" href="https://aeturrell.github.io/coding-for-economists/data-exploratory-analysis.html">Exploratory Data Analysis</a> from <em>Coding for Economists</em> has data aggregation and summary examples.</p>
+<div class="section" id="pandas-profiling">
+<h2>pandas profiling<a class="headerlink" href="#pandas-profiling" title="Permalink to this headline">¶</a></h2>
+<p>We can install <code class="docutils literal notranslate"><span class="pre">pandas-profiling</span></code> via Anaconda. To use this package, you’ll need to type the following in the terminal (Mac) or command prompt (Windows). You’ll need to restart VS Code.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">conda</span> <span class="n">install</span> <span class="o">-</span><span class="n">c</span> <span class="n">conda</span><span class="o">-</span><span class="n">forge</span> <span class="n">pandas</span><span class="o">-</span><span class="n">profiling</span>
+</pre></div>
+</div>
+<p>You can <a class="reference external" href="https://github.com/pandas-profiling/pandas-profiling">read all about it on their Github page</a>. It’s ridiculous what it can do.</p>
+<p>Let’s do our usual set-up, but bring <code class="docutils literal notranslate"><span class="pre">ProfileReport</span></code> from <code class="docutils literal notranslate"><span class="pre">pandas_profiling</span></code>.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
+<span class="kn">from</span> <span class="nn">pandas_profiling</span> <span class="kn">import</span> <span class="n">ProfileReport</span>
+
+<span class="n">uw</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s1">&#39;https://github.com/aaiken1/fin-data-analysis-python/raw/main/data/zestimatesAndCutoffs_byGeo_uw_2017-10-10_forDataPage.csv&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>This will create the report.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1">#profile = ProfileReport(uw, title=&quot;Pandas Profiling Report for UW Zillow Data&quot;)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>We can now view the report in a Jupyter widget. It will take a couple of minutes to summarize everything.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1">#profile.to_widgets()</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>You can also create an HTML file. Using the code below, the file will end up in the same folder as your <code class="docutils literal notranslate"><span class="pre">.ipynb</span></code> notebook. I’ve commented it out so that it doesn’t run and create large file everytime.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1">#profile.to_file(&quot;uw_profile.html&quot;)</span>
+</pre></div>
+</div>
+</div>
+</div>
+</div>
 </div>
 
     <script type="text/x-thebe-config">
