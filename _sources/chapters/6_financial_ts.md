@@ -1,4 +1,4 @@
-# Financial time series
+# Financial time series <a id='financial-time-series'></a>
 
 This section follows Chapter 8 of our textbook.
 
