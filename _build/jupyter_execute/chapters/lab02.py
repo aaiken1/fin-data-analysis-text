@@ -113,7 +113,7 @@
 # - Use `columns` to show our variables.
 # - Use `describe()` to get summary statistics for all of the columns
 # - Use `describe()` to get summary statistics for just `price`, `bedrooms`, `bathrooms`, and `sqft_living`.
-# - That doesn't look great. Add this code and re-run your last `describe()`: `pd.options.display.float_format = '{:,.2f}'.format`. This will change the format for any float variables that had a lot of decimal places being displayed.
+# - That doesn't look great. Add this code and re-run your last `describe()`: `pd.options.display.float_format = '{:,.2f}'.format`. This will change the format for any float variables that had a lot of decimal places being displayed. Note that it is a "permanent" change in that all floats will look like this when displayed from now on in your notebook. You can also do some temporary formatting using other methods.
 # 
 # This [page](https://www.statology.org/pandas-describe/) gives you some of the details for the `describe()` method. You can also take a look at our online notes for more.
 # 
@@ -123,7 +123,9 @@
 
 # ## Part 7
 # 
-# This data set is from May 2014 through May 2015. Let's see what our date range looks like and then do some `groupby` summary stats. You can see [this page](https://datagy.io/pandas-groupby/) for some examples, as well as our textbook, starting on pg. 130.
+# This data set is from May 2014 through May 2015. Let's see what our date range looks like and then do some `groupby` summary stats. You'll see these ideas called **group-apply-combine**, or **split-apply-combine**. You take your DataFrame, split your data and **group by** some characteristic (e.g. firm or date), **apply** a calculation to find a statistic for that group (e.g. mean or median), and the **combine** these summary statistics back into a new DataFrame. 
+# 
+# You can see [this page](https://datagy.io/pandas-groupby/) for some examples, as well as our textbook, starting on pg. 130. This section of [Chapter 8 in Python for Data Science](https://www.tomasbeuzen.com/python-programming-for-data-science/chapters/chapter8-wrangling-basics.html#grouping) also has nice examples for the group-apply-combine framework. 
 # 
 # - Use `min()` and `max()` to print the min and max date in the data set. Note how there are both May 2014 and May 2015 observations. So, "May" will not uniquely identify a set of sales by year. 
 # - Let's create a new year-month `datetime` variable. This is different from the original `date`, since that included the day. We just want something like "2014-05" and "2015-05". Why? We want to look at housing sales **by each year-month group**. Try this and describe what it is doing in your write-up.
@@ -156,7 +158,7 @@
 # ```
 # pd.options.display.float_format = '{:.2f}'.format
 # ```
-# We've changed the float formats, but not any date or integer formats.
+# We keep changing the float formats, but not any date or integer formats.
 # 
 # - Use `loc` to select all rows and just columns `date`, `price`, and `sqft_living`. Remember, you can use `:` to select all of one axis, like the rows.
 # - Use `loc` to select just the observation where `id` is 5631500400, all columns. Note that you don't need `''` around the `id` when using `loc`. 

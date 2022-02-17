@@ -7,7 +7,9 @@
 # 
 # DataCamp has an article on [cleaning data in `pandas`](https://www.datacamp.com/community/tutorials/data-preparation-with-pandas).
 # 
-# ## Getting set up
+# [Chapter 7](https://wesmckinney.com/book/data-cleaning.html) of *Python for Data Analysis* for more data cleaning tips.
+# 
+# ## Underwater exploration
 # 
 # We'll start by bringing in our Zillow data again.
 # 
@@ -98,9 +100,57 @@ uw[uw['RegionType'] == 'MSA']['MSAName'].nunique()
 
 # We have 95 unique MSA is our data. Seems reasonable. MSAs are like city-regions.
 # 
-# We can bring back the stock data too, as that data has some missing values.
+# Finally, let's try some more complicated code. I found this example [here](https://towardsdatascience.com/a-better-eda-with-pandas-profiling-e842a00e1136).
+# 
+# First, we will create a DataFrame that has the total number of missing values for each variable. We can sort the data using `sort_values()`. The `ascending=False` option will have the variable with the largest number of missings at the top.
+# 
 
 # In[11]:
+
+
+total = uw.isna().sum().sort_values(ascending=False)
+
+
+# By the way, you'll also see a `isnull()` method that does the same thing as `isna()`. 
+# 
+# Next, let's create a DataFrame that that has the percentage of values that are missing for each variable. This is neat one - we are creating a DataFrame of values (total number missing) for the numerator and another DataFrame of values (total number) for the denominator. Then, we are dividing two DataFrames, giving us another DataFrame of the resulting division. We then sort.
+
+# In[12]:
+
+
+percent = (uw.isnull().sum()/uw.isnull().count()).sort_values(ascending=False)
+
+
+# We can use a new function called `concat` from `pandas` that combines data, either as rows (stacking) or columns (combining). We'll combine columns, with means concatenating along axis=1. We'll name both columns. We can do this because each DataFrame has the same index created by `pandas`, all of our variable names. So, there's a one-to-one correspondence between the two DataFrames.
+
+# In[13]:
+
+
+missing_data = pd.concat([total, percent], axis=1, keys=['Total', 'Missing Percent'])
+
+
+# Let's take the percents and multiply all of them by 100, just to make them look like percents. And to show you, again, that you can.
+
+# In[14]:
+
+
+missing_data['Missing Percent'] = missing_data['Missing Percent'] * 100
+
+
+# For the last step, we can filter and just get the variable names where more than 10% of our data are missing.
+
+# In[15]:
+
+
+missing_data[missing_data['Missing Percent'] > 10]
+
+
+# 
+# ## Back to stocks
+# 
+# We can bring back the stock data too, as that data has some missing values.
+
+# In[16]:
 
 
 prices = pd.read_csv('https://github.com/aaiken1/fin-data-analysis-python/raw/main/data/tr_eikon_eod_data.csv',
@@ -109,7 +159,7 @@ prices = pd.read_csv('https://github.com/aaiken1/fin-data-analysis-python/raw/ma
 
 # Why are there missing values? Holidays and weekends, when trading doesn't take place.
 
-# In[12]:
+# In[17]:
 
 
 prices.isna().sum()
@@ -117,14 +167,14 @@ prices.isna().sum()
 
 # We can drop these rows. We'll specify `axis=0`, or rows.
 
-# In[13]:
+# In[18]:
 
 
 prices = prices.dropna(axis=0)
 prices.isna().sum()
 
 
-# In[14]:
+# In[19]:
 
 
 prices.head(15)
@@ -134,15 +184,16 @@ prices.head(15)
 # 
 # We are going to look at a fun package that is based on something from the [R](https://www.r-project.org) statistical programming language, called [pyjanitor](https://pyjanitor-devs.github.io/pyjanitor/). 
 # 
-# To use this package, you'll need to type the following in the terminal (Mac) or command prompt (Windows)
+# To use this package, you'll need to type the following in the terminal (Mac) or command prompt (Windows).
 # 
 # ```
 # conda install -c conda-forge pyjanitor
 # ```
+# This will install `pyjanitor` using Ananconda. So, it should show up when you select the Anaconda distribution of Python. You'll need to restart VS Code once you've installed it.
 # 
 # There are even [finance specific tools](https://pyjanitor-devs.github.io/pyjanitor/api/finance/).
 
-# In[15]:
+# In[20]:
 
 
 import janitor
@@ -151,7 +202,7 @@ from janitor import clean_names
 
 # `pyjanitor` lets us have an interesting workflow. We can read in our data set, remove columns, drop missings, and rename columns, all in one series of steps.
 
-# In[16]:
+# In[21]:
 
 
 prices = (
@@ -166,7 +217,7 @@ prices = (
 
 # There are also some built-in, general functions. `clean_names()` does what it says. For example, it sets all characters in a variable name to lower case.
 
-# In[17]:
+# In[22]:
 
 
 prices = pd.read_csv('https://github.com/aaiken1/fin-data-analysis-python/raw/main/data/tr_eikon_eod_data.csv',
@@ -177,7 +228,7 @@ prices = prices.clean_names()
 
 # Again, a variety of syntaxes to do the same thing.
 
-# In[18]:
+# In[23]:
 
 
 prices = pd.read_csv('https://github.com/aaiken1/fin-data-analysis-python/raw/main/data/tr_eikon_eod_data.csv',
@@ -188,7 +239,7 @@ prices = clean_names(prices)
 
 # The method `flag_nulls` creates a new variable that will have a 1 if any of the variables specified are missing. In this case, I didn't specify anything, so it will look across all of the variables. If any variable is `NaN`, then that row gets a 1. Notice the **any**.
 
-# In[19]:
+# In[24]:
 
 
 prices = pd.read_csv('https://github.com/aaiken1/fin-data-analysis-python/raw/main/data/tr_eikon_eod_data.csv',
@@ -199,7 +250,7 @@ prices = prices.flag_nulls()
 
 # Finally, simple way to see if we have any rows of duplicate data. This will happen surprisingly (and unfortunately) often when we start merging data together. 
 
-# In[20]:
+# In[25]:
 
 
 prices.get_dupes()

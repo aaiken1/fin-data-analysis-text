@@ -8,6 +8,8 @@
 # The data frame we will be working with contains data from Zillow.com, the housing web site, on the number of homes, the median value of homes, etc. at-risk for flooding due to rising sea levels.
 # 
 # You can find many different Zillow data sets [here](https://www.zillow.com/research/data/). The “uw” here stands for “under water” in a very literal sense. I first thought they were talking about mortgages!
+# 
+# As mentioned, take a look at [Chapter 5](https://wesmckinney.com/book/pandas-basics.html) of *Python for Data Analysis* for an introduction to `pandas`. 
 
 # In[1]:
 
