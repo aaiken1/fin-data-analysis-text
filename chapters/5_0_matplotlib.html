@@ -377,9 +377,21 @@
   </a>
  </li>
  <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#working-with-matplotlib">
-   Working with matplotlib
+  <a class="reference internal nav-link" href="#id1">
+   matplotlib
   </a>
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#first-way-pyplot">
+     First way - pyplot
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#third-way-figs-and-axs">
+     Third way - figs and axs
+    </a>
+   </li>
+  </ul>
  </li>
 </ul>
 
@@ -412,9 +424,21 @@
   </a>
  </li>
  <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#working-with-matplotlib">
-   Working with matplotlib
+  <a class="reference internal nav-link" href="#id1">
+   matplotlib
   </a>
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#first-way-pyplot">
+     First way - pyplot
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#third-way-figs-and-axs">
+     Third way - figs and axs
+    </a>
+   </li>
+  </ul>
  </li>
 </ul>
 
@@ -609,8 +633,8 @@ memory usage: 5.0+ KB
 </div>
 </div>
 </div>
-<div class="section" id="working-with-matplotlib">
-<h2>Working with matplotlib<a class="headerlink" href="#working-with-matplotlib" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="id1">
+<h2>matplotlib<a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h2>
 <p>That was all using the <code class="docutils literal notranslate"><span class="pre">plot()</span></code> function that comes with <code class="docutils literal notranslate"><span class="pre">pandas</span></code> DataFrames. Let’s turn our <code class="docutils literal notranslate"><span class="pre">pandas</span></code> DataFrames into <strong>series</strong> and look at <code class="docutils literal notranslate"><span class="pre">matplotlib</span></code> and creating figures more generally. <code class="docutils literal notranslate"><span class="pre">matplotlib</span></code> really wants to use arrays or series. No problem!</p>
 <p>We’re going to follow a few steps and the <code class="docutils literal notranslate"><span class="pre">matplotlib</span></code> way of doing things now. These steps are:</p>
 <ul class="simple">
@@ -620,7 +644,10 @@ memory usage: 5.0+ KB
 <li><p>Save it</p></li>
 <li><p>Show it</p></li>
 </ul>
-<p>Let’s go back to the line graph, but do things in separate steps. This is sometimes called the <a class="reference external" href="https://matplotlib.org/stable/tutorials/introductory/usage.html#sphx-glr-tutorials-introductory-usage-py">pyplot</a> way of creating figures.</p>
+<p>The <code class="docutils literal notranslate"><span class="pre">matplotlib</span></code> way is really two ways. This comes from their official documentation. Both work and both are correct. I’m showing you both syntaxes, since you’ll see both when searching for how to do make graphs.</p>
+<div class="section" id="first-way-pyplot">
+<h3>First way - pyplot<a class="headerlink" href="#first-way-pyplot" title="Permalink to this headline">¶</a></h3>
+<p>Let’s go back to the line graph, but do things in separate steps. This is sometimes called the <a class="reference external" href="https://matplotlib.org/stable/tutorials/introductory/usage.html#sphx-glr-tutorials-introductory-usage-py">pyplot</a> way of creating figures. You’ll see <code class="docutils literal notranslate"><span class="pre">plt</span></code> in the syntax, as each line of code uses a method from the <code class="docutils literal notranslate"><span class="pre">pyplot</span></code> part of <code class="docutils literal notranslate"><span class="pre">matplotlib</span></code> to add something to your figure.</p>
 <p>I am going to pull the data that I want out of the DataFrame and create two new <strong>series</strong> called <strong>aapl</strong> and <strong>msft</strong>. These live independently of the <strong>stocks</strong> DataFrame. I am then going to build my plot step-by-step. It is easier to customize things this way. I will also pull the date index out of each series to use for the x-axis. Finally, I will plot two series together!</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -751,10 +778,12 @@ memory usage: 5.0+ KB
 <img alt="../_images/5_0_matplotlib_25_0.png" src="../_images/5_0_matplotlib_25_0.png" />
 </div>
 </div>
+</div>
+<div class="section" id="third-way-figs-and-axs">
+<h3>Third way - figs and axs<a class="headerlink" href="#third-way-figs-and-axs" title="Permalink to this headline">¶</a></h3>
 <p><code class="docutils literal notranslate"><span class="pre">matplotlib</span></code> also lets us work in an <strong>object oriented</strong> manner. We are going to create different objects that make up the complete figure. Remember, everything in Python is something!</p>
-<p>This first step creates a blank <code class="docutils literal notranslate"><span class="pre">figure</span></code> object. We actually did this above too. A <code class="docutils literal notranslate"><span class="pre">figure</span></code> is going to have special properties that we can do stuff with.</p>
-<p>We are also going to create <code class="docutils literal notranslate"><span class="pre">ax</span></code> objects.</p>
-<p>You can also think about the different parts of the plot as different objects to change.</p>
+<p>This first step creates a blank <code class="docutils literal notranslate"><span class="pre">figure</span></code> object. We actually did this above too. A <code class="docutils literal notranslate"><span class="pre">figure</span></code> is going to have special properties that we can do stuff with. You can also think about the different parts of the plot as different objects to change.</p>
+<p>We are also going to create <code class="docutils literal notranslate"><span class="pre">ax</span></code> objects. The <code class="docutils literal notranslate"><span class="pre">matplotlib</span></code> documentation says to use the name <code class="docutils literal notranslate"><span class="pre">ax</span></code> for one plot and <code class="docutils literal notranslate"><span class="pre">axs</span></code> for multiple plots. These are just naming conventions, though.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">fig</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">()</span>
@@ -775,6 +804,7 @@ memory usage: 5.0+ KB
 </div>
 </div>
 <p>This is like a blank canvas.  We can add <code class="docutils literal notranslate"><span class="pre">subplots</span></code> to this. This is where our graphs will live. We saw this type of subplot logic above. <code class="docutils literal notranslate"><span class="pre">.add_subplot</span></code> has three arguments <code class="docutils literal notranslate"><span class="pre">.add_subplot(xyz)</span></code>, where x is the number of rows of subplots, y is the number of columns of subplots, and z is the subplot that you are referring to. So, we have created a single axis of a 2 x 2 plot that we will have saved as <strong>ax1</strong>. <strong>ax1</strong> is an axis of this figure. Each subplot is an axis.</p>
+<p>We are now using <code class="docutils literal notranslate"><span class="pre">=</span></code> to create (assign) objects to different names. You’ll see these get created down in the <strong>Jupyter: Variables</strong> window. These are objects that exist <strong>in memory</strong> that you can then do things with.</p>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
 <p>In Jupyter notebooks, you need to run all of your figure creation in a single cell, as it will reset after each cell is executed and you won’t be be able to build on top of your previous statements.</p>
@@ -785,6 +815,7 @@ memory usage: 5.0+ KB
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">datetime</span> <span class="kn">import</span> <span class="n">datetime</span>
 
 <span class="n">fig</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span> <span class="mi">6</span><span class="p">))</span>
+
 <span class="n">ax1</span> <span class="o">=</span> <span class="n">fig</span><span class="o">.</span><span class="n">add_subplot</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
 
 <span class="n">ax1</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">aapl_ret</span><span class="o">.</span><span class="n">index</span><span class="p">,</span> <span class="n">aapl_ret</span><span class="p">,</span> <span class="s1">&#39;b--&#39;</span><span class="p">,</span> <span class="n">label</span> <span class="o">=</span> <span class="s1">&#39;Apple Daily Returns&#39;</span><span class="p">);</span>
@@ -804,8 +835,9 @@ memory usage: 5.0+ KB
 </div>
 </div>
 <p>We can use the same <code class="docutils literal notranslate"><span class="pre">figure</span></code> and <code class="docutils literal notranslate"><span class="pre">axis</span></code> logic to just a 2 x 2 grid of graphs. This is where you can really start to see the power of this.</p>
-<p>Let’s look at that first line. You can create the <strong>fig</strong> canvas and the <strong>axs</strong> together using <code class="docutils literal notranslate"><span class="pre">plt.subplot</span></code>. This line creates the figure and a 2 x 2 set of <strong>axs</strong>, where each <strong>ax</strong> is a potential plot. <code class="docutils literal notranslate"><span class="pre">plt.subplots</span></code> is different from <code class="docutils literal notranslate"><span class="pre">plt.add_subplot</span></code>. It can take arguments which normally go to <code class="docutils literal notranslate"><span class="pre">plt.figure</span></code>, which is why I can change the figure size inside of it. It also creates an <code class="docutils literal notranslate"><span class="pre">array</span></code> that I’m calling <strong>axs</strong>. That array is 2 x 2 in this case and is going to hold my four plots.</p>
+<p>Let’s look at that first line. You can create the <strong>fig</strong> canvas and the <strong>axs</strong> together using <code class="docutils literal notranslate"><span class="pre">plt.subplot</span></code>. This line creates the figure and a 2 x 2 set of <strong>axs</strong>, where each element is a potential plot. <code class="docutils literal notranslate"><span class="pre">plt.subplots</span></code> is different from <code class="docutils literal notranslate"><span class="pre">plt.add_subplot</span></code>. It can take arguments which normally go to <code class="docutils literal notranslate"><span class="pre">plt.figure</span></code>, which is why I can change the figure size inside of it. It also creates an <code class="docutils literal notranslate"><span class="pre">array</span></code> that I’m calling <strong>axs</strong>. That array is 2 x 2 in this case and is going to hold my four plots.</p>
 <p>I use our usual <code class="docutils literal notranslate"><span class="pre">array</span></code> syntax to create a subplot in each of the four positions. I added some colors so that you can see which plot goes where in the grid. I’m using some random numbers just to demonstrate. I also adjusted the white space around the grid.</p>
+<p>Then array syntax is convenient and means that I can avoid defining <strong>ax1</strong>, <strong>ax2</strong>, <strong>ax3</strong>, and <strong>ax4</strong>. I could have done it that way, though!</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">fig</span><span class="p">,</span> <span class="n">axs</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="n">sharex</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">sharey</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span> <span class="mi">6</span><span class="p">))</span>
@@ -828,6 +860,7 @@ memory usage: 5.0+ KB
 </pre></div>
 </div>
 <img alt="../_images/5_0_matplotlib_31_1.png" src="../_images/5_0_matplotlib_31_1.png" />
+</div>
 </div>
 </div>
 </div>
