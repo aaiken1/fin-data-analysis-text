@@ -49,6 +49,7 @@
         const thebe_selector_output = ".output"
     </script>
     <script async="async" src="../_static/sphinx-thebe.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
     <link rel="next" title="Financial time series" href="6_financial_ts.html" />
@@ -200,6 +201,11 @@
      Exploratory data analysis (EDA)
     </a>
    </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="4_4_merge_shape.html">
+     Merging and reshaping data
+    </a>
+   </li>
   </ul>
  </li>
  <li class="toctree-l1 current active has-children">
@@ -265,6 +271,11 @@
    Lab 02
   </a>
  </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="lab03.html">
+   Lab 03
+  </a>
+ </li>
 </ul>
 
     </div>
@@ -306,9 +317,9 @@
         <!-- ipynb file if we had a myst markdown file -->
         
         <!-- Download raw file -->
-        <a class="dropdown-buttons" href="../_sources/chapters/5_2_seaborn.md"><button type="button"
+        <a class="dropdown-buttons" href="../_sources/chapters/5_2_seaborn.ipynb"><button type="button"
                 class="btn btn-secondary topbarbtn" title="Download source file" data-toggle="tooltip"
-                data-placement="left">.md</button></a>
+                data-placement="left">.ipynb</button></a>
         <!-- Download PDF via print -->
         <button type="button" id="download-print" class="btn btn-secondary topbarbtn" title="Print to PDF"
                 onclick="printPdf(this)" data-toggle="tooltip" data-placement="left">.pdf</button>
@@ -339,6 +350,23 @@
 
             <!-- Launch buttons -->
 
+<div class="dropdown-buttons-trigger">
+    <button id="dropdown-buttons-trigger" class="btn btn-secondary topbarbtn"
+        aria-label="Launch interactive content"><i class="fas fa-rocket"></i></button>
+    <div class="dropdown-buttons">
+        
+        <a class="binder-button" href="https://mybinder.org/v2/gh/executablebooks/jupyter-book/master?urlpath=tree/docs/chapters/5_2_seaborn.ipynb"><button type="button"
+                class="btn btn-secondary topbarbtn" title="Launch Binder" data-toggle="tooltip"
+                data-placement="left"><img class="binder-button-logo"
+                    src="../_static/images/logo_binder.svg"
+                    alt="Interact on binder">Binder</button></a>
+        
+        
+        
+        
+    </div>
+</div>
+
         </div>
 
         <!-- Table of contents -->
@@ -364,7 +392,111 @@
                 
   <div class="tex2jax_ignore mathjax_ignore section" id="seaborn">
 <h1>seaborn<a class="headerlink" href="#seaborn" title="Permalink to this headline">¶</a></h1>
-<p>This section follows Chapter 7 of our textbook and discusses using <a class="reference external" href="https://matplotlib.org">matplotlib</a> to create graphics in Python. We’ll focus on financial data. We’ll also look a little bit at <a class="reference external" href="https://plotly.com/python/">plotly</a> and <a class="reference external" href="https://seaborn.pydata.org">seaborn</a>, two other packages for displaying data.</p>
+<p>We will end our very broad discussion of data visualization with <a class="reference external" href="https://seaborn.pydata.org">seaborn</a>. <code class="docutils literal notranslate"><span class="pre">seaborn</span></code> is based on <code class="docutils literal notranslate"><span class="pre">matplotlib</span></code>, but us “higher-level” (i.e. easier to use) and makes what many consider nicer looking graphs (i.e. many = me). So, why didn’t we start with <code class="docutils literal notranslate"><span class="pre">seaborn</span></code>? I think it is good to see <code class="docutils literal notranslate"><span class="pre">matplotlib</span></code>, since it is the most popular way to create figures in Python. But, you should take a look at <code class="docutils literal notranslate"><span class="pre">seaborn</span></code> as well.</p>
+<p><code class="docutils literal notranslate"><span class="pre">seaborn</span></code> comes with Anaconda, so there’s nothing to install here. Just add <code class="docutils literal notranslate"><span class="pre">import</span> <span class="pre">seaborn</span> <span class="pre">as</span> <span class="pre">sns</span></code> to your set-up and you’re ready to go. In my set-up, I’ll set a theme, so that the same theme is used across all of my graphs. I’ll create my returns directly in the <strong>stocks</strong> DataFrame.</p>
+<p>DataCamp has a <a class="reference external" href="https://www.datacamp.com/community/tutorials/seaborn-python-tutorial">seaborn tutorial</a> as well.</p>
+<p>There’s an <a class="reference external" href="https://seaborn.pydata.org/examples/index.html">example gallery</a> as well.</p>
+<p>You can find other examples <a class="reference external" href="https://pythonforfinance.net/2018/07/22/seaborn-module-and-python-distribution-plots/">here</a>.</p>
+<p>Finally, I’m going to use the <code class="docutils literal notranslate"><span class="pre">df.var_name</span></code> convention for pulling out variables from a DataFrame. I find it easier than <code class="docutils literal notranslate"><span class="pre">df['var_name']</span></code>. I’ll go back and forth in the notes, to get you use to the different styles.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Set-up</span>
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
+<span class="kn">import</span> <span class="nn">seaborn</span> <span class="k">as</span> <span class="nn">sns</span>
+<span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
+<span class="n">sns</span><span class="o">.</span><span class="n">set_theme</span><span class="p">(</span><span class="n">style</span><span class="o">=</span><span class="s2">&quot;white&quot;</span><span class="p">)</span>
+
+
+<span class="c1"># Read in some eod prices</span>
+<span class="n">stocks</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s1">&#39;https://raw.githubusercontent.com/aaiken1/fin-data-analysis-python/main/data/tr_eikon_eod_data.csv&#39;</span><span class="p">,</span>
+                  <span class="n">index_col</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">parse_dates</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>  
+
+<span class="n">stocks</span><span class="o">.</span><span class="n">dropna</span><span class="p">(</span><span class="n">inplace</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>  
+
+<span class="kn">from</span> <span class="nn">janitor</span> <span class="kn">import</span> <span class="n">clean_names</span>
+
+<span class="n">stocks</span> <span class="o">=</span> <span class="n">clean_names</span><span class="p">(</span><span class="n">stocks</span><span class="p">)</span>
+
+<span class="n">stocks</span><span class="p">[</span><span class="s1">&#39;aapl_ret&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">log</span><span class="p">(</span><span class="n">stocks</span><span class="o">.</span><span class="n">aapl_o</span> <span class="o">/</span> <span class="n">stocks</span><span class="o">.</span><span class="n">aapl_o</span><span class="o">.</span><span class="n">shift</span><span class="p">(</span><span class="mi">1</span><span class="p">))</span>  
+<span class="n">stocks</span><span class="p">[</span><span class="s1">&#39;msft_ret&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">log</span><span class="p">(</span><span class="n">stocks</span><span class="o">.</span><span class="n">msft_o</span> <span class="o">/</span> <span class="n">stocks</span><span class="o">.</span><span class="n">msft_o</span><span class="o">.</span><span class="n">shift</span><span class="p">(</span><span class="mi">1</span><span class="p">))</span>  
+
+<span class="n">stocks</span><span class="o">.</span><span class="n">info</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;class &#39;pandas.core.frame.DataFrame&#39;&gt;
+DatetimeIndex: 2138 entries, 2010-01-04 to 2018-06-29
+Data columns (total 14 columns):
+ #   Column    Non-Null Count  Dtype  
+---  ------    --------------  -----  
+ 0   aapl_o    2138 non-null   float64
+ 1   msft_o    2138 non-null   float64
+ 2   intc_o    2138 non-null   float64
+ 3   amzn_o    2138 non-null   float64
+ 4   gs_n      2138 non-null   float64
+ 5   spy       2138 non-null   float64
+ 6   _spx      2138 non-null   float64
+ 7   _vix      2138 non-null   float64
+ 8   eur=      2138 non-null   float64
+ 9   xau=      2138 non-null   float64
+ 10  gdx       2138 non-null   float64
+ 11  gld       2138 non-null   float64
+ 12  aapl_ret  2137 non-null   float64
+ 13  msft_ret  2137 non-null   float64
+dtypes: float64(14)
+memory usage: 250.5 KB
+</pre></div>
+</div>
+</div>
+</div>
+<p>Let’s start with our line plot again. We’ll plot just AAPL to start.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">sns</span><span class="o">.</span><span class="n">lineplot</span><span class="p">(</span><span class="n">x</span><span class="o">=</span><span class="n">stocks</span><span class="o">.</span><span class="n">index</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="n">stocks</span><span class="o">.</span><span class="n">aapl_o</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">();</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../_images/5_2_seaborn_3_0.png" src="../_images/5_2_seaborn_3_0.png" />
+</div>
+</div>
+<p>We can also make a distribution, or histogram, as well. I’ll add what’s called the <strong>kernel density estimate</strong> (kde), which gives the distribution. We’ll do more data work like this when thinking about <strong>risk</strong>.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">sns</span><span class="o">.</span><span class="n">displot</span><span class="p">(</span><span class="n">stocks</span><span class="o">.</span><span class="n">aapl_ret</span><span class="p">,</span> <span class="n">kde</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">bins</span><span class="o">=</span><span class="mi">50</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">();</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../_images/5_2_seaborn_5_0.png" src="../_images/5_2_seaborn_5_0.png" />
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">sns</span><span class="o">.</span><span class="n">jointplot</span><span class="p">(</span><span class="n">x</span><span class="o">=</span><span class="n">stocks</span><span class="o">.</span><span class="n">aapl_ret</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="n">stocks</span><span class="o">.</span><span class="n">msft_ret</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">();</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../_images/5_2_seaborn_6_0.png" src="../_images/5_2_seaborn_6_0.png" />
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">sns</span><span class="o">.</span><span class="n">jointplot</span><span class="p">(</span><span class="n">x</span><span class="o">=</span><span class="n">stocks</span><span class="o">.</span><span class="n">aapl_ret</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="n">stocks</span><span class="o">.</span><span class="n">msft_ret</span><span class="p">,</span> <span class="n">kind</span><span class="o">=</span><span class="s1">&#39;hex&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">();</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../_images/5_2_seaborn_7_0.png" src="../_images/5_2_seaborn_7_0.png" />
+</div>
+</div>
 </div>
 
     <script type="text/x-thebe-config">
