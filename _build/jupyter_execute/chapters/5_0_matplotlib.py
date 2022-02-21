@@ -127,7 +127,7 @@ plt.show()
 # 
 # Let's go back to the line graph, but do things in separate steps. This is sometimes called the [pyplot](https://matplotlib.org/stable/tutorials/introductory/usage.html#sphx-glr-tutorials-introductory-usage-py) way of creating figures. You'll see `plt` in the syntax, as each line of code uses a method from the `pyplot` part of `matplotlib` to add something to your figure. 
 # 
-# We can plot data from a DataFrame by using with `df.var` or `df.['var']` syntax. I am then going to build my plot step-by-step. It is easier to customize things this way. I will also pull the date index out of each series to use for the x-axis by using `stocks.index`. Finally, I will plot two series together!
+# We can plot data from a DataFrame by using with `df.var` or `df['var']` syntax. I am then going to build my plot step-by-step. It is easier to customize things this way. I will also pull the date index out of each series to use for the x-axis by using `stocks.index`. Finally, I will plot two series together!
 # 
 
 # In[8]:
@@ -184,22 +184,22 @@ plt.xlabel('Prices')
 plt.title('Distribution of Apple Prices');
 
 
-# Let's make a scatter plot using this same workflow. I'm going to convert the **aapl** and **msft** prices into returns now. We'll do more with this when we get to time series functions.
+# Let's make a scatter plot using this same workflow. I'm going to convert the **aapl** and **msft** prices into returns now. I'll save the returns to the **stocks** DataFrame. We'll do more with this when we get to time series functions.
 
 # In[11]:
 
 
 plt.figure(figsize=(10, 6))
 
-aapl_ret = np.log(stocks.aapl_o / stocks.aapl_o.shift(1))  
-msft_ret = np.log(stocks.msft_o / stocks.msft_o.shift(1))  
+stocks.aapl_ret = np.log(stocks.aapl_o / stocks.aapl_o.shift(1))  
+stocks.msft_ret = np.log(stocks.msft_o / stocks.msft_o.shift(1))  
 
-plt.scatter(aapl_ret, msft_ret, marker = 'o')
+plt.scatter(stocks.aapl_ret, stocks.msft_ret, marker = 'o')
 plt.xlabel('aapl')
 plt.ylabel('msft')
 plt.title('Apple vs. MSFT');
 
-print('The correlation between AAPL and MSFT is ' + str(aapl_ret.corr(msft_ret).round(3)))
+print('The correlation between AAPL and MSFT is ' + str(stocks.aapl_ret.corr(stocks.msft_ret).round(3)))
 
 
 # Let's create a histogram of both returns. 
@@ -209,7 +209,7 @@ print('The correlation between AAPL and MSFT is ' + str(aapl_ret.corr(msft_ret).
 
 plt.figure(figsize=(10, 6))
 
-plt.hist([aapl_ret, msft_ret], label=['AAPL', 'MSFT'], bins=25)
+plt.hist([stocks.aapl_ret, stocks.msft_ret], label=['AAPL', 'MSFT'], bins=25)
 plt.xlabel('Returns')
 plt.ylabel('Frequency')
 plt.title('Histogram of AAPL and MSFT Returns');
@@ -224,7 +224,7 @@ plt.figure(figsize=(10, 6))
 
 colors = ['grey', 'blue']
 
-plt.hist([aapl_ret, msft_ret], label=['AAPL', 'MSFT'], bins=25, color = colors)
+plt.hist([stocks.aapl_ret, stocks.msft_ret], label=['AAPL', 'MSFT'], bins=25, color = colors)
 plt.xlabel('Returns')
 plt.ylabel('Frequency')
 plt.title('Histogram of AAPL and MSFT Returns');
@@ -269,7 +269,7 @@ fig = plt.figure(figsize=(10, 6))
 
 ax1 = fig.add_subplot(1, 1, 1)
 
-ax1.plot(aapl_ret.index, aapl_ret, 'b--', label = 'Apple Daily Returns')
+ax1.plot(stocks.index, stocks.aapl_ret, 'b--', label = 'Apple Daily Returns')
 
 ax1.legend(loc='best')
 ax1.set_xlabel('Date')
