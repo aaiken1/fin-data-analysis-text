@@ -201,6 +201,11 @@
      Exploratory data analysis (EDA)
     </a>
    </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="4_4_merge_shape.html">
+     Merging and reshaping data
+    </a>
+   </li>
   </ul>
  </li>
  <li class="toctree-l1 has-children">
@@ -381,6 +386,13 @@
   <a class="reference internal nav-link" href="#selecting-our-data">
    Selecting our data
   </a>
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#filtering">
+     Filtering
+    </a>
+   </li>
+  </ul>
  </li>
  <li class="toc-h2 nav-item toc-entry">
   <a class="reference internal nav-link" href="#dealing-with-indices">
@@ -416,6 +428,13 @@
   <a class="reference internal nav-link" href="#selecting-our-data">
    Selecting our data
   </a>
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#filtering">
+     Filtering
+    </a>
+   </li>
+  </ul>
  </li>
  <li class="toc-h2 nav-item toc-entry">
   <a class="reference internal nav-link" href="#dealing-with-indices">
@@ -1932,6 +1951,30 @@ Name: 0, dtype: object
 </table>
 </div></div></div>
 </div>
+<p>You can use these methods to select and save columns to a new DataFrame. Each of the following does the same thing.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">uw_sub1</span> <span class="o">=</span> <span class="n">uw</span><span class="p">[[</span><span class="s1">&#39;RegionType&#39;</span><span class="p">,</span> <span class="s1">&#39;RegionName&#39;</span><span class="p">,</span> <span class="s1">&#39;UWHomes_Tier2&#39;</span><span class="p">]]</span>
+<span class="n">uw_sub2</span> <span class="o">=</span> <span class="n">uw</span><span class="o">.</span><span class="n">loc</span><span class="p">[:,[</span><span class="s1">&#39;RegionType&#39;</span><span class="p">,</span> <span class="s1">&#39;RegionName&#39;</span><span class="p">,</span> <span class="s1">&#39;UWHomes_Tier2&#39;</span><span class="p">]]</span>
+<span class="n">uw_sub3</span> <span class="o">=</span> <span class="n">uw</span><span class="o">.</span><span class="n">iloc</span><span class="p">[:,[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">9</span><span class="p">]]</span>
+<span class="n">uw_sub4</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">uw</span><span class="p">,</span> <span class="n">columns</span> <span class="o">=</span> <span class="p">(</span><span class="s1">&#39;RegionType&#39;</span><span class="p">,</span> <span class="s1">&#39;RegionName&#39;</span><span class="p">,</span> <span class="s1">&#39;UWHomes_Tier2&#39;</span><span class="p">))</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="n">uw_sub1</span><span class="o">.</span><span class="n">equals</span><span class="p">(</span><span class="n">uw_sub2</span><span class="p">))</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">uw_sub2</span><span class="o">.</span><span class="n">equals</span><span class="p">(</span><span class="n">uw_sub3</span><span class="p">))</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">uw_sub3</span><span class="o">.</span><span class="n">equals</span><span class="p">(</span><span class="n">uw_sub4</span><span class="p">))</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>True
+True
+True
+</pre></div>
+</div>
+</div>
+</div>
+<div class="section" id="filtering">
+<h3>Filtering<a class="headerlink" href="#filtering" title="Permalink to this headline">¶</a></h3>
 <p>Let’s try <strong>filtering</strong> our data and keeping just the MSA observations. The text calls this <strong>complex selection</strong>. See pg. 132.</p>
 <p>Here’s some <a class="reference external" href="https://datagy.io/filter-pandas/">help on filtering</a> data with <code class="docutils literal notranslate"><span class="pre">pandas</span></code>.</p>
 <div class="cell docutils container">
@@ -2596,6 +2639,7 @@ Name: 0, dtype: object
 </div></div></div>
 </div>
 <p>Notice how I needed to put <code class="docutils literal notranslate"><span class="pre">()</span></code> around each condition. Python is testing to see if each of these are <code class="docutils literal notranslate"><span class="pre">True</span></code> or <code class="docutils literal notranslate"><span class="pre">False</span></code> and then filtering our data accordingly. Pgs. 132 - 135 of our text show you more about this type of <strong>boolean</strong> filtering.</p>
+</div>
 </div>
 <div class="section" id="dealing-with-indices">
 <h2>Dealing with indices<a class="headerlink" href="#dealing-with-indices" title="Permalink to this headline">¶</a></h2>
