@@ -201,6 +201,11 @@
      Exploratory data analysis (EDA)
     </a>
    </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="4_4_merge_shape.html">
+     Merging and reshaping data
+    </a>
+   </li>
   </ul>
  </li>
  <li class="toctree-l1 has-children">
@@ -312,9 +317,9 @@
         <!-- ipynb file if we had a myst markdown file -->
         
         <!-- Download raw file -->
-        <a class="dropdown-buttons" href="../_sources/chapters/6_financial_ts.md"><button type="button"
+        <a class="dropdown-buttons" href="../_sources/chapters/6_financial_ts.ipynb"><button type="button"
                 class="btn btn-secondary topbarbtn" title="Download source file" data-toggle="tooltip"
-                data-placement="left">.md</button></a>
+                data-placement="left">.ipynb</button></a>
         <!-- Download PDF via print -->
         <button type="button" id="download-print" class="btn btn-secondary topbarbtn" title="Print to PDF"
                 onclick="printPdf(this)" data-toggle="tooltip" data-placement="left">.pdf</button>
@@ -345,11 +350,73 @@
 
             <!-- Launch buttons -->
 
+<div class="dropdown-buttons-trigger">
+    <button id="dropdown-buttons-trigger" class="btn btn-secondary topbarbtn"
+        aria-label="Launch interactive content"><i class="fas fa-rocket"></i></button>
+    <div class="dropdown-buttons">
+        
+        <a class="binder-button" href="https://mybinder.org/v2/gh/executablebooks/jupyter-book/master?urlpath=tree/docs/chapters/6_financial_ts.ipynb"><button type="button"
+                class="btn btn-secondary topbarbtn" title="Launch Binder" data-toggle="tooltip"
+                data-placement="left"><img class="binder-button-logo"
+                    src="../_static/images/logo_binder.svg"
+                    alt="Interact on binder">Binder</button></a>
+        
+        
+        
+        
+    </div>
+</div>
+
         </div>
 
         <!-- Table of contents -->
         <div class="d-none d-md-block col-md-2 bd-toc show noprint">
             
+            <div class="tocsection onthispage pt-5 pb-3">
+                <i class="fas fa-list"></i> Contents
+            </div>
+            <nav id="bd-toc-nav" aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#chapter-eight-highlights">
+   Chapter Eight Highlights
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#set-up-and-descriptives">
+   Set-up and descriptives
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#calculating-returns">
+   Calculating returns
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#resampling">
+   Resampling
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#rolling-statistics">
+   Rolling statistics
+  </a>
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#simple-momentum-indicator">
+     Simple momentum indicator
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#correlation-and-regression">
+   Correlation and regression
+  </a>
+ </li>
+</ul>
+
+            </nav>
         </div>
     </div>
 </div>
@@ -362,6 +429,51 @@
                 <div id="print-main-content">
                     <div id="jb-print-toc">
                         
+                        <div>
+                            <h2> Contents </h2>
+                        </div>
+                        <nav aria-label="Page">
+                            <ul class="visible nav section-nav flex-column">
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#chapter-eight-highlights">
+   Chapter Eight Highlights
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#set-up-and-descriptives">
+   Set-up and descriptives
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#calculating-returns">
+   Calculating returns
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#resampling">
+   Resampling
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#rolling-statistics">
+   Rolling statistics
+  </a>
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#simple-momentum-indicator">
+     Simple momentum indicator
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#correlation-and-regression">
+   Correlation and regression
+  </a>
+ </li>
+</ul>
+
+                        </nav>
                     </div>
                 </div>
             </div>
@@ -370,8 +482,2334 @@
                 
   <div class="tex2jax_ignore mathjax_ignore section" id="financial-time-series-a-id-financial-time-series-a">
 <h1>Financial time series <a id='financial-time-series'></a><a class="headerlink" href="#financial-time-series-a-id-financial-time-series-a" title="Permalink to this headline">¶</a></h1>
-<p>This section follows Chapter 8 of our textbook.</p>
-<p><a class="reference external" href="https://www.datacamp.com/community/tutorials/python-datetime">DataCamp tutorial on datetime objects</a></p>
+<p>Python and, in particular, <code class="docutils literal notranslate"><span class="pre">pandas</span></code> can easily deal with the most common type of financial data - <strong>time series data</strong>. We are going to look at the basics of using price and return data. This section follows Chapter 8 of our textbook.</p>
+<p>Time series data means handling dates. There is a <a class="reference external" href="https://www.datacamp.com/community/tutorials/python-datetime">DataCamp tutorial on datetime objects</a>. I will also include additional explanations of the <code class="docutils literal notranslate"><span class="pre">pandas</span></code> time series work found in our fourth DataCamp assignment.</p>
+<p>We’ll start with the usual sort of set-up and our familiar stock data. Our data is going to have a particular set-up in this section. Each column is going to represent both a security and something about that security. So, Apple’s price. Or, Apple’s return. This is a very common way to see financial data, but it is not the only way that this data can be organized.</p>
+<div class="section" id="chapter-eight-highlights">
+<h2>Chapter Eight Highlights<a class="headerlink" href="#chapter-eight-highlights" title="Permalink to this headline">¶</a></h2>
+<table class="colwidths-auto table">
+<thead>
+<tr class="row-odd"><th class="text-align:left head"><p>Topic</p></th>
+<th class="text-align:left head"><p>Pages</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td class="text-align:left"><p><strong>Importing data and summary statistics</strong>. We’ve seen most of this before. The new part is the looking at changes over time, which means <strong>return calculations</strong>.</p></td>
+<td class="text-align:left"><p>205 - 215</p></td>
+</tr>
+<tr class="row-odd"><td class="text-align:left"><p><strong>Resampling</strong>. Resampling is changing the periodicity of the data (i.e. going from daily to monthly to annual)</p></td>
+<td class="text-align:left"><p>215 - 217</p></td>
+</tr>
+<tr class="row-even"><td class="text-align:left"><p><strong>Rolling statistics</strong>. We often want to find moving averages and other statistics over rolling windows (e.g. one month of trading days). Our textbook gives us an example of technical analysis using rolling calculations.</p></td>
+<td class="text-align:left"><p>217 - 222</p></td>
+</tr>
+<tr class="row-odd"><td class="text-align:left"><p><strong>High-frequency data</strong>. Tick-by-tick trade data. We won’t deal too much with this. It’s a whole topic by itself.</p></td>
+<td class="text-align:left"><p>228 - 230</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="section" id="set-up-and-descriptives">
+<h2>Set-up and descriptives<a class="headerlink" href="#set-up-and-descriptives" title="Permalink to this headline">¶</a></h2>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Set-up</span>
+
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
+
+<span class="kn">import</span> <span class="nn">janitor</span>
+<span class="kn">from</span> <span class="nn">janitor</span> <span class="kn">import</span> <span class="n">clean_names</span>
+
+<span class="c1"># This brings in all of matplotlib</span>
+<span class="kn">import</span> <span class="nn">matplotlib</span> <span class="k">as</span> <span class="nn">mpl</span> 
+
+<span class="c1"># This lets us refer to the pyplot part of matplot lib more easily. Just use plt!</span>
+<span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
+
+<span class="c1"># This lets us refer to the pyplot part of matplot lib more easily. Just use plt!</span>
+<span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
+
+<span class="c1"># importing the style package</span>
+<span class="kn">from</span> <span class="nn">matplotlib</span> <span class="kn">import</span> <span class="n">style</span>
+<span class="kn">from</span> <span class="nn">matplotlib.ticker</span> <span class="kn">import</span> <span class="n">StrMethodFormatter</span>
+
+<span class="c1"># Keeps warnings from cluttering up our notebook. </span>
+<span class="kn">import</span> <span class="nn">warnings</span>
+<span class="n">warnings</span><span class="o">.</span><span class="n">filterwarnings</span><span class="p">(</span><span class="s1">&#39;ignore&#39;</span><span class="p">)</span>
+
+<span class="c1"># Some plot options that will apply to the whole workbook</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">style</span><span class="o">.</span><span class="n">use</span><span class="p">(</span><span class="s1">&#39;seaborn&#39;</span><span class="p">)</span>
+<span class="n">mpl</span><span class="o">.</span><span class="n">rcParams</span><span class="p">[</span><span class="s1">&#39;font.family&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="s1">&#39;serif&#39;</span>
+
+
+<span class="c1"># Read in some eod prices</span>
+<span class="n">stocks</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s1">&#39;https://raw.githubusercontent.com/aaiken1/fin-data-analysis-python/main/data/tr_eikon_eod_data.csv&#39;</span><span class="p">,</span>
+                  <span class="n">index_col</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">parse_dates</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>  
+
+<span class="n">stocks</span><span class="o">.</span><span class="n">dropna</span><span class="p">(</span><span class="n">inplace</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>  
+
+<span class="n">stocks</span> <span class="o">=</span> <span class="n">clean_names</span><span class="p">(</span><span class="n">stocks</span><span class="p">)</span>
+
+<span class="n">stocks</span><span class="o">.</span><span class="n">info</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;class &#39;pandas.core.frame.DataFrame&#39;&gt;
+DatetimeIndex: 2138 entries, 2010-01-04 to 2018-06-29
+Data columns (total 12 columns):
+ #   Column  Non-Null Count  Dtype  
+---  ------  --------------  -----  
+ 0   aapl_o  2138 non-null   float64
+ 1   msft_o  2138 non-null   float64
+ 2   intc_o  2138 non-null   float64
+ 3   amzn_o  2138 non-null   float64
+ 4   gs_n    2138 non-null   float64
+ 5   spy     2138 non-null   float64
+ 6   _spx    2138 non-null   float64
+ 7   _vix    2138 non-null   float64
+ 8   eur=    2138 non-null   float64
+ 9   xau=    2138 non-null   float64
+ 10  gdx     2138 non-null   float64
+ 11  gld     2138 non-null   float64
+dtypes: float64(12)
+memory usage: 217.1 KB
+</pre></div>
+</div>
+</div>
+</div>
+<p>Let’s use <code class="docutils literal notranslate"><span class="pre">pandas</span></code> plot to make a quick figure of all of the prices over the time period in our data. Remember, <code class="docutils literal notranslate"><span class="pre">pandas</span></code> has its own plotting functions. They are very useful for quick plots like this.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">stocks</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span> <span class="mi">12</span><span class="p">),</span> <span class="n">subplots</span><span class="o">=</span><span class="kc">True</span><span class="p">);</span>  
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>No handles with labels found to put in legend.
+</pre></div>
+</div>
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>No handles with labels found to put in legend.
+</pre></div>
+</div>
+<img alt="../_images/6_financial_ts_4_2.png" src="../_images/6_financial_ts_4_2.png" />
+</div>
+</div>
+<p>We can use <code class="docutils literal notranslate"><span class="pre">.describe()</span></code> to look at our prices.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">stocks</span><span class="o">.</span><span class="n">describe</span><span class="p">()</span><span class="o">.</span><span class="n">round</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span> 
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>aapl_o</th>
+      <th>msft_o</th>
+      <th>intc_o</th>
+      <th>amzn_o</th>
+      <th>gs_n</th>
+      <th>spy</th>
+      <th>_spx</th>
+      <th>_vix</th>
+      <th>eur=</th>
+      <th>xau=</th>
+      <th>gdx</th>
+      <th>gld</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>count</th>
+      <td>2138.00</td>
+      <td>2138.00</td>
+      <td>2138.00</td>
+      <td>2138.00</td>
+      <td>2138.00</td>
+      <td>2138.00</td>
+      <td>2138.00</td>
+      <td>2138.00</td>
+      <td>2138.00</td>
+      <td>2138.00</td>
+      <td>2138.00</td>
+      <td>2138.00</td>
+    </tr>
+    <tr>
+      <th>mean</th>
+      <td>93.46</td>
+      <td>44.56</td>
+      <td>29.36</td>
+      <td>480.46</td>
+      <td>170.22</td>
+      <td>180.32</td>
+      <td>1802.71</td>
+      <td>17.03</td>
+      <td>1.25</td>
+      <td>1348.91</td>
+      <td>33.57</td>
+      <td>130.09</td>
+    </tr>
+    <tr>
+      <th>std</th>
+      <td>40.55</td>
+      <td>19.53</td>
+      <td>8.17</td>
+      <td>372.31</td>
+      <td>42.48</td>
+      <td>48.19</td>
+      <td>483.34</td>
+      <td>5.88</td>
+      <td>0.11</td>
+      <td>188.21</td>
+      <td>15.17</td>
+      <td>18.78</td>
+    </tr>
+    <tr>
+      <th>min</th>
+      <td>27.44</td>
+      <td>23.01</td>
+      <td>17.66</td>
+      <td>108.61</td>
+      <td>87.70</td>
+      <td>102.20</td>
+      <td>1022.58</td>
+      <td>9.14</td>
+      <td>1.04</td>
+      <td>1051.36</td>
+      <td>12.47</td>
+      <td>100.50</td>
+    </tr>
+    <tr>
+      <th>25%</th>
+      <td>60.29</td>
+      <td>28.57</td>
+      <td>22.51</td>
+      <td>213.60</td>
+      <td>146.61</td>
+      <td>133.99</td>
+      <td>1338.57</td>
+      <td>13.07</td>
+      <td>1.13</td>
+      <td>1222.49</td>
+      <td>22.14</td>
+      <td>117.40</td>
+    </tr>
+    <tr>
+      <th>50%</th>
+      <td>90.55</td>
+      <td>39.66</td>
+      <td>27.33</td>
+      <td>322.06</td>
+      <td>164.43</td>
+      <td>186.32</td>
+      <td>1863.08</td>
+      <td>15.58</td>
+      <td>1.27</td>
+      <td>1292.68</td>
+      <td>25.62</td>
+      <td>124.00</td>
+    </tr>
+    <tr>
+      <th>75%</th>
+      <td>117.24</td>
+      <td>54.37</td>
+      <td>34.71</td>
+      <td>698.85</td>
+      <td>192.13</td>
+      <td>210.99</td>
+      <td>2108.94</td>
+      <td>19.07</td>
+      <td>1.35</td>
+      <td>1427.57</td>
+      <td>48.34</td>
+      <td>139.00</td>
+    </tr>
+    <tr>
+      <th>max</th>
+      <td>193.98</td>
+      <td>102.49</td>
+      <td>57.08</td>
+      <td>1750.08</td>
+      <td>273.38</td>
+      <td>286.58</td>
+      <td>2872.87</td>
+      <td>48.00</td>
+      <td>1.48</td>
+      <td>1897.10</td>
+      <td>66.63</td>
+      <td>184.59</td>
+    </tr>
+  </tbody>
+</table>
+</div></div></div>
+</div>
+<p>We can use <code class="docutils literal notranslate"><span class="pre">.aggregate()</span></code> to create our own set of descriptives.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">stocks</span><span class="o">.</span><span class="n">aggregate</span><span class="p">([</span><span class="nb">min</span><span class="p">,</span>  
+                <span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">,</span>  
+                <span class="n">np</span><span class="o">.</span><span class="n">std</span><span class="p">,</span>  
+                <span class="n">np</span><span class="o">.</span><span class="n">median</span><span class="p">,</span>  
+                <span class="nb">max</span><span class="p">]</span>  
+<span class="p">)</span><span class="o">.</span><span class="n">round</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>aapl_o</th>
+      <th>msft_o</th>
+      <th>intc_o</th>
+      <th>amzn_o</th>
+      <th>gs_n</th>
+      <th>spy</th>
+      <th>_spx</th>
+      <th>_vix</th>
+      <th>eur=</th>
+      <th>xau=</th>
+      <th>gdx</th>
+      <th>gld</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>min</th>
+      <td>27.44</td>
+      <td>23.01</td>
+      <td>17.66</td>
+      <td>108.61</td>
+      <td>87.70</td>
+      <td>102.20</td>
+      <td>1022.58</td>
+      <td>9.14</td>
+      <td>1.04</td>
+      <td>1051.36</td>
+      <td>12.47</td>
+      <td>100.50</td>
+    </tr>
+    <tr>
+      <th>mean</th>
+      <td>93.46</td>
+      <td>44.56</td>
+      <td>29.36</td>
+      <td>480.46</td>
+      <td>170.22</td>
+      <td>180.32</td>
+      <td>1802.71</td>
+      <td>17.03</td>
+      <td>1.25</td>
+      <td>1348.91</td>
+      <td>33.57</td>
+      <td>130.09</td>
+    </tr>
+    <tr>
+      <th>std</th>
+      <td>40.55</td>
+      <td>19.53</td>
+      <td>8.17</td>
+      <td>372.31</td>
+      <td>42.48</td>
+      <td>48.19</td>
+      <td>483.34</td>
+      <td>5.88</td>
+      <td>0.11</td>
+      <td>188.21</td>
+      <td>15.17</td>
+      <td>18.78</td>
+    </tr>
+    <tr>
+      <th>median</th>
+      <td>90.55</td>
+      <td>39.66</td>
+      <td>27.33</td>
+      <td>322.06</td>
+      <td>164.43</td>
+      <td>186.32</td>
+      <td>1863.08</td>
+      <td>15.58</td>
+      <td>1.27</td>
+      <td>1292.68</td>
+      <td>25.62</td>
+      <td>124.00</td>
+    </tr>
+    <tr>
+      <th>max</th>
+      <td>193.98</td>
+      <td>102.49</td>
+      <td>57.08</td>
+      <td>1750.08</td>
+      <td>273.38</td>
+      <td>286.58</td>
+      <td>2872.87</td>
+      <td>48.00</td>
+      <td>1.48</td>
+      <td>1897.10</td>
+      <td>66.63</td>
+      <td>184.59</td>
+    </tr>
+  </tbody>
+</table>
+</div></div></div>
+</div>
+</div>
+<div class="section" id="calculating-returns">
+<h2>Calculating returns<a class="headerlink" href="#calculating-returns" title="Permalink to this headline">¶</a></h2>
+<p>We can start by just calculating the price change from day-to-day using <code class="docutils literal notranslate"><span class="pre">pandas</span></code> <code class="docutils literal notranslate"><span class="pre">diff()</span></code>. This function is described <a class="reference external" href="https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.DataFrame.diff.html">here</a>. Notice how the first day in the data is now NaN, since you can’t calculate a change without the previous day.</p>
+<p>Since there’s no <code class="docutils literal notranslate"><span class="pre">=</span></code>, I am not saving the data. Just showing you what the function does.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">stocks</span><span class="o">.</span><span class="n">diff</span><span class="p">()</span><span class="o">.</span><span class="n">head</span><span class="p">()</span> 
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>aapl_o</th>
+      <th>msft_o</th>
+      <th>intc_o</th>
+      <th>amzn_o</th>
+      <th>gs_n</th>
+      <th>spy</th>
+      <th>_spx</th>
+      <th>_vix</th>
+      <th>eur=</th>
+      <th>xau=</th>
+      <th>gdx</th>
+      <th>gld</th>
+    </tr>
+    <tr>
+      <th>Date</th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>2010-01-04</th>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+    </tr>
+    <tr>
+      <th>2010-01-05</th>
+      <td>0.052857</td>
+      <td>0.010</td>
+      <td>-0.01</td>
+      <td>0.79</td>
+      <td>3.06</td>
+      <td>0.30</td>
+      <td>3.53</td>
+      <td>-0.69</td>
+      <td>-0.0043</td>
+      <td>-1.35</td>
+      <td>0.46</td>
+      <td>-0.10</td>
+    </tr>
+    <tr>
+      <th>2010-01-06</th>
+      <td>-0.487142</td>
+      <td>-0.190</td>
+      <td>-0.07</td>
+      <td>-2.44</td>
+      <td>-1.88</td>
+      <td>0.08</td>
+      <td>0.62</td>
+      <td>-0.19</td>
+      <td>0.0044</td>
+      <td>19.85</td>
+      <td>1.17</td>
+      <td>1.81</td>
+    </tr>
+    <tr>
+      <th>2010-01-07</th>
+      <td>-0.055714</td>
+      <td>-0.318</td>
+      <td>-0.20</td>
+      <td>-2.25</td>
+      <td>3.41</td>
+      <td>0.48</td>
+      <td>4.55</td>
+      <td>-0.10</td>
+      <td>-0.0094</td>
+      <td>-6.60</td>
+      <td>-0.24</td>
+      <td>-0.69</td>
+    </tr>
+    <tr>
+      <th>2010-01-08</th>
+      <td>0.200000</td>
+      <td>0.208</td>
+      <td>0.23</td>
+      <td>3.52</td>
+      <td>-3.36</td>
+      <td>0.38</td>
+      <td>3.29</td>
+      <td>-0.93</td>
+      <td>0.0094</td>
+      <td>4.20</td>
+      <td>0.74</td>
+      <td>0.55</td>
+    </tr>
+  </tbody>
+</table>
+</div></div></div>
+</div>
+<p>Sometimes we want price changes. Other times we want <code class="docutils literal notranslate"><span class="pre">pandas</span></code> <code class="docutils literal notranslate"><span class="pre">pct_change()</span></code>. See <a class="reference external" href="https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.DataFrame.pct_change.html">this for more</a>. This function allows us to calculate price returns using the percent change. The default is to look back one period, or one day in this case.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">stocks</span><span class="o">.</span><span class="n">pct_change</span><span class="p">()</span><span class="o">.</span><span class="n">round</span><span class="p">(</span><span class="mi">3</span><span class="p">)</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>  
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>aapl_o</th>
+      <th>msft_o</th>
+      <th>intc_o</th>
+      <th>amzn_o</th>
+      <th>gs_n</th>
+      <th>spy</th>
+      <th>_spx</th>
+      <th>_vix</th>
+      <th>eur=</th>
+      <th>xau=</th>
+      <th>gdx</th>
+      <th>gld</th>
+    </tr>
+    <tr>
+      <th>Date</th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>2010-01-04</th>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+    </tr>
+    <tr>
+      <th>2010-01-05</th>
+      <td>0.002</td>
+      <td>0.000</td>
+      <td>-0.000</td>
+      <td>0.006</td>
+      <td>0.018</td>
+      <td>0.003</td>
+      <td>0.003</td>
+      <td>-0.034</td>
+      <td>-0.003</td>
+      <td>-0.001</td>
+      <td>0.010</td>
+      <td>-0.001</td>
+    </tr>
+    <tr>
+      <th>2010-01-06</th>
+      <td>-0.016</td>
+      <td>-0.006</td>
+      <td>-0.003</td>
+      <td>-0.018</td>
+      <td>-0.011</td>
+      <td>0.001</td>
+      <td>0.001</td>
+      <td>-0.010</td>
+      <td>0.003</td>
+      <td>0.018</td>
+      <td>0.024</td>
+      <td>0.016</td>
+    </tr>
+    <tr>
+      <th>2010-01-07</th>
+      <td>-0.002</td>
+      <td>-0.010</td>
+      <td>-0.010</td>
+      <td>-0.017</td>
+      <td>0.020</td>
+      <td>0.004</td>
+      <td>0.004</td>
+      <td>-0.005</td>
+      <td>-0.007</td>
+      <td>-0.006</td>
+      <td>-0.005</td>
+      <td>-0.006</td>
+    </tr>
+    <tr>
+      <th>2010-01-08</th>
+      <td>0.007</td>
+      <td>0.007</td>
+      <td>0.011</td>
+      <td>0.027</td>
+      <td>-0.019</td>
+      <td>0.003</td>
+      <td>0.003</td>
+      <td>-0.049</td>
+      <td>0.007</td>
+      <td>0.004</td>
+      <td>0.015</td>
+      <td>0.005</td>
+    </tr>
+  </tbody>
+</table>
+</div></div></div>
+</div>
+<p>The percent change is called a <strong>linear return</strong>. Or, <strong>simple return</strong>. This is different from <strong>log returns</strong>, or <strong>compounded returns</strong>. Both types of returns are correct and useful. They are just used for different things.</p>
+<p>The formula for linear returns is:</p>
+<p>$R_t = \frac{V_t}{V_{t-1}} - 1$,</p>
+<p>where $R$  is the return and $V$ is the cash flow, including price and dividends (if any).</p>
+<p>The formula for log returns is:</p>
+<p>$R_t = ln(\frac{V_t}{V_{t-1}})$</p>
+<p>See <a class="reference external" href="https://papers.ssrn.com/sol3/papers.cfm?abstract_id=1586656">this article</a> for more on why this difference is important. In short, we need the mean of simple returns when doing portfolio optimization, as these returns work with a weighted average. Simple returns <strong>aggregate across assets</strong>. Log returns, however, <strong>aggregate across time</strong>. In other words, the cumulative return using log returns is the sum of individual log returns over the time period. You definitely can’t do that with simple returns!</p>
+<p>Here’s a <a class="reference external" href="https://www.youtube.com/watch?v=PtoUlt3V0CI">brief video</a> that describes the same thing using Excel.</p>
+<p>We can calculate log returns using <code class="docutils literal notranslate"><span class="pre">np.log</span></code> and <code class="docutils literal notranslate"><span class="pre">.shift()</span></code> from <code class="docutils literal notranslate"><span class="pre">pandas</span></code>. Let’s look at what <code class="docutils literal notranslate"><span class="pre">.shift()</span></code> does. Compare the following:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">stocks</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>aapl_o</th>
+      <th>msft_o</th>
+      <th>intc_o</th>
+      <th>amzn_o</th>
+      <th>gs_n</th>
+      <th>spy</th>
+      <th>_spx</th>
+      <th>_vix</th>
+      <th>eur=</th>
+      <th>xau=</th>
+      <th>gdx</th>
+      <th>gld</th>
+    </tr>
+    <tr>
+      <th>Date</th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>2010-01-04</th>
+      <td>30.572827</td>
+      <td>30.950</td>
+      <td>20.88</td>
+      <td>133.90</td>
+      <td>173.08</td>
+      <td>113.33</td>
+      <td>1132.99</td>
+      <td>20.04</td>
+      <td>1.4411</td>
+      <td>1120.00</td>
+      <td>47.71</td>
+      <td>109.80</td>
+    </tr>
+    <tr>
+      <th>2010-01-05</th>
+      <td>30.625684</td>
+      <td>30.960</td>
+      <td>20.87</td>
+      <td>134.69</td>
+      <td>176.14</td>
+      <td>113.63</td>
+      <td>1136.52</td>
+      <td>19.35</td>
+      <td>1.4368</td>
+      <td>1118.65</td>
+      <td>48.17</td>
+      <td>109.70</td>
+    </tr>
+    <tr>
+      <th>2010-01-06</th>
+      <td>30.138541</td>
+      <td>30.770</td>
+      <td>20.80</td>
+      <td>132.25</td>
+      <td>174.26</td>
+      <td>113.71</td>
+      <td>1137.14</td>
+      <td>19.16</td>
+      <td>1.4412</td>
+      <td>1138.50</td>
+      <td>49.34</td>
+      <td>111.51</td>
+    </tr>
+    <tr>
+      <th>2010-01-07</th>
+      <td>30.082827</td>
+      <td>30.452</td>
+      <td>20.60</td>
+      <td>130.00</td>
+      <td>177.67</td>
+      <td>114.19</td>
+      <td>1141.69</td>
+      <td>19.06</td>
+      <td>1.4318</td>
+      <td>1131.90</td>
+      <td>49.10</td>
+      <td>110.82</td>
+    </tr>
+    <tr>
+      <th>2010-01-08</th>
+      <td>30.282827</td>
+      <td>30.660</td>
+      <td>20.83</td>
+      <td>133.52</td>
+      <td>174.31</td>
+      <td>114.57</td>
+      <td>1144.98</td>
+      <td>18.13</td>
+      <td>1.4412</td>
+      <td>1136.10</td>
+      <td>49.84</td>
+      <td>111.37</td>
+    </tr>
+    <tr>
+      <th>...</th>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+    </tr>
+    <tr>
+      <th>2018-06-25</th>
+      <td>182.170000</td>
+      <td>98.390</td>
+      <td>50.71</td>
+      <td>1663.15</td>
+      <td>221.54</td>
+      <td>271.00</td>
+      <td>2717.07</td>
+      <td>17.33</td>
+      <td>1.1702</td>
+      <td>1265.00</td>
+      <td>22.01</td>
+      <td>119.89</td>
+    </tr>
+    <tr>
+      <th>2018-06-26</th>
+      <td>184.430000</td>
+      <td>99.080</td>
+      <td>49.67</td>
+      <td>1691.09</td>
+      <td>221.58</td>
+      <td>271.60</td>
+      <td>2723.06</td>
+      <td>15.92</td>
+      <td>1.1645</td>
+      <td>1258.64</td>
+      <td>21.95</td>
+      <td>119.26</td>
+    </tr>
+    <tr>
+      <th>2018-06-27</th>
+      <td>184.160000</td>
+      <td>97.540</td>
+      <td>48.76</td>
+      <td>1660.51</td>
+      <td>220.18</td>
+      <td>269.35</td>
+      <td>2699.63</td>
+      <td>17.91</td>
+      <td>1.1552</td>
+      <td>1251.62</td>
+      <td>21.81</td>
+      <td>118.58</td>
+    </tr>
+    <tr>
+      <th>2018-06-28</th>
+      <td>185.500000</td>
+      <td>98.630</td>
+      <td>49.25</td>
+      <td>1701.45</td>
+      <td>223.42</td>
+      <td>270.89</td>
+      <td>2716.31</td>
+      <td>16.85</td>
+      <td>1.1567</td>
+      <td>1247.88</td>
+      <td>21.93</td>
+      <td>118.22</td>
+    </tr>
+    <tr>
+      <th>2018-06-29</th>
+      <td>185.110000</td>
+      <td>98.610</td>
+      <td>49.71</td>
+      <td>1699.80</td>
+      <td>220.57</td>
+      <td>271.28</td>
+      <td>2718.37</td>
+      <td>16.09</td>
+      <td>1.1683</td>
+      <td>1252.25</td>
+      <td>22.31</td>
+      <td>118.65</td>
+    </tr>
+  </tbody>
+</table>
+<p>2138 rows × 12 columns</p>
+</div></div></div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">stocks</span><span class="o">.</span><span class="n">shift</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>aapl_o</th>
+      <th>msft_o</th>
+      <th>intc_o</th>
+      <th>amzn_o</th>
+      <th>gs_n</th>
+      <th>spy</th>
+      <th>_spx</th>
+      <th>_vix</th>
+      <th>eur=</th>
+      <th>xau=</th>
+      <th>gdx</th>
+      <th>gld</th>
+    </tr>
+    <tr>
+      <th>Date</th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>2010-01-04</th>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+    </tr>
+    <tr>
+      <th>2010-01-05</th>
+      <td>30.572827</td>
+      <td>30.950</td>
+      <td>20.88</td>
+      <td>133.90</td>
+      <td>173.08</td>
+      <td>113.33</td>
+      <td>1132.99</td>
+      <td>20.04</td>
+      <td>1.4411</td>
+      <td>1120.00</td>
+      <td>47.71</td>
+      <td>109.80</td>
+    </tr>
+    <tr>
+      <th>2010-01-06</th>
+      <td>30.625684</td>
+      <td>30.960</td>
+      <td>20.87</td>
+      <td>134.69</td>
+      <td>176.14</td>
+      <td>113.63</td>
+      <td>1136.52</td>
+      <td>19.35</td>
+      <td>1.4368</td>
+      <td>1118.65</td>
+      <td>48.17</td>
+      <td>109.70</td>
+    </tr>
+    <tr>
+      <th>2010-01-07</th>
+      <td>30.138541</td>
+      <td>30.770</td>
+      <td>20.80</td>
+      <td>132.25</td>
+      <td>174.26</td>
+      <td>113.71</td>
+      <td>1137.14</td>
+      <td>19.16</td>
+      <td>1.4412</td>
+      <td>1138.50</td>
+      <td>49.34</td>
+      <td>111.51</td>
+    </tr>
+    <tr>
+      <th>2010-01-08</th>
+      <td>30.082827</td>
+      <td>30.452</td>
+      <td>20.60</td>
+      <td>130.00</td>
+      <td>177.67</td>
+      <td>114.19</td>
+      <td>1141.69</td>
+      <td>19.06</td>
+      <td>1.4318</td>
+      <td>1131.90</td>
+      <td>49.10</td>
+      <td>110.82</td>
+    </tr>
+    <tr>
+      <th>...</th>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+    </tr>
+    <tr>
+      <th>2018-06-25</th>
+      <td>184.920000</td>
+      <td>100.410</td>
+      <td>52.50</td>
+      <td>1715.67</td>
+      <td>226.02</td>
+      <td>274.74</td>
+      <td>2754.88</td>
+      <td>13.77</td>
+      <td>1.1655</td>
+      <td>1268.49</td>
+      <td>22.18</td>
+      <td>120.34</td>
+    </tr>
+    <tr>
+      <th>2018-06-26</th>
+      <td>182.170000</td>
+      <td>98.390</td>
+      <td>50.71</td>
+      <td>1663.15</td>
+      <td>221.54</td>
+      <td>271.00</td>
+      <td>2717.07</td>
+      <td>17.33</td>
+      <td>1.1702</td>
+      <td>1265.00</td>
+      <td>22.01</td>
+      <td>119.89</td>
+    </tr>
+    <tr>
+      <th>2018-06-27</th>
+      <td>184.430000</td>
+      <td>99.080</td>
+      <td>49.67</td>
+      <td>1691.09</td>
+      <td>221.58</td>
+      <td>271.60</td>
+      <td>2723.06</td>
+      <td>15.92</td>
+      <td>1.1645</td>
+      <td>1258.64</td>
+      <td>21.95</td>
+      <td>119.26</td>
+    </tr>
+    <tr>
+      <th>2018-06-28</th>
+      <td>184.160000</td>
+      <td>97.540</td>
+      <td>48.76</td>
+      <td>1660.51</td>
+      <td>220.18</td>
+      <td>269.35</td>
+      <td>2699.63</td>
+      <td>17.91</td>
+      <td>1.1552</td>
+      <td>1251.62</td>
+      <td>21.81</td>
+      <td>118.58</td>
+    </tr>
+    <tr>
+      <th>2018-06-29</th>
+      <td>185.500000</td>
+      <td>98.630</td>
+      <td>49.25</td>
+      <td>1701.45</td>
+      <td>223.42</td>
+      <td>270.89</td>
+      <td>2716.31</td>
+      <td>16.85</td>
+      <td>1.1567</td>
+      <td>1247.88</td>
+      <td>21.93</td>
+      <td>118.22</td>
+    </tr>
+  </tbody>
+</table>
+<p>2138 rows × 12 columns</p>
+</div></div></div>
+</div>
+<p><code class="docutils literal notranslate"><span class="pre">stocks.shift(1)</span></code> has moved the previous price up one row. So, by dividing by this, we are dividing today’s price by yesterday’s price.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">rets</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">log</span><span class="p">(</span><span class="n">stocks</span> <span class="o">/</span> <span class="n">stocks</span><span class="o">.</span><span class="n">shift</span><span class="p">(</span><span class="mi">1</span><span class="p">))</span>  
+<span class="n">rets</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>aapl_o</th>
+      <th>msft_o</th>
+      <th>intc_o</th>
+      <th>amzn_o</th>
+      <th>gs_n</th>
+      <th>spy</th>
+      <th>_spx</th>
+      <th>_vix</th>
+      <th>eur=</th>
+      <th>xau=</th>
+      <th>gdx</th>
+      <th>gld</th>
+    </tr>
+    <tr>
+      <th>Date</th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>2010-01-04</th>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+    </tr>
+    <tr>
+      <th>2010-01-05</th>
+      <td>0.001727</td>
+      <td>0.000323</td>
+      <td>-0.000479</td>
+      <td>0.005883</td>
+      <td>0.017525</td>
+      <td>0.002644</td>
+      <td>0.003111</td>
+      <td>-0.035038</td>
+      <td>-0.002988</td>
+      <td>-0.001206</td>
+      <td>0.009595</td>
+      <td>-0.000911</td>
+    </tr>
+    <tr>
+      <th>2010-01-06</th>
+      <td>-0.016034</td>
+      <td>-0.006156</td>
+      <td>-0.003360</td>
+      <td>-0.018282</td>
+      <td>-0.010731</td>
+      <td>0.000704</td>
+      <td>0.000545</td>
+      <td>-0.009868</td>
+      <td>0.003058</td>
+      <td>0.017589</td>
+      <td>0.023999</td>
+      <td>0.016365</td>
+    </tr>
+    <tr>
+      <th>2010-01-07</th>
+      <td>-0.001850</td>
+      <td>-0.010389</td>
+      <td>-0.009662</td>
+      <td>-0.017160</td>
+      <td>0.019379</td>
+      <td>0.004212</td>
+      <td>0.003993</td>
+      <td>-0.005233</td>
+      <td>-0.006544</td>
+      <td>-0.005814</td>
+      <td>-0.004876</td>
+      <td>-0.006207</td>
+    </tr>
+    <tr>
+      <th>2010-01-08</th>
+      <td>0.006626</td>
+      <td>0.006807</td>
+      <td>0.011103</td>
+      <td>0.026717</td>
+      <td>-0.019093</td>
+      <td>0.003322</td>
+      <td>0.002878</td>
+      <td>-0.050024</td>
+      <td>0.006544</td>
+      <td>0.003704</td>
+      <td>0.014959</td>
+      <td>0.004951</td>
+    </tr>
+    <tr>
+      <th>...</th>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+    </tr>
+    <tr>
+      <th>2018-06-25</th>
+      <td>-0.014983</td>
+      <td>-0.020323</td>
+      <td>-0.034690</td>
+      <td>-0.031090</td>
+      <td>-0.020020</td>
+      <td>-0.013706</td>
+      <td>-0.013820</td>
+      <td>0.229947</td>
+      <td>0.004024</td>
+      <td>-0.002755</td>
+      <td>-0.007694</td>
+      <td>-0.003746</td>
+    </tr>
+    <tr>
+      <th>2018-06-26</th>
+      <td>0.012330</td>
+      <td>0.006988</td>
+      <td>-0.020722</td>
+      <td>0.016660</td>
+      <td>0.000181</td>
+      <td>0.002212</td>
+      <td>0.002202</td>
+      <td>-0.084863</td>
+      <td>-0.004883</td>
+      <td>-0.005040</td>
+      <td>-0.002730</td>
+      <td>-0.005269</td>
+    </tr>
+    <tr>
+      <th>2018-06-27</th>
+      <td>-0.001465</td>
+      <td>-0.015665</td>
+      <td>-0.018491</td>
+      <td>-0.018249</td>
+      <td>-0.006338</td>
+      <td>-0.008319</td>
+      <td>-0.008642</td>
+      <td>0.117783</td>
+      <td>-0.008018</td>
+      <td>-0.005593</td>
+      <td>-0.006399</td>
+      <td>-0.005718</td>
+    </tr>
+    <tr>
+      <th>2018-06-28</th>
+      <td>0.007250</td>
+      <td>0.011113</td>
+      <td>0.009999</td>
+      <td>0.024356</td>
+      <td>0.014608</td>
+      <td>0.005701</td>
+      <td>0.006160</td>
+      <td>-0.061009</td>
+      <td>0.001298</td>
+      <td>-0.002993</td>
+      <td>0.005487</td>
+      <td>-0.003041</td>
+    </tr>
+    <tr>
+      <th>2018-06-29</th>
+      <td>-0.002105</td>
+      <td>-0.000203</td>
+      <td>0.009297</td>
+      <td>-0.000970</td>
+      <td>-0.012838</td>
+      <td>0.001439</td>
+      <td>0.000758</td>
+      <td>-0.046153</td>
+      <td>0.009979</td>
+      <td>0.003496</td>
+      <td>0.017179</td>
+      <td>0.003631</td>
+    </tr>
+  </tbody>
+</table>
+<p>2138 rows × 12 columns</p>
+</div></div></div>
+</div>
+<p>We can then use the fact that you can sum up log returns over time to get <strong>cumulative</strong>, or <strong>total</strong> returns. First, you can use the <code class="docutils literal notranslate"><span class="pre">.cumsum()</span></code> function from <code class="docutils literal notranslate"><span class="pre">pandas</span></code> to transform our daily returns into a cumulative sum. In other words, each period is now the sum of all returns in the previous periods.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">rets</span><span class="o">.</span><span class="n">cumsum</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>aapl_o</th>
+      <th>msft_o</th>
+      <th>intc_o</th>
+      <th>amzn_o</th>
+      <th>gs_n</th>
+      <th>spy</th>
+      <th>_spx</th>
+      <th>_vix</th>
+      <th>eur=</th>
+      <th>xau=</th>
+      <th>gdx</th>
+      <th>gld</th>
+    </tr>
+    <tr>
+      <th>Date</th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>2010-01-04</th>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+    </tr>
+    <tr>
+      <th>2010-01-05</th>
+      <td>0.001727</td>
+      <td>0.000323</td>
+      <td>-0.000479</td>
+      <td>0.005883</td>
+      <td>0.017525</td>
+      <td>0.002644</td>
+      <td>0.003111</td>
+      <td>-0.035038</td>
+      <td>-0.002988</td>
+      <td>-0.001206</td>
+      <td>0.009595</td>
+      <td>-0.000911</td>
+    </tr>
+    <tr>
+      <th>2010-01-06</th>
+      <td>-0.014307</td>
+      <td>-0.005833</td>
+      <td>-0.003839</td>
+      <td>-0.012399</td>
+      <td>0.006795</td>
+      <td>0.003347</td>
+      <td>0.003656</td>
+      <td>-0.044906</td>
+      <td>0.000069</td>
+      <td>0.016383</td>
+      <td>0.033594</td>
+      <td>0.015454</td>
+    </tr>
+    <tr>
+      <th>2010-01-07</th>
+      <td>-0.016157</td>
+      <td>-0.016221</td>
+      <td>-0.013501</td>
+      <td>-0.029559</td>
+      <td>0.026174</td>
+      <td>0.007560</td>
+      <td>0.007649</td>
+      <td>-0.050138</td>
+      <td>-0.006474</td>
+      <td>0.010569</td>
+      <td>0.028718</td>
+      <td>0.009247</td>
+    </tr>
+    <tr>
+      <th>2010-01-08</th>
+      <td>-0.009531</td>
+      <td>-0.009414</td>
+      <td>-0.002398</td>
+      <td>-0.002842</td>
+      <td>0.007081</td>
+      <td>0.010882</td>
+      <td>0.010527</td>
+      <td>-0.100162</td>
+      <td>0.000069</td>
+      <td>0.014273</td>
+      <td>0.043677</td>
+      <td>0.014197</td>
+    </tr>
+    <tr>
+      <th>...</th>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+    </tr>
+    <tr>
+      <th>2018-06-25</th>
+      <td>1.784829</td>
+      <td>1.156566</td>
+      <td>0.887331</td>
+      <td>2.519375</td>
+      <td>0.246849</td>
+      <td>0.871815</td>
+      <td>0.874694</td>
+      <td>-0.145291</td>
+      <td>-0.208232</td>
+      <td>0.121743</td>
+      <td>-0.773644</td>
+      <td>0.087914</td>
+    </tr>
+    <tr>
+      <th>2018-06-26</th>
+      <td>1.797158</td>
+      <td>1.163555</td>
+      <td>0.866609</td>
+      <td>2.536035</td>
+      <td>0.247030</td>
+      <td>0.874026</td>
+      <td>0.876896</td>
+      <td>-0.230154</td>
+      <td>-0.213115</td>
+      <td>0.116703</td>
+      <td>-0.776374</td>
+      <td>0.082645</td>
+    </tr>
+    <tr>
+      <th>2018-06-27</th>
+      <td>1.795693</td>
+      <td>1.147890</td>
+      <td>0.848119</td>
+      <td>2.517787</td>
+      <td>0.240691</td>
+      <td>0.865708</td>
+      <td>0.868255</td>
+      <td>-0.112371</td>
+      <td>-0.221133</td>
+      <td>0.111110</td>
+      <td>-0.782772</td>
+      <td>0.076927</td>
+    </tr>
+    <tr>
+      <th>2018-06-28</th>
+      <td>1.802943</td>
+      <td>1.159002</td>
+      <td>0.858118</td>
+      <td>2.542143</td>
+      <td>0.255299</td>
+      <td>0.871409</td>
+      <td>0.874414</td>
+      <td>-0.173380</td>
+      <td>-0.219836</td>
+      <td>0.108117</td>
+      <td>-0.777285</td>
+      <td>0.073887</td>
+    </tr>
+    <tr>
+      <th>2018-06-29</th>
+      <td>1.800839</td>
+      <td>1.158800</td>
+      <td>0.867414</td>
+      <td>2.541173</td>
+      <td>0.242461</td>
+      <td>0.872848</td>
+      <td>0.875172</td>
+      <td>-0.219532</td>
+      <td>-0.209857</td>
+      <td>0.111613</td>
+      <td>-0.760106</td>
+      <td>0.077517</td>
+    </tr>
+  </tbody>
+</table>
+<p>2138 rows × 12 columns</p>
+</div></div></div>
+</div>
+<p>If you take the cumulative sum of log returns (R) at any point and do $e^{R}$, then you get the value of $1 invested at the beginning. We can use <code class="docutils literal notranslate"><span class="pre">.apply()</span></code> to “apply” the exponential function <em>e</em> to each value in the DataFrame.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">rets</span><span class="o">.</span><span class="n">cumsum</span><span class="p">()</span><span class="o">.</span><span class="n">apply</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">exp</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>aapl_o</th>
+      <th>msft_o</th>
+      <th>intc_o</th>
+      <th>amzn_o</th>
+      <th>gs_n</th>
+      <th>spy</th>
+      <th>_spx</th>
+      <th>_vix</th>
+      <th>eur=</th>
+      <th>xau=</th>
+      <th>gdx</th>
+      <th>gld</th>
+    </tr>
+    <tr>
+      <th>Date</th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>2010-01-04</th>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+    </tr>
+    <tr>
+      <th>2010-01-05</th>
+      <td>1.001729</td>
+      <td>1.000323</td>
+      <td>0.999521</td>
+      <td>1.005900</td>
+      <td>1.017680</td>
+      <td>1.002647</td>
+      <td>1.003116</td>
+      <td>0.965569</td>
+      <td>0.997016</td>
+      <td>0.998795</td>
+      <td>1.009642</td>
+      <td>0.999089</td>
+    </tr>
+    <tr>
+      <th>2010-01-06</th>
+      <td>0.985795</td>
+      <td>0.994184</td>
+      <td>0.996169</td>
+      <td>0.987677</td>
+      <td>1.006818</td>
+      <td>1.003353</td>
+      <td>1.003663</td>
+      <td>0.956088</td>
+      <td>1.000069</td>
+      <td>1.016518</td>
+      <td>1.034165</td>
+      <td>1.015574</td>
+    </tr>
+    <tr>
+      <th>2010-01-07</th>
+      <td>0.983973</td>
+      <td>0.983910</td>
+      <td>0.986590</td>
+      <td>0.970874</td>
+      <td>1.026520</td>
+      <td>1.007588</td>
+      <td>1.007679</td>
+      <td>0.951098</td>
+      <td>0.993547</td>
+      <td>1.010625</td>
+      <td>1.029134</td>
+      <td>1.009290</td>
+    </tr>
+    <tr>
+      <th>2010-01-08</th>
+      <td>0.990514</td>
+      <td>0.990630</td>
+      <td>0.997605</td>
+      <td>0.997162</td>
+      <td>1.007107</td>
+      <td>1.010941</td>
+      <td>1.010583</td>
+      <td>0.904691</td>
+      <td>1.000069</td>
+      <td>1.014375</td>
+      <td>1.044645</td>
+      <td>1.014299</td>
+    </tr>
+    <tr>
+      <th>...</th>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+    </tr>
+    <tr>
+      <th>2018-06-25</th>
+      <td>5.958559</td>
+      <td>3.178998</td>
+      <td>2.428640</td>
+      <td>12.420836</td>
+      <td>1.279986</td>
+      <td>2.391247</td>
+      <td>2.398141</td>
+      <td>0.864770</td>
+      <td>0.812019</td>
+      <td>1.129464</td>
+      <td>0.461329</td>
+      <td>1.091894</td>
+    </tr>
+    <tr>
+      <th>2018-06-26</th>
+      <td>6.032481</td>
+      <td>3.201292</td>
+      <td>2.378831</td>
+      <td>12.629500</td>
+      <td>1.280217</td>
+      <td>2.396541</td>
+      <td>2.403428</td>
+      <td>0.794411</td>
+      <td>0.808063</td>
+      <td>1.123786</td>
+      <td>0.460071</td>
+      <td>1.086157</td>
+    </tr>
+    <tr>
+      <th>2018-06-27</th>
+      <td>6.023650</td>
+      <td>3.151535</td>
+      <td>2.335249</td>
+      <td>12.401120</td>
+      <td>1.272128</td>
+      <td>2.376688</td>
+      <td>2.382748</td>
+      <td>0.893713</td>
+      <td>0.801610</td>
+      <td>1.117518</td>
+      <td>0.457137</td>
+      <td>1.079964</td>
+    </tr>
+    <tr>
+      <th>2018-06-28</th>
+      <td>6.067480</td>
+      <td>3.186753</td>
+      <td>2.358716</td>
+      <td>12.706871</td>
+      <td>1.290848</td>
+      <td>2.390276</td>
+      <td>2.397470</td>
+      <td>0.840818</td>
+      <td>0.802651</td>
+      <td>1.114179</td>
+      <td>0.459652</td>
+      <td>1.076685</td>
+    </tr>
+    <tr>
+      <th>2018-06-29</th>
+      <td>6.054723</td>
+      <td>3.186107</td>
+      <td>2.380747</td>
+      <td>12.694548</td>
+      <td>1.274382</td>
+      <td>2.393717</td>
+      <td>2.399289</td>
+      <td>0.802894</td>
+      <td>0.810700</td>
+      <td>1.118080</td>
+      <td>0.467617</td>
+      <td>1.080601</td>
+    </tr>
+  </tbody>
+</table>
+<p>2138 rows × 12 columns</p>
+</div></div></div>
+</div>
+<p>You can then plot the cumulative returns. Notice how we use the <code class="docutils literal notranslate"><span class="pre">.</span></code> to keep sending the DataFrame through to the next step. Take the raw data, do something to it, do something else to that result, and then plot it.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">rets</span><span class="o">.</span><span class="n">cumsum</span><span class="p">()</span><span class="o">.</span><span class="n">apply</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">exp</span><span class="p">)</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span> <span class="mi">6</span><span class="p">));</span>  
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../_images/6_financial_ts_23_0.png" src="../_images/6_financial_ts_23_0.png" />
+</div>
+</div>
+</div>
+<div class="section" id="resampling">
+<h2>Resampling<a class="headerlink" href="#resampling" title="Permalink to this headline">¶</a></h2>
+<p>Resampling is when you change the time period that you’re looking at. So, you can go from daily to weekly to monthly, etc.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">stocks</span><span class="o">.</span><span class="n">resample</span><span class="p">(</span><span class="s1">&#39;1w&#39;</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;right&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">last</span><span class="p">()</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>  
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>aapl_o</th>
+      <th>msft_o</th>
+      <th>intc_o</th>
+      <th>amzn_o</th>
+      <th>gs_n</th>
+      <th>spy</th>
+      <th>_spx</th>
+      <th>_vix</th>
+      <th>eur=</th>
+      <th>xau=</th>
+      <th>gdx</th>
+      <th>gld</th>
+    </tr>
+    <tr>
+      <th>Date</th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>2010-01-10</th>
+      <td>30.282827</td>
+      <td>30.66</td>
+      <td>20.83</td>
+      <td>133.52</td>
+      <td>174.31</td>
+      <td>114.57</td>
+      <td>1144.98</td>
+      <td>18.13</td>
+      <td>1.4412</td>
+      <td>1136.10</td>
+      <td>49.84</td>
+      <td>111.37</td>
+    </tr>
+    <tr>
+      <th>2010-01-17</th>
+      <td>29.418542</td>
+      <td>30.86</td>
+      <td>20.80</td>
+      <td>127.14</td>
+      <td>165.21</td>
+      <td>113.64</td>
+      <td>1136.03</td>
+      <td>17.91</td>
+      <td>1.4382</td>
+      <td>1129.90</td>
+      <td>47.42</td>
+      <td>110.86</td>
+    </tr>
+    <tr>
+      <th>2010-01-24</th>
+      <td>28.249972</td>
+      <td>28.96</td>
+      <td>19.91</td>
+      <td>121.43</td>
+      <td>154.12</td>
+      <td>109.21</td>
+      <td>1091.76</td>
+      <td>27.31</td>
+      <td>1.4137</td>
+      <td>1092.60</td>
+      <td>43.79</td>
+      <td>107.17</td>
+    </tr>
+    <tr>
+      <th>2010-01-31</th>
+      <td>27.437544</td>
+      <td>28.18</td>
+      <td>19.40</td>
+      <td>125.41</td>
+      <td>148.72</td>
+      <td>107.39</td>
+      <td>1073.87</td>
+      <td>24.62</td>
+      <td>1.3862</td>
+      <td>1081.05</td>
+      <td>40.72</td>
+      <td>105.96</td>
+    </tr>
+    <tr>
+      <th>2010-02-07</th>
+      <td>27.922829</td>
+      <td>28.02</td>
+      <td>19.47</td>
+      <td>117.39</td>
+      <td>154.16</td>
+      <td>106.66</td>
+      <td>1066.19</td>
+      <td>26.11</td>
+      <td>1.3662</td>
+      <td>1064.95</td>
+      <td>42.41</td>
+      <td>104.68</td>
+    </tr>
+  </tbody>
+</table>
+</div></div></div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">stocks</span><span class="o">.</span><span class="n">resample</span><span class="p">(</span><span class="s1">&#39;1m&#39;</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;right&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">last</span><span class="p">()</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>  
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>aapl_o</th>
+      <th>msft_o</th>
+      <th>intc_o</th>
+      <th>amzn_o</th>
+      <th>gs_n</th>
+      <th>spy</th>
+      <th>_spx</th>
+      <th>_vix</th>
+      <th>eur=</th>
+      <th>xau=</th>
+      <th>gdx</th>
+      <th>gld</th>
+    </tr>
+    <tr>
+      <th>Date</th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>2010-01-31</th>
+      <td>27.437544</td>
+      <td>28.1800</td>
+      <td>19.40</td>
+      <td>125.41</td>
+      <td>148.72</td>
+      <td>107.3900</td>
+      <td>1073.87</td>
+      <td>24.62</td>
+      <td>1.3862</td>
+      <td>1081.05</td>
+      <td>40.72</td>
+      <td>105.960</td>
+    </tr>
+    <tr>
+      <th>2010-02-28</th>
+      <td>29.231399</td>
+      <td>28.6700</td>
+      <td>20.53</td>
+      <td>118.40</td>
+      <td>156.35</td>
+      <td>110.7400</td>
+      <td>1104.49</td>
+      <td>19.50</td>
+      <td>1.3625</td>
+      <td>1116.10</td>
+      <td>43.89</td>
+      <td>109.430</td>
+    </tr>
+    <tr>
+      <th>2010-03-31</th>
+      <td>33.571395</td>
+      <td>29.2875</td>
+      <td>22.29</td>
+      <td>135.77</td>
+      <td>170.63</td>
+      <td>117.0000</td>
+      <td>1169.43</td>
+      <td>17.59</td>
+      <td>1.3510</td>
+      <td>1112.80</td>
+      <td>44.41</td>
+      <td>108.950</td>
+    </tr>
+    <tr>
+      <th>2010-04-30</th>
+      <td>37.298534</td>
+      <td>30.5350</td>
+      <td>22.84</td>
+      <td>137.10</td>
+      <td>145.20</td>
+      <td>118.8125</td>
+      <td>1186.69</td>
+      <td>22.05</td>
+      <td>1.3295</td>
+      <td>1178.25</td>
+      <td>50.51</td>
+      <td>115.360</td>
+    </tr>
+    <tr>
+      <th>2010-05-31</th>
+      <td>36.697106</td>
+      <td>25.8000</td>
+      <td>21.42</td>
+      <td>125.46</td>
+      <td>144.26</td>
+      <td>109.3690</td>
+      <td>1089.41</td>
+      <td>32.07</td>
+      <td>1.2267</td>
+      <td>1213.81</td>
+      <td>49.86</td>
+      <td>118.881</td>
+    </tr>
+  </tbody>
+</table>
+</div></div></div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">rets</span><span class="o">.</span><span class="n">cumsum</span><span class="p">()</span><span class="o">.</span><span class="n">apply</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">exp</span><span class="p">)</span><span class="o">.</span> <span class="n">resample</span><span class="p">(</span><span class="s1">&#39;1m&#39;</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;right&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">last</span><span class="p">(</span>
+                          <span class="p">)</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span> <span class="mi">6</span><span class="p">));</span>  
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../_images/6_financial_ts_27_0.png" src="../_images/6_financial_ts_27_0.png" />
+</div>
+</div>
+</div>
+<div class="section" id="rolling-statistics">
+<h2>Rolling statistics<a class="headerlink" href="#rolling-statistics" title="Permalink to this headline">¶</a></h2>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">window</span> <span class="o">=</span> <span class="mi">20</span>  
+
+<span class="n">stocks</span><span class="p">[</span><span class="s1">&#39;aapl_min&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">stocks</span><span class="p">[</span><span class="s1">&#39;aapl_o&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">rolling</span><span class="p">(</span><span class="n">window</span><span class="o">=</span><span class="n">window</span><span class="p">)</span><span class="o">.</span><span class="n">min</span><span class="p">()</span>  
+<span class="n">stocks</span><span class="p">[</span><span class="s1">&#39;aapl_mean&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">stocks</span><span class="p">[</span><span class="s1">&#39;aapl_o&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">rolling</span><span class="p">(</span><span class="n">window</span><span class="o">=</span><span class="n">window</span><span class="p">)</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span>  
+<span class="n">stocks</span><span class="p">[</span><span class="s1">&#39;aapl_std&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">stocks</span><span class="p">[</span><span class="s1">&#39;aapl_o&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">rolling</span><span class="p">(</span><span class="n">window</span><span class="o">=</span><span class="n">window</span><span class="p">)</span><span class="o">.</span><span class="n">std</span><span class="p">()</span>  
+<span class="n">stocks</span><span class="p">[</span><span class="s1">&#39;aapl_max&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">stocks</span><span class="p">[</span><span class="s1">&#39;aapl_o&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">rolling</span><span class="p">(</span><span class="n">window</span><span class="o">=</span><span class="n">window</span><span class="p">)</span><span class="o">.</span><span class="n">max</span><span class="p">()</span>  
+<span class="n">stocks</span><span class="p">[</span><span class="s1">&#39;aapl_ewma&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">stocks</span><span class="p">[</span><span class="s1">&#39;aapl_o&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">ewm</span><span class="p">(</span><span class="n">halflife</span><span class="o">=</span><span class="mf">0.5</span><span class="p">,</span> <span class="n">min_periods</span><span class="o">=</span><span class="n">window</span><span class="p">)</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span>  
+</pre></div>
+</div>
+</div>
+</div>
+<p>Let’s make a plot using <code class="docutils literal notranslate"><span class="pre">pandas</span></code> <code class="docutils literal notranslate"><span class="pre">plot</span></code>. I’ll select four variables and then pick just the last 200 observations using <code class="docutils literal notranslate"><span class="pre">.iloc</span></code>. Notice I don’t need to include the index value. This is a line graph, so <code class="docutils literal notranslate"><span class="pre">.plot()</span></code> knows that you want this on the x-axis. I like how <code class="docutils literal notranslate"><span class="pre">.plot()</span></code> automatically styles the x-axis for us too.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">stocks</span><span class="p">[[</span><span class="s1">&#39;aapl_min&#39;</span><span class="p">,</span> <span class="s1">&#39;aapl_mean&#39;</span><span class="p">,</span> <span class="s1">&#39;aapl_max&#39;</span><span class="p">,</span> <span class="s1">&#39;aapl_o&#39;</span><span class="p">]]</span><span class="o">.</span><span class="n">iloc</span><span class="p">[</span><span class="o">-</span><span class="mi">200</span><span class="p">:]</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">style</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;g--&#39;</span><span class="p">,</span> <span class="s1">&#39;r--&#39;</span><span class="p">,</span> <span class="s1">&#39;g--&#39;</span><span class="p">,</span> <span class="s1">&#39;b&#39;</span><span class="p">],</span> <span class="n">lw</span><span class="o">=</span><span class="mf">0.8</span><span class="p">,</span> <span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span> <span class="mi">6</span><span class="p">),</span> <span class="n">title</span> <span class="o">=</span> <span class="s1">&#39;Apple Price with 20-Day Rolling Window Statistics&#39;</span><span class="p">);</span>  
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../_images/6_financial_ts_31_0.png" src="../_images/6_financial_ts_31_0.png" />
+</div>
+</div>
+<p>Now, I’ll make the same graph using <code class="docutils literal notranslate"><span class="pre">matplotlib</span></code>. Again, I don’t include the index value, as, by default, <code class="docutils literal notranslate"><span class="pre">matplotlib</span></code> will put it on the x-axis. I’m going to put four different line plots on the same axis. I am again selecting just the last 200 rows using <code class="docutils literal notranslate"><span class="pre">.iloc()</span></code>.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">fig</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span> <span class="mi">6</span><span class="p">))</span>
+
+<span class="n">ax</span> <span class="o">=</span> <span class="n">fig</span><span class="o">.</span><span class="n">add_subplot</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
+
+<span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">stocks</span><span class="o">.</span><span class="n">aapl_min</span><span class="o">.</span><span class="n">iloc</span><span class="p">[</span><span class="o">-</span><span class="mi">200</span><span class="p">:],</span> <span class="s1">&#39;g--&#39;</span><span class="p">,</span> <span class="n">lw</span><span class="o">=</span><span class="mf">0.8</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">stocks</span><span class="o">.</span><span class="n">aapl_mean</span><span class="o">.</span><span class="n">iloc</span><span class="p">[</span><span class="o">-</span><span class="mi">200</span><span class="p">:],</span> <span class="s1">&#39;r--&#39;</span><span class="p">,</span> <span class="n">lw</span><span class="o">=</span><span class="mf">0.8</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">stocks</span><span class="o">.</span><span class="n">aapl_max</span><span class="o">.</span><span class="n">iloc</span><span class="p">[</span><span class="o">-</span><span class="mi">200</span><span class="p">:],</span> <span class="s1">&#39;g--&#39;</span><span class="p">,</span> <span class="n">lw</span><span class="o">=</span><span class="mf">0.8</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">stocks</span><span class="o">.</span><span class="n">aapl_o</span><span class="o">.</span><span class="n">iloc</span><span class="p">[</span><span class="o">-</span><span class="mi">200</span><span class="p">:],</span> <span class="s1">&#39;b&#39;</span><span class="p">,</span> <span class="n">lw</span><span class="o">=</span><span class="mf">0.8</span><span class="p">)</span>
+
+<span class="n">ax</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s1">&#39;Date&#39;</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s1">&#39;Apple Price&#39;</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s1">&#39;Apple Price with 20-Day Rolling Window Statistics&#39;</span><span class="p">);</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../_images/6_financial_ts_33_0.png" src="../_images/6_financial_ts_33_0.png" />
+</div>
+</div>
+<p>Which way should you make your plots? Basically up to you! There are less verbose ways to do it that the <code class="docutils literal notranslate"><span class="pre">matplotlib</span></code> method I used above. I kind of like seeing each line like that, as it helps me read and understand what’s going on.</p>
+<p>You could also select just the data you want, save it to a new DataFrame, and then plot.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">stocks_last200</span> <span class="o">=</span> <span class="n">stocks</span><span class="o">.</span><span class="n">iloc</span><span class="p">[</span><span class="o">-</span><span class="mi">200</span><span class="p">:]</span>
+
+<span class="n">fig</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span> <span class="mi">6</span><span class="p">))</span>
+
+<span class="n">ax</span> <span class="o">=</span> <span class="n">fig</span><span class="o">.</span><span class="n">add_subplot</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
+
+<span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">stocks_last200</span><span class="o">.</span><span class="n">aapl_min</span><span class="p">,</span> <span class="s1">&#39;g--&#39;</span><span class="p">,</span> <span class="n">lw</span><span class="o">=</span><span class="mf">0.8</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">stocks_last200</span><span class="o">.</span><span class="n">aapl_mean</span><span class="p">,</span> <span class="s1">&#39;r--&#39;</span><span class="p">,</span> <span class="n">lw</span><span class="o">=</span><span class="mf">0.8</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">stocks_last200</span><span class="o">.</span><span class="n">aapl_max</span><span class="p">,</span> <span class="s1">&#39;g--&#39;</span><span class="p">,</span> <span class="n">lw</span><span class="o">=</span><span class="mf">0.8</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">stocks_last200</span><span class="o">.</span><span class="n">aapl_o</span><span class="p">,</span> <span class="s1">&#39;b&#39;</span><span class="p">,</span> <span class="n">lw</span><span class="o">=</span><span class="mf">0.8</span><span class="p">)</span>
+
+<span class="n">ax</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s1">&#39;Date&#39;</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s1">&#39;Apple Price&#39;</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s1">&#39;Apple Price with 20-Day Rolling Window Statistics&#39;</span><span class="p">);</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../_images/6_financial_ts_35_0.png" src="../_images/6_financial_ts_35_0.png" />
+</div>
+</div>
+<div class="section" id="simple-momentum-indicator">
+<h3>Simple momentum indicator<a class="headerlink" href="#simple-momentum-indicator" title="Permalink to this headline">¶</a></h3>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">stocks</span><span class="p">[</span><span class="s1">&#39;aapl_sma_42&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">stocks</span><span class="p">[</span><span class="s1">&#39;aapl_o&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">rolling</span><span class="p">(</span><span class="n">window</span><span class="o">=</span><span class="mi">60</span><span class="p">)</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span>
+<span class="n">stocks</span><span class="p">[</span><span class="s1">&#39;aapl_sma_252&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">stocks</span><span class="p">[</span><span class="s1">&#39;aapl_o&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">rolling</span><span class="p">(</span><span class="n">window</span><span class="o">=</span><span class="mi">252</span><span class="p">)</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span>  
+
+<span class="n">stocks</span><span class="p">[[</span><span class="s1">&#39;aapl_o&#39;</span><span class="p">,</span> <span class="s1">&#39;aapl_sma_42&#39;</span><span class="p">,</span> <span class="s1">&#39;aapl_sma_252&#39;</span><span class="p">]]</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span> <span class="mi">6</span><span class="p">));</span>  
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../_images/6_financial_ts_37_0.png" src="../_images/6_financial_ts_37_0.png" />
+</div>
+</div>
+<p>Let’s create an indicator (1/0) variable that is 1 if the two-month moving average is above the one-year moving average. This would be example of a simple <strong>short-term momentum</strong> strategy. You buy the stock if it is doing better now than it has in over the past year. You do not own the stock otherwise.</p>
+<p>I will then graph the moving averages, the price, and the indictor, called <strong>take_position</strong>, on the same graph. I’m going to do something a bit different, but you’ll see it in our text. I will use <code class="docutils literal notranslate"><span class="pre">pandas</span></code> <code class="docutils literal notranslate"><span class="pre">.plot()</span></code> to make the graph, but save this to an <strong>axes object</strong>. I can then refer to the <strong>ax</strong> object when styling. This kind of mixes two ways that we’ve seen plot and figure creation!</p>
+<p>Notice the creation of a secondary y-axis for the indicator variable.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">stocks</span><span class="p">[</span><span class="s1">&#39;take_position&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">where</span><span class="p">(</span><span class="n">stocks</span><span class="p">[</span><span class="s1">&#39;aapl_sma_42&#39;</span><span class="p">]</span> <span class="o">&gt;</span> <span class="n">stocks</span><span class="p">[</span><span class="s1">&#39;aapl_sma_252&#39;</span><span class="p">],</span> <span class="mi">1</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">)</span>  
+
+<span class="n">ax</span> <span class="o">=</span> <span class="n">stocks</span><span class="p">[[</span><span class="s1">&#39;aapl_o&#39;</span><span class="p">,</span> <span class="s1">&#39;aapl_sma_42&#39;</span><span class="p">,</span> <span class="s1">&#39;aapl_sma_252&#39;</span><span class="p">,</span> <span class="s1">&#39;take_position&#39;</span><span class="p">]]</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span> <span class="mi">6</span><span class="p">),</span> <span class="n">secondary_y</span><span class="o">=</span><span class="s1">&#39;take_position&#39;</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">get_legend</span><span class="p">()</span><span class="o">.</span><span class="n">set_bbox_to_anchor</span><span class="p">((</span><span class="mf">0.25</span><span class="p">,</span> <span class="mf">0.85</span><span class="p">));</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../_images/6_financial_ts_39_0.png" src="../_images/6_financial_ts_39_0.png" />
+</div>
+</div>
+<p>What do you think? Did this strategy work for trading Apple during the 2010s? We’ll look more at <strong>backtesting stragies</strong> and all of the issues that arise later on.</p>
+</div>
+</div>
+<div class="section" id="correlation-and-regression">
+<h2>Correlation and regression<a class="headerlink" href="#correlation-and-regression" title="Permalink to this headline">¶</a></h2>
+<p>We’ll look at some simple correlation and linear regression calculations. We’ll do more with regression later on.</p>
+<p>Let’s look at the relationship between the S&amp;P 500 and the Apple. I’ll bring the stocks data again, but just keep these two time series. I won’t bother cleaning the names. <code class="docutils literal notranslate"><span class="pre">pyjanitor</span></code> replaces the . in front of <code class="docutils literal notranslate"><span class="pre">.SPX</span></code> with an underscore and <code class="docutils literal notranslate"><span class="pre">plot()</span></code> doesn’t like that when making the legend.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Read in some eod prices</span>
+<span class="n">stocks2</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s1">&#39;https://raw.githubusercontent.com/aaiken1/fin-data-analysis-python/main/data/tr_eikon_eod_data.csv&#39;</span><span class="p">,</span>
+                  <span class="n">index_col</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">parse_dates</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>  
+
+<span class="n">stocks2</span><span class="o">.</span><span class="n">dropna</span><span class="p">(</span><span class="n">inplace</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>  
+
+<span class="n">stocks2</span> <span class="o">=</span> <span class="n">stocks2</span><span class="p">[[</span><span class="s1">&#39;.SPX&#39;</span><span class="p">,</span> <span class="s1">&#39;AAPL.O&#39;</span><span class="p">]]</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">stocks2</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">subplots</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span> <span class="mi">6</span><span class="p">));</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../_images/6_financial_ts_43_0.png" src="../_images/6_financial_ts_43_0.png" />
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">rets2</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">log</span><span class="p">(</span><span class="n">stocks2</span> <span class="o">/</span> <span class="n">stocks2</span><span class="o">.</span><span class="n">shift</span><span class="p">(</span><span class="mi">1</span><span class="p">))</span> 
+
+<span class="n">rets2</span><span class="o">.</span><span class="n">dropna</span><span class="p">(</span><span class="n">inplace</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">pd</span><span class="o">.</span><span class="n">plotting</span><span class="o">.</span><span class="n">scatter_matrix</span><span class="p">(</span><span class="n">rets2</span><span class="p">,</span>
+                           <span class="n">alpha</span><span class="o">=</span><span class="mf">0.2</span><span class="p">,</span>  
+                           <span class="n">diagonal</span><span class="o">=</span><span class="s1">&#39;hist&#39;</span><span class="p">,</span>  
+                           <span class="n">hist_kwds</span><span class="o">=</span><span class="p">{</span><span class="s1">&#39;bins&#39;</span><span class="p">:</span> <span class="mi">35</span><span class="p">},</span>  
+                           <span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span> <span class="mi">6</span><span class="p">));</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../_images/6_financial_ts_45_0.png" src="../_images/6_financial_ts_45_0.png" />
+</div>
+</div>
+<p>We can run a simple linear regression using <code class="docutils literal notranslate"><span class="pre">np.polyfit</span></code> from the <code class="docutils literal notranslate"><span class="pre">numpy</span></code> library. Other libraries have more sophisticated tools. We’ll set <code class="docutils literal notranslate"><span class="pre">deg=1</span></code> since this is a linear regression (i.e. degree of 1).</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">reg</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">polyfit</span><span class="p">(</span><span class="n">rets2</span><span class="p">[</span><span class="s1">&#39;.SPX&#39;</span><span class="p">],</span> <span class="n">rets2</span><span class="p">[</span><span class="s1">&#39;AAPL.O&#39;</span><span class="p">],</span> <span class="n">deg</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>  
+<span class="n">reg</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>array([9.57422130e-01, 4.50598662e-04])
+</pre></div>
+</div>
+</div>
+</div>
+<p>Apple has a beta of 0.957 (note the scientific notation in the output). The intercept (or alpha) is the next number.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">rets2</span><span class="o">.</span><span class="n">corr</span><span class="p">()</span>  
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>.SPX</th>
+      <th>AAPL.O</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>.SPX</th>
+      <td>1.000000</td>
+      <td>0.563036</td>
+    </tr>
+    <tr>
+      <th>AAPL.O</th>
+      <td>0.563036</td>
+      <td>1.000000</td>
+    </tr>
+  </tbody>
+</table>
+</div></div></div>
+</div>
+</div>
 </div>
 
     <script type="text/x-thebe-config">
