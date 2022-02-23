@@ -403,8 +403,8 @@
   </a>
   <ul class="nav section-nav flex-column">
    <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#simple-momentum-indicator">
-     Simple momentum indicator
+    <a class="reference internal nav-link" href="#simple-trend-indicator">
+     Simple trend indicator
     </a>
    </li>
   </ul>
@@ -460,8 +460,8 @@
   </a>
   <ul class="nav section-nav flex-column">
    <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#simple-momentum-indicator">
-     Simple momentum indicator
+    <a class="reference internal nav-link" href="#simple-trend-indicator">
+     Simple trend indicator
     </a>
    </li>
   </ul>
@@ -1161,13 +1161,14 @@ memory usage: 217.1 KB
 </div></div></div>
 </div>
 <p>The percent change is called a <strong>linear return</strong>. Or, <strong>simple return</strong>. This is different from <strong>log returns</strong>, or <strong>compounded returns</strong>. Both types of returns are correct and useful. They are just used for different things.</p>
-<p>The formula for linear returns is:</p>
-<p>$R_t = \frac{V_t}{V_{t-1}} - 1$,</p>
-<p>where $R$  is the return and $V$ is the cash flow, including price and dividends (if any).</p>
-<p>The formula for log returns is:</p>
-<p>$R_t = ln(\frac{V_t}{V_{t-1}})$</p>
+<p>The formula for simple returns ($R$) is:</p>
+<p>$R_{t} = \frac{V_t}{V_{t-1}} - 1$,</p>
+<p>where $R$ is the simple return based on the percent change and $V$ is the cash flow, including price and dividends (if any).</p>
+<p>The formula for log returns ($r$) is:</p>
+<p>$r_{t} = ln(\frac{V_t}{V_{t-1}}) = ln(1 + R_{s,t})$</p>
 <p>See <a class="reference external" href="https://papers.ssrn.com/sol3/papers.cfm?abstract_id=1586656">this article</a> for more on why this difference is important. In short, we need the mean of simple returns when doing portfolio optimization, as these returns work with a weighted average. Simple returns <strong>aggregate across assets</strong>. Log returns, however, <strong>aggregate across time</strong>. In other words, the cumulative return using log returns is the sum of individual log returns over the time period. You definitely can’t do that with simple returns!</p>
 <p>Here’s a <a class="reference external" href="https://www.youtube.com/watch?v=PtoUlt3V0CI">brief video</a> that describes the same thing using Excel.</p>
+<p>Finally, <a class="reference external" href="https://faculty.washington.edu/ezivot/econ424/returnCalculations.pdf">this chapter</a> has everything you’ve ever want to know about return calculations. See pgs. 16 and 17 for log returns.</p>
 <p>We can calculate log returns using <code class="docutils literal notranslate"><span class="pre">np.log</span></code> and <code class="docutils literal notranslate"><span class="pre">.shift()</span></code> from <code class="docutils literal notranslate"><span class="pre">pandas</span></code>. Let’s look at what <code class="docutils literal notranslate"><span class="pre">.shift()</span></code> does. Compare the following:</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -1846,7 +1847,7 @@ memory usage: 217.1 KB
 <p>2138 rows × 12 columns</p>
 </div></div></div>
 </div>
-<p>We can then use the fact that you can sum up log returns over time to get <strong>cumulative</strong>, or <strong>total</strong> returns. First, you can use the <code class="docutils literal notranslate"><span class="pre">.cumsum()</span></code> function from <code class="docutils literal notranslate"><span class="pre">pandas</span></code> to transform our daily returns into a cumulative sum. In other words, each period is now the sum of all returns in the previous periods.</p>
+<p>We can then use the fact that you can sum up log returns over time to get <strong>cumulative</strong>, or <strong>total</strong> log returns. First, you can use the <code class="docutils literal notranslate"><span class="pre">.cumsum()</span></code> function from <code class="docutils literal notranslate"><span class="pre">pandas</span></code> to transform our daily returns into a cumulative sum. In other words, each period is now the sum of all returns in the previous periods.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">rets</span><span class="o">.</span><span class="n">cumsum</span><span class="p">()</span>
@@ -2072,7 +2073,7 @@ memory usage: 217.1 KB
 <p>2138 rows × 12 columns</p>
 </div></div></div>
 </div>
-<p>If you take the cumulative sum of log returns (R) at any point and do $e^{R}$, then you get the value of $1 invested at the beginning. We can use <code class="docutils literal notranslate"><span class="pre">.apply()</span></code> to “apply” the exponential function <em>e</em> to each value in the DataFrame.</p>
+<p>If you take the cumulative sum of log returns (R) at any point and do $e^{R}$, then you get the value of $1 invested at the beginning. We can use <code class="docutils literal notranslate"><span class="pre">.apply()</span></code> to “apply” the exponential function <em>e</em> to each value in the DataFrame. If you want to convert back to the cumulative simple return instead, you can do $e^{R} - 1$.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">rets</span><span class="o">.</span><span class="n">cumsum</span><span class="p">()</span><span class="o">.</span><span class="n">apply</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">exp</span><span class="p">)</span>
@@ -2298,6 +2299,18 @@ memory usage: 217.1 KB
 <p>2138 rows × 12 columns</p>
 </div></div></div>
 </div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">exp</span><span class="p">(</span><span class="mf">1.800839</span><span class="p">))</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>6.054725248468137
+</pre></div>
+</div>
+</div>
+</div>
 <p>You can then plot the cumulative returns. Notice how we use the <code class="docutils literal notranslate"><span class="pre">.</span></code> to keep sending the DataFrame through to the next step. Take the raw data, do something to it, do something else to that result, and then plot it.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -2306,13 +2319,17 @@ memory usage: 217.1 KB
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../_images/6_financial_ts_23_0.png" src="../_images/6_financial_ts_23_0.png" />
+<img alt="../_images/6_financial_ts_24_0.png" src="../_images/6_financial_ts_24_0.png" />
 </div>
 </div>
 </div>
 <div class="section" id="resampling">
 <h2>Resampling<a class="headerlink" href="#resampling" title="Permalink to this headline">¶</a></h2>
 <p>Resampling is when you change the time period that you’re looking at. So, you can go from daily to weekly to monthly, etc.</p>
+<p>The code <code class="docutils literal notranslate"><span class="pre">stocks.resample('1w',</span> <span class="pre">label='right')</span></code> creates what <code class="docutils literal notranslate"><span class="pre">pandas</span></code> calls a <code class="docutils literal notranslate"><span class="pre">DatetimeIndexResampler</span></code> object. Basically, we are creating “bins” based on the time period we specify. I start with one week and then do one month. The argument <code class="docutils literal notranslate"><span class="pre">label='right'</span></code> tells <code class="docutils literal notranslate"><span class="pre">.resample()</span></code> which bin edge to label the bucket with. So, the first edge (i.e. the first date)
+or the last edge (i.e. the last date). The option <em>right</em> means the last edge. For example, the bin will get labeled with the last day of the week. Or the last day of the month. The method <code class="docutils literal notranslate"><span class="pre">.last()</span></code> picks the last member of each time bin. So, we’ll get get end-of-week prices or end-of-month prices.</p>
+<p>This is <strong>a lot</strong> like a <code class="docutils literal notranslate"><span class="pre">.groupby()</span></code>, but dealing with time.</p>
+<p>You can find the documentation <a class="reference external" href="https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.DataFrame.resample.html">here</a>.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">stocks</span><span class="o">.</span><span class="n">resample</span><span class="p">(</span><span class="s1">&#39;1w&#39;</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;right&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">last</span><span class="p">()</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>  
@@ -2583,18 +2600,20 @@ memory usage: 217.1 KB
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">rets</span><span class="o">.</span><span class="n">cumsum</span><span class="p">()</span><span class="o">.</span><span class="n">apply</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">exp</span><span class="p">)</span><span class="o">.</span> <span class="n">resample</span><span class="p">(</span><span class="s1">&#39;1m&#39;</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;right&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">last</span><span class="p">(</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">rets</span><span class="o">.</span><span class="n">cumsum</span><span class="p">()</span><span class="o">.</span><span class="n">apply</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">exp</span><span class="p">)</span><span class="o">.</span><span class="n">resample</span><span class="p">(</span><span class="s1">&#39;1m&#39;</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;right&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">last</span><span class="p">(</span>
                           <span class="p">)</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span> <span class="mi">6</span><span class="p">));</span>  
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../_images/6_financial_ts_27_0.png" src="../_images/6_financial_ts_27_0.png" />
+<img alt="../_images/6_financial_ts_28_0.png" src="../_images/6_financial_ts_28_0.png" />
 </div>
 </div>
 </div>
 <div class="section" id="rolling-statistics">
 <h2>Rolling statistics<a class="headerlink" href="#rolling-statistics" title="Permalink to this headline">¶</a></h2>
+<p>Rolling statistics are your usual sorts of statistics, like a mean or standard deviation, but calculated with <strong>rolling time windows</strong>. So, the average price over the past month. Or, the standard deviation of returns of the past year. The value gets updated as you move forward in time - this is the rolling part.</p>
+<p>Let’s set a 20 day window and calculate some rolling statistics. There’s one you might not know, a kind of moving average called an <a class="reference external" href="https://corporatefinanceinstitute.com/resources/knowledge/trading-investing/exponentially-weighted-moving-average-ewma/">exponentially weighted moving average</a> (ewma).</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">window</span> <span class="o">=</span> <span class="mi">20</span>  
@@ -2616,7 +2635,7 @@ memory usage: 217.1 KB
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../_images/6_financial_ts_31_0.png" src="../_images/6_financial_ts_31_0.png" />
+<img alt="../_images/6_financial_ts_33_0.png" src="../_images/6_financial_ts_33_0.png" />
 </div>
 </div>
 <p>Now, I’ll make the same graph using <code class="docutils literal notranslate"><span class="pre">matplotlib</span></code>. Again, I don’t include the index value, as, by default, <code class="docutils literal notranslate"><span class="pre">matplotlib</span></code> will put it on the x-axis. I’m going to put four different line plots on the same axis. I am again selecting just the last 200 rows using <code class="docutils literal notranslate"><span class="pre">.iloc()</span></code>.</p>
@@ -2638,7 +2657,7 @@ memory usage: 217.1 KB
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../_images/6_financial_ts_33_0.png" src="../_images/6_financial_ts_33_0.png" />
+<img alt="../_images/6_financial_ts_35_0.png" src="../_images/6_financial_ts_35_0.png" />
 </div>
 </div>
 <p>Which way should you make your plots? Basically up to you! There are less verbose ways to do it that the <code class="docutils literal notranslate"><span class="pre">matplotlib</span></code> method I used above. I kind of like seeing each line like that, as it helps me read and understand what’s going on.</p>
@@ -2663,11 +2682,13 @@ memory usage: 217.1 KB
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../_images/6_financial_ts_35_0.png" src="../_images/6_financial_ts_35_0.png" />
+<img alt="../_images/6_financial_ts_37_0.png" src="../_images/6_financial_ts_37_0.png" />
 </div>
 </div>
-<div class="section" id="simple-momentum-indicator">
-<h3>Simple momentum indicator<a class="headerlink" href="#simple-momentum-indicator" title="Permalink to this headline">¶</a></h3>
+<div class="section" id="simple-trend-indicator">
+<h3>Simple trend indicator<a class="headerlink" href="#simple-trend-indicator" title="Permalink to this headline">¶</a></h3>
+<p>One of the best known “anomalies” in finance is that stocks that have been doing better perform better in the future, and vice-versa. This general set of anomalies are called <strong>momentum and trend</strong>. Here’s a <a class="reference external" href="https://www.aqr.com/Insights/Research/White-Papers/Explanations-for-the-Momentum-Premium">summary of momentum and why it might exist</a>. The hedge fund Two Sigma has a brief explanation of how <a class="reference external" href="https://www.venn.twosigma.com/vennsights/momentum-and-trend-following">trend and momentum</a> are different. And a more <a class="reference external" href="https://papers.ssrn.com/sol3/papers.cfm?abstract_id=2089463">academic explanation</a>.</p>
+<p>We can calculate basic moving averages that might capture the spirit of <strong>trend</strong>. We want stocks that are outperforming their longer history in the short-term. We can measure this with two different <strong>simple moving averages</strong> (sma).</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">stocks</span><span class="p">[</span><span class="s1">&#39;aapl_sma_42&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">stocks</span><span class="p">[</span><span class="s1">&#39;aapl_o&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">rolling</span><span class="p">(</span><span class="n">window</span><span class="o">=</span><span class="mi">60</span><span class="p">)</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span>
@@ -2678,11 +2699,11 @@ memory usage: 217.1 KB
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../_images/6_financial_ts_37_0.png" src="../_images/6_financial_ts_37_0.png" />
+<img alt="../_images/6_financial_ts_40_0.png" src="../_images/6_financial_ts_40_0.png" />
 </div>
 </div>
-<p>Let’s create an indicator (1/0) variable that is 1 if the two-month moving average is above the one-year moving average. This would be example of a simple <strong>short-term momentum</strong> strategy. You buy the stock if it is doing better now than it has in over the past year. You do not own the stock otherwise.</p>
-<p>I will then graph the moving averages, the price, and the indictor, called <strong>take_position</strong>, on the same graph. I’m going to do something a bit different, but you’ll see it in our text. I will use <code class="docutils literal notranslate"><span class="pre">pandas</span></code> <code class="docutils literal notranslate"><span class="pre">.plot()</span></code> to make the graph, but save this to an <strong>axes object</strong>. I can then refer to the <strong>ax</strong> object when styling. This kind of mixes two ways that we’ve seen plot and figure creation!</p>
+<p>Let’s create an indicator (1/0) variable that is 1 if the two-month moving average is above the one-year moving average. This would be example of a simple <strong>short-term trend</strong> strategy. You buy the stock if it is doing better now than it has in over the past year. You do not own the stock otherwise.</p>
+<p>I will then graph the moving averages, the price, and the indicator, called <strong>take_position</strong>, on the same graph. I’m going to do something a bit different, but you’ll see it in our text. I will use <code class="docutils literal notranslate"><span class="pre">pandas</span></code> <code class="docutils literal notranslate"><span class="pre">.plot()</span></code> to make the graph, but save this to an <strong>axes object</strong>. I can then refer to the <strong>ax</strong> object when styling. This kind of mixes two ways that we’ve seen plot and figure creation!</p>
 <p>Notice the creation of a secondary y-axis for the indicator variable.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -2694,7 +2715,7 @@ memory usage: 217.1 KB
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../_images/6_financial_ts_39_0.png" src="../_images/6_financial_ts_39_0.png" />
+<img alt="../_images/6_financial_ts_42_0.png" src="../_images/6_financial_ts_42_0.png" />
 </div>
 </div>
 <p>What do you think? Did this strategy work for trading Apple during the 2010s? We’ll look more at <strong>backtesting stragies</strong> and all of the issues that arise later on.</p>
@@ -2724,7 +2745,7 @@ memory usage: 217.1 KB
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../_images/6_financial_ts_43_0.png" src="../_images/6_financial_ts_43_0.png" />
+<img alt="../_images/6_financial_ts_46_0.png" src="../_images/6_financial_ts_46_0.png" />
 </div>
 </div>
 <div class="cell docutils container">
@@ -2747,7 +2768,7 @@ memory usage: 217.1 KB
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../_images/6_financial_ts_45_0.png" src="../_images/6_financial_ts_45_0.png" />
+<img alt="../_images/6_financial_ts_48_0.png" src="../_images/6_financial_ts_48_0.png" />
 </div>
 </div>
 <p>We can run a simple linear regression using <code class="docutils literal notranslate"><span class="pre">np.polyfit</span></code> from the <code class="docutils literal notranslate"><span class="pre">numpy</span></code> library. Other libraries have more sophisticated tools. We’ll set <code class="docutils literal notranslate"><span class="pre">deg=1</span></code> since this is a linear regression (i.e. degree of 1).</p>
@@ -2764,7 +2785,7 @@ memory usage: 217.1 KB
 </div>
 </div>
 </div>
-<p>Apple has a beta of 0.957 (note the scientific notation in the output). The intercept (or alpha) is the next number.</p>
+<p>Apple has a beta of 0.957 (note the scientific notation in the output). The intercept (or alpha) is the next number and is based on daily returns.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">rets2</span><span class="o">.</span><span class="n">corr</span><span class="p">()</span>  
