@@ -42,6 +42,8 @@
     <script src="../_static/copybutton.js"></script>
     <script>var togglebuttonSelector = '.toggle, .admonition.dropdown, .tag_hide_input div.cell_input, .tag_hide-input div.cell_input, .tag_hide_output div.cell_output, .tag_hide-output div.cell_output, .tag_hide_cell.cell, .tag_hide-cell.cell';</script>
     <script src="../_static/sphinx-book-theme.d59cb220de22ca1c485ebbdc042f0030.js"></script>
+    <script async="async" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script>window.MathJax = {"options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
     <script async="async" src="https://unpkg.com/thebe@0.5.1/lib/index.js"></script>
     <script>
         const thebe_selector = ".thebe"
@@ -1527,15 +1529,17 @@ memory usage: 217.1 KB
 </div>
 <p>I’m multiplying by 100 just for the display of the data.</p>
 <p>The percent change is called a <strong>linear return</strong>. Or, <strong>simple return</strong>. This is different from <strong>log returns</strong>, or <strong>compounded returns</strong>. Both types of returns are correct and useful. They are just used for different things.</p>
-<p>The formula for simple returns ($R$) is:</p>
-<p>$$
-R_{t} = \frac{V_t}{V_{t-1}} - 1,
-$$</p>
-<p>where $R$ is the simple return based on the percent change and $V$ is the cash flow, including price and dividends (if any).</p>
-<p>The formula for log returns ($r$) is:</p>
-<p>$$
+<p>The formula for simple returns (R) is:</p>
+<div class="amsmath math notranslate nohighlight" id="equation-7834a251-f487-424f-91a4-8ca8eb4f9c89">
+<span class="eqno">(1)<a class="headerlink" href="#equation-7834a251-f487-424f-91a4-8ca8eb4f9c89" title="Permalink to this equation">¶</a></span>\[\begin{align}
+R_{t} = \frac{V_t}{V_{t-1}} - 1
+\end{align}\]</div>
+<p>where R is the simple return based on the percent change and V is the cash flow, including price and dividends (if any).</p>
+<p>The formula for log returns (r) is:</p>
+<div class="amsmath math notranslate nohighlight" id="equation-8074ee8e-594e-4a87-b300-c095a4705ac9">
+<span class="eqno">(2)<a class="headerlink" href="#equation-8074ee8e-594e-4a87-b300-c095a4705ac9" title="Permalink to this equation">¶</a></span>\[\begin{align}
 r_{t} = ln(\frac{V_t}{V_{t-1}}) = ln(1 + R_{t})
-$$</p>
+\end{align}\]</div>
 <p>See <a class="reference external" href="https://papers.ssrn.com/sol3/papers.cfm?abstract_id=1586656">this article</a> for more on why this difference is important. In short, we need the mean of simple returns when doing portfolio optimization, as these returns work with a weighted average. Simple returns <strong>aggregate across assets</strong>. Log returns, however, <strong>aggregate across time</strong>. In other words, the cumulative return using log returns is the sum of individual log returns over the time period. You definitely can’t do that with simple returns!</p>
 <p>Here’s a <a class="reference external" href="https://www.youtube.com/watch?v=PtoUlt3V0CI">brief video</a> that describes the same thing using Excel.</p>
 <p>Finally, <a class="reference external" href="https://faculty.washington.edu/ezivot/econ424/returnCalculations.pdf">this chapter</a> has everything you’ve ever want to know about return calculations. See pgs. 16 and 17 for log returns.</p>
@@ -2669,7 +2673,7 @@ $$</p>
 <p>2138 rows × 12 columns</p>
 </div></div></div>
 </div>
-<p>If you take the cumulative sum of log returns (R) at any point and do $e^{R}$, then you get the value of $1 invested at the beginning. We can use <code class="docutils literal notranslate"><span class="pre">.apply()</span></code> to “apply” the exponential function <em>e</em> to each value in the DataFrame. If you want to convert back to the cumulative simple return instead, you can do $e^{R} - 1$.</p>
+<p>If you take the cumulative sum of log returns (R) at any point and do e^R, then you get the value of $1 invested at the beginning. We can use <code class="docutils literal notranslate"><span class="pre">.apply()</span></code> to “apply” the exponential function <em>e</em> to each value in the DataFrame. If you want to convert back to the cumulative simple return instead, you can do e^R - 1.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">rets_log</span><span class="o">.</span><span class="n">cumsum</span><span class="p">()</span><span class="o">.</span><span class="n">apply</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">exp</span><span class="p">)</span>
@@ -2920,9 +2924,10 @@ $$</p>
 </div>
 <p>We can also create return series using <strong>simple returns</strong>. We calculate percent returns, add 1 to each to get (1+R), and then <strong>chain returns together</strong> using <code class="docutils literal notranslate"><span class="pre">.cumprod()</span></code>. We subtract one at the end from the total.</p>
 <p>In other words,</p>
-<p>$$
-Total Return = (1 + R_{1})<em>(1 + R_{2})</em>(1 + R_{3})*(1 + R_{4})… - 1
-$$</p>
+<div class="amsmath math notranslate nohighlight" id="equation-9dcc6735-7575-4b64-a5d1-3b7427e3f986">
+<span class="eqno">(3)<a class="headerlink" href="#equation-9dcc6735-7575-4b64-a5d1-3b7427e3f986" title="Permalink to this equation">¶</a></span>\[\begin{align}
+Total Return = (1 + R_{1})*(1 + R_{2})*(1 + R_{3})*(1 + R_{4})... - 1
+\end{align}\]</div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">rets_simple</span> <span class="o">=</span> <span class="n">stocks</span><span class="o">.</span><span class="n">pct_change</span><span class="p">()</span> <span class="c1"># period return</span>
