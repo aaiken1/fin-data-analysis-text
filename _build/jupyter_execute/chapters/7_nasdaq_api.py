@@ -18,6 +18,7 @@
 # pip install quandl
 # ```
 # 
+# You will need to add your Quandl key to the set-up. I have saved my key locally and am bringing it in with `quandl.read_key`, so that it isn't publicly available.
 
 # In[1]:
 
@@ -34,7 +35,10 @@ import matplotlib as mpl
 
 import matplotlib.pyplot as plt
 
-quandl.ApiConfig.api_key = 'kVxf2sQJhQbFtym4MXv3'
+# quandl.ApiConfig.api_key = 'YOUR_KEY_HERE'
+
+quandl.read_key()
+#print(quandl.ApiConfig.api_key)
 
 
 # In[2]:
