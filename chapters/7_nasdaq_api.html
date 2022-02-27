@@ -42,6 +42,8 @@
     <script src="../_static/copybutton.js"></script>
     <script>var togglebuttonSelector = '.toggle, .admonition.dropdown, .tag_hide_input div.cell_input, .tag_hide-input div.cell_input, .tag_hide_output div.cell_output, .tag_hide-output div.cell_output, .tag_hide_cell.cell, .tag_hide-cell.cell';</script>
     <script src="../_static/sphinx-book-theme.d59cb220de22ca1c485ebbdc042f0030.js"></script>
+    <script async="async" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script>window.MathJax = {"options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
     <script async="async" src="https://unpkg.com/thebe@0.5.1/lib/index.js"></script>
     <script>
         const thebe_selector = ".thebe"
@@ -401,13 +403,13 @@
 <h1>An Application Using NASDAQ BTC Data<a class="headerlink" href="#an-application-using-nasdaq-btc-data" title="Permalink to this headline">¶</a></h1>
 <p>This chapter will use the NASDAQ data link to download some BTC price and return data. We’ll also see our first set of <strong>simulations</strong>.</p>
 <p>We’ll need to install a few packages to access the Nasdaq data.</p>
-<p>https://docs.data.nasdaq.com/docs/python-installation</p>
+<p>You can read about the install here: <a class="reference external" href="https://docs.data.nasdaq.com/docs/python-installation">https://docs.data.nasdaq.com/docs/python-installation</a></p>
 <p><code class="docutils literal notranslate"><span class="pre">pip</span></code> is a way to install packages via the command line. This should code should install any package to your Anaconda distribution of Python.</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">pip</span> <span class="n">install</span> <span class="n">nasdaq</span><span class="o">-</span><span class="n">data</span><span class="o">-</span><span class="n">link</span>
 <span class="n">pip</span> <span class="n">install</span> <span class="n">quandl</span>
 </pre></div>
 </div>
-<p>You will need to add your Quandl key to the set-up. I have saved my key locally and am bringing it in with <code class="docutils literal notranslate"><span class="pre">quandl.read_key</span></code>, so that it isn’t publicly available.</p>
+<p>You will need to add your Quandl key to the set-up. I have saved my key locally and am bringing it in with <code class="docutils literal notranslate"><span class="pre">quandl.read_key</span></code>, so that it isn’t publicly available. You don’t need that bit of code.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Set-up</span>
@@ -661,7 +663,7 @@
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;matplotlib.legend.Legend at 0x7ff05831d0d0&gt;
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;matplotlib.legend.Legend at 0x7f7ce05530a0&gt;
 </pre></div>
 </div>
 <img alt="../_images/7_nasdaq_api_8_1.png" src="../_images/7_nasdaq_api_8_1.png" />
@@ -693,16 +695,18 @@
 </div>
 </div>
 <p>Let’s put together some ideas, write a function, and run a simulation. We’ll use something called <strong>geometric brownian motion</strong> (GBM). What is GBM? It is a particular <strong>stochastic differential equation</strong>. But, what’s important for us is the idea, which is fairly simple. Here’s the formula:</p>
-<p>$$
+<div class="amsmath math notranslate nohighlight" id="equation-c7fb57fa-389a-48a9-aca8-04e8f8dcc1f1">
+<span class="eqno">(4)<a class="headerlink" href="#equation-c7fb57fa-389a-48a9-aca8-04e8f8dcc1f1" title="Permalink to this equation">¶</a></span>\[\begin{align}
 dS = \mu S dt + \sigma S dW_t
-$$</p>
+\end{align}\]</div>
 <p>This says that the change in the stock price has two components - a <strong>drift</strong>, or average increase over time, and a <strong>shock</strong> that it is random at each point in time. The shock is scaled by the standard deviation of returns that you use. So, larger standard deviation, the bigger the shocks can be. This is basically the simplest way that you can model an asset price.</p>
 <p>The shocks are what make the price wiggle around around, or else it would just go up over time, based on the drift value that we use.</p>
 <p>And, I’ll stress - we aren’t predicting here, so to speak. We are trying to capture some basic reality about how an asset moves and then seeing what is possible in the future. We aren’t making a statement about whether we think an asset is overvalued or undervalued, will go up or down, etc.</p>
 <p>You can solve this equation to get the value of the asset at any point in time t. You just need to know the total of all of the shocks at time t.</p>
-<p>$$
+<div class="amsmath math notranslate nohighlight" id="equation-cc45649d-c3be-4592-b3d6-ffafbb39dd2e">
+<span class="eqno">(5)<a class="headerlink" href="#equation-cc45649d-c3be-4592-b3d6-ffafbb39dd2e" title="Permalink to this equation">¶</a></span>\[\begin{align}
 S(t) = S(0) \exp \left(\left(\mu - \frac{1}{2}\sigma^2\right)t + \sigma W(t)\right)
-$$</p>
+\end{align}\]</div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">T</span> <span class="o">=</span> <span class="mi">30</span> <span class="c1"># How long is our simulation? Let&#39;s do 31 days (0 to 30 the way Python counts)</span>
