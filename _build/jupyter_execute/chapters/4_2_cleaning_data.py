@@ -189,7 +189,7 @@ prices.head(15)
 # ```
 # conda install -c conda-forge pyjanitor
 # ```
-# This will install `pyjanitor` using Ananconda. So, it should show up when you select the Anaconda distribution of Python. You'll need to restart VS Code once you've installed it.
+# This will install `pyjanitor` using `conda install`. The `-c` is just an option to tell conda install where to look. So, it should show up when you select the Anaconda distribution of Python. You'll need to restart VS Code once you've installed it.
 # 
 # There are even [finance specific tools](https://pyjanitor-devs.github.io/pyjanitor/api/finance/).
 

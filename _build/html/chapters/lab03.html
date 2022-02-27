@@ -49,7 +49,6 @@
         const thebe_selector_output = ".output"
     </script>
     <script async="async" src="../_static/sphinx-thebe.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
     <link rel="prev" title="Lab 02" href="lab02.html" />
@@ -200,6 +199,11 @@
      Exploratory data analysis (EDA)
     </a>
    </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="4_4_merge_shape.html">
+     Merging and reshaping data
+    </a>
+   </li>
   </ul>
  </li>
  <li class="toctree-l1 has-children">
@@ -233,13 +237,6 @@
   <a class="reference internal" href="6_financial_ts.html">
    Financial time series
    <a id="financial-time-series">
-   </a>
-  </a>
- </li>
- <li class="toctree-l1">
-  <a class="reference internal" href="7_comp201.html">
-   CompSci 201: OOP and lambdas
-   <a id="compsci201">
    </a>
   </a>
  </li>
@@ -538,6 +535,7 @@
 <p>Create your first code cell where you <code class="docutils literal notranslate"><span class="pre">import</span></code> both <code class="docutils literal notranslate"><span class="pre">numpy</span></code> and <code class="docutils literal notranslate"><span class="pre">pandas</span></code> as <code class="docutils literal notranslate"><span class="pre">np</span></code> and <code class="docutils literal notranslate"><span class="pre">pd</span></code>, respectively.</p>
 <p>Also include <code class="docutils literal notranslate"><span class="pre">import</span> <span class="pre">datetime</span> <span class="pre">as</span> <span class="pre">dt</span></code>. The <code class="docutils literal notranslate"><span class="pre">datetime</span></code> library is discussed in the first part of the second DataCamp assignment.</p>
 <p>Include <code class="docutils literal notranslate"><span class="pre">import</span> <span class="pre">matplotlib.pyplot</span> <span class="pre">as</span> <span class="pre">plt</span></code> and <code class="docutils literal notranslate"><span class="pre">from</span> <span class="pre">matplotlib</span> <span class="pre">import</span> <span class="pre">style</span></code>. We are going to automatically style our graphs too.</p>
+<p>Include <code class="docutils literal notranslate"><span class="pre">from</span> <span class="pre">matplotlib.ticker</span> <span class="pre">import</span> <span class="pre">StrMethodFormatter</span></code>. This will let us format the text on our axes below.</p>
 <p>Add a <strong>comment</strong> to that cell calling it <strong>Set-Up</strong>. You can add comments to each code cell to remind yourself what you’re doing. Comments are different from the Markdown that you’re using to write your narrative - they go in the Python cells and use <code class="docutils literal notranslate"><span class="pre">#</span></code>.</p>
 </div>
 <div class="section" id="part-3">
@@ -562,7 +560,7 @@
 <div class="section" id="part-4">
 <h2>Part 4<a class="headerlink" href="#part-4" title="Permalink to this headline">¶</a></h2>
 <p>Let’s start with some sorting, filtering, and variable creation.</p>
-<p>Create a new <code class="docutils literal notranslate"><span class="pre">pandas</span></code> DataFrame from our main data file that contains: date (date sold), price, square footage of living space, square footage of the lot, year built, number of bedrooms, waterfront, and price per square foot. You’ll need to create two of these variables! Name this DataFrame <code class="docutils literal notranslate"><span class="pre">kc_subset</span></code>.</p>
+<p>Create a new <code class="docutils literal notranslate"><span class="pre">pandas</span></code> DataFrame from our main data file that contains: date (date sold), price, square footage of living space, square footage of the lot, year built, number of bedrooms, waterfront, and price per square foot. You’ll need to create one of these variables! Name this DataFrame <code class="docutils literal notranslate"><span class="pre">kc_subset</span></code>.</p>
 <p>You can create the year by selecting the <code class="docutils literal notranslate"><span class="pre">date</span></code> column and using the <code class="docutils literal notranslate"><span class="pre">dt.year</span></code> method on it. You can find an example <a class="reference external" href="https://datascienceparichay.com/article/pandas-extract-year-from-datetime-column/">here</a>. We did this in the last lab too.</p>
 <p>How can you create a <code class="docutils literal notranslate"><span class="pre">prc_sqr_ft</span></code> variable?</p>
 <p>Remember, this new DataFrame will live in memory, but it isn’t stored on your computer until you actually save it using something like <code class="docutils literal notranslate"><span class="pre">to.CSV</span></code>.</p>
@@ -607,7 +605,17 @@
 <h2>Part 7<a class="headerlink" href="#part-7" title="Permalink to this headline">¶</a></h2>
 <p>Let’s make that same graph <strong>yet again</strong> using the <strong>object-oriented method</strong>. This means creating a <strong>fig</strong> and <strong>axes</strong>. We only have one axis here, so you can define it as <strong>ax</strong>. Remember, an axis is a plot. I like this object oriented method, because it really makes it clear what you’re doing. I have axes or plot. I am doing something to it, I’m styling it, etc. Then, here’s another plot. I can put them together, even. They are truly <strong>objects</strong> that we can think about in almost a physical way.</p>
 <p>When styling the plot, instead of <code class="docutils literal notranslate"><span class="pre">plt.</span></code>, you’ll use <code class="docutils literal notranslate"><span class="pre">ax.</span></code>, since you’re referring to a specific axes object that you’ve created.</p>
-<p>When searching around for how to style a plot, you’ll come across many ways to do the same thing. Some of them work when using <code class="docutils literal notranslate"><span class="pre">panda</span></code> plot, some when using the <code class="docutils literal notranslate"><span class="pre">plt.</span></code>, and some when using <code class="docutils literal notranslate"><span class="pre">fig</span></code> and <code class="docutils literal notranslate"><span class="pre">ax</span></code>. Some methods will work with more than one way. You just have to experiment a bit.</p>
+<p>When searching around for how to style a plot, you’ll come across many ways to do the same thing. Some of them work when using <code class="docutils literal notranslate"><span class="pre">panda</span></code> plot, some when using the <code class="docutils literal notranslate"><span class="pre">plt.</span></code>, and some when using <code class="docutils literal notranslate"><span class="pre">fig</span></code> and <code class="docutils literal notranslate"><span class="pre">ax</span></code>. Some methods will work with more than one way. You just have to experiment a bit. Here’s some code to fill in:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">ax</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s1">&#39;FILL ME IN&#39;</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s1">&#39;FILL ME IN&#39;</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s1">&#39;FILL ME IN&#39;</span><span class="p">,</span> <span class="n">fontsize</span> <span class="o">=</span> <span class="mi">15</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">ticklabel_format</span><span class="p">(</span><span class="n">axis</span><span class="o">=</span><span class="s1">&#39;x&#39;</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="s1">&#39;plain&#39;</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">tick_params</span><span class="p">(</span><span class="n">axis</span><span class="o">=</span><span class="s1">&#39;x&#39;</span><span class="p">,</span> <span class="n">rotation</span><span class="o">=</span><span class="mi">45</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">tick_params</span><span class="p">(</span><span class="n">axis</span><span class="o">=</span><span class="s1">&#39;y&#39;</span><span class="p">,</span> <span class="n">rotation</span><span class="o">=</span><span class="mi">45</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">xaxis</span><span class="o">.</span><span class="n">set_major_formatter</span><span class="p">(</span><span class="n">StrMethodFormatter</span><span class="p">(</span><span class="s1">&#39;</span><span class="si">{x:,.0f}</span><span class="s1">&#39;</span><span class="p">))</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">yaxis</span><span class="o">.</span><span class="n">set_major_formatter</span><span class="p">(</span><span class="n">StrMethodFormatter</span><span class="p">(</span><span class="s1">&#39;$</span><span class="si">{x:,.0f}</span><span class="s1">&#39;</span><span class="p">))</span>
+</pre></div>
+</div>
 </div>
 <div class="section" id="part-8">
 <h2>Part 8<a class="headerlink" href="#part-8" title="Permalink to this headline">¶</a></h2>

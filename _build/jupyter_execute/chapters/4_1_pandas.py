@@ -170,11 +170,28 @@ uw.iloc[0:10,0:10]
 uw.iloc[0:10,[0, 1, 9]]
 
 
+# You can use these methods to select and save columns to a new DataFrame. Each of the following does the same thing.
+
+# In[15]:
+
+
+uw_sub1 = uw[['RegionType', 'RegionName', 'UWHomes_Tier2']]
+uw_sub2 = uw.loc[:,['RegionType', 'RegionName', 'UWHomes_Tier2']]
+uw_sub3 = uw.iloc[:,[0, 1, 9]]
+uw_sub4 = pd.DataFrame(uw, columns = ('RegionType', 'RegionName', 'UWHomes_Tier2'))
+
+print(uw_sub1.equals(uw_sub2))
+print(uw_sub2.equals(uw_sub3))
+print(uw_sub3.equals(uw_sub4))
+
+
+# ### Filtering
+# 
 # Let's try **filtering** our data and keeping just the MSA observations. The text calls this **complex selection**. See pg. 132.
 # 
 # Here's some [help on filtering](https://datagy.io/filter-pandas/) data with `pandas`.
 
-# In[15]:
+# In[16]:
 
 
 uw[uw['RegionType'] == 'MSA'].head(15)
@@ -182,7 +199,7 @@ uw[uw['RegionType'] == 'MSA'].head(15)
 
 # How about just North Carolina MSAs? I'll use the bigger DataFrame and just show the observations, rather than create a new DataFrame.
 
-# In[16]:
+# In[17]:
 
 
 uw[(uw['RegionType'] == 'MSA') & (uw['StateName'] == 'North Carolina')].head(15)
@@ -194,7 +211,7 @@ uw[(uw['RegionType'] == 'MSA') & (uw['StateName'] == 'North Carolina')].head(15)
 # 
 # Let's go back to the stock data and work with indices a bit more. Remember how that one had the `Date` as the index?
 
-# In[17]:
+# In[18]:
 
 
 prices = pd.read_csv('https://github.com/aaiken1/fin-data-analysis-python/raw/main/data/tr_eikon_eod_data.csv',
@@ -205,7 +222,7 @@ prices.index
 
 # Now, let's try `loc`, but using our `dtype=datetime` index. We'll pull in the SPX and VIX for just January 2010. 
 
-# In[18]:
+# In[19]:
 
 
 prices.loc['2010-01-01':'2010-01-31',['.SPX', '.VIX']]

@@ -49,7 +49,6 @@
         const thebe_selector_output = ".output"
     </script>
     <script async="async" src="../_static/sphinx-thebe.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
     <link rel="next" title="Cleaning our data" href="4_2_cleaning_data.html" />
@@ -140,6 +139,11 @@
      Markdown
     </a>
    </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="2_4_packages.html">
+     Packages
+    </a>
+   </li>
   </ul>
  </li>
 </ul>
@@ -201,6 +205,11 @@
      Exploratory data analysis (EDA)
     </a>
    </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="4_4_merge_shape.html">
+     Merging and reshaping data
+    </a>
+   </li>
   </ul>
  </li>
  <li class="toctree-l1 has-children">
@@ -237,13 +246,6 @@
    </a>
   </a>
  </li>
- <li class="toctree-l1">
-  <a class="reference internal" href="7_comp201.html">
-   CompSci 201: OOP and lambdas
-   <a id="compsci201">
-   </a>
-  </a>
- </li>
 </ul>
 <p aria-level="2" class="caption" role="heading">
  <span class="caption-text">
@@ -269,6 +271,11 @@
  <li class="toctree-l1">
   <a class="reference internal" href="lab03.html">
    Lab 03
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="lab04.html">
+   Lab 04
   </a>
  </li>
 </ul>
@@ -381,6 +388,13 @@
   <a class="reference internal nav-link" href="#selecting-our-data">
    Selecting our data
   </a>
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#filtering">
+     Filtering
+    </a>
+   </li>
+  </ul>
  </li>
  <li class="toc-h2 nav-item toc-entry">
   <a class="reference internal nav-link" href="#dealing-with-indices">
@@ -416,6 +430,13 @@
   <a class="reference internal nav-link" href="#selecting-our-data">
    Selecting our data
   </a>
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#filtering">
+     Filtering
+    </a>
+   </li>
+  </ul>
  </li>
  <li class="toc-h2 nav-item toc-entry">
   <a class="reference internal nav-link" href="#dealing-with-indices">
@@ -546,7 +567,7 @@ memory usage: 489.5+ KB
 </ul>
 <div class="figure align-center" id="tidy-png">
 <img alt="../_images/04-tidy.png" src="../_images/04-tidy.png" />
-<p class="caption"><span class="caption-number">Fig. 15 </span><span class="caption-text">Tidy data.</span><a class="headerlink" href="#tidy-png" title="Permalink to this image">¶</a></p>
+<p class="caption"><span class="caption-number">Fig. 18 </span><span class="caption-text">Tidy data.</span><a class="headerlink" href="#tidy-png" title="Permalink to this image">¶</a></p>
 </div>
 <p>The first thing to note about this data is that there are several tiers. Some numbers are at the national level, some at the region, some at the state, and some at the MSA. <strong>Tidy data</strong> refers to one row, one observation, across different variables (columns) and, possibly, across time. When you have multiple observations of the same firm, state, person, etc. over time, we call that panel data. Panel data is tidy too.</p>
 <p>Note that some RegionTypes (e.g. Nation, State) are actually summaries of other rows. This is bit confusing and we need to be mindful of this different levels when using the data.</p>
@@ -1932,6 +1953,30 @@ Name: 0, dtype: object
 </table>
 </div></div></div>
 </div>
+<p>You can use these methods to select and save columns to a new DataFrame. Each of the following does the same thing.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">uw_sub1</span> <span class="o">=</span> <span class="n">uw</span><span class="p">[[</span><span class="s1">&#39;RegionType&#39;</span><span class="p">,</span> <span class="s1">&#39;RegionName&#39;</span><span class="p">,</span> <span class="s1">&#39;UWHomes_Tier2&#39;</span><span class="p">]]</span>
+<span class="n">uw_sub2</span> <span class="o">=</span> <span class="n">uw</span><span class="o">.</span><span class="n">loc</span><span class="p">[:,[</span><span class="s1">&#39;RegionType&#39;</span><span class="p">,</span> <span class="s1">&#39;RegionName&#39;</span><span class="p">,</span> <span class="s1">&#39;UWHomes_Tier2&#39;</span><span class="p">]]</span>
+<span class="n">uw_sub3</span> <span class="o">=</span> <span class="n">uw</span><span class="o">.</span><span class="n">iloc</span><span class="p">[:,[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">9</span><span class="p">]]</span>
+<span class="n">uw_sub4</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">uw</span><span class="p">,</span> <span class="n">columns</span> <span class="o">=</span> <span class="p">(</span><span class="s1">&#39;RegionType&#39;</span><span class="p">,</span> <span class="s1">&#39;RegionName&#39;</span><span class="p">,</span> <span class="s1">&#39;UWHomes_Tier2&#39;</span><span class="p">))</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="n">uw_sub1</span><span class="o">.</span><span class="n">equals</span><span class="p">(</span><span class="n">uw_sub2</span><span class="p">))</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">uw_sub2</span><span class="o">.</span><span class="n">equals</span><span class="p">(</span><span class="n">uw_sub3</span><span class="p">))</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">uw_sub3</span><span class="o">.</span><span class="n">equals</span><span class="p">(</span><span class="n">uw_sub4</span><span class="p">))</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>True
+True
+True
+</pre></div>
+</div>
+</div>
+</div>
+<div class="section" id="filtering">
+<h3>Filtering<a class="headerlink" href="#filtering" title="Permalink to this headline">¶</a></h3>
 <p>Let’s try <strong>filtering</strong> our data and keeping just the MSA observations. The text calls this <strong>complex selection</strong>. See pg. 132.</p>
 <p>Here’s some <a class="reference external" href="https://datagy.io/filter-pandas/">help on filtering</a> data with <code class="docutils literal notranslate"><span class="pre">pandas</span></code>.</p>
 <div class="cell docutils container">
@@ -2596,6 +2641,7 @@ Name: 0, dtype: object
 </div></div></div>
 </div>
 <p>Notice how I needed to put <code class="docutils literal notranslate"><span class="pre">()</span></code> around each condition. Python is testing to see if each of these are <code class="docutils literal notranslate"><span class="pre">True</span></code> or <code class="docutils literal notranslate"><span class="pre">False</span></code> and then filtering our data accordingly. Pgs. 132 - 135 of our text show you more about this type of <strong>boolean</strong> filtering.</p>
+</div>
 </div>
 <div class="section" id="dealing-with-indices">
 <h2>Dealing with indices<a class="headerlink" href="#dealing-with-indices" title="Permalink to this headline">¶</a></h2>

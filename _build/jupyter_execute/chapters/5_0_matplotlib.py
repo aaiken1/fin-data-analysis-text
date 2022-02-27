@@ -29,6 +29,10 @@ import matplotlib as mpl
 # This lets us refer to the pyplot part of matplot lib more easily. Just use plt!
 import matplotlib.pyplot as plt
 
+# importing the style package
+from matplotlib import style
+from matplotlib.ticker import StrMethodFormatter
+
 # Keeps warnings from cluttering up our notebook. 
 import warnings
 warnings.filterwarnings('ignore')
@@ -250,7 +254,7 @@ ax2 = fig.add_subplot(2, 2, 2)
 ax3 = fig.add_subplot(2, 2, 3);
 
 
-# This is like a blank canvas.  We can add `subplots` to this. This is where our graphs will live. We saw this type of subplot logic above. `.add_subplot` has three arguments `.add_subplot(xyz)`, where x is the number of rows of subplots, y is the number of columns of subplots, and z is the subplot that you are referring to. So, we have created a single axis of a 2 x 2 plot that we will have saved as **ax1**. **ax1** is an axis of this figure. Each subplot is an axis.
+# This is like a blank canvas.  We can add `subplots` to this. This is where our graphs will live. We saw this type of subplot logic above. `.add_subplot` has three arguments `.add_subplot(xyz)`, where x is the number of rows of subplots, y is the number of columns of subplots, and z is the subplot that you are referring to. So, we have created a single axis of a 2 x 2 plot that we will have saved as **ax**. **ax** is an axis of this figure. Each subplot is an axis, though I only create one in this example.
 # 
 # We are now using `=` to create (assign) objects to different names. You'll see these get created down in the **Jupyter: Variables** window. These are objects that exist **in memory** that you can then do things with.
 # 
@@ -259,6 +263,8 @@ ax3 = fig.add_subplot(2, 2, 3);
 # ```
 # 
 # Let's go back and just create a single plot using this `figure` and `axis` object logic. Again, you can think of this as just adding pieces of the figure together. We start with the canvas and how big it is. We add a plot. And then we style things. I even add some random text at a particular date!
+# 
+# Some times the styling method that you need has the exact same syntax as when doing `plt.`. Other times, it is a little different.
 
 # In[15]:
 
@@ -267,16 +273,16 @@ from datetime import datetime
 
 fig = plt.figure(figsize=(10, 6))
 
-ax1 = fig.add_subplot(1, 1, 1)
+ax = fig.add_subplot(1, 1, 1)
 
-ax1.plot(stocks.index, stocks.aapl_ret, 'b--', label = 'Apple Daily Returns')
+ax.plot(stocks.index, stocks.aapl_ret, 'b--', label = 'Apple Daily Returns')
 
-ax1.legend(loc='best')
-ax1.set_xlabel('Date')
-ax1.set_ylabel('Daily Return')
-ax1.set_title('Apple Daily Stock Returns')
+ax.legend(loc='best')
+ax.set_xlabel('Date')
+ax.set_ylabel('Daily Return')
+ax.set_title('Apple Daily Stock Returns')
 
-ax1.text(datetime(2015, 12, 8), -0.10, 'Random Text!!!!',
+ax.text(datetime(2015, 12, 8), -0.10, 'Random Text!!!!',
         family='monospace', fontsize=10);
 
 

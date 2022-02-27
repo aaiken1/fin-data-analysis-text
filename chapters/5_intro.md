@@ -10,6 +10,8 @@ We'll focus on financial data and the basic building blocks of creating plots, b
 
 The [Intro to Data Visualisation](https://aeturrell.github.io/coding-for-economists/vis-intro.html) for *Coding for Economists* covers some basic design principles. His section [Narrative Data Visualisation](https://aeturrell.github.io/coding-for-economists/vis-narrative.html) expands on these ideas. He discusses the "anatomy" of figures and how to choose the best plot for your data.
 
+Another [concise guide](https://www.mit.edu/~amidi/teaching/data-science-tools/study-guide/data-visualization-with-python/), this time for data viz. Note the use of `seaborn`. 
+
 
 ```{figure} ../images/05-softbank.jpeg
 ---

@@ -41,6 +41,8 @@
 # 
 # Include `import matplotlib.pyplot as plt` and `from matplotlib import style`. We are going to automatically style our graphs too.
 # 
+# Include `from matplotlib.ticker import StrMethodFormatter`. This will let us format the text on our axes below.
+# 
 # Add a **comment** to that cell calling it **Set-Up**. You can add comments to each code cell to remind yourself what you're doing. Comments are different from the Markdown that you're using to write your narrative - they go in the Python cells and use `#`. 
 
 # ## Part 3
@@ -72,7 +74,7 @@
 # 
 # Let's start with some sorting, filtering, and variable creation. 
 # 
-# Create a new `pandas` DataFrame from our main data file that contains: date (date sold), price, square footage of living space, square footage of the lot, year built, number of bedrooms, waterfront, and price per square foot. You'll need to create two of these variables! Name this DataFrame `kc_subset`. 
+# Create a new `pandas` DataFrame from our main data file that contains: date (date sold), price, square footage of living space, square footage of the lot, year built, number of bedrooms, waterfront, and price per square foot. You'll need to create one of these variables! Name this DataFrame `kc_subset`. 
 # 
 # You can create the year by selecting the `date` column and using the `dt.year` method on it. You can find an example [here](https://datascienceparichay.com/article/pandas-extract-year-from-datetime-column/). We did this in the last lab too. 
 # 
@@ -133,7 +135,18 @@
 # 
 # When styling the plot, instead of `plt.`, you'll use `ax.`, since you're referring to a specific axes object that you've created. 
 # 
-# When searching around for how to style a plot, you'll come across many ways to do the same thing. Some of them work when using `panda` plot, some when using the `plt.`, and some when using `fig` and `ax`. Some methods will work with more than one way. You just have to experiment a bit.
+# When searching around for how to style a plot, you'll come across many ways to do the same thing. Some of them work when using `panda` plot, some when using the `plt.`, and some when using `fig` and `ax`. Some methods will work with more than one way. You just have to experiment a bit. Here's some code to fill in:
+# 
+# ```
+# ax.set_xlabel('FILL ME IN')
+# ax.set_ylabel('FILL ME IN')
+# ax.set_title('FILL ME IN', fontsize = 15)
+# ax.ticklabel_format(axis='x', style='plain')
+# ax.tick_params(axis='x', rotation=45)
+# ax.tick_params(axis='y', rotation=45)
+# ax.xaxis.set_major_formatter(StrMethodFormatter('{x:,.0f}'))
+# ax.yaxis.set_major_formatter(StrMethodFormatter('${x:,.0f}'))
+# ```
 # 
 
 # ## Part 8

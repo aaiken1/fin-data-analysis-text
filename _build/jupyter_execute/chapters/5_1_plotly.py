@@ -9,7 +9,7 @@
 # conda install -c plotly plotly
 # ```
 # 
-# You should then restart VS Code.
+# The `-c` is just an option to tell conda install where to look. You should then restart VS Code.
 # 
 # I won't do a comprehensive overview, but I can show you a couple of examples. We'll look at [Plotly Express](https://plotly.com/python/line-charts/#line-plots-with-plotlyexpress).
 # 
@@ -42,7 +42,7 @@ import warnings
 warnings.filterwarnings('ignore')
 
 
-# Read in some eod prices and select just the S&P 500
+# Read in some eod prices
 stocks = pd.read_csv('https://raw.githubusercontent.com/aaiken1/fin-data-analysis-python/main/data/tr_eikon_eod_data.csv',
                   index_col=0, parse_dates=True)  
 
