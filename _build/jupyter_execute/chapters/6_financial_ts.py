@@ -481,7 +481,7 @@ ax.set_title('Apple Price with 20-Day Rolling Window Statistics');
 # In[38]:
 
 
-stocks['aapl_sma_42'] = stocks['aapl_o'].rolling(window=60).mean()
+stocks['aapl_sma_42'] = stocks['aapl_o'].rolling(window=42).mean()
 stocks['aapl_sma_252'] = stocks['aapl_o'].rolling(window=252).mean()  
 
 stocks[['aapl_o', 'aapl_sma_42', 'aapl_sma_252']].plot(figsize=(10, 6));  
