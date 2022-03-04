@@ -379,6 +379,29 @@
         <!-- Table of contents -->
         <div class="d-none d-md-block col-md-2 bd-toc show noprint">
             
+            <div class="tocsection onthispage pt-5 pb-3">
+                <i class="fas fa-list"></i> Contents
+            </div>
+            <nav id="bd-toc-nav" aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#appending-data-sets">
+   Appending data sets
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#reshaping-data-sets">
+   Reshaping data sets
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#joining-data-sets">
+   Joining data sets
+  </a>
+ </li>
+</ul>
+
+            </nav>
         </div>
     </div>
 </div>
@@ -391,6 +414,29 @@
                 <div id="print-main-content">
                     <div id="jb-print-toc">
                         
+                        <div>
+                            <h2> Contents </h2>
+                        </div>
+                        <nav aria-label="Page">
+                            <ul class="visible nav section-nav flex-column">
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#appending-data-sets">
+   Appending data sets
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#reshaping-data-sets">
+   Reshaping data sets
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#joining-data-sets">
+   Joining data sets
+  </a>
+ </li>
+</ul>
+
+                        </nav>
                     </div>
                 </div>
             </div>
@@ -403,6 +449,1078 @@
 <div class="margin sidebar">
 <p class="sidebar-title">The Keys to Our Data</p>
 <p>What variables (e.g. security ID and a date) uniquely identify our data? What variables are common across data sets?</p>
+</div>
+<p>I’ll work through a few common examples below using stock data. You can find more examples in the textbook.</p>
+<p>Here are some <a class="reference external" href="https://jalammar.github.io/visualizing-pandas-pivoting-and-reshaping/">visualizations</a> for what these different functions do.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Set-up</span>
+
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
+
+<span class="kn">import</span> <span class="nn">matplotlib</span> <span class="k">as</span> <span class="nn">mpl</span> 
+
+<span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
+
+<span class="n">aapl</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s1">&#39;https://raw.githubusercontent.com/aaiken1/fin-data-analysis-python/main/data/aapl.csv&#39;</span><span class="p">)</span>
+<span class="n">xom</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s1">&#39;https://raw.githubusercontent.com/aaiken1/fin-data-analysis-python/main/data/xom.csv&#39;</span><span class="p">)</span>
+
+<span class="n">aapl</span><span class="o">.</span><span class="n">set_index</span><span class="p">(</span><span class="s1">&#39;date&#39;</span><span class="p">)</span>
+<span class="n">xom</span><span class="o">.</span><span class="n">set_index</span><span class="p">(</span><span class="s1">&#39;date&#39;</span><span class="p">)</span>
+
+<span class="n">aapl</span><span class="o">.</span><span class="n">info</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;class &#39;pandas.core.frame.DataFrame&#39;&gt;
+RangeIndex: 757 entries, 0 to 756
+Data columns (total 15 columns):
+ #   Column   Non-Null Count  Dtype  
+---  ------   --------------  -----  
+ 0   PERMNO   757 non-null    int64  
+ 1   date     757 non-null    int64  
+ 2   TICKER   757 non-null    object 
+ 3   CUSIP    757 non-null    int64  
+ 4   DISTCD   13 non-null     float64
+ 5   DIVAMT   13 non-null     float64
+ 6   FACPR    13 non-null     float64
+ 7   FACSHR   13 non-null     float64
+ 8   PRC      757 non-null    float64
+ 9   VOL      757 non-null    int64  
+ 10  RET      757 non-null    float64
+ 11  SHROUT   757 non-null    int64  
+ 12  CFACPR   757 non-null    int64  
+ 13  CFACSHR  757 non-null    int64  
+ 14  sprtrn   757 non-null    float64
+dtypes: float64(7), int64(7), object(1)
+memory usage: 88.8+ KB
+</pre></div>
+</div>
+</div>
+</div>
+<div class="section" id="appending-data-sets">
+<h2>Appending data sets<a class="headerlink" href="#appending-data-sets" title="Permalink to this headline">¶</a></h2>
+<p>Appending, or concatenation, or stacking data. This is when you simply put one data set on top of another. However, you need to be careful! Do the data sets share the same variables? How are index values handled?</p>
+<p>There are two ways of doing this. You can use <code class="docutils literal notranslate"><span class="pre">.append()</span></code> or <code class="docutils literal notranslate"><span class="pre">pd.concat()</span></code> from <code class="docutils literal notranslate"><span class="pre">pandas</span></code>.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">ap1</span> <span class="o">=</span> <span class="n">aapl</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">xom</span><span class="p">,</span> <span class="n">sort</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+<span class="n">ap1</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>PERMNO</th>
+      <th>date</th>
+      <th>TICKER</th>
+      <th>CUSIP</th>
+      <th>DISTCD</th>
+      <th>DIVAMT</th>
+      <th>FACPR</th>
+      <th>FACSHR</th>
+      <th>PRC</th>
+      <th>VOL</th>
+      <th>RET</th>
+      <th>SHROUT</th>
+      <th>CFACPR</th>
+      <th>CFACSHR</th>
+      <th>sprtrn</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>14593</td>
+      <td>20190102</td>
+      <td>AAPL</td>
+      <td>3783310</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>157.92000</td>
+      <td>37066356</td>
+      <td>0.001141</td>
+      <td>4729803</td>
+      <td>4</td>
+      <td>4</td>
+      <td>0.001269</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>14593</td>
+      <td>20190103</td>
+      <td>AAPL</td>
+      <td>3783310</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>142.19000</td>
+      <td>91373695</td>
+      <td>-0.099607</td>
+      <td>4729803</td>
+      <td>4</td>
+      <td>4</td>
+      <td>-0.024757</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>14593</td>
+      <td>20190104</td>
+      <td>AAPL</td>
+      <td>3783310</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>148.25999</td>
+      <td>58603001</td>
+      <td>0.042689</td>
+      <td>4729803</td>
+      <td>4</td>
+      <td>4</td>
+      <td>0.034336</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>14593</td>
+      <td>20190107</td>
+      <td>AAPL</td>
+      <td>3783310</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>147.92999</td>
+      <td>54770364</td>
+      <td>-0.002226</td>
+      <td>4729803</td>
+      <td>4</td>
+      <td>4</td>
+      <td>0.007010</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>14593</td>
+      <td>20190108</td>
+      <td>AAPL</td>
+      <td>3783310</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>150.75000</td>
+      <td>41026062</td>
+      <td>0.019063</td>
+      <td>4729803</td>
+      <td>4</td>
+      <td>4</td>
+      <td>0.009695</td>
+    </tr>
+    <tr>
+      <th>...</th>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+    </tr>
+    <tr>
+      <th>751</th>
+      <td>11850</td>
+      <td>20211223</td>
+      <td>XOM</td>
+      <td>30231G10</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>61.02000</td>
+      <td>13543291</td>
+      <td>0.000492</td>
+      <td>4233567</td>
+      <td>1</td>
+      <td>1</td>
+      <td>0.006224</td>
+    </tr>
+    <tr>
+      <th>752</th>
+      <td>11850</td>
+      <td>20211227</td>
+      <td>XOM</td>
+      <td>30231G10</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>61.89000</td>
+      <td>12596340</td>
+      <td>0.014258</td>
+      <td>4233567</td>
+      <td>1</td>
+      <td>1</td>
+      <td>0.013839</td>
+    </tr>
+    <tr>
+      <th>753</th>
+      <td>11850</td>
+      <td>20211228</td>
+      <td>XOM</td>
+      <td>30231G10</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>61.69000</td>
+      <td>12786873</td>
+      <td>-0.003232</td>
+      <td>4233567</td>
+      <td>1</td>
+      <td>1</td>
+      <td>-0.001010</td>
+    </tr>
+    <tr>
+      <th>754</th>
+      <td>11850</td>
+      <td>20211229</td>
+      <td>XOM</td>
+      <td>30231G10</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>61.15000</td>
+      <td>12733601</td>
+      <td>-0.008753</td>
+      <td>4233567</td>
+      <td>1</td>
+      <td>1</td>
+      <td>0.001402</td>
+    </tr>
+    <tr>
+      <th>755</th>
+      <td>11850</td>
+      <td>20211230</td>
+      <td>XOM</td>
+      <td>30231G10</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>60.79000</td>
+      <td>11940294</td>
+      <td>-0.005887</td>
+      <td>4233567</td>
+      <td>1</td>
+      <td>1</td>
+      <td>-0.002990</td>
+    </tr>
+  </tbody>
+</table>
+<p>1513 rows × 15 columns</p>
+</div></div></div>
+</div>
+<p>See how there are 1513 rows, but the index for XOM only goes to 755? We didn’t ignore the index, so the original index comes over. The first observation of both DataFrames starts at 0. There are 756 AAPL observations and 755 XOM.</p>
+<p>Let’s ignore the index now.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">aapl</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">xom</span><span class="p">,</span> <span class="n">ignore_index</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">sort</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>PERMNO</th>
+      <th>date</th>
+      <th>TICKER</th>
+      <th>CUSIP</th>
+      <th>DISTCD</th>
+      <th>DIVAMT</th>
+      <th>FACPR</th>
+      <th>FACSHR</th>
+      <th>PRC</th>
+      <th>VOL</th>
+      <th>RET</th>
+      <th>SHROUT</th>
+      <th>CFACPR</th>
+      <th>CFACSHR</th>
+      <th>sprtrn</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>14593</td>
+      <td>20190102</td>
+      <td>AAPL</td>
+      <td>3783310</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>157.92000</td>
+      <td>37066356</td>
+      <td>0.001141</td>
+      <td>4729803</td>
+      <td>4</td>
+      <td>4</td>
+      <td>0.001269</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>14593</td>
+      <td>20190103</td>
+      <td>AAPL</td>
+      <td>3783310</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>142.19000</td>
+      <td>91373695</td>
+      <td>-0.099607</td>
+      <td>4729803</td>
+      <td>4</td>
+      <td>4</td>
+      <td>-0.024757</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>14593</td>
+      <td>20190104</td>
+      <td>AAPL</td>
+      <td>3783310</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>148.25999</td>
+      <td>58603001</td>
+      <td>0.042689</td>
+      <td>4729803</td>
+      <td>4</td>
+      <td>4</td>
+      <td>0.034336</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>14593</td>
+      <td>20190107</td>
+      <td>AAPL</td>
+      <td>3783310</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>147.92999</td>
+      <td>54770364</td>
+      <td>-0.002226</td>
+      <td>4729803</td>
+      <td>4</td>
+      <td>4</td>
+      <td>0.007010</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>14593</td>
+      <td>20190108</td>
+      <td>AAPL</td>
+      <td>3783310</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>150.75000</td>
+      <td>41026062</td>
+      <td>0.019063</td>
+      <td>4729803</td>
+      <td>4</td>
+      <td>4</td>
+      <td>0.009695</td>
+    </tr>
+    <tr>
+      <th>...</th>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+    </tr>
+    <tr>
+      <th>1508</th>
+      <td>11850</td>
+      <td>20211223</td>
+      <td>XOM</td>
+      <td>30231G10</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>61.02000</td>
+      <td>13543291</td>
+      <td>0.000492</td>
+      <td>4233567</td>
+      <td>1</td>
+      <td>1</td>
+      <td>0.006224</td>
+    </tr>
+    <tr>
+      <th>1509</th>
+      <td>11850</td>
+      <td>20211227</td>
+      <td>XOM</td>
+      <td>30231G10</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>61.89000</td>
+      <td>12596340</td>
+      <td>0.014258</td>
+      <td>4233567</td>
+      <td>1</td>
+      <td>1</td>
+      <td>0.013839</td>
+    </tr>
+    <tr>
+      <th>1510</th>
+      <td>11850</td>
+      <td>20211228</td>
+      <td>XOM</td>
+      <td>30231G10</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>61.69000</td>
+      <td>12786873</td>
+      <td>-0.003232</td>
+      <td>4233567</td>
+      <td>1</td>
+      <td>1</td>
+      <td>-0.001010</td>
+    </tr>
+    <tr>
+      <th>1511</th>
+      <td>11850</td>
+      <td>20211229</td>
+      <td>XOM</td>
+      <td>30231G10</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>61.15000</td>
+      <td>12733601</td>
+      <td>-0.008753</td>
+      <td>4233567</td>
+      <td>1</td>
+      <td>1</td>
+      <td>0.001402</td>
+    </tr>
+    <tr>
+      <th>1512</th>
+      <td>11850</td>
+      <td>20211230</td>
+      <td>XOM</td>
+      <td>30231G10</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>60.79000</td>
+      <td>11940294</td>
+      <td>-0.005887</td>
+      <td>4233567</td>
+      <td>1</td>
+      <td>1</td>
+      <td>-0.002990</td>
+    </tr>
+  </tbody>
+</table>
+<p>1513 rows × 15 columns</p>
+</div></div></div>
+</div>
+<p>Here we ignored the index, so the new index goes from 0 to 1512. What should you do? I would ignore the index and reset it in this situation. Once this data is stacked, we have <strong>long</strong> or <strong>narrow</strong> data, where each observation is uniquely identified by the date and a security ID. We have three security IDs in this data: PERMNO, TICKER, and CUSIP. In this particular situation, they should all three work. The PERMNO is the only one that is guaranteed to not change over time. Stocks change tickers. Tickers get reused. Same with CUSIPs.</p>
+<p><code class="docutils literal notranslate"><span class="pre">pd.concat</span></code> does the same thing, but with slightly different syntax. I like the way it looks a bit better.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">pd</span><span class="o">.</span><span class="n">concat</span><span class="p">((</span><span class="n">aapl</span><span class="p">,</span> <span class="n">xom</span><span class="p">),</span> <span class="n">sort</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>  
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>PERMNO</th>
+      <th>date</th>
+      <th>TICKER</th>
+      <th>CUSIP</th>
+      <th>DISTCD</th>
+      <th>DIVAMT</th>
+      <th>FACPR</th>
+      <th>FACSHR</th>
+      <th>PRC</th>
+      <th>VOL</th>
+      <th>RET</th>
+      <th>SHROUT</th>
+      <th>CFACPR</th>
+      <th>CFACSHR</th>
+      <th>sprtrn</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>14593</td>
+      <td>20190102</td>
+      <td>AAPL</td>
+      <td>3783310</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>157.92000</td>
+      <td>37066356</td>
+      <td>0.001141</td>
+      <td>4729803</td>
+      <td>4</td>
+      <td>4</td>
+      <td>0.001269</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>14593</td>
+      <td>20190103</td>
+      <td>AAPL</td>
+      <td>3783310</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>142.19000</td>
+      <td>91373695</td>
+      <td>-0.099607</td>
+      <td>4729803</td>
+      <td>4</td>
+      <td>4</td>
+      <td>-0.024757</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>14593</td>
+      <td>20190104</td>
+      <td>AAPL</td>
+      <td>3783310</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>148.25999</td>
+      <td>58603001</td>
+      <td>0.042689</td>
+      <td>4729803</td>
+      <td>4</td>
+      <td>4</td>
+      <td>0.034336</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>14593</td>
+      <td>20190107</td>
+      <td>AAPL</td>
+      <td>3783310</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>147.92999</td>
+      <td>54770364</td>
+      <td>-0.002226</td>
+      <td>4729803</td>
+      <td>4</td>
+      <td>4</td>
+      <td>0.007010</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>14593</td>
+      <td>20190108</td>
+      <td>AAPL</td>
+      <td>3783310</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>150.75000</td>
+      <td>41026062</td>
+      <td>0.019063</td>
+      <td>4729803</td>
+      <td>4</td>
+      <td>4</td>
+      <td>0.009695</td>
+    </tr>
+    <tr>
+      <th>...</th>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+    </tr>
+    <tr>
+      <th>751</th>
+      <td>11850</td>
+      <td>20211223</td>
+      <td>XOM</td>
+      <td>30231G10</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>61.02000</td>
+      <td>13543291</td>
+      <td>0.000492</td>
+      <td>4233567</td>
+      <td>1</td>
+      <td>1</td>
+      <td>0.006224</td>
+    </tr>
+    <tr>
+      <th>752</th>
+      <td>11850</td>
+      <td>20211227</td>
+      <td>XOM</td>
+      <td>30231G10</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>61.89000</td>
+      <td>12596340</td>
+      <td>0.014258</td>
+      <td>4233567</td>
+      <td>1</td>
+      <td>1</td>
+      <td>0.013839</td>
+    </tr>
+    <tr>
+      <th>753</th>
+      <td>11850</td>
+      <td>20211228</td>
+      <td>XOM</td>
+      <td>30231G10</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>61.69000</td>
+      <td>12786873</td>
+      <td>-0.003232</td>
+      <td>4233567</td>
+      <td>1</td>
+      <td>1</td>
+      <td>-0.001010</td>
+    </tr>
+    <tr>
+      <th>754</th>
+      <td>11850</td>
+      <td>20211229</td>
+      <td>XOM</td>
+      <td>30231G10</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>61.15000</td>
+      <td>12733601</td>
+      <td>-0.008753</td>
+      <td>4233567</td>
+      <td>1</td>
+      <td>1</td>
+      <td>0.001402</td>
+    </tr>
+    <tr>
+      <th>755</th>
+      <td>11850</td>
+      <td>20211230</td>
+      <td>XOM</td>
+      <td>30231G10</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>60.79000</td>
+      <td>11940294</td>
+      <td>-0.005887</td>
+      <td>4233567</td>
+      <td>1</td>
+      <td>1</td>
+      <td>-0.002990</td>
+    </tr>
+  </tbody>
+</table>
+<p>1513 rows × 15 columns</p>
+</div></div></div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">pd</span><span class="o">.</span><span class="n">concat</span><span class="p">((</span><span class="n">aapl</span><span class="p">,</span> <span class="n">xom</span><span class="p">),</span> <span class="n">ignore_index</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">sort</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>  
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>PERMNO</th>
+      <th>date</th>
+      <th>TICKER</th>
+      <th>CUSIP</th>
+      <th>DISTCD</th>
+      <th>DIVAMT</th>
+      <th>FACPR</th>
+      <th>FACSHR</th>
+      <th>PRC</th>
+      <th>VOL</th>
+      <th>RET</th>
+      <th>SHROUT</th>
+      <th>CFACPR</th>
+      <th>CFACSHR</th>
+      <th>sprtrn</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>14593</td>
+      <td>20190102</td>
+      <td>AAPL</td>
+      <td>3783310</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>157.92000</td>
+      <td>37066356</td>
+      <td>0.001141</td>
+      <td>4729803</td>
+      <td>4</td>
+      <td>4</td>
+      <td>0.001269</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>14593</td>
+      <td>20190103</td>
+      <td>AAPL</td>
+      <td>3783310</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>142.19000</td>
+      <td>91373695</td>
+      <td>-0.099607</td>
+      <td>4729803</td>
+      <td>4</td>
+      <td>4</td>
+      <td>-0.024757</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>14593</td>
+      <td>20190104</td>
+      <td>AAPL</td>
+      <td>3783310</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>148.25999</td>
+      <td>58603001</td>
+      <td>0.042689</td>
+      <td>4729803</td>
+      <td>4</td>
+      <td>4</td>
+      <td>0.034336</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>14593</td>
+      <td>20190107</td>
+      <td>AAPL</td>
+      <td>3783310</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>147.92999</td>
+      <td>54770364</td>
+      <td>-0.002226</td>
+      <td>4729803</td>
+      <td>4</td>
+      <td>4</td>
+      <td>0.007010</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>14593</td>
+      <td>20190108</td>
+      <td>AAPL</td>
+      <td>3783310</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>150.75000</td>
+      <td>41026062</td>
+      <td>0.019063</td>
+      <td>4729803</td>
+      <td>4</td>
+      <td>4</td>
+      <td>0.009695</td>
+    </tr>
+    <tr>
+      <th>...</th>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+    </tr>
+    <tr>
+      <th>1508</th>
+      <td>11850</td>
+      <td>20211223</td>
+      <td>XOM</td>
+      <td>30231G10</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>61.02000</td>
+      <td>13543291</td>
+      <td>0.000492</td>
+      <td>4233567</td>
+      <td>1</td>
+      <td>1</td>
+      <td>0.006224</td>
+    </tr>
+    <tr>
+      <th>1509</th>
+      <td>11850</td>
+      <td>20211227</td>
+      <td>XOM</td>
+      <td>30231G10</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>61.89000</td>
+      <td>12596340</td>
+      <td>0.014258</td>
+      <td>4233567</td>
+      <td>1</td>
+      <td>1</td>
+      <td>0.013839</td>
+    </tr>
+    <tr>
+      <th>1510</th>
+      <td>11850</td>
+      <td>20211228</td>
+      <td>XOM</td>
+      <td>30231G10</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>61.69000</td>
+      <td>12786873</td>
+      <td>-0.003232</td>
+      <td>4233567</td>
+      <td>1</td>
+      <td>1</td>
+      <td>-0.001010</td>
+    </tr>
+    <tr>
+      <th>1511</th>
+      <td>11850</td>
+      <td>20211229</td>
+      <td>XOM</td>
+      <td>30231G10</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>61.15000</td>
+      <td>12733601</td>
+      <td>-0.008753</td>
+      <td>4233567</td>
+      <td>1</td>
+      <td>1</td>
+      <td>0.001402</td>
+    </tr>
+    <tr>
+      <th>1512</th>
+      <td>11850</td>
+      <td>20211230</td>
+      <td>XOM</td>
+      <td>30231G10</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>60.79000</td>
+      <td>11940294</td>
+      <td>-0.005887</td>
+      <td>4233567</td>
+      <td>1</td>
+      <td>1</td>
+      <td>-0.002990</td>
+    </tr>
+  </tbody>
+</table>
+<p>1513 rows × 15 columns</p>
+</div></div></div>
+</div>
+<p>Stacking data sets usually occurs when you’re doing fancier looping, which creates some set of data or results for different subgroups (e.g. different years). You then can stack the subgroups on top of each other to get a finished, complete data set.</p>
+</div>
+<div class="section" id="reshaping-data-sets">
+<h2>Reshaping data sets<a class="headerlink" href="#reshaping-data-sets" title="Permalink to this headline">¶</a></h2>
+<p>We are going to see two types of data, generally speaking: <strong>wide</strong> data and <strong>long</strong>, or narrow data.</p>
+<p>In general, <strong>wide data</strong> has a separate column for each variable (e.g. returns, volume, etc.). Each row is then an observation for a security particular unit or firm.</p>
+<p>In finance, it can get more complicated, as wide data might have a date column and then columns like <em>aapl_ret</em>, <em>msft_volume</em>, etc. Notice how the firm identifiers are mixed with the variable type?</p>
+<p><strong>Long data</strong> would have columns like <em>firm</em>, <em>variable</em>, and <em>value</em>. Then, each firm would appear on multiple rows, instead of a single row, and the variable column would have multiple values like return, volume, etc. Finally, the specific value for that variable would be in the value column.</p>
+<p>You can also add an extra dimension for time and add a <em>date</em> column. Then, you would multiple variables per firm on specific dates.</p>
+<p><strong>Long data</strong> is sometimes called <strong>tidy data</strong>. It is, generally speaking, easier to summarize and deal with. Every variable value (e.g. a return) has a key paired with it (e.g. firm ID and date).</p>
+<p>Here’s another <a class="reference external" href="https://www.geeksforgeeks.org/reshape-a-pandas-dataframe-using-stackunstack-and-melt-method/">explanation of these methods</a>.</p>
+<p>Let’s start with <strong>going from long to wide</strong>. We will use <code class="docutils literal notranslate"><span class="pre">pd.pivot</span></code> to do this.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">wide</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s1">&#39;https://raw.githubusercontent.com/aaiken1/fin-data-analysis-python/main/data/aapl.csv&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+<div class="section" id="joining-data-sets">
+<h2>Joining data sets<a class="headerlink" href="#joining-data-sets" title="Permalink to this headline">¶</a></h2>
+<p>You will need to join, or <strong>merge</strong> data sets all of the time. Data sets have <strong>identifiers</strong>, or <strong>keys</strong>. Python calls these the data’s <strong>index</strong>. For us, this could be a stock ticker, a PERMNO, or a CUSIP. Finance data sets also have dates typically. If we have several different data sets, we can merge them together using keys.</p>
+<p>To do this, we need to understand the <strong>shape</strong> of our data, discussed above. We usually are merging long data sets, because the keys, like dates and identifiers, are in separate columns. In <strong>wide data</strong>, keys and variables are mixed.</p>
+<div class="figure align-center" id="joins-png">
+<img alt="../_images/04-joins.png" class="with-border" src="../_images/04-joins.png" />
+<p class="caption"><span class="caption-number">Fig. 19 </span><span class="caption-text">Visualization for the four main ways to merge, or join, data.</span><a class="headerlink" href="#joins-png" title="Permalink to this image">¶</a></p>
+</div>
 </div>
 </div>
 

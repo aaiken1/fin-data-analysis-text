@@ -247,6 +247,11 @@
    </a>
   </a>
  </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="7_nasdaq_api.html">
+   An Application Using NASDAQ BTC Data
+  </a>
+ </li>
 </ul>
 <p aria-level="2" class="caption" role="heading">
  <span class="caption-text">
@@ -585,8 +590,8 @@
 <p>The <code class="docutils literal notranslate"><span class="pre">RET</span></code> variable already does all of this for us. These are just the returns, calculated correctly. But, it is good to see all of the careful work that goes into calculating returns!</p>
 </div>
 <p>OK, we can compare prices across time now. Let’s calculate our own returns <strong>by group</strong>. We’ll use <strong>discrete, or simple, returns</strong> and include any distributions made.</p>
-<div class="amsmath math notranslate nohighlight" id="equation-01e41efc-23d0-4dbb-b152-03183066e7ee">
-<span class="eqno">(4)<a class="headerlink" href="#equation-01e41efc-23d0-4dbb-b152-03183066e7ee" title="Permalink to this equation">¶</a></span>\[\begin{align}
+<div class="amsmath math notranslate nohighlight" id="equation-01f4300a-ff84-4560-b07c-cd322c211c15">
+<span class="eqno">(6)<a class="headerlink" href="#equation-01f4300a-ff84-4560-b07c-cd322c211c15" title="Permalink to this equation">¶</a></span>\[\begin{align}
 R_{t} = \frac{V_t}{V_{t-1}} - 1 =  \frac{P_t + D_t}{P_{t-1}} - 1
 \end{align}\]</div>
 <p>We need to use our adjusted prices to get things right. And, we need a <strong>lagged</strong> price in the calculation. This means using something like <code class="docutils literal notranslate"><span class="pre">.shift()</span></code>. But, how can we do a <code class="docutils literal notranslate"><span class="pre">.shift()</span></code> when we have groups? If we’re not careful, we’ll use another stock’s price in our calculations because there are different security prices all stacked on top of each other! We need think in <strong>groups</strong>.</p>
@@ -602,24 +607,29 @@ R_{t} = \frac{V_t}{V_{t-1}} - 1 =  \frac{P_t + D_t}{P_{t-1}} - 1
 <div class="section" id="part-5">
 <h2>Part 5<a class="headerlink" href="#part-5" title="Permalink to this headline">¶</a></h2>
 <p>OK, we can use the official CRSP return now. Let’s use the <code class="docutils literal notranslate"><span class="pre">ret</span></code> variable to create cumulative returns <strong>by group</strong>. These are discrete returns, <strong>not</strong> log returns. So, we can’t add them up to get cumulative returns. How do you do this? If the first return is at time i = 1, then the cumulative return at time T is:</p>
-<div class="amsmath math notranslate nohighlight" id="equation-f5a04846-80e2-4cca-b5ba-b67d80c5cd60">
-<span class="eqno">(5)<a class="headerlink" href="#equation-f5a04846-80e2-4cca-b5ba-b67d80c5cd60" title="Permalink to this equation">¶</a></span>\[\begin{align}
+<div class="amsmath math notranslate nohighlight" id="equation-1e570f67-e5ae-45cb-95fc-0541402a03c2">
+<span class="eqno">(7)<a class="headerlink" href="#equation-1e570f67-e5ae-45cb-95fc-0541402a03c2" title="Permalink to this equation">¶</a></span>\[\begin{align}
 \text{Cumulative Return}_{T} = \prod_{i=1}^T (1+r_i) - 1
 \end{align}\]</div>
 <p>We do this in our notes, but it is when the entire DataFrame are returns for individual securities in a wide format. Now, we are in a long format and we want to <strong>create a new variable for cumulative returns by security</strong>.</p>
 <p>Start by creating a new <strong>gross return variable</strong> called <code class="docutils literal notranslate"><span class="pre">RET_G</span></code>. Gross returns are just actual returns plus 1.</p>
-<p>Then, use a <code class="docutils literal notranslate"><span class="pre">.groupby()</span></code> and <code class="docutils literal notranslate"><span class="pre">.cumprod()</span></code> to create cumulative returns by security. Note that you’ll need that gross return to do this. The formula above shows you why.</p>
+<p>Then, use a <code class="docutils literal notranslate"><span class="pre">.groupby()</span></code> and <code class="docutils literal notranslate"><span class="pre">.cumprod()</span></code> to create cumulative returns by security. Note that you’ll need that gross return to do this. The formula above shows you why. You can use <code class="docutils literal notranslate"><span class="pre">.sub(1)</span></code> to then subtract one from every cumulative return. Again, the formula shows why.</p>
+<p>This is a great example of how you chain or <strong>pipe</strong> together methods in Python. Take a DataFrame, group it by the security ID, take the gross return and do the cumulative product, then subtract one from everything. All in one line of code.</p>
 </div>
 <div class="section" id="part-6">
 <h2>Part 6<a class="headerlink" href="#part-6" title="Permalink to this headline">¶</a></h2>
 <p>Now we have some cumulative returns. Let’s plot them <strong>by ticker</strong>. I’ve warned you to be careful with tickers, but I know that we’re safe for these three securities during this short time frame.</p>
-<p>First, we need to make sure the data are indexed correctly. <strong>Use <code class="docutils literal notranslate"><span class="pre">.set_index()</span></code> to make <em>date</em> the index. Use <code class="docutils literal notranslate"><span class="pre">inplace=</span></code> to save this change.</strong></p>
-<p>Then, use a <code class="docutils literal notranslate"><span class="pre">.groupby()</span></code> and <code class="docutils literal notranslate"><span class="pre">pandas</span></code> <code class="docutils literal notranslate"><span class="pre">.plot()</span></code> to graph all three cumulative returns on the same graph. Finally, graph the cumulative returns on three sub-graphs. Include a legend and a title.</p>
-<p>Now, reset the index on your DataFrame using .reset_index(). We are going to use a new <code class="docutils literal notranslate"><span class="pre">pandas</span></code> method called <code class="docutils literal notranslate"><span class="pre">.pivot_table()</span></code>. With this method, you select the index, the new columns, and the values you want. In other words, you are going to <strong>spread this data from long to wide</strong>. Our date is the index. We want each ticker to get a column. And we want the cumulative returns for each ticker. Modify this code:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">dsf</span><span class="o">.</span><span class="n">pivot_table</span><span class="p">(</span><span class="n">index</span><span class="o">=</span><span class="s1">&#39;_____&#39;</span><span class="p">,</span> <span class="n">columns</span><span class="o">=</span><span class="s1">&#39;_____&#39;</span><span class="p">,</span> <span class="n">values</span><span class="o">=</span><span class="s1">&#39;_____&#39;</span><span class="p">)</span>
+<p>First, we need to make sure the data are indexed correctly. <strong>Use <code class="docutils literal notranslate"><span class="pre">.set_index()</span></code> to make <em>date</em> the index. Use <code class="docutils literal notranslate"><span class="pre">inplace=</span></code> to save this change.</strong> We do this to get the x-axis to show up as the date. For line graphs, the index is automatically added to the x-axis.</p>
+<p>Then, use a <code class="docutils literal notranslate"><span class="pre">.groupby()</span></code> and <code class="docutils literal notranslate"><span class="pre">pandas</span></code> <code class="docutils literal notranslate"><span class="pre">.plot()</span></code> to graph all three cumulative returns <strong>on the same graph</strong>. Modify this code:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">dsf</span><span class="o">.</span><span class="n">groupby</span><span class="p">(</span><span class="s1">&#39;_______&#39;</span><span class="p">)[</span><span class="s1">&#39;_____&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">legend</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">title</span> <span class="o">=</span> <span class="s1">&#39;Cumulative Returns&#39;</span><span class="p">);</span>
 </pre></div>
 </div>
-<p>Do you see what it did? Now, <strong>plot this pivoted data using <code class="docutils literal notranslate"><span class="pre">pandas</span></code> <code class="docutils literal notranslate"><span class="pre">plot()</span></code>, but have a separate plot for each ticker.</strong> We needed to pivot the data to make the separate subplots easy to do.</p>
+<p>Finally, graph the cumulative returns on <strong>three different sub-graphs</strong>. There are a couple of ways of doing this. I want to have you transform the data and then make the graph. What do I mean by transform?</p>
+<p>Reset the index on your DataFrame using .reset_index(). We are going to use a new <code class="docutils literal notranslate"><span class="pre">pandas</span></code> method called <code class="docutils literal notranslate"><span class="pre">.pivot_table()</span></code>. With this method, you select the index, the new columns, and the values you want. In other words, you are going to <strong>spread this data from long to wide</strong>. Our date is the index. We want each ticker to get a column. And we want the cumulative returns for each ticker. Modify this code:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">dsf_wide</span> <span class="o">=</span> <span class="n">dsf</span><span class="o">.</span><span class="n">pivot_table</span><span class="p">(</span><span class="n">index</span><span class="o">=</span><span class="s1">&#39;_____&#39;</span><span class="p">,</span> <span class="n">columns</span><span class="o">=</span><span class="s1">&#39;_____&#39;</span><span class="p">,</span> <span class="n">values</span><span class="o">=</span><span class="s1">&#39;_____&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>Do you see what it did? Now, <strong>plot this pivoted data using <code class="docutils literal notranslate"><span class="pre">pandas</span></code> <code class="docutils literal notranslate"><span class="pre">plot()</span></code>, but have a separate plot for each ticker.</strong> You can do this by setting <code class="docutils literal notranslate"><span class="pre">subplots</span> <span class="pre">=</span> <span class="pre">True</span></code> as an argument of <code class="docutils literal notranslate"><span class="pre">.plots()</span></code>. You could do this without rearranging the data, but I wanted you to see that process.</p>
 </div>
 <div class="section" id="part-7">
 <h2>Part 7<a class="headerlink" href="#part-7" title="Permalink to this headline">¶</a></h2>

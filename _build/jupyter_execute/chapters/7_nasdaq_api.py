@@ -6,9 +6,11 @@
 # 
 # This chapter will use the NASDAQ data link to download some BTC price and return data. We'll also see our first set of **simulations**.
 # 
-# We'll need to install a few packages to access the Nasdaq data.
+# We'll need to install a few packages to access the Nasdaq data. There's [NASDAQ Data Link](https://github.com/Nasdaq/data-link-python) and [Quandl](https://github.com/quandl/quandl-python). NASDAQ has purchased Quandl and they are trying to integrate their tools into one system. This actually makes things a bit confusing right now, as some examples use NASDAQ Data Link and others still refer to Quandl.
 # 
-# https://docs.data.nasdaq.com/docs/python-installation
+# I am going to use Quandl in my examples below. 
+# 
+# You can read about the install here: <https://docs.data.nasdaq.com/docs/python-installation>
 # 
 # 
 # `pip` is a way to install packages via the command line. This should code should install any package to your Anaconda distribution of Python.
@@ -18,7 +20,11 @@
 # pip install quandl
 # ```
 # 
-# You will need to add your Quandl key to the set-up. I have saved my key locally and am bringing it in with `quandl.read_key`, so that it isn't publicly available.
+# When you sign-up for NASDAQ Data Link, you'll get an API Key. You will need to add this key to the set-up to access the NASDAQ data using Quandl. 
+# 
+# I have saved my key locally and am bringing it in with `quandl.read_key`, so that it isn't publicly available. 
+# 
+# You don't need that bit of code.
 
 # In[1]:
 
@@ -38,30 +44,39 @@ import matplotlib.pyplot as plt
 # quandl.ApiConfig.api_key = 'YOUR_KEY_HERE'
 
 quandl.read_key()
+
+#nasdaqdatalink.read_key(filepath="/data/.corporatenasdaqdatalinkapikey")
 #print(quandl.ApiConfig.api_key)
 
 
 # In[2]:
 
 
-btc = quandl.get("BCHAIN/MKPRU")
-btc.tail()
+gdp = quandl.get('FRED/GDP')
+gdp
 
 
 # In[3]:
 
 
-btc['ret'] = btc.pct_change().dropna()
+btc = quandl.get('BCHAIN/MKPRU')
+btc.tail()
 
 
 # In[4]:
+
+
+btc['ret'] = btc.pct_change().dropna()
+
+
+# In[5]:
 
 
 btc = btc.loc['2015-01-01':,['Value', 'ret']]
 btc.plot()
 
 
-# In[5]:
+# In[6]:
 
 
 print(f'Average return: {100 * btc.ret.mean():.2f}%')
@@ -69,7 +84,7 @@ print(f'Average return: {100 * btc.ret.mean():.2f}%')
 
 # Make a cumulative return chart and daily return chart. Stack on top of each other.
 
-# In[6]:
+# In[7]:
 
 
 btc['ret_g'] = btc.ret.add(1) # gross return
@@ -77,7 +92,7 @@ btc['ret_c'] = btc.ret_g.cumprod().sub(1)    # cummulative return
 btc
 
 
-# In[7]:
+# In[8]:
 
 
 fig, axs = plt.subplots(2, 1, sharex=True, sharey=False, figsize=(10, 6))
@@ -95,7 +110,7 @@ axs[1].legend()
 
 # I can make the same graph using the `.add_subplot()` syntax. The method above gives you some more flexibility, since you can give both plots the same x-axis.
 
-# In[8]:
+# In[9]:
 
 
 fig = plt.figure(figsize=(10, 6))
@@ -117,9 +132,9 @@ plt.subplots_adjust(wspace=0.5, hspace=0.5);
 
 # Let's put together some ideas, write a function, and run a simulation. We'll use something called **geometric brownian motion** (GBM). What is GBM? It is a particular **stochastic differential equation**. But, what's important for us is the idea, which is fairly simple. Here's the formula:
 # 
-# $$
+# \begin{align}
 # dS = \mu S dt + \sigma S dW_t
-# $$
+# \end{align}
 # 
 # This says that the change in the stock price has two components - a **drift**, or average increase over time, and a **shock** that it is random at each point in time. The shock is scaled by the standard deviation of returns that you use. So, larger standard deviation, the bigger the shocks can be. This is basically the simplest way that you can model an asset price.
 # 
@@ -129,11 +144,11 @@ plt.subplots_adjust(wspace=0.5, hspace=0.5);
 # 
 # You can solve this equation to get the value of the asset at any point in time t. You just need to know the total of all of the shocks at time t.
 # 
-# $$
+# \begin{align}
 # S(t) = S(0) \exp \left(\left(\mu - \frac{1}{2}\sigma^2\right)t + \sigma W(t)\right)
-# $$
+# \end{align}
 
-# In[9]:
+# In[10]:
 
 
 T = 30 # How long is our simulation? Let's do 31 days (0 to 30 the way Python counts)
@@ -146,7 +161,7 @@ sigma = btc.ret.std()
 
 # This is the basic syntax for writing a function in Python.
 
-# In[10]:
+# In[11]:
 
 
 def simulate_gbm(s_0, mu, sigma, n_sims, T, N):
@@ -164,7 +179,7 @@ def simulate_gbm(s_0, mu, sigma, n_sims, T, N):
 
 # We can look at each piece of the function code, with some numbers hard-coded, to get a sense of what's going on.
 
-# In[11]:
+# In[12]:
 
 
 # Creates 100 rows of 30 random numbers from the standard normal distribution.
@@ -191,7 +206,7 @@ S_t = np.insert(S_t, 0, S_0, axis=1)
 # 
 # We can then use our function. This returns an `narray`. 
 
-# In[12]:
+# In[13]:
 
 
 gbm_simulations = simulate_gbm(S_0, mu, sigma, N_SIM, T, N)
@@ -199,7 +214,7 @@ gbm_simulations = simulate_gbm(S_0, mu, sigma, N_SIM, T, N)
 
 # And, we can plot all of the simulations. I'm going to use `pandas` to plot, save to `ax`, and the style the `ax`.
 
-# In[13]:
+# In[14]:
 
 
 gbm_simulations_df = pd.DataFrame(np.transpose(gbm_simulations))
