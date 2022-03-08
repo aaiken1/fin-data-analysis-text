@@ -5,7 +5,7 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>An Application Using NASDAQ BTC Data &#8212; Data Analysis in Finance</title>
+    <title>Using NASDAQ BTC Data &#8212; Data Analysis in Finance</title>
     
   <link href="../_static/css/theme.css" rel="stylesheet">
   <link href="../_static/css/index.ff1ffe594081f20da1ef19478df9384b.css" rel="stylesheet">
@@ -42,6 +42,8 @@
     <script src="../_static/copybutton.js"></script>
     <script>var togglebuttonSelector = '.toggle, .admonition.dropdown, .tag_hide_input div.cell_input, .tag_hide-input div.cell_input, .tag_hide_output div.cell_output, .tag_hide-output div.cell_output, .tag_hide_cell.cell, .tag_hide-cell.cell';</script>
     <script src="../_static/sphinx-book-theme.d59cb220de22ca1c485ebbdc042f0030.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+    <script src="https://unpkg.com/@jupyter-widgets/html-manager@^0.20.0/dist/embed-amd.js"></script>
     <script async="async" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
     <script>window.MathJax = {"options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
     <script async="async" src="https://unpkg.com/thebe@0.5.1/lib/index.js"></script>
@@ -154,7 +156,7 @@
   The Basics
  </span>
 </p>
-<ul class="current nav bd-sidenav">
+<ul class="nav bd-sidenav">
  <li class="toctree-l1 has-children">
   <a class="reference internal" href="3_intro.html">
    CompSci 101: Data and arrays
@@ -248,9 +250,16 @@
    </a>
   </a>
  </li>
+</ul>
+<p aria-level="2" class="caption" role="heading">
+ <span class="caption-text">
+  Applications
+ </span>
+</p>
+<ul class="current nav bd-sidenav">
  <li class="toctree-l1 current active">
   <a class="current reference internal" href="#">
-   An Application Using NASDAQ BTC Data
+   Using NASDAQ BTC Data
   </a>
  </li>
 </ul>
@@ -283,6 +292,11 @@
  <li class="toctree-l1">
   <a class="reference internal" href="lab04.html">
    Lab 04
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="lab05.html">
+   Lab 05
   </a>
  </li>
 </ul>
@@ -388,7 +402,7 @@
         <div class="col-12 col-md-9 pl-md-3 pr-md-0">
             <!-- Table of contents that is only displayed when printing the page -->
             <div id="jb-print-docs-body" class="onlyprint">
-                <h1>An Application Using NASDAQ BTC Data</h1>
+                <h1>Using NASDAQ BTC Data</h1>
                 <!-- Table of contents -->
                 <div id="print-main-content">
                     <div id="jb-print-toc">
@@ -399,8 +413,8 @@
             
               <div>
                 
-  <div class="tex2jax_ignore mathjax_ignore section" id="an-application-using-nasdaq-btc-data">
-<h1>An Application Using NASDAQ BTC Data<a class="headerlink" href="#an-application-using-nasdaq-btc-data" title="Permalink to this headline">¶</a></h1>
+  <div class="tex2jax_ignore mathjax_ignore section" id="using-nasdaq-btc-data">
+<h1>Using NASDAQ BTC Data<a class="headerlink" href="#using-nasdaq-btc-data" title="Permalink to this headline">¶</a></h1>
 <p>This chapter will use the NASDAQ data link to download some BTC price and return data. We’ll also see our first set of <strong>simulations</strong>.</p>
 <p>We’ll need to install a few packages to access the Nasdaq data. There’s <a class="reference external" href="https://github.com/Nasdaq/data-link-python">NASDAQ Data Link</a> and <a class="reference external" href="https://github.com/quandl/quandl-python">Quandl</a>. NASDAQ has purchased Quandl and they are trying to integrate their tools into one system. This actually makes things a bit confusing right now, as some examples use NASDAQ Data Link and others still refer to Quandl.</p>
 <p>I am going to use Quandl in my examples below.</p>
@@ -555,24 +569,24 @@
   </thead>
   <tbody>
     <tr>
-      <th>2022-02-24</th>
-      <td>37291.48</td>
+      <th>2022-03-02</th>
+      <td>44418.83</td>
     </tr>
     <tr>
-      <th>2022-02-25</th>
-      <td>38344.78</td>
+      <th>2022-03-03</th>
+      <td>43934.85</td>
     </tr>
     <tr>
-      <th>2022-02-26</th>
-      <td>39222.60</td>
+      <th>2022-03-04</th>
+      <td>42464.40</td>
     </tr>
     <tr>
-      <th>2022-02-27</th>
-      <td>39103.91</td>
+      <th>2022-03-05</th>
+      <td>39141.25</td>
     </tr>
     <tr>
-      <th>2022-02-28</th>
-      <td>37704.56</td>
+      <th>2022-03-06</th>
+      <td>39399.58</td>
     </tr>
   </tbody>
 </table>
@@ -696,43 +710,43 @@
       <td>...</td>
     </tr>
     <tr>
-      <th>2022-02-24</th>
-      <td>37291.48</td>
-      <td>-0.025369</td>
-      <td>0.974631</td>
-      <td>117.123155</td>
+      <th>2022-03-02</th>
+      <td>44418.83</td>
+      <td>0.027587</td>
+      <td>1.027587</td>
+      <td>139.699493</td>
     </tr>
     <tr>
-      <th>2022-02-25</th>
-      <td>38344.78</td>
-      <td>0.028245</td>
-      <td>1.028245</td>
-      <td>120.459550</td>
+      <th>2022-03-03</th>
+      <td>43934.85</td>
+      <td>-0.010896</td>
+      <td>0.989104</td>
+      <td>138.166455</td>
     </tr>
     <tr>
-      <th>2022-02-26</th>
-      <td>39222.60</td>
-      <td>0.022893</td>
-      <td>1.022893</td>
-      <td>123.240101</td>
+      <th>2022-03-04</th>
+      <td>42464.40</td>
+      <td>-0.033469</td>
+      <td>0.966531</td>
+      <td>133.508711</td>
     </tr>
     <tr>
-      <th>2022-02-27</th>
-      <td>39103.91</td>
-      <td>-0.003026</td>
-      <td>0.996974</td>
-      <td>122.864143</td>
+      <th>2022-03-05</th>
+      <td>39141.25</td>
+      <td>-0.078257</td>
+      <td>0.921743</td>
+      <td>122.982420</td>
     </tr>
     <tr>
-      <th>2022-02-28</th>
-      <td>37704.56</td>
-      <td>-0.035785</td>
-      <td>0.964215</td>
-      <td>118.431612</td>
+      <th>2022-03-06</th>
+      <td>39399.58</td>
+      <td>0.006600</td>
+      <td>1.006600</td>
+      <td>123.800697</td>
     </tr>
   </tbody>
 </table>
-<p>2616 rows × 4 columns</p>
+<p>2622 rows × 4 columns</p>
 </div></div></div>
 </div>
 <div class="cell docutils container">
@@ -751,7 +765,7 @@
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;matplotlib.legend.Legend at 0x7f8890e5b130&gt;
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;matplotlib.legend.Legend at 0x7fc008ae3130&gt;
 </pre></div>
 </div>
 <img alt="../_images/7_nasdaq_api_9_1.png" src="../_images/7_nasdaq_api_9_1.png" />
@@ -783,16 +797,16 @@
 </div>
 </div>
 <p>Let’s put together some ideas, write a function, and run a simulation. We’ll use something called <strong>geometric brownian motion</strong> (GBM). What is GBM? It is a particular <strong>stochastic differential equation</strong>. But, what’s important for us is the idea, which is fairly simple. Here’s the formula:</p>
-<div class="amsmath math notranslate nohighlight" id="equation-bd141ac6-1c6c-469e-a19f-3904648d5aff">
-<span class="eqno">(4)<a class="headerlink" href="#equation-bd141ac6-1c6c-469e-a19f-3904648d5aff" title="Permalink to this equation">¶</a></span>\[\begin{align}
+<div class="amsmath math notranslate nohighlight" id="equation-30f0d17f-e882-4859-8af8-160898c947d1">
+<span class="eqno">(4)<a class="headerlink" href="#equation-30f0d17f-e882-4859-8af8-160898c947d1" title="Permalink to this equation">¶</a></span>\[\begin{align}
 dS = \mu S dt + \sigma S dW_t
 \end{align}\]</div>
 <p>This says that the change in the stock price has two components - a <strong>drift</strong>, or average increase over time, and a <strong>shock</strong> that it is random at each point in time. The shock is scaled by the standard deviation of returns that you use. So, larger standard deviation, the bigger the shocks can be. This is basically the simplest way that you can model an asset price.</p>
 <p>The shocks are what make the price wiggle around around, or else it would just go up over time, based on the drift value that we use.</p>
 <p>And, I’ll stress - we aren’t predicting here, so to speak. We are trying to capture some basic reality about how an asset moves and then seeing what is possible in the future. We aren’t making a statement about whether we think an asset is overvalued or undervalued, will go up or down, etc.</p>
 <p>You can solve this equation to get the value of the asset at any point in time t. You just need to know the total of all of the shocks at time t.</p>
-<div class="amsmath math notranslate nohighlight" id="equation-2a644e8e-e65b-4ea7-aa90-1ff5c60efbb6">
-<span class="eqno">(5)<a class="headerlink" href="#equation-2a644e8e-e65b-4ea7-aa90-1ff5c60efbb6" title="Permalink to this equation">¶</a></span>\[\begin{align}
+<div class="amsmath math notranslate nohighlight" id="equation-c62c2148-b09d-4f63-8221-159ed3ad3da4">
+<span class="eqno">(5)<a class="headerlink" href="#equation-c62c2148-b09d-4f63-8221-159ed3ad3da4" title="Permalink to this equation">¶</a></span>\[\begin{align}
 S(t) = S(0) \exp \left(\left(\mu - \frac{1}{2}\sigma^2\right)t + \sigma W(t)\right)
 \end{align}\]</div>
 <div class="cell docutils container">

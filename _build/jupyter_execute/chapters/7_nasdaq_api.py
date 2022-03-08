@@ -2,7 +2,7 @@
 # coding: utf-8
 
 # 
-# # An Application Using NASDAQ BTC Data
+# # Using NASDAQ BTC Data
 # 
 # This chapter will use the NASDAQ data link to download some BTC price and return data. We'll also see our first set of **simulations**.
 # 
