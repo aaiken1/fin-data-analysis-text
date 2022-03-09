@@ -42,8 +42,6 @@
     <script src="../_static/copybutton.js"></script>
     <script>var togglebuttonSelector = '.toggle, .admonition.dropdown, .tag_hide_input div.cell_input, .tag_hide-input div.cell_input, .tag_hide_output div.cell_output, .tag_hide-output div.cell_output, .tag_hide_cell.cell, .tag_hide-cell.cell';</script>
     <script src="../_static/sphinx-book-theme.d59cb220de22ca1c485ebbdc042f0030.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
-    <script src="https://unpkg.com/@jupyter-widgets/html-manager@^0.20.0/dist/embed-amd.js"></script>
     <script async="async" src="https://unpkg.com/thebe@0.5.1/lib/index.js"></script>
     <script>
         const thebe_selector = ".thebe"
@@ -298,6 +296,23 @@
   </a>
  </li>
 </ul>
+<p aria-level="2" class="caption" role="heading">
+ <span class="caption-text">
+  Exams
+ </span>
+</p>
+<ul class="nav bd-sidenav">
+ <li class="toctree-l1">
+  <a class="reference internal" href="exam_intro.html">
+   Our Exams
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="exam01.html">
+   Midterm Exam
+  </a>
+ </li>
+</ul>
 
     </div>
 </nav> <!-- To handle the deprecated key -->
@@ -404,6 +419,26 @@
   </a>
  </li>
  <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#counting-missings-and-dupes">
+   Counting, missings, and dupes
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#sorting-our-data">
+   Sorting our data
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#renaming-columns">
+   Renaming columns
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#missing-data-example">
+   Missing data example
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
   <a class="reference internal nav-link" href="#back-to-stocks">
    Back to stocks
   </a>
@@ -436,6 +471,26 @@
  <li class="toc-h2 nav-item toc-entry">
   <a class="reference internal nav-link" href="#underwater-exploration">
    Underwater exploration
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#counting-missings-and-dupes">
+   Counting, missings, and dupes
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#sorting-our-data">
+   Sorting our data
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#renaming-columns">
+   Renaming columns
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#missing-data-example">
+   Missing data example
   </a>
  </li>
  <li class="toc-h2 nav-item toc-entry">
@@ -513,14 +568,21 @@ memory usage: 489.5+ KB
 </div>
 <p>Once of the most important steps in data cleaning is just looking at what we have. What are the variables? What are their types? How many unique values of each variable do we have? Any missings? Do we see anything unexpected?</p>
 <p>This <a class="reference external" href="https://datagy.io/pandas-unique/">page</a> has a nice summary.</p>
+<p>We can select a column and change the variable type using <code class="docutils literal notranslate"><span class="pre">.astype()</span></code>.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">uw</span><span class="p">[</span><span class="s1">&#39;UWHomes_Tier2&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">uw</span><span class="p">[</span><span class="s2">&quot;UWHomes_Tier2&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="s1">&#39;float64&#39;</span><span class="p">)</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">uw</span><span class="p">[</span><span class="s1">&#39;UWHomes_Tier2&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">uw</span><span class="p">[</span><span class="s1">&#39;UWHomes_Tier2&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="s1">&#39;float64&#39;</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
 </div>
-<p>We can count the number of times a category appears in a variable. Note that this is only useful for variables that have an sense of category. You would do this for any of the home count or dollar value variables, for example.</p>
+</div>
+<div class="section" id="counting-missings-and-dupes">
+<h2>Counting, missings, and dupes<a class="headerlink" href="#counting-missings-and-dupes" title="Permalink to this headline">¶</a></h2>
+<p>When you first bring in some data, you often want to do some simple checks. How many observations do you have? Are you missing anything? Are their duplicate observations? How do we define duplicate observations?</p>
+<p>You can’t do any data analysis until you <strong>understand the structure of your data</strong>. What do you have? Why do you have it? How do you want to use it?</p>
+<p>Let’s start with <strong>counts</strong>. We can count the number of times a <strong>category</strong> appears in a variable. Note that this is only useful for variables that have an sense of category. You would do this for any of the home count or dollar value variables, for example.</p>
+<p>We can select a <strong>categorical variable</strong>, like <em>RegionType</em> and then use <code class="docutils literal notranslate"><span class="pre">.value_counts()</span></code> from <code class="docutils literal notranslate"><span class="pre">pandas</span></code>.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">uw</span><span class="p">[</span><span class="s1">&#39;RegionType&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">value_counts</span><span class="p">()</span>
@@ -539,7 +601,7 @@ Name: RegionType, dtype: int64
 </div>
 </div>
 </div>
-<p>We should look for missing values for each variable. <code class="docutils literal notranslate"><span class="pre">isna()</span></code> returns a <code class="docutils literal notranslate"><span class="pre">TRUE</span></code> or <code class="docutils literal notranslate"><span class="pre">FALSE</span></code> for each value, depending on whether or not it is <code class="docutils literal notranslate"><span class="pre">NaN</span></code>, or missing. We can then take those 1/0, true or false, values and add them up with <code class="docutils literal notranslate"><span class="pre">sum()</span></code>.</p>
+<p>We should look for <strong>missing values</strong> for each variable. <code class="docutils literal notranslate"><span class="pre">isna()</span></code> returns a <code class="docutils literal notranslate"><span class="pre">TRUE</span></code> or <code class="docutils literal notranslate"><span class="pre">FALSE</span></code> for each value, depending on whether or not it is <code class="docutils literal notranslate"><span class="pre">NaN</span></code>, or missing. We can then take those 1/0, true or false, values and add them up with <code class="docutils literal notranslate"><span class="pre">sum()</span></code>.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">uw</span><span class="o">.</span><span class="n">isna</span><span class="p">()</span><span class="o">.</span><span class="n">sum</span><span class="p">()</span>
@@ -895,110 +957,13 @@ dtype: int64
 <p>2610 rows × 24 columns</p>
 </div></div></div>
 </div>
-<p>The same sort of logic applies to the method <code class="docutils literal notranslate"><span class="pre">unique()</span></code>. This one gives an <code class="docutils literal notranslate"><span class="pre">array</span></code> of each unique value in a column or set of columns.</p>
+<p>The same sort of logic applies to the method <code class="docutils literal notranslate"><span class="pre">unique()</span></code>. This one gives an <code class="docutils literal notranslate"><span class="pre">array</span></code> of each unique value in a column or set of columns. This will save an array of unique values that appear in the <em>RegionName</em> column.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">uw</span><span class="o">.</span><span class="n">RegionName</span><span class="o">.</span><span class="n">unique</span><span class="p">()</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">unique_regions</span> <span class="o">=</span> <span class="n">uw</span><span class="o">.</span><span class="n">RegionName</span><span class="o">.</span><span class="n">unique</span><span class="p">()</span>
 </pre></div>
 </div>
 </div>
-<div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>array([&#39;United States&#39;, &#39;Alabama&#39;, &#39;California&#39;, ..., &#39;98612&#39;, &#39;32081&#39;,
-       &#39;33578&#39;], dtype=object)
-</pre></div>
-</div>
-</div>
-</div>
-<p>And, to look across multiple columns, we could use `drop_duplicates()’. This will find the unique values for set of variables given it.</p>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">uw</span><span class="p">[[</span><span class="s1">&#39;RegionName&#39;</span><span class="p">,</span><span class="s1">&#39;StateName&#39;</span><span class="p">]]</span><span class="o">.</span><span class="n">drop_duplicates</span><span class="p">()</span>
-</pre></div>
-</div>
-</div>
-<div class="cell_output docutils container">
-<div class="output text_html"><div>
-<style scoped>
-    .dataframe tbody tr th:only-of-type {
-        vertical-align: middle;
-    }
-
-    .dataframe tbody tr th {
-        vertical-align: top;
-    }
-
-    .dataframe thead th {
-        text-align: right;
-    }
-</style>
-<table border="1" class="dataframe">
-  <thead>
-    <tr style="text-align: right;">
-      <th></th>
-      <th>RegionName</th>
-      <th>StateName</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <th>0</th>
-      <td>United States</td>
-      <td>NaN</td>
-    </tr>
-    <tr>
-      <th>1</th>
-      <td>Alabama</td>
-      <td>Alabama</td>
-    </tr>
-    <tr>
-      <th>2</th>
-      <td>California</td>
-      <td>California</td>
-    </tr>
-    <tr>
-      <th>3</th>
-      <td>Connecticut</td>
-      <td>Connecticut</td>
-    </tr>
-    <tr>
-      <th>4</th>
-      <td>Delaware</td>
-      <td>Delaware</td>
-    </tr>
-    <tr>
-      <th>...</th>
-      <td>...</td>
-      <td>...</td>
-    </tr>
-    <tr>
-      <th>2605</th>
-      <td>98592</td>
-      <td>Washington</td>
-    </tr>
-    <tr>
-      <th>2606</th>
-      <td>98595</td>
-      <td>Washington</td>
-    </tr>
-    <tr>
-      <th>2607</th>
-      <td>98612</td>
-      <td>Washington</td>
-    </tr>
-    <tr>
-      <th>2608</th>
-      <td>32081</td>
-      <td>Florida</td>
-    </tr>
-    <tr>
-      <th>2609</th>
-      <td>33578</td>
-      <td>Florida</td>
-    </tr>
-  </tbody>
-</table>
-<p>2571 rows × 2 columns</p>
-</div></div></div>
 </div>
 <p>We can count the number of unique values for a variable.</p>
 <div class="cell docutils container">
@@ -1040,6 +1005,2008 @@ dtype: int64
 </div>
 </div>
 <p>We have 95 unique MSA is our data. Seems reasonable. MSAs are like city-regions.</p>
+<p>Finally, we can just drop any rows with missing values using <code class="docutils literal notranslate"><span class="pre">.dropna()</span></code> from <code class="docutils literal notranslate"><span class="pre">pandas</span></code>. If we don’t specify a column, then it will drop a row if <strong>ANY</strong> value is missing. I don’t actually want to drop missings here, so I’m not going to save my work with a <code class="docutils literal notranslate"><span class="pre">uw</span> <span class="pre">=</span> </code>.</p>
+<p>You can read more <a class="reference external" href="https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.DataFrame.dropna.html">here</a>.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">uw</span><span class="o">.</span><span class="n">dropna</span><span class="p">(</span><span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>RegionType</th>
+      <th>RegionName</th>
+      <th>StateName</th>
+      <th>MSAName</th>
+      <th>AllHomes_Tier1</th>
+      <th>AllHomes_Tier2</th>
+      <th>AllHomes_Tier3</th>
+      <th>AllHomes_AllTiers</th>
+      <th>UWHomes_Tier1</th>
+      <th>UWHomes_Tier2</th>
+      <th>...</th>
+      <th>UWHomes_TotalValue_Tier3</th>
+      <th>UWHomes_TotalValue_AllTiers</th>
+      <th>UWHomes_MedianValue_AllTiers</th>
+      <th>AllHomes_Tier1_ShareUW</th>
+      <th>AllHomes_Tier2_ShareUW</th>
+      <th>AllHomes_Tier3_ShareUW</th>
+      <th>AllHomes_AllTiers_ShareUW</th>
+      <th>UWHomes_ShareInTier1</th>
+      <th>UWHomes_ShareInTier2</th>
+      <th>UWHomes_ShareInTier3</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>251</th>
+      <td>MSA</td>
+      <td>Aberdeen, WA</td>
+      <td>Washington</td>
+      <td>Aberdeen, WA</td>
+      <td>11606.0</td>
+      <td>11751.0</td>
+      <td>11749.0</td>
+      <td>35106.0</td>
+      <td>4119.0</td>
+      <td>2450.0</td>
+      <td>...</td>
+      <td>1.734113e+08</td>
+      <td>7.791588e+08</td>
+      <td>88327.0</td>
+      <td>0.354903</td>
+      <td>0.208493</td>
+      <td>0.065537</td>
+      <td>0.209053</td>
+      <td>0.561248</td>
+      <td>0.333833</td>
+      <td>0.104919</td>
+    </tr>
+    <tr>
+      <th>252</th>
+      <td>MSA</td>
+      <td>Astoria, OR</td>
+      <td>Oregon</td>
+      <td>Astoria, OR</td>
+      <td>4745.0</td>
+      <td>5228.0</td>
+      <td>5568.0</td>
+      <td>15541.0</td>
+      <td>811.0</td>
+      <td>376.0</td>
+      <td>...</td>
+      <td>9.138231e+07</td>
+      <td>3.620604e+08</td>
+      <td>237912.0</td>
+      <td>0.170917</td>
+      <td>0.071920</td>
+      <td>0.040409</td>
+      <td>0.090856</td>
+      <td>0.574363</td>
+      <td>0.266289</td>
+      <td>0.159348</td>
+    </tr>
+    <tr>
+      <th>253</th>
+      <td>MSA</td>
+      <td>Egg Harbor Township, NJ</td>
+      <td>New Jersey</td>
+      <td>Egg Harbor Township, NJ</td>
+      <td>34185.0</td>
+      <td>34117.0</td>
+      <td>34088.0</td>
+      <td>102390.0</td>
+      <td>9116.0</td>
+      <td>9575.0</td>
+      <td>...</td>
+      <td>5.576646e+09</td>
+      <td>1.030631e+10</td>
+      <td>264441.0</td>
+      <td>0.266667</td>
+      <td>0.280652</td>
+      <td>0.252200</td>
+      <td>0.266510</td>
+      <td>0.334066</td>
+      <td>0.350887</td>
+      <td>0.315047</td>
+    </tr>
+    <tr>
+      <th>254</th>
+      <td>MSA</td>
+      <td>Baltimore, MD</td>
+      <td>Maryland</td>
+      <td>Baltimore, MD</td>
+      <td>298318.0</td>
+      <td>312603.0</td>
+      <td>316502.0</td>
+      <td>927423.0</td>
+      <td>2293.0</td>
+      <td>2910.0</td>
+      <td>...</td>
+      <td>3.698818e+09</td>
+      <td>5.153664e+09</td>
+      <td>336801.0</td>
+      <td>0.007686</td>
+      <td>0.009309</td>
+      <td>0.021861</td>
+      <td>0.013071</td>
+      <td>0.189160</td>
+      <td>0.240059</td>
+      <td>0.570780</td>
+    </tr>
+    <tr>
+      <th>255</th>
+      <td>MSA</td>
+      <td>East Falmouth, MA</td>
+      <td>Massachusetts</td>
+      <td>East Falmouth, MA</td>
+      <td>45345.0</td>
+      <td>45358.0</td>
+      <td>45258.0</td>
+      <td>135961.0</td>
+      <td>1651.0</td>
+      <td>1395.0</td>
+      <td>...</td>
+      <td>4.205784e+09</td>
+      <td>5.349099e+09</td>
+      <td>588650.0</td>
+      <td>0.036410</td>
+      <td>0.030755</td>
+      <td>0.073004</td>
+      <td>0.046705</td>
+      <td>0.260000</td>
+      <td>0.219685</td>
+      <td>0.520315</td>
+    </tr>
+    <tr>
+      <th>...</th>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+    </tr>
+    <tr>
+      <th>1358</th>
+      <td>City</td>
+      <td>Town of Salisbury</td>
+      <td>Massachusetts</td>
+      <td>Boston, MA</td>
+      <td>1207.0</td>
+      <td>1207.0</td>
+      <td>1207.0</td>
+      <td>3621.0</td>
+      <td>397.0</td>
+      <td>402.0</td>
+      <td>...</td>
+      <td>1.484370e+08</td>
+      <td>3.900701e+08</td>
+      <td>342026.0</td>
+      <td>0.328915</td>
+      <td>0.333057</td>
+      <td>0.221210</td>
+      <td>0.294394</td>
+      <td>0.372420</td>
+      <td>0.377111</td>
+      <td>0.250469</td>
+    </tr>
+    <tr>
+      <th>1359</th>
+      <td>City</td>
+      <td>Town of Duxbury</td>
+      <td>Massachusetts</td>
+      <td>Boston, MA</td>
+      <td>1835.0</td>
+      <td>1835.0</td>
+      <td>1837.0</td>
+      <td>5507.0</td>
+      <td>68.0</td>
+      <td>33.0</td>
+      <td>...</td>
+      <td>1.909504e+08</td>
+      <td>2.389202e+08</td>
+      <td>749341.0</td>
+      <td>0.037057</td>
+      <td>0.017984</td>
+      <td>0.056614</td>
+      <td>0.037225</td>
+      <td>0.331707</td>
+      <td>0.160976</td>
+      <td>0.507317</td>
+    </tr>
+    <tr>
+      <th>1360</th>
+      <td>City</td>
+      <td>New Shoreham</td>
+      <td>Rhode Island</td>
+      <td>Providence, RI</td>
+      <td>506.0</td>
+      <td>506.0</td>
+      <td>506.0</td>
+      <td>1518.0</td>
+      <td>57.0</td>
+      <td>25.0</td>
+      <td>...</td>
+      <td>9.383493e+07</td>
+      <td>1.654886e+08</td>
+      <td>1072092.0</td>
+      <td>0.112648</td>
+      <td>0.049407</td>
+      <td>0.094862</td>
+      <td>0.085639</td>
+      <td>0.438462</td>
+      <td>0.192308</td>
+      <td>0.369231</td>
+    </tr>
+    <tr>
+      <th>1361</th>
+      <td>City</td>
+      <td>Yarmouth</td>
+      <td>Massachusetts</td>
+      <td>East Falmouth, MA</td>
+      <td>5178.0</td>
+      <td>5178.0</td>
+      <td>5180.0</td>
+      <td>15536.0</td>
+      <td>472.0</td>
+      <td>184.0</td>
+      <td>...</td>
+      <td>4.531706e+08</td>
+      <td>6.061486e+08</td>
+      <td>332409.0</td>
+      <td>0.091155</td>
+      <td>0.035535</td>
+      <td>0.102124</td>
+      <td>0.076274</td>
+      <td>0.398312</td>
+      <td>0.155274</td>
+      <td>0.446414</td>
+    </tr>
+    <tr>
+      <th>1362</th>
+      <td>City</td>
+      <td>Town of Hingham</td>
+      <td>Massachusetts</td>
+      <td>Boston, MA</td>
+      <td>2462.0</td>
+      <td>2462.0</td>
+      <td>2462.0</td>
+      <td>7386.0</td>
+      <td>48.0</td>
+      <td>33.0</td>
+      <td>...</td>
+      <td>8.266223e+07</td>
+      <td>1.309589e+08</td>
+      <td>731420.0</td>
+      <td>0.019496</td>
+      <td>0.013404</td>
+      <td>0.021121</td>
+      <td>0.018007</td>
+      <td>0.360902</td>
+      <td>0.248120</td>
+      <td>0.390977</td>
+    </tr>
+  </tbody>
+</table>
+<p>1071 rows × 24 columns</p>
+</div></div></div>
+</div>
+<p>We now have 1071 rows, since <em>MSAName</em> had so many missing values. But - that was OK given how this data are constructed. You’ll see another example with stock data below.</p>
+<p>Now, I’ll just drop observations if <em>AllHomes_Tier1</em> is missing.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">uw</span><span class="o">.</span><span class="n">dropna</span><span class="p">(</span><span class="n">subset</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;AllHomes_Tier1&#39;</span><span class="p">],</span> <span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>RegionType</th>
+      <th>RegionName</th>
+      <th>StateName</th>
+      <th>MSAName</th>
+      <th>AllHomes_Tier1</th>
+      <th>AllHomes_Tier2</th>
+      <th>AllHomes_Tier3</th>
+      <th>AllHomes_AllTiers</th>
+      <th>UWHomes_Tier1</th>
+      <th>UWHomes_Tier2</th>
+      <th>...</th>
+      <th>UWHomes_TotalValue_Tier3</th>
+      <th>UWHomes_TotalValue_AllTiers</th>
+      <th>UWHomes_MedianValue_AllTiers</th>
+      <th>AllHomes_Tier1_ShareUW</th>
+      <th>AllHomes_Tier2_ShareUW</th>
+      <th>AllHomes_Tier3_ShareUW</th>
+      <th>AllHomes_AllTiers_ShareUW</th>
+      <th>UWHomes_ShareInTier1</th>
+      <th>UWHomes_ShareInTier2</th>
+      <th>UWHomes_ShareInTier3</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>Nation</td>
+      <td>United States</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>35461549.0</td>
+      <td>35452941.0</td>
+      <td>35484532.0</td>
+      <td>106399022.0</td>
+      <td>594672.0</td>
+      <td>542681.0</td>
+      <td>...</td>
+      <td>5.974490e+11</td>
+      <td>9.159540e+11</td>
+      <td>310306.0</td>
+      <td>0.016769</td>
+      <td>0.015307</td>
+      <td>0.020458</td>
+      <td>0.017512</td>
+      <td>0.319149</td>
+      <td>0.291246</td>
+      <td>0.389605</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>State</td>
+      <td>Alabama</td>
+      <td>Alabama</td>
+      <td>NaN</td>
+      <td>546670.0</td>
+      <td>520247.0</td>
+      <td>491300.0</td>
+      <td>1558217.0</td>
+      <td>2890.0</td>
+      <td>2766.0</td>
+      <td>...</td>
+      <td>2.583039e+09</td>
+      <td>3.578203e+09</td>
+      <td>270254.0</td>
+      <td>0.005287</td>
+      <td>0.005317</td>
+      <td>0.010271</td>
+      <td>0.006868</td>
+      <td>0.270043</td>
+      <td>0.258456</td>
+      <td>0.471501</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>State</td>
+      <td>California</td>
+      <td>California</td>
+      <td>NaN</td>
+      <td>3060171.0</td>
+      <td>3076238.0</td>
+      <td>3169584.0</td>
+      <td>9305993.0</td>
+      <td>8090.0</td>
+      <td>14266.0</td>
+      <td>...</td>
+      <td>2.666638e+10</td>
+      <td>4.449536e+10</td>
+      <td>860373.0</td>
+      <td>0.002644</td>
+      <td>0.004637</td>
+      <td>0.005611</td>
+      <td>0.004313</td>
+      <td>0.201550</td>
+      <td>0.355415</td>
+      <td>0.443035</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>State</td>
+      <td>Connecticut</td>
+      <td>Connecticut</td>
+      <td>NaN</td>
+      <td>333904.0</td>
+      <td>334688.0</td>
+      <td>336254.0</td>
+      <td>1004846.0</td>
+      <td>4434.0</td>
+      <td>3807.0</td>
+      <td>...</td>
+      <td>8.689480e+09</td>
+      <td>1.152170e+10</td>
+      <td>442036.0</td>
+      <td>0.013279</td>
+      <td>0.011375</td>
+      <td>0.021677</td>
+      <td>0.015455</td>
+      <td>0.285512</td>
+      <td>0.245138</td>
+      <td>0.469350</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>State</td>
+      <td>Delaware</td>
+      <td>Delaware</td>
+      <td>NaN</td>
+      <td>102983.0</td>
+      <td>127573.0</td>
+      <td>127983.0</td>
+      <td>358539.0</td>
+      <td>4105.0</td>
+      <td>2574.0</td>
+      <td>...</td>
+      <td>1.498013e+09</td>
+      <td>2.801847e+09</td>
+      <td>241344.5</td>
+      <td>0.039861</td>
+      <td>0.020177</td>
+      <td>0.025675</td>
+      <td>0.027793</td>
+      <td>0.411942</td>
+      <td>0.258304</td>
+      <td>0.329754</td>
+    </tr>
+    <tr>
+      <th>...</th>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+    </tr>
+    <tr>
+      <th>2605</th>
+      <td>Zip</td>
+      <td>98592</td>
+      <td>Washington</td>
+      <td>NaN</td>
+      <td>464.0</td>
+      <td>470.0</td>
+      <td>493.0</td>
+      <td>1427.0</td>
+      <td>8.0</td>
+      <td>29.0</td>
+      <td>...</td>
+      <td>7.340711e+07</td>
+      <td>8.271541e+07</td>
+      <td>436490.5</td>
+      <td>0.017241</td>
+      <td>0.061702</td>
+      <td>0.273834</td>
+      <td>0.120533</td>
+      <td>0.046512</td>
+      <td>0.168605</td>
+      <td>0.784884</td>
+    </tr>
+    <tr>
+      <th>2606</th>
+      <td>Zip</td>
+      <td>98595</td>
+      <td>Washington</td>
+      <td>NaN</td>
+      <td>558.0</td>
+      <td>571.0</td>
+      <td>598.0</td>
+      <td>1727.0</td>
+      <td>119.0</td>
+      <td>104.0</td>
+      <td>...</td>
+      <td>1.376119e+07</td>
+      <td>4.036570e+07</td>
+      <td>131441.0</td>
+      <td>0.213262</td>
+      <td>0.182137</td>
+      <td>0.095318</td>
+      <td>0.162131</td>
+      <td>0.425000</td>
+      <td>0.371429</td>
+      <td>0.203571</td>
+    </tr>
+    <tr>
+      <th>2607</th>
+      <td>Zip</td>
+      <td>98612</td>
+      <td>Washington</td>
+      <td>NaN</td>
+      <td>365.0</td>
+      <td>376.0</td>
+      <td>409.0</td>
+      <td>1150.0</td>
+      <td>91.0</td>
+      <td>79.0</td>
+      <td>...</td>
+      <td>1.440674e+07</td>
+      <td>5.028400e+07</td>
+      <td>230495.0</td>
+      <td>0.249315</td>
+      <td>0.210106</td>
+      <td>0.092910</td>
+      <td>0.180870</td>
+      <td>0.437500</td>
+      <td>0.379808</td>
+      <td>0.182692</td>
+    </tr>
+    <tr>
+      <th>2608</th>
+      <td>Zip</td>
+      <td>32081</td>
+      <td>Florida</td>
+      <td>NaN</td>
+      <td>1318.0</td>
+      <td>1328.0</td>
+      <td>1350.0</td>
+      <td>3996.0</td>
+      <td>91.0</td>
+      <td>42.0</td>
+      <td>...</td>
+      <td>9.111212e+07</td>
+      <td>1.325055e+08</td>
+      <td>385196.0</td>
+      <td>0.069044</td>
+      <td>0.031627</td>
+      <td>0.097778</td>
+      <td>0.066316</td>
+      <td>0.343396</td>
+      <td>0.158491</td>
+      <td>0.498113</td>
+    </tr>
+    <tr>
+      <th>2609</th>
+      <td>Zip</td>
+      <td>33578</td>
+      <td>Florida</td>
+      <td>NaN</td>
+      <td>5975.0</td>
+      <td>4537.0</td>
+      <td>3232.0</td>
+      <td>13744.0</td>
+      <td>8.0</td>
+      <td>6.0</td>
+      <td>...</td>
+      <td>5.685202e+07</td>
+      <td>5.911551e+07</td>
+      <td>363355.0</td>
+      <td>0.001339</td>
+      <td>0.001322</td>
+      <td>0.038366</td>
+      <td>0.010041</td>
+      <td>0.057971</td>
+      <td>0.043478</td>
+      <td>0.898551</td>
+    </tr>
+  </tbody>
+</table>
+<p>2610 rows × 24 columns</p>
+</div></div></div>
+</div>
+<p>Nothing gets dropped, since there were no missing values.</p>
+<p>Unique and missing values are important. So is the idea of <strong>duplicates</strong>. Does a row (an observation) contain the same values as another row? That could be all of the values across all of the variables, or just a particular column (e.g. ticker), or a set of columns (e.g. ticker and date).</p>
+<p>We can see if our data has any duplicates by using <code class="docutils literal notranslate"><span class="pre">.duplicated()</span></code> from <code class="docutils literal notranslate"><span class="pre">pandas</span></code>.</p>
+<p>You can read more <a class="reference external" href="https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.DataFrame.duplicated.html">here</a>.</p>
+<p>I’m going to <strong>filter</strong> my data to only include <code class="docutils literal notranslate"><span class="pre">RegionType='Zip'</span></code> and then look for duplicate Zip codes. The Zip codes are found in <em>RegionName</em>. I’ll save this to a new DataFrame called <em>dupes</em>. The argument <code class="docutils literal notranslate"><span class="pre">keep='first</span></code> will keep the first duplicate, if any.</p>
+<p>I am then going to <strong>mask</strong> my subset of the uw data. So, I filter to get just Zip codes. Then, I <strong>mask</strong> on the <em>dupes</em> DataFrame. This DataFrame is just an array of True/False values. By <strong>masking</strong>, I’m telling Python to only keep values that are True. There are no True values, so no duplicate Zips and the resulting DataFrame is empty.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">dupes</span> <span class="o">=</span> <span class="n">uw</span><span class="p">[</span><span class="n">uw</span><span class="p">[</span><span class="s1">&#39;RegionType&#39;</span><span class="p">]</span> <span class="o">==</span> <span class="s1">&#39;Zip&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">duplicated</span><span class="p">(</span><span class="n">subset</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;RegionName&#39;</span><span class="p">],</span> <span class="n">keep</span><span class="o">=</span><span class="s1">&#39;first&#39;</span><span class="p">)</span>
+
+<span class="n">uw</span><span class="p">[</span><span class="n">uw</span><span class="p">[</span><span class="s1">&#39;RegionType&#39;</span><span class="p">]</span> <span class="o">==</span> <span class="s1">&#39;Zip&#39;</span><span class="p">][</span><span class="n">dupes</span><span class="p">]</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>RegionType</th>
+      <th>RegionName</th>
+      <th>StateName</th>
+      <th>MSAName</th>
+      <th>AllHomes_Tier1</th>
+      <th>AllHomes_Tier2</th>
+      <th>AllHomes_Tier3</th>
+      <th>AllHomes_AllTiers</th>
+      <th>UWHomes_Tier1</th>
+      <th>UWHomes_Tier2</th>
+      <th>...</th>
+      <th>UWHomes_TotalValue_Tier3</th>
+      <th>UWHomes_TotalValue_AllTiers</th>
+      <th>UWHomes_MedianValue_AllTiers</th>
+      <th>AllHomes_Tier1_ShareUW</th>
+      <th>AllHomes_Tier2_ShareUW</th>
+      <th>AllHomes_Tier3_ShareUW</th>
+      <th>AllHomes_AllTiers_ShareUW</th>
+      <th>UWHomes_ShareInTier1</th>
+      <th>UWHomes_ShareInTier2</th>
+      <th>UWHomes_ShareInTier3</th>
+    </tr>
+  </thead>
+  <tbody>
+  </tbody>
+</table>
+<p>0 rows × 24 columns</p>
+</div></div></div>
+</div>
+<p>We can use <code class="docutils literal notranslate"><span class="pre">drop_duplicates()</span></code> to look at our data and drop rows that are duplicate observations. We use the <code class="docutils literal notranslate"><span class="pre">subset=</span></code> argument to tell it what columns to look at for duplicates. We can leave out this argument if we want to look across all columns.</p>
+<p>The argument <code class="docutils literal notranslate"><span class="pre">keep=</span></code> will tell it which duplicate to keep in the data (e.g. the first one or the last one).</p>
+<p>You can read more about the syntax <a class="reference external" href="https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.DataFrame.drop_duplicates.html">here</a>.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">uw</span><span class="o">.</span><span class="n">drop_duplicates</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>RegionType</th>
+      <th>RegionName</th>
+      <th>StateName</th>
+      <th>MSAName</th>
+      <th>AllHomes_Tier1</th>
+      <th>AllHomes_Tier2</th>
+      <th>AllHomes_Tier3</th>
+      <th>AllHomes_AllTiers</th>
+      <th>UWHomes_Tier1</th>
+      <th>UWHomes_Tier2</th>
+      <th>...</th>
+      <th>UWHomes_TotalValue_Tier3</th>
+      <th>UWHomes_TotalValue_AllTiers</th>
+      <th>UWHomes_MedianValue_AllTiers</th>
+      <th>AllHomes_Tier1_ShareUW</th>
+      <th>AllHomes_Tier2_ShareUW</th>
+      <th>AllHomes_Tier3_ShareUW</th>
+      <th>AllHomes_AllTiers_ShareUW</th>
+      <th>UWHomes_ShareInTier1</th>
+      <th>UWHomes_ShareInTier2</th>
+      <th>UWHomes_ShareInTier3</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>Nation</td>
+      <td>United States</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>35461549.0</td>
+      <td>35452941.0</td>
+      <td>35484532.0</td>
+      <td>106399022.0</td>
+      <td>594672.0</td>
+      <td>542681.0</td>
+      <td>...</td>
+      <td>5.974490e+11</td>
+      <td>9.159540e+11</td>
+      <td>310306.0</td>
+      <td>0.016769</td>
+      <td>0.015307</td>
+      <td>0.020458</td>
+      <td>0.017512</td>
+      <td>0.319149</td>
+      <td>0.291246</td>
+      <td>0.389605</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>State</td>
+      <td>Alabama</td>
+      <td>Alabama</td>
+      <td>NaN</td>
+      <td>546670.0</td>
+      <td>520247.0</td>
+      <td>491300.0</td>
+      <td>1558217.0</td>
+      <td>2890.0</td>
+      <td>2766.0</td>
+      <td>...</td>
+      <td>2.583039e+09</td>
+      <td>3.578203e+09</td>
+      <td>270254.0</td>
+      <td>0.005287</td>
+      <td>0.005317</td>
+      <td>0.010271</td>
+      <td>0.006868</td>
+      <td>0.270043</td>
+      <td>0.258456</td>
+      <td>0.471501</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>State</td>
+      <td>California</td>
+      <td>California</td>
+      <td>NaN</td>
+      <td>3060171.0</td>
+      <td>3076238.0</td>
+      <td>3169584.0</td>
+      <td>9305993.0</td>
+      <td>8090.0</td>
+      <td>14266.0</td>
+      <td>...</td>
+      <td>2.666638e+10</td>
+      <td>4.449536e+10</td>
+      <td>860373.0</td>
+      <td>0.002644</td>
+      <td>0.004637</td>
+      <td>0.005611</td>
+      <td>0.004313</td>
+      <td>0.201550</td>
+      <td>0.355415</td>
+      <td>0.443035</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>State</td>
+      <td>Connecticut</td>
+      <td>Connecticut</td>
+      <td>NaN</td>
+      <td>333904.0</td>
+      <td>334688.0</td>
+      <td>336254.0</td>
+      <td>1004846.0</td>
+      <td>4434.0</td>
+      <td>3807.0</td>
+      <td>...</td>
+      <td>8.689480e+09</td>
+      <td>1.152170e+10</td>
+      <td>442036.0</td>
+      <td>0.013279</td>
+      <td>0.011375</td>
+      <td>0.021677</td>
+      <td>0.015455</td>
+      <td>0.285512</td>
+      <td>0.245138</td>
+      <td>0.469350</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>State</td>
+      <td>Delaware</td>
+      <td>Delaware</td>
+      <td>NaN</td>
+      <td>102983.0</td>
+      <td>127573.0</td>
+      <td>127983.0</td>
+      <td>358539.0</td>
+      <td>4105.0</td>
+      <td>2574.0</td>
+      <td>...</td>
+      <td>1.498013e+09</td>
+      <td>2.801847e+09</td>
+      <td>241344.5</td>
+      <td>0.039861</td>
+      <td>0.020177</td>
+      <td>0.025675</td>
+      <td>0.027793</td>
+      <td>0.411942</td>
+      <td>0.258304</td>
+      <td>0.329754</td>
+    </tr>
+    <tr>
+      <th>...</th>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+    </tr>
+    <tr>
+      <th>2605</th>
+      <td>Zip</td>
+      <td>98592</td>
+      <td>Washington</td>
+      <td>NaN</td>
+      <td>464.0</td>
+      <td>470.0</td>
+      <td>493.0</td>
+      <td>1427.0</td>
+      <td>8.0</td>
+      <td>29.0</td>
+      <td>...</td>
+      <td>7.340711e+07</td>
+      <td>8.271541e+07</td>
+      <td>436490.5</td>
+      <td>0.017241</td>
+      <td>0.061702</td>
+      <td>0.273834</td>
+      <td>0.120533</td>
+      <td>0.046512</td>
+      <td>0.168605</td>
+      <td>0.784884</td>
+    </tr>
+    <tr>
+      <th>2606</th>
+      <td>Zip</td>
+      <td>98595</td>
+      <td>Washington</td>
+      <td>NaN</td>
+      <td>558.0</td>
+      <td>571.0</td>
+      <td>598.0</td>
+      <td>1727.0</td>
+      <td>119.0</td>
+      <td>104.0</td>
+      <td>...</td>
+      <td>1.376119e+07</td>
+      <td>4.036570e+07</td>
+      <td>131441.0</td>
+      <td>0.213262</td>
+      <td>0.182137</td>
+      <td>0.095318</td>
+      <td>0.162131</td>
+      <td>0.425000</td>
+      <td>0.371429</td>
+      <td>0.203571</td>
+    </tr>
+    <tr>
+      <th>2607</th>
+      <td>Zip</td>
+      <td>98612</td>
+      <td>Washington</td>
+      <td>NaN</td>
+      <td>365.0</td>
+      <td>376.0</td>
+      <td>409.0</td>
+      <td>1150.0</td>
+      <td>91.0</td>
+      <td>79.0</td>
+      <td>...</td>
+      <td>1.440674e+07</td>
+      <td>5.028400e+07</td>
+      <td>230495.0</td>
+      <td>0.249315</td>
+      <td>0.210106</td>
+      <td>0.092910</td>
+      <td>0.180870</td>
+      <td>0.437500</td>
+      <td>0.379808</td>
+      <td>0.182692</td>
+    </tr>
+    <tr>
+      <th>2608</th>
+      <td>Zip</td>
+      <td>32081</td>
+      <td>Florida</td>
+      <td>NaN</td>
+      <td>1318.0</td>
+      <td>1328.0</td>
+      <td>1350.0</td>
+      <td>3996.0</td>
+      <td>91.0</td>
+      <td>42.0</td>
+      <td>...</td>
+      <td>9.111212e+07</td>
+      <td>1.325055e+08</td>
+      <td>385196.0</td>
+      <td>0.069044</td>
+      <td>0.031627</td>
+      <td>0.097778</td>
+      <td>0.066316</td>
+      <td>0.343396</td>
+      <td>0.158491</td>
+      <td>0.498113</td>
+    </tr>
+    <tr>
+      <th>2609</th>
+      <td>Zip</td>
+      <td>33578</td>
+      <td>Florida</td>
+      <td>NaN</td>
+      <td>5975.0</td>
+      <td>4537.0</td>
+      <td>3232.0</td>
+      <td>13744.0</td>
+      <td>8.0</td>
+      <td>6.0</td>
+      <td>...</td>
+      <td>5.685202e+07</td>
+      <td>5.911551e+07</td>
+      <td>363355.0</td>
+      <td>0.001339</td>
+      <td>0.001322</td>
+      <td>0.038366</td>
+      <td>0.010041</td>
+      <td>0.057971</td>
+      <td>0.043478</td>
+      <td>0.898551</td>
+    </tr>
+  </tbody>
+</table>
+<p>2610 rows × 24 columns</p>
+</div></div></div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">uw</span><span class="o">.</span><span class="n">drop_duplicates</span><span class="p">(</span><span class="n">subset</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;RegionName&#39;</span><span class="p">,</span> <span class="s1">&#39;StateName&#39;</span><span class="p">],</span> <span class="n">keep</span><span class="o">=</span><span class="s1">&#39;last&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>RegionType</th>
+      <th>RegionName</th>
+      <th>StateName</th>
+      <th>MSAName</th>
+      <th>AllHomes_Tier1</th>
+      <th>AllHomes_Tier2</th>
+      <th>AllHomes_Tier3</th>
+      <th>AllHomes_AllTiers</th>
+      <th>UWHomes_Tier1</th>
+      <th>UWHomes_Tier2</th>
+      <th>...</th>
+      <th>UWHomes_TotalValue_Tier3</th>
+      <th>UWHomes_TotalValue_AllTiers</th>
+      <th>UWHomes_MedianValue_AllTiers</th>
+      <th>AllHomes_Tier1_ShareUW</th>
+      <th>AllHomes_Tier2_ShareUW</th>
+      <th>AllHomes_Tier3_ShareUW</th>
+      <th>AllHomes_AllTiers_ShareUW</th>
+      <th>UWHomes_ShareInTier1</th>
+      <th>UWHomes_ShareInTier2</th>
+      <th>UWHomes_ShareInTier3</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>Nation</td>
+      <td>United States</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>35461549.0</td>
+      <td>35452941.0</td>
+      <td>35484532.0</td>
+      <td>106399022.0</td>
+      <td>594672.0</td>
+      <td>542681.0</td>
+      <td>...</td>
+      <td>5.974490e+11</td>
+      <td>9.159540e+11</td>
+      <td>310306.0</td>
+      <td>0.016769</td>
+      <td>0.015307</td>
+      <td>0.020458</td>
+      <td>0.017512</td>
+      <td>0.319149</td>
+      <td>0.291246</td>
+      <td>0.389605</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>State</td>
+      <td>Alabama</td>
+      <td>Alabama</td>
+      <td>NaN</td>
+      <td>546670.0</td>
+      <td>520247.0</td>
+      <td>491300.0</td>
+      <td>1558217.0</td>
+      <td>2890.0</td>
+      <td>2766.0</td>
+      <td>...</td>
+      <td>2.583039e+09</td>
+      <td>3.578203e+09</td>
+      <td>270254.0</td>
+      <td>0.005287</td>
+      <td>0.005317</td>
+      <td>0.010271</td>
+      <td>0.006868</td>
+      <td>0.270043</td>
+      <td>0.258456</td>
+      <td>0.471501</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>State</td>
+      <td>California</td>
+      <td>California</td>
+      <td>NaN</td>
+      <td>3060171.0</td>
+      <td>3076238.0</td>
+      <td>3169584.0</td>
+      <td>9305993.0</td>
+      <td>8090.0</td>
+      <td>14266.0</td>
+      <td>...</td>
+      <td>2.666638e+10</td>
+      <td>4.449536e+10</td>
+      <td>860373.0</td>
+      <td>0.002644</td>
+      <td>0.004637</td>
+      <td>0.005611</td>
+      <td>0.004313</td>
+      <td>0.201550</td>
+      <td>0.355415</td>
+      <td>0.443035</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>State</td>
+      <td>Connecticut</td>
+      <td>Connecticut</td>
+      <td>NaN</td>
+      <td>333904.0</td>
+      <td>334688.0</td>
+      <td>336254.0</td>
+      <td>1004846.0</td>
+      <td>4434.0</td>
+      <td>3807.0</td>
+      <td>...</td>
+      <td>8.689480e+09</td>
+      <td>1.152170e+10</td>
+      <td>442036.0</td>
+      <td>0.013279</td>
+      <td>0.011375</td>
+      <td>0.021677</td>
+      <td>0.015455</td>
+      <td>0.285512</td>
+      <td>0.245138</td>
+      <td>0.469350</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>State</td>
+      <td>Delaware</td>
+      <td>Delaware</td>
+      <td>NaN</td>
+      <td>102983.0</td>
+      <td>127573.0</td>
+      <td>127983.0</td>
+      <td>358539.0</td>
+      <td>4105.0</td>
+      <td>2574.0</td>
+      <td>...</td>
+      <td>1.498013e+09</td>
+      <td>2.801847e+09</td>
+      <td>241344.5</td>
+      <td>0.039861</td>
+      <td>0.020177</td>
+      <td>0.025675</td>
+      <td>0.027793</td>
+      <td>0.411942</td>
+      <td>0.258304</td>
+      <td>0.329754</td>
+    </tr>
+    <tr>
+      <th>...</th>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+    </tr>
+    <tr>
+      <th>2605</th>
+      <td>Zip</td>
+      <td>98592</td>
+      <td>Washington</td>
+      <td>NaN</td>
+      <td>464.0</td>
+      <td>470.0</td>
+      <td>493.0</td>
+      <td>1427.0</td>
+      <td>8.0</td>
+      <td>29.0</td>
+      <td>...</td>
+      <td>7.340711e+07</td>
+      <td>8.271541e+07</td>
+      <td>436490.5</td>
+      <td>0.017241</td>
+      <td>0.061702</td>
+      <td>0.273834</td>
+      <td>0.120533</td>
+      <td>0.046512</td>
+      <td>0.168605</td>
+      <td>0.784884</td>
+    </tr>
+    <tr>
+      <th>2606</th>
+      <td>Zip</td>
+      <td>98595</td>
+      <td>Washington</td>
+      <td>NaN</td>
+      <td>558.0</td>
+      <td>571.0</td>
+      <td>598.0</td>
+      <td>1727.0</td>
+      <td>119.0</td>
+      <td>104.0</td>
+      <td>...</td>
+      <td>1.376119e+07</td>
+      <td>4.036570e+07</td>
+      <td>131441.0</td>
+      <td>0.213262</td>
+      <td>0.182137</td>
+      <td>0.095318</td>
+      <td>0.162131</td>
+      <td>0.425000</td>
+      <td>0.371429</td>
+      <td>0.203571</td>
+    </tr>
+    <tr>
+      <th>2607</th>
+      <td>Zip</td>
+      <td>98612</td>
+      <td>Washington</td>
+      <td>NaN</td>
+      <td>365.0</td>
+      <td>376.0</td>
+      <td>409.0</td>
+      <td>1150.0</td>
+      <td>91.0</td>
+      <td>79.0</td>
+      <td>...</td>
+      <td>1.440674e+07</td>
+      <td>5.028400e+07</td>
+      <td>230495.0</td>
+      <td>0.249315</td>
+      <td>0.210106</td>
+      <td>0.092910</td>
+      <td>0.180870</td>
+      <td>0.437500</td>
+      <td>0.379808</td>
+      <td>0.182692</td>
+    </tr>
+    <tr>
+      <th>2608</th>
+      <td>Zip</td>
+      <td>32081</td>
+      <td>Florida</td>
+      <td>NaN</td>
+      <td>1318.0</td>
+      <td>1328.0</td>
+      <td>1350.0</td>
+      <td>3996.0</td>
+      <td>91.0</td>
+      <td>42.0</td>
+      <td>...</td>
+      <td>9.111212e+07</td>
+      <td>1.325055e+08</td>
+      <td>385196.0</td>
+      <td>0.069044</td>
+      <td>0.031627</td>
+      <td>0.097778</td>
+      <td>0.066316</td>
+      <td>0.343396</td>
+      <td>0.158491</td>
+      <td>0.498113</td>
+    </tr>
+    <tr>
+      <th>2609</th>
+      <td>Zip</td>
+      <td>33578</td>
+      <td>Florida</td>
+      <td>NaN</td>
+      <td>5975.0</td>
+      <td>4537.0</td>
+      <td>3232.0</td>
+      <td>13744.0</td>
+      <td>8.0</td>
+      <td>6.0</td>
+      <td>...</td>
+      <td>5.685202e+07</td>
+      <td>5.911551e+07</td>
+      <td>363355.0</td>
+      <td>0.001339</td>
+      <td>0.001322</td>
+      <td>0.038366</td>
+      <td>0.010041</td>
+      <td>0.057971</td>
+      <td>0.043478</td>
+      <td>0.898551</td>
+    </tr>
+  </tbody>
+</table>
+<p>2571 rows × 24 columns</p>
+</div></div></div>
+</div>
+<p>You want to keep track of the number of observations (rows) when you’re dropping duplicates. In this case, I don’t find any duplicates by <em>RegionName</em> and <em>StateName</em> in the data.</p>
+</div>
+<div class="section" id="sorting-our-data">
+<h2>Sorting our data<a class="headerlink" href="#sorting-our-data" title="Permalink to this headline">¶</a></h2>
+<p>Another basic task that we often face is <strong>sorting our data</strong>. You can sort numeric or string data, by variable using <code class="docutils literal notranslate"><span class="pre">.sort_values()</span></code> from <code class="docutils literal notranslate"><span class="pre">pandas</span></code>.</p>
+<p>The <code class="docutils literal notranslate"><span class="pre">ascending=</span></code> argument can be True or False and tells us how to sort. You can pass it a list of how to sort if you’re sorting on multiple variables.</p>
+<p>I’l sort the data by <em>RegionType</em> first. Then, I’ll sort the data by <em>RegionType</em>, <em>RegionName</em>, and <em>AllHomes_Tier1</em></p>
+<p>You can read more <a class="reference external" href="https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.DataFrame.sort_values.html">here</a>.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">uw</span><span class="o">.</span><span class="n">sort_values</span><span class="p">(</span><span class="n">by</span><span class="o">=</span><span class="s1">&#39;RegionType&#39;</span><span class="p">,</span> <span class="n">ascending</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>RegionType</th>
+      <th>RegionName</th>
+      <th>StateName</th>
+      <th>MSAName</th>
+      <th>AllHomes_Tier1</th>
+      <th>AllHomes_Tier2</th>
+      <th>AllHomes_Tier3</th>
+      <th>AllHomes_AllTiers</th>
+      <th>UWHomes_Tier1</th>
+      <th>UWHomes_Tier2</th>
+      <th>...</th>
+      <th>UWHomes_TotalValue_Tier3</th>
+      <th>UWHomes_TotalValue_AllTiers</th>
+      <th>UWHomes_MedianValue_AllTiers</th>
+      <th>AllHomes_Tier1_ShareUW</th>
+      <th>AllHomes_Tier2_ShareUW</th>
+      <th>AllHomes_Tier3_ShareUW</th>
+      <th>AllHomes_AllTiers_ShareUW</th>
+      <th>UWHomes_ShareInTier1</th>
+      <th>UWHomes_ShareInTier2</th>
+      <th>UWHomes_ShareInTier3</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>1304</th>
+      <td>City</td>
+      <td>Ortley Beach</td>
+      <td>New Jersey</td>
+      <td>New York, NY</td>
+      <td>767.0</td>
+      <td>763.0</td>
+      <td>766.0</td>
+      <td>2296.0</td>
+      <td>746.0</td>
+      <td>724.0</td>
+      <td>...</td>
+      <td>447937059.0</td>
+      <td>879315914.0</td>
+      <td>348092.0</td>
+      <td>0.972621</td>
+      <td>0.948886</td>
+      <td>0.953003</td>
+      <td>0.958188</td>
+      <td>0.339091</td>
+      <td>0.329091</td>
+      <td>0.331818</td>
+    </tr>
+    <tr>
+      <th>896</th>
+      <td>City</td>
+      <td>Smyrna</td>
+      <td>Delaware</td>
+      <td>Dover, DE</td>
+      <td>4464.0</td>
+      <td>4464.0</td>
+      <td>4464.0</td>
+      <td>13392.0</td>
+      <td>128.0</td>
+      <td>39.0</td>
+      <td>...</td>
+      <td>9078029.0</td>
+      <td>29936443.0</td>
+      <td>110029.0</td>
+      <td>0.028674</td>
+      <td>0.008737</td>
+      <td>0.005376</td>
+      <td>0.014262</td>
+      <td>0.670157</td>
+      <td>0.204188</td>
+      <td>0.125654</td>
+    </tr>
+    <tr>
+      <th>895</th>
+      <td>City</td>
+      <td>Smithfield</td>
+      <td>Virginia</td>
+      <td>Virginia Beach, VA</td>
+      <td>2251.0</td>
+      <td>2251.0</td>
+      <td>2252.0</td>
+      <td>6754.0</td>
+      <td>20.0</td>
+      <td>20.0</td>
+      <td>...</td>
+      <td>68564829.0</td>
+      <td>76200890.0</td>
+      <td>379356.5</td>
+      <td>0.008885</td>
+      <td>0.008885</td>
+      <td>0.065719</td>
+      <td>0.027835</td>
+      <td>0.106383</td>
+      <td>0.106383</td>
+      <td>0.787234</td>
+    </tr>
+    <tr>
+      <th>894</th>
+      <td>City</td>
+      <td>Secaucus</td>
+      <td>New Jersey</td>
+      <td>New York, NY</td>
+      <td>1586.0</td>
+      <td>1584.0</td>
+      <td>1586.0</td>
+      <td>4756.0</td>
+      <td>1106.0</td>
+      <td>537.0</td>
+      <td>...</td>
+      <td>277046340.0</td>
+      <td>864994299.0</td>
+      <td>391859.0</td>
+      <td>0.697352</td>
+      <td>0.339015</td>
+      <td>0.288777</td>
+      <td>0.441758</td>
+      <td>0.526416</td>
+      <td>0.255593</td>
+      <td>0.217991</td>
+    </tr>
+    <tr>
+      <th>893</th>
+      <td>City</td>
+      <td>Seaside Park</td>
+      <td>New Jersey</td>
+      <td>New York, NY</td>
+      <td>672.0</td>
+      <td>672.0</td>
+      <td>672.0</td>
+      <td>2016.0</td>
+      <td>443.0</td>
+      <td>538.0</td>
+      <td>...</td>
+      <td>359297149.0</td>
+      <td>827539382.0</td>
+      <td>558632.0</td>
+      <td>0.659226</td>
+      <td>0.800595</td>
+      <td>0.595238</td>
+      <td>0.685020</td>
+      <td>0.320782</td>
+      <td>0.389573</td>
+      <td>0.289645</td>
+    </tr>
+    <tr>
+      <th>...</th>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+    </tr>
+    <tr>
+      <th>1775</th>
+      <td>Zip</td>
+      <td>22307</td>
+      <td>Virginia</td>
+      <td>NaN</td>
+      <td>1483.0</td>
+      <td>1097.0</td>
+      <td>1970.0</td>
+      <td>4550.0</td>
+      <td>181.0</td>
+      <td>215.0</td>
+      <td>...</td>
+      <td>45692041.0</td>
+      <td>153788304.0</td>
+      <td>248578.0</td>
+      <td>0.122050</td>
+      <td>0.195989</td>
+      <td>0.031472</td>
+      <td>0.100659</td>
+      <td>0.395197</td>
+      <td>0.469432</td>
+      <td>0.135371</td>
+    </tr>
+    <tr>
+      <th>1774</th>
+      <td>Zip</td>
+      <td>21921</td>
+      <td>Maryland</td>
+      <td>NaN</td>
+      <td>5270.0</td>
+      <td>5284.0</td>
+      <td>5403.0</td>
+      <td>15957.0</td>
+      <td>12.0</td>
+      <td>47.0</td>
+      <td>...</td>
+      <td>41149066.0</td>
+      <td>53223597.0</td>
+      <td>316059.0</td>
+      <td>0.002277</td>
+      <td>0.008895</td>
+      <td>0.017583</td>
+      <td>0.009651</td>
+      <td>0.077922</td>
+      <td>0.305195</td>
+      <td>0.616883</td>
+    </tr>
+    <tr>
+      <th>1773</th>
+      <td>Zip</td>
+      <td>21903</td>
+      <td>Maryland</td>
+      <td>NaN</td>
+      <td>784.0</td>
+      <td>851.0</td>
+      <td>856.0</td>
+      <td>2491.0</td>
+      <td>10.0</td>
+      <td>37.0</td>
+      <td>...</td>
+      <td>21432532.0</td>
+      <td>30859486.0</td>
+      <td>260047.5</td>
+      <td>0.012755</td>
+      <td>0.043478</td>
+      <td>0.064252</td>
+      <td>0.040947</td>
+      <td>0.098039</td>
+      <td>0.362745</td>
+      <td>0.539216</td>
+    </tr>
+    <tr>
+      <th>1780</th>
+      <td>Zip</td>
+      <td>22578</td>
+      <td>Virginia</td>
+      <td>NaN</td>
+      <td>458.0</td>
+      <td>448.0</td>
+      <td>462.0</td>
+      <td>1368.0</td>
+      <td>73.0</td>
+      <td>159.0</td>
+      <td>...</td>
+      <td>118131703.0</td>
+      <td>184974026.0</td>
+      <td>452094.0</td>
+      <td>0.159389</td>
+      <td>0.354911</td>
+      <td>0.370130</td>
+      <td>0.294591</td>
+      <td>0.181141</td>
+      <td>0.394541</td>
+      <td>0.424318</td>
+    </tr>
+    <tr>
+      <th>2609</th>
+      <td>Zip</td>
+      <td>33578</td>
+      <td>Florida</td>
+      <td>NaN</td>
+      <td>5975.0</td>
+      <td>4537.0</td>
+      <td>3232.0</td>
+      <td>13744.0</td>
+      <td>8.0</td>
+      <td>6.0</td>
+      <td>...</td>
+      <td>56852018.0</td>
+      <td>59115506.0</td>
+      <td>363355.0</td>
+      <td>0.001339</td>
+      <td>0.001322</td>
+      <td>0.038366</td>
+      <td>0.010041</td>
+      <td>0.057971</td>
+      <td>0.043478</td>
+      <td>0.898551</td>
+    </tr>
+  </tbody>
+</table>
+<p>2610 rows × 24 columns</p>
+</div></div></div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">uw</span><span class="o">.</span><span class="n">sort_values</span><span class="p">(</span><span class="n">by</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;RegionType&#39;</span><span class="p">,</span> <span class="s1">&#39;RegionName&#39;</span><span class="p">,</span> <span class="s1">&#39;AllHomes_Tier1&#39;</span><span class="p">],</span> <span class="n">ascending</span><span class="o">=</span><span class="p">[</span><span class="kc">True</span><span class="p">,</span> <span class="kc">True</span><span class="p">,</span> <span class="kc">False</span><span class="p">])</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>RegionType</th>
+      <th>RegionName</th>
+      <th>StateName</th>
+      <th>MSAName</th>
+      <th>AllHomes_Tier1</th>
+      <th>AllHomes_Tier2</th>
+      <th>AllHomes_Tier3</th>
+      <th>AllHomes_AllTiers</th>
+      <th>UWHomes_Tier1</th>
+      <th>UWHomes_Tier2</th>
+      <th>...</th>
+      <th>UWHomes_TotalValue_Tier3</th>
+      <th>UWHomes_TotalValue_AllTiers</th>
+      <th>UWHomes_MedianValue_AllTiers</th>
+      <th>AllHomes_Tier1_ShareUW</th>
+      <th>AllHomes_Tier2_ShareUW</th>
+      <th>AllHomes_Tier3_ShareUW</th>
+      <th>AllHomes_AllTiers_ShareUW</th>
+      <th>UWHomes_ShareInTier1</th>
+      <th>UWHomes_ShareInTier2</th>
+      <th>UWHomes_ShareInTier3</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>690</th>
+      <td>City</td>
+      <td>Abbeville</td>
+      <td>Louisiana</td>
+      <td>Lafayette, LA</td>
+      <td>1995.0</td>
+      <td>1995.0</td>
+      <td>1997.0</td>
+      <td>5987.0</td>
+      <td>196.0</td>
+      <td>512.0</td>
+      <td>...</td>
+      <td>30967445.0</td>
+      <td>100185101.0</td>
+      <td>103417.0</td>
+      <td>0.098246</td>
+      <td>0.256642</td>
+      <td>0.095643</td>
+      <td>0.150159</td>
+      <td>0.218020</td>
+      <td>0.569522</td>
+      <td>0.212458</td>
+    </tr>
+    <tr>
+      <th>811</th>
+      <td>City</td>
+      <td>Aberdeen</td>
+      <td>Washington</td>
+      <td>Aberdeen, WA</td>
+      <td>2799.0</td>
+      <td>2799.0</td>
+      <td>2799.0</td>
+      <td>8397.0</td>
+      <td>2412.0</td>
+      <td>1145.0</td>
+      <td>...</td>
+      <td>64053930.0</td>
+      <td>389836601.0</td>
+      <td>87694.0</td>
+      <td>0.861736</td>
+      <td>0.409075</td>
+      <td>0.091104</td>
+      <td>0.453972</td>
+      <td>0.632739</td>
+      <td>0.300367</td>
+      <td>0.066894</td>
+    </tr>
+    <tr>
+      <th>346</th>
+      <td>City</td>
+      <td>Absecon</td>
+      <td>New Jersey</td>
+      <td>Egg Harbor Township, NJ</td>
+      <td>1097.0</td>
+      <td>1097.0</td>
+      <td>1097.0</td>
+      <td>3291.0</td>
+      <td>40.0</td>
+      <td>55.0</td>
+      <td>...</td>
+      <td>18714933.0</td>
+      <td>33321640.0</td>
+      <td>180979.0</td>
+      <td>0.036463</td>
+      <td>0.050137</td>
+      <td>0.060164</td>
+      <td>0.048921</td>
+      <td>0.248447</td>
+      <td>0.341615</td>
+      <td>0.409938</td>
+    </tr>
+    <tr>
+      <th>939</th>
+      <td>City</td>
+      <td>Aiea</td>
+      <td>Hawaii</td>
+      <td>Honolulu, HI</td>
+      <td>4209.0</td>
+      <td>4209.0</td>
+      <td>4211.0</td>
+      <td>12629.0</td>
+      <td>0.0</td>
+      <td>146.0</td>
+      <td>...</td>
+      <td>35306798.0</td>
+      <td>137032636.0</td>
+      <td>708881.0</td>
+      <td>0.000000</td>
+      <td>0.034688</td>
+      <td>0.007837</td>
+      <td>0.014174</td>
+      <td>0.000000</td>
+      <td>0.815642</td>
+      <td>0.184358</td>
+    </tr>
+    <tr>
+      <th>1151</th>
+      <td>City</td>
+      <td>Alva</td>
+      <td>Florida</td>
+      <td>Fort Myers, FL</td>
+      <td>589.0</td>
+      <td>589.0</td>
+      <td>590.0</td>
+      <td>1768.0</td>
+      <td>6.0</td>
+      <td>38.0</td>
+      <td>...</td>
+      <td>59575578.0</td>
+      <td>69446593.0</td>
+      <td>369560.0</td>
+      <td>0.010187</td>
+      <td>0.064516</td>
+      <td>0.164407</td>
+      <td>0.079751</td>
+      <td>0.042553</td>
+      <td>0.269504</td>
+      <td>0.687943</td>
+    </tr>
+    <tr>
+      <th>...</th>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+    </tr>
+    <tr>
+      <th>2603</th>
+      <td>Zip</td>
+      <td>98584</td>
+      <td>Washington</td>
+      <td>NaN</td>
+      <td>4708.0</td>
+      <td>4694.0</td>
+      <td>4766.0</td>
+      <td>14168.0</td>
+      <td>8.0</td>
+      <td>41.0</td>
+      <td>...</td>
+      <td>98174201.0</td>
+      <td>108265864.0</td>
+      <td>366002.0</td>
+      <td>0.001699</td>
+      <td>0.008735</td>
+      <td>0.047839</td>
+      <td>0.019551</td>
+      <td>0.028881</td>
+      <td>0.148014</td>
+      <td>0.823105</td>
+    </tr>
+    <tr>
+      <th>2604</th>
+      <td>Zip</td>
+      <td>98588</td>
+      <td>Washington</td>
+      <td>NaN</td>
+      <td>469.0</td>
+      <td>479.0</td>
+      <td>479.0</td>
+      <td>1427.0</td>
+      <td>17.0</td>
+      <td>35.0</td>
+      <td>...</td>
+      <td>51494123.0</td>
+      <td>60982770.0</td>
+      <td>351648.0</td>
+      <td>0.036247</td>
+      <td>0.073069</td>
+      <td>0.229645</td>
+      <td>0.113525</td>
+      <td>0.104938</td>
+      <td>0.216049</td>
+      <td>0.679012</td>
+    </tr>
+    <tr>
+      <th>2605</th>
+      <td>Zip</td>
+      <td>98592</td>
+      <td>Washington</td>
+      <td>NaN</td>
+      <td>464.0</td>
+      <td>470.0</td>
+      <td>493.0</td>
+      <td>1427.0</td>
+      <td>8.0</td>
+      <td>29.0</td>
+      <td>...</td>
+      <td>73407109.0</td>
+      <td>82715412.0</td>
+      <td>436490.5</td>
+      <td>0.017241</td>
+      <td>0.061702</td>
+      <td>0.273834</td>
+      <td>0.120533</td>
+      <td>0.046512</td>
+      <td>0.168605</td>
+      <td>0.784884</td>
+    </tr>
+    <tr>
+      <th>2606</th>
+      <td>Zip</td>
+      <td>98595</td>
+      <td>Washington</td>
+      <td>NaN</td>
+      <td>558.0</td>
+      <td>571.0</td>
+      <td>598.0</td>
+      <td>1727.0</td>
+      <td>119.0</td>
+      <td>104.0</td>
+      <td>...</td>
+      <td>13761194.0</td>
+      <td>40365702.0</td>
+      <td>131441.0</td>
+      <td>0.213262</td>
+      <td>0.182137</td>
+      <td>0.095318</td>
+      <td>0.162131</td>
+      <td>0.425000</td>
+      <td>0.371429</td>
+      <td>0.203571</td>
+    </tr>
+    <tr>
+      <th>2607</th>
+      <td>Zip</td>
+      <td>98612</td>
+      <td>Washington</td>
+      <td>NaN</td>
+      <td>365.0</td>
+      <td>376.0</td>
+      <td>409.0</td>
+      <td>1150.0</td>
+      <td>91.0</td>
+      <td>79.0</td>
+      <td>...</td>
+      <td>14406737.0</td>
+      <td>50284001.0</td>
+      <td>230495.0</td>
+      <td>0.249315</td>
+      <td>0.210106</td>
+      <td>0.092910</td>
+      <td>0.180870</td>
+      <td>0.437500</td>
+      <td>0.379808</td>
+      <td>0.182692</td>
+    </tr>
+  </tbody>
+</table>
+<p>2610 rows × 24 columns</p>
+</div></div></div>
+</div>
+</div>
+<div class="section" id="renaming-columns">
+<h2>Renaming columns<a class="headerlink" href="#renaming-columns" title="Permalink to this headline">¶</a></h2>
+<p>While cleaning our data, we might want to rename our columns, or variables. You can do this automatically with something like <code class="docutils literal notranslate"><span class="pre">pyjanitor</span></code> (see below). You can also do it when importing the data using <code class="docutils literal notranslate"><span class="pre">.read_csv</span></code> from <code class="docutils literal notranslate"><span class="pre">pandas</span></code>, if you know that you’ll want to change the name.</p>
+<p>It is also easy enough to do using <code class="docutils literal notranslate"><span class="pre">.rename</span></code> from <code class="docutils literal notranslate"><span class="pre">pandas</span></code>. You give it a mapping of old name to new name. I’ll rename <em>MSAName</em> for fun.</p>
+<p>Note the <code class="docutils literal notranslate"><span class="pre">inplace=True</span></code> argument. You’ll see this a lot for <code class="docutils literal notranslate"><span class="pre">pandas</span></code> methods. This makes it so that we don’t have to do a <code class="docutils literal notranslate"><span class="pre">uw</span> <span class="pre">=</span> <span class="pre">uw.rename()</span></code>. Instead, we save over the old DataFrame with the new one with the new column name.</p>
+<p>You can read more <a class="reference external" href="https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.DataFrame.rename.html">here</a>.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">uw</span><span class="o">.</span><span class="n">rename</span><span class="p">(</span><span class="n">columns</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;MSAName&#39;</span><span class="p">:</span><span class="s1">&#39;msaname&#39;</span><span class="p">},</span> <span class="n">inplace</span> <span class="o">=</span> <span class="kc">True</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+<div class="section" id="missing-data-example">
+<h2>Missing data example<a class="headerlink" href="#missing-data-example" title="Permalink to this headline">¶</a></h2>
 <p>Finally, let’s try some more complicated code. I found this example <a class="reference external" href="https://towardsdatascience.com/a-better-eda-with-pandas-profiling-e842a00e1136">here</a>.</p>
 <p>First, we will create a DataFrame that has the total number of missing values for each variable. We can sort the data using <code class="docutils literal notranslate"><span class="pre">sort_values()</span></code>. The <code class="docutils literal notranslate"><span class="pre">ascending=False</span></code> option will have the variable with the largest number of missings at the top.</p>
 <div class="cell docutils container">
@@ -1106,7 +3073,7 @@ dtype: int64
   </thead>
   <tbody>
     <tr>
-      <th>MSAName</th>
+      <th>msaname</th>
       <td>1539</td>
       <td>58.965517</td>
     </tr>

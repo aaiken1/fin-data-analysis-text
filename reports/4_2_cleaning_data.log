@@ -1,0 +1,59 @@
+Traceback (most recent call last):
+  File "/Users/adamaiken/opt/anaconda3/lib/python3.9/site-packages/jupyter_cache/executors/utils.py", line 51, in single_nb_execution
+    executenb(
+  File "/Users/adamaiken/opt/anaconda3/lib/python3.9/site-packages/nbclient/client.py", line 1112, in execute
+    return NotebookClient(nb=nb, resources=resources, km=km, **kwargs).execute()
+  File "/Users/adamaiken/opt/anaconda3/lib/python3.9/site-packages/nbclient/util.py", line 74, in wrapped
+    return just_run(coro(*args, **kwargs))
+  File "/Users/adamaiken/opt/anaconda3/lib/python3.9/site-packages/nbclient/util.py", line 53, in just_run
+    return loop.run_until_complete(coro)
+  File "/Users/adamaiken/opt/anaconda3/lib/python3.9/asyncio/base_events.py", line 642, in run_until_complete
+    return future.result()
+  File "/Users/adamaiken/opt/anaconda3/lib/python3.9/site-packages/nbclient/client.py", line 553, in async_execute
+    await self.async_execute_cell(
+  File "/Users/adamaiken/opt/anaconda3/lib/python3.9/site-packages/nbclient/client.py", line 857, in async_execute_cell
+    self._check_raise_for_error(cell, exec_reply)
+  File "/Users/adamaiken/opt/anaconda3/lib/python3.9/site-packages/nbclient/client.py", line 760, in _check_raise_for_error
+    raise CellExecutionError.from_cell_and_msg(cell, exec_reply_content)
+nbclient.exceptions.CellExecutionError: An error occurred while executing the following cell:
+------------------
+uw.sort_values(['RegionType', 'RegionName', 'AllHomes_Tier1'], axis=1, ascending=[True, True, False])
+
+------------------
+
+[0;31m---------------------------------------------------------------------------[0m
+[0;31mKeyError[0m                                  Traceback (most recent call last)
+[0;32m/var/folders/sm/f4lq92s11392x68kwf0scq3w0000gn/T/ipykernel_85181/3363085267.py[0m in [0;36m<module>[0;34m[0m
+[0;32m----> 1[0;31m [0muw[0m[0;34m.[0m[0msort_values[0m[0;34m([0m[0;34m[[0m[0;34m'RegionType'[0m[0;34m,[0m [0;34m'RegionName'[0m[0;34m,[0m [0;34m'AllHomes_Tier1'[0m[0;34m][0m[0;34m,[0m [0maxis[0m[0;34m=[0m[0;36m1[0m[0;34m,[0m [0mascending[0m[0;34m=[0m[0;34m[[0m[0;32mTrue[0m[0;34m,[0m [0;32mTrue[0m[0;34m,[0m [0;32mFalse[0m[0;34m][0m[0;34m)[0m[0;34m[0m[0;34m[0m[0m
+[0m
+[0;32m~/opt/anaconda3/lib/python3.9/site-packages/pandas/util/_decorators.py[0m in [0;36mwrapper[0;34m(*args, **kwargs)[0m
+[1;32m    309[0m                     [0mstacklevel[0m[0;34m=[0m[0mstacklevel[0m[0;34m,[0m[0;34m[0m[0;34m[0m[0m
+[1;32m    310[0m                 )
+[0;32m--> 311[0;31m             [0;32mreturn[0m [0mfunc[0m[0;34m([0m[0;34m*[0m[0margs[0m[0;34m,[0m [0;34m**[0m[0mkwargs[0m[0;34m)[0m[0;34m[0m[0;34m[0m[0m
+[0m[1;32m    312[0m [0;34m[0m[0m
+[1;32m    313[0m         [0;32mreturn[0m [0mwrapper[0m[0;34m[0m[0;34m[0m[0m
+
+[0;32m~/opt/anaconda3/lib/python3.9/site-packages/pandas/core/frame.py[0m in [0;36msort_values[0;34m(self, by, axis, ascending, inplace, kind, na_position, ignore_index, key)[0m
+[1;32m   6240[0m         [0;32mif[0m [0mlen[0m[0;34m([0m[0mby[0m[0;34m)[0m [0;34m>[0m [0;36m1[0m[0;34m:[0m[0;34m[0m[0;34m[0m[0m
+[1;32m   6241[0m [0;34m[0m[0m
+[0;32m-> 6242[0;31m             [0mkeys[0m [0;34m=[0m [0;34m[[0m[0mself[0m[0;34m.[0m[0m_get_label_or_level_values[0m[0;34m([0m[0mx[0m[0;34m,[0m [0maxis[0m[0;34m=[0m[0maxis[0m[0;34m)[0m [0;32mfor[0m [0mx[0m [0;32min[0m [0mby[0m[0;34m][0m[0;34m[0m[0;34m[0m[0m
+[0m[1;32m   6243[0m [0;34m[0m[0m
+[1;32m   6244[0m             [0;31m# need to rewrap columns in Series to apply key function[0m[0;34m[0m[0;34m[0m[0m
+
+[0;32m~/opt/anaconda3/lib/python3.9/site-packages/pandas/core/frame.py[0m in [0;36m<listcomp>[0;34m(.0)[0m
+[1;32m   6240[0m         [0;32mif[0m [0mlen[0m[0;34m([0m[0mby[0m[0;34m)[0m [0;34m>[0m [0;36m1[0m[0;34m:[0m[0;34m[0m[0;34m[0m[0m
+[1;32m   6241[0m [0;34m[0m[0m
+[0;32m-> 6242[0;31m             [0mkeys[0m [0;34m=[0m [0;34m[[0m[0mself[0m[0;34m.[0m[0m_get_label_or_level_values[0m[0;34m([0m[0mx[0m[0;34m,[0m [0maxis[0m[0;34m=[0m[0maxis[0m[0;34m)[0m [0;32mfor[0m [0mx[0m [0;32min[0m [0mby[0m[0;34m][0m[0;34m[0m[0;34m[0m[0m
+[0m[1;32m   6243[0m [0;34m[0m[0m
+[1;32m   6244[0m             [0;31m# need to rewrap columns in Series to apply key function[0m[0;34m[0m[0;34m[0m[0m
+
+[0;32m~/opt/anaconda3/lib/python3.9/site-packages/pandas/core/generic.py[0m in [0;36m_get_label_or_level_values[0;34m(self, key, axis)[0m
+[1;32m   1777[0m             [0mvalues[0m [0;34m=[0m [0mself[0m[0;34m.[0m[0maxes[0m[0;34m[[0m[0maxis[0m[0;34m][0m[0;34m.[0m[0mget_level_values[0m[0;34m([0m[0mkey[0m[0;34m)[0m[0;34m.[0m[0m_values[0m[0;34m[0m[0;34m[0m[0m
+[1;32m   1778[0m         [0;32melse[0m[0;34m:[0m[0;34m[0m[0;34m[0m[0m
+[0;32m-> 1779[0;31m             [0;32mraise[0m [0mKeyError[0m[0;34m([0m[0mkey[0m[0;34m)[0m[0;34m[0m[0;34m[0m[0m
+[0m[1;32m   1780[0m [0;34m[0m[0m
+[1;32m   1781[0m         [0;31m# Check for duplicates[0m[0;34m[0m[0;34m[0m[0m
+
+[0;31mKeyError[0m: 'RegionType'
+KeyError: 'RegionType'
+
