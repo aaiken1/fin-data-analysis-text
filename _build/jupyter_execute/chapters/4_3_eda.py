@@ -81,7 +81,9 @@ nc = nc.assign(
 nc.info()
 
 
-# I'm using a method called `assign()` that creates (assigns) a new column. In this case, I'm creating new *name*, *city*, etc. variables from the existing ones, but am changing their type as I go. Notice this new type of syntax I'm using. `assign()` can create more than one new column at once. I've put each new column on a new line with proper indentation. It will still run without that indentation, but the spacing makes it much easier to read. 
+# I'm using a method called `assign()` that creates (assigns) a new column. In this case, I'm creating new *name*, *city*, etc. variables from the existing ones, but am changing their type as I go. 
+# 
+# Notice this new type of syntax I'm using. `assign()` can create more than one new column at once. I've put each new column on a new line with proper indentation. It will still run without that indentation, but the spacing makes it much easier to read. 
 # 
 # Finally, let's just check for missing data. Doesn't seem like we have any from that `info()`.
 
@@ -112,7 +114,7 @@ sum_table = nc.describe().round(1)
 sum_table
 
 
-# We can select just a single column to describe.
+# We can **select** just a single column to describe.
 
 # In[8]:
 
@@ -146,7 +148,7 @@ sum_table = sum_table.T
 sum_table
 
 
-# Let's look at the variable *type*. What types of breweries are in our data?
+# Let's look at the variable *type*. What types of breweries are in our data? We can use `.value_counts()` to do counts by category.
 
 # In[12]:
 
@@ -178,7 +180,7 @@ nc.groupby('type')['beer_count'].agg([np.mean, np.median, np.std]).round(1)
 
 # An interesting Python note: See how I used `np.` inside of `.agg`? This tells `.agg` that I am passing a function from `numpy`, like `np.mean`. You can also use the **name** of the function and pass the arguments `'mean'`, `'median'`, and `'std'` to `.agg`. You might see that if you're looking at other examples.
 # 
-# See how I added that `round(1)` to get only one decimal place. You can also make your table and then style it in separate lines. This code will style **just that table**. You can also set global style options that will affect all of your results.
+# I also added that `round(1)` to get only one decimal place. You can also make your table and then style it in separate lines. This code will style **just that table**. You can also set global style options that will affect all of your results.
 # 
 
 # In[15]:
@@ -204,8 +206,6 @@ sum_table_group.style.format(precision=0, na_rep='-')
         .format(precision=0)
         .set_caption('Beer Count by Brewery Type')   
 )
-
-
 
 
 # We are starting with the **nc** DataFrame and grouping by *type*. I am calculating the mean of *beer_count*. This actually creates a **series**, not a DataFrame. You can't style a series and make it look good in your output. So, I use `to.frame()` to put it back into a DataFrame that can be styled. I then use different style functions on that DataFrame. Both `format` and `set_caption` are functions found as part of `style`. 

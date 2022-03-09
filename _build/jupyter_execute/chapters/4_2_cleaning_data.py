@@ -27,14 +27,24 @@ uw.info()
 # Once of the most important steps in data cleaning is just looking at what we have. What are the variables? What are their types? How many unique values of each variable do we have? Any missings? Do we see anything unexpected?
 # 
 # This [page](https://datagy.io/pandas-unique/) has a nice summary.
+# 
+# We can select a column and change the variable type using `.astype()`.
 
 # In[2]:
 
 
-uw['UWHomes_Tier2'] = uw["UWHomes_Tier2"].astype('float64')
+uw['UWHomes_Tier2'] = uw['UWHomes_Tier2'].astype('float64')
 
 
-# We can count the number of times a category appears in a variable. Note that this is only useful for variables that have an sense of category. You would do this for any of the home count or dollar value variables, for example.
+# ## Counting, missings, and dupes
+# 
+# When you first bring in some data, you often want to do some simple checks. How many observations do you have? Are you missing anything? Are their duplicate observations? How do we define duplicate observations?
+# 
+# You can't do any data analysis until you **understand the structure of your data**. What do you have? Why do you have it? How do you want to use it? 
+# 
+# Let's start with **counts**. We can count the number of times a **category** appears in a variable. Note that this is only useful for variables that have an sense of category. You would do this for any of the home count or dollar value variables, for example.
+# 
+# We can select a **categorical variable**, like *RegionType* and then use `.value_counts()` from `pandas`. 
 
 # In[3]:
 
@@ -42,7 +52,7 @@ uw['UWHomes_Tier2'] = uw["UWHomes_Tier2"].astype('float64')
 uw['RegionType'].value_counts()
 
 
-# We should look for missing values for each variable. `isna()` returns a `TRUE` or `FALSE` for each value, depending on whether or not it is `NaN`, or missing. We can then take those 1/0, true or false, values and add them up with `sum()`. 
+# We should look for **missing values** for each variable. `isna()` returns a `TRUE` or `FALSE` for each value, depending on whether or not it is `NaN`, or missing. We can then take those 1/0, true or false, values and add them up with `sum()`. 
 
 # In[4]:
 
@@ -58,25 +68,17 @@ uw.isna().sum()
 uw.isna()
 
 
-# The same sort of logic applies to the method `unique()`. This one gives an `array` of each unique value in a column or set of columns.
+# The same sort of logic applies to the method `unique()`. This one gives an `array` of each unique value in a column or set of columns. This will save an array of unique values that appear in the *RegionName* column.
 
 # In[6]:
 
 
-uw.RegionName.unique()
-
-
-# And, to look across multiple columns, we could use `drop_duplicates()'. This will find the unique values for set of variables given it.
-
-# In[7]:
-
-
-uw[['RegionName','StateName']].drop_duplicates()
+unique_regions = uw.RegionName.unique()
 
 
 # We can count the number of unique values for a variable.
 
-# In[8]:
+# In[7]:
 
 
 uw.RegionName.nunique()
@@ -84,7 +86,7 @@ uw.RegionName.nunique()
 
 # We can filter on one variable and count another. We're looking for unexpected things, just trying to get a sense for what we have.
 
-# In[9]:
+# In[8]:
 
 
 uw[uw['RegionType'] == 'MSA'].MSAName.nunique()
@@ -92,20 +94,121 @@ uw[uw['RegionType'] == 'MSA'].MSAName.nunique()
 
 # This syntax works too!
 
-# In[10]:
+# In[9]:
 
 
 uw[uw['RegionType'] == 'MSA']['MSAName'].nunique()
 
 
 # We have 95 unique MSA is our data. Seems reasonable. MSAs are like city-regions.
+
+# Finally, we can just drop any rows with missing values using `.dropna()` from `pandas`. If we don't specify a column, then it will drop a row if **ANY** value is missing. I don't actually want to drop missings here, so I'm not going to save my work with a `uw = `.
+# 
+# You can read more [here](https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.DataFrame.dropna.html). 
+
+# In[10]:
+
+
+uw.dropna(axis=0)
+
+
+# We now have 1071 rows, since *MSAName* had so many missing values. But - that was OK given how this data are constructed. You'll see another example with stock data below.
+# 
+# Now, I'll just drop observations if *AllHomes_Tier1* is missing.
+
+# In[11]:
+
+
+uw.dropna(subset=['AllHomes_Tier1'], axis=0)
+
+
+# Nothing gets dropped, since there were no missing values. 
+
+# Unique and missing values are important. So is the idea of **duplicates**. Does a row (an observation) contain the same values as another row? That could be all of the values across all of the variables, or just a particular column (e.g. ticker), or a set of columns (e.g. ticker and date).
+# 
+# We can see if our data has any duplicates by using `.duplicated()` from `pandas`.
+# 
+# You can read more [here](https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.DataFrame.duplicated.html). 
+# 
+# I'm going to **filter** my data to only include `RegionType='Zip'` and then look for duplicate Zip codes. The Zip codes are found in *RegionName*. I'll save this to a new DataFrame called *dupes*. The argument `keep='first` will keep the first duplicate, if any. 
+# 
+# I am then going to **mask** my subset of the uw data. So, I filter to get just Zip codes. Then, I **mask** on the *dupes* DataFrame. This DataFrame is just an array of True/False values. By **masking**, I'm telling Python to only keep values that are True. There are no True values, so no duplicate Zips and the resulting DataFrame is empty. 
+# 
+
+# In[12]:
+
+
+dupes = uw[uw['RegionType'] == 'Zip'].duplicated(subset=['RegionName'], keep='first')
+
+uw[uw['RegionType'] == 'Zip'][dupes]
+
+
+# 
+# We can use `drop_duplicates()` to look at our data and drop rows that are duplicate observations. We use the `subset=` argument to tell it what columns to look at for duplicates. We can leave out this argument if we want to look across all columns. 
+# 
+# The argument `keep=` will tell it which duplicate to keep in the data (e.g. the first one or the last one).
+# 
+# You can read more about the syntax [here](https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.DataFrame.drop_duplicates.html).
+
+# In[13]:
+
+
+uw.drop_duplicates()
+
+
+# In[14]:
+
+
+uw.drop_duplicates(subset=['RegionName', 'StateName'], keep='last')
+
+
+# You want to keep track of the number of observations (rows) when you're dropping duplicates. In this case, we go from 2,610 rows to 2,571. 
+
+# ## Sorting our data
+# 
+# Another basic task that we often face is **sorting our data**. You can sort numeric or string data, by variable using `.sort_values()` from `pandas`.
+# 
+# The `ascending=` argument can be True or False and tells us how to sort. You can pass it a list of how to sort if you're sorting on multiple variables. 
+# 
+# I'l sort the data by *RegionType* first. Then, I'll sort the data by *RegionType*, *RegionName*, and *AllHomes_Tier1*
+# 
+# You can read more [here](https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.DataFrame.sort_values.html).
+
+# In[15]:
+
+
+uw.sort_values(by='RegionType', ascending=True)
+
+
+# In[16]:
+
+
+uw.sort_values(by=['RegionType', 'RegionName', 'AllHomes_Tier1'], ascending=[True, True, False])
+
+
+# ## Renaming columns
+# 
+# While cleaning our data, we might want to rename our columns, or variables. You can do this automatically with something like `pyjanitor` (see below). You can also do it when importing the data using `.read_csv` from `pandas`, if you know that you'll want to change the name. 
+# 
+# It is also easy enough to do using `.rename` from `pandas`. You give it a mapping of old name to new name. I'll rename *MSAName* for fun.
+# 
+# Note the `inplace=True` argument. You'll see this a lot for `pandas` methods. This makes it so that we don't have to do a `uw = uw.rename()`. Instead, we save over the old DataFrame with the new one with the new column name.
+# 
+# You can read more [here](https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.DataFrame.rename.html).
+
+# In[17]:
+
+
+uw.rename(columns = {'MSAName':'msaname'}, inplace = True)
+
+
+# ## Missing data example
 # 
 # Finally, let's try some more complicated code. I found this example [here](https://towardsdatascience.com/a-better-eda-with-pandas-profiling-e842a00e1136).
 # 
 # First, we will create a DataFrame that has the total number of missing values for each variable. We can sort the data using `sort_values()`. The `ascending=False` option will have the variable with the largest number of missings at the top.
-# 
 
-# In[11]:
+# In[18]:
 
 
 total = uw.isna().sum().sort_values(ascending=False)
@@ -115,7 +218,7 @@ total = uw.isna().sum().sort_values(ascending=False)
 # 
 # Next, let's create a DataFrame that that has the percentage of values that are missing for each variable. This is neat one - we are creating a DataFrame of values (total number missing) for the numerator and another DataFrame of values (total number) for the denominator. Then, we are dividing two DataFrames, giving us another DataFrame of the resulting division. We then sort.
 
-# In[12]:
+# In[19]:
 
 
 percent = (uw.isnull().sum()/uw.isnull().count()).sort_values(ascending=False)
@@ -123,7 +226,7 @@ percent = (uw.isnull().sum()/uw.isnull().count()).sort_values(ascending=False)
 
 # We can use a new function called `concat` from `pandas` that combines data, either as rows (stacking) or columns (combining). We'll combine columns, with means concatenating along axis=1. We'll name both columns. We can do this because each DataFrame has the same index created by `pandas`, all of our variable names. So, there's a one-to-one correspondence between the two DataFrames.
 
-# In[13]:
+# In[20]:
 
 
 missing_data = pd.concat([total, percent], axis=1, keys=['Total', 'Missing Percent'])
@@ -131,7 +234,7 @@ missing_data = pd.concat([total, percent], axis=1, keys=['Total', 'Missing Perce
 
 # Let's take the percents and multiply all of them by 100, just to make them look like percents. And to show you, again, that you can.
 
-# In[14]:
+# In[21]:
 
 
 missing_data['Missing Percent'] = missing_data['Missing Percent'] * 100
@@ -139,7 +242,7 @@ missing_data['Missing Percent'] = missing_data['Missing Percent'] * 100
 
 # For the last step, we can filter and just get the variable names where more than 10% of our data are missing.
 
-# In[15]:
+# In[22]:
 
 
 missing_data[missing_data['Missing Percent'] > 10]
@@ -150,7 +253,7 @@ missing_data[missing_data['Missing Percent'] > 10]
 # 
 # We can bring back the stock data too, as that data has some missing values.
 
-# In[16]:
+# In[23]:
 
 
 prices = pd.read_csv('https://github.com/aaiken1/fin-data-analysis-python/raw/main/data/tr_eikon_eod_data.csv',
@@ -159,7 +262,7 @@ prices = pd.read_csv('https://github.com/aaiken1/fin-data-analysis-python/raw/ma
 
 # Why are there missing values? Holidays and weekends, when trading doesn't take place.
 
-# In[17]:
+# In[24]:
 
 
 prices.isna().sum()
@@ -167,14 +270,14 @@ prices.isna().sum()
 
 # We can drop these rows. We'll specify `axis=0`, or rows.
 
-# In[18]:
+# In[25]:
 
 
 prices = prices.dropna(axis=0)
 prices.isna().sum()
 
 
-# In[19]:
+# In[26]:
 
 
 prices.head(15)
@@ -193,7 +296,7 @@ prices.head(15)
 # 
 # There are even [finance specific tools](https://pyjanitor-devs.github.io/pyjanitor/api/finance/).
 
-# In[20]:
+# In[27]:
 
 
 import janitor
@@ -202,7 +305,7 @@ from janitor import clean_names
 
 # `pyjanitor` lets us have an interesting workflow. We can read in our data set, remove columns, drop missings, and rename columns, all in one series of steps.
 
-# In[21]:
+# In[28]:
 
 
 prices = (
@@ -217,7 +320,7 @@ prices = (
 
 # There are also some built-in, general functions. `clean_names()` does what it says. For example, it sets all characters in a variable name to lower case.
 
-# In[22]:
+# In[29]:
 
 
 prices = pd.read_csv('https://github.com/aaiken1/fin-data-analysis-python/raw/main/data/tr_eikon_eod_data.csv',
@@ -228,7 +331,7 @@ prices = prices.clean_names()
 
 # Again, a variety of syntaxes to do the same thing.
 
-# In[23]:
+# In[30]:
 
 
 prices = pd.read_csv('https://github.com/aaiken1/fin-data-analysis-python/raw/main/data/tr_eikon_eod_data.csv',
@@ -239,7 +342,7 @@ prices = clean_names(prices)
 
 # The method `flag_nulls` creates a new variable that will have a 1 if any of the variables specified are missing. In this case, I didn't specify anything, so it will look across all of the variables. If any variable is `NaN`, then that row gets a 1. Notice the **any**.
 
-# In[24]:
+# In[31]:
 
 
 prices = pd.read_csv('https://github.com/aaiken1/fin-data-analysis-python/raw/main/data/tr_eikon_eod_data.csv',
@@ -250,7 +353,7 @@ prices = prices.flag_nulls()
 
 # Finally, simple way to see if we have any rows of duplicate data. This will happen surprisingly (and unfortunately) often when we start merging data together. 
 
-# In[25]:
+# In[32]:
 
 
 prices.get_dupes()

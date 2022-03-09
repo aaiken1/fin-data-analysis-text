@@ -48,6 +48,8 @@ prices = pd.read_csv('../data/tr_eikon_eod_data.csv',
 # 
 # What are those other options doing? `index_col=0` tells `pandas` to create a DataFrame where column 0 (the first column in the .csv file) is the index. Check out the CSV file - that's the date. With finance data, the date will often be the index, since we are dealing with time series data (e.g. stock prices or returns).
 # 
+# Sometimes data will be **multi-index**. For example, if we have multiple stocks and dates. More on this later - it depends on how the data are organized.
+# 
 # The option `parse_dates` is telling `pandas` to look at the index column and try to turn what it sees into official Python dates. That works in this case. Finance coders will joke that 90% of their time is spend doing date corrections. For example, what happens if you have multiple markets in different time zones and you're trying to deal with time series at a trade-level frequency (i.e. less than a second)? Have fun!
 # 
 # You can read about the `pd.read_csv` method on the [`pandas` web page](https://pandas.pydata.org/docs/reference/api/pandas.read_csv.html).
@@ -112,7 +114,7 @@ prices100 = pd.read_csv('https://github.com/aaiken1/fin-data-analysis-python/raw
 
 
 prices_spx= pd.read_csv('https://github.com/aaiken1/fin-data-analysis-python/raw/main/data/tr_eikon_eod_data.csv',
-                      index_col=0, parse_dates=True, usecols=([".SPX"]))
+                      index_col=0, parse_dates=True, usecols=(['.SPX']))
 
 
 # We have our data in Python! Now, we can manipulate it, clean it, merge it with something else, summarize it, plot it, and do some actual finance.

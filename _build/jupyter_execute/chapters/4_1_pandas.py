@@ -85,13 +85,31 @@ uw.tail()
 # 
 # Let’s think about the other variable definitions a bit. Zillow places homes into three tiers based on the home’s estimated market value, with Tier3 being the highest value. `AllHomes` refers to all homes in that tier or across all tiers. `UWHomes` refers to homes that are at risk for flooding. Note that there are some variables that are counts, some that are dollar values, and others that are percentages.
 # 
+# Finally, when using a Jupyter notebook, you can just put the name of the DataFrame in a cell and run the cell. You'll get a peak at the DataFrame too. In the DataCamp assignments, you're using a Python **script**, not a Jupyter notebook, which is why they have to do things like use `print()` to get the data to display. The Jupyter notebook does this automatically for us.
+
+# In[6]:
+
+
+uw
+
+
+# ## Saving our work
 # 
+# You're going to see syntax like:
+# 
+# `df = df.some_stuff`
+# 
+# This means that our work is getting saved. In this case, I'm replacing my original DataFrame *df* with another DataFrame, also called *df*. I could have changed the name of the DataFrame.
+# 
+# You'll also see the `inplace=True` argument in some functions. This means that the old DataFrame will get overwritten automatically by whatever you just did.
+# 
+# THe key: **If you don't save your work, then the Jupyter Notebook will show you a result, but it doesn't get reflected in the DataFrame. So, if you try use what you just did, Python won't know about it!**
 
 # ## Selecting our data
 # 
 # You access columns in `pandas` like this, using `[]` and `''`. A column is a variable in our data set.
 
-# In[6]:
+# In[7]:
 
 
 uw['RegionType']
@@ -99,7 +117,7 @@ uw['RegionType']
 
 # But, wait, you can also do this!
 
-# In[7]:
+# In[8]:
 
 
 uw.RegionType
@@ -110,53 +128,79 @@ uw.RegionType
 # You can also do multiple columns. Use a `,` to separate the column names in `[]`.
 # 
 
-# In[8]:
+# In[9]:
 
 
 uw[['RegionType', 'RegionName', 'UWHomes_Tier2']]
 
 
-# This is looking a lot like dealing with `lists`. You can also pull out just certain rows. We used `head` and `tail` above to do this in an "automated" way.
+# This is looking a lot like dealing with **lists** - the column names are in a list with `[]`. You can also pull out just certain rows. We used `head` and `tail` above to do this in an "automated" way.
 
-# In[9]:
+# In[10]:
 
 
 uw[0:10]
 
 
 # Again, notice how Python starts counting from 0. That 0, 1, 2... shows the current `index` for this `DataFrame`. We could change this and will later.
+
+# ### Using loc
 # 
-# `pandas` has two **location** methods: `loc` and `iloc`. They are going to let us select parts of our data. The main difference: `loc` is labelled based and `iloc` is location based. Since our columns have labels (our rows do not), we can use `loc` to specify columns by name. If we created an **index** for this data, then our rows would have labels. We'll do that later. Any index for this data will be complicated, since no one column uniquely identifies anything!
+# `pandas` has two **location** methods: `loc` and `iloc`. They are going to let us select parts of our data. The main difference: `loc` is labelled based and `iloc` is location based. 
 # 
-# You can read more about the two methods (here)[https://towardsdatascience.com/how-to-use-loc-and-iloc-for-selecting-data-in-pandas-bd09cb4c3d79]. 
+# Since our columns have labels (our rows do not), we can use `loc` to specify columns by name. If we created an **index** for this data, then our rows would have labels. We'll do that later. Any index for this data will be complicated, since no one column uniquely identifies anything!
+# 
+# You can read more about the two methods [here](https://towardsdatascience.com/how-to-use-loc-and-iloc-for-selecting-data-in-pandas-bd09cb4c3d79). 
 # 
 # We'll start with `loc`. Again, our rows don't have labels or an index, so we can use the number of the row, even with `loc`. We can pull just the first row of data.
 
-# In[10]:
+# In[11]:
 
 
 uw.loc[0]
 
 
-# We can pull the first ten rows and just three columns. But, now we are going to use the column names. And - notice how `0:9` actually gets us `0:9`! Because we are using `loc` we include the last item in the range.
+# That returned a **series** with just the first row and all of the columns. You can make the output in a Jupyter notebook look a little nicer by turning the series into a DataFrame using `to.frame()`. Again, this is the first row and all of the column headers, just turned sideways.
 
-# In[11]:
+# In[12]:
+
+
+uw.loc[0].to_frame()
+
+
+# Things look more like what you'd expect if you pull multiple rows. This will also mean that we get a DataFrame and not just a series. 
+# 
+# We can pull the first ten rows and just three columns. But, now we are going to use the column names. And - notice how `0:9` actually gets us `0:9`! Because we are using `loc`, we include the last item in the range.
+
+# In[13]:
 
 
 uw.loc[0:9,['RegionType', 'RegionName', 'UWHomes_Tier2']]
 
 
-# We can pull a range for columns too. Again, notice that the column name range is inclusive of the last column, unlike with slicing by element number.
+# We could pull all of the columns and rows 0:9 like this.
+# 
 
-# In[12]:
+# In[14]:
+
+
+uw.loc[0:9,:]
+
+
+# 
+# We can pull a range for columns too. Again, notice that the column name range is **inclusive of the last column**, unlike with slicing by element number.
+
+# In[15]:
 
 
 uw.loc[0:9,'RegionType':'UWHomes_Tier2']
 
 
+# ### Using iloc
+# 
 # Now, let's try `iloc`. I'll pull the exact same data as above. The numbers used are going to work like slicing. We want to use `0:10` for the rows, because we want the first 10 rows. Same for the columns. Inclusive of the first number, but up to and excluding the second.
 
-# In[13]:
+# In[16]:
 
 
 uw.iloc[0:10,0:10]
@@ -164,15 +208,17 @@ uw.iloc[0:10,0:10]
 
 # We can also select columns in various locations, like above.
 
-# In[14]:
+# In[17]:
 
 
 uw.iloc[0:10,[0, 1, 9]]
 
 
+# ### Comparing four selection methods
+# 
 # You can use these methods to select and save columns to a new DataFrame. Each of the following does the same thing.
 
-# In[15]:
+# In[18]:
 
 
 uw_sub1 = uw[['RegionType', 'RegionName', 'UWHomes_Tier2']]
@@ -191,7 +237,7 @@ print(uw_sub3.equals(uw_sub4))
 # 
 # Here's some [help on filtering](https://datagy.io/filter-pandas/) data with `pandas`.
 
-# In[16]:
+# In[19]:
 
 
 uw[uw['RegionType'] == 'MSA'].head(15)
@@ -199,19 +245,28 @@ uw[uw['RegionType'] == 'MSA'].head(15)
 
 # How about just North Carolina MSAs? I'll use the bigger DataFrame and just show the observations, rather than create a new DataFrame.
 
-# In[17]:
+# In[20]:
 
 
 uw[(uw['RegionType'] == 'MSA') & (uw['StateName'] == 'North Carolina')].head(15)
 
 
-# Notice how I needed to put `()` around each condition. Python is testing to see if each of these are `True` or `False` and then filtering our data accordingly. Pgs. 132 - 135 of our text show you more about this type of **boolean** filtering.
+# Notice how I needed to put `()` around each condition. Python is testing to see if each of these are `True` or `False` and then filtering our data accordingly. Pgs. 132 - 135 of our text show you more about this type of **boolean** filtering. You'll also see **masking** in the DataCamp assignments. Here's an example.
 
-# ## Dealing with indices
+# In[21]:
+
+
+in_nc = (uw['RegionType'] == 'MSA') & (uw['StateName'] == 'North Carolina')
+uw[in_nc].head(15)
+
+
+# The series *in_nc* is a list of True/False values for whether or not an observation meets the criteria. I can then pass that series to the DataFrame *uw*, which will select observations that meet the *True* criteria.
+
+# ## First Look at an Index
 # 
 # Let's go back to the stock data and work with indices a bit more. Remember how that one had the `Date` as the index?
 
-# In[18]:
+# In[22]:
 
 
 prices = pd.read_csv('https://github.com/aaiken1/fin-data-analysis-python/raw/main/data/tr_eikon_eod_data.csv',
@@ -222,7 +277,7 @@ prices.index
 
 # Now, let's try `loc`, but using our `dtype=datetime` index. We'll pull in the SPX and VIX for just January 2010. 
 
-# In[19]:
+# In[23]:
 
 
 prices.loc['2010-01-01':'2010-01-31',['.SPX', '.VIX']]

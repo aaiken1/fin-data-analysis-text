@@ -42,8 +42,6 @@
     <script src="../_static/copybutton.js"></script>
     <script>var togglebuttonSelector = '.toggle, .admonition.dropdown, .tag_hide_input div.cell_input, .tag_hide-input div.cell_input, .tag_hide_output div.cell_output, .tag_hide-output div.cell_output, .tag_hide_cell.cell, .tag_hide-cell.cell';</script>
     <script src="../_static/sphinx-book-theme.d59cb220de22ca1c485ebbdc042f0030.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
-    <script src="https://unpkg.com/@jupyter-widgets/html-manager@^0.20.0/dist/embed-amd.js"></script>
     <script async="async" src="https://unpkg.com/thebe@0.5.1/lib/index.js"></script>
     <script>
         const thebe_selector = ".thebe"
@@ -298,6 +296,23 @@
   </a>
  </li>
 </ul>
+<p aria-level="2" class="caption" role="heading">
+ <span class="caption-text">
+  Exams
+ </span>
+</p>
+<ul class="nav bd-sidenav">
+ <li class="toctree-l1">
+  <a class="reference internal" href="exam_intro.html">
+   Our Exams
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="exam01.html">
+   Midterm Exam
+  </a>
+ </li>
+</ul>
 
     </div>
 </nav> <!-- To handle the deprecated key -->
@@ -448,6 +463,7 @@
 <p>First, click the <strong>Variables</strong> button at the top. You’ll see the two DataFrames that we now have in memory appear below. Click the pop-out button to view them.</p>
 <p>Notice how I did the path name. <code class="docutils literal notranslate"><span class="pre">../</span></code> means to start start from my home directory. What’s my home directory? That’s where you <code class="docutils literal notranslate"><span class="pre">.ipynb</span></code> file lives. <strong>Relative</strong> to that directory, Python looks for a folder called <code class="docutils literal notranslate"><span class="pre">data</span></code>. Finally, it looks for the .csv file called <code class="docutils literal notranslate"><span class="pre">tr_eikon_eod_data.csv</span></code> inside of that folder.</p>
 <p>What are those other options doing? <code class="docutils literal notranslate"><span class="pre">index_col=0</span></code> tells <code class="docutils literal notranslate"><span class="pre">pandas</span></code> to create a DataFrame where column 0 (the first column in the .csv file) is the index. Check out the CSV file - that’s the date. With finance data, the date will often be the index, since we are dealing with time series data (e.g. stock prices or returns).</p>
+<p>Sometimes data will be <strong>multi-index</strong>. For example, if we have multiple stocks and dates. More on this later - it depends on how the data are organized.</p>
 <p>The option <code class="docutils literal notranslate"><span class="pre">parse_dates</span></code> is telling <code class="docutils literal notranslate"><span class="pre">pandas</span></code> to look at the index column and try to turn what it sees into official Python dates. That works in this case. Finance coders will joke that 90% of their time is spend doing date corrections. For example, what happens if you have multiple markets in different time zones and you’re trying to deal with time series at a trade-level frequency (i.e. less than a second)? Have fun!</p>
 <p>You can read about the <code class="docutils literal notranslate"><span class="pre">pd.read_csv</span></code> method on the <a class="reference external" href="https://pandas.pydata.org/docs/reference/api/pandas.read_csv.html"><code class="docutils literal notranslate"><span class="pre">pandas</span></code> web page</a>.</p>
 <p>You can also write Python data to a .csv or Excel file. Our DataCamp assignments will go over all of this.</p>
@@ -519,7 +535,7 @@
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">prices_spx</span><span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s1">&#39;https://github.com/aaiken1/fin-data-analysis-python/raw/main/data/tr_eikon_eod_data.csv&#39;</span><span class="p">,</span>
-                      <span class="n">index_col</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">parse_dates</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">usecols</span><span class="o">=</span><span class="p">([</span><span class="s2">&quot;.SPX&quot;</span><span class="p">]))</span>
+                      <span class="n">index_col</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">parse_dates</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">usecols</span><span class="o">=</span><span class="p">([</span><span class="s1">&#39;.SPX&#39;</span><span class="p">]))</span>
 </pre></div>
 </div>
 </div>

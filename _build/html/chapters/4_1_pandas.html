@@ -42,8 +42,6 @@
     <script src="../_static/copybutton.js"></script>
     <script>var togglebuttonSelector = '.toggle, .admonition.dropdown, .tag_hide_input div.cell_input, .tag_hide-input div.cell_input, .tag_hide_output div.cell_output, .tag_hide-output div.cell_output, .tag_hide_cell.cell, .tag_hide-cell.cell';</script>
     <script src="../_static/sphinx-book-theme.d59cb220de22ca1c485ebbdc042f0030.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
-    <script src="https://unpkg.com/@jupyter-widgets/html-manager@^0.20.0/dist/embed-amd.js"></script>
     <script async="async" src="https://unpkg.com/thebe@0.5.1/lib/index.js"></script>
     <script>
         const thebe_selector = ".thebe"
@@ -298,6 +296,23 @@
   </a>
  </li>
 </ul>
+<p aria-level="2" class="caption" role="heading">
+ <span class="caption-text">
+  Exams
+ </span>
+</p>
+<ul class="nav bd-sidenav">
+ <li class="toctree-l1">
+  <a class="reference internal" href="exam_intro.html">
+   Our Exams
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="exam01.html">
+   Midterm Exam
+  </a>
+ </li>
+</ul>
 
     </div>
 </nav> <!-- To handle the deprecated key -->
@@ -404,10 +419,30 @@
   </a>
  </li>
  <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#saving-our-work">
+   Saving our work
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
   <a class="reference internal nav-link" href="#selecting-our-data">
    Selecting our data
   </a>
   <ul class="nav section-nav flex-column">
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#using-loc">
+     Using loc
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#using-iloc">
+     Using iloc
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#comparing-four-selection-methods">
+     Comparing four selection methods
+    </a>
+   </li>
    <li class="toc-h3 nav-item toc-entry">
     <a class="reference internal nav-link" href="#filtering">
      Filtering
@@ -416,8 +451,8 @@
   </ul>
  </li>
  <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#dealing-with-indices">
-   Dealing with indices
+  <a class="reference internal nav-link" href="#first-look-at-an-index">
+   First Look at an Index
   </a>
  </li>
 </ul>
@@ -446,10 +481,30 @@
   </a>
  </li>
  <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#saving-our-work">
+   Saving our work
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
   <a class="reference internal nav-link" href="#selecting-our-data">
    Selecting our data
   </a>
   <ul class="nav section-nav flex-column">
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#using-loc">
+     Using loc
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#using-iloc">
+     Using iloc
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#comparing-four-selection-methods">
+     Comparing four selection methods
+    </a>
+   </li>
    <li class="toc-h3 nav-item toc-entry">
     <a class="reference internal nav-link" href="#filtering">
      Filtering
@@ -458,8 +513,8 @@
   </ul>
  </li>
  <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#dealing-with-indices">
-   Dealing with indices
+  <a class="reference internal nav-link" href="#first-look-at-an-index">
+   First Look at an Index
   </a>
  </li>
 </ul>
@@ -944,6 +999,333 @@ memory usage: 489.5+ KB
 </div>
 <p>Looking at this data, I think it really has four levels that describe the numbers. The columns <code class="docutils literal notranslate"><span class="pre">RegionType</span></code>, <code class="docutils literal notranslate"><span class="pre">RegionName</span></code>, <code class="docutils literal notranslate"><span class="pre">StateName</span></code>, and <code class="docutils literal notranslate"><span class="pre">MSAName</span></code> define unique rows of data. Again, note that these values can be missing. For example, row 2606 is Zip, 98595, Washington, but no <code class="docutils literal notranslate"><span class="pre">MSAName</span></code>. Why? MSA stands for Metropolitan Statistical Area and covers multiple zip codes. This data is <strong>not tidy</strong>.</p>
 <p>Let’s think about the other variable definitions a bit. Zillow places homes into three tiers based on the home’s estimated market value, with Tier3 being the highest value. <code class="docutils literal notranslate"><span class="pre">AllHomes</span></code> refers to all homes in that tier or across all tiers. <code class="docutils literal notranslate"><span class="pre">UWHomes</span></code> refers to homes that are at risk for flooding. Note that there are some variables that are counts, some that are dollar values, and others that are percentages.</p>
+<p>Finally, when using a Jupyter notebook, you can just put the name of the DataFrame in a cell and run the cell. You’ll get a peak at the DataFrame too. In the DataCamp assignments, you’re using a Python <strong>script</strong>, not a Jupyter notebook, which is why they have to do things like use <code class="docutils literal notranslate"><span class="pre">print()</span></code> to get the data to display. The Jupyter notebook does this automatically for us.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">uw</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>RegionType</th>
+      <th>RegionName</th>
+      <th>StateName</th>
+      <th>MSAName</th>
+      <th>AllHomes_Tier1</th>
+      <th>AllHomes_Tier2</th>
+      <th>AllHomes_Tier3</th>
+      <th>AllHomes_AllTiers</th>
+      <th>UWHomes_Tier1</th>
+      <th>UWHomes_Tier2</th>
+      <th>...</th>
+      <th>UWHomes_TotalValue_Tier3</th>
+      <th>UWHomes_TotalValue_AllTiers</th>
+      <th>UWHomes_MedianValue_AllTiers</th>
+      <th>AllHomes_Tier1_ShareUW</th>
+      <th>AllHomes_Tier2_ShareUW</th>
+      <th>AllHomes_Tier3_ShareUW</th>
+      <th>AllHomes_AllTiers_ShareUW</th>
+      <th>UWHomes_ShareInTier1</th>
+      <th>UWHomes_ShareInTier2</th>
+      <th>UWHomes_ShareInTier3</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>Nation</td>
+      <td>United States</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>35461549.0</td>
+      <td>35452941.0</td>
+      <td>35484532.0</td>
+      <td>106399022.0</td>
+      <td>594672.0</td>
+      <td>542681.0</td>
+      <td>...</td>
+      <td>5.974490e+11</td>
+      <td>9.159540e+11</td>
+      <td>310306.0</td>
+      <td>0.016769</td>
+      <td>0.015307</td>
+      <td>0.020458</td>
+      <td>0.017512</td>
+      <td>0.319149</td>
+      <td>0.291246</td>
+      <td>0.389605</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>State</td>
+      <td>Alabama</td>
+      <td>Alabama</td>
+      <td>NaN</td>
+      <td>546670.0</td>
+      <td>520247.0</td>
+      <td>491300.0</td>
+      <td>1558217.0</td>
+      <td>2890.0</td>
+      <td>2766.0</td>
+      <td>...</td>
+      <td>2.583039e+09</td>
+      <td>3.578203e+09</td>
+      <td>270254.0</td>
+      <td>0.005287</td>
+      <td>0.005317</td>
+      <td>0.010271</td>
+      <td>0.006868</td>
+      <td>0.270043</td>
+      <td>0.258456</td>
+      <td>0.471501</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>State</td>
+      <td>California</td>
+      <td>California</td>
+      <td>NaN</td>
+      <td>3060171.0</td>
+      <td>3076238.0</td>
+      <td>3169584.0</td>
+      <td>9305993.0</td>
+      <td>8090.0</td>
+      <td>14266.0</td>
+      <td>...</td>
+      <td>2.666638e+10</td>
+      <td>4.449536e+10</td>
+      <td>860373.0</td>
+      <td>0.002644</td>
+      <td>0.004637</td>
+      <td>0.005611</td>
+      <td>0.004313</td>
+      <td>0.201550</td>
+      <td>0.355415</td>
+      <td>0.443035</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>State</td>
+      <td>Connecticut</td>
+      <td>Connecticut</td>
+      <td>NaN</td>
+      <td>333904.0</td>
+      <td>334688.0</td>
+      <td>336254.0</td>
+      <td>1004846.0</td>
+      <td>4434.0</td>
+      <td>3807.0</td>
+      <td>...</td>
+      <td>8.689480e+09</td>
+      <td>1.152170e+10</td>
+      <td>442036.0</td>
+      <td>0.013279</td>
+      <td>0.011375</td>
+      <td>0.021677</td>
+      <td>0.015455</td>
+      <td>0.285512</td>
+      <td>0.245138</td>
+      <td>0.469350</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>State</td>
+      <td>Delaware</td>
+      <td>Delaware</td>
+      <td>NaN</td>
+      <td>102983.0</td>
+      <td>127573.0</td>
+      <td>127983.0</td>
+      <td>358539.0</td>
+      <td>4105.0</td>
+      <td>2574.0</td>
+      <td>...</td>
+      <td>1.498013e+09</td>
+      <td>2.801847e+09</td>
+      <td>241344.5</td>
+      <td>0.039861</td>
+      <td>0.020177</td>
+      <td>0.025675</td>
+      <td>0.027793</td>
+      <td>0.411942</td>
+      <td>0.258304</td>
+      <td>0.329754</td>
+    </tr>
+    <tr>
+      <th>...</th>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+    </tr>
+    <tr>
+      <th>2605</th>
+      <td>Zip</td>
+      <td>98592</td>
+      <td>Washington</td>
+      <td>NaN</td>
+      <td>464.0</td>
+      <td>470.0</td>
+      <td>493.0</td>
+      <td>1427.0</td>
+      <td>8.0</td>
+      <td>29.0</td>
+      <td>...</td>
+      <td>7.340711e+07</td>
+      <td>8.271541e+07</td>
+      <td>436490.5</td>
+      <td>0.017241</td>
+      <td>0.061702</td>
+      <td>0.273834</td>
+      <td>0.120533</td>
+      <td>0.046512</td>
+      <td>0.168605</td>
+      <td>0.784884</td>
+    </tr>
+    <tr>
+      <th>2606</th>
+      <td>Zip</td>
+      <td>98595</td>
+      <td>Washington</td>
+      <td>NaN</td>
+      <td>558.0</td>
+      <td>571.0</td>
+      <td>598.0</td>
+      <td>1727.0</td>
+      <td>119.0</td>
+      <td>104.0</td>
+      <td>...</td>
+      <td>1.376119e+07</td>
+      <td>4.036570e+07</td>
+      <td>131441.0</td>
+      <td>0.213262</td>
+      <td>0.182137</td>
+      <td>0.095318</td>
+      <td>0.162131</td>
+      <td>0.425000</td>
+      <td>0.371429</td>
+      <td>0.203571</td>
+    </tr>
+    <tr>
+      <th>2607</th>
+      <td>Zip</td>
+      <td>98612</td>
+      <td>Washington</td>
+      <td>NaN</td>
+      <td>365.0</td>
+      <td>376.0</td>
+      <td>409.0</td>
+      <td>1150.0</td>
+      <td>91.0</td>
+      <td>79.0</td>
+      <td>...</td>
+      <td>1.440674e+07</td>
+      <td>5.028400e+07</td>
+      <td>230495.0</td>
+      <td>0.249315</td>
+      <td>0.210106</td>
+      <td>0.092910</td>
+      <td>0.180870</td>
+      <td>0.437500</td>
+      <td>0.379808</td>
+      <td>0.182692</td>
+    </tr>
+    <tr>
+      <th>2608</th>
+      <td>Zip</td>
+      <td>32081</td>
+      <td>Florida</td>
+      <td>NaN</td>
+      <td>1318.0</td>
+      <td>1328.0</td>
+      <td>1350.0</td>
+      <td>3996.0</td>
+      <td>91.0</td>
+      <td>42.0</td>
+      <td>...</td>
+      <td>9.111212e+07</td>
+      <td>1.325055e+08</td>
+      <td>385196.0</td>
+      <td>0.069044</td>
+      <td>0.031627</td>
+      <td>0.097778</td>
+      <td>0.066316</td>
+      <td>0.343396</td>
+      <td>0.158491</td>
+      <td>0.498113</td>
+    </tr>
+    <tr>
+      <th>2609</th>
+      <td>Zip</td>
+      <td>33578</td>
+      <td>Florida</td>
+      <td>NaN</td>
+      <td>5975.0</td>
+      <td>4537.0</td>
+      <td>3232.0</td>
+      <td>13744.0</td>
+      <td>8.0</td>
+      <td>6.0</td>
+      <td>...</td>
+      <td>5.685202e+07</td>
+      <td>5.911551e+07</td>
+      <td>363355.0</td>
+      <td>0.001339</td>
+      <td>0.001322</td>
+      <td>0.038366</td>
+      <td>0.010041</td>
+      <td>0.057971</td>
+      <td>0.043478</td>
+      <td>0.898551</td>
+    </tr>
+  </tbody>
+</table>
+<p>2610 rows × 24 columns</p>
+</div></div></div>
+</div>
+</div>
+<div class="section" id="saving-our-work">
+<h2>Saving our work<a class="headerlink" href="#saving-our-work" title="Permalink to this headline">¶</a></h2>
+<p>You’re going to see syntax like:</p>
+<p><code class="docutils literal notranslate"><span class="pre">df</span> <span class="pre">=</span> <span class="pre">df.some_stuff</span></code></p>
+<p>This means that our work is getting saved. In this case, I’m replacing my original DataFrame <em>df</em> with another DataFrame, also called <em>df</em>. I could have changed the name of the DataFrame.</p>
+<p>You’ll also see the <code class="docutils literal notranslate"><span class="pre">inplace=True</span></code> argument in some functions. This means that the old DataFrame will get overwritten automatically by whatever you just did.</p>
+<p>THe key: <strong>If you don’t save your work, then the Jupyter Notebook will show you a result, but it doesn’t get reflected in the DataFrame. So, if you try use what you just did, Python won’t know about it!</strong></p>
 </div>
 <div class="section" id="selecting-our-data">
 <h2>Selecting our data<a class="headerlink" href="#selecting-our-data" title="Permalink to this headline">¶</a></h2>
@@ -1099,7 +1481,7 @@ Name: RegionType, Length: 2610, dtype: object
 <p>2610 rows × 3 columns</p>
 </div></div></div>
 </div>
-<p>This is looking a lot like dealing with <code class="docutils literal notranslate"><span class="pre">lists</span></code>. You can also pull out just certain rows. We used <code class="docutils literal notranslate"><span class="pre">head</span></code> and <code class="docutils literal notranslate"><span class="pre">tail</span></code> above to do this in an “automated” way.</p>
+<p>This is looking a lot like dealing with <strong>lists</strong> - the column names are in a list with <code class="docutils literal notranslate"><span class="pre">[]</span></code>. You can also pull out just certain rows. We used <code class="docutils literal notranslate"><span class="pre">head</span></code> and <code class="docutils literal notranslate"><span class="pre">tail</span></code> above to do this in an “automated” way.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">uw</span><span class="p">[</span><span class="mi">0</span><span class="p">:</span><span class="mi">10</span><span class="p">]</span>
@@ -1395,8 +1777,11 @@ Name: RegionType, Length: 2610, dtype: object
 </div></div></div>
 </div>
 <p>Again, notice how Python starts counting from 0. That 0, 1, 2… shows the current <code class="docutils literal notranslate"><span class="pre">index</span></code> for this <code class="docutils literal notranslate"><span class="pre">DataFrame</span></code>. We could change this and will later.</p>
-<p><code class="docutils literal notranslate"><span class="pre">pandas</span></code> has two <strong>location</strong> methods: <code class="docutils literal notranslate"><span class="pre">loc</span></code> and <code class="docutils literal notranslate"><span class="pre">iloc</span></code>. They are going to let us select parts of our data. The main difference: <code class="docutils literal notranslate"><span class="pre">loc</span></code> is labelled based and <code class="docutils literal notranslate"><span class="pre">iloc</span></code> is location based. Since our columns have labels (our rows do not), we can use <code class="docutils literal notranslate"><span class="pre">loc</span></code> to specify columns by name. If we created an <strong>index</strong> for this data, then our rows would have labels. We’ll do that later. Any index for this data will be complicated, since no one column uniquely identifies anything!</p>
-<p>You can read more about the two methods (here)[https://towardsdatascience.com/how-to-use-loc-and-iloc-for-selecting-data-in-pandas-bd09cb4c3d79].</p>
+<div class="section" id="using-loc">
+<h3>Using loc<a class="headerlink" href="#using-loc" title="Permalink to this headline">¶</a></h3>
+<p><code class="docutils literal notranslate"><span class="pre">pandas</span></code> has two <strong>location</strong> methods: <code class="docutils literal notranslate"><span class="pre">loc</span></code> and <code class="docutils literal notranslate"><span class="pre">iloc</span></code>. They are going to let us select parts of our data. The main difference: <code class="docutils literal notranslate"><span class="pre">loc</span></code> is labelled based and <code class="docutils literal notranslate"><span class="pre">iloc</span></code> is location based.</p>
+<p>Since our columns have labels (our rows do not), we can use <code class="docutils literal notranslate"><span class="pre">loc</span></code> to specify columns by name. If we created an <strong>index</strong> for this data, then our rows would have labels. We’ll do that later. Any index for this data will be complicated, since no one column uniquely identifies anything!</p>
+<p>You can read more about the two methods <a class="reference external" href="https://towardsdatascience.com/how-to-use-loc-and-iloc-for-selecting-data-in-pandas-bd09cb4c3d79">here</a>.</p>
 <p>We’ll start with <code class="docutils literal notranslate"><span class="pre">loc</span></code>. Again, our rows don’t have labels or an index, so we can use the number of the row, even with <code class="docutils literal notranslate"><span class="pre">loc</span></code>. We can pull just the first row of data.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -1434,7 +1819,138 @@ Name: 0, dtype: object
 </div>
 </div>
 </div>
-<p>We can pull the first ten rows and just three columns. But, now we are going to use the column names. And - notice how <code class="docutils literal notranslate"><span class="pre">0:9</span></code> actually gets us <code class="docutils literal notranslate"><span class="pre">0:9</span></code>! Because we are using <code class="docutils literal notranslate"><span class="pre">loc</span></code> we include the last item in the range.</p>
+<p>That returned a <strong>series</strong> with just the first row and all of the columns. You can make the output in a Jupyter notebook look a little nicer by turning the series into a DataFrame using <code class="docutils literal notranslate"><span class="pre">to.frame()</span></code>. Again, this is the first row and all of the column headers, just turned sideways.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">uw</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">to_frame</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>0</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>RegionType</th>
+      <td>Nation</td>
+    </tr>
+    <tr>
+      <th>RegionName</th>
+      <td>United States</td>
+    </tr>
+    <tr>
+      <th>StateName</th>
+      <td>NaN</td>
+    </tr>
+    <tr>
+      <th>MSAName</th>
+      <td>NaN</td>
+    </tr>
+    <tr>
+      <th>AllHomes_Tier1</th>
+      <td>35461549.0</td>
+    </tr>
+    <tr>
+      <th>AllHomes_Tier2</th>
+      <td>35452941.0</td>
+    </tr>
+    <tr>
+      <th>AllHomes_Tier3</th>
+      <td>35484532.0</td>
+    </tr>
+    <tr>
+      <th>AllHomes_AllTiers</th>
+      <td>106399022.0</td>
+    </tr>
+    <tr>
+      <th>UWHomes_Tier1</th>
+      <td>594672.0</td>
+    </tr>
+    <tr>
+      <th>UWHomes_Tier2</th>
+      <td>542681.0</td>
+    </tr>
+    <tr>
+      <th>UWHomes_Tier3</th>
+      <td>725955.0</td>
+    </tr>
+    <tr>
+      <th>UWHomes_AllTiers</th>
+      <td>1863308.0</td>
+    </tr>
+    <tr>
+      <th>UWHomes_TotalValue_Tier1</th>
+      <td>122992000000.0</td>
+    </tr>
+    <tr>
+      <th>UWHomes_TotalValue_Tier2</th>
+      <td>195513000000.0</td>
+    </tr>
+    <tr>
+      <th>UWHomes_TotalValue_Tier3</th>
+      <td>597449000000.0</td>
+    </tr>
+    <tr>
+      <th>UWHomes_TotalValue_AllTiers</th>
+      <td>915954000000.0</td>
+    </tr>
+    <tr>
+      <th>UWHomes_MedianValue_AllTiers</th>
+      <td>310306.0</td>
+    </tr>
+    <tr>
+      <th>AllHomes_Tier1_ShareUW</th>
+      <td>0.016769</td>
+    </tr>
+    <tr>
+      <th>AllHomes_Tier2_ShareUW</th>
+      <td>0.015307</td>
+    </tr>
+    <tr>
+      <th>AllHomes_Tier3_ShareUW</th>
+      <td>0.020458</td>
+    </tr>
+    <tr>
+      <th>AllHomes_AllTiers_ShareUW</th>
+      <td>0.017512</td>
+    </tr>
+    <tr>
+      <th>UWHomes_ShareInTier1</th>
+      <td>0.319149</td>
+    </tr>
+    <tr>
+      <th>UWHomes_ShareInTier2</th>
+      <td>0.291246</td>
+    </tr>
+    <tr>
+      <th>UWHomes_ShareInTier3</th>
+      <td>0.389605</td>
+    </tr>
+  </tbody>
+</table>
+</div></div></div>
+</div>
+<p>Things look more like what you’d expect if you pull multiple rows. This will also mean that we get a DataFrame and not just a series.</p>
+<p>We can pull the first ten rows and just three columns. But, now we are going to use the column names. And - notice how <code class="docutils literal notranslate"><span class="pre">0:9</span></code> actually gets us <code class="docutils literal notranslate"><span class="pre">0:9</span></code>! Because we are using <code class="docutils literal notranslate"><span class="pre">loc</span></code>, we include the last item in the range.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">uw</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="mi">0</span><span class="p">:</span><span class="mi">9</span><span class="p">,[</span><span class="s1">&#39;RegionType&#39;</span><span class="p">,</span> <span class="s1">&#39;RegionName&#39;</span><span class="p">,</span> <span class="s1">&#39;UWHomes_Tier2&#39;</span><span class="p">]]</span>
@@ -1530,7 +2046,302 @@ Name: 0, dtype: object
 </table>
 </div></div></div>
 </div>
-<p>We can pull a range for columns too. Again, notice that the column name range is inclusive of the last column, unlike with slicing by element number.</p>
+<p>We could pull all of the columns and rows 0:9 like this.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">uw</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="mi">0</span><span class="p">:</span><span class="mi">9</span><span class="p">,:]</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>RegionType</th>
+      <th>RegionName</th>
+      <th>StateName</th>
+      <th>MSAName</th>
+      <th>AllHomes_Tier1</th>
+      <th>AllHomes_Tier2</th>
+      <th>AllHomes_Tier3</th>
+      <th>AllHomes_AllTiers</th>
+      <th>UWHomes_Tier1</th>
+      <th>UWHomes_Tier2</th>
+      <th>...</th>
+      <th>UWHomes_TotalValue_Tier3</th>
+      <th>UWHomes_TotalValue_AllTiers</th>
+      <th>UWHomes_MedianValue_AllTiers</th>
+      <th>AllHomes_Tier1_ShareUW</th>
+      <th>AllHomes_Tier2_ShareUW</th>
+      <th>AllHomes_Tier3_ShareUW</th>
+      <th>AllHomes_AllTiers_ShareUW</th>
+      <th>UWHomes_ShareInTier1</th>
+      <th>UWHomes_ShareInTier2</th>
+      <th>UWHomes_ShareInTier3</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>Nation</td>
+      <td>United States</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>35461549.0</td>
+      <td>35452941.0</td>
+      <td>35484532.0</td>
+      <td>106399022.0</td>
+      <td>594672.0</td>
+      <td>542681.0</td>
+      <td>...</td>
+      <td>5.974490e+11</td>
+      <td>9.159540e+11</td>
+      <td>310306.0</td>
+      <td>0.016769</td>
+      <td>0.015307</td>
+      <td>0.020458</td>
+      <td>0.017512</td>
+      <td>0.319149</td>
+      <td>0.291246</td>
+      <td>0.389605</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>State</td>
+      <td>Alabama</td>
+      <td>Alabama</td>
+      <td>NaN</td>
+      <td>546670.0</td>
+      <td>520247.0</td>
+      <td>491300.0</td>
+      <td>1558217.0</td>
+      <td>2890.0</td>
+      <td>2766.0</td>
+      <td>...</td>
+      <td>2.583039e+09</td>
+      <td>3.578203e+09</td>
+      <td>270254.0</td>
+      <td>0.005287</td>
+      <td>0.005317</td>
+      <td>0.010271</td>
+      <td>0.006868</td>
+      <td>0.270043</td>
+      <td>0.258456</td>
+      <td>0.471501</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>State</td>
+      <td>California</td>
+      <td>California</td>
+      <td>NaN</td>
+      <td>3060171.0</td>
+      <td>3076238.0</td>
+      <td>3169584.0</td>
+      <td>9305993.0</td>
+      <td>8090.0</td>
+      <td>14266.0</td>
+      <td>...</td>
+      <td>2.666638e+10</td>
+      <td>4.449536e+10</td>
+      <td>860373.0</td>
+      <td>0.002644</td>
+      <td>0.004637</td>
+      <td>0.005611</td>
+      <td>0.004313</td>
+      <td>0.201550</td>
+      <td>0.355415</td>
+      <td>0.443035</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>State</td>
+      <td>Connecticut</td>
+      <td>Connecticut</td>
+      <td>NaN</td>
+      <td>333904.0</td>
+      <td>334688.0</td>
+      <td>336254.0</td>
+      <td>1004846.0</td>
+      <td>4434.0</td>
+      <td>3807.0</td>
+      <td>...</td>
+      <td>8.689480e+09</td>
+      <td>1.152170e+10</td>
+      <td>442036.0</td>
+      <td>0.013279</td>
+      <td>0.011375</td>
+      <td>0.021677</td>
+      <td>0.015455</td>
+      <td>0.285512</td>
+      <td>0.245138</td>
+      <td>0.469350</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>State</td>
+      <td>Delaware</td>
+      <td>Delaware</td>
+      <td>NaN</td>
+      <td>102983.0</td>
+      <td>127573.0</td>
+      <td>127983.0</td>
+      <td>358539.0</td>
+      <td>4105.0</td>
+      <td>2574.0</td>
+      <td>...</td>
+      <td>1.498013e+09</td>
+      <td>2.801847e+09</td>
+      <td>241344.5</td>
+      <td>0.039861</td>
+      <td>0.020177</td>
+      <td>0.025675</td>
+      <td>0.027793</td>
+      <td>0.411942</td>
+      <td>0.258304</td>
+      <td>0.329754</td>
+    </tr>
+    <tr>
+      <th>5</th>
+      <td>State</td>
+      <td>Florida</td>
+      <td>Florida</td>
+      <td>NaN</td>
+      <td>2391491.0</td>
+      <td>2435575.0</td>
+      <td>2456637.0</td>
+      <td>7283703.0</td>
+      <td>313090.0</td>
+      <td>263276.0</td>
+      <td>...</td>
+      <td>2.782440e+11</td>
+      <td>4.163480e+11</td>
+      <td>276690.0</td>
+      <td>0.130918</td>
+      <td>0.108096</td>
+      <td>0.135070</td>
+      <td>0.124687</td>
+      <td>0.344743</td>
+      <td>0.289893</td>
+      <td>0.365364</td>
+    </tr>
+    <tr>
+      <th>6</th>
+      <td>State</td>
+      <td>Georgia</td>
+      <td>Georgia</td>
+      <td>NaN</td>
+      <td>1003890.0</td>
+      <td>986416.0</td>
+      <td>920843.0</td>
+      <td>2911149.0</td>
+      <td>5433.0</td>
+      <td>6904.0</td>
+      <td>...</td>
+      <td>6.102691e+09</td>
+      <td>9.565510e+09</td>
+      <td>295405.0</td>
+      <td>0.005412</td>
+      <td>0.006999</td>
+      <td>0.010676</td>
+      <td>0.007615</td>
+      <td>0.245083</td>
+      <td>0.311440</td>
+      <td>0.443477</td>
+    </tr>
+    <tr>
+      <th>7</th>
+      <td>State</td>
+      <td>Hawaii</td>
+      <td>Hawaii</td>
+      <td>NaN</td>
+      <td>132718.0</td>
+      <td>132760.0</td>
+      <td>139397.0</td>
+      <td>404875.0</td>
+      <td>16716.0</td>
+      <td>12536.0</td>
+      <td>...</td>
+      <td>1.134778e+10</td>
+      <td>2.516682e+10</td>
+      <td>500666.0</td>
+      <td>0.125951</td>
+      <td>0.094426</td>
+      <td>0.051658</td>
+      <td>0.090035</td>
+      <td>0.458563</td>
+      <td>0.343895</td>
+      <td>0.197542</td>
+    </tr>
+    <tr>
+      <th>8</th>
+      <td>State</td>
+      <td>Louisiana</td>
+      <td>Louisiana</td>
+      <td>NaN</td>
+      <td>439606.0</td>
+      <td>424665.0</td>
+      <td>417773.0</td>
+      <td>1282044.0</td>
+      <td>25678.0</td>
+      <td>23280.0</td>
+      <td>...</td>
+      <td>6.755054e+09</td>
+      <td>1.309180e+10</td>
+      <td>149888.0</td>
+      <td>0.058411</td>
+      <td>0.054820</td>
+      <td>0.060408</td>
+      <td>0.057872</td>
+      <td>0.346088</td>
+      <td>0.313768</td>
+      <td>0.340144</td>
+    </tr>
+    <tr>
+      <th>9</th>
+      <td>State</td>
+      <td>Massachusetts</td>
+      <td>Massachusetts</td>
+      <td>NaN</td>
+      <td>610378.0</td>
+      <td>611776.0</td>
+      <td>611920.0</td>
+      <td>1834074.0</td>
+      <td>16830.0</td>
+      <td>16491.0</td>
+      <td>...</td>
+      <td>3.436795e+10</td>
+      <td>4.988792e+10</td>
+      <td>582126.0</td>
+      <td>0.027573</td>
+      <td>0.026956</td>
+      <td>0.040749</td>
+      <td>0.031763</td>
+      <td>0.288897</td>
+      <td>0.283078</td>
+      <td>0.428025</td>
+    </tr>
+  </tbody>
+</table>
+<p>10 rows × 24 columns</p>
+</div></div></div>
+</div>
+<p>We can pull a range for columns too. Again, notice that the column name range is <strong>inclusive of the last column</strong>, unlike with slicing by element number.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">uw</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="mi">0</span><span class="p">:</span><span class="mi">9</span><span class="p">,</span><span class="s1">&#39;RegionType&#39;</span><span class="p">:</span><span class="s1">&#39;UWHomes_Tier2&#39;</span><span class="p">]</span>
@@ -1703,6 +2514,9 @@ Name: 0, dtype: object
 </table>
 </div></div></div>
 </div>
+</div>
+<div class="section" id="using-iloc">
+<h3>Using iloc<a class="headerlink" href="#using-iloc" title="Permalink to this headline">¶</a></h3>
 <p>Now, let’s try <code class="docutils literal notranslate"><span class="pre">iloc</span></code>. I’ll pull the exact same data as above. The numbers used are going to work like slicing. We want to use <code class="docutils literal notranslate"><span class="pre">0:10</span></code> for the rows, because we want the first 10 rows. Same for the columns. Inclusive of the first number, but up to and excluding the second.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -1972,6 +2786,9 @@ Name: 0, dtype: object
 </table>
 </div></div></div>
 </div>
+</div>
+<div class="section" id="comparing-four-selection-methods">
+<h3>Comparing four selection methods<a class="headerlink" href="#comparing-four-selection-methods" title="Permalink to this headline">¶</a></h3>
 <p>You can use these methods to select and save columns to a new DataFrame. Each of the following does the same thing.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -1991,6 +2808,7 @@ Name: 0, dtype: object
 True
 True
 </pre></div>
+</div>
 </div>
 </div>
 </div>
@@ -2659,11 +3477,259 @@ True
 <p>8 rows × 24 columns</p>
 </div></div></div>
 </div>
-<p>Notice how I needed to put <code class="docutils literal notranslate"><span class="pre">()</span></code> around each condition. Python is testing to see if each of these are <code class="docutils literal notranslate"><span class="pre">True</span></code> or <code class="docutils literal notranslate"><span class="pre">False</span></code> and then filtering our data accordingly. Pgs. 132 - 135 of our text show you more about this type of <strong>boolean</strong> filtering.</p>
+<p>Notice how I needed to put <code class="docutils literal notranslate"><span class="pre">()</span></code> around each condition. Python is testing to see if each of these are <code class="docutils literal notranslate"><span class="pre">True</span></code> or <code class="docutils literal notranslate"><span class="pre">False</span></code> and then filtering our data accordingly. Pgs. 132 - 135 of our text show you more about this type of <strong>boolean</strong> filtering. You’ll also see <strong>masking</strong> in the DataCamp assignments. Here’s an example.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">in_nc</span> <span class="o">=</span> <span class="p">(</span><span class="n">uw</span><span class="p">[</span><span class="s1">&#39;RegionType&#39;</span><span class="p">]</span> <span class="o">==</span> <span class="s1">&#39;MSA&#39;</span><span class="p">)</span> <span class="o">&amp;</span> <span class="p">(</span><span class="n">uw</span><span class="p">[</span><span class="s1">&#39;StateName&#39;</span><span class="p">]</span> <span class="o">==</span> <span class="s1">&#39;North Carolina&#39;</span><span class="p">)</span>
+<span class="n">uw</span><span class="p">[</span><span class="n">in_nc</span><span class="p">]</span><span class="o">.</span><span class="n">head</span><span class="p">(</span><span class="mi">15</span><span class="p">)</span>
+</pre></div>
 </div>
 </div>
-<div class="section" id="dealing-with-indices">
-<h2>Dealing with indices<a class="headerlink" href="#dealing-with-indices" title="Permalink to this headline">¶</a></h2>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>RegionType</th>
+      <th>RegionName</th>
+      <th>StateName</th>
+      <th>MSAName</th>
+      <th>AllHomes_Tier1</th>
+      <th>AllHomes_Tier2</th>
+      <th>AllHomes_Tier3</th>
+      <th>AllHomes_AllTiers</th>
+      <th>UWHomes_Tier1</th>
+      <th>UWHomes_Tier2</th>
+      <th>...</th>
+      <th>UWHomes_TotalValue_Tier3</th>
+      <th>UWHomes_TotalValue_AllTiers</th>
+      <th>UWHomes_MedianValue_AllTiers</th>
+      <th>AllHomes_Tier1_ShareUW</th>
+      <th>AllHomes_Tier2_ShareUW</th>
+      <th>AllHomes_Tier3_ShareUW</th>
+      <th>AllHomes_AllTiers_ShareUW</th>
+      <th>UWHomes_ShareInTier1</th>
+      <th>UWHomes_ShareInTier2</th>
+      <th>UWHomes_ShareInTier3</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>274</th>
+      <td>MSA</td>
+      <td>Elizabeth City, NC</td>
+      <td>North Carolina</td>
+      <td>Elizabeth City, NC</td>
+      <td>5887.0</td>
+      <td>5882.0</td>
+      <td>5868.0</td>
+      <td>17637.0</td>
+      <td>2198.0</td>
+      <td>1364.0</td>
+      <td>...</td>
+      <td>4.784827e+08</td>
+      <td>8.833370e+08</td>
+      <td>138246.0</td>
+      <td>0.373365</td>
+      <td>0.231894</td>
+      <td>0.283401</td>
+      <td>0.296252</td>
+      <td>0.420670</td>
+      <td>0.261053</td>
+      <td>0.318278</td>
+    </tr>
+    <tr>
+      <th>277</th>
+      <td>MSA</td>
+      <td>Greenville, NC</td>
+      <td>North Carolina</td>
+      <td>Greenville, NC</td>
+      <td>22042.0</td>
+      <td>19844.0</td>
+      <td>18836.0</td>
+      <td>60722.0</td>
+      <td>71.0</td>
+      <td>34.0</td>
+      <td>...</td>
+      <td>6.786239e+06</td>
+      <td>1.776378e+07</td>
+      <td>99179.5</td>
+      <td>0.003221</td>
+      <td>0.001713</td>
+      <td>0.001221</td>
+      <td>0.002108</td>
+      <td>0.554688</td>
+      <td>0.265625</td>
+      <td>0.179688</td>
+    </tr>
+    <tr>
+      <th>288</th>
+      <td>MSA</td>
+      <td>Jacksonville, NC</td>
+      <td>North Carolina</td>
+      <td>Jacksonville, NC</td>
+      <td>17623.0</td>
+      <td>19413.0</td>
+      <td>17989.0</td>
+      <td>55025.0</td>
+      <td>792.0</td>
+      <td>1123.0</td>
+      <td>...</td>
+      <td>6.370269e+08</td>
+      <td>1.029168e+09</td>
+      <td>264070.5</td>
+      <td>0.044941</td>
+      <td>0.057848</td>
+      <td>0.083329</td>
+      <td>0.062045</td>
+      <td>0.231986</td>
+      <td>0.328940</td>
+      <td>0.439074</td>
+    </tr>
+    <tr>
+      <th>292</th>
+      <td>MSA</td>
+      <td>Kill Devil Hills, NC</td>
+      <td>North Carolina</td>
+      <td>Kill Devil Hills, NC</td>
+      <td>3194.0</td>
+      <td>3213.0</td>
+      <td>3486.0</td>
+      <td>9893.0</td>
+      <td>1461.0</td>
+      <td>1584.0</td>
+      <td>...</td>
+      <td>9.128899e+08</td>
+      <td>1.650730e+09</td>
+      <td>280409.0</td>
+      <td>0.457420</td>
+      <td>0.492997</td>
+      <td>0.542456</td>
+      <td>0.498939</td>
+      <td>0.295989</td>
+      <td>0.320908</td>
+      <td>0.383104</td>
+    </tr>
+    <tr>
+      <th>297</th>
+      <td>MSA</td>
+      <td>Morehead City, NC</td>
+      <td>North Carolina</td>
+      <td>Morehead City, NC</td>
+      <td>13555.0</td>
+      <td>13843.0</td>
+      <td>12927.0</td>
+      <td>40325.0</td>
+      <td>3195.0</td>
+      <td>3308.0</td>
+      <td>...</td>
+      <td>2.316937e+09</td>
+      <td>3.449861e+09</td>
+      <td>244691.0</td>
+      <td>0.235706</td>
+      <td>0.238966</td>
+      <td>0.359712</td>
+      <td>0.276578</td>
+      <td>0.286470</td>
+      <td>0.296602</td>
+      <td>0.416928</td>
+    </tr>
+    <tr>
+      <th>302</th>
+      <td>MSA</td>
+      <td>New Bern, NC</td>
+      <td>North Carolina</td>
+      <td>New Bern, NC</td>
+      <td>13637.0</td>
+      <td>13409.0</td>
+      <td>12440.0</td>
+      <td>39486.0</td>
+      <td>1364.0</td>
+      <td>1138.0</td>
+      <td>...</td>
+      <td>5.442292e+08</td>
+      <td>8.553945e+08</td>
+      <td>163643.0</td>
+      <td>0.100022</td>
+      <td>0.084868</td>
+      <td>0.132235</td>
+      <td>0.105025</td>
+      <td>0.328912</td>
+      <td>0.274415</td>
+      <td>0.396672</td>
+    </tr>
+    <tr>
+      <th>334</th>
+      <td>MSA</td>
+      <td>Washington, NC</td>
+      <td>North Carolina</td>
+      <td>Washington, NC</td>
+      <td>1289.0</td>
+      <td>1069.0</td>
+      <td>1043.0</td>
+      <td>3401.0</td>
+      <td>255.0</td>
+      <td>201.0</td>
+      <td>...</td>
+      <td>5.513269e+07</td>
+      <td>9.990351e+07</td>
+      <td>116902.5</td>
+      <td>0.197828</td>
+      <td>0.188026</td>
+      <td>0.182167</td>
+      <td>0.189944</td>
+      <td>0.394737</td>
+      <td>0.311146</td>
+      <td>0.294118</td>
+    </tr>
+    <tr>
+      <th>336</th>
+      <td>MSA</td>
+      <td>Wilmington, NC</td>
+      <td>North Carolina</td>
+      <td>Wilmington, NC</td>
+      <td>37100.0</td>
+      <td>40034.0</td>
+      <td>37475.0</td>
+      <td>114609.0</td>
+      <td>3367.0</td>
+      <td>3339.0</td>
+      <td>...</td>
+      <td>4.265842e+09</td>
+      <td>6.761845e+09</td>
+      <td>383067.0</td>
+      <td>0.090755</td>
+      <td>0.083404</td>
+      <td>0.127578</td>
+      <td>0.100228</td>
+      <td>0.293114</td>
+      <td>0.290676</td>
+      <td>0.416210</td>
+    </tr>
+  </tbody>
+</table>
+<p>8 rows × 24 columns</p>
+</div></div></div>
+</div>
+<p>The series <em>in_nc</em> is a list of True/False values for whether or not an observation meets the criteria. I can then pass that series to the DataFrame <em>uw</em>, which will select observations that meet the <em>True</em> criteria.</p>
+</div>
+</div>
+<div class="section" id="first-look-at-an-index">
+<h2>First Look at an Index<a class="headerlink" href="#first-look-at-an-index" title="Permalink to this headline">¶</a></h2>
 <p>Let’s go back to the stock data and work with indices a bit more. Remember how that one had the <code class="docutils literal notranslate"><span class="pre">Date</span></code> as the index?</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">

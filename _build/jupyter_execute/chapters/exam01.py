@@ -34,7 +34,9 @@
 # 
 # I've posted the data dictionary on [Github](https://github.com/aaiken1/fin-data-analysis-python/), if you have questions about the variable definitions. We are only going to use a small number of them. The main data set (properties_2016_sample10_1.csv) has housing characteristics for houses listed in three Southern California counties in 2016. The other data set (train_2016_v2.csv) contains the log(pricing error) for houses sold, as well as a transaction date. I'll tell you more about the pricing error below.
 # 
-# 1. *10 points* Let's **get our data into Python and Pandas**. 
+
+# ## Part 1
+# *10 points* Let's **get our data into Python and Pandas**. 
 # 
 # The housing data is here: <https://raw.githubusercontent.com/aaiken1/fin-data-analysis-python/main/data/properties_2016_sample10_1.csv>
 # The pricing and transactions data is here: <https://raw.githubusercontent.com/aaiken1/fin-data-analysis-python/main/data/train_2016_v2.csv>
@@ -45,11 +47,15 @@
 # 
 # **Merge them together** and keep only the observations in both data sets. Call the resulting data frame *zillow_data*.
 # 
-# 2. *5 points* What is the **min and max transaction date in the data**? To do this, you'll want to get the date into a proper DateTime format first.
+
+# ## Part 2
+# *5 points* What is the **min and max transaction date in the data**? To do this, you'll want to get the date into a proper DateTime format first.
 # 
 # **Do the min and max date make sense?** Always good to check these sorts of things in your data!
 # 
-# 3. *10 points* First, what are the **fifteen most common vales for *yearbuilt* in the data**? To do this, you'll want to combine a `groupby` and a `.agg('count')`, where you are counting *logerror*.
+
+# ## Part 3
+# *10 points* First, what are the **fifteen most common vales for *yearbuilt* in the data**? To do this, you'll want to combine a `groupby` and a `.agg('count')`, where you are counting *logerror*.
 # 
 # Note that the year built is, of course, different from the transaction date.
 # 
@@ -59,22 +65,29 @@
 # 
 # By the way, I searched for the Zip codes and couldn't find a lot of them! But, the long-lats given in the data seem to work. No idea why.
 # 
-# 4. *10 points* Create a **summary of the mean and median number of bedrooms and bathrooms by year built** for all houses in the data. Then, do the same thing, but **filter** to only include houses built after 1990. 
+
+# ## Part 4
+# *10 points* Create a **summary of the mean and median number of bedrooms and bathrooms by year built** for all houses in the data. Then, do the same thing, but **filter** to only include houses built after 1990. 
 # 
 # Round everything to one decimal place. See our notes and text for examples. You're again thinking in terms of groups and `.agg()`. What functions do you use inside of `.agg()` to get the mean and median?
 #    
-# 5. *10 points* Are there any **duplicate parcel ID's** in the data? In other words, does the same house appear more than once? 
+# 
+
+# ## Part 5
+# *10 points* Are there any **duplicate parcel ID's** in the data? In other words, does the same house appear more than once? 
 #    
 # Create a new DataFrame with just the parcel ID, the pricing error, and the transaction date and show any observations that have multiple parcel IDs (i.e. dupes) in your notebook. To do this, use `.duplicated()` from `pandas` and the idea of **masking** from the DataCamp. 
 # 
-# See here for the syntax: <https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.DataFrame.duplicated.html>. Within `.duplicated()`, you'll want to subset on the parcel ID and choose `keep = False`. This function returns **True or False** for each observation in your DataFrame according to whether or not it is a duplicate. Here we're checking for duplicate parcel IDs, but if you leave out that argument, then an observation would need to be a duplicate (i.e. have the same values) across all three of the variables. 
+# See here for the syntax: <https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.DataFrame.duplicated.html>. Within `.duplicated()`, you'll want to subset on the parcel ID and choose `keep = False`. This function returns **True or False** for each observation in your DataFrame according to whether or not it is a duplicate. Here we're checking for duplicate parcel IDs, but if you leave out that argument, then an observation would only be a duplicate if it had the same values across all variables as another row in the data. 
 # 
-# Use `.duplicated` to create a DataFrame of True or False values. Then, use this DataFrame to **mask** and only select duplicated observations (i.e. observations where `.duplicated` returned *true*) from your subset of data with only parcel ID, the pricing error, and the transaction date. Call this new DataFrame *non_unique_data*. 
+# Use `.duplicated()` to create a DataFrame of True or False values. Then, use this DataFrame to **mask** and only select duplicated observations (i.e. observations where `.duplicated()` returned *true*) from your subset of data with only parcel ID, the pricing error, and the transaction date. Call this new DataFrame *non_unique_data*. 
 # 
 # Show these values in your notebook. **What's going on with these observations?** Why do a small number of houses appear twice? 
 # 
+
 # 
-# 6. *15 points* Where does Zillow do the worst job at pricing homes? In other words, where do their Zestimates have the largest absolute difference from the actual sale price? The pricing error is called *logerror* in the data.
+# ## Part 6
+# *15 points* Where does Zillow do the worst job at pricing homes? In other words, where do their Zestimates have the largest absolute difference from the actual sale price? The pricing error is called *logerror* in the data.
 # 
 # \begin{align}
 # log(pricing error) = log(Zestimate) − log(SalePrice)
@@ -82,7 +95,7 @@
 # 
 # Log here means the natural log. We often take the natural log of data, as the log has some nice properties (i.e. reduces the skew of the data, the influence of outliers).
 # 
-# First, **count up the number of houses sold in each zip code** and create a new variable called *houses_sold*. To do this, use the usual variable creation and `groupby`, but use the method `.transform('count')` from `pandas` to count *logerror* by zip code. `.transform` will add a new column, with counts by zip code, that will become the new variable. Since each Zip code can appear many times in the data, the same count will appear multiple times. 
+# First, **count up the number of houses sold in each zip code** and create a new variable called *houses_sold*. To do this, use the usual variable creation and `groupby`, but use the method `.transform('count')` from `pandas` to count *logerror* by zip code. `.transform()` will add a new column, with counts by zip code, that will become the new variable. Since each Zip code can appear many times in the data, the same count will appear multiple times. 
 # 
 # Next, only keep zip codes where 10 or more houses are sold and **save this set to a new DataFrame**. So, more filtering based on a condition. Add `.copy()` at the end of your filtering statement to get rid of a potential warning from Python. Why? When you're doing something like New DataFrame = Old DataFrame[YOUR FILTER STATEMENT], Python wants you to be explicit that you are copying over a subset of the old DataFrame with a new one. 
 # 
@@ -96,11 +109,17 @@
 # 
 # What does the absolute value measure? What do the differences in means and medians tell you?
 # 
-# 1. *10 points.* Go back to the original Zillow data (before you filtered the Zip codes above) and create that same absolute value of the log pricing error in it. Make two histograms, one for the absolute value of log pricing error for houses with 4 or fewer bedrooms and another one for houses with more than four bedrooms. Stack them on top of each other. Include appropriate labels and titles. **What is this plot trying to answer?**
+
+# 
+# ## Part 7
+# *10 points.* Go back to the original Zillow data (before you filtered the Zip codes above) and create that same absolute value of the log pricing error in it. **Make two histograms**, one for the absolute value of log pricing error for houses with 4 or fewer bedrooms and another one for houses with more than four bedrooms. Stack them on top of each other. Include appropriate labels and titles. **What is this plot trying to answer?**
 # 
 # See the problem sets and notes for some examples of this type of graph.
 #    
-# 8. *10 points.* OK, enough housing data. Actually, we'll just bring in some **different** housing data! Let's end with some **financial time series** related to housing, also from Zillow. Use Quandl via the Nasdaq Data Link to bring in the following: 
+# 
+
+# ## Part 8
+# *10 points.* OK, enough housing data. Actually, we'll just bring in some **different** housing data! Let's end with some **financial time series** related to housing, also from Zillow. Use Quandl via the Nasdaq Data Link to bring in the following: 
 # 
 # `regions = quandl.get_table("ZILLOW/REGIONS", paginate=True)`
 #   
@@ -114,11 +133,17 @@
 # 
 # Add your own county ID to the list I included. Those are Orange County, NC and Maricopa County, AZ. So, you'll bring in three price series for three counties. Save them to three different data frames. 
 #    
-# 9.  *10 points.* Because we have **long data** that has the **same variables**, we can **append**, or stack, three DataFrames on top of each other. Do you see why? 
+# 
+
+# ## Part 9
+# *10 points.* Because we have **long data** that has the **same variables**, we can **append**, or stack, three DataFrames on top of each other. Do you see why? 
 # 
 # Do this. See the online notes for details. We have three DataFrames, so the logic is a lot like what we saw when **merging** three DataFrames in our lab. Save the DataFrame with all three variables across the three regions as a new DataFrame called **indices**.
-#     
-# 10.  *10 points.* Let's calculate the **percent change** in housing values by region and indicator type. Keep this in mind: We are in **long data** now. We are going to need to sort our data and work by group. Think carefully about what our groups are. We have two! We always have to pay attention to how our data are structured. This type of data is called **multi-level data**. We have indicators and regions, by date. So, each value for each date, is uniquely identified by the indicator and the region.
+#   
+
+#   
+# ## Part 10
+# *10 points.* Let's calculate the **percent change** in housing values by region and indicator type. Keep this in mind: We are in **long data** now. We are going to need to sort our data and work by group. Think carefully about what our groups are. We have two! We always have to pay attention to how our data are structured. This type of data is called **multi-level data**. We have indicators and regions, by date. So, each value for each date, is uniquely identified by the indicator and the region.
 # 
 # `indices['pct'] = indices.sort_values('____', ascending=True).groupby(['_______', '_______']).value.pct_change()`
 # 
@@ -142,7 +167,9 @@
 # 
 # See our online notes for an example.
 # 
-# Finally, use `.plot` from `pandas` to graph all three price series on the same chart. Make it look nice. The labels should appear automatically, though they will have the Zillow IDs, which don't mean much. You can change that, but we'll leave it for now. You're done. 
+# Finally, use `.plot()` from `pandas` to graph all three price series on the same chart. Make it look nice. The labels should appear automatically, though they will have the Zillow IDs, which don't mean much. You can change that, but we'll leave it for now. You're done. 
+# 
+
 # 
 # **ENJOY SPRING BREAK**
 # 
