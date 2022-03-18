@@ -529,10 +529,7 @@
 <li><p>Position limits and risk limits: At the level of securities, asset classes, and overall portfolio.</p></li>
 <li><p>Larger bets on higher conviction trade.</p></li>
 <li><p>Size bets in terms of risk</p></li>
-<li><p>Correlations matter
-For a long position, correlation with other longs is bad, corr. with shorts is good
-Powerful to go long/short within each industry, diversify across industries
-Can use ETFs and futures to “hedge” out sector and market exposure</p></li>
+<li><p>Correlations matter: For a long position, correlation with other longs is bad, corr. with shorts is good. Powerful to go long/short within each industry, diversify across industries. Can use ETFs and futures to “hedge” out sector and market exposure.</p></li>
 <li><p>Resize positions according to forward-looking risk and conviction</p></li>
 </ol>
 <p>We’ll start by bringing in some <strong>monthly hedge fund return data</strong>. We’ll calculate some portfolio returns, using assumed weights. We’ll then move on to portfolio-level <strong>variance and standard deviation</strong>. We’ll see how to <strong>annualize returns and volatility</strong>. We’ll look at other risk measures, like <strong>skewness</strong> and <strong>kurtosis</strong>. We’ll see <strong>Sharpe</strong> and <strong>Sortino</strong> ratios. Finally, we’ll make a graph for the max drawdown of our strategy.</p>
@@ -958,14 +955,14 @@ dtype: float64
 <div class="section" id="risk-measures-at-the-portfolio-level">
 <h2>Risk measures at the portfolio-level<a class="headerlink" href="#risk-measures-at-the-portfolio-level" title="Permalink to this headline">¶</a></h2>
 <p>As you know from your investments class, the variance of a portfolio is <strong>not</strong> the average variance of the assets in the portfolio. We need to take into account the effects of <strong>diversification</strong>. For example, here’s the formula for the variance of a portfolio with two assets. We need weights, variances, and the covariance between the two.</p>
-<div class="amsmath math notranslate nohighlight" id="equation-e1593d3c-ee5a-453c-9a4b-736853df3480">
-<span class="eqno">(6)<a class="headerlink" href="#equation-e1593d3c-ee5a-453c-9a4b-736853df3480" title="Permalink to this equation">¶</a></span>\[\begin{align}
+<div class="amsmath math notranslate nohighlight" id="equation-7b3bdfc8-589f-438a-a940-5e1cb2a069de">
+<span class="eqno">(6)<a class="headerlink" href="#equation-7b3bdfc8-589f-438a-a940-5e1cb2a069de" title="Permalink to this equation">¶</a></span>\[\begin{align}
 \sigma^2_p = w^2_1 \sigma^2_1 + w^2_2 \sigma^2_2 + 2 w_1 w_2 \sigma^2_{1,2}
 \end{align}\]</div>
 <p>$\sigma^2_{1,2}$ is the <strong>covariance</strong> between the two assets.</p>
 <p>This formula generalizes for <strong>any number of assets</strong>.</p>
-<div class="amsmath math notranslate nohighlight" id="equation-59928453-cbad-42c3-8f4d-e3e60359bf2e">
-<span class="eqno">(7)<a class="headerlink" href="#equation-59928453-cbad-42c3-8f4d-e3e60359bf2e" title="Permalink to this equation">¶</a></span>\[\begin{align}
+<div class="amsmath math notranslate nohighlight" id="equation-508af3c4-dcfb-4fcb-8709-8284ac9485d3">
+<span class="eqno">(7)<a class="headerlink" href="#equation-508af3c4-dcfb-4fcb-8709-8284ac9485d3" title="Permalink to this equation">¶</a></span>\[\begin{align}
 \sigma^2_p = w^T \Sigma w
 \end{align}\]</div>
 <p>where $w$ is a <strong>vector</strong> containing all of our portfolio weights and $\Sigma$ is the variance-covariance matrix for our assets. The “T” means the matrix operation <strong>transpose</strong>. This is necessary for the matrix multiplication.</p>
