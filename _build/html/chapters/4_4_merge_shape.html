@@ -42,8 +42,6 @@
     <script src="../_static/copybutton.js"></script>
     <script>var togglebuttonSelector = '.toggle, .admonition.dropdown, .tag_hide_input div.cell_input, .tag_hide-input div.cell_input, .tag_hide_output div.cell_output, .tag_hide-output div.cell_output, .tag_hide_cell.cell, .tag_hide-cell.cell';</script>
     <script src="../_static/sphinx-book-theme.d59cb220de22ca1c485ebbdc042f0030.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
-    <script src="https://unpkg.com/@jupyter-widgets/html-manager@^0.20.0/dist/embed-amd.js"></script>
     <script async="async" src="https://unpkg.com/thebe@0.5.1/lib/index.js"></script>
     <script>
         const thebe_selector = ".thebe"
@@ -260,6 +258,51 @@
    Using NASDAQ BTC Data
   </a>
  </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="8_port_math.html">
+   Essential portfolio math
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="9_factor_models.html">
+   Factor Models
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="10_pyfolio.html">
+   Pyfolio package
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="11_portfolio_opt.html">
+   Portfolio optimization
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="12_risk_mang.html">
+   Risk management
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="13_options.html">
+   Option basics
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="14_monte_carlo.html">
+   Monte Carlo and portfolios
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="15_logit_credit.html">
+   Credit modeling with logit regressions
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="16_time_vol.html">
+   Time series and volatility
+  </a>
+ </li>
 </ul>
 <p aria-level="2" class="caption" role="heading">
  <span class="caption-text">
@@ -295,6 +338,23 @@
  <li class="toctree-l1">
   <a class="reference internal" href="lab05.html">
    Lab 05
+  </a>
+ </li>
+</ul>
+<p aria-level="2" class="caption" role="heading">
+ <span class="caption-text">
+  Exams
+ </span>
+</p>
+<ul class="nav bd-sidenav">
+ <li class="toctree-l1">
+  <a class="reference internal" href="exam_intro.html">
+   Our Exams
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="exam01.html">
+   Midterm Exam
   </a>
  </li>
 </ul>
@@ -413,6 +473,11 @@
    Joining data sets
   </a>
  </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#multi-level-indices">
+   Multi-level indices
+  </a>
+ </li>
 </ul>
 
             </nav>
@@ -448,6 +513,11 @@
    Joining data sets
   </a>
  </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#multi-level-indices">
+   Multi-level indices
+  </a>
+ </li>
 </ul>
 
                         </nav>
@@ -459,7 +529,7 @@
                 
   <div class="tex2jax_ignore mathjax_ignore section" id="merging-and-reshaping-data">
 <h1>Merging and reshaping data<a class="headerlink" href="#merging-and-reshaping-data" title="Permalink to this headline">¶</a></h1>
-<p>This brief section follows along with the last part of Chapter 5 of out textbook. There are two main topics. First, we want to learn about <strong>merging</strong> or <strong>joining</strong> data sets. Think of this like <a class="reference external" href="https://support.microsoft.com/en-us/office/xlookup-function-b7fd680e-6d10-43e6-84f9-88eae8bf5929">xlookup</a> in Excel, or, more generally, SQL queries. In fact, you can do <a class="reference external" href="https://www.datacamp.com/community/tutorials/mysql-python">SQL in Python</a>, if you’re familiar with it. We will also see <strong>concatenating</strong>, or <strong>stacking</strong> data. Finally, we will see how to <strong>reshape our data</strong>. We’ll see <strong>wide</strong> and <strong>long</strong> data.</p>
+<p>This brief section follows along with the last part of Chapter 5 of out textbook. There are two main topics. First, we want to learn about <strong>merging</strong> or <strong>joining</strong> data sets. Think of this like <a class="reference external" href="https://support.microsoft.com/en-us/office/xlookup-function-b7fd680e-6d10-43e6-84f9-88eae8bf5929">xlookup</a> in Excel, or, more generally, SQL queries. In fact, you can do <a class="reference external" href="https://www.datacamp.com/community/tutorials/mysql-python">SQL in Python</a>, if you’re familiar with it. We will also see <strong>concatenating</strong>, or <strong>stacking</strong> data. We will see how to <strong>reshape our data</strong>. We’ll see <strong>wide</strong> and <strong>long</strong> data. We’ll end with using <strong>multi-level indices</strong> to shape our data.</p>
 <div class="margin sidebar">
 <p class="sidebar-title">The Keys to Our Data</p>
 <p>What variables (e.g. security ID and a date) uniquely identify our data? What variables are common across data sets?</p>
@@ -517,7 +587,7 @@ memory usage: 88.8+ KB
 <div class="section" id="appending-data-sets">
 <h2>Appending data sets<a class="headerlink" href="#appending-data-sets" title="Permalink to this headline">¶</a></h2>
 <p>Appending, or concatenation, or stacking data. This is when you simply put one data set on top of another. However, you need to be careful! Do the data sets share the same variables? How are index values handled?</p>
-<p>There are two ways of doing this. You can use <code class="docutils literal notranslate"><span class="pre">.append()</span></code> or <code class="docutils literal notranslate"><span class="pre">pd.concat()</span></code> from <code class="docutils literal notranslate"><span class="pre">pandas</span></code>.</p>
+<p>There are two ways of doing this. You can use <code class="docutils literal notranslate"><span class="pre">.append()</span></code> or <code class="docutils literal notranslate"><span class="pre">.concat()</span></code> from <code class="docutils literal notranslate"><span class="pre">pandas</span></code>.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">ap1</span> <span class="o">=</span> <span class="n">aapl</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">xom</span><span class="p">,</span> <span class="n">sort</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
@@ -3082,6 +3152,565 @@ memory usage: 88.8+ KB
 </div>
 <p>Do you see the <code class="docutils literal notranslate"><span class="pre">_x</span></code> and <code class="docutils literal notranslate"><span class="pre">_y</span></code> suffixes? <code class="docutils literal notranslate"><span class="pre">pd.merge</span></code> adds that when you have two variables with the same name in both data sets that <strong>you are not using as key values</strong>. The variables that you merge on, the key values, truly get merged together, and so you only get one column for <em>PERMNO</em> and one column for <em>date</em>, in this example. But, <em>TICKER</em> is in both data sets and is not a key value. So, when you merge the data, you’re going to have two columns names <em>TICKER</em>. The <code class="docutils literal notranslate"><span class="pre">_x</span></code> means that the variable is from the <em>left</em> (first) data set and the <code class="docutils literal notranslate"><span class="pre">_y</span></code> means that the variable is from the <em>right</em> (second) data set.</p>
 <p>You can read more about <code class="docutils literal notranslate"><span class="pre">pd.merge</span></code> <a class="reference external" href="https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.merge.html">here</a>. Bad merges that lose observations is common problem. You have to understand your data structure before trying to combine DataFrames together.</p>
+</div>
+<div class="section" id="multi-level-indices">
+<h2>Multi-level indices<a class="headerlink" href="#multi-level-indices" title="Permalink to this headline">¶</a></h2>
+<p>So far, we’ve only defined data with one index value, like a date or a stock ticker. But - look at the return data above. There is both a stock and a date. When data has an ID and a time dimension, we call that <strong>panel data</strong>. For example, stock-level or firm-level data through time. <code class="docutils literal notranslate"><span class="pre">pandas</span></code> can help us deal with this type of data as well.</p>
+<p>This type of data is also called <strong>hierarchical</strong>. Let’s use the <em>crsp2</em> to see what’s going on.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">crsp2</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>PERMNO</th>
+      <th>date</th>
+      <th>TICKER</th>
+      <th>COMNAM</th>
+      <th>CUSIP</th>
+      <th>RETX</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>11850</td>
+      <td>20190102</td>
+      <td>XOM</td>
+      <td>EXXON MOBIL CORP</td>
+      <td>30231G10</td>
+      <td>0.021997</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>11850</td>
+      <td>20190103</td>
+      <td>XOM</td>
+      <td>EXXON MOBIL CORP</td>
+      <td>30231G10</td>
+      <td>-0.015354</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>11850</td>
+      <td>20190104</td>
+      <td>XOM</td>
+      <td>EXXON MOBIL CORP</td>
+      <td>30231G10</td>
+      <td>0.036870</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>11850</td>
+      <td>20190107</td>
+      <td>XOM</td>
+      <td>EXXON MOBIL CORP</td>
+      <td>30231G10</td>
+      <td>0.005200</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>11850</td>
+      <td>20190108</td>
+      <td>XOM</td>
+      <td>EXXON MOBIL CORP</td>
+      <td>30231G10</td>
+      <td>0.007271</td>
+    </tr>
+    <tr>
+      <th>...</th>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+    </tr>
+    <tr>
+      <th>2266</th>
+      <td>89468</td>
+      <td>20211227</td>
+      <td>TLT</td>
+      <td>ISHARES TRUST</td>
+      <td>46428743</td>
+      <td>0.002424</td>
+    </tr>
+    <tr>
+      <th>2267</th>
+      <td>89468</td>
+      <td>20211228</td>
+      <td>TLT</td>
+      <td>ISHARES TRUST</td>
+      <td>46428743</td>
+      <td>-0.003963</td>
+    </tr>
+    <tr>
+      <th>2268</th>
+      <td>89468</td>
+      <td>20211229</td>
+      <td>TLT</td>
+      <td>ISHARES TRUST</td>
+      <td>46428743</td>
+      <td>-0.010925</td>
+    </tr>
+    <tr>
+      <th>2269</th>
+      <td>89468</td>
+      <td>20211230</td>
+      <td>TLT</td>
+      <td>ISHARES TRUST</td>
+      <td>46428743</td>
+      <td>0.008386</td>
+    </tr>
+    <tr>
+      <th>2270</th>
+      <td>89468</td>
+      <td>20211231</td>
+      <td>TLT</td>
+      <td>ISHARES TRUST</td>
+      <td>46428743</td>
+      <td>0.001961</td>
+    </tr>
+  </tbody>
+</table>
+<p>2271 rows × 6 columns</p>
+</div></div></div>
+</div>
+<p>We have *<em>PERMNO</em>, our ID, and <em>date</em>. Together, these each define a unique observation.</p>
+<p>We can see that <em>crsp2</em> doesn’t have an index that we’ve defined. It is just the default number.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">crsp2</span><span class="o">.</span><span class="n">index</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>RangeIndex(start=0, stop=2271, step=1)
+</pre></div>
+</div>
+</div>
+</div>
+<p>I’ll now set <strong>two indices</strong> for the CRSP data and save this as a <strong>new DataFrame</strong> called <em>crsp3</em>.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># using the pandas set_index().</span>
+<span class="c1"># passing the name of the columns in the list.</span>
+
+<span class="n">crsp3</span> <span class="o">=</span> <span class="n">crsp2</span><span class="o">.</span><span class="n">set_index</span><span class="p">([</span><span class="s1">&#39;date&#39;</span><span class="p">,</span> <span class="s1">&#39;PERMNO&#39;</span><span class="p">])</span>
+
+<span class="c1"># sort the data using sort_index()</span>
+<span class="n">crsp3</span><span class="o">.</span><span class="n">sort_index</span><span class="p">()</span>
+
+<span class="n">crsp3</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th></th>
+      <th>TICKER</th>
+      <th>COMNAM</th>
+      <th>CUSIP</th>
+      <th>RETX</th>
+    </tr>
+    <tr>
+      <th>date</th>
+      <th>PERMNO</th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>20190102</th>
+      <th>11850</th>
+      <td>XOM</td>
+      <td>EXXON MOBIL CORP</td>
+      <td>30231G10</td>
+      <td>0.021997</td>
+    </tr>
+    <tr>
+      <th>20190103</th>
+      <th>11850</th>
+      <td>XOM</td>
+      <td>EXXON MOBIL CORP</td>
+      <td>30231G10</td>
+      <td>-0.015354</td>
+    </tr>
+    <tr>
+      <th>20190104</th>
+      <th>11850</th>
+      <td>XOM</td>
+      <td>EXXON MOBIL CORP</td>
+      <td>30231G10</td>
+      <td>0.036870</td>
+    </tr>
+    <tr>
+      <th>20190107</th>
+      <th>11850</th>
+      <td>XOM</td>
+      <td>EXXON MOBIL CORP</td>
+      <td>30231G10</td>
+      <td>0.005200</td>
+    </tr>
+    <tr>
+      <th>20190108</th>
+      <th>11850</th>
+      <td>XOM</td>
+      <td>EXXON MOBIL CORP</td>
+      <td>30231G10</td>
+      <td>0.007271</td>
+    </tr>
+    <tr>
+      <th>...</th>
+      <th>...</th>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+    </tr>
+    <tr>
+      <th>20211227</th>
+      <th>89468</th>
+      <td>TLT</td>
+      <td>ISHARES TRUST</td>
+      <td>46428743</td>
+      <td>0.002424</td>
+    </tr>
+    <tr>
+      <th>20211228</th>
+      <th>89468</th>
+      <td>TLT</td>
+      <td>ISHARES TRUST</td>
+      <td>46428743</td>
+      <td>-0.003963</td>
+    </tr>
+    <tr>
+      <th>20211229</th>
+      <th>89468</th>
+      <td>TLT</td>
+      <td>ISHARES TRUST</td>
+      <td>46428743</td>
+      <td>-0.010925</td>
+    </tr>
+    <tr>
+      <th>20211230</th>
+      <th>89468</th>
+      <td>TLT</td>
+      <td>ISHARES TRUST</td>
+      <td>46428743</td>
+      <td>0.008386</td>
+    </tr>
+    <tr>
+      <th>20211231</th>
+      <th>89468</th>
+      <td>TLT</td>
+      <td>ISHARES TRUST</td>
+      <td>46428743</td>
+      <td>0.001961</td>
+    </tr>
+  </tbody>
+</table>
+<p>2271 rows × 4 columns</p>
+</div></div></div>
+</div>
+<p>You can see the multiple levels now. You can perform operations by using these indices.</p>
+<p>Let’s group by <em>PERMNO</em>, or our Level 1 index and calculate the average return for each stock across all dates.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">crsp3</span><span class="o">.</span><span class="n">groupby</span><span class="p">(</span><span class="n">level</span><span class="o">=</span><span class="mi">1</span><span class="p">)[</span><span class="s1">&#39;RETX&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>PERMNO
+11850    0.000124
+14593    0.002221
+89468    0.000315
+Name: RETX, dtype: float64
+</pre></div>
+</div>
+</div>
+</div>
+<p>Let’s do the same thing using the first level, or the <em>date</em>. This gives the average return of the three stocks on each date.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">crsp3</span><span class="o">.</span><span class="n">groupby</span><span class="p">(</span><span class="n">level</span><span class="o">=</span><span class="mi">0</span><span class="p">)[</span><span class="s1">&#39;RETX&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>date
+20190102    0.009468
+20190103   -0.034527
+20190104    0.022661
+20190107    0.000009
+20190108    0.007902
+              ...   
+20211227    0.013219
+20211228   -0.004321
+20211229   -0.006392
+20211230   -0.001360
+20211231    0.001669
+Name: RETX, Length: 757, dtype: float64
+</pre></div>
+</div>
+</div>
+</div>
+<p>As before, we can use <code class="docutils literal notranslate"><span class="pre">to.frame()</span></code> to go from a series to a DataFrame and make the output look a little nicer.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">crsp3</span><span class="o">.</span><span class="n">groupby</span><span class="p">(</span><span class="n">level</span><span class="o">=</span><span class="mi">1</span><span class="p">)[</span><span class="s1">&#39;RETX&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span><span class="o">.</span><span class="n">to_frame</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>RETX</th>
+    </tr>
+    <tr>
+      <th>PERMNO</th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>11850</th>
+      <td>0.000124</td>
+    </tr>
+    <tr>
+      <th>14593</th>
+      <td>0.002221</td>
+    </tr>
+    <tr>
+      <th>89468</th>
+      <td>0.000315</td>
+    </tr>
+  </tbody>
+</table>
+</div></div></div>
+</div>
+<p>We can use the name of the levels, too. Here I’ll find the min and the max return for each stock and save it as a new DataFrame.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">crsp3_agg</span> <span class="o">=</span> <span class="n">crsp3</span><span class="o">.</span><span class="n">groupby</span><span class="p">(</span><span class="n">level</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;PERMNO&#39;</span><span class="p">])[</span><span class="s1">&#39;RETX&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">agg</span><span class="p">([</span><span class="s1">&#39;max&#39;</span><span class="p">,</span> <span class="s1">&#39;min&#39;</span><span class="p">])</span>
+<span class="n">crsp3_agg</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>max</th>
+      <th>min</th>
+    </tr>
+    <tr>
+      <th>PERMNO</th>
+      <th></th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>11850</th>
+      <td>0.126868</td>
+      <td>-0.122248</td>
+    </tr>
+    <tr>
+      <th>14593</th>
+      <td>0.119808</td>
+      <td>-0.128647</td>
+    </tr>
+    <tr>
+      <th>89468</th>
+      <td>0.075196</td>
+      <td>-0.066683</td>
+    </tr>
+  </tbody>
+</table>
+</div></div></div>
+</div>
+<p>With indices defined, I can use <code class="docutils literal notranslate"><span class="pre">.unstack()</span></code> to from long to wide data. I’ll take the return and create new columns for each stock.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">crsp3</span><span class="p">[</span><span class="s1">&#39;RETX&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">unstack</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th>PERMNO</th>
+      <th>11850</th>
+      <th>14593</th>
+      <th>89468</th>
+    </tr>
+    <tr>
+      <th>date</th>
+      <th></th>
+      <th></th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>20190102</th>
+      <td>0.021997</td>
+      <td>0.001141</td>
+      <td>0.005267</td>
+    </tr>
+    <tr>
+      <th>20190103</th>
+      <td>-0.015354</td>
+      <td>-0.099607</td>
+      <td>0.011379</td>
+    </tr>
+    <tr>
+      <th>20190104</th>
+      <td>0.036870</td>
+      <td>0.042689</td>
+      <td>-0.011575</td>
+    </tr>
+    <tr>
+      <th>20190107</th>
+      <td>0.005200</td>
+      <td>-0.002226</td>
+      <td>-0.002948</td>
+    </tr>
+    <tr>
+      <th>20190108</th>
+      <td>0.007271</td>
+      <td>0.019063</td>
+      <td>-0.002628</td>
+    </tr>
+    <tr>
+      <th>...</th>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+    </tr>
+    <tr>
+      <th>20211227</th>
+      <td>0.014258</td>
+      <td>0.022975</td>
+      <td>0.002424</td>
+    </tr>
+    <tr>
+      <th>20211228</th>
+      <td>-0.003232</td>
+      <td>-0.005767</td>
+      <td>-0.003963</td>
+    </tr>
+    <tr>
+      <th>20211229</th>
+      <td>-0.008753</td>
+      <td>0.000502</td>
+      <td>-0.010925</td>
+    </tr>
+    <tr>
+      <th>20211230</th>
+      <td>-0.005887</td>
+      <td>-0.006578</td>
+      <td>0.008386</td>
+    </tr>
+    <tr>
+      <th>20211231</th>
+      <td>0.006580</td>
+      <td>-0.003535</td>
+      <td>0.001961</td>
+    </tr>
+  </tbody>
+</table>
+<p>757 rows × 3 columns</p>
+</div></div></div>
+</div>
+<p>If I had defined the <em>PERMNO</em> as the Level 0 index and <em>date</em> as the Level 1 index, then I would have unstacked my data with dates as the columns and the stocks as the rows. That’s not what I wanted, though.</p>
 </div>
 </div>
 

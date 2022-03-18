@@ -7,7 +7,15 @@
 # 
 # There is a [DataCamp tutorial on Excel files and Python](https://www.datacamp.com/community/tutorials/python-excel-tutorial) that you might find helpful. You can read also more about [reading in CSV files at DataCamp](https://www.datacamp.com/community/tutorials/pandas-read-csv). 
 # 
-# There's some price data up on our [course Github page](https://github.com/aaiken1/fin-data-analysis-python). Let's import this both as a downloaded CSV file and directly from Github, with no download. 
+# The second DataCamp assignment, **Intermediate Python for Finance**, covers how to create `DataFrames` from `dictionaries` and `lists`. 
+# 
+# The fifth DataCamp assignment, **Importing and Managing Financial Data in Python** covers all of this in great detail.
+# 
+# We'll typically be importing our data from CSV and Excel files. 
+
+# 
+# 
+# There's some price data up on our [course Github page](https://github.com/aaiken1/fin-data-analysis-python). Let's import this both as a downloaded CSV file and then directly from Github. No need to download the file to your computer and deal with folders. 
 # 
 # First, we need to import `pandas`. Just like `numpy`. In fact, at the top of basically all of your code, you will import both of these libraries (and more!).
 # 
@@ -117,6 +125,25 @@ prices_spx= pd.read_csv('https://github.com/aaiken1/fin-data-analysis-python/raw
                       index_col=0, parse_dates=True, usecols=(['.SPX']))
 
 
+# You can also specify if a particular value should be set to missing. `read_csv()` already looks for common items, like 'NA' or 'n/a'. I'll have it look for '-' as well, though that isn't a missing value in this data.
+
+# In[10]:
+
+
+prices2 = pd.read_csv('https://github.com/aaiken1/fin-data-analysis-python/raw/main/data/tr_eikon_eod_data.csv',
+                      index_col=0, parse_dates=True, na_values='-')
+
+
+# We can also read data in from **Excel files**, using `.read_excel()`. I'll read in some HF return data.
+
+# In[11]:
+
+
+
+hf = pd.read_excel('https://raw.githubusercontent.com/aaiken1/fin-data-analysis-python/main/data/hf_rets.xlsx',
+                  index_col=0, parse_dates=True, sheet_name='rets')  
+
+
+# We can use the option `sheet_name=` to specific a particular sheet from the Excel file. You can read more about the various options [here](https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.read_excel.html). 
+
 # We have our data in Python! Now, we can manipulate it, clean it, merge it with something else, summarize it, plot it, and do some actual finance.
-# 
-# The second DataCamp assignment, **Intermediate Python for Finance**, covers how to create `DataFrames` from `dictionaries` and `lists`. We'll typically be importing our data from CSV and Excel files. 

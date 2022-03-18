@@ -286,3 +286,5 @@ prices.loc['2010-01-01':'2010-01-31',['.SPX', '.VIX']]
 # You can even see in the output above how `Date` is in a different row than `.SPX` and `.VIX`. The date is not a variable anymore. It is an index.
 # 
 # This is a much simpler example than the Zillow data. 
+# 
+# I do a more complicated multi-index, or multi-level, example when looking at reshaping our data.

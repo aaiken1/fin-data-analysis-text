@@ -202,13 +202,25 @@ uw.sort_values(by=['RegionType', 'RegionName', 'AllHomes_Tier1'], ascending=[Tru
 uw.rename(columns = {'MSAName':'msaname'}, inplace = True)
 
 
+# ## Dropping columns
+# 
+# We can also simply drop a column of data. You could do this via data subsets (e.g. `.iloc`), but this method lets you use `.drop()` to specify the name of the column. It's a little clearer doing things this way.
+# 
+# The `axis=1` option means that you are dropping the column named. I've picked a column at random to drop. Notice that I'm saving my work back to the *uw* DataFrame.
+
+# In[18]:
+
+
+uw = uw.drop('UWHomes_TotalValue_Tier3', axis=1)
+
+
 # ## Missing data example
 # 
 # Finally, let's try some more complicated code. I found this example [here](https://towardsdatascience.com/a-better-eda-with-pandas-profiling-e842a00e1136).
 # 
 # First, we will create a DataFrame that has the total number of missing values for each variable. We can sort the data using `sort_values()`. The `ascending=False` option will have the variable with the largest number of missings at the top.
 
-# In[18]:
+# In[19]:
 
 
 total = uw.isna().sum().sort_values(ascending=False)
@@ -218,7 +230,7 @@ total = uw.isna().sum().sort_values(ascending=False)
 # 
 # Next, let's create a DataFrame that that has the percentage of values that are missing for each variable. This is neat one - we are creating a DataFrame of values (total number missing) for the numerator and another DataFrame of values (total number) for the denominator. Then, we are dividing two DataFrames, giving us another DataFrame of the resulting division. We then sort.
 
-# In[19]:
+# In[20]:
 
 
 percent = (uw.isnull().sum()/uw.isnull().count()).sort_values(ascending=False)
@@ -226,7 +238,7 @@ percent = (uw.isnull().sum()/uw.isnull().count()).sort_values(ascending=False)
 
 # We can use a new function called `concat` from `pandas` that combines data, either as rows (stacking) or columns (combining). We'll combine columns, with means concatenating along axis=1. We'll name both columns. We can do this because each DataFrame has the same index created by `pandas`, all of our variable names. So, there's a one-to-one correspondence between the two DataFrames.
 
-# In[20]:
+# In[21]:
 
 
 missing_data = pd.concat([total, percent], axis=1, keys=['Total', 'Missing Percent'])
@@ -234,7 +246,7 @@ missing_data = pd.concat([total, percent], axis=1, keys=['Total', 'Missing Perce
 
 # Let's take the percents and multiply all of them by 100, just to make them look like percents. And to show you, again, that you can.
 
-# In[21]:
+# In[22]:
 
 
 missing_data['Missing Percent'] = missing_data['Missing Percent'] * 100
@@ -242,7 +254,7 @@ missing_data['Missing Percent'] = missing_data['Missing Percent'] * 100
 
 # For the last step, we can filter and just get the variable names where more than 10% of our data are missing.
 
-# In[22]:
+# In[23]:
 
 
 missing_data[missing_data['Missing Percent'] > 10]
@@ -253,7 +265,7 @@ missing_data[missing_data['Missing Percent'] > 10]
 # 
 # We can bring back the stock data too, as that data has some missing values.
 
-# In[23]:
+# In[24]:
 
 
 prices = pd.read_csv('https://github.com/aaiken1/fin-data-analysis-python/raw/main/data/tr_eikon_eod_data.csv',
@@ -262,7 +274,7 @@ prices = pd.read_csv('https://github.com/aaiken1/fin-data-analysis-python/raw/ma
 
 # Why are there missing values? Holidays and weekends, when trading doesn't take place.
 
-# In[24]:
+# In[25]:
 
 
 prices.isna().sum()
@@ -270,14 +282,14 @@ prices.isna().sum()
 
 # We can drop these rows. We'll specify `axis=0`, or rows.
 
-# In[25]:
+# In[26]:
 
 
 prices = prices.dropna(axis=0)
 prices.isna().sum()
 
 
-# In[26]:
+# In[27]:
 
 
 prices.head(15)
@@ -296,7 +308,7 @@ prices.head(15)
 # 
 # There are even [finance specific tools](https://pyjanitor-devs.github.io/pyjanitor/api/finance/).
 
-# In[27]:
+# In[28]:
 
 
 import janitor
@@ -305,7 +317,7 @@ from janitor import clean_names
 
 # `pyjanitor` lets us have an interesting workflow. We can read in our data set, remove columns, drop missings, and rename columns, all in one series of steps.
 
-# In[28]:
+# In[29]:
 
 
 prices = (
@@ -320,7 +332,7 @@ prices = (
 
 # There are also some built-in, general functions. `clean_names()` does what it says. For example, it sets all characters in a variable name to lower case.
 
-# In[29]:
+# In[30]:
 
 
 prices = pd.read_csv('https://github.com/aaiken1/fin-data-analysis-python/raw/main/data/tr_eikon_eod_data.csv',
@@ -331,7 +343,7 @@ prices = prices.clean_names()
 
 # Again, a variety of syntaxes to do the same thing.
 
-# In[30]:
+# In[31]:
 
 
 prices = pd.read_csv('https://github.com/aaiken1/fin-data-analysis-python/raw/main/data/tr_eikon_eod_data.csv',
@@ -342,7 +354,7 @@ prices = clean_names(prices)
 
 # The method `flag_nulls` creates a new variable that will have a 1 if any of the variables specified are missing. In this case, I didn't specify anything, so it will look across all of the variables. If any variable is `NaN`, then that row gets a 1. Notice the **any**.
 
-# In[31]:
+# In[32]:
 
 
 prices = pd.read_csv('https://github.com/aaiken1/fin-data-analysis-python/raw/main/data/tr_eikon_eod_data.csv',
@@ -353,7 +365,7 @@ prices = prices.flag_nulls()
 
 # Finally, simple way to see if we have any rows of duplicate data. This will happen surprisingly (and unfortunately) often when we start merging data together. 
 
-# In[32]:
+# In[33]:
 
 
 prices.get_dupes()

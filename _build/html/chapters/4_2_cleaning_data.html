@@ -42,6 +42,8 @@
     <script src="../_static/copybutton.js"></script>
     <script>var togglebuttonSelector = '.toggle, .admonition.dropdown, .tag_hide_input div.cell_input, .tag_hide-input div.cell_input, .tag_hide_output div.cell_output, .tag_hide-output div.cell_output, .tag_hide_cell.cell, .tag_hide-cell.cell';</script>
     <script src="../_static/sphinx-book-theme.d59cb220de22ca1c485ebbdc042f0030.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+    <script src="https://unpkg.com/@jupyter-widgets/html-manager@^0.20.0/dist/embed-amd.js"></script>
     <script async="async" src="https://unpkg.com/thebe@0.5.1/lib/index.js"></script>
     <script>
         const thebe_selector = ".thebe"
@@ -258,6 +260,51 @@
    Using NASDAQ BTC Data
   </a>
  </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="8_port_math.html">
+   Essential Portfolio Math
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="9_factor_models.html">
+   Factor Models
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="10_pyfolio.html">
+   Pyfolio package
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="11_portfolio_opt.html">
+   Portfolio optimization
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="12_risk_mang.html">
+   Risk management
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="13_options.html">
+   Option basics
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="14_monte_carlo.html">
+   Monte Carlo and portfolios
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="15_logit_credit.html">
+   Credit modeling with logit regressions
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="16_time_vol.html">
+   Time series and volatility
+  </a>
+ </li>
 </ul>
 <p aria-level="2" class="caption" role="heading">
  <span class="caption-text">
@@ -434,6 +481,11 @@
   </a>
  </li>
  <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#dropping-columns">
+   Dropping columns
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
   <a class="reference internal nav-link" href="#missing-data-example">
    Missing data example
   </a>
@@ -486,6 +538,11 @@
  <li class="toc-h2 nav-item toc-entry">
   <a class="reference internal nav-link" href="#renaming-columns">
    Renaming columns
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#dropping-columns">
+   Dropping columns
   </a>
  </li>
  <li class="toc-h2 nav-item toc-entry">
@@ -3000,6 +3057,18 @@ dtype: int64
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">uw</span><span class="o">.</span><span class="n">rename</span><span class="p">(</span><span class="n">columns</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;MSAName&#39;</span><span class="p">:</span><span class="s1">&#39;msaname&#39;</span><span class="p">},</span> <span class="n">inplace</span> <span class="o">=</span> <span class="kc">True</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+<div class="section" id="dropping-columns">
+<h2>Dropping columns<a class="headerlink" href="#dropping-columns" title="Permalink to this headline">¶</a></h2>
+<p>We can also simply drop a column of data. You could do this via data subsets (e.g. <code class="docutils literal notranslate"><span class="pre">.iloc</span></code>), but this method lets you use <code class="docutils literal notranslate"><span class="pre">.drop()</span></code> to specify the name of the column. It’s a little clearer doing things this way.</p>
+<p>The <code class="docutils literal notranslate"><span class="pre">axis=1</span></code> option means that you are dropping the column named. I’ve picked a column at random to drop. Notice that I’m saving my work back to the <em>uw</em> DataFrame.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">uw</span> <span class="o">=</span> <span class="n">uw</span><span class="o">.</span><span class="n">drop</span><span class="p">(</span><span class="s1">&#39;UWHomes_TotalValue_Tier3&#39;</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>

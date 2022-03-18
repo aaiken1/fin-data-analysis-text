@@ -3,7 +3,7 @@
 
 # # Merging and reshaping data
 # 
-# This brief section follows along with the last part of Chapter 5 of out textbook. There are two main topics. First, we want to learn about **merging** or **joining** data sets. Think of this like [xlookup](https://support.microsoft.com/en-us/office/xlookup-function-b7fd680e-6d10-43e6-84f9-88eae8bf5929) in Excel, or, more generally, SQL queries. In fact, you can do [SQL in Python](https://www.datacamp.com/community/tutorials/mysql-python), if you're familiar with it. We will also see **concatenating**, or **stacking** data. Finally, we will see how to **reshape our data**. We'll see **wide** and **long** data. 
+# This brief section follows along with the last part of Chapter 5 of out textbook. There are two main topics. First, we want to learn about **merging** or **joining** data sets. Think of this like [xlookup](https://support.microsoft.com/en-us/office/xlookup-function-b7fd680e-6d10-43e6-84f9-88eae8bf5929) in Excel, or, more generally, SQL queries. In fact, you can do [SQL in Python](https://www.datacamp.com/community/tutorials/mysql-python), if you're familiar with it. We will also see **concatenating**, or **stacking** data. We will see how to **reshape our data**. We'll see **wide** and **long** data. We'll end with using **multi-level indices** to shape our data.
 # 
 # ```{margin} The Keys to Our Data
 # What variables (e.g. security ID and a date) uniquely identify our data? What variables are common across data sets? 
@@ -38,7 +38,7 @@ aapl.info()
 # 
 # Appending, or concatenation, or stacking data. This is when you simply put one data set on top of another. However, you need to be careful! Do the data sets share the same variables? How are index values handled?
 # 
-# There are two ways of doing this. You can use `.append()` or `pd.concat()` from `pandas`.
+# There are two ways of doing this. You can use `.append()` or `.concat()` from `pandas`.
 
 # In[2]:
 
@@ -215,3 +215,86 @@ merged
 # Do you see the `_x` and `_y` suffixes? `pd.merge` adds that when you have two variables with the same name in both data sets that **you are not using as key values**. The variables that you merge on, the key values, truly get merged together, and so you only get one column for *PERMNO* and one column for *date*, in this example. But, *TICKER* is in both data sets and is not a key value. So, when you merge the data, you're going to have two columns names *TICKER*. The `_x` means that the variable is from the *left* (first) data set and the `_y` means that the variable is from the *right* (second) data set. 
 # 
 # You can read more about `pd.merge` [here](https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.merge.html). Bad merges that lose observations is common problem. You have to understand your data structure before trying to combine DataFrames together. 
+
+# ## Multi-level indices
+# 
+# So far, we've only defined data with one index value, like a date or a stock ticker. But - look at the return data above. There is both a stock and a date. When data has an ID and a time dimension, we call that **panel data**. For example, stock-level or firm-level data through time. `pandas` can help us deal with this type of data as well.
+# 
+# This type of data is also called **hierarchical**. Let's use the *crsp2* to see what's going on.
+
+# In[17]:
+
+
+crsp2
+
+
+# We have **PERMNO*, our ID, and *date*. Together, these each define a unique observation. 
+# 
+# We can see that *crsp2* doesn't have an index that we've defined. It is just the default number.
+
+# In[18]:
+
+
+crsp2.index
+
+
+# I'll now set **two indices** for the CRSP data and save this as a **new DataFrame** called *crsp3*. 
+
+# In[19]:
+
+
+# using the pandas set_index().
+# passing the name of the columns in the list.
+
+crsp3 = crsp2.set_index(['date', 'PERMNO'])
+
+# sort the data using sort_index()
+crsp3.sort_index()
+
+crsp3
+
+
+# You can see the multiple levels now. You can perform operations by using these indices.
+# 
+# Let's group by *PERMNO*, or our Level 1 index and calculate the average return for each stock across all dates.
+
+# In[20]:
+
+
+crsp3.groupby(level=1)['RETX'].mean()
+
+
+# Let's do the same thing using the first level, or the *date*. This gives the average return of the three stocks on each date.
+
+# In[21]:
+
+
+crsp3.groupby(level=0)['RETX'].mean()
+
+
+# As before, we can use `to.frame()` to go from a series to a DataFrame and make the output look a little nicer.
+
+# In[22]:
+
+
+crsp3.groupby(level=1)['RETX'].mean().to_frame()
+
+
+# We can use the name of the levels, too. Here I'll find the min and the max return for each stock and save it as a new DataFrame.
+
+# In[23]:
+
+
+crsp3_agg = crsp3.groupby(level=['PERMNO'])['RETX'].agg(['max', 'min'])
+crsp3_agg
+
+
+# With indices defined, I can use `.unstack()` to from long to wide data. I'll take the return and create new columns for each stock.
+
+# In[24]:
+
+
+crsp3['RETX'].unstack()
+
+
+# If I had defined the *PERMNO* as the Level 0 index and *date* as the Level 1 index, then I would have unstacked my data with dates as the columns and the stocks as the rows. That's not what I wanted, though.

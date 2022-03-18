@@ -156,7 +156,11 @@ sum_table
 nc['type'].value_counts()
 
 
-# Mainly microbreweries. I wonder what type of brewery has the largest number of beers on average? This is where we can start using the idea of **split-apply-combine**.
+# Mainly microbreweries. 
+# 
+# ### Group and .agg
+# 
+# I wonder what type of brewery has the largest number of beers on average? This is where we can start using the idea of **split-apply-combine**.
 
 # In[13]:
 
@@ -165,6 +169,10 @@ nc.groupby('type')['beer_count'].mean()
 
 
 # This code is **grouping** our data by *type*, pulling out *beer_count*, and calculating the mean.
+# 
+# ```{note}
+# You first group by your variables. Then, you need to tell Python what variable you want to aggregate. For grouping by more than one variable, you need to use a **list** inside of the `()`. 
+# ```
 # 
 # We can use the `.agg` method to include more than one summary statistic. The `np.` means that the function is being pulled from the `numpy` package. Pay attention to the syntax - there are no `()` after the `np.mean`, `np.median`, and `np.std` functions now, because they are being used inside of the `.agg` function. They are also grouped together with `[]` as a **list**.
 # 
@@ -193,9 +201,20 @@ sum_table_group.style.format(precision=0, na_rep='-')
 
 # The code above reads from left to right. You do something, have a `.`, do something else, etc. For example, we are taking the DataFrame **nc**, grouping it by *type*, pulling out *beer_count*, and then aggregating using three different statistics. I am saving this to a **new DataFrame**, called **sum_table_group**. Finally, I am using `style.format` to change the look at the DataFrame that is being displayed as a table in out notebook.
 # 
-# Let's look at how to do this using some different syntax. Something more vertical. Note that `()` surrounding all of the code.
+# We can also change the column header names if we want. Here's the same code, but with `.rename()`. Note that the way the DataCamp renames columns inside of the `.agg()` function is no longer recommended by `pandas`. 
 
 # In[16]:
+
+
+sum_table_group = nc.groupby('type')['beer_count'].agg([np.mean, np.median, np.std]).rename(columns={'mean': 'avg', 'median': '50th', 'std': 'sigma'})
+
+sum_table_group.style.format(precision=0, na_rep='-')
+
+
+# 
+# Let's look at how to do this using some different syntax. Something more vertical. Note that `()` surrounding all of the code.
+
+# In[17]:
 
 
 (
@@ -216,22 +235,46 @@ sum_table_group.style.format(precision=0, na_rep='-')
 # It's important to keep track of the data types that functions expect and the types that they return. What goes in and what comes out?
 # ```
 
-# In[17]:
+# In[18]:
 
 
 (
     nc.groupby('type')
     .agg([np.mean, np.median, np.std])['beer_count']
+    .rename(columns={'mean': 'avg', 'median': '50th', 'std': 'sigma'})
     .style
         .format(precision=0)
         .set_caption('Beer Count by Brewery Type')   
 )
 
 
+# ### Grouping by more than one variable
 # 
-# Let's go back to just the mean. I'll group by **two variables** now.
+# Let's go back to just the mean. I'll group by **two variables** now. We give `.groupby()` a **list** of what to group by. Note the square brackets.
 
-# In[18]:
+# In[19]:
+
+
+nc.groupby(['type', 'status'])['beer_count'].mean().to_frame()
+
+
+# That looks pretty good. You can see the two columns being used as groups.
+# 
+# Let's style this table a bit more. The first line groups, creates the means, and puts all of this back into a DataFrame. The second line formats the DataFrame.
+# 
+# The summary DataFrame, *sum_table_mean*, **is our table**. 
+
+# In[20]:
+
+
+sum_table_mean = nc.groupby(['type', 'status'])['beer_count'].mean().to_frame()
+
+sum_table_mean.fillna('-').style.format(precision=0).set_caption('Beer Count by Brewery Type and Status')
+
+
+# We can try our more vertical style too.
+
+# In[21]:
 
 
 (
@@ -242,12 +285,12 @@ sum_table_group.style.format(precision=0, na_rep='-')
 
 # See how that doesn't look as good? We've made a series again. We need to make it a DataFrame and style it.
 
-# In[19]:
+# In[22]:
 
 
 (
     nc.groupby(['type', 'status'])
-    .mean()["beer_count"]
+    .mean()['beer_count']
     .to_frame()
     .fillna('-')
     .style
@@ -256,25 +299,13 @@ sum_table_group.style.format(precision=0, na_rep='-')
 )
 
 
-#  You could have written this code like the example below. The first line groups, creates the means, and puts all of this back into a DataFrame. The second line formats the DataFrame.
-# 
-#  The summary DataFrame **is our table**. 
-
-# In[20]:
-
-
-sum_table_mean = nc.groupby(['type', 'status'])['beer_count'].mean().to_frame()
-
-sum_table_mean.fillna('-').style.format(precision=0).set_caption('Beer Count by Brewery Type and Status')
-
-
 # ### GroupBy objects
 # 
 # We've been splitting our data into groups. Let's look at `GroupBy` objects themselves. These are created by the `groupby` function. Our textbook discusses these, starting pg. 130. Essentially, it's another way of doing what we've already done in these notes.
 # 
 # Let's create a `GroupBy` object with the brewery data and take an look.
 
-# In[21]:
+# In[23]:
 
 
 nc_groups = nc.groupby('type')
@@ -284,7 +315,7 @@ print(nc_groups.size())
 
 # This `GroupBy` object has all of our data, but grouped by *type*. We can calculate the mean of all numeric data in the `GroupBy`. 
 
-# In[22]:
+# In[24]:
 
 
 nc_groups.mean()
@@ -292,10 +323,32 @@ nc_groups.mean()
 
 # We can also use `.agg` again to get multiple statistics. I'll put out just *beer_count* and get the sum, mean, min, and max by group *type*. So, very similar to above, but now we are dealing with a DataFrame that's "pre-grouped" in a sense. Also, note again how I use `np.mean`, but just `sum`. The `sum` function is base Python, but `mean` comes from `numpy`, so I need the `np.mean`. 
 
-# In[23]:
+# In[25]:
 
 
 nc_groups['beer_count'].agg([sum, np.mean, min, max])
+
+
+# ## Outliers
+# 
+# Our summary statistics can give us a sense of the **distribution of the data**. We'll be plotting the actual distributions in the coming chapters. Sometimes, we might want to work with just a portion of the data, after removing some extreme examples. 
+# 
+# We'll go back to the original *nc* data, before we grouped it. I'll **mask**, or **screen**, for only active breweries and then only keep the breweries with a beer count less than the 95th percentile threshold. 
+
+# In[26]:
+
+
+nc = nc[nc['status'] == 'Active'] # Active breweries only
+outliers = nc['beer_count'].quantile(.95) # Outlier threshold is at the 95th percentile of beer count
+outliers
+
+
+# The 95th percentile of beers on tap is 123.75. Let's only keep breweries with fewer beers than that. I won't save the DataFrame, but I'll sort it so that you can see that the outliers have been removed.
+
+# In[27]:
+
+
+nc[nc['beer_count'] < outliers].sort_values(by='beer_count', ascending=False) # Remove outliers
 
 
 # ## skimpy
@@ -312,7 +365,7 @@ nc_groups['beer_count'].agg([sum, np.mean, min, max])
 # 
 # You can read about this package [here](https://aeturrell.github.io/skimpy/). 
 
-# In[24]:
+# In[28]:
 
 
 import pandas as pd
@@ -335,7 +388,7 @@ skim(uw)
 # 
 # Let's add the `import` needed to bring `ProfileReport` from `pandas_profiling`.
 
-# In[25]:
+# In[29]:
 
 
 from pandas_profiling import ProfileReport
@@ -343,7 +396,7 @@ from pandas_profiling import ProfileReport
 
 # This will create the report.
 
-# In[26]:
+# In[30]:
 
 
 profile = ProfileReport(uw, title='Zillow Housing Data for Flood Risk', minimal=True)
@@ -351,7 +404,7 @@ profile = ProfileReport(uw, title='Zillow Housing Data for Flood Risk', minimal=
 
 # We can now view the report in a Jupyter widget. It will take a couple of minutes to summarize everything. 
 
-# In[27]:
+# In[31]:
 
 
 #profile.to_widgets()
@@ -359,7 +412,7 @@ profile = ProfileReport(uw, title='Zillow Housing Data for Flood Risk', minimal=
 
 # You can also create an HTML file. Using the code below, the file will end up in the same folder as your `.ipynb` notebook. I've commented it out so that it doesn't run and create large file everytime.
 
-# In[28]:
+# In[32]:
 
 
 #profile.to_file("nc_profile.html")
@@ -367,7 +420,7 @@ profile = ProfileReport(uw, title='Zillow Housing Data for Flood Risk', minimal=
 
 # Finally, I'll create a profile that will appear in this `.ipynb`.
 
-# In[29]:
+# In[33]:
 
 
 profile.to_notebook_iframe()
