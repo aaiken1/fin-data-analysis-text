@@ -477,7 +477,10 @@
 <h1>Data importing<a class="headerlink" href="#data-importing" title="Permalink to this headline">¶</a></h1>
 <p>Let’s start by getting some data into Python. This will usually be the first step in our code, right after we import any of the libraries, like <code class="docutils literal notranslate"><span class="pre">numpy</span></code> and <code class="docutils literal notranslate"><span class="pre">pandas</span></code> that we need.</p>
 <p>There is a <a class="reference external" href="https://www.datacamp.com/community/tutorials/python-excel-tutorial">DataCamp tutorial on Excel files and Python</a> that you might find helpful. You can read also more about <a class="reference external" href="https://www.datacamp.com/community/tutorials/pandas-read-csv">reading in CSV files at DataCamp</a>.</p>
-<p>There’s some price data up on our <a class="reference external" href="https://github.com/aaiken1/fin-data-analysis-python">course Github page</a>. Let’s import this both as a downloaded CSV file and directly from Github, with no download.</p>
+<p>The second DataCamp assignment, <strong>Intermediate Python for Finance</strong>, covers how to create <code class="docutils literal notranslate"><span class="pre">DataFrames</span></code> from <code class="docutils literal notranslate"><span class="pre">dictionaries</span></code> and <code class="docutils literal notranslate"><span class="pre">lists</span></code>.</p>
+<p>The fifth DataCamp assignment, <strong>Importing and Managing Financial Data in Python</strong> covers all of this in great detail.</p>
+<p>We’ll typically be importing our data from CSV and Excel files.</p>
+<p>There’s some price data up on our <a class="reference external" href="https://github.com/aaiken1/fin-data-analysis-python">course Github page</a>. Let’s import this both as a downloaded CSV file and then directly from Github. No need to download the file to your computer and deal with folders.</p>
 <p>First, we need to import <code class="docutils literal notranslate"><span class="pre">pandas</span></code>. Just like <code class="docutils literal notranslate"><span class="pre">numpy</span></code>. In fact, at the top of basically all of your code, you will import both of these libraries (and more!).</p>
 <p>Everyone imports <code class="docutils literal notranslate"><span class="pre">pandas</span></code> as pd.</p>
 <div class="cell docutils container">
@@ -587,8 +590,26 @@
 </div>
 </div>
 </div>
+<p>You can also specify if a particular value should be set to missing. <code class="docutils literal notranslate"><span class="pre">read_csv()</span></code> already looks for common items, like ‘NA’ or ‘n/a’. I’ll have it look for ‘-‘ as well, though that isn’t a missing value in this data.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">prices2</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s1">&#39;https://github.com/aaiken1/fin-data-analysis-python/raw/main/data/tr_eikon_eod_data.csv&#39;</span><span class="p">,</span>
+                      <span class="n">index_col</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">parse_dates</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">na_values</span><span class="o">=</span><span class="s1">&#39;-&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>We can also read data in from <strong>Excel files</strong>, using <code class="docutils literal notranslate"><span class="pre">.read_excel()</span></code>. I’ll read in some HF return data.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">hf</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_excel</span><span class="p">(</span><span class="s1">&#39;https://raw.githubusercontent.com/aaiken1/fin-data-analysis-python/main/data/hf_rets.xlsx&#39;</span><span class="p">,</span>
+                  <span class="n">index_col</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">parse_dates</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">sheet_name</span><span class="o">=</span><span class="s1">&#39;rets&#39;</span><span class="p">)</span>  
+</pre></div>
+</div>
+</div>
+</div>
+<p>We can use the option <code class="docutils literal notranslate"><span class="pre">sheet_name=</span></code> to specific a particular sheet from the Excel file. You can read more about the various options <a class="reference external" href="https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.read_excel.html">here</a>.</p>
 <p>We have our data in Python! Now, we can manipulate it, clean it, merge it with something else, summarize it, plot it, and do some actual finance.</p>
-<p>The second DataCamp assignment, <strong>Intermediate Python for Finance</strong>, covers how to create <code class="docutils literal notranslate"><span class="pre">DataFrames</span></code> from <code class="docutils literal notranslate"><span class="pre">dictionaries</span></code> and <code class="docutils literal notranslate"><span class="pre">lists</span></code>. We’ll typically be importing our data from CSV and Excel files.</p>
 </div>
 
     <script type="text/x-thebe-config">
