@@ -42,8 +42,6 @@
     <script src="../_static/copybutton.js"></script>
     <script>var togglebuttonSelector = '.toggle, .admonition.dropdown, .tag_hide_input div.cell_input, .tag_hide-input div.cell_input, .tag_hide_output div.cell_output, .tag_hide-output div.cell_output, .tag_hide_cell.cell, .tag_hide-cell.cell';</script>
     <script src="../_static/sphinx-book-theme.d59cb220de22ca1c485ebbdc042f0030.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
-    <script src="https://unpkg.com/@jupyter-widgets/html-manager@^0.20.0/dist/embed-amd.js"></script>
     <script async="async" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
     <script>window.MathJax = {"options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
     <script async="async" src="https://unpkg.com/thebe@0.5.1/lib/index.js"></script>
@@ -56,7 +54,7 @@
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
     <link rel="next" title="Pyfolio package" href="10_pyfolio.html" />
-    <link rel="prev" title="Essential Portfolio Math" href="8_port_math.html" />
+    <link rel="prev" title="Essential portfolio math" href="8_port_math.html" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="docsearch:language" content="None">
     
@@ -264,7 +262,7 @@
  </li>
  <li class="toctree-l1">
   <a class="reference internal" href="8_port_math.html">
-   Essential Portfolio Math
+   Essential portfolio math
   </a>
  </li>
  <li class="toctree-l1 current active">
@@ -833,7 +831,7 @@
 <h2>CAPM. Our First Factor Model.<a class="headerlink" href="#capm-our-first-factor-model" title="Permalink to this headline">¶</a></h2>
 <p>The Capital Asset Pricing Model (CAPM), developed in the 1960’s, is covered in every finance class. You learn the formula, are forced to rearrange it to solve for the unknown input, and use it as part of the WACC. Here it is yet again:</p>
 <div class="amsmath math notranslate nohighlight" id="equation-0ded4af3-043e-4360-9290-e86c53c695f7">
-<span class="eqno">(6)<a class="headerlink" href="#equation-0ded4af3-043e-4360-9290-e86c53c695f7" title="Permalink to this equation">¶</a></span>\[\begin{align}
+<span class="eqno">(8)<a class="headerlink" href="#equation-0ded4af3-043e-4360-9290-e86c53c695f7" title="Permalink to this equation">¶</a></span>\[\begin{align}
 E[R_i] = r_f + \beta_i \times ERP
 \end{align}\]</div>
 <p>This simple equation, though, tells us a story about risk and return. All expected returns start with the risk-free rate, $R_f$.<a class="footnote-reference brackets" href="#factors-1" id="id1">1</a> We typically use something like the 10-Year Treasury Yield in our context. The expected return on an asset i, $E[R_i]$, is proportional to the systematic risk of the asset, $\beta_i$. Systematic risk is measured by the equity risk premium, or ERP, which captures market returns. In other words, if an asset is expected to do very well when the market does well, it will have a high expected return. This asset will, however, do poorly when the market does poorly. These types of high beta assets have larger <strong>risk premiums</strong> associated with them, where the risk premium is $E[R_i] - R_f$.</p>
@@ -865,7 +863,7 @@ E[R_i] = r_f + \beta_i \times ERP
 <li><p><em>Risk is factor exposure.</em> We can see this from the definition of beta:</p></li>
 </ol>
 <div class="amsmath math notranslate nohighlight" id="equation-71088a62-bf10-4b72-9c2e-6ee5295435d5">
-<span class="eqno">(7)<a class="headerlink" href="#equation-71088a62-bf10-4b72-9c2e-6ee5295435d5" title="Permalink to this equation">¶</a></span>\[\begin{align}
+<span class="eqno">(9)<a class="headerlink" href="#equation-71088a62-bf10-4b72-9c2e-6ee5295435d5" title="Permalink to this equation">¶</a></span>\[\begin{align}
 \beta_i = \frac{cov(r_i, r_m)}{var(r_m)}
 \end{align}\]</div>
 <p>If an asset covaries more (i.e. moves more) with the market return, then it has a higher beta and higher risk. This is going to hold true for all of other factors that we talk about too - factor exposure means moving with the factor. Some assets, like an insurance product, will have negative betas. These are very valuable to hold, since they will go up when the market goes down. Instead of receiving a premium for them, you’ll pay a premium.</p>
@@ -923,7 +921,7 @@ E[R_i] = r_f + \beta_i \times ERP
 <p>You can’t directly trade economic growth or inflation.<a class="footnote-reference brackets" href="#factors-4" id="id4">4</a> These factors are embedded in our securities, but it is hard to separate them out. Investors usually, then, use <strong>style factors</strong> when decomposing strategies into their component sources of returns. These tradeable factors are also, we think, related to macroeconomic risks. We essentially define a style factor as a particular portfolio where the securities all share a certain set of characteristics that have had positive returns over time. We infer that these positive returns must be related to some kind of risk.<a class="footnote-reference brackets" href="#factors-5" id="id5">5</a></p>
 <p><a class="reference external" href="https://www.sciencedirect.com/science/article/abs/pii/0304405X93900235">Fama and French (1993)</a>, along some other earlier papers by other authors, lead the way here. There model simply extends the CAPM to include two additional factor, size and value:</p>
 <div class="amsmath math notranslate nohighlight" id="equation-ac4e859d-46e2-40ae-9d51-c03da669659e">
-<span class="eqno">(8)<a class="headerlink" href="#equation-ac4e859d-46e2-40ae-9d51-c03da669659e" title="Permalink to this equation">¶</a></span>\[\begin{align}
+<span class="eqno">(10)<a class="headerlink" href="#equation-ac4e859d-46e2-40ae-9d51-c03da669659e" title="Permalink to this equation">¶</a></span>\[\begin{align}
 E[R_i] = r_f + \beta_{i,mkt} \times (E[R_m] - r_f) + \beta_{i,smb} \times E[SMB] + \beta_{i,hml} \times E[HML]
 \end{align}\]</div>
 <p>The E means “expected” – this formula links expected asset returns to expected factor returns. The first beta is the usual CAPM beta. But, now there are two other betas, or risks, that are captured by this model. SMB, or small minus big, is the return on a portfolio of small stocks less the return on a portfolio of large stocks. Small and large are based on the market capitalization of the firm. This return will be positive if small stocks beat large stocks in a given period (e.g. month). HML, or high minus low, is a portfolio that is long high book-to-market (B/M) stocks and short low B/M stocks. High B/M is a traditional way to define a “value” stock. So, HML will be positive if value stocks beat growth stocks in that period.<a class="footnote-reference brackets" href="#factors-6" id="id6">6</a></p>
@@ -1396,7 +1394,7 @@ Notes:
         <i class="fas fa-angle-left"></i>
         <div class="prev-next-info">
             <p class="prev-next-subtitle">previous</p>
-            <p class="prev-next-title">Essential Portfolio Math</p>
+            <p class="prev-next-title">Essential portfolio math</p>
         </div>
     </a>
     <a class='right-next' id="next-link" href="10_pyfolio.html" title="next page">

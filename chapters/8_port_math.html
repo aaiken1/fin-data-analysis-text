@@ -5,7 +5,7 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Essential Portfolio Math &#8212; Data Analysis in Finance</title>
+    <title>Essential portfolio math &#8212; Data Analysis in Finance</title>
     
   <link href="../_static/css/theme.css" rel="stylesheet">
   <link href="../_static/css/index.ff1ffe594081f20da1ef19478df9384b.css" rel="stylesheet">
@@ -42,6 +42,8 @@
     <script src="../_static/copybutton.js"></script>
     <script>var togglebuttonSelector = '.toggle, .admonition.dropdown, .tag_hide_input div.cell_input, .tag_hide-input div.cell_input, .tag_hide_output div.cell_output, .tag_hide-output div.cell_output, .tag_hide_cell.cell, .tag_hide-cell.cell';</script>
     <script src="../_static/sphinx-book-theme.d59cb220de22ca1c485ebbdc042f0030.js"></script>
+    <script async="async" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script>window.MathJax = {"options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
     <script async="async" src="https://unpkg.com/thebe@0.5.1/lib/index.js"></script>
     <script>
         const thebe_selector = ".thebe"
@@ -260,7 +262,7 @@
  </li>
  <li class="toctree-l1 current active">
   <a class="current reference internal" href="#">
-   Essential Portfolio Math
+   Essential portfolio math
   </a>
  </li>
  <li class="toctree-l1">
@@ -453,6 +455,29 @@
         <!-- Table of contents -->
         <div class="d-none d-md-block col-md-2 bd-toc show noprint">
             
+            <div class="tocsection onthispage pt-5 pb-3">
+                <i class="fas fa-list"></i> Contents
+            </div>
+            <nav id="bd-toc-nav" aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#portfolio-level-returns">
+   Portfolio-level returns
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#risk-measures-at-the-portfolio-level">
+   Risk measures at the portfolio-level
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#skewness-and-kurtosis">
+   Skewness and kurtosis
+  </a>
+ </li>
+</ul>
+
+            </nav>
         </div>
     </div>
 </div>
@@ -460,11 +485,34 @@
         <div class="col-12 col-md-9 pl-md-3 pr-md-0">
             <!-- Table of contents that is only displayed when printing the page -->
             <div id="jb-print-docs-body" class="onlyprint">
-                <h1>Essential Portfolio Math</h1>
+                <h1>Essential portfolio math</h1>
                 <!-- Table of contents -->
                 <div id="print-main-content">
                     <div id="jb-print-toc">
                         
+                        <div>
+                            <h2> Contents </h2>
+                        </div>
+                        <nav aria-label="Page">
+                            <ul class="visible nav section-nav flex-column">
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#portfolio-level-returns">
+   Portfolio-level returns
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#risk-measures-at-the-portfolio-level">
+   Risk measures at the portfolio-level
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#skewness-and-kurtosis">
+   Skewness and kurtosis
+  </a>
+ </li>
+</ul>
+
+                        </nav>
                     </div>
                 </div>
             </div>
@@ -472,7 +520,599 @@
               <div>
                 
   <div class="tex2jax_ignore mathjax_ignore section" id="essential-portfolio-math">
-<h1>Essential Portfolio Math<a class="headerlink" href="#essential-portfolio-math" title="Permalink to this headline">¶</a></h1>
+<h1>Essential portfolio math<a class="headerlink" href="#essential-portfolio-math" title="Permalink to this headline">¶</a></h1>
+<p>This brief chapter will cover the type of statistics that we often see when looking at <strong>portfolios</strong>. Much of this material is covered in various DataCamp exercises. Pieces, such as skewness and kurtosis, are also covered in <strong>Chapter 13 of our textbook</strong>.</p>
+<p>This material will have us thinking about <strong>portfolio construction</strong>.</p>
+<p>What is <strong>portfolio construction</strong>? Choosing and sizing the various trades to achieve a good trade-off between risk and expected return.</p>
+<ol class="simple">
+<li><p>Diversification</p></li>
+<li><p>Position limits and risk limits:</p></li>
+</ol>
+<ul class="simple">
+<li><p>At the level of securities, asset classes, and overall portfolio.</p></li>
+</ul>
+<ol class="simple">
+<li><p>Larger bets on higher conviction trade.</p></li>
+<li><p>Size bets in terms of risk</p></li>
+<li><p>Correlations matter</p></li>
+</ol>
+<ul class="simple">
+<li><p>For a long position, correlation with other longs is bad, corr. with shorts is good</p></li>
+<li><p>Powerful to go long/short within each industry, diversify across industries</p></li>
+<li><p>Can use ETFs and futures to “hedge” out sector and market exposure</p></li>
+</ul>
+<ol class="simple">
+<li><p>Resize positions according to forward-looking risk and conviction</p></li>
+</ol>
+<p>We’ll start by bringing in some <strong>monthly hedge fund return data</strong>. We’ll calculate some portfolio returns, using assumed weights. We’ll then move on to portfolio-level <strong>variance and standard deviation</strong>. We’ll see how to <strong>annualize returns and volatility</strong>. We’ll look at other risk measures, like <strong>skewness</strong> and <strong>kurtosis</strong>. We’ll see <strong>Sharpe</strong> and <strong>Sortino</strong> ratios. Finally, we’ll make a graph for the max drawdown of our strategy.</p>
+<p>These ideas will get us thinking about portfolios, trading strategies, risk management, and portfolio optimization.</p>
+<p>The formulas are <strong>must knows</strong> for finance folks! For example, you need these on CFA Level 1.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
+<span class="kn">import</span> <span class="nn">statsmodels.formula.api</span> <span class="k">as</span> <span class="nn">smf</span>
+<span class="kn">import</span> <span class="nn">janitor</span>
+<span class="kn">from</span> <span class="nn">janitor</span> <span class="kn">import</span> <span class="n">clean_names</span>
+
+<span class="n">hf</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_excel</span><span class="p">(</span><span class="s1">&#39;https://raw.githubusercontent.com/aaiken1/fin-data-analysis-python/main/data/hf_rets.xlsx&#39;</span><span class="p">,</span>
+                  <span class="n">index_col</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">parse_dates</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>  
+
+<span class="n">hf</span> <span class="o">=</span> <span class="n">hf</span><span class="o">.</span><span class="n">clean_names</span><span class="p">()</span>
+
+<span class="n">hf</span><span class="o">.</span><span class="n">describe</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>rf</th>
+      <th>mkt_rf</th>
+      <th>smb</th>
+      <th>hml</th>
+      <th>umd</th>
+      <th>ln_sh_eq_hedge_fund_usd</th>
+      <th>eq_mkt_ntr_hedge_fund_usd</th>
+      <th>ded_sh_bs_hedge_fund_usd</th>
+      <th>global_mac_hedge_fund_usd</th>
+      <th>mngd_fut_hedge_fund_usd</th>
+      <th>emg_mkts_hedge_fund_usd</th>
+      <th>evnt_drvn_hedge_fund_usd</th>
+      <th>_cnvrt_arb_hedge_fund_usd</th>
+      <th>fx_inc_arb_hedge_fund_usd</th>
+      <th>djcs_hedge_fund_usd</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>count</th>
+      <td>222.000000</td>
+      <td>222.000000</td>
+      <td>222.000000</td>
+      <td>222.000000</td>
+      <td>222.000000</td>
+      <td>222.000000</td>
+      <td>222.000000</td>
+      <td>222.000000</td>
+      <td>222.000000</td>
+      <td>222.000000</td>
+      <td>222.000000</td>
+      <td>222.000000</td>
+      <td>222.000000</td>
+      <td>222.000000</td>
+      <td>222.000000</td>
+    </tr>
+    <tr>
+      <th>mean</th>
+      <td>0.002536</td>
+      <td>0.005089</td>
+      <td>0.002121</td>
+      <td>0.002133</td>
+      <td>0.004886</td>
+      <td>0.007535</td>
+      <td>0.004410</td>
+      <td>-0.002217</td>
+      <td>0.009594</td>
+      <td>0.005108</td>
+      <td>0.006656</td>
+      <td>0.007360</td>
+      <td>0.006129</td>
+      <td>0.004366</td>
+      <td>0.007011</td>
+    </tr>
+    <tr>
+      <th>std</th>
+      <td>0.001742</td>
+      <td>0.047007</td>
+      <td>0.035581</td>
+      <td>0.033738</td>
+      <td>0.054827</td>
+      <td>0.028745</td>
+      <td>0.029770</td>
+      <td>0.049144</td>
+      <td>0.028000</td>
+      <td>0.033738</td>
+      <td>0.042929</td>
+      <td>0.018291</td>
+      <td>0.019981</td>
+      <td>0.016485</td>
+      <td>0.021820</td>
+    </tr>
+    <tr>
+      <th>min</th>
+      <td>0.000000</td>
+      <td>-0.185500</td>
+      <td>-0.166200</td>
+      <td>-0.128700</td>
+      <td>-0.347500</td>
+      <td>-0.114806</td>
+      <td>-0.404590</td>
+      <td>-0.112825</td>
+      <td>-0.115652</td>
+      <td>-0.093702</td>
+      <td>-0.230716</td>
+      <td>-0.118201</td>
+      <td>-0.126007</td>
+      <td>-0.140442</td>
+      <td>-0.075948</td>
+    </tr>
+    <tr>
+      <th>25%</th>
+      <td>0.000900</td>
+      <td>-0.023225</td>
+      <td>-0.019750</td>
+      <td>-0.015275</td>
+      <td>-0.011225</td>
+      <td>-0.008805</td>
+      <td>0.001250</td>
+      <td>-0.033677</td>
+      <td>-0.001949</td>
+      <td>-0.018947</td>
+      <td>-0.012924</td>
+      <td>0.000110</td>
+      <td>-0.000482</td>
+      <td>0.001716</td>
+      <td>-0.002376</td>
+    </tr>
+    <tr>
+      <th>50%</th>
+      <td>0.003000</td>
+      <td>0.011550</td>
+      <td>-0.001450</td>
+      <td>0.002150</td>
+      <td>0.006300</td>
+      <td>0.007663</td>
+      <td>0.006715</td>
+      <td>-0.007478</td>
+      <td>0.010404</td>
+      <td>0.003235</td>
+      <td>0.012111</td>
+      <td>0.009848</td>
+      <td>0.009817</td>
+      <td>0.007131</td>
+      <td>0.007447</td>
+    </tr>
+    <tr>
+      <th>75%</th>
+      <td>0.004100</td>
+      <td>0.035600</td>
+      <td>0.023025</td>
+      <td>0.017750</td>
+      <td>0.030425</td>
+      <td>0.023168</td>
+      <td>0.012581</td>
+      <td>0.029215</td>
+      <td>0.021420</td>
+      <td>0.028790</td>
+      <td>0.028144</td>
+      <td>0.018590</td>
+      <td>0.014712</td>
+      <td>0.011529</td>
+      <td>0.018074</td>
+    </tr>
+    <tr>
+      <th>max</th>
+      <td>0.005600</td>
+      <td>0.115300</td>
+      <td>0.220600</td>
+      <td>0.138800</td>
+      <td>0.184000</td>
+      <td>0.129913</td>
+      <td>0.036573</td>
+      <td>0.226661</td>
+      <td>0.105808</td>
+      <td>0.099063</td>
+      <td>0.164018</td>
+      <td>0.042168</td>
+      <td>0.058055</td>
+      <td>0.043331</td>
+      <td>0.085117</td>
+    </tr>
+  </tbody>
+</table>
+</div></div></div>
+</div>
+<p>There’s a lot there, so let’s just keep four different columns. These columns represent the average monthly return for that hedge fund type. I’m keeping long/short equity, equity market neutral, global macro, managed futures.</p>
+<p>Long/short equity funds do what that says - they go long and short stocks, generally keeping their market beta less than one. Equity market neutral might aim for a beta of zero, but usually have more exposure than that. They are trying to get rid of their risk exposures and just earn alpha from security mispricings. Global macro funds make trades based on broad market trends, currencies, and other markets affected by macro events, like inflation or economic growth. They don’t buy or sell individual securities and often use futures contracts to get their exposures. Finally, managed futures are similar, but tend to follow trend-following strategies.</p>
+<p>You’ll see more on these ideas in the factor model notes.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">rets</span> <span class="o">=</span> <span class="n">hf</span><span class="o">.</span><span class="n">iloc</span><span class="p">[:,[</span><span class="mi">5</span><span class="p">,</span> <span class="mi">6</span><span class="p">,</span> <span class="mi">8</span><span class="p">,</span> <span class="mi">9</span><span class="p">]]</span>
+<span class="n">rets</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>ln_sh_eq_hedge_fund_usd</th>
+      <th>eq_mkt_ntr_hedge_fund_usd</th>
+      <th>global_mac_hedge_fund_usd</th>
+      <th>mngd_fut_hedge_fund_usd</th>
+    </tr>
+    <tr>
+      <th>date</th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>1994-01-31</th>
+      <td>0.011733</td>
+      <td>-0.005467</td>
+      <td>0.001433</td>
+      <td>0.001933</td>
+    </tr>
+    <tr>
+      <th>1994-02-28</th>
+      <td>-0.025011</td>
+      <td>0.002106</td>
+      <td>-0.056811</td>
+      <td>0.011667</td>
+    </tr>
+    <tr>
+      <th>1994-03-31</th>
+      <td>-0.039114</td>
+      <td>-0.002514</td>
+      <td>-0.042854</td>
+      <td>0.025923</td>
+    </tr>
+    <tr>
+      <th>1994-04-29</th>
+      <td>-0.015720</td>
+      <td>0.002397</td>
+      <td>-0.016033</td>
+      <td>0.008437</td>
+    </tr>
+    <tr>
+      <th>1994-05-31</th>
+      <td>0.005550</td>
+      <td>-0.001229</td>
+      <td>0.037839</td>
+      <td>0.007497</td>
+    </tr>
+    <tr>
+      <th>...</th>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+    </tr>
+    <tr>
+      <th>2012-02-29</th>
+      <td>0.026418</td>
+      <td>0.013335</td>
+      <td>0.007852</td>
+      <td>0.012039</td>
+    </tr>
+    <tr>
+      <th>2012-03-30</th>
+      <td>0.004998</td>
+      <td>-0.001553</td>
+      <td>-0.004271</td>
+      <td>-0.029648</td>
+    </tr>
+    <tr>
+      <th>2012-04-30</th>
+      <td>-0.004680</td>
+      <td>-0.004139</td>
+      <td>-0.002522</td>
+      <td>0.004299</td>
+    </tr>
+    <tr>
+      <th>2012-05-31</th>
+      <td>-0.045274</td>
+      <td>-0.031806</td>
+      <td>0.001936</td>
+      <td>0.023829</td>
+    </tr>
+    <tr>
+      <th>2012-06-29</th>
+      <td>0.003438</td>
+      <td>0.009249</td>
+      <td>-0.013726</td>
+      <td>-0.035612</td>
+    </tr>
+  </tbody>
+</table>
+<p>222 rows × 4 columns</p>
+</div></div></div>
+</div>
+<div class="section" id="portfolio-level-returns">
+<h2>Portfolio-level returns<a class="headerlink" href="#portfolio-level-returns" title="Permalink to this headline">¶</a></h2>
+<p>Let’s define an array of weights. We’ll put 25% of our money into each style category. This isn’t actually an investable strategy, since you can’t invest in the average long/short equity fund!</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">wgts</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mf">0.25</span><span class="p">,</span> <span class="mf">0.25</span><span class="p">,</span> <span class="mf">0.25</span><span class="p">,</span> <span class="mf">0.25</span><span class="p">])</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>We can find the monthly means for each strategy.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">monthy_rets_avg</span> <span class="o">=</span> <span class="n">rets</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span>
+<span class="n">monthy_rets_avg</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>ln_sh_eq_hedge_fund_usd      0.007535
+eq_mkt_ntr_hedge_fund_usd    0.004410
+global_mac_hedge_fund_usd    0.009594
+mngd_fut_hedge_fund_usd      0.005108
+dtype: float64
+</pre></div>
+</div>
+</div>
+</div>
+<p>We can also see what our equally-weighted portfolio would have done per month over that time period.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">hf_port_ret</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">monthy_rets_avg</span><span class="o">*</span><span class="n">wgts</span><span class="p">)</span>
+<span class="n">hf_port_ret</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>0.0066618444208333735
+</pre></div>
+</div>
+</div>
+</div>
+<p>Let’s weight each month’s returns by our weights so that we can then calculate monthly portfolio returns.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">weighted_returns</span> <span class="o">=</span> <span class="p">(</span><span class="n">wgts</span> <span class="o">*</span> <span class="n">rets</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>I’m calculating monthly returns by summing up across each row. That’s the <code class="docutils literal notranslate"><span class="pre">axis=1</span></code> argument. I’m then naming this series <em>port_ret</em>.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">port_ret</span> <span class="o">=</span> <span class="n">weighted_returns</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span><span class="o">.</span><span class="n">rename</span><span class="p">(</span><span class="s1">&#39;port_ret&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>I’ll join my portfolio returns to the monthly fund returns. There should be the same number of portfolio returns as individual hedge fund returns.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">rets_with_port</span> <span class="o">=</span> <span class="n">rets</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">port_ret</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>And, I can calculate cumulative returns and then graph them.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">monthly_cum_rets</span><span class="o">=</span><span class="p">(</span><span class="mi">1</span><span class="o">+</span><span class="n">rets_with_port</span><span class="p">)</span><span class="o">.</span><span class="n">cumprod</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">monthly_cum_rets</span><span class="o">.</span><span class="n">plot</span><span class="p">()</span>
+ 
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;AxesSubplot:xlabel=&#39;date&#39;&gt;
+</pre></div>
+</div>
+<img alt="../_images/8_port_math_18_1.png" src="../_images/8_port_math_18_1.png" />
+</div>
+</div>
+<p>Yikes! Check out the orange line - equity market neutral funds aren’t necessarily very market neutral!</p>
+</div>
+<div class="section" id="risk-measures-at-the-portfolio-level">
+<h2>Risk measures at the portfolio-level<a class="headerlink" href="#risk-measures-at-the-portfolio-level" title="Permalink to this headline">¶</a></h2>
+<p>As you know from your investments class, the variance of a portfolio is <strong>not</strong> the average variance of the assets in the portfolio. We need to take into account the effects of <strong>diversification</strong>. For example, here’s the formula for the variance of a portfolio with two assets. We need weights, variances, and the covariance between the two.</p>
+<div class="amsmath math notranslate nohighlight" id="equation-905b8dd2-db11-4cb8-99b8-345c5e645a27">
+<span class="eqno">(6)<a class="headerlink" href="#equation-905b8dd2-db11-4cb8-99b8-345c5e645a27" title="Permalink to this equation">¶</a></span>\[\begin{align}
+\sigma^2_p = w^2_1 \sigma^2_1 + w^2_2 \sigma^2_2 + 2 w_1 w_2 \sigma^2_{1,2}
+\end{align}\]</div>
+<p>$\sigma^2_{1,2}$ is the <strong>covariance</strong> between the two assets.</p>
+<p>This formula generalizes for <strong>any number of assets</strong>.</p>
+<div class="amsmath math notranslate nohighlight" id="equation-576b40c0-2974-48f3-b992-98bc477f284f">
+<span class="eqno">(7)<a class="headerlink" href="#equation-576b40c0-2974-48f3-b992-98bc477f284f" title="Permalink to this equation">¶</a></span>\[\begin{align}
+\sigma^2_p = w^T \Sigma w
+\end{align}\]</div>
+<p>where $w$ is a <strong>vector</strong> containing all of our portfolio weights and $\Sigma$ is the variance-covariance matrix for our assets. The “T” means the matrix operation <strong>transpose</strong>. This is necessary for the matrix multiplication.</p>
+<p>Let’s use Python to find the variance-covariance matrix. There are variances along with diagonal of the matrix and covariance terms <strong>between assets</strong> in the off-diagonals. Note that upper-right and lower-left of the matrix are identical. This is because the covariance between Asset 1 and Asset 2 is the same as the covariance between Asset 2 and Asset 1.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">cov_matrix</span> <span class="o">=</span> <span class="n">rets</span><span class="o">.</span><span class="n">cov</span><span class="p">()</span>
+<span class="n">cov_matrix</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>ln_sh_eq_hedge_fund_usd</th>
+      <th>eq_mkt_ntr_hedge_fund_usd</th>
+      <th>global_mac_hedge_fund_usd</th>
+      <th>mngd_fut_hedge_fund_usd</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>ln_sh_eq_hedge_fund_usd</th>
+      <td>0.000826</td>
+      <td>0.000192</td>
+      <td>0.000362</td>
+      <td>0.000066</td>
+    </tr>
+    <tr>
+      <th>eq_mkt_ntr_hedge_fund_usd</th>
+      <td>0.000192</td>
+      <td>0.000886</td>
+      <td>0.000069</td>
+      <td>0.000005</td>
+    </tr>
+    <tr>
+      <th>global_mac_hedge_fund_usd</th>
+      <td>0.000362</td>
+      <td>0.000069</td>
+      <td>0.000784</td>
+      <td>0.000283</td>
+    </tr>
+    <tr>
+      <th>mngd_fut_hedge_fund_usd</th>
+      <td>0.000066</td>
+      <td>0.000005</td>
+      <td>0.000283</td>
+      <td>0.001138</td>
+    </tr>
+  </tbody>
+</table>
+</div></div></div>
+</div>
+<p>Let’s use our general formula, our weights, and the cov matrix to find <strong>portfolio variance</strong>. We’ll use <code class="docutils literal notranslate"><span class="pre">np.dot()</span></code> from <code class="docutils literal notranslate"><span class="pre">numpy</span></code> to do the dot product. This is like <strong>mmult</strong> in Excel. The <code class="docutils literal notranslate"><span class="pre">.T</span></code> transposes, or flips, the vector of returns so that we can multiply.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">port_variance</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">dot</span><span class="p">(</span><span class="n">wgts</span><span class="o">.</span><span class="n">T</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">dot</span><span class="p">(</span><span class="n">cov_matrix</span><span class="p">,</span> <span class="n">wgts</span><span class="p">))</span>
+<span class="n">port_variance</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>0.00034955786030628624
+</pre></div>
+</div>
+</div>
+</div>
+<p>Here’s a <a class="reference external" href="https://www.mathsisfun.com/algebra/matrix-multiplying.html">refresher on matrix multiplication</a> in case you need it.</p>
+<p>Portfolio standard deviation is, of course, just the square root of variance. We can use <code class="docutils literal notranslate"><span class="pre">np.sqrt()</span></code>.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">port_stddev</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">dot</span><span class="p">(</span><span class="n">wgts</span><span class="o">.</span><span class="n">T</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">dot</span><span class="p">(</span><span class="n">cov_matrix</span><span class="p">,</span> <span class="n">wgts</span><span class="p">)))</span>
+<span class="nb">print</span><span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">round</span><span class="p">(</span><span class="n">port_stddev</span><span class="p">,</span> <span class="mi">3</span><span class="p">)</span> <span class="o">*</span> <span class="mi">100</span><span class="p">)</span> <span class="o">+</span> <span class="s1">&#39;%&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>1.9%
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+<div class="section" id="skewness-and-kurtosis">
+<h2>Skewness and kurtosis<a class="headerlink" href="#skewness-and-kurtosis" title="Permalink to this headline">¶</a></h2>
+<p>We’ll look more at the distribution of asset returns when we get to a more formal treatment of risk management. But, for now, we need to know that asset returns, like stocks, and even portfolio returns, like those of a hedge fund, are not typically normally distributed. They “lean”, or have <strong>skewness</strong>. That skewness can be either positive or negative, depending on the strategy. They also have <strong>kurtosis</strong>, or “fat tails”. This means that there are more extreme returns than you would expect if they followed a normal distribution.</p>
+<p>It is easy to find both in Python.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">rets_with_port</span><span class="o">.</span><span class="n">skew</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>ln_sh_eq_hedge_fund_usd      -0.012623
+eq_mkt_ntr_hedge_fund_usd   -11.866451
+global_mac_hedge_fund_usd     0.016477
+mngd_fut_hedge_fund_usd       0.026489
+port_ret                     -0.386969
+dtype: float64
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">rets_with_port</span><span class="o">.</span><span class="n">kurt</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>ln_sh_eq_hedge_fund_usd        3.186683
+eq_mkt_ntr_hedge_fund_usd    162.760371
+global_mac_hedge_fund_usd      3.888268
+mngd_fut_hedge_fund_usd       -0.017587
+port_ret                       3.306429
+dtype: float64
+</pre></div>
+</div>
+</div>
+</div>
+</div>
 </div>
 
     <script type="text/x-thebe-config">
