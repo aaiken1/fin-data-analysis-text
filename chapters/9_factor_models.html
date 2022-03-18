@@ -42,8 +42,6 @@
     <script src="../_static/copybutton.js"></script>
     <script>var togglebuttonSelector = '.toggle, .admonition.dropdown, .tag_hide_input div.cell_input, .tag_hide-input div.cell_input, .tag_hide_output div.cell_output, .tag_hide-output div.cell_output, .tag_hide_cell.cell, .tag_hide-cell.cell';</script>
     <script src="../_static/sphinx-book-theme.d59cb220de22ca1c485ebbdc042f0030.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
-    <script src="https://unpkg.com/@jupyter-widgets/html-manager@^0.20.0/dist/embed-amd.js"></script>
     <script async="async" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
     <script>window.MathJax = {"options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
     <script async="async" src="https://unpkg.com/thebe@0.5.1/lib/index.js"></script>
@@ -55,8 +53,8 @@
     <script async="async" src="../_static/sphinx-thebe.js"></script>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
-    <link rel="next" title="&lt;no title&gt;" href="10_pyfolio.html" />
-    <link rel="prev" title="&lt;no title&gt;" href="8_port_math.html" />
+    <link rel="next" title="Pyfolio package" href="10_pyfolio.html" />
+    <link rel="prev" title="Essential Portfolio Math" href="8_port_math.html" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="docsearch:language" content="None">
     
@@ -262,9 +260,49 @@
    Using NASDAQ BTC Data
   </a>
  </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="8_port_math.html">
+   Essential Portfolio Math
+  </a>
+ </li>
  <li class="toctree-l1 current active">
   <a class="current reference internal" href="#">
    Factor Models
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="10_pyfolio.html">
+   Pyfolio package
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="11_portfolio_opt.html">
+   Portfolio optimization
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="12_risk_mang.html">
+   Risk management
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="13_options.html">
+   Option basics
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="14_monte_carlo.html">
+   Monte Carlo and portfolios
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="15_logit_credit.html">
+   Credit modeling with logit regressions
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="16_time_vol.html">
+   Time series and volatility
   </a>
  </li>
 </ul>
@@ -428,8 +466,8 @@
   </a>
  </li>
  <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#where-do-returns-come-from-risks-expected-returns-and-factors-factors">
-   Where Do Returns Come From? Risks, Expected Returns, and Factors. {#factors}
+  <a class="reference internal nav-link" href="#where-do-returns-come-from-risks-expected-returns-and-factors">
+   Where Do Returns Come From? Risks, Expected Returns, and Factors.
   </a>
  </li>
  <li class="toc-h2 nav-item toc-entry">
@@ -561,8 +599,8 @@
   </a>
  </li>
  <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#where-do-returns-come-from-risks-expected-returns-and-factors-factors">
-   Where Do Returns Come From? Risks, Expected Returns, and Factors. {#factors}
+  <a class="reference internal nav-link" href="#where-do-returns-come-from-risks-expected-returns-and-factors">
+   Where Do Returns Come From? Risks, Expected Returns, and Factors.
   </a>
  </li>
  <li class="toc-h2 nav-item toc-entry">
@@ -680,6 +718,7 @@
   <div class="tex2jax_ignore mathjax_ignore section" id="factor-models">
 <h1>Factor Models<a class="headerlink" href="#factor-models" title="Permalink to this headline">¶</a></h1>
 <p>We are going to do some financial theory in this chapter. These notes follow largely from those I used in a two-credit <em>Advanced Investments</em> seminar, taught in the Spring of 2021. I want to start with some theory to now why we’re even doing what we’re doing in Python.</p>
+<p>Our textbook really doesn’t have much on factor models, though you’ll see the basics of this material, as well as regression more generally, in the DataCamp assignments.</p>
 <div class="section" id="textbook-highlights">
 <h2>Textbook Highlights<a class="headerlink" href="#textbook-highlights" title="Permalink to this headline">¶</a></h2>
 <table class="colwidths-auto table">
@@ -689,20 +728,17 @@
 </tr>
 </thead>
 <tbody>
-<tr class="row-even"><td class="text-align:left"><p><strong>Static 2D Plotting</strong>. Regular, old figures using <code class="docutils literal notranslate"><span class="pre">matplotlib</span></code>. This is <strong>not</strong> the <code class="docutils literal notranslate"><span class="pre">plot()</span></code> function from <code class="docutils literal notranslate"><span class="pre">pandas</span></code> that we start with in our notes. Notice how he is using <code class="docutils literal notranslate"><span class="pre">arrays</span></code> for his data. Our author provides various examples and tips for customization. We won’t be doing anything like his integral example!</p></td>
-<td class="text-align:left"><p>168 - 191</p></td>
+<tr class="row-even"><td class="text-align:left"><p><strong>Linear OLS Regression</strong>. Estimating factor models usually means running some type of regression. Our textbook shows regression using <code class="docutils literal notranslate"><span class="pre">sklearn</span></code>.</p></td>
+<td class="text-align:left"><p>497 - 499</p></td>
 </tr>
-<tr class="row-odd"><td class="text-align:left"><p><strong>Static 3D Plotting</strong>. Useful for options, mainly. He’s bringing in a new package to do this.</p></td>
-<td class="text-align:left"><p>191 - 194</p></td>
-</tr>
-<tr class="row-even"><td class="text-align:left"><p><strong>Interactive 2D Plotting</strong>. <code class="docutils literal notranslate"><span class="pre">matplotlib</span></code> gives us static figures. But, web-based figures can be interactive in a browser. <code class="docutils literal notranslate"><span class="pre">plotly</span></code> and <code class="docutils literal notranslate"><span class="pre">cufflinks</span></code> let us do that. <code class="docutils literal notranslate"><span class="pre">cufflinks</span></code> is a library that also works with <code class="docutils literal notranslate"><span class="pre">pandas</span></code> and DataFrames. He also introduces the idea of a <code class="docutils literal notranslate"><span class="pre">QuantFig</span></code> object for financial data.</p></td>
-<td class="text-align:left"><p>195 - 203</p></td>
+<tr class="row-odd"><td class="text-align:left"><p><strong>Market Efficiency</strong>. There’s a brief discussion of <strong>random walks</strong> and market efficiency.</p></td>
+<td class="text-align:left"><p>491 - 494</p></td>
 </tr>
 </tbody>
 </table>
 </div>
-<div class="section" id="where-do-returns-come-from-risks-expected-returns-and-factors-factors">
-<h2>Where Do Returns Come From? Risks, Expected Returns, and Factors. {#factors}<a class="headerlink" href="#where-do-returns-come-from-risks-expected-returns-and-factors-factors" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="where-do-returns-come-from-risks-expected-returns-and-factors">
+<h2>Where Do Returns Come From? Risks, Expected Returns, and Factors.<a class="headerlink" href="#where-do-returns-come-from-risks-expected-returns-and-factors" title="Permalink to this headline">¶</a></h2>
 <p>This is a Python class. Why is there suddenly a bunch of theory? If we are going to import data, run regressions, and think about how to measure sources of returns, we need a theoretical background. Theory doesn’t mean impractical, though. Theory guides us and tells us where to look.</p>
 <p>These notes pull from Chapters 6, 7, and 14 of <a class="reference external" href="https://global.oup.com/academic/product/asset-management-9780199959327">a text by Andrew Ang</a>, formerly at Columbia and now at Blackrock, as well as texts by <a class="reference external" href="https://pages.stern.nyu.edu/~adamodar/New_Home_Page/">Aswath Damodaran at NYU</a> and <a class="reference external" href="https://www.lhpedersen.com">Lasse Pedersen at the hedge fund AQR and also at NYU</a>. They are meant to provide an overview of recent thinking about how different risks lead to different sources of returns.</p>
 <p>I start with re-introducing <strong>market efficiency</strong>. I want to make sure that we are clear about what it means, does not mean, and the challenges that face us as investors. This basic idea will guide us as we try to figure out how to approach the investment process. I then introduce two important and related concepts: <strong>equilibrium</strong> and <strong>limits to arbitrage</strong>. We need these ideas if we are going to think about how investors make (or don’t make) money.</p>
@@ -733,7 +769,7 @@
 <div><p>An efficient market <strong>does not</strong> imply that: 1) Stock prices cannot deviate from true value; in fact, there can be large deviations from true value. The only requirement is that the deviations be random. 2) No investor will beat the market in any time period. To the contrary, approximately half of all investors, prior to transaction costs, should beat the market in any period. 3) No group of investors will beat the market in the long term. Given the number of investors in financial markets, the laws of probability would suggest that a fairly large number are going to beat the market consistently over long periods, not because of their investment strategies but because they are lucky. It would not, however, be consistent if a disproportionately large number of these investors used the same investment strategy.</p>
 </div></blockquote>
 <p>In short, market efficiency means that prices generally reflect the available information and that you shouldn’t be able to consistently pick assets that give you positive risk-adjusted returns, though a few may get lucky.</p>
-<p>What is the evidence that most professionals have a difficult time consistently beating their index, after fees? There is a <strong>large</strong> amount of work on this, but the figure below from the <a class="reference external" href="https://www.spglobal.com/spdji/en/documents/spiva/spiva-us-year-end-2019.pdf">2019 S&amp;P SPIVA U.S. Scorecard</a> sums things up. Most managers fail to beat their benchmarks after fees. This is true for mutual funds, individual investors, hedge funds, and private equity managers.</p>
+<p>What is the evidence that most professionals have a difficult time consistently beating their index, after fees? There is a <strong>large</strong> amount of work on this, but <a class="reference internal" href="#spiva-png"><span class="std std-numref">Fig. 22</span></a> below from the <a class="reference external" href="https://www.spglobal.com/spdji/en/documents/spiva/spiva-us-year-end-2019.pdf">2019 S&amp;P SPIVA U.S. Scorecard</a> sums things up. Most managers fail to beat their benchmarks after fees. This is true for mutual funds, individual investors, hedge funds, and private equity managers.</p>
 <div class="figure align-center" id="spiva-png">
 <img alt="../_images/09-spiva.png" src="../_images/09-spiva.png" />
 <p class="caption"><span class="caption-number">Fig. 22 </span><span class="caption-text">Most mutual fund managers, across styles, fail to beat their self-described benchmarks in a given year. Source: <a class="reference external" href="https://www.spglobal.com/spdji/en/documents/spiva/spiva-us-year-end-2019.pdf">2019 S&amp;P SPIVA U.S. Scorecard</a></span><a class="headerlink" href="#spiva-png" title="Permalink to this image">¶</a></p>
@@ -794,8 +830,8 @@
 <div class="section" id="capm-our-first-factor-model">
 <h2>CAPM. Our First Factor Model.<a class="headerlink" href="#capm-our-first-factor-model" title="Permalink to this headline">¶</a></h2>
 <p>The Capital Asset Pricing Model (CAPM), developed in the 1960’s, is covered in every finance class. You learn the formula, are forced to rearrange it to solve for the unknown input, and use it as part of the WACC. Here it is yet again:</p>
-<div class="amsmath math notranslate nohighlight" id="equation-46620628-2627-4216-87e3-bf45c75df1b1">
-<span class="eqno">(6)<a class="headerlink" href="#equation-46620628-2627-4216-87e3-bf45c75df1b1" title="Permalink to this equation">¶</a></span>\[\begin{align}
+<div class="amsmath math notranslate nohighlight" id="equation-22109af3-86da-48fa-852e-1770ffe506dc">
+<span class="eqno">(6)<a class="headerlink" href="#equation-22109af3-86da-48fa-852e-1770ffe506dc" title="Permalink to this equation">¶</a></span>\[\begin{align}
 E[R_i] = r_f + \beta_i \times ERP
 \end{align}\]</div>
 <p>This simple equation, though, tells us a story about risk and return. All expected returns start with the risk-free rate, $R_f$.<a class="footnote-reference brackets" href="#factors-1" id="id1">1</a> We typically use something like the 10-Year Treasury Yield in our context. The expected return on an asset i, $E[R_i]$, is proportional to the systematic risk of the asset, $\beta_i$. Systematic risk is measured by the equity risk premium, or ERP, which captures market returns. In other words, if an asset is expected to do very well when the market does well, it will have a high expected return. This asset will, however, do poorly when the market does poorly. These types of high beta assets have larger <strong>risk premiums</strong> associated with them, where the risk premium is $E[R_i] - R_f$.</p>
@@ -810,7 +846,7 @@ E[R_i] = r_f + \beta_i \times ERP
 <p class="caption"><span class="caption-number">Fig. 25 </span><span class="caption-text">Almost everything went down during the financial crisis. Source: Asset Management by Andrew Ang</span><a class="headerlink" href="#asset-gfc-png" title="Permalink to this image">¶</a></p>
 </div>
 <p>We should maybe, then, start the investment process by simply asking: how much of this general, systematic risk do we want in our portfolio? We’re in the CAPM world now.</p>
-<p>But, does the CAPM work out there in the real world? The basic idea worked well in the financial crisis, but if you test the model statistically, it doesn’t hold up. It says that there’s only one risk factor that matters – market risk. Figure &#64;ref(fig:01-beta-return) shows that betas, as usually estimated by regression, do not explain future returns well. As you’ll see in the next section, we need additional risks in order to explain returns. However, we still use the CAPM in practice, because it is so easy to think about and the general idea has truth to it. For example, CFOs around the world still find their firm’s WACC using the CAPM.<a class="footnote-reference brackets" href="#factors-2" id="id2">2</a></p>
+<p>But, does the CAPM work out there in the real world? The basic idea worked well in the financial crisis, but if you test the model statistically, it doesn’t hold up. It says that there’s only one risk factor that matters – market risk. <a class="reference internal" href="#beta-return-png"><span class="std std-numref">Fig. 26</span></a> shows that betas, as usually estimated by regression, do not explain future returns well. As you’ll see in the next section, we need additional risks in order to explain returns. However, we still use the CAPM in practice, because it is so easy to think about and the general idea has truth to it. For example, CFOs around the world still find their firm’s WACC using the CAPM.<a class="footnote-reference brackets" href="#factors-2" id="id2">2</a></p>
 <div class="figure align-center" id="beta-return-png">
 <img alt="../_images/09-beta-return.png" src="../_images/09-beta-return.png" />
 <p class="caption"><span class="caption-number">Fig. 26 </span><span class="caption-text">If we estimate firm betas and put the stocks into 10 different portfolios based on their betas (x-axis), it turns out that their betas do not explain future returns (y-axis) very well at all. Higher beta stocks should have higher returns in the future, on average, if beta explains risk. Instead of a positive slope, the relationship is pretty flat. Source: A Random Walk Down Wall Street by Burton Malkiel</span><a class="headerlink" href="#beta-return-png" title="Permalink to this image">¶</a></p>
@@ -826,13 +862,11 @@ E[R_i] = r_f + \beta_i \times ERP
 <li><p><em>Risk premiums have an economic story.</em> Premiums will rise if investors become more risk averse or if market volatility increases. This is what happened in 2008 – 2009. When prices fell, this reflected a shift to a new state of the world where lower prices set supply equal to demand. Expected returns, the risk premium, were higher after the prices fell.<a class="footnote-reference brackets" href="#factors-3" id="id3">3</a></p></li>
 <li><p><em>Risk is factor exposure.</em> We can see this from the definition of beta:</p></li>
 </ol>
-<div class="amsmath math notranslate nohighlight" id="equation-d4e17127-01ff-429e-b805-ffc1bf279a87">
-<span class="eqno">(7)<a class="headerlink" href="#equation-d4e17127-01ff-429e-b805-ffc1bf279a87" title="Permalink to this equation">¶</a></span>\[\begin{align}
+<div class="amsmath math notranslate nohighlight" id="equation-d89ebd9a-5f70-450a-884e-e3828880d3dc">
+<span class="eqno">(7)<a class="headerlink" href="#equation-d89ebd9a-5f70-450a-884e-e3828880d3dc" title="Permalink to this equation">¶</a></span>\[\begin{align}
 \beta_i = \frac{cov(r_i, r_m)}{var(r_m)}
 \end{align}\]</div>
-<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>If an asset covaries more (i.e. moves more) with the market return, then it has a higher beta and higher risk. This is going to hold true for all of other factors that we talk about too - factor exposure means moving with the factor. Some assets, like an insurance product, will have negative betas. These are very valuable to hold, since they will go up when the market goes down. Instead of receiving a premium for them, you&#39;ll pay a premium.
-</pre></div>
-</div>
+<p>If an asset covaries more (i.e. moves more) with the market return, then it has a higher beta and higher risk. This is going to hold true for all of other factors that we talk about too - factor exposure means moving with the factor. Some assets, like an insurance product, will have negative betas. These are very valuable to hold, since they will go up when the market goes down. Instead of receiving a premium for them, you’ll pay a premium.</p>
 <ol class="simple">
 <li><p><em>Assets that pay off in bad times have low premiums.</em> These are the insurance products mentioned above. The premium can even be negative. Remember, bad times are defined as negative market returns in the CAPM.</p></li>
 </ol>
@@ -867,13 +901,13 @@ E[R_i] = r_f + \beta_i \times ERP
 <img alt="../_images/09-macro-risk.png" src="../_images/09-macro-risk.png" />
 <p class="caption"><span class="caption-number">Fig. 27 </span><span class="caption-text">Different returns and risk (volatility) across different macroeconomic environments. Source: Andrew Ang</span><a class="headerlink" href="#macro-risk-png" title="Permalink to this image">¶</a></p>
 </div>
-<p>Figure XXXXXX shows the performance of different equity portfolios, based on firm size, and fixed income portfolios do during different macroeconomic environments. First, note that small stocks beat large stocks over the full sample – more on this below. Overall, stocks do better in economic expansions than bonds, as you probably expected.</p>
+<p><a class="reference internal" href="#macro-risk-png"><span class="std std-numref">Fig. 27</span></a> shows the performance of different equity portfolios, based on firm size, and fixed income portfolios do during different macroeconomic environments. First, note that small stocks beat large stocks over the full sample – more on this below. Overall, stocks do better in economic expansions than bonds, as you probably expected.</p>
 <p>Equity volatility is also higher during economic downturns, so investors demand a higher premium (higher returns) to hold these assets. There are two reasons for this. First, when equity values drop, the leverage of a firm increases, which increases their risk and drops the price. Second, investors will demand higher returns for holding higher risk stocks, independent of the increase in leverage, which also drops the price. This second channel is called the <strong>time-varying risk premium</strong>. As macroeconomic conditions worsen, investors demand higher returns, and asset prices drop. The opposite is true during good times.</p>
 <div class="figure align-center" id="vix-png">
 <img alt="../_images/09-vix.png" src="../_images/09-vix.png" />
 <p class="caption"><span class="caption-number">Fig. 28 </span><span class="caption-text">Implied volatility increases during bad times, like 2008 – 2009 and 2020.</span><a class="headerlink" href="#vix-png" title="Permalink to this image">¶</a></p>
 </div>
-<p>Figure XXXXXX shows how implied volatility, as measured from option prices, increases during times of market stress. Stocks do badly in these periods, but so do many other strategies, such as certain strategies in currency markets. More generally, you can think of some strategies as being “long volatility” and doing well in volatile periods, while many strategies are “short volatility”. The latter do well most of the time, but can experience sudden, large losses.</p>
+<p><a class="reference internal" href="#vix-png"><span class="std std-numref">Fig. 28</span></a> shows how implied volatility, as measured from option prices, increases during times of market stress. Stocks do badly in these periods, but so do many other strategies, such as certain strategies in currency markets. More generally, you can think of some strategies as being “long volatility” and doing well in volatile periods, while many strategies are “short volatility”. The latter do well most of the time, but can experience sudden, large losses.</p>
 <p>Many hedge fund strategies are short volatility. On average, investors are willing to pay a premium for protection during volatile times. This means that some strategies act like they are selling insurance to investors. These strategies collect these premiums. However, disasters happen and sometimes you have to pay out very large sums.</p>
 <div class="figure align-center" id="sell-vol-png">
 <img alt="../_images/09-sell-vol.png" src="../_images/09-sell-vol.png" />
@@ -886,8 +920,8 @@ E[R_i] = r_f + \beta_i \times ERP
 <h2>Style Factors<a class="headerlink" href="#style-factors" title="Permalink to this headline">¶</a></h2>
 <p>You can’t directly trade economic growth or inflation.<a class="footnote-reference brackets" href="#factors-4" id="id4">4</a> These factors are embedded in our securities, but it is hard to separate them out. Investors usually, then, use <strong>style factors</strong> when decomposing strategies into their component sources of returns. These tradeable factors are also, we think, related to macroeconomic risks. We essentially define a style factor as a particular portfolio where the securities all share a certain set of characteristics that have had positive returns over time. We infer that these positive returns must be related to some kind of risk.<a class="footnote-reference brackets" href="#factors-5" id="id5">5</a></p>
 <p><a class="reference external" href="https://www.sciencedirect.com/science/article/abs/pii/0304405X93900235">Fama and French (1993)</a>, along some other earlier papers by other authors, lead the way here. There model simply extends the CAPM to include two additional factor, size and value:</p>
-<div class="amsmath math notranslate nohighlight" id="equation-ad1089a7-a298-4e4b-8195-8ea376cdba01">
-<span class="eqno">(8)<a class="headerlink" href="#equation-ad1089a7-a298-4e4b-8195-8ea376cdba01" title="Permalink to this equation">¶</a></span>\[\begin{align}
+<div class="amsmath math notranslate nohighlight" id="equation-bed3c5e3-88ff-4932-ad8a-8080501fa875">
+<span class="eqno">(8)<a class="headerlink" href="#equation-bed3c5e3-88ff-4932-ad8a-8080501fa875" title="Permalink to this equation">¶</a></span>\[\begin{align}
 E[R_i] = r_f + \beta_{i,mkt} \times (E[R_m] - r_f) + \beta_{i,smb} \times E[SMB] + \beta_{i,hml} \times E[HML]
 \end{align}\]</div>
 <p>The E means “expected” – this formula links expected asset returns to expected factor returns. The first beta is the usual CAPM beta. But, now there are two other betas, or risks, that are captured by this model. SMB, or small minus big, is the return on a portfolio of small stocks less the return on a portfolio of large stocks. Small and large are based on the market capitalization of the firm. This return will be positive if small stocks beat large stocks in a given period (e.g. month). HML, or high minus low, is a portfolio that is long high book-to-market (B/M) stocks and short low B/M stocks. High B/M is a traditional way to define a “value” stock. So, HML will be positive if value stocks beat growth stocks in that period.<a class="footnote-reference brackets" href="#factors-6" id="id6">6</a></p>
@@ -896,7 +930,7 @@ E[R_i] = r_f + \beta_{i,mkt} \times (E[R_m] - r_f) + \beta_{i,smb} \times E[SMB]
 <img alt="../_images/09-factor-perf.png" src="../_images/09-factor-perf.png" />
 <p class="caption"><span class="caption-number">Fig. 30 </span><span class="caption-text">Factor performance over time. Value has had a tough time this past decade, though that might depend on how you define value. Source: <a class="reference external" href="https://papers.ssrn.com/sol3/papers.cfm?abstract_id=3488748">Arnott et al. (2020)</a></span><a class="headerlink" href="#factor-perf-png" title="Permalink to this image">¶</a></p>
 </div>
-<p>Figure XXXXXX gives you the performance and risk characteristics of several of the factors that we are going to discuss. Value is highlighted in blue. Historically, you could buy value stocks and short growth stocks and earn a positive risk-adjusted return, compared to the CAPM. This lead many people to think – maybe the CAPM isn’t the correct benchmark? So, in step Fama and French with their model that includes additional risk factors that explain returns.</p>
+<p><a class="reference internal" href="#factor-perf-png"><span class="std std-numref">Fig. 30</span></a> gives you the performance and risk characteristics of several of the factors that we are going to discuss. Value is highlighted in blue. Historically, you could buy value stocks and short growth stocks and earn a positive risk-adjusted return, compared to the CAPM. This lead many people to think – maybe the CAPM isn’t the correct benchmark? So, in step Fama and French with their model that includes additional risk factors that explain returns.</p>
 <p>I have also included a line graph of various Fama and French-style factor cumulative returns since July of 1963. The market return (MKTRF) has done very well, which makes sense. This is a long-only portfolio of market risk. The other factors are all long-short portfolios, so you are giving up some returns if markets go up over time by being short stocks. You can see how HML had done well historically, but suffered lately. Same with SMB. But what about momentum, or MOM? This one is weird. We’ll discuss all of them below.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -911,7 +945,7 @@ E[R_i] = r_f + \beta_{i,mkt} \times (E[R_m] - r_f) + \beta_{i,smb} \times E[SMB]
 <div class="section" id="size">
 <h3>Size<a class="headerlink" href="#size" title="Permalink to this headline">¶</a></h3>
 <p>Let’s look a little closer at size and then value. FIrst, size. This was perhaps the <a class="reference external" href="http://business.unr.edu/faculty/liuc/files/BADM742/Banz_sizeeffect_1980.pdf">first factor discovered</a>, as problems with the CAPM were discovered basically as soon as it was published. The idea made sense – risk and return should be linked. But, everyone quickly realized that risk, as proxied for by the market return, couldn’t be the only thing out there. Small stocks did better than you would expect, given their market betas.</p>
-<p>However, is this still true? It kind of depends. Since the mid-1980’s, the SMB factor, as constructed by Fama and French, hasn’t really outperformed, as you can see in Figure &#64;ref(fig:01-ang-size). There is also a <a class="reference external" href="https://www.sciencedirect.com/science/article/abs/pii/S0304405X12000931">lack of a size premium</a> in international data.</p>
+<p>However, is this still true? It kind of depends. Since the mid-1980’s, the SMB factor, as constructed by Fama and French, hasn’t really outperformed, as you can see in <a class="reference internal" href="#ang-size-png"><span class="std std-numref">Fig. 31</span></a>. There is also a <a class="reference external" href="https://www.sciencedirect.com/science/article/abs/pii/S0304405X12000931">lack of a size premium</a> in international data.</p>
 <div class="figure align-center" id="ang-size-png">
 <img alt="../_images/09-ang-size.png" src="../_images/09-ang-size.png" />
 <p class="caption"><span class="caption-number">Fig. 31 </span><span class="caption-text">The small stock factor (SMB) has disappointed after the outperformance was discovered. Is it still a factor? Source: Andrew Ang</span><a class="headerlink" href="#ang-size-png" title="Permalink to this image">¶</a></p>
@@ -923,7 +957,7 @@ E[R_i] = r_f + \beta_{i,mkt} \times (E[R_m] - r_f) + \beta_{i,smb} \times E[SMB]
 <div class="section" id="value">
 <h3>Value<a class="headerlink" href="#value" title="Permalink to this headline">¶</a></h3>
 <p>Value investing has worked historically even for very simple measures of value, such as a stock’s book value of equity to market value of equity ratio (B/M). Across most of market history and across many different countries and markets, value stocks are likely to be those with high expected returns. But why? These returns could be driven by rational compensation for risk, by institutional frictions, or by behavioral reasons.</p>
-<p>Why might value stocks be riskier? These are often cyclical firms with more macroeconomic exposure. They might do quite poorly in a recession, in bad times, when their market betas actually increase. For example, Figure &#64;ref(fig:01-qval) has the top holdings for the actively managed ETF, QVAL, which roughly equally-weights the value stocks that make it through their screening process. These are firms that are cheap, at least in part, for a reason! They are often not very flexible and stuck with older technology and business models that make it difficult to change with economic conditions. But, if you can handle the periods of poor performance, a strategy of buying these types of stocks has earned a positive risk premium over time. The drawdowns are painful, though.</p>
+<p>Why might value stocks be riskier? These are often cyclical firms with more macroeconomic exposure. They might do quite poorly in a recession, in bad times, when their market betas actually increase. For example, <a class="reference internal" href="#qval-png"><span class="std std-numref">Fig. 32</span></a> has the top holdings for the actively managed ETF, QVAL, which roughly equally-weights the value stocks that make it through their screening process. These are firms that are cheap, at least in part, for a reason! They are often not very flexible and stuck with older technology and business models that make it difficult to change with economic conditions. But, if you can handle the periods of poor performance, a strategy of buying these types of stocks has earned a positive risk premium over time. The drawdowns are painful, though.</p>
 <div class="figure align-center" id="qval-png">
 <img alt="../_images/09-qval.png" src="../_images/09-qval.png" />
 <p class="caption"><span class="caption-number">Fig. 32 </span><span class="caption-text">QVAL Top Holdings as of 1/27/21. Source: Alphaarchitect.</span><a class="headerlink" href="#qval-png" title="Permalink to this image">¶</a></p>
@@ -945,7 +979,7 @@ E[R_i] = r_f + \beta_{i,mkt} \times (E[R_m] - r_f) + \beta_{i,smb} \times E[SMB]
 <img alt="../_images/09-sneaky.png" src="../_images/09-sneaky.png" />
 <p class="caption"><span class="caption-number">Fig. 34 </span><span class="caption-text">Seems about right.</span><a class="headerlink" href="#sneaky-png" title="Permalink to this image">¶</a></p>
 </div>
-<p>If you’re into that line of thinking, then the momentum family of factors is for you. Just look at past price moves! Assets that have been going up, keep going up. At least for a while. The MOM factor, shown in line graph above and in Figure &#64;ref(fig:01-factor-perf), is a portfolio where you buy stocks that have been going up for the past year (excluding the most recent month) and short stocks that have been going down. You then rebalance the portfolio each month. That’s it. Historically, returns have been very good. Too good. Look again at the chart above. The trend is your friend with this positive feedback strategy.</p>
+<p>If you’re into that line of thinking, then the momentum family of factors is for you. Just look at past price moves! Assets that have been going up, keep going up. At least for a while. The MOM factor, shown in line graph above and in Figure <a class="reference internal" href="#factor-perf-png"><span class="std std-numref">Fig. 30</span></a>, is a portfolio where you buy stocks that have been going up for the past year (excluding the most recent month) and short stocks that have been going down. You then rebalance the portfolio each month. That’s it. Historically, returns have been very good. Too good. Look again at the chart above. The trend is your friend with this positive feedback strategy.</p>
 <div class="figure align-center" id="momentum-jpg">
 <img alt="../_images/09-momentum.jpg" src="../_images/09-momentum.jpg" />
 <p class="caption"><span class="caption-number">Fig. 35 </span><span class="caption-text">Momentum can be very short-term or longer term. This is basically the “respectable” kind of technical analysis. Source: Matt Levine (Bloomberg)</span><a class="headerlink" href="#momentum-jpg" title="Permalink to this image">¶</a></p>
@@ -957,7 +991,7 @@ E[R_i] = r_f + \beta_{i,mkt} \times (E[R_m] - r_f) + \beta_{i,smb} \times E[SMB]
 <img alt="../_images/09-eif-mom.png" src="../_images/09-eif-mom.png" />
 <p class="caption"><span class="caption-number">Fig. 36 </span><span class="caption-text">Momentum and reversals are capturing well-known dynamics in financial markets even if the language academics and quant investors use sounds a bit… different.</span><a class="headerlink" href="#eif-mom-png" title="Permalink to this image">¶</a></p>
 </div>
-<p>These trades are risky, though. Look back at Figure &#64;ref(fig:01-factor-perf). <a class="reference external" href="https://www.aqr.com/Insights/Research/Journal-Article/Momentum-Crashes">Momentum can crash</a>. Hard. But, is this related to any kind of macroeconomic risk, like the small and value factors? It seems like it - momentum crashes happened during the Great Depression, in 2001, and during the financial crisis. Momentum also did very poorly during parts of last year, as the types of winning stocks kept switching around. Trend followers had whiplash.</p>
+<p>These trades are risky, though. Look back at <a class="reference internal" href="#factor-perf-png"><span class="std std-numref">Fig. 30</span></a>. <a class="reference external" href="https://www.aqr.com/Insights/Research/Journal-Article/Momentum-Crashes">Momentum can crash</a>. Hard. But, is this related to any kind of macroeconomic risk, like the small and value factors? It seems like it - momentum crashes happened during the Great Depression, in 2001, and during the financial crisis. Momentum also did very poorly during parts of last year, as the types of winning stocks kept switching around. Trend followers had whiplash.</p>
 <div class="figure align-center" id="everywhere-png">
 <img alt="../_images/09-everywhere.png" src="../_images/09-everywhere.png" />
 <p class="caption"><span class="caption-number">Fig. 37 </span><span class="caption-text">Momentum and reversals are capturing well-known dynamics in financial markets even if the language academics and quant investors use sounds a bit… different.</span><a class="headerlink" href="#everywhere-png" title="Permalink to this image">¶</a></p>
@@ -1108,13 +1142,13 @@ E[R_i] = r_f + \beta_{i,mkt} \times (E[R_m] - r_f) + \beta_{i,smb} \times E[SMB]
         <i class="fas fa-angle-left"></i>
         <div class="prev-next-info">
             <p class="prev-next-subtitle">previous</p>
-            <p class="prev-next-title">&lt;no title&gt;</p>
+            <p class="prev-next-title">Essential Portfolio Math</p>
         </div>
     </a>
     <a class='right-next' id="next-link" href="10_pyfolio.html" title="next page">
     <div class="prev-next-info">
         <p class="prev-next-subtitle">next</p>
-        <p class="prev-next-title">&lt;no title&gt;</p>
+        <p class="prev-next-title">Pyfolio package</p>
     </div>
     <i class="fas fa-angle-right"></i>
     </a>
