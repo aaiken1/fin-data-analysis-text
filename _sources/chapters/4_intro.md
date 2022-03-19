@@ -1,4 +1,4 @@
-# Importing and using data
+# Pandas and data
 
 DataFrames are the main way that we are going to organize our data. They come from the `pandas` package, which along with `numpy`, `matplotlib`, and a few others, form the core of our Python and finance toolbox. 
 
@@ -7,6 +7,8 @@ DataFrames are a `class`. A `class` is like a blueprint. We create a dataframe `
 This section begins with Chapter 5 of our text and getting data into Python. We'll look at some stock data as an example. We also have our other online textbooks.
 
 An [excellent and concise guide](https://www.mit.edu/~amidi/teaching/data-science-tools/study-guide/data-manipulation-with-python/#main-concepts) for data manipulation in `pandas`.
+
+The [official `pandas` guide](https://pandas.pydata.org/pandas-docs/stable/user_guide/10min.html) is also very helpful.
 
 From [Python Programming for Data Science](https://www.tomasbeuzen.com/python-programming-for-data-science/README.html):
 - [Chapter 7](https://www.tomasbeuzen.com/python-programming-for-data-science/chapters/chapter7-pandas.html) introduces `pandas`.

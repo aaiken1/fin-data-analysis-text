@@ -53,8 +53,8 @@
     <script async="async" src="../_static/sphinx-thebe.js"></script>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
-    <link rel="next" title="Factor Models" href="9_factor_models.html" />
-    <link rel="prev" title="Using NASDAQ BTC Data" href="7_nasdaq_api.html" />
+    <link rel="next" title="Factor models" href="9_factor_models.html" />
+    <link rel="prev" title="Using NASDAQ BTC data" href="7_nasdaq_api.html" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="docsearch:language" content="None">
     
@@ -157,7 +157,7 @@
 <ul class="nav bd-sidenav">
  <li class="toctree-l1 has-children">
   <a class="reference internal" href="3_intro.html">
-   CompSci 101: Data and arrays
+   CompSci 101: Types, control, and numpy arrays
   </a>
   <input class="toctree-checkbox" id="toctree-checkbox-2" name="toctree-checkbox-2" type="checkbox"/>
   <label for="toctree-checkbox-2">
@@ -179,7 +179,7 @@
  </li>
  <li class="toctree-l1 has-children">
   <a class="reference internal" href="4_intro.html">
-   Importing and using data
+   Pandas and data
   </a>
   <input class="toctree-checkbox" id="toctree-checkbox-3" name="toctree-checkbox-3" type="checkbox"/>
   <label for="toctree-checkbox-3">
@@ -257,7 +257,7 @@
 <ul class="current nav bd-sidenav">
  <li class="toctree-l1">
   <a class="reference internal" href="7_nasdaq_api.html">
-   Using NASDAQ BTC Data
+   Using NASDAQ BTC data
   </a>
  </li>
  <li class="toctree-l1 current active">
@@ -267,7 +267,7 @@
  </li>
  <li class="toctree-l1">
   <a class="reference internal" href="9_factor_models.html">
-   Factor Models
+   Factor models
   </a>
  </li>
  <li class="toctree-l1">
@@ -302,7 +302,7 @@
  </li>
  <li class="toctree-l1">
   <a class="reference internal" href="16_time_vol.html">
-   Time series and volatility
+   More financial time series with volatility
   </a>
  </li>
 </ul>
@@ -521,9 +521,9 @@
                 
   <div class="tex2jax_ignore mathjax_ignore section" id="essential-portfolio-math">
 <h1>Essential portfolio math<a class="headerlink" href="#essential-portfolio-math" title="Permalink to this headline">¶</a></h1>
-<p>This brief chapter will cover the type of statistics that we often see when looking at <strong>portfolios</strong>. Much of this material is covered in various DataCamp exercises. Pieces, such as skewness and kurtosis, are also covered in <strong>Chapter 13 of our textbook</strong>.</p>
+<p>This brief chapter will cover the type of statistics that we often see when looking at <strong>portfolios</strong>. Much of this material is covered in various DataCamp exercises. Parts of the material, such as skewness and kurtosis, are also covered in <strong>Chapter 13 of our textbook</strong>.</p>
 <p>This material will have us thinking about <strong>portfolio construction</strong>.</p>
-<p>What is <strong>portfolio construction</strong>? Choosing and sizing the various trades to achieve a good trade-off between risk and expected return.</p>
+<p>What is <strong>portfolio construction</strong>? Choosing and sizing the various trades (or, assets, more generally) to achieve a good trade-off between risk and expected return.</p>
 <ol class="simple">
 <li><p>Diversification</p></li>
 <li><p>Position limits and risk limits: At the level of securities, asset classes, and overall portfolio.</p></li>
@@ -532,8 +532,8 @@
 <li><p>Correlations matter: For a long position, correlation with other longs is bad, corr. with shorts is good. Powerful to go long/short within each industry, diversify across industries. Can use ETFs and futures to “hedge” out sector and market exposure.</p></li>
 <li><p>Resize positions according to forward-looking risk and conviction</p></li>
 </ol>
-<p>We’ll start by bringing in some <strong>monthly hedge fund return data</strong>. We’ll calculate some portfolio returns, using assumed weights. We’ll then move on to portfolio-level <strong>variance and standard deviation</strong>. We’ll see how to <strong>annualize returns and volatility</strong>. We’ll look at other risk measures, like <strong>skewness</strong> and <strong>kurtosis</strong>. We’ll see <strong>Sharpe</strong> and <strong>Sortino</strong> ratios. Finally, we’ll make a graph for the max drawdown of our strategy.</p>
-<p>These ideas will get us thinking about portfolios, trading strategies, risk management, and portfolio optimization.</p>
+<p>We’ll start by bringing in some <strong>monthly hedge fund return data</strong>. We’ll calculate some portfolio returns, using assumed weights. We’ll then move on to portfolio-level <strong>variance and standard deviation</strong>. We’ll see how to <strong>annualize returns and volatility</strong>. We’ll look at other risk measures, like <strong>skewness</strong> and <strong>kurtosis</strong>. We’ll see <strong>Sharpe</strong> and <strong>Sortino</strong> ratios. Finally, we’ll make a graph showing the <strong>drawdown</strong>, or worse loss, of our portfolio.</p>
+<p>These ideas will get us thinking about portfolios, trading strategies, risk management, and portfolio optimization. We’ll go into more detail in later chapters.</p>
 <p>The formulas are <strong>must knows</strong> for finance folks! For example, you need these on CFA Level 1.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -738,7 +738,10 @@
 </div></div></div>
 </div>
 <p>There’s a lot there, so let’s just keep four different columns. These columns represent the average monthly return for that hedge fund type. I’m keeping long/short equity, equity market neutral, global macro, managed futures.</p>
-<p>Long/short equity funds do what that says - they go long and short stocks, generally keeping their market beta less than one. Equity market neutral might aim for a beta of zero, but usually have more exposure than that. They are trying to get rid of their risk exposures and just earn alpha from security mispricings. Global macro funds make trades based on broad market trends, currencies, and other markets affected by macro events, like inflation or economic growth. They don’t buy or sell individual securities and often use futures contracts to get their exposures. Finally, managed futures are similar, but tend to follow trend-following strategies.</p>
+<p>Long/short equity funds do what the name says – they go long and short stocks, generally keeping their market beta less than one. But not that different from traditional mutual funds.</p>
+<p>Equity market neutral might aim for a beta of zero, but usually have more exposure than that. They are trying to get rid of their risk exposures and just earn alpha from security mispricings. Easier said than done.</p>
+<p>Global macro funds make trades based on broad market trends, currencies, and other markets affected by macro events, like inflation or economic growth. They don’t buy or sell individual stocks and often use futures contracts to get their exposures.</p>
+<p>Finally, managed futures are similar, but tend to follow trend-following strategies. They buy stuff that’s been going up and sell stuff that’s been going down. Some investors use them as diversifiers in their portfolios.</p>
 <p>You’ll see more on these ideas in the factor model notes.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -862,9 +865,10 @@
 <p>222 rows × 4 columns</p>
 </div></div></div>
 </div>
+<p>I used <code class="docutils literal notranslate"><span class="pre">.iloc</span></code> to keep the columns I wanted. Easier to use a column number reference than type out these long names.</p>
 <div class="section" id="portfolio-level-returns">
 <h2>Portfolio-level returns<a class="headerlink" href="#portfolio-level-returns" title="Permalink to this headline">¶</a></h2>
-<p>Let’s define an array of weights. We’ll put 25% of our money into each style category. This isn’t actually an investable strategy, since you can’t invest in the average long/short equity fund!</p>
+<p>Let’s define an array of weights. We’ll put 25% of our money into each style category. This isn’t actually an investable strategy, since you can’t invest in the average hedge fund!</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">wgts</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mf">0.25</span><span class="p">,</span> <span class="mf">0.25</span><span class="p">,</span> <span class="mf">0.25</span><span class="p">,</span> <span class="mf">0.25</span><span class="p">])</span>
@@ -872,28 +876,108 @@
 </div>
 </div>
 </div>
-<p>We can find the monthly means for each strategy.</p>
+<p>We can find the monthly means for each strategy. I’ll multiply each by 100, name the column, and then turn the series into a DataFrame. You need the table to be a DataFrame in order to style it. I then use a <strong>dictionary</strong> to change the row names. Remember, a Python dictionary matches one item to another. I finally style the number format.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">monthy_rets_avg</span> <span class="o">=</span> <span class="n">rets</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span>
-<span class="n">monthy_rets_avg</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">monthly_rets_avg</span> <span class="o">=</span> <span class="n">rets</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span><span class="o">.</span><span class="n">mul</span><span class="p">(</span><span class="mi">100</span><span class="p">)</span>
+
+<span class="n">monthly_rets_avg</span> <span class="o">=</span> <span class="n">monthly_rets_avg</span><span class="o">.</span><span class="n">rename</span><span class="p">(</span><span class="s1">&#39;Monthly Return&#39;</span><span class="p">)</span>
+
+<span class="n">monthly_rets_avg</span> <span class="o">=</span> <span class="n">monthly_rets_avg</span><span class="o">.</span><span class="n">to_frame</span><span class="p">()</span>
+
+<span class="n">monthly_rets_avg</span> <span class="o">=</span> <span class="n">monthly_rets_avg</span><span class="o">.</span><span class="n">rename</span><span class="p">({</span><span class="s1">&#39;ln_sh_eq_hedge_fund_usd&#39;</span><span class="p">:</span><span class="s1">&#39;L/S Equity&#39;</span><span class="p">,</span><span class="s1">&#39;eq_mkt_ntr_hedge_fund_usd&#39;</span><span class="p">:</span><span class="s1">&#39;Equity Market Neutral&#39;</span><span class="p">,</span><span class="s1">&#39;global_mac_hedge_fund_usd&#39;</span><span class="p">:</span><span class="s1">&#39;Global Macro&#39;</span><span class="p">,</span><span class="s1">&#39;mngd_fut_hedge_fund_usd&#39;</span><span class="p">:</span><span class="s1">&#39;Managed Futures&#39;</span><span class="p">},</span> <span class="n">axis</span><span class="o">=</span><span class="s1">&#39;rows&#39;</span><span class="p">)</span>
+
+<span class="n">monthly_rets_avg</span> <span class="o">=</span> <span class="n">monthly_rets_avg</span><span class="o">.</span><span class="n">style</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="s1">&#39;</span><span class="si">{:.3f}</span><span class="s1">%&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">set_caption</span><span class="p">(</span><span class="s1">&#39;Hedge Fund Style Returns&#39;</span><span class="p">)</span> 
+
+<span class="n">monthly_rets_avg</span>
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>ln_sh_eq_hedge_fund_usd      0.007535
-eq_mkt_ntr_hedge_fund_usd    0.004410
-global_mac_hedge_fund_usd    0.009594
-mngd_fut_hedge_fund_usd      0.005108
-dtype: float64
+<div class="output text_html"><style type="text/css">
+</style>
+<table id="T_28390_">
+  <caption>Hedge Fund Style Returns</caption>
+  <thead>
+    <tr>
+      <th class="blank level0" >&nbsp;</th>
+      <th class="col_heading level0 col0" >Monthly Return</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th id="T_28390_level0_row0" class="row_heading level0 row0" >L/S Equity</th>
+      <td id="T_28390_row0_col0" class="data row0 col0" >0.754%</td>
+    </tr>
+    <tr>
+      <th id="T_28390_level0_row1" class="row_heading level0 row1" >Equity Market Neutral</th>
+      <td id="T_28390_row1_col0" class="data row1 col0" >0.441%</td>
+    </tr>
+    <tr>
+      <th id="T_28390_level0_row2" class="row_heading level0 row2" >Global Macro</th>
+      <td id="T_28390_row2_col0" class="data row2 col0" >0.959%</td>
+    </tr>
+    <tr>
+      <th id="T_28390_level0_row3" class="row_heading level0 row3" >Managed Futures</th>
+      <td id="T_28390_row3_col0" class="data row3 col0" >0.511%</td>
+    </tr>
+  </tbody>
+</table>
+</div></div>
+</div>
+<p>The <strong>method chaining</strong> to writing the code step-by-step to make the table works too. I find this easier to read. Note that I’m <strong>not</strong> saving the table as a DataFrame anywhere, though I could. I do one action and then the output gets passed on to the next action.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="p">(</span>
+    <span class="n">rets</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span>
+    <span class="o">.</span><span class="n">mul</span><span class="p">(</span><span class="mi">100</span><span class="p">)</span>
+    <span class="o">.</span><span class="n">rename</span><span class="p">(</span><span class="s1">&#39;Monthly Return&#39;</span><span class="p">)</span>
+    <span class="o">.</span><span class="n">to_frame</span><span class="p">()</span>
+    <span class="o">.</span><span class="n">rename</span><span class="p">({</span><span class="s1">&#39;ln_sh_eq_hedge_fund_usd&#39;</span><span class="p">:</span><span class="s1">&#39;L/S Equity&#39;</span><span class="p">,</span><span class="s1">&#39;eq_mkt_ntr_hedge_fund_usd&#39;</span><span class="p">:</span><span class="s1">&#39;Equity Market Neutral&#39;</span><span class="p">,</span><span class="s1">&#39;global_mac_hedge_fund_usd&#39;</span><span class="p">:</span><span class="s1">&#39;Global Macro&#39;</span><span class="p">,</span><span class="s1">&#39;mngd_fut_hedge_fund_usd&#39;</span><span class="p">:</span><span class="s1">&#39;Managed Futures&#39;</span><span class="p">},</span> <span class="n">axis</span><span class="o">=</span><span class="s1">&#39;rows&#39;</span><span class="p">)</span>
+    <span class="o">.</span><span class="n">style</span>
+        <span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="s1">&#39;</span><span class="si">{:.3f}</span><span class="s1">%&#39;</span><span class="p">)</span>
+        <span class="o">.</span><span class="n">set_caption</span><span class="p">(</span><span class="s1">&#39;Hedge Fund Style Returns&#39;</span><span class="p">)</span>   
+<span class="p">)</span>
 </pre></div>
 </div>
 </div>
+<div class="cell_output docutils container">
+<div class="output text_html"><style type="text/css">
+</style>
+<table id="T_164d4_">
+  <caption>Hedge Fund Style Returns</caption>
+  <thead>
+    <tr>
+      <th class="blank level0" >&nbsp;</th>
+      <th class="col_heading level0 col0" >Monthly Return</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th id="T_164d4_level0_row0" class="row_heading level0 row0" >L/S Equity</th>
+      <td id="T_164d4_row0_col0" class="data row0 col0" >0.754%</td>
+    </tr>
+    <tr>
+      <th id="T_164d4_level0_row1" class="row_heading level0 row1" >Equity Market Neutral</th>
+      <td id="T_164d4_row1_col0" class="data row1 col0" >0.441%</td>
+    </tr>
+    <tr>
+      <th id="T_164d4_level0_row2" class="row_heading level0 row2" >Global Macro</th>
+      <td id="T_164d4_row2_col0" class="data row2 col0" >0.959%</td>
+    </tr>
+    <tr>
+      <th id="T_164d4_level0_row3" class="row_heading level0 row3" >Managed Futures</th>
+      <td id="T_164d4_row3_col0" class="data row3 col0" >0.511%</td>
+    </tr>
+  </tbody>
+</table>
+</div></div>
 </div>
-<p>We can also see what our equally-weighted portfolio would have done per month over that time period.</p>
+<p>We can also see what our equally-weighted portfolio would have done per month over that time period. I’ll remake the monthly average returns, since you can’t use it for math now that it’s been styled.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">hf_port_ret</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">monthy_rets_avg</span><span class="o">*</span><span class="n">wgts</span><span class="p">)</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">monthly_rets_avg</span> <span class="o">=</span> <span class="n">rets</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span>
+<span class="n">hf_port_ret</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">monthly_rets_avg</span> <span class="o">*</span> <span class="n">wgts</span><span class="p">)</span>
 <span class="n">hf_port_ret</span>
 </pre></div>
 </div>
@@ -928,26 +1012,23 @@ dtype: float64
 </div>
 </div>
 </div>
-<p>And, I can calculate cumulative returns and then graph them.</p>
+<p>And, I can calculate cumulative returns and then graph them. I’ll also rename the columns a slightly different way. Notice that I’m using <code class="docutils literal notranslate"><span class="pre">inplace=True</span></code>.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">monthly_cum_rets</span><span class="o">=</span><span class="p">(</span><span class="mi">1</span><span class="o">+</span><span class="n">rets_with_port</span><span class="p">)</span><span class="o">.</span><span class="n">cumprod</span><span class="p">()</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">monthly_cum_rets</span> <span class="o">=</span> <span class="p">(</span><span class="mi">1</span><span class="o">+</span><span class="n">rets_with_port</span><span class="p">)</span><span class="o">.</span><span class="n">cumprod</span><span class="p">()</span>
+<span class="n">monthly_cum_rets</span><span class="o">.</span><span class="n">rename</span><span class="p">(</span><span class="n">columns</span><span class="o">=</span><span class="p">{</span><span class="s1">&#39;ln_sh_eq_hedge_fund_usd&#39;</span><span class="p">:</span><span class="s1">&#39;L/S Equity&#39;</span><span class="p">,</span> <span class="s1">&#39;eq_mkt_ntr_hedge_fund_usd&#39;</span><span class="p">:</span><span class="s1">&#39;Equity Market Neutral&#39;</span><span class="p">,</span> <span class="s1">&#39;global_mac_hedge_fund_usd&#39;</span><span class="p">:</span><span class="s1">&#39;Global Macro&#39;</span><span class="p">,</span> <span class="s1">&#39;mngd_fut_hedge_fund_usd&#39;</span><span class="p">:</span><span class="s1">&#39;Managed Futures&#39;</span><span class="p">,</span> <span class="s1">&#39;port_ret&#39;</span><span class="p">:</span><span class="s1">&#39;EW Port Ret&#39;</span> <span class="p">},</span> <span class="n">inplace</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">monthly_cum_rets</span><span class="o">.</span><span class="n">plot</span><span class="p">()</span>
- 
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">monthly_cum_rets</span><span class="o">.</span><span class="n">plot</span><span class="p">();</span>
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;AxesSubplot:xlabel=&#39;date&#39;&gt;
-</pre></div>
-</div>
-<img alt="../_images/8_port_math_18_1.png" src="../_images/8_port_math_18_1.png" />
+<img alt="../_images/8_port_math_21_0.png" src="../_images/8_port_math_21_0.png" />
 </div>
 </div>
 <p>Yikes! Check out the orange line - equity market neutral funds aren’t necessarily very market neutral!</p>
@@ -955,17 +1036,17 @@ dtype: float64
 <div class="section" id="risk-measures-at-the-portfolio-level">
 <h2>Risk measures at the portfolio-level<a class="headerlink" href="#risk-measures-at-the-portfolio-level" title="Permalink to this headline">¶</a></h2>
 <p>As you know from your investments class, the variance of a portfolio is <strong>not</strong> the average variance of the assets in the portfolio. We need to take into account the effects of <strong>diversification</strong>. For example, here’s the formula for the variance of a portfolio with two assets. We need weights, variances, and the covariance between the two.</p>
-<div class="amsmath math notranslate nohighlight" id="equation-7b3bdfc8-589f-438a-a940-5e1cb2a069de">
-<span class="eqno">(6)<a class="headerlink" href="#equation-7b3bdfc8-589f-438a-a940-5e1cb2a069de" title="Permalink to this equation">¶</a></span>\[\begin{align}
+<div class="amsmath math notranslate nohighlight" id="equation-9e60fc42-6471-4ac5-bf2c-5b5274d5f8de">
+<span class="eqno">(6)<a class="headerlink" href="#equation-9e60fc42-6471-4ac5-bf2c-5b5274d5f8de" title="Permalink to this equation">¶</a></span>\[\begin{align}
 \sigma^2_p = w^2_1 \sigma^2_1 + w^2_2 \sigma^2_2 + 2 w_1 w_2 \sigma^2_{1,2}
 \end{align}\]</div>
-<p>$\sigma^2_{1,2}$ is the <strong>covariance</strong> between the two assets.</p>
+<p>That last sigma, <span class="math notranslate nohighlight">\(\sigma^2_{1,2}\)</span>, is the <strong>covariance</strong> between the two assets.</p>
 <p>This formula generalizes for <strong>any number of assets</strong>.</p>
-<div class="amsmath math notranslate nohighlight" id="equation-508af3c4-dcfb-4fcb-8709-8284ac9485d3">
-<span class="eqno">(7)<a class="headerlink" href="#equation-508af3c4-dcfb-4fcb-8709-8284ac9485d3" title="Permalink to this equation">¶</a></span>\[\begin{align}
+<div class="amsmath math notranslate nohighlight" id="equation-ba64d0ca-308b-4700-a770-a7ec476752e6">
+<span class="eqno">(7)<a class="headerlink" href="#equation-ba64d0ca-308b-4700-a770-a7ec476752e6" title="Permalink to this equation">¶</a></span>\[\begin{align}
 \sigma^2_p = w^T \Sigma w
 \end{align}\]</div>
-<p>where $w$ is a <strong>vector</strong> containing all of our portfolio weights and $\Sigma$ is the variance-covariance matrix for our assets. The “T” means the matrix operation <strong>transpose</strong>. This is necessary for the matrix multiplication.</p>
+<p>where <span class="math notranslate nohighlight">\(w\)</span> is a <strong>vector</strong> containing all of our portfolio weights and sigma is the variance-covariance matrix for our assets. The “T” means the matrix operation <strong>transpose</strong>. This is necessary for the matrix multiplication.</p>
 <p>Let’s use Python to find the variance-covariance matrix. There are variances along with diagonal of the matrix and covariance terms <strong>between assets</strong> in the off-diagonals. Note that upper-right and lower-left of the matrix are identical. This is because the covariance between Asset 1 and Asset 2 is the same as the covariance between Asset 2 and Asset 1.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -1132,13 +1213,13 @@ dtype: float64
         <i class="fas fa-angle-left"></i>
         <div class="prev-next-info">
             <p class="prev-next-subtitle">previous</p>
-            <p class="prev-next-title">Using NASDAQ BTC Data</p>
+            <p class="prev-next-title">Using NASDAQ BTC data</p>
         </div>
     </a>
     <a class='right-next' id="next-link" href="9_factor_models.html" title="next page">
     <div class="prev-next-info">
         <p class="prev-next-subtitle">next</p>
-        <p class="prev-next-title">Factor Models</p>
+        <p class="prev-next-title">Factor models</p>
     </div>
     <i class="fas fa-angle-right"></i>
     </a>
