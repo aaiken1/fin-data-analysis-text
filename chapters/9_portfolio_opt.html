@@ -703,18 +703,19 @@
 <p class="admonition-title">Note</p>
 <p>These four return series each have the same number of observations. This is important when doing correlation and covariance matrices. You’ll likely want to just keep observations where none of the assets have missing returns. This is another reason why using historical data can be tricky - for a lot of specific assets, we just don’t have much data!</p>
 </div>
-<p>We can the average daily return of each of these four sets of discrete returns and annualize them. You can annualize daily log returns by multiplying by 252, the number of trading days in a year. You can not do this with discrete returns, or <span class="math notranslate nohighlight">\(\frac{P_t}{P_{t-1}} - 1\)</span>. Instead, you **compound them and do <span class="math notranslate nohighlight">\((1+dailyaverage)^{252} - 1\)</span>.</p>
+<p>We can find the average daily return of each of these four sets of discrete returns and annualize them.</p>
+<p>How should we do this? We’ve found the <strong>arithmetic</strong> mean of the daily <strong>discrete</strong> returns. If we <strong>compound</strong> these, or use <span class="math notranslate nohighlight">\((1+dailyaverage)^{252} - 1\)</span>, we are getting the total return if we earned the mean daily return each day, including compounding. But, when doing portfolio optimization, we don’t want this compounded return. So, to annualize the daily returns, we can simply multiply by 252, or the number of trading days in the year.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="p">(</span><span class="mi">1</span><span class="o">+</span><span class="n">rets</span><span class="o">.</span><span class="n">mean</span><span class="p">())</span><span class="o">**</span><span class="mi">252</span><span class="o">-</span><span class="mi">1</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">rets</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span> <span class="o">*</span> <span class="mi">252</span>
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>AAPL.O    0.276592
-MSFT.O    0.175962
-SPY       0.120612
-GLD       0.022462
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>AAPL.O    0.244313
+MSFT.O    0.162139
+SPY       0.113901
+GLD       0.022214
 dtype: float64
 </pre></div>
 </div>
@@ -722,7 +723,7 @@ dtype: float64
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">ann_rets</span> <span class="o">=</span> <span class="p">(</span><span class="mi">1</span><span class="o">+</span><span class="n">rets</span><span class="o">.</span><span class="n">mean</span><span class="p">())</span><span class="o">**</span><span class="mi">252</span><span class="o">-</span><span class="mi">1</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">ann_rets</span> <span class="o">=</span> <span class="n">rets</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span> <span class="o">*</span> <span class="mi">252</span>
 </pre></div>
 </div>
 </div>
@@ -822,7 +823,7 @@ dtype: float64
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>0.11827264741451664
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>0.11248186643039827
 </pre></div>
 </div>
 </div>
@@ -835,7 +836,7 @@ dtype: float64
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>0.01568395093077406
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>0.014584903491059882
 </pre></div>
 </div>
 </div>
@@ -848,7 +849,7 @@ dtype: float64
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>0.1252355817280938
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>0.12076797378055111
 </pre></div>
 </div>
 </div>
@@ -986,7 +987,7 @@ dtype: float64
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>-1.0908488751504752
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>-0.9936699253973043
 </pre></div>
 </div>
 </div>
@@ -1016,15 +1017,15 @@ dtype: float64
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>     fun: -1.1598432135999732
-     jac: array([-0.00023924,  0.00011204,  0.00012445,  0.00091708])
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>     fun: -1.039672055952566
+     jac: array([-6.12437725e-06, -2.13503838e-04,  5.58644533e-05,  3.93256545e-04])
  message: &#39;Optimization terminated successfully&#39;
-    nfev: 40
-     nit: 8
-    njev: 8
+    nfev: 35
+     nit: 7
+    njev: 7
   status: 0
  success: True
-       x: array([0.56886419, 0.25891539, 0.06413075, 0.10808967])
+       x: array([0.50109745, 0.23793622, 0.14449823, 0.1164681 ])
 </pre></div>
 </div>
 </div>
@@ -1037,7 +1038,7 @@ dtype: float64
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>array([0.569, 0.259, 0.064, 0.108])
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>array([0.501, 0.238, 0.144, 0.116])
 </pre></div>
 </div>
 </div>
@@ -1050,7 +1051,7 @@ dtype: float64
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>0.213
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>0.18
 </pre></div>
 </div>
 </div>
@@ -1063,7 +1064,7 @@ dtype: float64
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>0.184
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>0.173
 </pre></div>
 </div>
 </div>
@@ -1076,7 +1077,7 @@ dtype: float64
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>1.1598432135999732
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>1.039672055952566
 </pre></div>
 </div>
 </div>
@@ -1148,7 +1149,7 @@ dtype: float64
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>0.076
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>0.072
 </pre></div>
 </div>
 </div>
@@ -1160,7 +1161,7 @@ dtype: float64
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>0.6949874073267915
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>0.6605053013045209
 </pre></div>
 </div>
 </div>
@@ -1241,8 +1242,8 @@ dtype: float64
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>CPU times: user 8.82 s, sys: 38.1 ms, total: 8.86 s
-Wall time: 1.11 s
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>CPU times: user 9.55 s, sys: 44 ms, total: 9.59 s
+Wall time: 1.2 s
 </pre></div>
 </div>
 </div>
@@ -1552,7 +1553,7 @@ dtype: float64
 </div>
 </div>
 <p>You can actually see the <a class="reference external" href="https://github.com/robertmartin8/PyPortfolioOpt/blob/master/pypfopt/expected_returns.py">code for these functions</a>. I like looking through code like this to both learn what these functions are doing, what my options are, etc., as well as learning how to write better Python myself!</p>
-<p>You’ll note that the annualized returns are different from the ones I got above. If you follow the code for this function, that’s because, with the options that I’ve chosen, the function is taking the average daily return and multiplying by 252 to get the annual return, even though these are discrete, and not log, returns.</p>
+<p>You’ll note that the annualized returns are different from the ones I got above. If you follow the code for this function, that’s because, with the options that I’ve chosen, the function is taking the average daily return and multiplying by 252 to get the annual return.</p>
 <p>You can see that by taking my returns and doing the multiplication ourselves.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -1570,7 +1571,6 @@ dtype: float64
 </div>
 </div>
 </div>
-<p>Which approach is right? We’ll go with these numbers for this example. I hope that you’re seeing that some of these basic data choices aren’t necessarily obvious or consistent among practitioners!</p>
 <p>The package author has a good comment in his documents about the issues with using historical data for returns:</p>
 <blockquote>
 <div><p>This is probably the default textbook approach. It is intuitive and easily interpretable,
@@ -1667,7 +1667,7 @@ context of a mean-variance optimizer, which will maximise the erroneous inputs.<
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;pypfopt.efficient_frontier.efficient_frontier.EfficientFrontier at 0x7fba3afc4e50&gt;
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;pypfopt.efficient_frontier.efficient_frontier.EfficientFrontier at 0x7fb31977d610&gt;
 </pre></div>
 </div>
 </div>
