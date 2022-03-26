@@ -1,0 +1,683 @@
+
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Lab 06 &#8212; Data Analysis in Finance</title>
+    
+  <link href="../_static/css/theme.css" rel="stylesheet">
+  <link href="../_static/css/index.ff1ffe594081f20da1ef19478df9384b.css" rel="stylesheet">
+
+    
+  <link rel="stylesheet"
+    href="../_static/vendor/fontawesome/5.13.0/css/all.min.css">
+  <link rel="preload" as="font" type="font/woff2" crossorigin
+    href="../_static/vendor/fontawesome/5.13.0/webfonts/fa-solid-900.woff2">
+  <link rel="preload" as="font" type="font/woff2" crossorigin
+    href="../_static/vendor/fontawesome/5.13.0/webfonts/fa-brands-400.woff2">
+
+    
+      
+
+    
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/sphinx-book-theme.css?digest=c3fdc42140077d1ad13ad2f1588a4309" />
+    <link rel="stylesheet" type="text/css" href="../_static/togglebutton.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/copybutton.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/mystnb.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/sphinx-thebe.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/panels-main.c949a650a448cc0ae9fd3441c0e17fb0.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/panels-variables.06eb56fa6e07937060861dad626602ad.css" />
+    
+  <link rel="preload" as="script" href="../_static/js/index.be7d3bbb2ef33a8344ce.js">
+
+    <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
+    <script src="../_static/jquery.js"></script>
+    <script src="../_static/underscore.js"></script>
+    <script src="../_static/doctools.js"></script>
+    <script src="../_static/togglebutton.js"></script>
+    <script src="../_static/clipboard.min.js"></script>
+    <script src="../_static/copybutton.js"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown, .tag_hide_input div.cell_input, .tag_hide-input div.cell_input, .tag_hide_output div.cell_output, .tag_hide-output div.cell_output, .tag_hide_cell.cell, .tag_hide-cell.cell';</script>
+    <script src="../_static/sphinx-book-theme.d59cb220de22ca1c485ebbdc042f0030.js"></script>
+    <script async="async" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script>window.MathJax = {"options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
+    <script async="async" src="https://unpkg.com/thebe@0.5.1/lib/index.js"></script>
+    <script>
+        const thebe_selector = ".thebe"
+        const thebe_selector_input = "pre"
+        const thebe_selector_output = ".output"
+    </script>
+    <script async="async" src="../_static/sphinx-thebe.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="Our Exams" href="exam_intro.html" />
+    <link rel="prev" title="Lab 05" href="lab05.html" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="docsearch:language" content="None">
+    
+
+    <!-- Google Analytics -->
+    
+  </head>
+  <body data-spy="scroll" data-target="#bd-toc-nav" data-offset="80">
+    
+    <div class="container-fluid" id="banner"></div>
+
+    
+
+    <div class="container-xl">
+      <div class="row">
+          
+<div class="col-12 col-md-3 bd-sidebar site-navigation show" id="site-navigation">
+    
+        <div class="navbar-brand-box">
+    <a class="navbar-brand text-wrap" href="../index.html">
+      
+        <!-- `logo` is deprecated in Sphinx 4.0, so remove this when we stop supporting 3 -->
+        
+      
+      
+      <img src="../_static/cat.png" class="logo" alt="logo">
+      
+      
+      <h1 class="site-logo" id="site-title">Data Analysis in Finance</h1>
+      
+    </a>
+</div><form class="bd-search d-flex align-items-center" action="../search.html" method="get">
+  <i class="icon fas fa-search"></i>
+  <input type="search" class="form-control" name="q" id="search-input" placeholder="Search this book..." aria-label="Search this book..." autocomplete="off" >
+</form><nav class="bd-links" id="bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item active">
+        <ul class="nav bd-sidenav">
+ <li class="toctree-l1">
+  <a class="reference internal" href="../intro.html">
+   Welcome!
+  </a>
+ </li>
+</ul>
+<p aria-level="2" class="caption" role="heading">
+ <span class="caption-text">
+  Getting Started
+ </span>
+</p>
+<ul class="nav bd-sidenav">
+ <li class="toctree-l1">
+  <a class="reference internal" href="1_finpyth.html">
+   Why Python and finance?
+  </a>
+ </li>
+ <li class="toctree-l1 has-children">
+  <a class="reference internal" href="2_intro.html">
+   Python set-up
+   <a id="python_set-up">
+   </a>
+  </a>
+  <input class="toctree-checkbox" id="toctree-checkbox-1" name="toctree-checkbox-1" type="checkbox"/>
+  <label for="toctree-checkbox-1">
+   <i class="fas fa-chevron-down">
+   </i>
+  </label>
+  <ul>
+   <li class="toctree-l2">
+    <a class="reference internal" href="2_0_install.html">
+     Installation
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="2_1_jupyter.html">
+     Jupyter notebooks
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="2_2_vscode.html">
+     VS Code
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="2_3_markdown.html">
+     Markdown
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="2_4_packages.html">
+     Packages
+    </a>
+   </li>
+  </ul>
+ </li>
+</ul>
+<p aria-level="2" class="caption" role="heading">
+ <span class="caption-text">
+  The Basics
+ </span>
+</p>
+<ul class="nav bd-sidenav">
+ <li class="toctree-l1 has-children">
+  <a class="reference internal" href="3_intro.html">
+   CompSci 101: Types, control, and numpy arrays
+  </a>
+  <input class="toctree-checkbox" id="toctree-checkbox-2" name="toctree-checkbox-2" type="checkbox"/>
+  <label for="toctree-checkbox-2">
+   <i class="fas fa-chevron-down">
+   </i>
+  </label>
+  <ul>
+   <li class="toctree-l2">
+    <a class="reference internal" href="3_0_comp101.html">
+     The Basics
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="3_1_numpy.html">
+     Numpy and arrays
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toctree-l1 has-children">
+  <a class="reference internal" href="4_intro.html">
+   Pandas and data
+  </a>
+  <input class="toctree-checkbox" id="toctree-checkbox-3" name="toctree-checkbox-3" type="checkbox"/>
+  <label for="toctree-checkbox-3">
+   <i class="fas fa-chevron-down">
+   </i>
+  </label>
+  <ul>
+   <li class="toctree-l2">
+    <a class="reference internal" href="4_0_dataframes.html">
+     Data importing
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="4_1_pandas.html">
+     pandas
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="4_2_cleaning_data.html">
+     Cleaning our data
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="4_3_eda.html">
+     Exploratory data analysis (EDA)
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="4_4_merge_shape.html">
+     Merging and reshaping data
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toctree-l1 has-children">
+  <a class="reference internal" href="5_intro.html">
+   Data visualization
+  </a>
+  <input class="toctree-checkbox" id="toctree-checkbox-4" name="toctree-checkbox-4" type="checkbox"/>
+  <label for="toctree-checkbox-4">
+   <i class="fas fa-chevron-down">
+   </i>
+  </label>
+  <ul>
+   <li class="toctree-l2">
+    <a class="reference internal" href="5_0_matplotlib.html">
+     matplotlib
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="5_1_plotly.html">
+     plotly
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="5_2_seaborn.html">
+     seaborn
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="6_financial_ts.html">
+   Financial time series
+   <a id="financial-time-series">
+   </a>
+  </a>
+ </li>
+</ul>
+<p aria-level="2" class="caption" role="heading">
+ <span class="caption-text">
+  Applications
+ </span>
+</p>
+<ul class="nav bd-sidenav">
+ <li class="toctree-l1">
+  <a class="reference internal" href="7_nasdaq_api.html">
+   Using NASDAQ BTC data
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="8_port_math.html">
+   Essential portfolio math
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="9_portfolio_opt.html">
+   Portfolio optimization
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="10_factor_models.html">
+   Factor models
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="11_risk_mang.html">
+   Risk management
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="12_finmarketpy.html">
+   Finmarketpy package
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="13_options.html">
+   Option basics
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="14_monte_carlo.html">
+   Monte Carlo and portfolios
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="15_logit_credit.html">
+   Credit modeling with logit regressions
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="16_time_vol.html">
+   More financial time series with volatility
+  </a>
+ </li>
+</ul>
+<p aria-level="2" class="caption" role="heading">
+ <span class="caption-text">
+  Labs
+ </span>
+</p>
+<ul class="current nav bd-sidenav">
+ <li class="toctree-l1">
+  <a class="reference internal" href="lab_intro.html">
+   Our labs
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="lab01.html">
+   Lab 01
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="lab02.html">
+   Lab 02
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="lab03.html">
+   Lab 03
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="lab04.html">
+   Lab 04
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="lab05.html">
+   Lab 05
+  </a>
+ </li>
+ <li class="toctree-l1 current active">
+  <a class="current reference internal" href="#">
+   Lab 06
+  </a>
+ </li>
+</ul>
+<p aria-level="2" class="caption" role="heading">
+ <span class="caption-text">
+  Exams
+ </span>
+</p>
+<ul class="nav bd-sidenav">
+ <li class="toctree-l1">
+  <a class="reference internal" href="exam_intro.html">
+   Our Exams
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="exam01.html">
+   Midterm Exam
+  </a>
+ </li>
+</ul>
+
+    </div>
+</nav> <!-- To handle the deprecated key -->
+
+<div class="navbar_extra_footer">
+  Powered by <a href="https://jupyterbook.org">Jupyter Book</a>
+</div>
+
+</div>
+
+
+          
+
+
+          
+<main class="col py-md-3 pl-md-4 bd-content overflow-auto" role="main">
+    
+    <div class="topbar container-xl fixed-top">
+    <div class="topbar-contents row">
+        <div class="col-12 col-md-3 bd-topbar-whitespace site-navigation show"></div>
+        <div class="col pl-md-4 topbar-main">
+            
+            <button id="navbar-toggler" class="navbar-toggler ml-0" type="button" data-toggle="collapse"
+                data-toggle="tooltip" data-placement="bottom" data-target=".site-navigation" aria-controls="navbar-menu"
+                aria-expanded="true" aria-label="Toggle navigation" aria-controls="site-navigation"
+                title="Toggle navigation" data-toggle="tooltip" data-placement="left">
+                <i class="fas fa-bars"></i>
+                <i class="fas fa-arrow-left"></i>
+                <i class="fas fa-arrow-up"></i>
+            </button>
+            
+            
+<div class="dropdown-buttons-trigger">
+    <button id="dropdown-buttons-trigger" class="btn btn-secondary topbarbtn" aria-label="Download this page"><i
+            class="fas fa-download"></i></button>
+
+    <div class="dropdown-buttons">
+        <!-- ipynb file if we had a myst markdown file -->
+        
+        <!-- Download raw file -->
+        <a class="dropdown-buttons" href="../_sources/chapters/lab06.ipynb"><button type="button"
+                class="btn btn-secondary topbarbtn" title="Download source file" data-toggle="tooltip"
+                data-placement="left">.ipynb</button></a>
+        <!-- Download PDF via print -->
+        <button type="button" id="download-print" class="btn btn-secondary topbarbtn" title="Print to PDF"
+                onclick="printPdf(this)" data-toggle="tooltip" data-placement="left">.pdf</button>
+    </div>
+</div>
+
+            <!-- Source interaction buttons -->
+
+<div class="dropdown-buttons-trigger">
+    <button id="dropdown-buttons-trigger" class="btn btn-secondary topbarbtn"
+        aria-label="Connect with source repository"><i class="fab fa-github"></i></button>
+    <div class="dropdown-buttons sourcebuttons">
+        <a class="repository-button"
+            href="https://github.com/executablebooks/jupyter-book"><button type="button" class="btn btn-secondary topbarbtn"
+                data-toggle="tooltip" data-placement="left" title="Source repository"><i
+                    class="fab fa-github"></i>repository</button></a>
+        
+        
+    </div>
+</div>
+
+            <!-- Full screen (wrap in <a> to have style consistency -->
+
+<a class="full-screen-button"><button type="button" class="btn btn-secondary topbarbtn" data-toggle="tooltip"
+        data-placement="bottom" onclick="toggleFullScreen()" aria-label="Fullscreen mode"
+        title="Fullscreen mode"><i
+            class="fas fa-expand"></i></button></a>
+
+            <!-- Launch buttons -->
+
+        </div>
+
+        <!-- Table of contents -->
+        <div class="d-none d-md-block col-md-2 bd-toc show noprint">
+            
+            <div class="tocsection onthispage pt-5 pb-3">
+                <i class="fas fa-list"></i> Contents
+            </div>
+            <nav id="bd-toc-nav" aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#portfolio-optimization">
+   Portfolio Optimization
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#part-1">
+   Part 1
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#part-2">
+   Part 2
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#part-3">
+   Part 3
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#part-4">
+   Part 4
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#part-5">
+   Part 5
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#part-6">
+   Part 6
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#part-7">
+   Part 7
+  </a>
+ </li>
+</ul>
+
+            </nav>
+        </div>
+    </div>
+</div>
+    <div id="main-content" class="row">
+        <div class="col-12 col-md-9 pl-md-3 pr-md-0">
+            <!-- Table of contents that is only displayed when printing the page -->
+            <div id="jb-print-docs-body" class="onlyprint">
+                <h1>Lab 06</h1>
+                <!-- Table of contents -->
+                <div id="print-main-content">
+                    <div id="jb-print-toc">
+                        
+                        <div>
+                            <h2> Contents </h2>
+                        </div>
+                        <nav aria-label="Page">
+                            <ul class="visible nav section-nav flex-column">
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#portfolio-optimization">
+   Portfolio Optimization
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#part-1">
+   Part 1
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#part-2">
+   Part 2
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#part-3">
+   Part 3
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#part-4">
+   Part 4
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#part-5">
+   Part 5
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#part-6">
+   Part 6
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#part-7">
+   Part 7
+  </a>
+ </li>
+</ul>
+
+                        </nav>
+                    </div>
+                </div>
+            </div>
+            
+              <div>
+                
+  <div class="tex2jax_ignore mathjax_ignore section" id="lab-06">
+<h1>Lab 06<a class="headerlink" href="#lab-06" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="portfolio-optimization">
+<h2>Portfolio Optimization<a class="headerlink" href="#portfolio-optimization" title="Permalink to this headline">¶</a></h2>
+<p>In this lab, we are going use some mutual fund returns to try to find some optimal portfolios. I have given you four return series for four different Vanguard index funds.</p>
+<p>Use our online notes to complete our labs. I have my own commentary and links that will help. You can work through the parts below in order.</p>
+<p>If you are getting errors and are not sure why, my first suggestion is always to <strong>Restart</strong> the Python kernel, to <strong>Clear All Output</strong>, and run each code cell <strong>one-by-one</strong> from the top.</p>
+<p>Let each code cell represent one idea, or output. If you change a DataFrame and then re-run a code cell that is expecting the unchanged data, you’ll get an error. Again, restart and run all.</p>
+<p>Take advantage of <strong>Markdown</strong> in your write-up. Use headers and formatting. Here’s a <a class="reference external" href="https://www.markdownguide.org/cheat-sheet/">Markdown cheat sheet</a> that I keep handy. Once you figure out some of the basics, you might not want to go back to Word or Google Docs.</p>
+<p>Finally, use our textbook, notes, and DataCamp as a resource.</p>
+</div>
+<div class="section" id="part-1">
+<h2>Part 1<a class="headerlink" href="#part-1" title="Permalink to this headline">¶</a></h2>
+<p>Import the CSV file called “mutual_funds.csv” from our Github page. The link is: <a class="reference external" href="https://raw.githubusercontent.com/aaiken1/fin-data-analysis-python/main/data/mutual_funds.csv">https://raw.githubusercontent.com/aaiken1/fin-data-analysis-python/main/data/mutual_funds.csv</a>.</p>
+<p>Don’t set an index yet. <em>mret</em> are discrete returns for each mutual fund, including all distributions. Just what you want for this exercise.</p>
+<p>Look up each mutual fund and <strong>write a brief, 2-3 sentence description</strong>. In particular, what is <strong>VMVFX</strong>? Is it related to a particular kind of factor-based investing? See our factor model notes and look under <strong>style factors</strong>.</p>
+</div>
+<div class="section" id="part-2">
+<h2>Part 2<a class="headerlink" href="#part-2" title="Permalink to this headline">¶</a></h2>
+<p>Use <code class="docutils literal notranslate"><span class="pre">.info()</span></code> to see what data types the four columns are. Uh oh. The returns, <em>mret</em>, got brought in as an object. Basically, Python thinks this column is text, not numbers. You can actually open up the data and see why. Two observations have “R” instead of a number. There are also some missing values.</p>
+<p>We can use <code class="docutils literal notranslate"><span class="pre">.to_numeric()</span></code> from <code class="docutils literal notranslate"><span class="pre">pandas</span></code> to turn a string/object column into a numeric column. Fill in this code:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">_______</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">to_numeric</span><span class="p">(</span><span class="n">_______</span><span class="p">,</span> <span class="n">downcast</span><span class="o">=</span><span class="s1">&#39;float&#39;</span><span class="p">,</span> <span class="n">errors</span><span class="o">=</span><span class="s1">&#39;coerce&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+<p><code class="docutils literal notranslate"><span class="pre">downcast='float'</span></code> means that the column will be turned into a float-type. <code class="docutils literal notranslate"><span class="pre">errors='coerce'</span></code> means that any text it finds, like that “R”, will be set to <code class="docutils literal notranslate"><span class="pre">NA</span></code>.</p>
+<p>This is a really useful function!</p>
+</div>
+<div class="section" id="part-3">
+<h2>Part 3<a class="headerlink" href="#part-3" title="Permalink to this headline">¶</a></h2>
+<p>What shape is this data? It’s <strong>long</strong>! There’s an ID variable with four different tickers and a return column, rather than four columns of returns, one for each fund. This is not the way our data in our notes or Datacamp is shaped. But, that doesn’t mean that we can’t use it.</p>
+<p>Find and show the mean returns, <strong>grouped by each ticker</strong>.</p>
+<p>Then, <strong>drop</strong> the <em>crsp_fundno</em> column. We don’t need it. We’ll use <em>ticker</em> as our ID.</p>
+<p>Then, <strong>pivot</strong> this data so that it is <strong>wide</strong>. Let <em>caldt</em> be your index. You should now have four return columns, one for each fund, and a date index/column. Make sure that you save the new data to a new DataFrame.</p>
+</div>
+<div class="section" id="part-4">
+<h2>Part 4<a class="headerlink" href="#part-4" title="Permalink to this headline">¶</a></h2>
+<p>If you open up this new, wide data, it will be clear that we’re missing data for the <em>VMVFX</em> fund. This fund just hasn’t been around very long. Drop rows where any of the funds have missing returns. We want to compare them over the same time periods.</p>
+<p>And, yeah, we’re doing this using very limited data.</p>
+<p>Find the mean monthly returns for each fund and then annualize them by doing the mean return <span class="math notranslate nohighlight">\(\times\)</span> 12. Do the same for the standard deviation of each, though you annualize these by multiplying by the square root of 12.</p>
+<p>Also find the sample variance-covariance and correlation matrices. Annualize the variance-covariance matrix. You don’t annualize correlations. Try it and see why!</p>
+<p>Why 12? These are monthly returns.</p>
+<p><strong>Do these seem like good funds to try to form a portfolio with, if we accept our estimates for risk and return we just found?</strong></p>
+</div>
+<div class="section" id="part-5">
+<h2>Part 5<a class="headerlink" href="#part-5" title="Permalink to this headline">¶</a></h2>
+<p>Use <code class="docutils literal notranslate"><span class="pre">scipy.optimize</span></code> to find two portfolios. First, find the max Sharpe portfolio. Then, find the portfolio with a return of 9.5% that has the least amount of risk. Don’t allow negative weights, since these are mutual funds. You can’t short those!</p>
+<p>Also, don’t let any fund be more than 50% of your portfolio.</p>
+<p>You’ll need to set up some weights to start, as well as define a few functions. See our notes and textbook.</p>
+</div>
+<div class="section" id="part-6">
+<h2>Part 6<a class="headerlink" href="#part-6" title="Permalink to this headline">¶</a></h2>
+<p>Use <code class="docutils literal notranslate"><span class="pre">PyPortfolioOpt</span></code> to do the <strong>exact same thing</strong>! You can use the annualized returns and variance-covariance matrix that you’ve already found.</p>
+<p>You can assume a risk-free rate of 0, since that’s the way we did the Sharpe ratio above. You should also set the same weight bounds. You’ll get the same portfolio weights!</p>
+<p><strong>What does the resulting portfolio look like? Does it make sense? Would you invest this way?</strong></p>
+</div>
+<div class="section" id="part-7">
+<h2>Part 7<a class="headerlink" href="#part-7" title="Permalink to this headline">¶</a></h2>
+<p>Finally, <strong>clear the outputs of all of your cells</strong> using the button at the top of the notebook. Restart your Python kernel. This will clear everything from memory. Then, <strong>Run All</strong>. All of you cells should now run, in order, from top to bottom.</p>
+<p>You are done! <strong>Turn in this .ipynb file via Moodle.</strong></p>
+<p>This was our first, true, <strong>finance</strong> assignment. A good project topic would be to explore the <code class="docutils literal notranslate"><span class="pre">PyPortfolioOpt</span></code> package in more detail.</p>
+</div>
+</div>
+
+    <script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "binder-examples/jupyter-stacks-datascience",
+            ref: "master",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "python"
+        },
+        kernelOptions: {
+            kernelName: "python3",
+            path: "./chapters"
+        },
+        predefinedOutput: true
+    }
+    </script>
+    <script>kernelName = 'python3'</script>
+
+              </div>
+              
+            
+                <!-- Previous / next buttons -->
+<div class='prev-next-area'> 
+    <a class='left-prev' id="prev-link" href="lab05.html" title="previous page">
+        <i class="fas fa-angle-left"></i>
+        <div class="prev-next-info">
+            <p class="prev-next-subtitle">previous</p>
+            <p class="prev-next-title">Lab 05</p>
+        </div>
+    </a>
+    <a class='right-next' id="next-link" href="exam_intro.html" title="next page">
+    <div class="prev-next-info">
+        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-title">Our Exams</p>
+    </div>
+    <i class="fas fa-angle-right"></i>
+    </a>
+</div>
+            
+        </div>
+    </div>
+    <footer class="footer">
+  <p>
+    
+      By Prof. Adam Aiken<br/>
+    
+        &copy; Copyright 2021.<br/>
+  </p>
+</footer>
+</main>
+
+
+      </div>
+    </div>
+  
+  <script src="../_static/js/index.be7d3bbb2ef33a8344ce.js"></script>
+
+  </body>
+</html>

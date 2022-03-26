@@ -212,7 +212,7 @@ sum_table_group.style.format(precision=0, na_rep='-')
 
 
 # 
-# Let's look at how to do this using some different syntax. Something more vertical. Note that `()` surrounding all of the code.
+# Let's look at how to do this using some different syntax. Something more vertical. Note that `()` surrounding all of the code. This is called **method chaining**. 
 
 # In[17]:
 

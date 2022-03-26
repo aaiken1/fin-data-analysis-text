@@ -107,7 +107,7 @@ uw
 
 # ## Selecting our data
 # 
-# You access columns in `pandas` like this, using `[]` and `''`. A column is a variable in our data set.
+# You access columns in `pandas` like this, using `[]` and `''`. **A column is a variable** in our data set.
 
 # In[7]:
 
@@ -115,7 +115,7 @@ uw
 uw['RegionType']
 
 
-# But, wait, you can also do this!
+# But, wait, you can also do this! **But, only if the variable name doesn't have spaces.** The method with `['NAME']` is more general and can handle variable names With spaces, like `['Var Name']`. 
 
 # In[8]:
 
@@ -134,7 +134,7 @@ uw.RegionType
 uw[['RegionType', 'RegionName', 'UWHomes_Tier2']]
 
 
-# This is looking a lot like dealing with **lists** - the column names are in a list with `[]`. You can also pull out just certain rows. We used `head` and `tail` above to do this in an "automated" way.
+# We are using a **list** - the column names are in a list with `[]`. You can also pull out just certain rows. We used `head` and `tail` above to do this in an "automated" way.
 
 # In[10]:
 
@@ -261,12 +261,30 @@ uw[in_nc].head(15)
 
 
 # The series *in_nc* is a list of True/False values for whether or not an observation meets the criteria. I can then pass that series to the DataFrame *uw*, which will select observations that meet the *True* criteria.
+# 
+# I can also use `.loc` to filter and then select certain columns.
+
+# In[22]:
+
+
+uw.loc[(uw['RegionType'] == 'MSA') & (uw['StateName'] == 'North Carolina'), ['RegionType', 'RegionName', 'MSAName', 'AllHomes_Tier1']].head(15)
+
+
+# Like with the mask above, we can an also define our criteria separately and then include them. 
+
+# In[23]:
+
+
+my_filter = (uw['RegionType'] == 'MSA') & (uw['StateName'] == 'North Carolina')
+my_columns = ['RegionType', 'RegionName', 'MSAName', 'AllHomes_Tier1']
+uw.loc[my_filter, my_columns].head(15)
+
 
 # ## First Look at an Index
 # 
 # Let's go back to the stock data and work with indices a bit more. Remember how that one had the `Date` as the index?
 
-# In[22]:
+# In[24]:
 
 
 prices = pd.read_csv('https://github.com/aaiken1/fin-data-analysis-python/raw/main/data/tr_eikon_eod_data.csv',
@@ -277,7 +295,7 @@ prices.index
 
 # Now, let's try `loc`, but using our `dtype=datetime` index. We'll pull in the SPX and VIX for just January 2010. 
 
-# In[23]:
+# In[25]:
 
 
 prices.loc['2010-01-01':'2010-01-31',['.SPX', '.VIX']]

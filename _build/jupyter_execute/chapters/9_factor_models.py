@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 # coding: utf-8
 
-# # Factor Models
+# # Factor models
 # 
 # We are going to do some financial theory in this chapter. These notes follow largely from those I used in a two-credit *Advanced Investments* seminar, taught in the Spring of 2021.
 # 

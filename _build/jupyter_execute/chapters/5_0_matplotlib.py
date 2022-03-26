@@ -61,9 +61,11 @@ stocks.info()
 
 # That's a little better. You could do more with some string functions, like getting rid of the "_o", "_", and "=". 
 # 
-# ## Basic plotting with DataFrames
+# ## Basic plotting with pandas
 # 
-# Let's start with a simple example. DataFrames have their own `plot()` that comes from `matplotlib`. This is covered in the second Data Camp assignment.
+# Let's start with a simple example. DataFrames and `pandas` have their own `plot()` that comes from `matplotlib`. This is covered in the second Data Camp assignment.
+# 
+# You can read about `.plot()` on [the Pandas website](https://pandas.pydata.org/docs/user_guide/visualization.html#basic-plotting-plot). The key here - we are creating plots using `pandas`. These plots are also `matplotlib` objects, which means that we can do `matplotlib` things to them. But, `pandas` and `matplotlib` are distinct.
 # 
 # Let's make a simple chart of Apple's stock price.
 
@@ -117,7 +119,7 @@ plt.show()
 # 
 # That was all using the `plot()` function that comes with `pandas` DataFrames.
 # 
-# We're going to follow a few steps and the `matplotlib` way of doing things now. These steps are:
+# We're going to follow a few steps and the `matplotlib` way of doing things now. This means using `plt.plot`. So, a new library. These steps are:
 # 
 # - Create our plot figure
 # - Tell the figure what data to plot. 

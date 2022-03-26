@@ -155,7 +155,7 @@
 <ul class="current nav bd-sidenav">
  <li class="toctree-l1 has-children">
   <a class="reference internal" href="3_intro.html">
-   CompSci 101: Data and arrays
+   CompSci 101: Types, control, and numpy arrays
   </a>
   <input class="toctree-checkbox" id="toctree-checkbox-2" name="toctree-checkbox-2" type="checkbox"/>
   <label for="toctree-checkbox-2">
@@ -177,7 +177,7 @@
  </li>
  <li class="toctree-l1 current active has-children">
   <a class="reference internal" href="4_intro.html">
-   Importing and using data
+   Pandas and data
   </a>
   <input checked="" class="toctree-checkbox" id="toctree-checkbox-3" name="toctree-checkbox-3" type="checkbox"/>
   <label for="toctree-checkbox-3">
@@ -255,17 +255,17 @@
 <ul class="nav bd-sidenav">
  <li class="toctree-l1">
   <a class="reference internal" href="7_nasdaq_api.html">
-   Using NASDAQ BTC Data
+   Using NASDAQ BTC data
   </a>
  </li>
  <li class="toctree-l1">
   <a class="reference internal" href="8_port_math.html">
-   Essential Portfolio Math
+   Essential portfolio math
   </a>
  </li>
  <li class="toctree-l1">
   <a class="reference internal" href="9_factor_models.html">
-   Factor Models
+   Factor models
   </a>
  </li>
  <li class="toctree-l1">
@@ -300,7 +300,7 @@
  </li>
  <li class="toctree-l1">
   <a class="reference internal" href="16_time_vol.html">
-   Time series and volatility
+   More financial time series with volatility
   </a>
  </li>
 </ul>
@@ -1374,7 +1374,7 @@ memory usage: 489.5+ KB
 </div>
 <div class="section" id="selecting-our-data">
 <h2>Selecting our data<a class="headerlink" href="#selecting-our-data" title="Permalink to this headline">¶</a></h2>
-<p>You access columns in <code class="docutils literal notranslate"><span class="pre">pandas</span></code> like this, using <code class="docutils literal notranslate"><span class="pre">[]</span></code> and <code class="docutils literal notranslate"><span class="pre">''</span></code>. A column is a variable in our data set.</p>
+<p>You access columns in <code class="docutils literal notranslate"><span class="pre">pandas</span></code> like this, using <code class="docutils literal notranslate"><span class="pre">[]</span></code> and <code class="docutils literal notranslate"><span class="pre">''</span></code>. <strong>A column is a variable</strong> in our data set.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">uw</span><span class="p">[</span><span class="s1">&#39;RegionType&#39;</span><span class="p">]</span>
@@ -1398,7 +1398,7 @@ Name: RegionType, Length: 2610, dtype: object
 </div>
 </div>
 </div>
-<p>But, wait, you can also do this!</p>
+<p>But, wait, you can also do this! <strong>But, only if the variable name doesn’t have spaces.</strong> The method with <code class="docutils literal notranslate"><span class="pre">['NAME']</span></code> is more general and can handle variable names With spaces, like <code class="docutils literal notranslate"><span class="pre">['Var</span> <span class="pre">Name']</span></code>.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">uw</span><span class="o">.</span><span class="n">RegionType</span>
@@ -1526,7 +1526,7 @@ Name: RegionType, Length: 2610, dtype: object
 <p>2610 rows × 3 columns</p>
 </div></div></div>
 </div>
-<p>This is looking a lot like dealing with <strong>lists</strong> - the column names are in a list with <code class="docutils literal notranslate"><span class="pre">[]</span></code>. You can also pull out just certain rows. We used <code class="docutils literal notranslate"><span class="pre">head</span></code> and <code class="docutils literal notranslate"><span class="pre">tail</span></code> above to do this in an “automated” way.</p>
+<p>We are using a <strong>list</strong> - the column names are in a list with <code class="docutils literal notranslate"><span class="pre">[]</span></code>. You can also pull out just certain rows. We used <code class="docutils literal notranslate"><span class="pre">head</span></code> and <code class="docutils literal notranslate"><span class="pre">tail</span></code> above to do this in an “automated” way.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">uw</span><span class="p">[</span><span class="mi">0</span><span class="p">:</span><span class="mi">10</span><span class="p">]</span>
@@ -3771,6 +3771,194 @@ True
 </div></div></div>
 </div>
 <p>The series <em>in_nc</em> is a list of True/False values for whether or not an observation meets the criteria. I can then pass that series to the DataFrame <em>uw</em>, which will select observations that meet the <em>True</em> criteria.</p>
+<p>I can also use <code class="docutils literal notranslate"><span class="pre">.loc</span></code> to filter and then select certain columns.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">uw</span><span class="o">.</span><span class="n">loc</span><span class="p">[(</span><span class="n">uw</span><span class="p">[</span><span class="s1">&#39;RegionType&#39;</span><span class="p">]</span> <span class="o">==</span> <span class="s1">&#39;MSA&#39;</span><span class="p">)</span> <span class="o">&amp;</span> <span class="p">(</span><span class="n">uw</span><span class="p">[</span><span class="s1">&#39;StateName&#39;</span><span class="p">]</span> <span class="o">==</span> <span class="s1">&#39;North Carolina&#39;</span><span class="p">),</span> <span class="p">[</span><span class="s1">&#39;RegionType&#39;</span><span class="p">,</span> <span class="s1">&#39;RegionName&#39;</span><span class="p">,</span> <span class="s1">&#39;MSAName&#39;</span><span class="p">,</span> <span class="s1">&#39;AllHomes_Tier1&#39;</span><span class="p">]]</span><span class="o">.</span><span class="n">head</span><span class="p">(</span><span class="mi">15</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>RegionType</th>
+      <th>RegionName</th>
+      <th>MSAName</th>
+      <th>AllHomes_Tier1</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>274</th>
+      <td>MSA</td>
+      <td>Elizabeth City, NC</td>
+      <td>Elizabeth City, NC</td>
+      <td>5887.0</td>
+    </tr>
+    <tr>
+      <th>277</th>
+      <td>MSA</td>
+      <td>Greenville, NC</td>
+      <td>Greenville, NC</td>
+      <td>22042.0</td>
+    </tr>
+    <tr>
+      <th>288</th>
+      <td>MSA</td>
+      <td>Jacksonville, NC</td>
+      <td>Jacksonville, NC</td>
+      <td>17623.0</td>
+    </tr>
+    <tr>
+      <th>292</th>
+      <td>MSA</td>
+      <td>Kill Devil Hills, NC</td>
+      <td>Kill Devil Hills, NC</td>
+      <td>3194.0</td>
+    </tr>
+    <tr>
+      <th>297</th>
+      <td>MSA</td>
+      <td>Morehead City, NC</td>
+      <td>Morehead City, NC</td>
+      <td>13555.0</td>
+    </tr>
+    <tr>
+      <th>302</th>
+      <td>MSA</td>
+      <td>New Bern, NC</td>
+      <td>New Bern, NC</td>
+      <td>13637.0</td>
+    </tr>
+    <tr>
+      <th>334</th>
+      <td>MSA</td>
+      <td>Washington, NC</td>
+      <td>Washington, NC</td>
+      <td>1289.0</td>
+    </tr>
+    <tr>
+      <th>336</th>
+      <td>MSA</td>
+      <td>Wilmington, NC</td>
+      <td>Wilmington, NC</td>
+      <td>37100.0</td>
+    </tr>
+  </tbody>
+</table>
+</div></div></div>
+</div>
+<p>Like with the mask above, we can an also define our criteria separately and then include them.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">my_filter</span> <span class="o">=</span> <span class="p">(</span><span class="n">uw</span><span class="p">[</span><span class="s1">&#39;RegionType&#39;</span><span class="p">]</span> <span class="o">==</span> <span class="s1">&#39;MSA&#39;</span><span class="p">)</span> <span class="o">&amp;</span> <span class="p">(</span><span class="n">uw</span><span class="p">[</span><span class="s1">&#39;StateName&#39;</span><span class="p">]</span> <span class="o">==</span> <span class="s1">&#39;North Carolina&#39;</span><span class="p">)</span>
+<span class="n">my_columns</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;RegionType&#39;</span><span class="p">,</span> <span class="s1">&#39;RegionName&#39;</span><span class="p">,</span> <span class="s1">&#39;MSAName&#39;</span><span class="p">,</span> <span class="s1">&#39;AllHomes_Tier1&#39;</span><span class="p">]</span>
+<span class="n">uw</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">my_filter</span><span class="p">,</span> <span class="n">my_columns</span><span class="p">]</span><span class="o">.</span><span class="n">head</span><span class="p">(</span><span class="mi">15</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>RegionType</th>
+      <th>RegionName</th>
+      <th>MSAName</th>
+      <th>AllHomes_Tier1</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>274</th>
+      <td>MSA</td>
+      <td>Elizabeth City, NC</td>
+      <td>Elizabeth City, NC</td>
+      <td>5887.0</td>
+    </tr>
+    <tr>
+      <th>277</th>
+      <td>MSA</td>
+      <td>Greenville, NC</td>
+      <td>Greenville, NC</td>
+      <td>22042.0</td>
+    </tr>
+    <tr>
+      <th>288</th>
+      <td>MSA</td>
+      <td>Jacksonville, NC</td>
+      <td>Jacksonville, NC</td>
+      <td>17623.0</td>
+    </tr>
+    <tr>
+      <th>292</th>
+      <td>MSA</td>
+      <td>Kill Devil Hills, NC</td>
+      <td>Kill Devil Hills, NC</td>
+      <td>3194.0</td>
+    </tr>
+    <tr>
+      <th>297</th>
+      <td>MSA</td>
+      <td>Morehead City, NC</td>
+      <td>Morehead City, NC</td>
+      <td>13555.0</td>
+    </tr>
+    <tr>
+      <th>302</th>
+      <td>MSA</td>
+      <td>New Bern, NC</td>
+      <td>New Bern, NC</td>
+      <td>13637.0</td>
+    </tr>
+    <tr>
+      <th>334</th>
+      <td>MSA</td>
+      <td>Washington, NC</td>
+      <td>Washington, NC</td>
+      <td>1289.0</td>
+    </tr>
+    <tr>
+      <th>336</th>
+      <td>MSA</td>
+      <td>Wilmington, NC</td>
+      <td>Wilmington, NC</td>
+      <td>37100.0</td>
+    </tr>
+  </tbody>
+</table>
+</div></div></div>
+</div>
 </div>
 </div>
 <div class="section" id="first-look-at-an-index">

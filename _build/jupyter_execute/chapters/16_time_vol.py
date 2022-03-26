@@ -1,4 +1,4 @@
 #!/usr/bin/env python
 # coding: utf-8
 
-# # Time series and volatility
+# # More financial time series with volatility
