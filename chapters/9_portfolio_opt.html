@@ -704,18 +704,19 @@
 <p>These four return series each have the same number of observations. This is important when doing correlation and covariance matrices. You’ll likely want to just keep observations where none of the assets have missing returns. This is another reason why using historical data can be tricky - for a lot of specific assets, we just don’t have much data!</p>
 </div>
 <p>We can find the average daily return of each of these four sets of discrete returns and annualize them.</p>
-<p>How should we do this? We’ve found the <strong>arithmetic</strong> mean of the daily <strong>discrete</strong> returns. If we <strong>compound</strong> these, or use <span class="math notranslate nohighlight">\((1+dailyaverage)^{252} - 1\)</span>, we are getting the total return if we earned the mean daily return each day, including compounding. But, when doing portfolio optimization, we don’t want this compounded return. So, to annualize the daily returns, we can simply multiply by 252, or the number of trading days in the year.</p>
+<p>How should we do this? I am going to take the arithmetic mean (i.e. the usual average) of the daily returns and compound them to the annual return using <span class="math notranslate nohighlight">\((1+mean)^{252}-1\)</span>, where mean is the average daily return and 252 is the number of trading days in the year. This generalizes to monthly (12) and quarterly (4).</p>
+<p>This method is different from what we’ll see when using the <code class="docutils literal notranslate"><span class="pre">PyPortfolioOpt</span></code> <a class="reference external" href="https://pypi.org/project/pyportfolioopt/">package</a>.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">rets</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span> <span class="o">*</span> <span class="mi">252</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="p">(</span><span class="mi">1</span><span class="o">+</span><span class="n">rets</span><span class="o">.</span><span class="n">mean</span><span class="p">())</span> <span class="o">**</span> <span class="mi">252</span> <span class="o">-</span> <span class="mi">1</span>
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>AAPL.O    0.244313
-MSFT.O    0.162139
-SPY       0.113901
-GLD       0.022214
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>AAPL.O    0.276592
+MSFT.O    0.175962
+SPY       0.120612
+GLD       0.022462
 dtype: float64
 </pre></div>
 </div>
@@ -723,12 +724,12 @@ dtype: float64
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">ann_rets</span> <span class="o">=</span> <span class="n">rets</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span> <span class="o">*</span> <span class="mi">252</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">ann_rets</span> <span class="o">=</span> <span class="p">(</span><span class="mi">1</span><span class="o">+</span><span class="n">rets</span><span class="o">.</span><span class="n">mean</span><span class="p">())</span> <span class="o">**</span> <span class="mi">252</span> <span class="o">-</span> <span class="mi">1</span>
 </pre></div>
 </div>
 </div>
 </div>
-<p>Same thing with variance and covariance. We are going to take a short-cut and annualize the daily variances and covariances by multiplying by 252. You would annualize standard deviation by multiplying by <span class="math notranslate nohighlight">\(\sqrt{252}\)</span>. Technically, you should only do this with log returns.</p>
+<p>We’ll do something similar for our variance and covariance terms. We are going to take a short-cut and annualize the daily variances and covariances by multiplying by 252. You would annualize standard deviation by multiplying by <span class="math notranslate nohighlight">\(\sqrt{252}\)</span>. Technically, you should only do this with log returns.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">rets</span><span class="o">.</span><span class="n">cov</span><span class="p">()</span> <span class="o">*</span> <span class="mi">252</span>
@@ -793,6 +794,10 @@ dtype: float64
 </table>
 </div></div></div>
 </div>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>You can also annualize everything at the end, after the optimization. The optimizer will work just fine with daily data, but you have to keep in mind that you’ll need a daily risk-free rate and that you’re finding a daily Sharpe ratio.</p>
+</div>
 <p>When you form a portfolio, you of course need to know how much of your portfolio is in each asset. Let’s pick some <strong>random weights</strong> to start. We’ll do that by choosing random numbers between 0 and 1. How many random numbers? The variable <em>noa</em> has the number of assets stored in it, so we’ll pick four. Then, we’ll divide each random number by the sum of the four numbers. This “trick” let’s us go from four numbers between 0 and 1 to four numbers that will add up to 1. Just like portfolio weights!</p>
 <p>Note the <code class="docutils literal notranslate"><span class="pre">/=</span></code>. This divides every item in <em>weights</em> by the sum of the weights and then saves the result back to <em>weights</em>.</p>
 <div class="cell docutils container">
@@ -823,7 +828,7 @@ dtype: float64
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>0.11248186643039827
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>0.13726168178494358
 </pre></div>
 </div>
 </div>
@@ -836,7 +841,7 @@ dtype: float64
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>0.014584903491059882
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>0.016674327893917616
 </pre></div>
 </div>
 </div>
@@ -849,7 +854,7 @@ dtype: float64
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>0.12076797378055111
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>0.1291291132700818
 </pre></div>
 </div>
 </div>
@@ -987,7 +992,7 @@ dtype: float64
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>-0.9936699253973043
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>-1.0908488751504752
 </pre></div>
 </div>
 </div>
@@ -1017,15 +1022,15 @@ dtype: float64
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>     fun: -1.039672055952566
-     jac: array([-6.12437725e-06, -2.13503838e-04,  5.58644533e-05,  3.93256545e-04])
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>     fun: -1.1598432135999732
+     jac: array([-0.00023924,  0.00011204,  0.00012445,  0.00091708])
  message: &#39;Optimization terminated successfully&#39;
-    nfev: 35
-     nit: 7
-    njev: 7
+    nfev: 40
+     nit: 8
+    njev: 8
   status: 0
  success: True
-       x: array([0.50109745, 0.23793622, 0.14449823, 0.1164681 ])
+       x: array([0.56886419, 0.25891539, 0.06413075, 0.10808967])
 </pre></div>
 </div>
 </div>
@@ -1038,7 +1043,7 @@ dtype: float64
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>array([0.501, 0.238, 0.144, 0.116])
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>array([0.569, 0.259, 0.064, 0.108])
 </pre></div>
 </div>
 </div>
@@ -1051,7 +1056,7 @@ dtype: float64
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>0.18
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>0.213
 </pre></div>
 </div>
 </div>
@@ -1064,7 +1069,7 @@ dtype: float64
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>0.173
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>0.184
 </pre></div>
 </div>
 </div>
@@ -1077,7 +1082,7 @@ dtype: float64
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>1.039672055952566
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>1.1598432135999732
 </pre></div>
 </div>
 </div>
@@ -1149,7 +1154,7 @@ dtype: float64
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>0.072
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>0.076
 </pre></div>
 </div>
 </div>
@@ -1161,7 +1166,7 @@ dtype: float64
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>0.6605053013045209
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>0.6949874073267915
 </pre></div>
 </div>
 </div>
@@ -1242,8 +1247,8 @@ dtype: float64
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>CPU times: user 9.55 s, sys: 44 ms, total: 9.59 s
-Wall time: 1.2 s
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>CPU times: user 9.23 s, sys: 40 ms, total: 9.27 s
+Wall time: 1.16 s
 </pre></div>
 </div>
 </div>
@@ -1274,7 +1279,7 @@ Wall time: 1.2 s
 <h2>PyPortfolioOpt<a class="headerlink" href="#pyportfolioopt" title="Permalink to this headline">¶</a></h2>
 <p>To get started, you’ll need to type <code class="docutils literal notranslate"><span class="pre">pip</span> <span class="pre">install</span> <span class="pre">PyPortfolioOpt</span></code> in your Terminal below. This will install the package, since it doesn’t come with Anaconda. We can then bring in what we need.</p>
 <p>You can read all about the <code class="docutils literal notranslate"><span class="pre">PyPortfolioOpt</span></code> package <a class="reference external" href="https://pypi.org/project/pyportfolioopt/">here</a>.</p>
-<p>You can also find examples on the author’s <a class="reference external" href="https://github.com/robertmartin8/PyPortfolioOpt/tree/master/cookbook">Github page</a>. The creator of this package runs a data/macro strategy consulting firm.</p>
+<p>You can also find examples on the author’s <a class="reference external" href="https://github.com/robertmartin8/PyPortfolioOpt/tree/master/cookbook">Github page</a>. The creator of this package is <a class="reference external" href="https://reasonabledeviations.com/about/">a recent Cambridge graduate, not much older than you</a>.</p>
 <div class="figure align-center" id="pyport-png">
 <img alt="../_images/09-pyport.png" src="../_images/09-pyport.png" />
 <p class="caption"><span class="caption-number">Fig. 24 </span><span class="caption-text">The portfolio optimization process. Source: PyPortfolioOpt</span><a class="headerlink" href="#pyport-png" title="Permalink to this image">¶</a></p>
@@ -1533,7 +1538,8 @@ Wall time: 1.2 s
 <p>2137 rows × 4 columns</p>
 </div></div></div>
 </div>
-<p>We can compare that with our original return file and see that this function is calculating discrete returns by default, since the returns are the same. We can use the package to find annualized returns too. I’ll give the function the price data again. I will also set compounding to False, as I don’t want geometric means (CAGRs) for portfolio optimization. I want arithmetic means. The default for this function is that you have daily returns, or 252 time periods. Just like above.</p>
+<p>We can compare that with our original return file and see that this function is calculating discrete returns by default, since the returns are the same. We can use the package to find annualized returns too. I’ll give the function the price data again. I will also set compounding to False, as we don’t typically use annualized geometric means (CAGRs) for portfolio optimization. I want arithmetic means. The default for this function is that you have daily returns, or 252 time periods.</p>
+<p>However, the annualization simply takes the monthly arithmetic mean and multiplies by 252. This is why the average returns we’re using are lower than the ones above.</p>
 <p>But, I’ll add each option, just so that you can that they are there.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -1553,8 +1559,7 @@ dtype: float64
 </div>
 </div>
 <p>You can actually see the <a class="reference external" href="https://github.com/robertmartin8/PyPortfolioOpt/blob/master/pypfopt/expected_returns.py">code for these functions</a>. I like looking through code like this to both learn what these functions are doing, what my options are, etc., as well as learning how to write better Python myself!</p>
-<p>You’ll note that the annualized returns are different from the ones I got above. If you follow the code for this function, that’s because, with the options that I’ve chosen, the function is taking the average daily return and multiplying by 252 to get the annual return.</p>
-<p>You can see that by taking my returns and doing the multiplication ourselves.</p>
+<p>You can see how the function is getting the annual returns by just multiplying by 252, the number of trading days.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">rets</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span><span class="o">*</span><span class="mi">252</span>
@@ -1667,7 +1672,7 @@ context of a mean-variance optimizer, which will maximise the erroneous inputs.<
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;pypfopt.efficient_frontier.efficient_frontier.EfficientFrontier at 0x7fb31977d610&gt;
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;pypfopt.efficient_frontier.efficient_frontier.EfficientFrontier at 0x7fcfa808f160&gt;
 </pre></div>
 </div>
 </div>
