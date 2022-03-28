@@ -704,19 +704,19 @@
 <p>These four return series each have the same number of observations. This is important when doing correlation and covariance matrices. You’ll likely want to just keep observations where none of the assets have missing returns. This is another reason why using historical data can be tricky - for a lot of specific assets, we just don’t have much data!</p>
 </div>
 <p>We can find the average daily return of each of these four sets of discrete returns and annualize them.</p>
-<p>How should we do this? I am going to take the arithmetic mean (i.e. the usual average) of the daily returns and compound it to the annual return using <span class="math notranslate nohighlight">\((1+mean)^{252}-1\)</span>, where <span class="math notranslate nohighlight">\(mean\)</span> is the average daily return and 252 is the number of trading days in the year. This generalizes to monthly (12) and quarterly (4).</p>
-<p>This method is different from what we’ll see when using the <code class="docutils literal notranslate"><span class="pre">PyPortfolioOpt</span></code> <a class="reference external" href="https://pypi.org/project/pyportfolioopt/">package</a>.</p>
+<p>How should we do this? I am going to take the arithmetic mean (i.e. the usual average) and multiply by 252, the number of trading days in the year. This is a common way to go from daily to annual returns when doing portfolio optimization. This generalizes to monthly (12) and quarterly (4).</p>
+<p>We’ll do the same thing when using the <code class="docutils literal notranslate"><span class="pre">PyPortfolioOpt</span></code> package. Note that this method does not take into account compounding. You could also annualize the arithmetic average of the monthly returns using <strong>geometric chaining</strong>, or <span class="math notranslate nohighlight">\((1+mean)^{252}-1\)</span>. This will get you the annual return if you earned the mean daily return every day for 252 days. Finally, you could annualize the <strong>geometric mean</strong> of the daily returns using the same chaining principle. If you search around, you’ll find people doing all three.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="p">(</span><span class="mi">1</span><span class="o">+</span><span class="n">rets</span><span class="o">.</span><span class="n">mean</span><span class="p">())</span> <span class="o">**</span> <span class="mi">252</span> <span class="o">-</span> <span class="mi">1</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">rets</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span> <span class="o">*</span> <span class="mi">252</span>
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>AAPL.O    0.276592
-MSFT.O    0.175962
-SPY       0.120612
-GLD       0.022462
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>AAPL.O    0.244313
+MSFT.O    0.162139
+SPY       0.113901
+GLD       0.022214
 dtype: float64
 </pre></div>
 </div>
@@ -724,7 +724,7 @@ dtype: float64
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">ann_rets</span> <span class="o">=</span> <span class="p">(</span><span class="mi">1</span><span class="o">+</span><span class="n">rets</span><span class="o">.</span><span class="n">mean</span><span class="p">())</span> <span class="o">**</span> <span class="mi">252</span> <span class="o">-</span> <span class="mi">1</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">ann_rets</span> <span class="o">=</span> <span class="n">rets</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span> <span class="o">*</span> <span class="mi">252</span>
 </pre></div>
 </div>
 </div>
@@ -828,7 +828,7 @@ dtype: float64
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>0.12356836274053457
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>0.11903601800003911
 </pre></div>
 </div>
 </div>
@@ -841,7 +841,7 @@ dtype: float64
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>0.017651743166131138
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>0.015417300909376873
 </pre></div>
 </div>
 </div>
@@ -854,7 +854,7 @@ dtype: float64
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>0.13285986288616716
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>0.12416642424333912
 </pre></div>
 </div>
 </div>
@@ -992,7 +992,7 @@ dtype: float64
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>-1.0908488751504752
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>-0.9936699253973043
 </pre></div>
 </div>
 </div>
@@ -1022,15 +1022,15 @@ dtype: float64
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>     fun: -1.1598432135999732
-     jac: array([-0.00023924,  0.00011204,  0.00012445,  0.00091708])
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>     fun: -1.039672055952566
+     jac: array([-6.12437725e-06, -2.13503838e-04,  5.58644533e-05,  3.93256545e-04])
  message: &#39;Optimization terminated successfully&#39;
-    nfev: 40
-     nit: 8
-    njev: 8
+    nfev: 35
+     nit: 7
+    njev: 7
   status: 0
  success: True
-       x: array([0.56886419, 0.25891539, 0.06413075, 0.10808967])
+       x: array([0.50109745, 0.23793622, 0.14449823, 0.1164681 ])
 </pre></div>
 </div>
 </div>
@@ -1043,7 +1043,7 @@ dtype: float64
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>array([0.569, 0.259, 0.064, 0.108])
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>array([0.501, 0.238, 0.144, 0.116])
 </pre></div>
 </div>
 </div>
@@ -1056,7 +1056,7 @@ dtype: float64
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>0.213
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>0.18
 </pre></div>
 </div>
 </div>
@@ -1069,7 +1069,7 @@ dtype: float64
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>0.184
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>0.173
 </pre></div>
 </div>
 </div>
@@ -1082,7 +1082,7 @@ dtype: float64
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>1.1598432135999732
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>1.039672055952566
 </pre></div>
 </div>
 </div>
@@ -1154,7 +1154,7 @@ dtype: float64
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>0.076
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>0.072
 </pre></div>
 </div>
 </div>
@@ -1166,7 +1166,7 @@ dtype: float64
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>0.6949874073267915
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>0.6605053013045209
 </pre></div>
 </div>
 </div>
@@ -1247,8 +1247,8 @@ dtype: float64
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>CPU times: user 8.96 s, sys: 37 ms, total: 9 s
-Wall time: 1.13 s
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>CPU times: user 9.62 s, sys: 43.9 ms, total: 9.66 s
+Wall time: 1.21 s
 </pre></div>
 </div>
 </div>
@@ -1672,7 +1672,7 @@ context of a mean-variance optimizer, which will maximise the erroneous inputs.<
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;pypfopt.efficient_frontier.efficient_frontier.EfficientFrontier at 0x7f8480239a30&gt;
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;pypfopt.efficient_frontier.efficient_frontier.EfficientFrontier at 0x7fefa1c888b0&gt;
 </pre></div>
 </div>
 </div>
@@ -1755,11 +1755,13 @@ Sharpe Ratio: 0.91
 </div>
 </div>
 </div>
-<p>This package does much more than this. I encourage you to take a look! Here’s one additional example, with some weight bounds for the assets added to the <code class="docutils literal notranslate"><span class="pre">EfficientFrontier</span></code> method. See how Apple hits the upper limit I set of 50%? Apple did so well during this period that the optimizer really wants us to put most of money in it. Is that a good idea?</p>
+<p>This package does much more than this. I encourage you to take a look! Here’s one additional example, with two changes. First, I’ve added some weight bounds for the assets added to the <code class="docutils literal notranslate"><span class="pre">EfficientFrontier</span></code> method. Second, instead of finding the max Sharpe portfolio, I’m using <code class="docutils literal notranslate"><span class="pre">ef.efficient_return</span></code> to find the portfolio with the least amount of risk that gives a target return of 18%.</p>
+<p>You can see from the output below that we did indeed hit our target return.</p>
+<p>See how Apple hits the upper limit I set of 50%? Apple did so well during this period that the optimizer really wants us to put most of money in it. Is that a good idea?</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">ef</span> <span class="o">=</span> <span class="n">EfficientFrontier</span><span class="p">(</span><span class="n">mu</span><span class="p">,</span> <span class="n">S</span><span class="p">,</span> <span class="n">weight_bounds</span><span class="o">=</span><span class="p">(</span><span class="o">-</span><span class="mf">0.2</span><span class="p">,</span> <span class="mf">0.5</span><span class="p">))</span>
-<span class="n">raw_weights</span> <span class="o">=</span> <span class="n">ef</span><span class="o">.</span><span class="n">max_sharpe</span><span class="p">()</span>
+<span class="n">raw_weights</span> <span class="o">=</span> <span class="n">ef</span><span class="o">.</span><span class="n">efficient_return</span><span class="p">(</span><span class="n">target_return</span> <span class="o">=</span> <span class="mf">0.18</span><span class="p">,</span> <span class="n">market_neutral</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
 <span class="n">cleaned_weights</span> <span class="o">=</span> <span class="n">ef</span><span class="o">.</span><span class="n">clean_weights</span><span class="p">()</span>
 <span class="nb">print</span><span class="p">(</span><span class="n">cleaned_weights</span><span class="p">)</span>
 <span class="n">ef</span><span class="o">.</span><span class="n">portfolio_performance</span><span class="p">(</span><span class="n">verbose</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
@@ -1767,13 +1769,13 @@ Sharpe Ratio: 0.91
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>OrderedDict([(&#39;AAPL.O&#39;, 0.5), (&#39;MSFT.O&#39;, 0.28465), (&#39;SPY&#39;, 0.15223), (&#39;GLD&#39;, 0.06311)])
-Expected annual return: 18.7%
-Annual volatility: 18.0%
-Sharpe Ratio: 0.93
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>OrderedDict([(&#39;AAPL.O&#39;, 0.5), (&#39;MSFT.O&#39;, 0.2387), (&#39;SPY&#39;, 0.14546), (&#39;GLD&#39;, 0.11584)])
+Expected annual return: 18.0%
+Annual volatility: 17.3%
+Sharpe Ratio: 0.92
 </pre></div>
 </div>
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>(0.18705115513924062, 0.18034328618093198, 0.9262953929521067)
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>(0.17999999999999997, 0.17313170716569976, 0.9241519223677973)
 </pre></div>
 </div>
 </div>
