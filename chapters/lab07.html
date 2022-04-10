@@ -592,12 +592,12 @@
 </div>
 <div class="section" id="part-1">
 <h2>Part 1<a class="headerlink" href="#part-1" title="Permalink to this headline">¶</a></h2>
-<p>Bring in the ETF data from my Github page: <a class="reference external" href="https://raw.githubusercontent.com/aaiken1/fin-data-analysis-python/main/data/etf-reproducible-finance.csv">https://raw.githubusercontent.com/aaiken1/fin-data-analysis-python/main/data/etf-reproducible-finance.csv</a>.</p>
+<p>Bring in the ETF data from my Github page: <a class="reference external" href="https://raw.githubusercontent.com/aaiken1/fin-data-analysis-python/main/data/etf-reproducible-finance.csv">https://raw.githubusercontent.com/aaiken1/fin-data-analysis-python/main/data/etf-reproducible-finance.csv</a>. Parse that date column, as we usually do. You can also let it be the index.</p>
 <p>Calculate <strong>discrete returns</strong> using the prices and show some descriptives to make sure things look good.</p>
 </div>
 <div class="section" id="part-2">
 <h2>Part 2<a class="headerlink" href="#part-2" title="Permalink to this headline">¶</a></h2>
-<p>Use <code class="docutils literal notranslate"><span class="pre">sco.minimize</span></code> from the <code class="docutils literal notranslate"><span class="pre">scipy</span></code> library to find the portfolio weights that give you the portfolio with the maximum Sharpe ratio. You can assume a risk-free rate of 0%.</p>
+<p>Use <code class="docutils literal notranslate"><span class="pre">sco.minimize</span></code> from the <code class="docutils literal notranslate"><span class="pre">scipy</span></code> library to find the portfolio weights that give you the portfolio with the maximum Sharpe ratio. You can assume a risk-free rate of 0%. Don’t allow short selling (i.e. negative weights). Make sure that you use annualized returns and variances/covariances.</p>
 <p>Notice that you result is saved inside of an OptimizeResult <strong>object</strong>. We’ll need to figure out how to get the weights out of this object.</p>
 </div>
 <div class="section" id="part-3">
@@ -610,13 +610,16 @@
 </div>
 <div class="section" id="part-5">
 <h2>Part 5<a class="headerlink" href="#part-5" title="Permalink to this headline">¶</a></h2>
-<p>Now comes the fun part. Your daily returns for each ETF and two sets of weights. Use these weights to come up two sets of <strong>daily portfolio returns</strong>, one for the max Sharpe and one for the GMV. This is where you have to figure out how to get the weights out of the OptimizeResult <strong>object</strong>.</p>
-<p>This will add two new columns to your return DataFrame.</p>
+<p>Now comes the fun part. Your daily returns for each ETF and two sets of weights. Use these weights to come up two sets of <strong>daily portfolio returns</strong>, one for the max Sharpe and one for the GMV.</p>
+<p>This is where you have to figure out how to get the weights out of the OptimizeResult <strong>object</strong>. How do you do this? Have Python show you all of the different parts of the object by just calling the name of the OptimizeResult <strong>object</strong>. You see the <code class="docutils literal notranslate"><span class="pre">x:</span></code> at the bottom? Those are the weights. You can access them with <code class="docutils literal notranslate"><span class="pre">your_name_of_object.x</span></code>. You can even access specific weights like you would any array, using<code class="docutils literal notranslate"><span class="pre">[]</span></code>. Cool!</p>
+<p>We’ll use some code from your DataCamp assignments here. First, you’ll create a new DataFrame of weighted returns, where you use <code class="docutils literal notranslate"><span class="pre">.mul</span></code> to multiply your returns DataFrame and the weights across <code class="docutils literal notranslate"><span class="pre">axis</span> <span class="pre">=</span> <span class="pre">1</span></code>, or across columns. In other words, each daily return is being multiplied by its corresponding weight.</p>
+<p>Then, you’ll calculate a new portfolio return column in that new DataFrame of weighted returns by summing up the individual weighted returns, also across <code class="docutils literal notranslate"><span class="pre">axis</span> <span class="pre">=</span> <span class="pre">1</span></code>. Use the <code class="docutils literal notranslate"><span class="pre">.sum</span></code> function.</p>
+<p>In the end, you’ll have two new DataFrames, one for each optimization method, that contain the weighted returns and the overall portfolio return.</p>
 <p>We are also making another assumption here. We are <strong>re-balancing our portfolio daily</strong> to get back to these optimal weights. This is something no one would do! Daily re-balancing is costly. In other words, we are not setting our portfolio weights at the beginning of the period and then just letting it ride. We are implicitly selling our “winners” and buy our “losers” each day to get back to the optimal weights.</p>
 </div>
 <div class="section" id="part-6">
 <h2>Part 6<a class="headerlink" href="#part-6" title="Permalink to this headline">¶</a></h2>
-<p>Finally, find the <strong>non-parametric</strong> 95th and 99th percentile VaR and CVaR for each of these two portfolios. Briefly discuss what you find.</p>
+<p>Finally, find the <strong>non-parametric</strong> 95th and 99th percentile VaR and CVaR for each of these two portfolios. That’s eight different measures. Briefly discuss what you find.</p>
 <p>Make a histogram for each set of returns and add the 95th and 99th VaR as a line to each.</p>
 </div>
 <div class="section" id="part-7">
