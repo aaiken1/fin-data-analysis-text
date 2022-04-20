@@ -115,7 +115,7 @@ uw
 uw['RegionType']
 
 
-# But, wait, you can also do this! **But, only if the variable name doesn't have spaces.** The method with `['NAME']` is more general and can handle variable names With spaces, like `['Var Name']`. 
+# But, wait, you can also do this! **But, only if the variable name doesn't have spaces.** The method with `['NAME']` is more general and can handle variable names with spaces, like `['Var Name']`. 
 
 # In[8]:
 
@@ -134,9 +134,18 @@ uw.RegionType
 uw[['RegionType', 'RegionName', 'UWHomes_Tier2']]
 
 
-# We are using a **list** - the column names are in a list with `[]`. You can also pull out just certain rows. We used `head` and `tail` above to do this in an "automated" way.
+# You can save the new DataFrame with just those three columns if you want to use it elsewhere.
 
 # In[10]:
+
+
+uw_only_three_columns = uw[['RegionType', 'RegionName', 'UWHomes_Tier2']]
+uw_only_three_columns
+
+
+# We are using a **list** - the column names are in a list with `[]`. You can also pull out just certain rows. We used `head` and `tail` above to do this in an "automated" way.
+
+# In[11]:
 
 
 uw[0:10]
@@ -154,7 +163,7 @@ uw[0:10]
 # 
 # We'll start with `loc`. Again, our rows don't have labels or an index, so we can use the number of the row, even with `loc`. We can pull just the first row of data.
 
-# In[11]:
+# In[12]:
 
 
 uw.loc[0]
@@ -162,7 +171,7 @@ uw.loc[0]
 
 # That returned a **series** with just the first row and all of the columns. You can make the output in a Jupyter notebook look a little nicer by turning the series into a DataFrame using `to.frame()`. Again, this is the first row and all of the column headers, just turned sideways.
 
-# In[12]:
+# In[13]:
 
 
 uw.loc[0].to_frame()
@@ -172,7 +181,7 @@ uw.loc[0].to_frame()
 # 
 # We can pull the first ten rows and just three columns. But, now we are going to use the column names. And - notice how `0:9` actually gets us `0:9`! Because we are using `loc`, we include the last item in the range.
 
-# In[13]:
+# In[14]:
 
 
 uw.loc[0:9,['RegionType', 'RegionName', 'UWHomes_Tier2']]
@@ -181,7 +190,7 @@ uw.loc[0:9,['RegionType', 'RegionName', 'UWHomes_Tier2']]
 # We could pull all of the columns and rows 0:9 like this.
 # 
 
-# In[14]:
+# In[15]:
 
 
 uw.loc[0:9,:]
@@ -190,7 +199,7 @@ uw.loc[0:9,:]
 # 
 # We can pull a range for columns too. Again, notice that the column name range is **inclusive of the last column**, unlike with slicing by element number.
 
-# In[15]:
+# In[16]:
 
 
 uw.loc[0:9,'RegionType':'UWHomes_Tier2']
@@ -200,7 +209,7 @@ uw.loc[0:9,'RegionType':'UWHomes_Tier2']
 # 
 # Now, let's try `iloc`. I'll pull the exact same data as above. The numbers used are going to work like slicing. We want to use `0:10` for the rows, because we want the first 10 rows. Same for the columns. Inclusive of the first number, but up to and excluding the second.
 
-# In[16]:
+# In[17]:
 
 
 uw.iloc[0:10,0:10]
@@ -208,7 +217,7 @@ uw.iloc[0:10,0:10]
 
 # We can also select columns in various locations, like above.
 
-# In[17]:
+# In[18]:
 
 
 uw.iloc[0:10,[0, 1, 9]]
@@ -218,7 +227,7 @@ uw.iloc[0:10,[0, 1, 9]]
 # 
 # You can use these methods to select and save columns to a new DataFrame. Each of the following does the same thing.
 
-# In[18]:
+# In[19]:
 
 
 uw_sub1 = uw[['RegionType', 'RegionName', 'UWHomes_Tier2']]
@@ -237,7 +246,7 @@ print(uw_sub3.equals(uw_sub4))
 # 
 # Here's some [help on filtering](https://datagy.io/filter-pandas/) data with `pandas`.
 
-# In[19]:
+# In[20]:
 
 
 uw[uw['RegionType'] == 'MSA'].head(15)
@@ -245,7 +254,7 @@ uw[uw['RegionType'] == 'MSA'].head(15)
 
 # How about just North Carolina MSAs? I'll use the bigger DataFrame and just show the observations, rather than create a new DataFrame.
 
-# In[20]:
+# In[21]:
 
 
 uw[(uw['RegionType'] == 'MSA') & (uw['StateName'] == 'North Carolina')].head(15)
@@ -253,7 +262,7 @@ uw[(uw['RegionType'] == 'MSA') & (uw['StateName'] == 'North Carolina')].head(15)
 
 # Notice how I needed to put `()` around each condition. Python is testing to see if each of these are `True` or `False` and then filtering our data accordingly. Pgs. 132 - 135 of our text show you more about this type of **boolean** filtering. You'll also see **masking** in the DataCamp assignments. Here's an example.
 
-# In[21]:
+# In[22]:
 
 
 in_nc = (uw['RegionType'] == 'MSA') & (uw['StateName'] == 'North Carolina')
@@ -264,7 +273,7 @@ uw[in_nc].head(15)
 # 
 # I can also use `.loc` to filter and then select certain columns.
 
-# In[22]:
+# In[23]:
 
 
 uw.loc[(uw['RegionType'] == 'MSA') & (uw['StateName'] == 'North Carolina'), ['RegionType', 'RegionName', 'MSAName', 'AllHomes_Tier1']].head(15)
@@ -272,7 +281,7 @@ uw.loc[(uw['RegionType'] == 'MSA') & (uw['StateName'] == 'North Carolina'), ['Re
 
 # Like with the mask above, we can an also define our criteria separately and then include them. 
 
-# In[23]:
+# In[24]:
 
 
 my_filter = (uw['RegionType'] == 'MSA') & (uw['StateName'] == 'North Carolina')
@@ -284,7 +293,7 @@ uw.loc[my_filter, my_columns].head(15)
 # 
 # Let's go back to the stock data and work with indices a bit more. Remember how that one had the `Date` as the index?
 
-# In[24]:
+# In[25]:
 
 
 prices = pd.read_csv('https://github.com/aaiken1/fin-data-analysis-python/raw/main/data/tr_eikon_eod_data.csv',
@@ -295,7 +304,7 @@ prices.index
 
 # Now, let's try `loc`, but using our `dtype=datetime` index. We'll pull in the SPX and VIX for just January 2010. 
 
-# In[25]:
+# In[26]:
 
 
 prices.loc['2010-01-01':'2010-01-31',['.SPX', '.VIX']]

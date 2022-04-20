@@ -13,8 +13,6 @@
 # 
 # We'll typically be importing our data from CSV and Excel files. 
 
-# 
-# 
 # There's some price data up on our [course Github page](https://github.com/aaiken1/fin-data-analysis-python). Let's import this both as a downloaded CSV file and then directly from Github. No need to download the file to your computer and deal with folders. 
 # 
 # First, we need to import `pandas`. Just like `numpy`. In fact, at the top of basically all of your code, you will import both of these libraries (and more!).

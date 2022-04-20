@@ -2,7 +2,7 @@
 # coding: utf-8
 
 # 
-# # Using NASDAQ BTC data
+# # Using NASDAQ BTC data <a id='btc-sim'></a>
 # 
 # This chapter will use the NASDAQ data link to download some BTC price and return data. We'll also see our first set of **simulations**.
 # 
@@ -145,7 +145,7 @@ plt.subplots_adjust(wspace=0.5, hspace=0.5);
 # You can solve this equation to get the value of the asset at any point in time t. You just need to know the total of all of the shocks at time t.
 # 
 # \begin{align}
-# S(t) = S(0) \exp \left(\left(\mu - \frac{1}{2}\sigma^2\right)t + \sigma W(t)\right)
+# S(t) = S(0) \exp \left(\left(\mu - \frac{1}{2}\sigma^2\right)t + \sigma \sqrt{t} W(t)\right)
 # \end{align}
 
 # In[10]:
@@ -153,7 +153,7 @@ plt.subplots_adjust(wspace=0.5, hspace=0.5);
 
 T = 30 # How long is our simulation? Let's do 31 days (0 to 30 the way Python counts)
 N = 30 # number of time points in the prediction time horizon, making this the same as T means that we will simulate daily returns 
-S_0 = btc.Value[-1] # initial stock price
+S_0 = btc.Value[-1] # initial BTC price
 N_SIM = 100      # How many simulations to run?
 mu = btc.ret.mean()
 sigma = btc.ret.std()
@@ -171,8 +171,7 @@ def simulate_gbm(s_0, mu, sigma, n_sims, T, N):
     W = np.cumsum(dW, axis=1)
     time_step = np.linspace(dt, T, N)
     time_steps = np.broadcast_to(time_step, (n_sims, N))
-    S_t = s_0 * np.exp((mu - 0.5 * sigma ** 2) * time_steps
-        + sigma * W)
+    S_t = s_0 * np.exp((mu - 0.5 * sigma ** 2) * time_steps + sigma * np.sqrt(time_steps) * W)
     S_t = np.insert(S_t, 0, s_0, axis=1)
     return S_t
 
@@ -192,11 +191,11 @@ W = np.cumsum(dW, axis=1)
 # Array with numbers from 1 to 30
 time_step = np.linspace(1, 30, 30)
 
-# Expands that to be 100 rows of numbers from 1 to 30. This is going to be the t in the formula above.
+# Expands that to be 100 rows of numbers from 1 to 30. This is going to be the t in the formula above. So, for the price on the 30th day, we have t=30.
 time_steps = np.broadcast_to(time_step, (100, 30))
 
 # This is the formula from above to find the value of the asset any any point in time t. np.exp is the natural number e. W is the cumulative sum of all of our random shocks.
-S_t = S_0 * np.exp((mu - 0.5 * sigma ** 2) * time_steps + sigma * W)
+S_t = S_0 * np.exp((mu - 0.5 * sigma ** 2) * time_steps + sigma * np.sqrt(time_steps) * W)
 
 # This inserts the initial price at the start of each row.
 S_t = np.insert(S_t, 0, S_0, axis=1)
@@ -224,3 +223,5 @@ ax = gbm_simulations_df.plot(alpha=0.2, legend=False)
 
 ax.set_title('BTC Simulations', fontsize=16);
 
+
+# The y-axis has a very wide range, since some extreme values are possible, given this simulation.

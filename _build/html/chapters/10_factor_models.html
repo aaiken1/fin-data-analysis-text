@@ -258,6 +258,8 @@
  <li class="toctree-l1">
   <a class="reference internal" href="7_nasdaq_api.html">
    Using NASDAQ BTC data
+   <a id="btc-sim">
+   </a>
   </a>
  </li>
  <li class="toctree-l1">
@@ -273,6 +275,8 @@
  <li class="toctree-l1 current active">
   <a class="current reference internal" href="#">
    Factor models
+   <a id="factor_models">
+   </a>
   </a>
  </li>
  <li class="toctree-l1">
@@ -286,13 +290,13 @@
   </a>
  </li>
  <li class="toctree-l1">
-  <a class="reference internal" href="13_options.html">
-   Option basics
+  <a class="reference internal" href="13_monte_carlo.html">
+   Monte Carlo and portfolios
   </a>
  </li>
  <li class="toctree-l1">
-  <a class="reference internal" href="14_monte_carlo.html">
-   Monte Carlo and portfolios
+  <a class="reference internal" href="14_options.html">
+   Option basics
   </a>
  </li>
  <li class="toctree-l1">
@@ -347,6 +351,21 @@
    Lab 06
   </a>
  </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="lab07.html">
+   Lab 07
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="lab08.html">
+   Lab 08
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="lab09.html">
+   Lab 09
+  </a>
+ </li>
 </ul>
 <p aria-level="2" class="caption" role="heading">
  <span class="caption-text">
@@ -362,6 +381,11 @@
  <li class="toctree-l1">
   <a class="reference internal" href="exam01.html">
    Midterm Exam
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="final-exam.html">
+   Final Exam
   </a>
  </li>
 </ul>
@@ -588,7 +612,7 @@
         <div class="col-12 col-md-9 pl-md-3 pr-md-0">
             <!-- Table of contents that is only displayed when printing the page -->
             <div id="jb-print-docs-body" class="onlyprint">
-                <h1>Factor models</h1>
+                <h1>Factor models <a id='factor_models'></a></h1>
                 <!-- Table of contents -->
                 <div id="print-main-content">
                     <div id="jb-print-toc">
@@ -720,8 +744,8 @@
             
               <div>
                 
-  <div class="tex2jax_ignore mathjax_ignore section" id="factor-models">
-<h1>Factor models<a class="headerlink" href="#factor-models" title="Permalink to this headline">¶</a></h1>
+  <div class="tex2jax_ignore mathjax_ignore section" id="factor-models-a-id-factor-models-a">
+<h1>Factor models <a id='factor_models'></a><a class="headerlink" href="#factor-models-a-id-factor-models-a" title="Permalink to this headline">¶</a></h1>
 <p>We are going to do some financial theory in this chapter. These notes follow largely from those I used in a two-credit <em>Advanced Investments</em> seminar, taught in the Spring of 2021.</p>
 <p>Our textbook really doesn’t have much on factor models, though you’ll see the basics of this material, as well as regression more generally, in the DataCamp assignments.</p>
 <div class="section" id="textbook-highlights">
@@ -835,8 +859,8 @@
 <div class="section" id="capm-our-first-factor-model">
 <h2>CAPM. Our First Factor Model.<a class="headerlink" href="#capm-our-first-factor-model" title="Permalink to this headline">¶</a></h2>
 <p>The Capital Asset Pricing Model (CAPM), developed in the 1960’s, is covered in every finance class. You learn the formula, are forced to rearrange it to solve for the unknown input, and use it as part of the WACC. Here it is yet again:</p>
-<div class="amsmath math notranslate nohighlight" id="equation-a770ba73-f6bb-4d7b-ac73-892841e8f8b2">
-<span class="eqno">(8)<a class="headerlink" href="#equation-a770ba73-f6bb-4d7b-ac73-892841e8f8b2" title="Permalink to this equation">¶</a></span>\[\begin{align}
+<div class="amsmath math notranslate nohighlight" id="equation-ae4954a3-8918-47fd-9233-b3339888ade4">
+<span class="eqno">(9)<a class="headerlink" href="#equation-ae4954a3-8918-47fd-9233-b3339888ade4" title="Permalink to this equation">¶</a></span>\[\begin{align}
 E[R_i] = r_f + \beta_i \times ERP
 \end{align}\]</div>
 <p>This simple equation, though, tells us a story about risk and return. All expected returns start with the risk-free rate, <span class="math notranslate nohighlight">\(R_f\)</span>.<a class="footnote-reference brackets" href="#factors-1" id="id1">1</a> We typically use something like the 10-Year Treasury Yield in our context. The expected return on an asset i, <span class="math notranslate nohighlight">\(E[R_i]\)</span>, is proportional to the systematic risk of the asset, <span class="math notranslate nohighlight">\(\beta_i\)</span>. Systematic risk is measured by the equity risk premium, or ERP, which captures market returns. In other words, if an asset is expected to do very well when the market does well, it will have a high expected return. This asset will, however, do poorly when the market does poorly. These types of high beta assets have larger <strong>risk premiums</strong> associated with them, where the risk premium is <span class="math notranslate nohighlight">\(E[R_i] - R_f\)</span>.</p>
@@ -867,8 +891,8 @@ E[R_i] = r_f + \beta_i \times ERP
 <li><p><em>Risk premiums have an economic story.</em> Premiums will rise if investors become more risk averse or if market volatility increases. This is what happened in 2008 – 2009. When prices fell, this reflected a shift to a new state of the world where lower prices set supply equal to demand. Expected returns, the risk premium, were higher after the prices fell.<a class="footnote-reference brackets" href="#factors-3" id="id3">3</a></p></li>
 <li><p><em>Risk is factor exposure.</em> We can see this from the definition of beta:</p></li>
 </ol>
-<div class="amsmath math notranslate nohighlight" id="equation-a6ee11cc-a8f8-4606-a657-a8490633f3bf">
-<span class="eqno">(9)<a class="headerlink" href="#equation-a6ee11cc-a8f8-4606-a657-a8490633f3bf" title="Permalink to this equation">¶</a></span>\[\begin{align}
+<div class="amsmath math notranslate nohighlight" id="equation-3e8e73d4-320f-411c-b036-bc13eded8ba5">
+<span class="eqno">(10)<a class="headerlink" href="#equation-3e8e73d4-320f-411c-b036-bc13eded8ba5" title="Permalink to this equation">¶</a></span>\[\begin{align}
 \beta_i = \frac{cov(r_i, r_m)}{var(r_m)}
 \end{align}\]</div>
 <p>If an asset covaries more (i.e. moves more) with the market return, then it has a higher beta and higher risk. This is going to hold true for all of other factors that we talk about too - factor exposure means moving with the factor. Some assets, like an insurance product, will have negative betas. These are very valuable to hold, since they will go up when the market goes down. Instead of receiving a premium for them, you’ll pay a premium.</p>
@@ -925,8 +949,8 @@ E[R_i] = r_f + \beta_i \times ERP
 <h2>Style Factors<a class="headerlink" href="#style-factors" title="Permalink to this headline">¶</a></h2>
 <p>You can’t directly trade economic growth or inflation.<a class="footnote-reference brackets" href="#factors-4" id="id4">4</a> These factors are embedded in our securities, but it is hard to separate them out. Investors usually, then, use <strong>style factors</strong> when decomposing strategies into their component sources of returns. These tradeable factors are also, we think, related to macroeconomic risks. We essentially define a style factor as a particular portfolio where the securities all share a certain set of characteristics that have had positive returns over time. We infer that these positive returns must be related to some kind of risk.<a class="footnote-reference brackets" href="#factors-5" id="id5">5</a></p>
 <p><a class="reference external" href="https://www.sciencedirect.com/science/article/abs/pii/0304405X93900235">Fama and French (1993)</a>, along some other earlier papers by other authors, lead the way here. There model simply extends the CAPM to include two additional factor, size and value:</p>
-<div class="amsmath math notranslate nohighlight" id="equation-438cf07a-56d5-4f45-9312-32bdbdb3db60">
-<span class="eqno">(10)<a class="headerlink" href="#equation-438cf07a-56d5-4f45-9312-32bdbdb3db60" title="Permalink to this equation">¶</a></span>\[\begin{align}
+<div class="amsmath math notranslate nohighlight" id="equation-2f62792f-4fc3-41be-ae0f-62db04904d8b">
+<span class="eqno">(11)<a class="headerlink" href="#equation-2f62792f-4fc3-41be-ae0f-62db04904d8b" title="Permalink to this equation">¶</a></span>\[\begin{align}
 E[R_i] = r_f + \beta_{i,mkt} \times (E[R_m] - r_f) + \beta_{i,smb} \times E[SMB] + \beta_{i,hml} \times E[HML]
 \end{align}\]</div>
 <p>The E means “expected” – this formula links expected asset returns to expected factor returns. The first beta is the usual CAPM beta. But, now there are two other betas, or risks, that are captured by this model. SMB, or small minus big, is the return on a portfolio of small stocks less the return on a portfolio of large stocks. Small and large are based on the market capitalization of the firm. This return will be positive if small stocks beat large stocks in a given period (e.g. month). HML, or high minus low, is a portfolio that is long high book-to-market (B/M) stocks and short low B/M stocks. High B/M is a traditional way to define a “value” stock. So, HML will be positive if value stocks beat growth stocks in that period.<a class="footnote-reference brackets" href="#factors-6" id="id6">6</a></p>
@@ -1260,8 +1284,8 @@ E[R_i] = r_f + \beta_{i,mkt} \times (E[R_m] - r_f) + \beta_{i,smb} \times E[SMB]
 Dep. Variable:     ln_sh_eq_hedge_fund_usd   R-squared:                       0.760
 Model:                                 OLS   Adj. R-squared:                  0.756
 Method:                      Least Squares   F-statistic:                     172.1
-Date:                     Sat, 26 Mar 2022   Prob (F-statistic):           4.09e-66
-Time:                             07:37:07   Log-Likelihood:                 631.99
+Date:                     Mon, 11 Apr 2022   Prob (F-statistic):           4.09e-66
+Time:                             09:46:44   Log-Likelihood:                 631.99
 No. Observations:                      222   AIC:                            -1254.
 Df Residuals:                          217   BIC:                            -1237.
 Df Model:                                4                                         

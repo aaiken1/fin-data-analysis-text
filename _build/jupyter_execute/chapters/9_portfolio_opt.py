@@ -54,7 +54,9 @@ rets.describe()
 # 
 # We can find the average daily return of each of these four sets of discrete returns and annualize them. 
 # 
-# How should we do this? We've found the **arithmetic** mean of the daily **discrete** returns. If we **compound** these, or use $(1+dailyaverage)^{252} - 1$, we are getting the total return if we earned the mean daily return each day, including compounding. But, when doing portfolio optimization, we don't want this compounded return. So, to annualize the daily returns, we can simply multiply by 252, or the number of trading days in the year. 
+# How should we do this? I am going to take the arithmetic mean (i.e. the usual average) and multiply by 252, the number of trading days in the year. This is a common way to go from daily to annual returns when doing portfolio optimization. This generalizes to monthly (12) and quarterly (4). 
+# 
+# We'll do the same thing when using the `PyPortfolioOpt` package. Note that this method does not take into account compounding. You could also annualize the arithmetic average of the monthly returns using **geometric chaining**, or $(1+mean)^{252}-1$. This will get you the annual return if you earned the mean daily return every day for 252 days. Finally, you could annualize the **geometric mean** of the daily returns using the same chaining principle. If you search around, you'll find people doing all three. 
 
 # In[3]:
 
@@ -68,7 +70,7 @@ rets.mean() * 252
 ann_rets = rets.mean() * 252
 
 
-# Same thing with variance and covariance. We are going to take a short-cut and annualize the daily variances and covariances by multiplying by 252. You would annualize standard deviation by multiplying by $\sqrt{252}$. Technically, you should only do this with log returns.
+# We'll do something similar for our variance and covariance terms. We are going to take a short-cut and annualize the daily variances and covariances by multiplying by 252. You would annualize standard deviation by multiplying by $\sqrt{252}$. Technically, you should only do this with log returns.
 
 # In[5]:
 
@@ -76,6 +78,10 @@ ann_rets = rets.mean() * 252
 rets.cov() * 252
 
 
+# ```{note}
+# You can also annualize everything at the end, after the optimization. The optimizer will work just fine with daily data, but you have to keep in mind that you'll need a daily risk-free rate and that you're finding a daily Sharpe ratio.
+# ```
+# 
 # When you form a portfolio, you of course need to know how much of your portfolio is in each asset. Let's pick some **random weights** to start. We'll do that by choosing random numbers between 0 and 1. How many random numbers? The variable *noa* has the number of assets stored in it, so we'll pick four. Then, we'll divide each random number by the sum of the four numbers. This "trick" let's us go from four numbers between 0 and 1 to four numbers that will add up to 1. Just like portfolio weights!
 # 
 # Note the `/=`. This divides every item in *weights* by the sum of the weights and then saves the result back to *weights*.
@@ -418,7 +424,7 @@ plt.colorbar(label='Sharpe ratio');
 # 
 # You can read all about the `PyPortfolioOpt` package [here](https://pypi.org/project/pyportfolioopt/).
 # 
-# You can also find examples on the author's [Github page](https://github.com/robertmartin8/PyPortfolioOpt/tree/master/cookbook). The creator of this package runs a data/macro strategy consulting firm.
+# You can also find examples on the author's [Github page](https://github.com/robertmartin8/PyPortfolioOpt/tree/master/cookbook). The creator of this package is [a recent Cambridge graduate, not much older than you](https://reasonabledeviations.com/about/). 
 # 
 # ```{figure} ../images/09-pyport.png
 # ---
@@ -455,7 +461,9 @@ rets_pyp
 rets
 
 
-# We can compare that with our original return file and see that this function is calculating discrete returns by default, since the returns are the same. We can use the package to find annualized returns too. I'll give the function the price data again. I will also set compounding to False, as I don't want geometric means (CAGRs) for portfolio optimization. I want arithmetic means. The default for this function is that you have daily returns, or 252 time periods. Just like above. 
+# We can compare that with our original return file and see that this function is calculating discrete returns by default, since the returns are the same. We can use the package to find annualized returns too. I'll give the function the price data again. I will also set compounding to False, as we don't typically use annualized geometric means (CAGRs) for portfolio optimization. I want arithmetic means. The default for this function is that you have daily returns, or 252 time periods. 
+# 
+# However, the annualization simply takes the monthly arithmetic mean and multiplies by 252. This is why the average returns we're using are lower than the ones above.
 # 
 # But, I'll add each option, just so that you can that they are there.
 
@@ -468,9 +476,7 @@ mu
 
 # You can actually see the [code for these functions](https://github.com/robertmartin8/PyPortfolioOpt/blob/master/pypfopt/expected_returns.py). I like looking through code like this to both learn what these functions are doing, what my options are, etc., as well as learning how to write better Python myself!
 # 
-# You'll note that the annualized returns are different from the ones I got above. If you follow the code for this function, that's because, with the options that I've chosen, the function is taking the average daily return and multiplying by 252 to get the annual return.
-# 
-# You can see that by taking my returns and doing the multiplication ourselves.
+# You can see how the function is getting the annual returns by just multiplying by 252, the number of trading days.
 
 # In[41]:
 
@@ -554,13 +560,17 @@ type(perf)
 perf[0]
 
 
-# This package does much more than this. I encourage you to take a look! Here's one additional example, with some weight bounds for the assets added to the `EfficientFrontier` method. See how Apple hits the upper limit I set of 50%? Apple did so well during this period that the optimizer really wants us to put most of money in it. Is that a good idea?
+# This package does much more than this. I encourage you to take a look! Here's one additional example, with two changes. First, I've added some weight bounds for the assets added to the `EfficientFrontier` method. Second, instead of finding the max Sharpe portfolio, I'm using `ef.efficient_return` to find the portfolio with the least amount of risk that gives a target return of 18%. 
+# 
+# You can see from the output below that we did indeed hit our target return.
+# 
+# See how Apple hits the upper limit I set of 50%? Apple did so well during this period that the optimizer really wants us to put most of money in it. Is that a good idea?
 
 # In[50]:
 
 
 ef = EfficientFrontier(mu, S, weight_bounds=(-0.2, 0.5))
-raw_weights = ef.max_sharpe()
+raw_weights = ef.efficient_return(target_return = 0.18, market_neutral=False)
 cleaned_weights = ef.clean_weights()
 print(cleaned_weights)
 ef.portfolio_performance(verbose=True)

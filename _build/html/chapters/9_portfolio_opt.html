@@ -42,6 +42,8 @@
     <script src="../_static/copybutton.js"></script>
     <script>var togglebuttonSelector = '.toggle, .admonition.dropdown, .tag_hide_input div.cell_input, .tag_hide-input div.cell_input, .tag_hide_output div.cell_output, .tag_hide-output div.cell_output, .tag_hide_cell.cell, .tag_hide-cell.cell';</script>
     <script src="../_static/sphinx-book-theme.d59cb220de22ca1c485ebbdc042f0030.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+    <script src="https://unpkg.com/@jupyter-widgets/html-manager@^0.20.0/dist/embed-amd.js"></script>
     <script async="async" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
     <script>window.MathJax = {"options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
     <script async="async" src="https://unpkg.com/thebe@0.5.1/lib/index.js"></script>
@@ -273,6 +275,8 @@
  <li class="toctree-l1">
   <a class="reference internal" href="10_factor_models.html">
    Factor models
+   <a id="factor_models">
+   </a>
   </a>
  </li>
  <li class="toctree-l1">
@@ -347,6 +351,21 @@
    Lab 06
   </a>
  </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="lab07.html">
+   Lab 07
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="lab08.html">
+   Lab 08
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="lab09.html">
+   Lab 09
+  </a>
+ </li>
 </ul>
 <p aria-level="2" class="caption" role="heading">
  <span class="caption-text">
@@ -362,6 +381,11 @@
  <li class="toctree-l1">
   <a class="reference internal" href="exam01.html">
    Midterm Exam
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="final-exam.html">
+   Final Exam
   </a>
  </li>
 </ul>
@@ -704,7 +728,8 @@
 <p>These four return series each have the same number of observations. This is important when doing correlation and covariance matrices. You’ll likely want to just keep observations where none of the assets have missing returns. This is another reason why using historical data can be tricky - for a lot of specific assets, we just don’t have much data!</p>
 </div>
 <p>We can find the average daily return of each of these four sets of discrete returns and annualize them.</p>
-<p>How should we do this? We’ve found the <strong>arithmetic</strong> mean of the daily <strong>discrete</strong> returns. If we <strong>compound</strong> these, or use <span class="math notranslate nohighlight">\((1+dailyaverage)^{252} - 1\)</span>, we are getting the total return if we earned the mean daily return each day, including compounding. But, when doing portfolio optimization, we don’t want this compounded return. So, to annualize the daily returns, we can simply multiply by 252, or the number of trading days in the year.</p>
+<p>How should we do this? I am going to take the arithmetic mean (i.e. the usual average) and multiply by 252, the number of trading days in the year. This is a common way to go from daily to annual returns when doing portfolio optimization. This generalizes to monthly (12) and quarterly (4).</p>
+<p>We’ll do the same thing when using the <code class="docutils literal notranslate"><span class="pre">PyPortfolioOpt</span></code> package. Note that this method does not take into account compounding. You could also annualize the arithmetic average of the monthly returns using <strong>geometric chaining</strong>, or <span class="math notranslate nohighlight">\((1+mean)^{252}-1\)</span>. This will get you the annual return if you earned the mean daily return every day for 252 days. Finally, you could annualize the <strong>geometric mean</strong> of the daily returns using the same chaining principle. If you search around, you’ll find people doing all three.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">rets</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span> <span class="o">*</span> <span class="mi">252</span>
@@ -728,7 +753,7 @@ dtype: float64
 </div>
 </div>
 </div>
-<p>Same thing with variance and covariance. We are going to take a short-cut and annualize the daily variances and covariances by multiplying by 252. You would annualize standard deviation by multiplying by <span class="math notranslate nohighlight">\(\sqrt{252}\)</span>. Technically, you should only do this with log returns.</p>
+<p>We’ll do something similar for our variance and covariance terms. We are going to take a short-cut and annualize the daily variances and covariances by multiplying by 252. You would annualize standard deviation by multiplying by <span class="math notranslate nohighlight">\(\sqrt{252}\)</span>. Technically, you should only do this with log returns.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">rets</span><span class="o">.</span><span class="n">cov</span><span class="p">()</span> <span class="o">*</span> <span class="mi">252</span>
@@ -793,6 +818,10 @@ dtype: float64
 </table>
 </div></div></div>
 </div>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>You can also annualize everything at the end, after the optimization. The optimizer will work just fine with daily data, but you have to keep in mind that you’ll need a daily risk-free rate and that you’re finding a daily Sharpe ratio.</p>
+</div>
 <p>When you form a portfolio, you of course need to know how much of your portfolio is in each asset. Let’s pick some <strong>random weights</strong> to start. We’ll do that by choosing random numbers between 0 and 1. How many random numbers? The variable <em>noa</em> has the number of assets stored in it, so we’ll pick four. Then, we’ll divide each random number by the sum of the four numbers. This “trick” let’s us go from four numbers between 0 and 1 to four numbers that will add up to 1. Just like portfolio weights!</p>
 <p>Note the <code class="docutils literal notranslate"><span class="pre">/=</span></code>. This divides every item in <em>weights</em> by the sum of the weights and then saves the result back to <em>weights</em>.</p>
 <div class="cell docutils container">
@@ -823,7 +852,7 @@ dtype: float64
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>0.11248186643039827
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>0.1561830668202191
 </pre></div>
 </div>
 </div>
@@ -836,7 +865,7 @@ dtype: float64
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>0.014584903491059882
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>0.022959204807936038
 </pre></div>
 </div>
 </div>
@@ -849,7 +878,7 @@ dtype: float64
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>0.12076797378055111
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>0.15152295142299743
 </pre></div>
 </div>
 </div>
@@ -1242,8 +1271,8 @@ dtype: float64
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>CPU times: user 9.55 s, sys: 44 ms, total: 9.59 s
-Wall time: 1.2 s
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>CPU times: user 9.38 s, sys: 75.8 ms, total: 9.46 s
+Wall time: 1.19 s
 </pre></div>
 </div>
 </div>
@@ -1274,7 +1303,7 @@ Wall time: 1.2 s
 <h2>PyPortfolioOpt<a class="headerlink" href="#pyportfolioopt" title="Permalink to this headline">¶</a></h2>
 <p>To get started, you’ll need to type <code class="docutils literal notranslate"><span class="pre">pip</span> <span class="pre">install</span> <span class="pre">PyPortfolioOpt</span></code> in your Terminal below. This will install the package, since it doesn’t come with Anaconda. We can then bring in what we need.</p>
 <p>You can read all about the <code class="docutils literal notranslate"><span class="pre">PyPortfolioOpt</span></code> package <a class="reference external" href="https://pypi.org/project/pyportfolioopt/">here</a>.</p>
-<p>You can also find examples on the author’s <a class="reference external" href="https://github.com/robertmartin8/PyPortfolioOpt/tree/master/cookbook">Github page</a>. The creator of this package runs a data/macro strategy consulting firm.</p>
+<p>You can also find examples on the author’s <a class="reference external" href="https://github.com/robertmartin8/PyPortfolioOpt/tree/master/cookbook">Github page</a>. The creator of this package is <a class="reference external" href="https://reasonabledeviations.com/about/">a recent Cambridge graduate, not much older than you</a>.</p>
 <div class="figure align-center" id="pyport-png">
 <img alt="../_images/09-pyport.png" src="../_images/09-pyport.png" />
 <p class="caption"><span class="caption-number">Fig. 24 </span><span class="caption-text">The portfolio optimization process. Source: PyPortfolioOpt</span><a class="headerlink" href="#pyport-png" title="Permalink to this image">¶</a></p>
@@ -1533,7 +1562,8 @@ Wall time: 1.2 s
 <p>2137 rows × 4 columns</p>
 </div></div></div>
 </div>
-<p>We can compare that with our original return file and see that this function is calculating discrete returns by default, since the returns are the same. We can use the package to find annualized returns too. I’ll give the function the price data again. I will also set compounding to False, as I don’t want geometric means (CAGRs) for portfolio optimization. I want arithmetic means. The default for this function is that you have daily returns, or 252 time periods. Just like above.</p>
+<p>We can compare that with our original return file and see that this function is calculating discrete returns by default, since the returns are the same. We can use the package to find annualized returns too. I’ll give the function the price data again. I will also set compounding to False, as we don’t typically use annualized geometric means (CAGRs) for portfolio optimization. I want arithmetic means. The default for this function is that you have daily returns, or 252 time periods.</p>
+<p>However, the annualization simply takes the monthly arithmetic mean and multiplies by 252. This is why the average returns we’re using are lower than the ones above.</p>
 <p>But, I’ll add each option, just so that you can that they are there.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -1553,8 +1583,7 @@ dtype: float64
 </div>
 </div>
 <p>You can actually see the <a class="reference external" href="https://github.com/robertmartin8/PyPortfolioOpt/blob/master/pypfopt/expected_returns.py">code for these functions</a>. I like looking through code like this to both learn what these functions are doing, what my options are, etc., as well as learning how to write better Python myself!</p>
-<p>You’ll note that the annualized returns are different from the ones I got above. If you follow the code for this function, that’s because, with the options that I’ve chosen, the function is taking the average daily return and multiplying by 252 to get the annual return.</p>
-<p>You can see that by taking my returns and doing the multiplication ourselves.</p>
+<p>You can see how the function is getting the annual returns by just multiplying by 252, the number of trading days.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">rets</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span><span class="o">*</span><span class="mi">252</span>
@@ -1667,7 +1696,7 @@ context of a mean-variance optimizer, which will maximise the erroneous inputs.<
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;pypfopt.efficient_frontier.efficient_frontier.EfficientFrontier at 0x7fb31977d610&gt;
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;pypfopt.efficient_frontier.efficient_frontier.EfficientFrontier at 0x7feda8c69c10&gt;
 </pre></div>
 </div>
 </div>
@@ -1750,11 +1779,13 @@ Sharpe Ratio: 0.91
 </div>
 </div>
 </div>
-<p>This package does much more than this. I encourage you to take a look! Here’s one additional example, with some weight bounds for the assets added to the <code class="docutils literal notranslate"><span class="pre">EfficientFrontier</span></code> method. See how Apple hits the upper limit I set of 50%? Apple did so well during this period that the optimizer really wants us to put most of money in it. Is that a good idea?</p>
+<p>This package does much more than this. I encourage you to take a look! Here’s one additional example, with two changes. First, I’ve added some weight bounds for the assets added to the <code class="docutils literal notranslate"><span class="pre">EfficientFrontier</span></code> method. Second, instead of finding the max Sharpe portfolio, I’m using <code class="docutils literal notranslate"><span class="pre">ef.efficient_return</span></code> to find the portfolio with the least amount of risk that gives a target return of 18%.</p>
+<p>You can see from the output below that we did indeed hit our target return.</p>
+<p>See how Apple hits the upper limit I set of 50%? Apple did so well during this period that the optimizer really wants us to put most of money in it. Is that a good idea?</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">ef</span> <span class="o">=</span> <span class="n">EfficientFrontier</span><span class="p">(</span><span class="n">mu</span><span class="p">,</span> <span class="n">S</span><span class="p">,</span> <span class="n">weight_bounds</span><span class="o">=</span><span class="p">(</span><span class="o">-</span><span class="mf">0.2</span><span class="p">,</span> <span class="mf">0.5</span><span class="p">))</span>
-<span class="n">raw_weights</span> <span class="o">=</span> <span class="n">ef</span><span class="o">.</span><span class="n">max_sharpe</span><span class="p">()</span>
+<span class="n">raw_weights</span> <span class="o">=</span> <span class="n">ef</span><span class="o">.</span><span class="n">efficient_return</span><span class="p">(</span><span class="n">target_return</span> <span class="o">=</span> <span class="mf">0.18</span><span class="p">,</span> <span class="n">market_neutral</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
 <span class="n">cleaned_weights</span> <span class="o">=</span> <span class="n">ef</span><span class="o">.</span><span class="n">clean_weights</span><span class="p">()</span>
 <span class="nb">print</span><span class="p">(</span><span class="n">cleaned_weights</span><span class="p">)</span>
 <span class="n">ef</span><span class="o">.</span><span class="n">portfolio_performance</span><span class="p">(</span><span class="n">verbose</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
@@ -1762,13 +1793,13 @@ Sharpe Ratio: 0.91
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>OrderedDict([(&#39;AAPL.O&#39;, 0.5), (&#39;MSFT.O&#39;, 0.28465), (&#39;SPY&#39;, 0.15223), (&#39;GLD&#39;, 0.06311)])
-Expected annual return: 18.7%
-Annual volatility: 18.0%
-Sharpe Ratio: 0.93
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>OrderedDict([(&#39;AAPL.O&#39;, 0.5), (&#39;MSFT.O&#39;, 0.2387), (&#39;SPY&#39;, 0.14546), (&#39;GLD&#39;, 0.11584)])
+Expected annual return: 18.0%
+Annual volatility: 17.3%
+Sharpe Ratio: 0.92
 </pre></div>
 </div>
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>(0.18705115513924062, 0.18034328618093198, 0.9262953929521067)
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>(0.17999999999999997, 0.17313170716569976, 0.9241519223677973)
 </pre></div>
 </div>
 </div>
@@ -1811,7 +1842,7 @@ Sharpe Ratio: 0.93
     <a class='right-next' id="next-link" href="10_factor_models.html" title="next page">
     <div class="prev-next-info">
         <p class="prev-next-subtitle">next</p>
-        <p class="prev-next-title">Factor models</p>
+        <p class="prev-next-title">Factor models <a id='factor_models'></a></p>
     </div>
     <i class="fas fa-angle-right"></i>
     </a>

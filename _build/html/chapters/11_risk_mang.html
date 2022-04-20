@@ -42,6 +42,10 @@
     <script src="../_static/copybutton.js"></script>
     <script>var togglebuttonSelector = '.toggle, .admonition.dropdown, .tag_hide_input div.cell_input, .tag_hide-input div.cell_input, .tag_hide_output div.cell_output, .tag_hide-output div.cell_output, .tag_hide_cell.cell, .tag_hide-cell.cell';</script>
     <script src="../_static/sphinx-book-theme.d59cb220de22ca1c485ebbdc042f0030.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+    <script src="https://unpkg.com/@jupyter-widgets/html-manager@^0.20.0/dist/embed-amd.js"></script>
+    <script async="async" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script>window.MathJax = {"options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
     <script async="async" src="https://unpkg.com/thebe@0.5.1/lib/index.js"></script>
     <script>
         const thebe_selector = ".thebe"
@@ -271,6 +275,8 @@
  <li class="toctree-l1">
   <a class="reference internal" href="10_factor_models.html">
    Factor models
+   <a id="factor_models">
+   </a>
   </a>
  </li>
  <li class="toctree-l1 current active">
@@ -345,6 +351,21 @@
    Lab 06
   </a>
  </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="lab07.html">
+   Lab 07
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="lab08.html">
+   Lab 08
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="lab09.html">
+   Lab 09
+  </a>
+ </li>
 </ul>
 <p aria-level="2" class="caption" role="heading">
  <span class="caption-text">
@@ -360,6 +381,11 @@
  <li class="toctree-l1">
   <a class="reference internal" href="exam01.html">
    Midterm Exam
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="final-exam.html">
+   Final Exam
   </a>
  </li>
 </ul>
@@ -458,6 +484,61 @@
         <!-- Table of contents -->
         <div class="d-none d-md-block col-md-2 bd-toc show noprint">
             
+            <div class="tocsection onthispage pt-5 pb-3">
+                <i class="fas fa-list"></i> Contents
+            </div>
+            <nav id="bd-toc-nav" aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#textbook-highlights">
+   Textbook Highlights
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#getting-set-up">
+   Getting set-up
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#statistical-tests-for-non-normality">
+   Statistical tests for non-normality
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#fitting-different-distributions">
+   Fitting different distributions
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#risk-management-and-tail-risk">
+   Risk management and tail risk
+  </a>
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#value-at-risk">
+     Value at Risk
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#conditional-var">
+     Conditional VaR
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#rolling-var-with-different-distributions">
+     Rolling VaR with different distributions
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#quantstats">
+   QuantStats
+  </a>
+ </li>
+</ul>
+
+            </nav>
         </div>
     </div>
 </div>
@@ -470,6 +551,61 @@
                 <div id="print-main-content">
                     <div id="jb-print-toc">
                         
+                        <div>
+                            <h2> Contents </h2>
+                        </div>
+                        <nav aria-label="Page">
+                            <ul class="visible nav section-nav flex-column">
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#textbook-highlights">
+   Textbook Highlights
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#getting-set-up">
+   Getting set-up
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#statistical-tests-for-non-normality">
+   Statistical tests for non-normality
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#fitting-different-distributions">
+   Fitting different distributions
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#risk-management-and-tail-risk">
+   Risk management and tail risk
+  </a>
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#value-at-risk">
+     Value at Risk
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#conditional-var">
+     Conditional VaR
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#rolling-var-with-different-distributions">
+     Rolling VaR with different distributions
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#quantstats">
+   QuantStats
+  </a>
+ </li>
+</ul>
+
+                        </nav>
                     </div>
                 </div>
             </div>
@@ -478,6 +614,788 @@
                 
   <div class="tex2jax_ignore mathjax_ignore section" id="risk-management">
 <h1>Risk management<a class="headerlink" href="#risk-management" title="Permalink to this headline">¶</a></h1>
+<p>Risk management is a crucial part of asset management. We need to think about risk when putting together portfolios of stocks and bonds, options and futures, or even portfolios of managers, such as ETFs, mutual funds, and hedge funds. Financial assets all have their own unique risk profiles. For example the chapter on factor models gives you a sense how we can measure risk in equity portfolios. The focus there, though, is on the economic factors that lead to risk. This chapter will focus more on the statistical properties of asset returns.</p>
+<p>To do this, we’ll look at <strong>return distributions</strong> and how to measure them. We sometimes assume that asset returns are <strong>normally distributed</strong>. This is not true in many cases.</p>
+<p>We’ll also learn about other risk measures, like <strong>value-at-risk (VaR)</strong> and <strong>conditional value-at-risk (CVaR)</strong>. All of these topics are covered in our Datacamp assignments, such as <em>Intro to Portfolio Risk Management in Python</em> and <em>Quantitative Risk Management in Python</em>.</p>
+<p>Finally, our textbook covers many of these topics. As our author comments on pg. 397,</p>
+<blockquote>
+<div><p>A large number of important financial models, like modern or mean-variance portfolio theory (MPT) and the capital asset pricing model (CAPM), rest on the assumption that returns of securities are normally distributed. Therefore, this
+chapter presents approaches to test a given time series for normality of returns.</p>
+</div></blockquote>
+<p>These topics are covered across a few different chapters. I wish that they covered more.</p>
+<div class="section" id="textbook-highlights">
+<h2>Textbook Highlights<a class="headerlink" href="#textbook-highlights" title="Permalink to this headline">¶</a></h2>
+<table class="colwidths-auto table">
+<thead>
+<tr class="row-odd"><th class="text-align:left head"><p>Topic</p></th>
+<th class="text-align:left head"><p>Pages</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td class="text-align:left"><p><strong>Normality Tests</strong>. We do we mean by normally distributed? How do we measure this? Why is it important?</p></td>
+<td class="text-align:left"><p>Chapter 13. 399 - 415</p></td>
+</tr>
+<tr class="row-odd"><td class="text-align:left"><p><strong>Value-at-Risk</strong>. A very common way to look at the overall risk of a portfolio.</p></td>
+<td class="text-align:left"><p>Chapter 12. 383 - 388</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="section" id="getting-set-up">
+<h2>Getting set-up<a class="headerlink" href="#getting-set-up" title="Permalink to this headline">¶</a></h2>
+<p>Let’s bring in our usual set of stock and ETF prices and make some log returns.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Set-up</span>
+
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
+<span class="kn">import</span> <span class="nn">math</span>
+<span class="kn">import</span> <span class="nn">scipy.stats</span> <span class="k">as</span> <span class="nn">scs</span>
+<span class="kn">import</span> <span class="nn">statsmodels.api</span> <span class="k">as</span> <span class="nn">sm</span>
+<span class="kn">from</span> <span class="nn">pylab</span> <span class="kn">import</span> <span class="n">mpl</span><span class="p">,</span> <span class="n">plt</span>
+
+<span class="c1"># seaborn</span>
+<span class="kn">import</span> <span class="nn">seaborn</span> <span class="k">as</span> <span class="nn">sns</span>
+
+<span class="kn">from</span> <span class="nn">scipy.stats</span> <span class="kn">import</span> <span class="n">norm</span>
+
+<span class="kn">import</span> <span class="nn">numpy.random</span> <span class="k">as</span> <span class="nn">npr</span>  
+
+<span class="kn">import</span> <span class="nn">quantstats</span> <span class="k">as</span> <span class="nn">qs</span>
+
+<span class="kn">import</span> <span class="nn">janitor</span>
+<span class="kn">from</span> <span class="nn">janitor</span> <span class="kn">import</span> <span class="n">clean_names</span>
+
+<span class="kn">from</span> <span class="nn">sstudentt</span> <span class="kn">import</span> <span class="n">SST</span>
+
+<span class="c1"># Keeps warnings from cluttering up our notebook. </span>
+<span class="kn">import</span> <span class="nn">warnings</span>
+<span class="n">warnings</span><span class="o">.</span><span class="n">filterwarnings</span><span class="p">(</span><span class="s1">&#39;ignore&#39;</span><span class="p">)</span>
+
+<span class="c1"># Some plot options that will apply to the whole workbook</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">style</span><span class="o">.</span><span class="n">use</span><span class="p">(</span><span class="s1">&#39;seaborn&#39;</span><span class="p">)</span>
+<span class="n">mpl</span><span class="o">.</span><span class="n">rcParams</span><span class="p">[</span><span class="s1">&#39;font.family&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="s1">&#39;serif&#39;</span>
+
+
+<span class="c1"># Read in some eod prices</span>
+<span class="n">stocks</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s1">&#39;https://raw.githubusercontent.com/aaiken1/fin-data-analysis-python/main/data/tr_eikon_eod_data.csv&#39;</span><span class="p">,</span>
+                  <span class="n">index_col</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">parse_dates</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>  
+
+<span class="n">stocks</span><span class="o">.</span><span class="n">dropna</span><span class="p">(</span><span class="n">inplace</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>  
+
+<span class="n">stocks</span> <span class="o">=</span> <span class="n">clean_names</span><span class="p">(</span><span class="n">stocks</span><span class="p">)</span>
+
+<span class="n">rets_log</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">log</span><span class="p">(</span><span class="n">stocks</span> <span class="o">/</span> <span class="n">stocks</span><span class="o">.</span><span class="n">shift</span><span class="p">(</span><span class="mi">1</span><span class="p">))</span>  
+
+<span class="n">rets_log</span><span class="o">.</span><span class="n">dropna</span><span class="p">(</span><span class="n">inplace</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>  
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+<div class="section" id="statistical-tests-for-non-normality">
+<h2>Statistical tests for non-normality<a class="headerlink" href="#statistical-tests-for-non-normality" title="Permalink to this headline">¶</a></h2>
+<p>We’ve already see some measures for non-normality.</p>
+<ul class="simple">
+<li><p>Skewness (b) is a measure of asymmetry</p></li>
+<li><p>Kurtosis (k) is a measure of heavy-tailedness</p></li>
+<li><p>Skewness and kurtosis of normal are 0 and 3, respectively. The function used below gives <strong>excess kurtosis</strong>, where we subtract 3 from actual kurtosis.</p></li>
+</ul>
+<p>Why do we care about this? When you’re trading or forming portfolios of securities, you want to understand how the securities that you own might behave. Will their returns surprise me? How bad is my downside? What’s my upside?</p>
+<p>Of course, this is very difficult to know in practice. But, we can model stock returns and other assets the best we can. We can then, maybe, start to <strong>quantify our risk</strong>.</p>
+<p>In the code below, <code class="docutils literal notranslate"><span class="pre">axis</span> <span class="pre">=</span> <span class="pre">0</span></code> means to calculate our skewness and kurtosis by row.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">rets_log</span><span class="o">.</span><span class="n">describe</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>aapl_o</th>
+      <th>msft_o</th>
+      <th>intc_o</th>
+      <th>amzn_o</th>
+      <th>gs_n</th>
+      <th>spy</th>
+      <th>_spx</th>
+      <th>_vix</th>
+      <th>eur=</th>
+      <th>xau=</th>
+      <th>gdx</th>
+      <th>gld</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>count</th>
+      <td>2137.000000</td>
+      <td>2137.000000</td>
+      <td>2137.000000</td>
+      <td>2137.000000</td>
+      <td>2137.000000</td>
+      <td>2137.000000</td>
+      <td>2137.000000</td>
+      <td>2137.000000</td>
+      <td>2137.000000</td>
+      <td>2137.000000</td>
+      <td>2137.000000</td>
+      <td>2137.000000</td>
+    </tr>
+    <tr>
+      <th>mean</th>
+      <td>0.000843</td>
+      <td>0.000542</td>
+      <td>0.000406</td>
+      <td>0.001189</td>
+      <td>0.000113</td>
+      <td>0.000408</td>
+      <td>0.000410</td>
+      <td>-0.000103</td>
+      <td>-0.000098</td>
+      <td>0.000052</td>
+      <td>-0.000356</td>
+      <td>0.000036</td>
+    </tr>
+    <tr>
+      <th>std</th>
+      <td>0.015908</td>
+      <td>0.014214</td>
+      <td>0.014909</td>
+      <td>0.019463</td>
+      <td>0.016609</td>
+      <td>0.009331</td>
+      <td>0.009355</td>
+      <td>0.077360</td>
+      <td>0.005931</td>
+      <td>0.010126</td>
+      <td>0.023742</td>
+      <td>0.010198</td>
+    </tr>
+    <tr>
+      <th>min</th>
+      <td>-0.131875</td>
+      <td>-0.121033</td>
+      <td>-0.095432</td>
+      <td>-0.135325</td>
+      <td>-0.136863</td>
+      <td>-0.067341</td>
+      <td>-0.068958</td>
+      <td>-0.350588</td>
+      <td>-0.026531</td>
+      <td>-0.088787</td>
+      <td>-0.113900</td>
+      <td>-0.091905</td>
+    </tr>
+    <tr>
+      <th>25%</th>
+      <td>-0.006907</td>
+      <td>-0.006768</td>
+      <td>-0.007765</td>
+      <td>-0.008254</td>
+      <td>-0.008340</td>
+      <td>-0.003424</td>
+      <td>-0.003326</td>
+      <td>-0.041878</td>
+      <td>-0.003588</td>
+      <td>-0.005048</td>
+      <td>-0.013647</td>
+      <td>-0.005097</td>
+    </tr>
+    <tr>
+      <th>50%</th>
+      <td>0.000666</td>
+      <td>0.000308</td>
+      <td>0.000569</td>
+      <td>0.000974</td>
+      <td>0.000422</td>
+      <td>0.000580</td>
+      <td>0.000559</td>
+      <td>-0.005233</td>
+      <td>0.000077</td>
+      <td>0.000232</td>
+      <td>-0.000220</td>
+      <td>0.000343</td>
+    </tr>
+    <tr>
+      <th>75%</th>
+      <td>0.009551</td>
+      <td>0.007865</td>
+      <td>0.008445</td>
+      <td>0.011636</td>
+      <td>0.009041</td>
+      <td>0.005058</td>
+      <td>0.004995</td>
+      <td>0.035181</td>
+      <td>0.003254</td>
+      <td>0.005426</td>
+      <td>0.013026</td>
+      <td>0.005303</td>
+    </tr>
+    <tr>
+      <th>max</th>
+      <td>0.085022</td>
+      <td>0.099413</td>
+      <td>0.100315</td>
+      <td>0.146225</td>
+      <td>0.090485</td>
+      <td>0.045450</td>
+      <td>0.046317</td>
+      <td>0.768245</td>
+      <td>0.030352</td>
+      <td>0.046867</td>
+      <td>0.106546</td>
+      <td>0.047953</td>
+    </tr>
+  </tbody>
+</table>
+</div></div></div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">rets_log</span><span class="o">.</span><span class="n">skew</span><span class="p">(</span><span class="n">axis</span> <span class="o">=</span> <span class="mi">0</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>aapl_o   -0.235263
+msft_o   -0.091231
+intc_o    0.096828
+amzn_o    0.181703
+gs_n     -0.549177
+spy      -0.522260
+_spx     -0.514292
+_vix      1.127393
+eur=     -0.052486
+xau=     -0.596764
+gdx      -0.090202
+gld      -0.599760
+dtype: float64
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">rets_log</span><span class="o">.</span><span class="n">kurtosis</span><span class="p">(</span><span class="n">axis</span> <span class="o">=</span> <span class="mi">0</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>aapl_o    4.803682
+msft_o    7.310963
+intc_o    3.928818
+amzn_o    8.017345
+gs_n      5.227209
+spy       4.537738
+_spx      4.705455
+_vix      7.596355
+eur=      1.521719
+xau=      5.387749
+gdx       1.582735
+gld       5.700361
+dtype: float64
+</pre></div>
+</div>
+</div>
+</div>
+<p>Looks like Amazon (AMZN) has the “fattest tails”. The VIX as the next highest excess kurtosis.</p>
+<p>But, how do you perform a statistical test for normality? In other words, we can measure skewness and kurtosis, but how can know if it is <strong>statistically different</strong> from a normal distribution?</p>
+<p>There are several different statistical tests for this. Let’s start with the <strong>Shapiro-Wilk</strong> test. The null hypothesis of the Shapiro-Wilk test is that the data are normally distributed. For fun, let’s start by creating 100 random numbers from a normal distribution and see what this test tells us. We are using <code class="docutils literal notranslate"><span class="pre">scs.shapiro()</span></code>.</p>
+<p>This gives us a <strong>formal test</strong>, rather than just a graph, for asymmetrical distributions and/or heavy tails.</p>
+<p>You can read more about the actual statistics <a class="reference external" href="https://en.wikipedia.org/wiki/Shapiro%E2%80%93Wilk_test">here</a>.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">numpy.random</span> <span class="kn">import</span> <span class="n">seed</span>
+<span class="kn">from</span> <span class="nn">numpy.random</span> <span class="kn">import</span> <span class="n">randn</span>
+
+<span class="c1">#set seed (e.g. make this example reproducible)</span>
+<span class="n">seed</span><span class="p">(</span><span class="mi">23</span><span class="p">)</span>
+
+<span class="c1">#generate dataset of 100 random values that follow a standard normal distribution</span>
+<span class="n">data</span> <span class="o">=</span> <span class="n">randn</span><span class="p">(</span><span class="mi">100</span><span class="p">)</span>
+
+<span class="n">scs</span><span class="o">.</span><span class="n">shapiro</span><span class="p">(</span><span class="n">data</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>ShapiroResult(statistic=0.9920758008956909, pvalue=0.8266890048980713)
+</pre></div>
+</div>
+</div>
+</div>
+<p>See that p-value? As a general rule, we’re looking for a value less than 0.10 or 0.05 in order to “reject” the null hypothesis that the data are normally distributed. Good thing we can’t reject that hypothesis here! we know that the data are from the normal distribution.</p>
+<p>The analogy that I always use: distributions are hats that contain numbers. We can pull numbers out of that hat. If we pull enough numbers, we’ll get the underlying distribution that is generating the values in our hat. There are many different types of distributions!</p>
+<p>Now, let’s look at our actual returns. We need to pull out the returns, one column at a time, for the <code class="docutils literal notranslate"><span class="pre">scs.shapiro()</span></code> function. So, we’ll look at Apple.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">scs</span><span class="o">.</span><span class="n">shapiro</span><span class="p">(</span><span class="n">rets_log</span><span class="p">[</span><span class="s1">&#39;aapl_o&#39;</span><span class="p">])</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>ShapiroResult(statistic=0.9554498195648193, pvalue=4.830270264454251e-25)
+</pre></div>
+</div>
+</div>
+</div>
+<p>Yeah, that’s not a normal distribution! Let’s look at things graphically, using material from the financial time series chapter. I have overlayed normal distribution that has the same mean and standard deviation as Apple’s returns. So, any differences are being caused by skewness and kurtosis.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">sns</span><span class="o">.</span><span class="n">distplot</span><span class="p">(</span><span class="n">rets_log</span><span class="p">[</span><span class="s1">&#39;aapl_o&#39;</span><span class="p">],</span> <span class="n">fit</span><span class="o">=</span><span class="n">norm</span><span class="p">,</span> <span class="n">kde</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;AxesSubplot:xlabel=&#39;aapl_o&#39;&gt;
+</pre></div>
+</div>
+<img alt="../_images/11_risk_mang_12_1.png" src="../_images/11_risk_mang_12_1.png" />
+</div>
+</div>
+<p>You can see how Apple’s daily returns are <strong>not normally distributed</strong>. There are too many observations in the middle (i.e. lots of small daily returns), not enough observations in the middle ranges (i.e. the normal distribution curve is above the histogram), and too many extreme observations in the tail.</p>
+<p>There’s also the <strong>Jarque-Bera test</strong>, which gets at the same thing. This test compares the skewness and kurtosis of your data with theoretical normal values (0 and 3). You can read more <a class="reference external" href="https://en.wikipedia.org/wiki/Jarque%E2%80%93Bera_test">here</a>.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">scs</span><span class="o">.</span><span class="n">jarque_bera</span><span class="p">(</span><span class="n">rets_log</span><span class="p">[</span><span class="s1">&#39;aapl_o&#39;</span><span class="p">])</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Jarque_beraResult(statistic=2062.363018375023, pvalue=0.0)
+</pre></div>
+</div>
+</div>
+</div>
+<p>We again look at the p-value and can reject the null hypothesis that Apple’s returns are normally distributed.</p>
+<p>Finally, we have the <strong>Anderson-Darling test</strong>. You can read more about it <a class="reference external" href="https://en.wikipedia.org/wiki/Anderson%E2%80%93Darling_test">here</a>.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">scs</span><span class="o">.</span><span class="n">anderson</span><span class="p">(</span><span class="n">rets_log</span><span class="p">[</span><span class="s1">&#39;aapl_o&#39;</span><span class="p">])</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>AndersonResult(statistic=16.873944813207345, critical_values=array([0.575, 0.655, 0.786, 0.916, 1.09 ]), significance_level=array([15. , 10. ,  5. ,  2.5,  1. ]))
+</pre></div>
+</div>
+</div>
+</div>
+<p>These results look a bit different, but are conceptually similar. The test statistic is 16.87. If we want a 1% significance-level, we compare that to 1.09. Since the test statistic is greater than the critical value of 1.09 at a 1% significance-level, we can reject the null hypothesis that the data are normally distributed.</p>
+<p>We we can also use something called a <strong>qq-plot</strong> to visualize how a set of returns compares the the theoretical normal distribution. I’m using <code class="docutils literal notranslate"><span class="pre">sm.qqplot</span></code> to make the graph.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">sm</span><span class="o">.</span><span class="n">qqplot</span><span class="p">(</span><span class="n">rets_log</span><span class="p">[</span><span class="s1">&#39;aapl_o&#39;</span><span class="p">],</span> <span class="n">line</span><span class="o">=</span><span class="s1">&#39;s&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s1">&#39;theoretical quantiles&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s1">&#39;sample quantiles&#39;</span><span class="p">);</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../_images/11_risk_mang_21_0.png" src="../_images/11_risk_mang_21_0.png" />
+</div>
+</div>
+<p>Where the blue deviates from the red, we are seeing more extreme values than the normal distribution would predict. In other words, <strong>excess kurtosis</strong>.</p>
+</div>
+<div class="section" id="fitting-different-distributions">
+<h2>Fitting different distributions<a class="headerlink" href="#fitting-different-distributions" title="Permalink to this headline">¶</a></h2>
+<p>There are a lot of different types of distributions for different types of data. In finance, we often assume that the real data that we’re observing, like stock returns, comes from a certain type of distribution. Here are some examples: the Standard Normal, the Normal, a Chi Square, and a Poisson. Note how a Poisson distribution is useful for discrete, counting data.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">sample_size</span> <span class="o">=</span> <span class="mi">500</span>
+<span class="n">rn1</span> <span class="o">=</span> <span class="n">npr</span><span class="o">.</span><span class="n">standard_normal</span><span class="p">(</span><span class="n">sample_size</span><span class="p">)</span>  
+<span class="n">rn2</span> <span class="o">=</span> <span class="n">npr</span><span class="o">.</span><span class="n">normal</span><span class="p">(</span><span class="mi">100</span><span class="p">,</span> <span class="mi">20</span><span class="p">,</span> <span class="n">sample_size</span><span class="p">)</span>  
+<span class="n">rn3</span> <span class="o">=</span> <span class="n">npr</span><span class="o">.</span><span class="n">chisquare</span><span class="p">(</span><span class="n">df</span><span class="o">=</span><span class="mf">0.5</span><span class="p">,</span> <span class="n">size</span><span class="o">=</span><span class="n">sample_size</span><span class="p">)</span>  
+<span class="n">rn4</span> <span class="o">=</span> <span class="n">npr</span><span class="o">.</span><span class="n">poisson</span><span class="p">(</span><span class="n">lam</span><span class="o">=</span><span class="mf">1.0</span><span class="p">,</span> <span class="n">size</span><span class="o">=</span><span class="n">sample_size</span><span class="p">)</span>  
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">fig</span><span class="p">,</span> <span class="p">((</span><span class="n">ax1</span><span class="p">,</span> <span class="n">ax2</span><span class="p">),</span> <span class="p">(</span><span class="n">ax3</span><span class="p">,</span> <span class="n">ax4</span><span class="p">))</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="n">nrows</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">ncols</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span>
+                                             <span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span> <span class="mi">8</span><span class="p">))</span>
+<span class="n">ax1</span><span class="o">.</span><span class="n">hist</span><span class="p">(</span><span class="n">rn1</span><span class="p">,</span> <span class="n">bins</span><span class="o">=</span><span class="mi">25</span><span class="p">)</span>
+<span class="n">ax1</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s1">&#39;standard normal&#39;</span><span class="p">)</span>
+<span class="n">ax1</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s1">&#39;frequency&#39;</span><span class="p">)</span>
+<span class="n">ax2</span><span class="o">.</span><span class="n">hist</span><span class="p">(</span><span class="n">rn2</span><span class="p">,</span> <span class="n">bins</span><span class="o">=</span><span class="mi">25</span><span class="p">)</span>
+<span class="n">ax2</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s1">&#39;normal(100, 20)&#39;</span><span class="p">)</span>
+<span class="n">ax3</span><span class="o">.</span><span class="n">hist</span><span class="p">(</span><span class="n">rn3</span><span class="p">,</span> <span class="n">bins</span><span class="o">=</span><span class="mi">25</span><span class="p">)</span>
+<span class="n">ax3</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s1">&#39;chi square&#39;</span><span class="p">)</span>
+<span class="n">ax3</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s1">&#39;frequency&#39;</span><span class="p">)</span>
+<span class="n">ax4</span><span class="o">.</span><span class="n">hist</span><span class="p">(</span><span class="n">rn4</span><span class="p">,</span> <span class="n">bins</span><span class="o">=</span><span class="mi">25</span><span class="p">)</span>
+<span class="n">ax4</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s1">&#39;Poisson&#39;</span><span class="p">);</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../_images/11_risk_mang_25_0.png" src="../_images/11_risk_mang_25_0.png" />
+</div>
+</div>
+<p>Some distributions to a better job than others describing real financial data. One distribution that we commonly see is called the <span class="math notranslate nohighlight">\(t\)</span>-distribution. This distribution has “fatter” tails than a normal distribution with smaller sample sizes, so it can better match what we actually observe. You can read more <a class="reference external" href="https://www.investopedia.com/terms/t/tdistribution.asp">here</a>.</p>
+<p>We can use the <code class="docutils literal notranslate"><span class="pre">scipy.stats</span></code> library to find functions that take data and <strong>fit a particular distribution</strong> to it. What does this mean? Remember how a normal distribution is described completely by the mean and standard deviation of your data? In other words, if you know the mean and standard deviation, then you can draw that normal bell curve? That’s what I did in the Apple return histogram above.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">n_params</span> <span class="o">=</span> <span class="n">scs</span><span class="o">.</span><span class="n">norm</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">rets_log</span><span class="p">[</span><span class="s1">&#39;aapl_o&#39;</span><span class="p">])</span>
+<span class="n">n_params</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>(0.0008426947352013821, 0.015904383367899087)
+</pre></div>
+</div>
+</div>
+</div>
+<p>Look back at the descriptives up above. I have fit a normal distribution to Apple and the function gave me the two necessary parameters to draw the distribution. They are the mean and standard deviation of Apple’s returns.
+I can take that mean and standard deviation and create a normal distribution that would describe Apple’s daily returns <strong>if they were normally distributed</strong>. We know that they are not.</p>
+<p>We can use <code class="docutils literal notranslate"><span class="pre">norm.pdf</span></code> to create the <strong>probability distribution function</strong>, or pdf, for a normal distribution with that mean and standard deviation. I first create an array <em>x</em>, that has numbers from -0.05 to 0.05 in 0.0005 increments. <code class="docutils literal notranslate"><span class="pre">norm.pdf</span></code> is taking a value from the array <em>x</em> and saying “What is the corresponding y-value, given the mean and standard deviation of this distribution?” A larger y-value means that the particular x-value is more likely.</p>
+<p>Note how the middle of the distribution is just slightly above zero. That’s the mean daily return.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1">#x-axis ranges from -.05 and .05 with .0005 steps</span>
+<span class="n">x</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="o">-</span><span class="mf">.05</span><span class="p">,</span> <span class="mf">.05</span><span class="p">,</span> <span class="mf">0.0005</span><span class="p">)</span>
+
+<span class="c1">#plot normal distribution with Apple&#39;s mean and standard deviation from the fitted normal distribution</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">norm</span><span class="o">.</span><span class="n">pdf</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">n_params</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">n_params</span><span class="p">[</span><span class="mi">1</span><span class="p">]));</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../_images/11_risk_mang_29_0.png" src="../_images/11_risk_mang_29_0.png" />
+</div>
+</div>
+<p>We can do the same thing for a <span class="math notranslate nohighlight">\(t\)</span>-distribution. These are also bell-shaped, but with heavier tails. Kind of like stock returns.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">t_params</span> <span class="o">=</span> <span class="n">scs</span><span class="o">.</span><span class="n">t</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">rets_log</span><span class="p">[</span><span class="s1">&#39;aapl_o&#39;</span><span class="p">]);</span>
+<span class="n">t_params</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>(3.8903663979713157, 0.0009572226500936301, 0.011356044925912068)
+</pre></div>
+</div>
+</div>
+</div>
+<p>Here I have three parameters. The first is the <strong>degrees-of-freedom</strong> (df), which describes how heavy the tails are. The other two paramters are called <strong>loc</strong> and <strong>scale</strong>, respectively. As df grows larger, the distribution will approach the normal distribution.</p>
+<p>I can again use the parameters for the distribution to create the probability distribution function.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">scs</span><span class="o">.</span><span class="n">t</span><span class="o">.</span><span class="n">pdf</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">t_params</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">t_params</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">t_params</span><span class="p">[</span><span class="mi">2</span><span class="p">]));</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../_images/11_risk_mang_33_0.png" src="../_images/11_risk_mang_33_0.png" />
+</div>
+</div>
+<p>We can plot both distributions on top of each other to see the difference. Remember, both of these are created using <strong>actual Apple daily returns</strong>. Which one looks more like the histogram of actual returns?</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">x</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="o">-</span><span class="mf">0.05</span><span class="p">,</span> <span class="mf">0.05</span><span class="p">,</span> <span class="mf">0.0005</span><span class="p">)</span>
+
+<span class="n">p1</span> <span class="o">=</span> <span class="n">norm</span><span class="o">.</span><span class="n">pdf</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">n_params</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">n_params</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span>
+<span class="n">p2</span> <span class="o">=</span> <span class="n">scs</span><span class="o">.</span><span class="n">t</span><span class="o">.</span><span class="n">pdf</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">t_params</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">t_params</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">t_params</span><span class="p">[</span><span class="mi">2</span><span class="p">])</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">p1</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;r&#39;</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;normal&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">p2</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;b&#39;</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;t&#39;</span><span class="p">)</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">legend</span><span class="p">();</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../_images/11_risk_mang_35_0.png" src="../_images/11_risk_mang_35_0.png" />
+</div>
+</div>
+</div>
+<div class="section" id="risk-management-and-tail-risk">
+<h2>Risk management and tail risk<a class="headerlink" href="#risk-management-and-tail-risk" title="Permalink to this headline">¶</a></h2>
+<p>We can use these ideas of distributions to think about <strong>risk management</strong>. <strong>Tail risk</strong> is the risk of extreme investment outcomes, most notably on the negative side of a distribution. Our various Datacamp lectures cover different measures of tail risk, including historical drawdown, Value-at-Risk (VaR), Conditional Value-at-Risk (also called Expected Shortfall), and some basic Monte Carlo simulations. The text also discusses VaR and Monte Carlo.</p>
+<div class="section" id="value-at-risk">
+<h3>Value at Risk<a class="headerlink" href="#value-at-risk" title="Permalink to this headline">¶</a></h3>
+<p>Value-at-Risk, or VaR, is a threshold with a given confidence level that losses will not (or more accurately, will not historically) exceed a certain level. VaR is commonly quoted with
+quantiles such as 95, 99, and 99.9. Some key points:</p>
+<ul class="simple">
+<li><p>Consider the distribution of losses over a fixed time period (day, week, etc.)</p></li>
+<li><p><span class="math notranslate nohighlight">\(\alpha\)</span>-VaR is the 𝛼-quantile of the loss distribution</p></li>
+<li><p><span class="math notranslate nohighlight">\(\alpha\)</span>- known as confidence level (e.g. 95%, 99%)</p></li>
+<li><p>Should lose no more than <span class="math notranslate nohighlight">\(\alpha\)</span>–VaR with probability <span class="math notranslate nohighlight">\(\alpha\)</span></p></li>
+</ul>
+<p>In its most general form, VaR measures the potential loss in value of a risky asset or portfolio over a defined period for a given confidence interval. Thus, if the VaR on an asset is <span class="math notranslate nohighlight">\(100 million at a one-week, 95% confidence level, there is a only a 5% chance that the value of the asset will drop more than \)</span>100 million over any given week.</p>
+<p>In 1995, J.P. Morgan provided public access to data on the variances of and covariances across various security and asset classes, that it had used internally for almost a decade to manage risk, and allowed software makers to develop software to measure risk. It titled the service “RiskMetrics” and used the term “Value-at-Risk” to describe the risk measure that emerged from the data. Now, software like Bloomberg lets you easily calculate various VaR-like measures for your portfolio.</p>
+<p>We can put some simple numbers on these ideas. We’ll start with <strong>parametric VaR</strong>. This means making assumptions about the distribution of our returns. Let’s assume that our portfolio returns are normally distributed. If you move 1.65 standard deviations away from the mean, then 5% of your return observations are to your left. This return is your 5% VaR. Given our assumptions, on 5% of days, you lose at least this amount. To find the 99% VaR, you would move 2.326 standard deviations from the mean.</p>
+<p>For example, we can use our 1-<span class="math notranslate nohighlight">\(\alpha\)</span> threshold and the <code class="docutils literal notranslate"><span class="pre">norm.ppf</span></code> function to find how many standard deviations away from the mean in a normal distribution we have to move to have 1-<span class="math notranslate nohighlight">\(\alpha\)</span> observations to the left of that point.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">z</span> <span class="o">=</span> <span class="n">norm</span><span class="o">.</span><span class="n">ppf</span><span class="p">(</span><span class="mf">0.05</span><span class="p">)</span>
+<span class="n">z</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>-1.6448536269514729
+</pre></div>
+</div>
+</div>
+</div>
+<p>There’s our 1.65. We can then easily find our VaR, assuming that Apple’s returns are normally distributed.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">-</span><span class="p">(</span><span class="n">rets_log</span><span class="p">[</span><span class="s1">&#39;aapl_o&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span> <span class="o">+</span> <span class="n">z</span><span class="o">*</span><span class="n">rets_log</span><span class="p">[</span><span class="s1">&#39;aapl_o&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">std</span><span class="p">())</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>0.025323810900439656
+</pre></div>
+</div>
+</div>
+</div>
+<p>VaR is usually given as a positive number, so I put a negative sign out in front. This is saying that you would expect to lose at least 2.5% on Apple on any given day 5% of the time. Again, assuming that Apple’s returns are normally distributed, which they are not!</p>
+<p>Here’s another example of parametric VaR using code from Datacamp. We’ll again use the 95% threshold, so <span class="math notranslate nohighlight">\(\alpha\)</span> is 5%.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">mu</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">rets_log</span><span class="p">[</span><span class="s1">&#39;aapl_o&#39;</span><span class="p">])</span>
+<span class="n">std</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">std</span><span class="p">(</span><span class="n">rets_log</span><span class="p">[</span><span class="s1">&#39;aapl_o&#39;</span><span class="p">])</span>
+<span class="n">confidence_level</span> <span class="o">=</span> <span class="mf">0.05</span>
+<span class="n">VaR_95</span> <span class="o">=</span> <span class="n">norm</span><span class="o">.</span><span class="n">ppf</span><span class="p">(</span><span class="n">confidence_level</span><span class="p">,</span> <span class="n">mu</span><span class="p">,</span> <span class="n">std</span><span class="p">)</span>
+<span class="o">-</span><span class="n">VaR_95</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>0.02531768793191412
+</pre></div>
+</div>
+</div>
+</div>
+<p>This time, <code class="docutils literal notranslate"><span class="pre">norm.ppf</span></code> is moving to the left in a normal distribution with Apple’s mean and standard deviation, so that 5% of the observations are to the left of the point and 95% are to the right. It is then telling us the return that lies at this point. The differences are due to rounding.</p>
+<p>Let’s plot the VaR on the normal distribution that we fit with Apple’s returns.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">norm</span><span class="o">.</span><span class="n">pdf</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">n_params</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">n_params</span><span class="p">[</span><span class="mi">1</span><span class="p">]))</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">axvline</span><span class="p">(</span><span class="n">x</span> <span class="o">=</span> <span class="n">VaR_95</span><span class="p">,</span> <span class="n">c</span><span class="o">=</span><span class="s1">&#39;r&#39;</span><span class="p">,</span> <span class="n">label</span> <span class="o">=</span> <span class="s2">&quot;VaR at 95% Confidence Level&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">legend</span><span class="p">();</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../_images/11_risk_mang_44_0.png" src="../_images/11_risk_mang_44_0.png" />
+</div>
+</div>
+<p>As the Datacamp notes, we can scale VaR with the square root of time. So, a daily VaR can be converted into a weekly VaR.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">-</span><span class="n">VaR_95</span><span class="o">*</span><span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="mi">5</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>0.056612071248886044
+</pre></div>
+</div>
+</div>
+</div>
+<p>We can also calculate something called <strong>non-parametric VaR</strong>. A simple way to estimate VaR is to line up past returns, sort them by magnitude, and find a return that has 5% worse days and 95% better days. This is one way to find the 95% VaR, since, if history repeats itself, you will lose less than this number with 95% certainty. So, we are still using history as our guide, but without a distributional assumption like normality.</p>
+<p>Here’s an example from our textbook that shows this VaR for different confidence levels using just Apple’s historical returns.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">percs</span> <span class="o">=</span> <span class="p">[</span><span class="mf">0.01</span><span class="p">,</span> <span class="mf">0.1</span><span class="p">,</span> <span class="mf">1.</span><span class="p">,</span> <span class="mf">2.5</span><span class="p">,</span> <span class="mf">5.0</span><span class="p">,</span> <span class="mf">10.0</span><span class="p">]</span>
+<span class="n">var</span> <span class="o">=</span> <span class="n">scs</span><span class="o">.</span><span class="n">scoreatpercentile</span><span class="p">(</span><span class="n">rets_log</span><span class="p">[</span><span class="s1">&#39;aapl_o&#39;</span><span class="p">],</span> <span class="n">percs</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;</span><span class="si">%16s</span><span class="s1"> </span><span class="si">%16s</span><span class="s1">&#39;</span> <span class="o">%</span> <span class="p">(</span><span class="s1">&#39;Confidence Level&#39;</span><span class="p">,</span> <span class="s1">&#39;Value-at-Risk&#39;</span><span class="p">))</span>
+<span class="nb">print</span><span class="p">(</span><span class="mi">33</span> <span class="o">*</span> <span class="s1">&#39;-&#39;</span><span class="p">)</span>
+<span class="k">for</span> <span class="n">pair</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="n">percs</span><span class="p">,</span> <span class="n">var</span><span class="p">):</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;</span><span class="si">%16.2f</span><span class="s1"> </span><span class="si">%16.3f</span><span class="s1">&#39;</span> <span class="o">%</span> <span class="p">(</span><span class="mi">100</span> <span class="o">-</span> <span class="n">pair</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="o">-</span><span class="n">pair</span><span class="p">[</span><span class="mi">1</span><span class="p">]))</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Confidence Level    Value-at-Risk
+---------------------------------
+           99.99            0.121
+           99.90            0.068
+           99.00            0.043
+           97.50            0.031
+           95.00            0.025
+           90.00            0.017
+</pre></div>
+</div>
+</div>
+</div>
+<p>So, 1% of the time, or 1 out of every 100 days, we would expect to lose <strong>at least</strong> 4.3%. That <strong>at least</strong> is really important.</p>
+<p>Here’s some other code that does the same thing. I got this from the Datacamp.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">var_level</span> <span class="o">=</span> <span class="mi">99</span>
+<span class="n">var_99</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">percentile</span><span class="p">(</span><span class="n">rets_log</span><span class="p">[</span><span class="s1">&#39;aapl_o&#39;</span><span class="p">],</span> <span class="mi">100</span> <span class="o">-</span> <span class="n">var_level</span><span class="p">)</span>
+<span class="o">-</span><span class="n">var_99</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>0.043116672339112976
+</pre></div>
+</div>
+</div>
+</div>
+<p>There’s that 4.3% again.</p>
+<p>We can also plot the histogram of Apple’s returns with the non-parametric VaR.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">plt</span><span class="o">.</span><span class="n">hist</span><span class="p">(</span><span class="n">rets_log</span><span class="p">[</span><span class="s1">&#39;aapl_o&#39;</span><span class="p">],</span> <span class="n">bins</span> <span class="o">=</span> <span class="mi">100</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">axvline</span><span class="p">(</span><span class="n">x</span> <span class="o">=</span> <span class="n">var_99</span><span class="p">,</span> <span class="n">c</span><span class="o">=</span><span class="s1">&#39;r&#39;</span><span class="p">,</span> <span class="n">label</span> <span class="o">=</span> <span class="s2">&quot;VaR at 99% Confidence Level&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">legend</span><span class="p">();</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../_images/11_risk_mang_52_0.png" src="../_images/11_risk_mang_52_0.png" />
+</div>
+</div>
+</div>
+<div class="section" id="conditional-var">
+<h3>Conditional VaR<a class="headerlink" href="#conditional-var" title="Permalink to this headline">¶</a></h3>
+<p>Conditional Value at Risk, or CVaR, is an estimate of <strong>expected losses</strong> sustained in the worst 1 - <span class="math notranslate nohighlight">\(\alpha\)</span>% of scenarios. CVaR is also commonly quoted
+with quantiles such as 95, 99, and 99.9.</p>
+<ul class="simple">
+<li><p>You will also see it called Tail VaR (TVaR), or <strong>expected shortfall (ES)</strong></p></li>
+<li><p><span class="math notranslate nohighlight">\(\alpha\)</span>-ES is expected loss <strong>given</strong> that loss exceeds <span class="math notranslate nohighlight">\(\alpha\)</span>-VaR</p></li>
+<li><p>This is the <strong>expected</strong> (or average) loss on a really bad day. It takes into account the returns to the left of the VaR, so it will exceed it.</p></li>
+</ul>
+<p>Note that ES &gt; VaR. This is the <strong>expected return</strong> on a bad day, so it is the average of all of the returns to the left of the 1-<span class="math notranslate nohighlight">\(\alpha\)</span>% VaR return.</p>
+<p>Here’s an example, using code from Datacamp, for a 99% CVaR using Apple’s returns.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">var_level</span> <span class="o">=</span> <span class="mi">99</span>
+<span class="n">var_99</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">percentile</span><span class="p">(</span><span class="n">rets_log</span><span class="p">[</span><span class="s1">&#39;aapl_o&#39;</span><span class="p">],</span> <span class="mi">100</span> <span class="o">-</span> <span class="n">var_level</span><span class="p">)</span>
+<span class="n">cvar_99</span> <span class="o">=</span> <span class="n">rets_log</span><span class="p">[</span><span class="s1">&#39;aapl_o&#39;</span><span class="p">][</span><span class="n">rets_log</span><span class="p">[</span><span class="s1">&#39;aapl_o&#39;</span><span class="p">]</span> <span class="o">&lt;=</span> <span class="n">var_99</span><span class="p">]</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span>
+<span class="o">-</span><span class="n">cvar_99</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>0.05685084533762395
+</pre></div>
+</div>
+</div>
+</div>
+<p>So, on a bad day, when Apple’s VaR hits and exceeds the 99% threshold, you would expect to lose, on average, 5.69%.</p>
+<p>Finally, note that we are also using a <strong>non-parametric</strong> method, since we are using the actual returns to find an average. There are no assumptions about the distribution of Apple returns here, expect for the one that says that Apple’s historical returns are a good proxy for their future return distribution and, therefore, our estimate of Apple’s risk.</p>
+</div>
+<div class="section" id="rolling-var-with-different-distributions">
+<h3>Rolling VaR with different distributions<a class="headerlink" href="#rolling-var-with-different-distributions" title="Permalink to this headline">¶</a></h3>
+<p>Our Datacamp assignments cover using a <span class="math notranslate nohighlight">\(t\)</span>-distribution to find a <strong>rolling VaR measure</strong>. In other words, let’s calculate the mean and standard deviation of Apple’s returns as we go through time. We’ll use a rolling 30-day period. With these values, we’ll find the 95% VaR for Apple, assuming that their returns follow a <span class="math notranslate nohighlight">\(t\)</span>-distribution.</p>
+<p>What does this mean? First, the VaR will change as our estimates for Apple’s mean and standard deviation of returns changes! Also, we’ll be taking into account “fatter tails” when finding our VaR.</p>
+<p>This is another <strong>parametric VaR</strong>.</p>
+<p>In the Python itself, there’s some fancier stuff going on. We’ve seen the <code class="docutils literal notranslate"><span class="pre">rolling()</span></code> part. That just looks back 30 periods (a 30 day window in this case) to calculate the value.</p>
+<p>But, what is going on in that <em>rolling_parameters</em> definition? First, this is a <strong>list</strong>. You cans ee that by looking down in the Jupyter variables window. Specifically a list of <strong>tuples</strong>, where each tuple contains three values. The first value of each tuple is 29. The second is the ith value of the rolling means. The second is the sth value of the rolling standard deviations. These will be <code class="docutils literal notranslate"><span class="pre">nan</span></code>, or missing, until we hit the 30th observation in the data (or, the way Python counts, the 29th). The <code class="docutils literal notranslate"><span class="pre">enumerate()</span></code> function keeps track of the number of items in <em>sigma</em>. I would have never come up with that exact code to do this.</p>
+<p>Why do we need <em>rolling_parameters</em>? These go into the VaR calculation. Every day, we calculate a new VaR using the next set of rolling parameters. What are the parameters for? The <span class="math notranslate nohighlight">\(t\)</span>-distribution. The three values that define a specific the <span class="math notranslate nohighlight">\(t\)</span>-distribution (i.e. that draw the graph) are degrees-of-freedom (df), loc, and scale. From the Datacamp lecture:</p>
+<blockquote>
+<div><p>One special characteristic of the T distribution is its degrees of freedom.
+The number of degrees of freedom is the number of independent observations. The degrees of freedom number affects the shape of the T distribution.
+It can be explicitly set with the `df’ parameter, or estimated using the “.fit()” method of the “scipy.stats.t” distribution.</p>
+</div></blockquote>
+<p>So, you would change that <em>df</em> value based on your window.</p>
+<p>Like in the DataCamp, we’ll assume that we have a portfolio of $100,000. In fact, VaR is often given in <strong>dollar terms</strong>. What is the minimum amount that we would expect to lose on a bad day?</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Create rolling window parameter list</span>
+<span class="n">mu</span> <span class="o">=</span> <span class="n">rets_log</span><span class="p">[</span><span class="s1">&#39;aapl_o&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">rolling</span><span class="p">(</span><span class="mi">30</span><span class="p">)</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span>
+<span class="n">sigma</span> <span class="o">=</span> <span class="n">rets_log</span><span class="p">[</span><span class="s1">&#39;aapl_o&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">rolling</span><span class="p">(</span><span class="mi">30</span><span class="p">)</span><span class="o">.</span><span class="n">std</span><span class="p">()</span>
+<span class="n">rolling_parameters</span> <span class="o">=</span> <span class="p">[(</span><span class="mi">29</span><span class="p">,</span> <span class="n">mu</span><span class="p">[</span><span class="n">i</span><span class="p">],</span> <span class="n">s</span><span class="p">)</span> <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">s</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">sigma</span><span class="p">)]</span>
+
+<span class="c1"># Compute the 95% VaR array using the rolling window parameters</span>
+<span class="n">VaR_95</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="n">scs</span><span class="o">.</span><span class="n">t</span><span class="o">.</span><span class="n">ppf</span><span class="p">(</span><span class="mf">0.95</span><span class="p">,</span> <span class="o">*</span><span class="n">params</span><span class="p">)</span> 
+                    <span class="k">for</span> <span class="n">params</span> <span class="ow">in</span> <span class="n">rolling_parameters</span><span class="p">])</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">rets_log</span><span class="p">[</span><span class="s1">&#39;aapl_o&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">index</span><span class="p">,</span> <span class="mf">0.05</span> <span class="o">*</span> <span class="n">VaR_95</span> <span class="o">*</span> <span class="mi">100000</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s1">&#39;Dollar Risk Exposure for Apple, Rolling 30-Day VaR&#39;</span><span class="p">);</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../_images/11_risk_mang_57_0.png" src="../_images/11_risk_mang_57_0.png" />
+</div>
+</div>
+</div>
+</div>
+<div class="section" id="quantstats">
+<h2>QuantStats<a class="headerlink" href="#quantstats" title="Permalink to this headline">¶</a></h2>
+<p>Finally, there are some fun Python packages to automate all of this. Here’s some examples of one called <strong>QuantStats</strong>. You can download it the usual way in the terminal: <code class="docutils literal notranslate"><span class="pre">pip</span> <span class="pre">install</span> <span class="pre">QuantStats</span></code></p>
+<p>You can find some basic documentation <a class="reference external" href="https://pypi.org/project/QuantStats/">here</a>.</p>
+<p>One fun thing: It has a <code class="docutils literal notranslate"><span class="pre">qs.extend_pandas()</span></code> function that let’s you call QuantStat functions directly on a DataFrame, like you would a <code class="docutils literal notranslate"><span class="pre">pandas</span></code> function.</p>
+<p>Let’s find the Sharpe ratio for Apple.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">qs</span><span class="o">.</span><span class="n">extend_pandas</span><span class="p">()</span>
+
+<span class="n">stock</span> <span class="o">=</span> <span class="n">rets_log</span><span class="p">[</span><span class="s1">&#39;aapl_o&#39;</span><span class="p">]</span>
+
+<span class="n">qs</span><span class="o">.</span><span class="n">stats</span><span class="o">.</span><span class="n">sharpe</span><span class="p">(</span><span class="n">stock</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>0.8409149595522958
+</pre></div>
+</div>
+</div>
+</div>
+<p>Here’s the Sharpe again, but using the <code class="docutils literal notranslate"><span class="pre">pandas</span></code> extention feature. <strong>stock</strong> contains Apple’s returns.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">stock</span><span class="o">.</span><span class="n">sharpe</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>0.8409149595522958
+</pre></div>
+</div>
+</div>
+</div>
+<p>Some nice performance graphs.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">stock</span><span class="o">.</span><span class="n">plot_snapshot</span><span class="p">(</span><span class="n">title</span><span class="o">=</span><span class="s1">&#39;Apple Performance&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../_images/11_risk_mang_63_0.png" src="../_images/11_risk_mang_63_0.png" />
+</div>
+</div>
+<p>Finally, this will create a giant performance report as an HTML file. You could backtest a strategy and then generate a report using this too.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1">#qs.reports.html(stock, &quot;SPY&quot;)</span>
+</pre></div>
+</div>
+</div>
+</div>
+</div>
 </div>
 
     <script type="text/x-thebe-config">
@@ -509,7 +1427,7 @@
         <i class="fas fa-angle-left"></i>
         <div class="prev-next-info">
             <p class="prev-next-subtitle">previous</p>
-            <p class="prev-next-title">Factor models</p>
+            <p class="prev-next-title">Factor models <a id='factor_models'></a></p>
         </div>
     </a>
     <a class='right-next' id="next-link" href="12_finmarketpy.html" title="next page">
