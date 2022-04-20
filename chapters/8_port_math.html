@@ -42,8 +42,6 @@
     <script src="../_static/copybutton.js"></script>
     <script>var togglebuttonSelector = '.toggle, .admonition.dropdown, .tag_hide_input div.cell_input, .tag_hide-input div.cell_input, .tag_hide_output div.cell_output, .tag_hide-output div.cell_output, .tag_hide_cell.cell, .tag_hide-cell.cell';</script>
     <script src="../_static/sphinx-book-theme.d59cb220de22ca1c485ebbdc042f0030.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
-    <script src="https://unpkg.com/@jupyter-widgets/html-manager@^0.20.0/dist/embed-amd.js"></script>
     <script async="async" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
     <script>window.MathJax = {"options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
     <script async="async" src="https://unpkg.com/thebe@0.5.1/lib/index.js"></script>
@@ -260,6 +258,8 @@
  <li class="toctree-l1">
   <a class="reference internal" href="7_nasdaq_api.html">
    Using NASDAQ BTC data
+   <a id="btc-sim">
+   </a>
   </a>
  </li>
  <li class="toctree-l1 current active">
@@ -290,13 +290,13 @@
   </a>
  </li>
  <li class="toctree-l1">
-  <a class="reference internal" href="13_options.html">
-   Option basics
+  <a class="reference internal" href="13_monte_carlo.html">
+   Monte Carlo and portfolios
   </a>
  </li>
  <li class="toctree-l1">
-  <a class="reference internal" href="14_monte_carlo.html">
-   Monte Carlo and portfolios
+  <a class="reference internal" href="14_options.html">
+   Option basics
   </a>
  </li>
  <li class="toctree-l1">
@@ -490,6 +490,11 @@
             <nav id="bd-toc-nav" aria-label="Page">
                 <ul class="visible nav section-nav flex-column">
  <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#geometric-vs-arithmetic-averages">
+   Geometric vs. arithmetic averages
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
   <a class="reference internal nav-link" href="#portfolio-level-returns">
    Portfolio-level returns
   </a>
@@ -534,6 +539,11 @@
                         </div>
                         <nav aria-label="Page">
                             <ul class="visible nav section-nav flex-column">
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#geometric-vs-arithmetic-averages">
+   Geometric vs. arithmetic averages
+  </a>
+ </li>
  <li class="toc-h2 nav-item toc-entry">
   <a class="reference internal nav-link" href="#portfolio-level-returns">
    Portfolio-level returns
@@ -921,6 +931,34 @@
 </div></div></div>
 </div>
 <p>I used <code class="docutils literal notranslate"><span class="pre">.iloc</span></code> to keep the columns I wanted. Easier to use a column number reference than type out these long names.</p>
+<div class="section" id="geometric-vs-arithmetic-averages">
+<h2>Geometric vs. arithmetic averages<a class="headerlink" href="#geometric-vs-arithmetic-averages" title="Permalink to this headline">¶</a></h2>
+<p>In order to think about portfolio returns, we also need to understand the relationship between an arithmetic average and the geometric average, and when to use one vs. another.</p>
+<p>This article, <a class="reference external" href="https://www.kitces.com/blog/volatility-drag-variance-drain-mean-arithmetic-vs-geometric-average-investment-returns/">by the financial planner Michael Kitches</a>, is a great explanation of why the difference matters and how <strong>volatility drag</strong> affects your total return. From his summary:</p>
+<blockquote>
+<div><p>In the investment world, it’s common to discuss average rates of return, both in a backward-looking fashion (e.g., to report investment results), and in a more forward-looking manner (e.g., to project the average growth rate of investments for funding future goals in retirement planning software). However, the reality is that because returns are linked to each other – the return in one year increases or decreases the available wealth to compound in the subsequent year – it’s not sufficient to simply determine an “average” return by adding up all the historical returns and dividing by how many there are.</p>
+</div></blockquote>
+<blockquote>
+<div><p>Instead of this traditional “arithmetic mean” approach to calculating an average, in the case of investment returns, the proper way to calculate average returns is with a geometric mean, that takes into account the compounding effects of a series of volatile returns over time. Which is important, because in practice the geometric average return is never as high as its arithmetic mean counterpart, due to the fact that volatility always produces some level of “volatility drag”, which can be estimated by subtracting ½ of the investment’s variance (standard deviation squared) from its arithmetic return.</p>
+</div></blockquote>
+<blockquote>
+<div><p>Fortunately, the reality is that most investment returns, as commonly discussed by financial advisors, are already reported as geometric returns, typically stated as either a Compound Average Growth Rate (CAGR), an annualized return, or some similar label. Which means, intended or not, most financial advisors already project future wealth values in a retirement plan using the (proper) geometric return assumption.</p>
+</div></blockquote>
+<blockquote>
+<div><p>However, the variance drain on a sequence of volatile returns still matters when financial advisors use Monte Carlo analysis, which by design actually projects sequences of random volatile returns (based on the probability that they will occur) to determine the outcome of particular retirement strategies. Because the fact that volatility drag is already part of a Monte Carlo analysis means that the return assumption plugged into a Monte Carlo projection should actually be the (higher) arithmetic return, and not the investment’s long-term compound average growth rate. Otherwise, the impact of volatility drag is effectively counted twice, which can understate long-term returns and overstate the actual risk of the prospective retirement plan!</p>
+</div></blockquote>
+<p>We can put that reasoning into a simple, but important formula.</p>
+<div class="amsmath math notranslate nohighlight" id="equation-5384d81e-930a-4c8b-987b-e644e50a8d94">
+<span class="eqno">(6)<a class="headerlink" href="#equation-5384d81e-930a-4c8b-987b-e644e50a8d94" title="Permalink to this equation">¶</a></span>\[\begin{align}
+\text{Compound Return}_i = E[R_p] - \frac{1}{2}\sigma^2_p
+\end{align}\]</div>
+<p>where <span class="math notranslate nohighlight">\(E[R_i]\)</span> is the arithmetic mean of the portfolio (i.e. the expected return) and <span class="math notranslate nohighlight">\(\sigma^2_p\)</span> is the variance of the portfolio. Note that this math works for single assets, too. It isn’t portfolio specific.</p>
+<div class="admonition hint">
+<p class="admonition-title">Hint</p>
+<p>This is yet another formula that appears on the CFA and CFP exams.</p>
+</div>
+<p>Believe it or not, just figuring out how to calculate returns in order to create projections (e.g. for a client portfolio) is a controversial, non-trivial task. Two of the authors of your FIN 4120 investments textbook suggest that you should forecast the value of a portfolio using an average <a class="reference external" href="https://www.tandfonline.com/doi/abs/10.2469/faj.v59.n6.2574?src=recsys">between the arithmetic and geometric</a>.</p>
+</div>
 <div class="section" id="portfolio-level-returns">
 <h2>Portfolio-level returns<a class="headerlink" href="#portfolio-level-returns" title="Permalink to this headline">¶</a></h2>
 <p>Let’s define an array of weights. We’ll put 25% of our money into each style category. This isn’t actually an investable strategy, since you can’t invest in the average hedge fund!</p>
@@ -951,7 +989,7 @@
 <div class="cell_output docutils container">
 <div class="output text_html"><style type="text/css">
 </style>
-<table id="T_40071_">
+<table id="T_34ba9_">
   <caption>Hedge Fund Style Returns</caption>
   <thead>
     <tr>
@@ -961,20 +999,20 @@
   </thead>
   <tbody>
     <tr>
-      <th id="T_40071_level0_row0" class="row_heading level0 row0" >L/S Equity</th>
-      <td id="T_40071_row0_col0" class="data row0 col0" >0.754%</td>
+      <th id="T_34ba9_level0_row0" class="row_heading level0 row0" >L/S Equity</th>
+      <td id="T_34ba9_row0_col0" class="data row0 col0" >0.754%</td>
     </tr>
     <tr>
-      <th id="T_40071_level0_row1" class="row_heading level0 row1" >Equity Market Neutral</th>
-      <td id="T_40071_row1_col0" class="data row1 col0" >0.441%</td>
+      <th id="T_34ba9_level0_row1" class="row_heading level0 row1" >Equity Market Neutral</th>
+      <td id="T_34ba9_row1_col0" class="data row1 col0" >0.441%</td>
     </tr>
     <tr>
-      <th id="T_40071_level0_row2" class="row_heading level0 row2" >Global Macro</th>
-      <td id="T_40071_row2_col0" class="data row2 col0" >0.959%</td>
+      <th id="T_34ba9_level0_row2" class="row_heading level0 row2" >Global Macro</th>
+      <td id="T_34ba9_row2_col0" class="data row2 col0" >0.959%</td>
     </tr>
     <tr>
-      <th id="T_40071_level0_row3" class="row_heading level0 row3" >Managed Futures</th>
-      <td id="T_40071_row3_col0" class="data row3 col0" >0.511%</td>
+      <th id="T_34ba9_level0_row3" class="row_heading level0 row3" >Managed Futures</th>
+      <td id="T_34ba9_row3_col0" class="data row3 col0" >0.511%</td>
     </tr>
   </tbody>
 </table>
@@ -999,7 +1037,7 @@
 <div class="cell_output docutils container">
 <div class="output text_html"><style type="text/css">
 </style>
-<table id="T_8a4d6_">
+<table id="T_da5dc_">
   <caption>Hedge Fund Style Returns</caption>
   <thead>
     <tr>
@@ -1009,20 +1047,20 @@
   </thead>
   <tbody>
     <tr>
-      <th id="T_8a4d6_level0_row0" class="row_heading level0 row0" >L/S Equity</th>
-      <td id="T_8a4d6_row0_col0" class="data row0 col0" >0.754%</td>
+      <th id="T_da5dc_level0_row0" class="row_heading level0 row0" >L/S Equity</th>
+      <td id="T_da5dc_row0_col0" class="data row0 col0" >0.754%</td>
     </tr>
     <tr>
-      <th id="T_8a4d6_level0_row1" class="row_heading level0 row1" >Equity Market Neutral</th>
-      <td id="T_8a4d6_row1_col0" class="data row1 col0" >0.441%</td>
+      <th id="T_da5dc_level0_row1" class="row_heading level0 row1" >Equity Market Neutral</th>
+      <td id="T_da5dc_row1_col0" class="data row1 col0" >0.441%</td>
     </tr>
     <tr>
-      <th id="T_8a4d6_level0_row2" class="row_heading level0 row2" >Global Macro</th>
-      <td id="T_8a4d6_row2_col0" class="data row2 col0" >0.959%</td>
+      <th id="T_da5dc_level0_row2" class="row_heading level0 row2" >Global Macro</th>
+      <td id="T_da5dc_row2_col0" class="data row2 col0" >0.959%</td>
     </tr>
     <tr>
-      <th id="T_8a4d6_level0_row3" class="row_heading level0 row3" >Managed Futures</th>
-      <td id="T_8a4d6_row3_col0" class="data row3 col0" >0.511%</td>
+      <th id="T_da5dc_level0_row3" class="row_heading level0 row3" >Managed Futures</th>
+      <td id="T_da5dc_row3_col0" class="data row3 col0" >0.511%</td>
     </tr>
   </tbody>
 </table>
@@ -1084,7 +1122,7 @@
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../_images/8_port_math_21_0.png" src="../_images/8_port_math_21_0.png" />
+<img alt="../_images/8_port_math_22_0.png" src="../_images/8_port_math_22_0.png" />
 </div>
 </div>
 <p>Yikes! Check out the orange line - equity market neutral funds aren’t necessarily very market neutral!</p>
@@ -1092,14 +1130,14 @@
 <div class="section" id="risk-measures-at-the-portfolio-level">
 <h2>Risk measures at the portfolio-level<a class="headerlink" href="#risk-measures-at-the-portfolio-level" title="Permalink to this headline">¶</a></h2>
 <p>As you know from your investments class, the variance of a portfolio is <strong>not</strong> the average variance of the assets in the portfolio. We need to take into account the effects of <strong>diversification</strong>. For example, here’s the formula for the variance of a portfolio with two assets. We need weights, variances, and the covariance between the two.</p>
-<div class="amsmath math notranslate nohighlight" id="equation-3a417cfc-478e-478e-9122-cfc201ea952f">
-<span class="eqno">(6)<a class="headerlink" href="#equation-3a417cfc-478e-478e-9122-cfc201ea952f" title="Permalink to this equation">¶</a></span>\[\begin{align}
+<div class="amsmath math notranslate nohighlight" id="equation-6d95151d-d29c-465e-b632-17e2f7ec1619">
+<span class="eqno">(7)<a class="headerlink" href="#equation-6d95151d-d29c-465e-b632-17e2f7ec1619" title="Permalink to this equation">¶</a></span>\[\begin{align}
 \sigma^2_p = w^2_1 \sigma^2_1 + w^2_2 \sigma^2_2 + 2 w_1 w_2 \sigma^2_{1,2}
 \end{align}\]</div>
 <p>That last sigma, <span class="math notranslate nohighlight">\(\sigma^2_{1,2}\)</span>, is the <strong>covariance</strong> between the two assets.</p>
 <p>This formula generalizes for <strong>any number of assets</strong>.</p>
-<div class="amsmath math notranslate nohighlight" id="equation-8d728dbc-d56c-41ba-92c6-34db2f866d78">
-<span class="eqno">(7)<a class="headerlink" href="#equation-8d728dbc-d56c-41ba-92c6-34db2f866d78" title="Permalink to this equation">¶</a></span>\[\begin{align}
+<div class="amsmath math notranslate nohighlight" id="equation-c28fa7c3-861c-430c-8cd9-86c4e785eaba">
+<span class="eqno">(8)<a class="headerlink" href="#equation-c28fa7c3-861c-430c-8cd9-86c4e785eaba" title="Permalink to this equation">¶</a></span>\[\begin{align}
 \sigma^2_p = w^T \Sigma w
 \end{align}\]</div>
 <p>where <span class="math notranslate nohighlight">\(w\)</span> is a <strong>vector</strong> containing all of our portfolio weights and sigma is the variance-covariance matrix for our assets. The “T” means the matrix operation <strong>transpose</strong>. This is necessary for the matrix multiplication.</p>
@@ -1448,7 +1486,7 @@ Name: port_ret, dtype: float64
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../_images/8_port_math_48_0.png" src="../_images/8_port_math_48_0.png" />
+<img alt="../_images/8_port_math_49_0.png" src="../_images/8_port_math_49_0.png" />
 </div>
 </div>
 </div>
@@ -1483,7 +1521,7 @@ Name: port_ret, dtype: float64
         <i class="fas fa-angle-left"></i>
         <div class="prev-next-info">
             <p class="prev-next-subtitle">previous</p>
-            <p class="prev-next-title">Using NASDAQ BTC data</p>
+            <p class="prev-next-title">Using NASDAQ BTC data <a id='btc-sim'></a></p>
         </div>
     </a>
     <a class='right-next' id="next-link" href="9_portfolio_opt.html" title="next page">

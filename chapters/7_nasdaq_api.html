@@ -42,8 +42,6 @@
     <script src="../_static/copybutton.js"></script>
     <script>var togglebuttonSelector = '.toggle, .admonition.dropdown, .tag_hide_input div.cell_input, .tag_hide-input div.cell_input, .tag_hide_output div.cell_output, .tag_hide-output div.cell_output, .tag_hide_cell.cell, .tag_hide-cell.cell';</script>
     <script src="../_static/sphinx-book-theme.d59cb220de22ca1c485ebbdc042f0030.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
-    <script src="https://unpkg.com/@jupyter-widgets/html-manager@^0.20.0/dist/embed-amd.js"></script>
     <script async="async" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
     <script>window.MathJax = {"options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
     <script async="async" src="https://unpkg.com/thebe@0.5.1/lib/index.js"></script>
@@ -260,6 +258,8 @@
  <li class="toctree-l1 current active">
   <a class="current reference internal" href="#">
    Using NASDAQ BTC data
+   <a id="btc-sim">
+   </a>
   </a>
  </li>
  <li class="toctree-l1">
@@ -290,13 +290,13 @@
   </a>
  </li>
  <li class="toctree-l1">
-  <a class="reference internal" href="13_options.html">
-   Option basics
+  <a class="reference internal" href="13_monte_carlo.html">
+   Monte Carlo and portfolios
   </a>
  </li>
  <li class="toctree-l1">
-  <a class="reference internal" href="14_monte_carlo.html">
-   Monte Carlo and portfolios
+  <a class="reference internal" href="14_options.html">
+   Option basics
   </a>
  </li>
  <li class="toctree-l1">
@@ -491,7 +491,7 @@
         <div class="col-12 col-md-9 pl-md-3 pr-md-0">
             <!-- Table of contents that is only displayed when printing the page -->
             <div id="jb-print-docs-body" class="onlyprint">
-                <h1>Using NASDAQ BTC data</h1>
+                <h1>Using NASDAQ BTC data <a id='btc-sim'></a></h1>
                 <!-- Table of contents -->
                 <div id="print-main-content">
                     <div id="jb-print-toc">
@@ -502,8 +502,8 @@
             
               <div>
                 
-  <div class="tex2jax_ignore mathjax_ignore section" id="using-nasdaq-btc-data">
-<h1>Using NASDAQ BTC data<a class="headerlink" href="#using-nasdaq-btc-data" title="Permalink to this headline">¶</a></h1>
+  <div class="tex2jax_ignore mathjax_ignore section" id="using-nasdaq-btc-data-a-id-btc-sim-a">
+<h1>Using NASDAQ BTC data <a id='btc-sim'></a><a class="headerlink" href="#using-nasdaq-btc-data-a-id-btc-sim-a" title="Permalink to this headline">¶</a></h1>
 <p>This chapter will use the NASDAQ data link to download some BTC price and return data. We’ll also see our first set of <strong>simulations</strong>.</p>
 <p>We’ll need to install a few packages to access the Nasdaq data. There’s <a class="reference external" href="https://github.com/Nasdaq/data-link-python">NASDAQ Data Link</a> and <a class="reference external" href="https://github.com/quandl/quandl-python">Quandl</a>. NASDAQ has purchased Quandl and they are trying to integrate their tools into one system. This actually makes things a bit confusing right now, as some examples use NASDAQ Data Link and others still refer to Quandl.</p>
 <p>I am going to use Quandl in my examples below.</p>
@@ -658,24 +658,24 @@
   </thead>
   <tbody>
     <tr>
-      <th>2022-04-07</th>
-      <td>43190.18</td>
+      <th>2022-04-15</th>
+      <td>39939.90</td>
     </tr>
     <tr>
-      <th>2022-04-08</th>
-      <td>43464.32</td>
+      <th>2022-04-16</th>
+      <td>40566.20</td>
     </tr>
     <tr>
-      <th>2022-04-09</th>
-      <td>42278.94</td>
+      <th>2022-04-17</th>
+      <td>40388.78</td>
     </tr>
     <tr>
-      <th>2022-04-10</th>
-      <td>42787.69</td>
+      <th>2022-04-18</th>
+      <td>39711.45</td>
     </tr>
     <tr>
-      <th>2022-04-11</th>
-      <td>42144.23</td>
+      <th>2022-04-19</th>
+      <td>40805.72</td>
     </tr>
   </tbody>
 </table>
@@ -799,43 +799,43 @@
       <td>...</td>
     </tr>
     <tr>
-      <th>2022-04-07</th>
-      <td>43190.18</td>
-      <td>-0.050935</td>
-      <td>0.949065</td>
-      <td>135.807666</td>
+      <th>2022-04-15</th>
+      <td>39939.90</td>
+      <td>-0.029361</td>
+      <td>0.970639</td>
+      <td>125.512195</td>
     </tr>
     <tr>
-      <th>2022-04-08</th>
-      <td>43464.32</td>
-      <td>0.006347</td>
-      <td>1.006347</td>
-      <td>136.676022</td>
+      <th>2022-04-16</th>
+      <td>40566.20</td>
+      <td>0.015681</td>
+      <td>1.015681</td>
+      <td>127.496041</td>
     </tr>
     <tr>
-      <th>2022-04-09</th>
-      <td>42278.94</td>
-      <td>-0.027272</td>
-      <td>0.972728</td>
-      <td>132.921254</td>
+      <th>2022-04-17</th>
+      <td>40388.78</td>
+      <td>-0.004374</td>
+      <td>0.995626</td>
+      <td>126.934051</td>
     </tr>
     <tr>
-      <th>2022-04-10</th>
-      <td>42787.69</td>
-      <td>0.012033</td>
-      <td>1.012033</td>
-      <td>134.532753</td>
+      <th>2022-04-18</th>
+      <td>39711.45</td>
+      <td>-0.016770</td>
+      <td>0.983230</td>
+      <td>124.788565</td>
     </tr>
     <tr>
-      <th>2022-04-11</th>
-      <td>42144.23</td>
-      <td>-0.015038</td>
-      <td>0.984962</td>
-      <td>132.494552</td>
+      <th>2022-04-19</th>
+      <td>40805.72</td>
+      <td>0.027556</td>
+      <td>1.027556</td>
+      <td>128.254736</td>
     </tr>
   </tbody>
 </table>
-<p>2658 rows × 4 columns</p>
+<p>2666 rows × 4 columns</p>
 </div></div></div>
 </div>
 <div class="cell docutils container">
@@ -854,7 +854,7 @@
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;matplotlib.legend.Legend at 0x7fc4b8536e50&gt;
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;matplotlib.legend.Legend at 0x7f94d927fe20&gt;
 </pre></div>
 </div>
 <img alt="../_images/7_nasdaq_api_9_1.png" src="../_images/7_nasdaq_api_9_1.png" />
@@ -886,23 +886,23 @@
 </div>
 </div>
 <p>Let’s put together some ideas, write a function, and run a simulation. We’ll use something called <strong>geometric brownian motion</strong> (GBM). What is GBM? It is a particular <strong>stochastic differential equation</strong>. But, what’s important for us is the idea, which is fairly simple. Here’s the formula:</p>
-<div class="amsmath math notranslate nohighlight" id="equation-cb035560-ac1c-4de2-a23f-e73f285191bd">
-<span class="eqno">(4)<a class="headerlink" href="#equation-cb035560-ac1c-4de2-a23f-e73f285191bd" title="Permalink to this equation">¶</a></span>\[\begin{align}
+<div class="amsmath math notranslate nohighlight" id="equation-d1b80ddf-ce09-4e35-9128-5c22667d9916">
+<span class="eqno">(4)<a class="headerlink" href="#equation-d1b80ddf-ce09-4e35-9128-5c22667d9916" title="Permalink to this equation">¶</a></span>\[\begin{align}
 dS = \mu S dt + \sigma S dW_t
 \end{align}\]</div>
 <p>This says that the change in the stock price has two components - a <strong>drift</strong>, or average increase over time, and a <strong>shock</strong> that it is random at each point in time. The shock is scaled by the standard deviation of returns that you use. So, larger standard deviation, the bigger the shocks can be. This is basically the simplest way that you can model an asset price.</p>
 <p>The shocks are what make the price wiggle around around, or else it would just go up over time, based on the drift value that we use.</p>
 <p>And, I’ll stress - we aren’t predicting here, so to speak. We are trying to capture some basic reality about how an asset moves and then seeing what is possible in the future. We aren’t making a statement about whether we think an asset is overvalued or undervalued, will go up or down, etc.</p>
 <p>You can solve this equation to get the value of the asset at any point in time t. You just need to know the total of all of the shocks at time t.</p>
-<div class="amsmath math notranslate nohighlight" id="equation-2a0462fe-669c-47f1-9529-83d14369de57">
-<span class="eqno">(5)<a class="headerlink" href="#equation-2a0462fe-669c-47f1-9529-83d14369de57" title="Permalink to this equation">¶</a></span>\[\begin{align}
-S(t) = S(0) \exp \left(\left(\mu - \frac{1}{2}\sigma^2\right)t + \sigma W(t)\right)
+<div class="amsmath math notranslate nohighlight" id="equation-28df5930-7d4b-415d-a2bb-3b7accaf9d3d">
+<span class="eqno">(5)<a class="headerlink" href="#equation-28df5930-7d4b-415d-a2bb-3b7accaf9d3d" title="Permalink to this equation">¶</a></span>\[\begin{align}
+S(t) = S(0) \exp \left(\left(\mu - \frac{1}{2}\sigma^2\right)t + \sigma \sqrt{t} W(t)\right)
 \end{align}\]</div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">T</span> <span class="o">=</span> <span class="mi">30</span> <span class="c1"># How long is our simulation? Let&#39;s do 31 days (0 to 30 the way Python counts)</span>
 <span class="n">N</span> <span class="o">=</span> <span class="mi">30</span> <span class="c1"># number of time points in the prediction time horizon, making this the same as T means that we will simulate daily returns </span>
-<span class="n">S_0</span> <span class="o">=</span> <span class="n">btc</span><span class="o">.</span><span class="n">Value</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span> <span class="c1"># initial stock price</span>
+<span class="n">S_0</span> <span class="o">=</span> <span class="n">btc</span><span class="o">.</span><span class="n">Value</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span> <span class="c1"># initial BTC price</span>
 <span class="n">N_SIM</span> <span class="o">=</span> <span class="mi">100</span>      <span class="c1"># How many simulations to run?</span>
 <span class="n">mu</span> <span class="o">=</span> <span class="n">btc</span><span class="o">.</span><span class="n">ret</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span>
 <span class="n">sigma</span> <span class="o">=</span> <span class="n">btc</span><span class="o">.</span><span class="n">ret</span><span class="o">.</span><span class="n">std</span><span class="p">()</span>
@@ -920,8 +920,7 @@ S(t) = S(0) \exp \left(\left(\mu - \frac{1}{2}\sigma^2\right)t + \sigma W(t)\rig
     <span class="n">W</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">cumsum</span><span class="p">(</span><span class="n">dW</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
     <span class="n">time_step</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="n">dt</span><span class="p">,</span> <span class="n">T</span><span class="p">,</span> <span class="n">N</span><span class="p">)</span>
     <span class="n">time_steps</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">broadcast_to</span><span class="p">(</span><span class="n">time_step</span><span class="p">,</span> <span class="p">(</span><span class="n">n_sims</span><span class="p">,</span> <span class="n">N</span><span class="p">))</span>
-    <span class="n">S_t</span> <span class="o">=</span> <span class="n">s_0</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">exp</span><span class="p">((</span><span class="n">mu</span> <span class="o">-</span> <span class="mf">0.5</span> <span class="o">*</span> <span class="n">sigma</span> <span class="o">**</span> <span class="mi">2</span><span class="p">)</span> <span class="o">*</span> <span class="n">time_steps</span>
-        <span class="o">+</span> <span class="n">sigma</span> <span class="o">*</span> <span class="n">W</span><span class="p">)</span>
+    <span class="n">S_t</span> <span class="o">=</span> <span class="n">s_0</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">exp</span><span class="p">((</span><span class="n">mu</span> <span class="o">-</span> <span class="mf">0.5</span> <span class="o">*</span> <span class="n">sigma</span> <span class="o">**</span> <span class="mi">2</span><span class="p">)</span> <span class="o">*</span> <span class="n">time_steps</span> <span class="o">+</span> <span class="n">sigma</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="n">time_steps</span><span class="p">)</span> <span class="o">*</span> <span class="n">W</span><span class="p">)</span>
     <span class="n">S_t</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">insert</span><span class="p">(</span><span class="n">S_t</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="n">s_0</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
     <span class="k">return</span> <span class="n">S_t</span>
 </pre></div>
@@ -941,11 +940,11 @@ S(t) = S(0) \exp \left(\left(\mu - \frac{1}{2}\sigma^2\right)t + \sigma W(t)\rig
 <span class="c1"># Array with numbers from 1 to 30</span>
 <span class="n">time_step</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">30</span><span class="p">,</span> <span class="mi">30</span><span class="p">)</span>
 
-<span class="c1"># Expands that to be 100 rows of numbers from 1 to 30. This is going to be the t in the formula above.</span>
+<span class="c1"># Expands that to be 100 rows of numbers from 1 to 30. This is going to be the t in the formula above. So, for the price on the 30th day, we have t=30.</span>
 <span class="n">time_steps</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">broadcast_to</span><span class="p">(</span><span class="n">time_step</span><span class="p">,</span> <span class="p">(</span><span class="mi">100</span><span class="p">,</span> <span class="mi">30</span><span class="p">))</span>
 
 <span class="c1"># This is the formula from above to find the value of the asset any any point in time t. np.exp is the natural number e. W is the cumulative sum of all of our random shocks.</span>
-<span class="n">S_t</span> <span class="o">=</span> <span class="n">S_0</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">exp</span><span class="p">((</span><span class="n">mu</span> <span class="o">-</span> <span class="mf">0.5</span> <span class="o">*</span> <span class="n">sigma</span> <span class="o">**</span> <span class="mi">2</span><span class="p">)</span> <span class="o">*</span> <span class="n">time_steps</span> <span class="o">+</span> <span class="n">sigma</span> <span class="o">*</span> <span class="n">W</span><span class="p">)</span>
+<span class="n">S_t</span> <span class="o">=</span> <span class="n">S_0</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">exp</span><span class="p">((</span><span class="n">mu</span> <span class="o">-</span> <span class="mf">0.5</span> <span class="o">*</span> <span class="n">sigma</span> <span class="o">**</span> <span class="mi">2</span><span class="p">)</span> <span class="o">*</span> <span class="n">time_steps</span> <span class="o">+</span> <span class="n">sigma</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="n">time_steps</span><span class="p">)</span> <span class="o">*</span> <span class="n">W</span><span class="p">)</span>
 
 <span class="c1"># This inserts the initial price at the start of each row.</span>
 <span class="n">S_t</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">insert</span><span class="p">(</span><span class="n">S_t</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="n">S_0</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
@@ -978,6 +977,7 @@ S(t) = S(0) \exp \left(\left(\mu - \frac{1}{2}\sigma^2\right)t + \sigma W(t)\rig
 <img alt="../_images/7_nasdaq_api_21_0.png" src="../_images/7_nasdaq_api_21_0.png" />
 </div>
 </div>
+<p>The y-axis has a very wide range, since some extreme values are possible, given this simulation.</p>
 </div>
 
     <script type="text/x-thebe-config">
