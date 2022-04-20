@@ -306,7 +306,12 @@
  </li>
  <li class="toctree-l1">
   <a class="reference internal" href="16_time_vol.html">
-   More financial time series with volatility
+   Volatility modeling
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="17_regression_topics.html">
+   Regression topics
   </a>
  </li>
 </ul>
@@ -658,10 +663,6 @@
   </thead>
   <tbody>
     <tr>
-      <th>2022-04-15</th>
-      <td>39939.90</td>
-    </tr>
-    <tr>
       <th>2022-04-16</th>
       <td>40566.20</td>
     </tr>
@@ -676,6 +677,10 @@
     <tr>
       <th>2022-04-19</th>
       <td>40805.72</td>
+    </tr>
+    <tr>
+      <th>2022-04-20</th>
+      <td>41507.30</td>
     </tr>
   </tbody>
 </table>
@@ -799,13 +804,6 @@
       <td>...</td>
     </tr>
     <tr>
-      <th>2022-04-15</th>
-      <td>39939.90</td>
-      <td>-0.029361</td>
-      <td>0.970639</td>
-      <td>125.512195</td>
-    </tr>
-    <tr>
       <th>2022-04-16</th>
       <td>40566.20</td>
       <td>0.015681</td>
@@ -833,9 +831,16 @@
       <td>1.027556</td>
       <td>128.254736</td>
     </tr>
+    <tr>
+      <th>2022-04-20</th>
+      <td>41507.30</td>
+      <td>0.017193</td>
+      <td>1.017193</td>
+      <td>130.477035</td>
+    </tr>
   </tbody>
 </table>
-<p>2666 rows × 4 columns</p>
+<p>2667 rows × 4 columns</p>
 </div></div></div>
 </div>
 <div class="cell docutils container">
@@ -854,7 +859,7 @@
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;matplotlib.legend.Legend at 0x7f94d927fe20&gt;
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;matplotlib.legend.Legend at 0x7fc178717e50&gt;
 </pre></div>
 </div>
 <img alt="../_images/7_nasdaq_api_9_1.png" src="../_images/7_nasdaq_api_9_1.png" />
@@ -886,16 +891,16 @@
 </div>
 </div>
 <p>Let’s put together some ideas, write a function, and run a simulation. We’ll use something called <strong>geometric brownian motion</strong> (GBM). What is GBM? It is a particular <strong>stochastic differential equation</strong>. But, what’s important for us is the idea, which is fairly simple. Here’s the formula:</p>
-<div class="amsmath math notranslate nohighlight" id="equation-d1b80ddf-ce09-4e35-9128-5c22667d9916">
-<span class="eqno">(4)<a class="headerlink" href="#equation-d1b80ddf-ce09-4e35-9128-5c22667d9916" title="Permalink to this equation">¶</a></span>\[\begin{align}
+<div class="amsmath math notranslate nohighlight" id="equation-795b54db-a2b8-4bdb-a7dc-f8c3d24ce2a5">
+<span class="eqno">(4)<a class="headerlink" href="#equation-795b54db-a2b8-4bdb-a7dc-f8c3d24ce2a5" title="Permalink to this equation">¶</a></span>\[\begin{align}
 dS = \mu S dt + \sigma S dW_t
 \end{align}\]</div>
 <p>This says that the change in the stock price has two components - a <strong>drift</strong>, or average increase over time, and a <strong>shock</strong> that it is random at each point in time. The shock is scaled by the standard deviation of returns that you use. So, larger standard deviation, the bigger the shocks can be. This is basically the simplest way that you can model an asset price.</p>
 <p>The shocks are what make the price wiggle around around, or else it would just go up over time, based on the drift value that we use.</p>
 <p>And, I’ll stress - we aren’t predicting here, so to speak. We are trying to capture some basic reality about how an asset moves and then seeing what is possible in the future. We aren’t making a statement about whether we think an asset is overvalued or undervalued, will go up or down, etc.</p>
 <p>You can solve this equation to get the value of the asset at any point in time t. You just need to know the total of all of the shocks at time t.</p>
-<div class="amsmath math notranslate nohighlight" id="equation-28df5930-7d4b-415d-a2bb-3b7accaf9d3d">
-<span class="eqno">(5)<a class="headerlink" href="#equation-28df5930-7d4b-415d-a2bb-3b7accaf9d3d" title="Permalink to this equation">¶</a></span>\[\begin{align}
+<div class="amsmath math notranslate nohighlight" id="equation-83504274-878e-4339-bc27-d2124aa73f98">
+<span class="eqno">(5)<a class="headerlink" href="#equation-83504274-878e-4339-bc27-d2124aa73f98" title="Permalink to this equation">¶</a></span>\[\begin{align}
 S(t) = S(0) \exp \left(\left(\mu - \frac{1}{2}\sigma^2\right)t + \sigma \sqrt{t} W(t)\right)
 \end{align}\]</div>
 <div class="cell docutils container">

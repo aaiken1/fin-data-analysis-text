@@ -306,7 +306,12 @@
  </li>
  <li class="toctree-l1">
   <a class="reference internal" href="16_time_vol.html">
-   More financial time series with volatility
+   Volatility modeling
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="17_regression_topics.html">
+   Regression topics
   </a>
  </li>
 </ul>
@@ -567,9 +572,9 @@
 <h2>How correlation affects our simulations<a class="headerlink" href="#how-correlation-affects-our-simulations" title="Permalink to this headline">¶</a></h2>
 <p>However, when we start to form portfolios, we are going to care about the correlations across assets. We’ve already seen this when looking at portfolio math. When simulating the Bitcoin prices, we took random numbers from the standard normal distribution and then scaled them by our estimate for the volatility of BTC. This allowed us to capture the randomness of the returns.</p>
 <p>However, when dealing with more than one asset, we can’t do that, since the assets are <strong>not independent</strong> from one another. If Apple goes up, Google is more likely to have gone up as well. The two stocks are <strong>correlated</strong>. How can we account for this in our simulation? We will create <strong>correlated random shocks</strong> (<span class="math notranslate nohighlight">\(W\)</span>), where the random movement of one asset depends on another assets movement.</p>
-<p>Let’s try a simulation to see what’s going on. I’ll draw two random variables from the standard normal distribution, N(0,1). The random part of the return for Asset 1, <span class="math notranslate nohighlight">\(W_1\)</span>, is simply the random draw, <span class="math notranslate nohighlight">\(x_1\)</span>. However, the random part of the return for Asset 2 <span class="math notranslate nohighlight">\(W_2\)</span>, is correlated with whatever <span class="math notranslate nohighlight">\(x_1\)</span> ends up being. Mathematically, this dependent random movement is given as:</p>
-<div class="amsmath math notranslate nohighlight" id="equation-68153633-8ebe-4182-8ff3-d3a9e7e495aa">
-<span class="eqno">(12)<a class="headerlink" href="#equation-68153633-8ebe-4182-8ff3-d3a9e7e495aa" title="Permalink to this equation">¶</a></span>\[\begin{align}
+<p>Let’s try a simulation to see what’s going on. I’ll draw two random variables from the standard normal distribution, N(0,1). The random part of the return for Asset 1, <span class="math notranslate nohighlight">\(W_1\)</span>, is simply the random draw, <span class="math notranslate nohighlight">\(x_1\)</span>. However, the random part of the return for Asset 2, <span class="math notranslate nohighlight">\(W_2\)</span>, is correlated with whatever <span class="math notranslate nohighlight">\(x_1\)</span> ends up being. Mathematically, this dependent random movement is given as:</p>
+<div class="amsmath math notranslate nohighlight" id="equation-1a22f1aa-ec44-46b6-a3cd-e1eb850ae0f2">
+<span class="eqno">(12)<a class="headerlink" href="#equation-1a22f1aa-ec44-46b6-a3cd-e1eb850ae0f2" title="Permalink to this equation">¶</a></span>\[\begin{align}
 W_2 = \rho x_1 + (1 - \sqrt{\rho^2}) x_2
 \end{align}\]</div>
 <p>I’ll set the correlation, <span class="math notranslate nohighlight">\(\rho\)</span>, to be -0.80. These two assets are negatively correlated, so they should move in opposite directions. We’ll set each asset to have the same mean return and same volatility. I’ll set the starting price of each of these assets to 1.</p>
@@ -759,7 +764,7 @@ W_2 = \rho x_1 + (1 - \sqrt{\rho^2}) x_2
     </tr>
     <tr>
       <th>2019-12-27</th>
-      <td>-0.000380</td>
+      <td>-0.000379</td>
       <td>-0.009524</td>
       <td>0.001492</td>
       <td>0.000551</td>
@@ -775,7 +780,7 @@ W_2 = \rho x_1 + (1 - \sqrt{\rho^2}) x_2
     </tr>
     <tr>
       <th>2019-12-31</th>
-      <td>0.007307</td>
+      <td>0.007306</td>
       <td>0.005405</td>
       <td>0.004109</td>
       <td>0.000514</td>
@@ -849,7 +854,7 @@ W_2 = \rho x_1 + (1 - \sqrt{\rho^2}) x_2
       <td>-0.074540</td>
       <td>-0.075055</td>
       <td>-0.053819</td>
-      <td>-0.040289</td>
+      <td>-0.040290</td>
     </tr>
     <tr>
       <th>25%</th>
@@ -869,7 +874,7 @@ W_2 = \rho x_1 + (1 - \sqrt{\rho^2}) x_2
     </tr>
     <tr>
       <th>75%</th>
-      <td>0.011561</td>
+      <td>0.011560</td>
       <td>0.010034</td>
       <td>0.011429</td>
       <td>0.008535</td>
@@ -960,22 +965,22 @@ W_2 = \rho x_1 + (1 - \sqrt{\rho^2}) x_2
     <tr>
       <th>AAPL</th>
       <td>1.000000</td>
-      <td>0.305895</td>
-      <td>0.475798</td>
-      <td>0.592888</td>
+      <td>0.305896</td>
+      <td>0.475799</td>
+      <td>0.592889</td>
       <td>0.416557</td>
     </tr>
     <tr>
       <th>F</th>
-      <td>0.305895</td>
+      <td>0.305896</td>
       <td>1.000000</td>
       <td>0.280101</td>
       <td>0.364217</td>
-      <td>0.375397</td>
+      <td>0.375396</td>
     </tr>
     <tr>
       <th>FB</th>
-      <td>0.475798</td>
+      <td>0.475799</td>
       <td>0.280101</td>
       <td>1.000000</td>
       <td>0.616672</td>
@@ -983,18 +988,18 @@ W_2 = \rho x_1 + (1 - \sqrt{\rho^2}) x_2
     </tr>
     <tr>
       <th>AMZN</th>
-      <td>0.592888</td>
+      <td>0.592889</td>
       <td>0.364217</td>
       <td>0.616672</td>
       <td>1.000000</td>
-      <td>0.370257</td>
+      <td>0.370256</td>
     </tr>
     <tr>
       <th>XOM</th>
       <td>0.416557</td>
-      <td>0.375397</td>
+      <td>0.375396</td>
       <td>0.338375</td>
-      <td>0.370257</td>
+      <td>0.370256</td>
       <td>1.000000</td>
     </tr>
   </tbody>
@@ -1074,22 +1079,22 @@ W_2 = \rho x_1 + (1 - \sqrt{\rho^2}) x_2
     <tr>
       <th>0</th>
       <td>1.000000</td>
-      <td>0.313333</td>
-      <td>0.550335</td>
-      <td>0.609199</td>
+      <td>0.313334</td>
+      <td>0.550336</td>
+      <td>0.609200</td>
       <td>0.498667</td>
     </tr>
     <tr>
       <th>1</th>
-      <td>0.313333</td>
+      <td>0.313334</td>
       <td>1.000000</td>
       <td>0.329610</td>
       <td>0.398792</td>
-      <td>0.419704</td>
+      <td>0.419703</td>
     </tr>
     <tr>
       <th>2</th>
-      <td>0.550335</td>
+      <td>0.550336</td>
       <td>0.329610</td>
       <td>1.000000</td>
       <td>0.678113</td>
@@ -1097,18 +1102,18 @@ W_2 = \rho x_1 + (1 - \sqrt{\rho^2}) x_2
     </tr>
     <tr>
       <th>3</th>
-      <td>0.609199</td>
+      <td>0.609200</td>
       <td>0.398792</td>
       <td>0.678113</td>
       <td>1.000000</td>
-      <td>0.399526</td>
+      <td>0.399525</td>
     </tr>
     <tr>
       <th>4</th>
       <td>0.498667</td>
-      <td>0.419704</td>
+      <td>0.419703</td>
       <td>0.427323</td>
-      <td>0.399526</td>
+      <td>0.399525</td>
       <td>1.000000</td>
     </tr>
   </tbody>
@@ -1250,15 +1255,12 @@ W_2 = \rho x_1 + (1 - \sqrt{\rho^2}) x_2
 <span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">port_returns_all</span><span class="p">)</span>
 <span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s1">&#39;Portfolio Returns&#39;</span><span class="p">)</span>
 <span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s1">&#39;Days&#39;</span><span class="p">)</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s1">&#39;Simulated Portfolio Returns in 30 days&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s1">&#39;Simulated Portfolio Returns in 30 days&#39;</span><span class="p">);</span>
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Text(0.5, 1.0, &#39;Simulated Portfolio Returns in 30 days&#39;)
-</pre></div>
-</div>
-<img alt="../_images/13_monte_carlo_23_1.png" src="../_images/13_monte_carlo_23_1.png" />
+<img alt="../_images/13_monte_carlo_23_0.png" src="../_images/13_monte_carlo_23_0.png" />
 </div>
 </div>
 <p>That’s a large spread of possible cumulative portfolio returns over the year! This type of simulation is potentially useful for financial planners, and let’s you “answer” questions like, “What’s the probability that my portfolio falls below a particular level over the next decade?”. You can also use price paths like this to price certain options, where the value of the option depends on the paths that a basket of stocks took.</p>
