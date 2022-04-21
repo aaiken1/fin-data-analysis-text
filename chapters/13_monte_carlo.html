@@ -42,6 +42,8 @@
     <script src="../_static/copybutton.js"></script>
     <script>var togglebuttonSelector = '.toggle, .admonition.dropdown, .tag_hide_input div.cell_input, .tag_hide-input div.cell_input, .tag_hide_output div.cell_output, .tag_hide-output div.cell_output, .tag_hide_cell.cell, .tag_hide-cell.cell';</script>
     <script src="../_static/sphinx-book-theme.d59cb220de22ca1c485ebbdc042f0030.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+    <script src="https://unpkg.com/@jupyter-widgets/html-manager@^0.20.0/dist/embed-amd.js"></script>
     <script async="async" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
     <script>window.MathJax = {"options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
     <script async="async" src="https://unpkg.com/thebe@0.5.1/lib/index.js"></script>
@@ -573,12 +575,21 @@
 <p>However, when we start to form portfolios, we are going to care about the correlations across assets. We’ve already seen this when looking at portfolio math. When simulating the Bitcoin prices, we took random numbers from the standard normal distribution and then scaled them by our estimate for the volatility of BTC. This allowed us to capture the randomness of the returns.</p>
 <p>However, when dealing with more than one asset, we can’t do that, since the assets are <strong>not independent</strong> from one another. If Apple goes up, Google is more likely to have gone up as well. The two stocks are <strong>correlated</strong>. How can we account for this in our simulation? We will create <strong>correlated random shocks</strong> (<span class="math notranslate nohighlight">\(W\)</span>), where the random movement of one asset depends on another assets movement.</p>
 <p>Let’s try a simulation to see what’s going on. I’ll draw two random variables from the standard normal distribution, N(0,1). The random part of the return for Asset 1, <span class="math notranslate nohighlight">\(W_1\)</span>, is simply the random draw, <span class="math notranslate nohighlight">\(x_1\)</span>. However, the random part of the return for Asset 2, <span class="math notranslate nohighlight">\(W_2\)</span>, is correlated with whatever <span class="math notranslate nohighlight">\(x_1\)</span> ends up being. Mathematically, this dependent random movement is given as:</p>
-<div class="amsmath math notranslate nohighlight" id="equation-1a22f1aa-ec44-46b6-a3cd-e1eb850ae0f2">
-<span class="eqno">(12)<a class="headerlink" href="#equation-1a22f1aa-ec44-46b6-a3cd-e1eb850ae0f2" title="Permalink to this equation">¶</a></span>\[\begin{align}
+<div class="amsmath math notranslate nohighlight" id="equation-206ed96f-87f7-4dfe-b505-fee4ee8f9f35">
+<span class="eqno">(12)<a class="headerlink" href="#equation-206ed96f-87f7-4dfe-b505-fee4ee8f9f35" title="Permalink to this equation">¶</a></span>\[\begin{align}
 W_2 = \rho x_1 + (1 - \sqrt{\rho^2}) x_2
 \end{align}\]</div>
 <p>I’ll set the correlation, <span class="math notranslate nohighlight">\(\rho\)</span>, to be -0.80. These two assets are negatively correlated, so they should move in opposite directions. We’ll set each asset to have the same mean return and same volatility. I’ll set the starting price of each of these assets to 1.</p>
 <p>We’ll bring in our usual packages and try this out. This code should look a lot like the Bitcoin code, except that I now have two assets. I am only doing one simulation for each asset, so two total simulations.</p>
+<p>How do we simulative prices? Let me remind you of a formula:</p>
+<div class="amsmath math notranslate nohighlight" id="equation-2f788e28-88af-4c23-bea2-654a95e52be9">
+<span class="eqno">(13)<a class="headerlink" href="#equation-2f788e28-88af-4c23-bea2-654a95e52be9" title="Permalink to this equation">¶</a></span>\[\begin{align}
+S(t) = S(0) \exp \left(\left(\mu - \frac{1}{2}\sigma^2\right)t + \sigma W(t)\right)
+\end{align}\]</div>
+<p>Take a starting price <span class="math notranslate nohighlight">\(S_0\)</span>. We use <code class="docutils literal notranslate"><span class="pre">exp</span></code> for continuous compounding. Then, the price today, <span class="math notranslate nohighlight">\(S_t\)</span> is a function of two return sources. The first source is called <strong>drift</strong>: <span class="math notranslate nohighlight">\(\mu - \frac{1}{2}\sigma^2\)</span>. This is what an asset returns on average over some period, like a day. This is the <strong>deterministic</strong> piece of the return and would be related to risk. <span class="math notranslate nohighlight">\(\mu\)</span> is the <strong>arithmetic average</strong> and <span class="math notranslate nohighlight">\(\sigma\)</span> is the volatility (standard deviation). They should be in the same units (e.g. daily).</p>
+<p>The second piece of the return is the <strong>diffusion</strong>: <span class="math notranslate nohighlight">\(\sigma W(t)\)</span>. <span class="math notranslate nohighlight">\(W(t)\)</span> is called a <strong>Brownian motion</strong> and is, essentially, cumulative random wiggles. You multiply by <span class="math notranslate nohighlight">\(\sigma\)</span> to scale it: more volatility, more wiggles.</p>
+<p><span class="math notranslate nohighlight">\(dW\)</span> denotes the random wiggle in just one period.</p>
+<p>In this example, our random wiggles are going to be <strong>correlated</strong> across assets.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">datetime</span>
@@ -598,6 +609,7 @@ W_2 = \rho x_1 + (1 - \sqrt{\rho^2}) x_2
 <span class="n">rho</span> <span class="o">=</span> <span class="o">-</span><span class="mf">0.80</span> <span class="c1"># Correlation between our two assets. Change me to get different patterns!</span>
 <span class="n">mu</span> <span class="o">=</span> <span class="mf">0.05</span><span class="o">/</span><span class="mi">252</span> <span class="c1"># Mean return (log). Using daily. </span>
 <span class="n">sigma</span> <span class="o">=</span> <span class="mf">0.12</span><span class="o">/</span><span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="mi">252</span><span class="p">)</span>  <span class="c1"># Volatility of returns (standard deviation). Using daily. </span>
+<span class="n">drift</span> <span class="o">=</span> <span class="n">mu</span> <span class="o">-</span> <span class="mf">0.5</span> <span class="o">*</span> <span class="n">sigma</span> <span class="o">**</span> <span class="mi">2</span> <span class="c1"># Drift is the same each day.</span>
 
 <span class="n">S_0</span> <span class="o">=</span> <span class="mi">1</span> <span class="c1"># Starting price</span>
 
@@ -611,13 +623,17 @@ W_2 = \rho x_1 + (1 - \sqrt{\rho^2}) x_2
 <span class="n">dW</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="n">X</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="c1"># Same as first row in X</span>
 <span class="n">dW</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="n">rho</span> <span class="o">*</span> <span class="n">X</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">+</span> <span class="p">(</span><span class="mi">1</span> <span class="o">-</span> <span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="n">rho</span><span class="o">**</span><span class="mi">2</span><span class="p">))</span> <span class="o">*</span> <span class="n">X</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="c1"># Dependent on both sets of random values. How dependent? Correlation determines.</span>
 
-<span class="c1">#Cumulative sum of random shocks for our assets.</span>
+<span class="c1">#An array containing the sum of random shocks for our assets.</span>
 <span class="n">W</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">cumsum</span><span class="p">(</span><span class="n">dW</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span> 
 
-<span class="n">time_step</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="n">dt</span><span class="p">,</span> <span class="n">T</span><span class="p">,</span> <span class="n">N</span><span class="p">)</span>
-<span class="n">time_steps</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">broadcast_to</span><span class="p">(</span><span class="n">time_step</span><span class="p">,</span> <span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="n">N</span><span class="p">))</span>
+<span class="n">diffusion</span> <span class="o">=</span> <span class="n">sigma</span> <span class="o">*</span> <span class="n">W</span> <span class="c1"># This is CUMULATIVE diffusion returns over time, rather than daily diffusion returns. </span>
 
-<span class="n">S_t</span> <span class="o">=</span> <span class="n">S_0</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">exp</span><span class="p">((</span><span class="n">mu</span> <span class="o">-</span> <span class="mf">0.5</span> <span class="o">*</span> <span class="n">sigma</span> <span class="o">**</span> <span class="mi">2</span><span class="p">)</span> <span class="o">*</span> <span class="n">time_steps</span> <span class="o">+</span> <span class="n">sigma</span> <span class="o">*</span> <span class="n">W</span><span class="p">)</span>
+<span class="n">time_step</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="n">dt</span><span class="p">,</span> <span class="n">T</span><span class="p">,</span> <span class="n">N</span><span class="p">)</span> <span class="c1"># An array of 1, 2, 3, 4, 5..., keeping track of what time period we are in.</span>
+<span class="n">time_steps</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">broadcast_to</span><span class="p">(</span><span class="n">time_step</span><span class="p">,</span> <span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="n">N</span><span class="p">))</span> <span class="c1"># An array of 1, 2, 3, 4, 5..., but for each asset. </span>
+
+<span class="c1"># This is taking the drift (mu - 0.5 * sigma ** 2), which is the same each day, and multiplying it by 1 on Day 1, 2 on Day 2, 3 on Day 3, etc. Then, that term has sigma (volatility) * the cumulative shock added to it. </span>
+<span class="c1"># Then, Staring Price * e^(r) = Price Today, since r is really a cumulative return.</span>
+<span class="n">S_t</span> <span class="o">=</span> <span class="n">S_0</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">exp</span><span class="p">((</span><span class="n">drift</span><span class="p">)</span> <span class="o">*</span> <span class="n">time_steps</span> <span class="o">+</span> <span class="n">diffusion</span><span class="p">)</span> 
 
 <span class="n">S_t</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">insert</span><span class="p">(</span><span class="n">S_t</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="n">S_0</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
 </pre></div>
@@ -846,7 +862,7 @@ W_2 = \rho x_1 + (1 - \sqrt{\rho^2}) x_2
       <td>0.017158</td>
       <td>0.017471</td>
       <td>0.014382</td>
-      <td>0.011500</td>
+      <td>0.011499</td>
     </tr>
     <tr>
       <th>min</th>
@@ -854,7 +870,7 @@ W_2 = \rho x_1 + (1 - \sqrt{\rho^2}) x_2
       <td>-0.074540</td>
       <td>-0.075055</td>
       <td>-0.053819</td>
-      <td>-0.040290</td>
+      <td>-0.040289</td>
     </tr>
     <tr>
       <th>25%</th>
@@ -965,26 +981,26 @@ W_2 = \rho x_1 + (1 - \sqrt{\rho^2}) x_2
     <tr>
       <th>AAPL</th>
       <td>1.000000</td>
-      <td>0.305896</td>
-      <td>0.475799</td>
+      <td>0.305895</td>
+      <td>0.475798</td>
       <td>0.592889</td>
       <td>0.416557</td>
     </tr>
     <tr>
       <th>F</th>
-      <td>0.305896</td>
+      <td>0.305895</td>
       <td>1.000000</td>
-      <td>0.280101</td>
+      <td>0.280102</td>
       <td>0.364217</td>
-      <td>0.375396</td>
+      <td>0.375398</td>
     </tr>
     <tr>
       <th>FB</th>
-      <td>0.475799</td>
-      <td>0.280101</td>
+      <td>0.475798</td>
+      <td>0.280102</td>
       <td>1.000000</td>
       <td>0.616672</td>
-      <td>0.338375</td>
+      <td>0.338376</td>
     </tr>
     <tr>
       <th>AMZN</th>
@@ -997,8 +1013,8 @@ W_2 = \rho x_1 + (1 - \sqrt{\rho^2}) x_2
     <tr>
       <th>XOM</th>
       <td>0.416557</td>
-      <td>0.375396</td>
-      <td>0.338375</td>
+      <td>0.375398</td>
+      <td>0.338376</td>
       <td>0.370256</td>
       <td>1.000000</td>
     </tr>
@@ -1029,7 +1045,7 @@ W_2 = \rho x_1 + (1 - \sqrt{\rho^2}) x_2
     <span class="n">drift</span> <span class="o">=</span> <span class="p">(</span><span class="n">mu</span> <span class="o">-</span> <span class="mf">0.5</span> <span class="o">*</span> <span class="n">sigma</span><span class="o">**</span><span class="mi">2</span><span class="p">)</span> <span class="o">*</span> <span class="n">dt</span> <span class="c1"># dt = 1. This is the deterministic part of the daily return. It&#39;s the same every day.</span>
     <span class="n">Z</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">normal</span><span class="p">(</span><span class="mf">0.</span><span class="p">,</span> <span class="mf">1.</span><span class="p">,</span> <span class="n">noa</span><span class="p">)</span> <span class="c1"># Putting as period after a number in Python makes division work correctly when dealing with integers. Not sure we even need it here.</span>
     <span class="n">diffusion</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">matmul</span><span class="p">(</span><span class="n">A</span><span class="p">,</span> <span class="n">Z</span><span class="p">)</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="n">dt</span><span class="p">)</span> <span class="c1"># dt = 1. This is the random part. </span>
-    <span class="n">S</span><span class="p">[:,</span> <span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="n">S</span><span class="p">[:,</span> <span class="n">i</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span><span class="o">*</span><span class="n">np</span><span class="o">.</span><span class="n">exp</span><span class="p">(</span><span class="n">drift</span> <span class="o">+</span> <span class="n">diffusion</span><span class="p">)</span> <span class="c1"># S_t = S_t-1 * e^(r). Continuous compounding. </span>
+    <span class="n">S</span><span class="p">[:,</span> <span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="n">S</span><span class="p">[:,</span> <span class="n">i</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span><span class="o">*</span><span class="n">np</span><span class="o">.</span><span class="n">exp</span><span class="p">(</span><span class="n">drift</span> <span class="o">+</span> <span class="n">diffusion</span><span class="p">)</span> <span class="c1"># S_t = S_t-1 * e^(r). Continuous compounding, where r is just that day&#39;s return, rather than a cumulative return. </span>
 
 <span class="n">R</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">S</span><span class="o">.</span><span class="n">T</span><span class="p">)</span><span class="o">.</span><span class="n">pct_change</span><span class="p">()</span><span class="o">.</span><span class="n">dropna</span><span class="p">()</span> <span class="c1"># Create returns from those simulated prices.</span>
 
@@ -1038,6 +1054,7 @@ W_2 = \rho x_1 + (1 - \sqrt{\rho^2}) x_2
 </div>
 </div>
 </div>
+<p>This method is coded up a bit differently from the two-asset and BTC example. There are no <code class="docutils literal notranslate"><span class="pre">timesteps</span></code>. Instead, <code class="docutils literal notranslate"><span class="pre">dt</span></code> = 1. Each previous stock return S_t-1 is being multiplied by a single daily return (drift+diffusion), rather than a cumulative return.</p>
 <div class="admonition hint">
 <p class="admonition-title">Hint</p>
 <p>I recommend running each line separately and then looking at the resulting variable/array. This is how you can figure out what’s going on in the simulation.</p>
@@ -1079,26 +1096,26 @@ W_2 = \rho x_1 + (1 - \sqrt{\rho^2}) x_2
     <tr>
       <th>0</th>
       <td>1.000000</td>
-      <td>0.313334</td>
-      <td>0.550336</td>
+      <td>0.313333</td>
+      <td>0.550335</td>
       <td>0.609200</td>
-      <td>0.498667</td>
+      <td>0.498668</td>
     </tr>
     <tr>
       <th>1</th>
-      <td>0.313334</td>
+      <td>0.313333</td>
       <td>1.000000</td>
       <td>0.329610</td>
       <td>0.398792</td>
-      <td>0.419703</td>
+      <td>0.419704</td>
     </tr>
     <tr>
       <th>2</th>
-      <td>0.550336</td>
+      <td>0.550335</td>
       <td>0.329610</td>
       <td>1.000000</td>
       <td>0.678113</td>
-      <td>0.427323</td>
+      <td>0.427324</td>
     </tr>
     <tr>
       <th>3</th>
@@ -1110,9 +1127,9 @@ W_2 = \rho x_1 + (1 - \sqrt{\rho^2}) x_2
     </tr>
     <tr>
       <th>4</th>
-      <td>0.498667</td>
-      <td>0.419703</td>
-      <td>0.427323</td>
+      <td>0.498668</td>
+      <td>0.419704</td>
+      <td>0.427324</td>
       <td>0.399525</td>
       <td>1.000000</td>
     </tr>
