@@ -42,6 +42,8 @@
     <script src="../_static/copybutton.js"></script>
     <script>var togglebuttonSelector = '.toggle, .admonition.dropdown, .tag_hide_input div.cell_input, .tag_hide-input div.cell_input, .tag_hide_output div.cell_output, .tag_hide-output div.cell_output, .tag_hide_cell.cell, .tag_hide-cell.cell';</script>
     <script src="../_static/sphinx-book-theme.d59cb220de22ca1c485ebbdc042f0030.js"></script>
+    <script async="async" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script>window.MathJax = {"options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
     <script async="async" src="https://unpkg.com/thebe@0.5.1/lib/index.js"></script>
     <script>
         const thebe_selector = ".thebe"
@@ -487,6 +489,29 @@
         <!-- Table of contents -->
         <div class="d-none d-md-block col-md-2 bd-toc show noprint">
             
+            <div class="tocsection onthispage pt-5 pb-3">
+                <i class="fas fa-list"></i> Contents
+            </div>
+            <nav id="bd-toc-nav" aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#payoff-diagrams">
+   Payoff Diagrams
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#black-scholes-merton">
+   Black-Scholes-Merton
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#py-vollib-library">
+   py_vollib library
+  </a>
+ </li>
+</ul>
+
+            </nav>
         </div>
     </div>
 </div>
@@ -499,6 +524,29 @@
                 <div id="print-main-content">
                     <div id="jb-print-toc">
                         
+                        <div>
+                            <h2> Contents </h2>
+                        </div>
+                        <nav aria-label="Page">
+                            <ul class="visible nav section-nav flex-column">
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#payoff-diagrams">
+   Payoff Diagrams
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#black-scholes-merton">
+   Black-Scholes-Merton
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#py-vollib-library">
+   py_vollib library
+  </a>
+ </li>
+</ul>
+
+                        </nav>
                     </div>
                 </div>
             </div>
@@ -507,6 +555,385 @@
                 
   <div class="tex2jax_ignore mathjax_ignore section" id="option-basics">
 <h1>Option basics<a class="headerlink" href="#option-basics" title="Permalink to this headline">¶</a></h1>
+<p>This chapter introduces option payoffs and the <a class="reference external" href="https://www.investopedia.com/terms/b/blackscholes.asp">Black-Scholes-Merton model (BSM)</a> for pricing <strong>European options</strong>. We will see <strong>call</strong> options and <strong>put</strong> options. Call options give the owner the right, but not the obligation to purchase a stock at a certain price, <strong>X</strong>, or the strike price.</p>
+<p>What makes options and other derivatives interesting? How do we value stocks and bonds? We think about the present value of cash flows. These values, especially for stocks, contain a great deal of uncertainty - we don’t know the future! But, options and other derivatives are different. Their value is <strong>based on the value of another security</strong>. It turns out that we can come up with prices for them based on <strong>arbitrage principles</strong>, or the idea that we can “recreate” the derivative from other assets. And, if we know the prices of the other assets, then the derivative <strong>must have a certain price</strong>, or else there’s free money to be made.</p>
+<p>We’ll start with <strong>payoff diagrams</strong>. These tell us what payoff of exercising the option would be, based on the current value of the underlying security, like a stock. When we do this, we’ll assume a certain price is paid for the option.</p>
+<p>But, what should the price of the option be? How much would you pay, right now, for the right to buy Apple at <span class="math notranslate nohighlight">\(200 a share, three-months from now? That's a three-month Apple call option with a strike of \)</span>200. What should the price be? This is where we can appeal to <strong>arbitrage</strong> and use formulas like <strong>Black-Scholes-Merton</strong> to come up with a price.</p>
+<p>A lot of <a class="reference external" href="https://derivs.ftx.us">crypto and Web3</a> is related to options, market design, and volatility trading. It’s actually kind of strange - the tech community has “reinvented” a lot of traditional finance and is spending a great deal of venture capital funding on creating ways to trade complex derivatives on crypto currencies. Maybe some of the technology will make its way into markets that trade securities based on the “real world” - i.e. assets based on firms, their cash flows, and existing legal structures. At the moment, a lot of it seems like regulatory arbitrage, or creating securities that are outside of current regulatory regimes, like the SEC in the U.S.</p>
+<p>I also introduce two additional, options-related packages. The first, <a class="reference external" href="https://github.com/hashabcd/opstrat">opstrat</a> let’s us do some cool visualizations of calls, puts, and various combinations. The second, <a class="reference external" href="http://vollib.org/documentation/python/1.0.2/index.html">py_vollib</a>, has valuation methods. You can install both using <code class="docutils literal notranslate"><span class="pre">pip</span></code>:</p>
+<p><code class="docutils literal notranslate"><span class="pre">pip</span> <span class="pre">install</span> <span class="pre">opstrat</span></code></p>
+<p><code class="docutils literal notranslate"><span class="pre">pip</span> <span class="pre">install</span> <span class="pre">py_vollib</span></code></p>
+<p>There’s a great deal of material in our text book on options. In particular, it focuses on simulation methods to price options, as well as how to create a <strong>class</strong> to define option <strong>objects</strong>. This is an example of <strong>object oriented programming</strong>.</p>
+<p>If you are interested in derivatives, get yourself a cheap copy of <a class="reference external" href="https://www.amazon.com/Options-Futures-Other-Derivatives-10th/dp/013447208X">Hull’s Options, Futures, and Other Derivatives</a>. All of this material is on the Level I CFA exam.</p>
+<p>Here are some libraries to help us out.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">import</span> <span class="nn">scipy.stats</span> <span class="k">as</span> <span class="nn">stats</span>
+<span class="kn">from</span> <span class="nn">pylab</span> <span class="kn">import</span> <span class="n">cm</span><span class="p">,</span> <span class="n">mpl</span><span class="p">,</span> <span class="n">plt</span>
+<span class="kn">from</span> <span class="nn">mpl_toolkits.mplot3d</span> <span class="kn">import</span> <span class="n">Axes3D</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">opstrat</span> <span class="k">as</span> <span class="nn">op</span>
+<span class="kn">import</span> <span class="nn">py_vollib.black_scholes_merton</span> <span class="k">as</span> <span class="nn">pyv_bsm</span>
+<span class="kn">import</span> <span class="nn">py_vollib.black_scholes_merton.implied_volatility</span> <span class="k">as</span> <span class="nn">pyv_bsm_iv</span>
+<span class="kn">import</span> <span class="nn">py_vollib.black_scholes_merton.greeks.analytical</span> <span class="k">as</span> <span class="nn">pyv_bsm_greeks_analytic</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="section" id="payoff-diagrams">
+<h2>Payoff Diagrams<a class="headerlink" href="#payoff-diagrams" title="Permalink to this headline">¶</a></h2>
+<p>Let’s start with the basic “hockey stick” payoff diagrams that you see in every investments class. We could draw these ourselves using <code class="docutils literal notranslate"><span class="pre">matplotlib</span></code>, but let’s use that <code class="docutils literal notranslate"><span class="pre">opstrat</span></code> library instead. After all, one of the reasons for using Python is to get access to the work other people have done for us!</p>
+<p>An <strong>option payoff</strong> is defined by:</p>
+<ul class="simple">
+<li><p>the type of option, call or put</p></li>
+<li><p>the strike price (<span class="math notranslate nohighlight">\(k\)</span>), or the price that you can buy (call) or sell (put) the asset at in the future</p></li>
+<li><p>the spot price, or current price of the asset</p></li>
+</ul>
+<p>An <strong>option profit</strong> has one additional factor:</p>
+<ul class="simple">
+<li><p>the price of the option (C or P), or what it costs to get the right to buy or sell the asset in the future</p></li>
+</ul>
+<p>The <strong>profit functions</strong> for calls and puts are:</p>
+<ul class="simple">
+<li><p>Long Call = max(S - K, 0) - C</p></li>
+<li><p>Long Put = max(K - S, 0) - P</p></li>
+<li><p>Short Call = -max(S - K, 0) + C</p></li>
+<li><p>Short Put = -max(K - S, 0) + P</p></li>
+</ul>
+<p>So, if you are long a call option, you will exercise the option at maturity if S &gt; K. Otherwise, you’ll do nothing. You do lose the premium that you paid for the option (C). In that sense, options are <strong>highly levered</strong> securities. If you lose, you lose your entire investment.</p>
+<p>For example, suppose that K = 100 and the stock ends up at 101 at the call options maturity. You will exercise the option, with a payoff of 1 and a profit of 1 - C. But, if the stock ends up at 99, you just lose C. If you buy a stock at 100 and it ends up at 99, you still have 99 worth of stock.</p>
+<p><strong>European options</strong> can only be exercised on the maturity date of the option. <strong>American options</strong> can be exercised early. The terms don’t have anything to do with where the options are traded.</p>
+<p>Finally, there is an important relationship between the call price, the put price, the current stock price, and the borrowing needed to form the portfolio called <a class="reference external" href="https://en.wikipedia.org/wiki/Put%E2%80%93call_parity">put-call parity</a>.</p>
+<div class="amsmath math notranslate nohighlight" id="equation-790ec754-2859-4fa3-b3be-7a17ca86498c">
+<span class="eqno">(14)<a class="headerlink" href="#equation-790ec754-2859-4fa3-b3be-7a17ca86498c" title="Permalink to this equation">¶</a></span>\[\begin{align}
+C - P = S - Ke^{-rt}
+\end{align}\]</div>
+<p>This is an <strong>arbitrage relationship</strong>, as there is free money to be had if it doesn’t hold. If you think you observe a situation where it isn’t true, it is likely because <strong>transactions costs</strong> (i.e. the costs associated with trading) are preventing market participants from exploiting the difference.</p>
+<p>This relationship only holds for options with the same strike and maturity.</p>
+<p>Let’s look at the profit diagram for buying a call option with a strike of 125, where you pay 7.5 for the option. We’ll look at the profit around the spot price of 125. If the spot price is equal to the strike price, we say that the option is <strong>at-the-money</strong>.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">op</span><span class="o">.</span><span class="n">single_plotter</span><span class="p">(</span><span class="n">spot</span><span class="o">=</span><span class="mi">125</span><span class="p">,</span> <span class="n">strike</span><span class="o">=</span><span class="mi">125</span><span class="p">,</span> <span class="n">op_type</span><span class="o">=</span><span class="s1">&#39;c&#39;</span><span class="p">,</span> <span class="n">tr_type</span><span class="o">=</span><span class="s1">&#39;b&#39;</span><span class="p">,</span> <span class="n">op_pr</span><span class="o">=</span><span class="mf">7.5</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../_images/14_options_6_0.png" src="../_images/14_options_6_0.png" />
+</div>
+</div>
+<p>See how the blue line starts going up at 125? This is where the strike price is. So, if the stock price is above the strike (S&gt;K), then the option is <strong>in-the-money</strong> and would have a positive <strong>payoff</strong> if exercised. However, the <strong>profit</strong> is negative, because you are paying 7.5 for the option. The blue line crosses the x-axis when you have recovered the 7.5 at 132.5.</p>
+<p>We can then draw all three other diagrams similarly - selling a call, buying a put, and selling a put.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">op</span><span class="o">.</span><span class="n">single_plotter</span><span class="p">(</span><span class="n">spot</span><span class="o">=</span><span class="mi">125</span><span class="p">,</span> <span class="n">strike</span><span class="o">=</span><span class="mi">125</span><span class="p">,</span> <span class="n">op_type</span><span class="o">=</span><span class="s1">&#39;c&#39;</span><span class="p">,</span> <span class="n">tr_type</span><span class="o">=</span><span class="s1">&#39;s&#39;</span><span class="p">,</span> <span class="n">op_pr</span><span class="o">=</span><span class="mf">7.5</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../_images/14_options_8_0.png" src="../_images/14_options_8_0.png" />
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">op</span><span class="o">.</span><span class="n">single_plotter</span><span class="p">(</span><span class="n">spot</span><span class="o">=</span><span class="mi">125</span><span class="p">,</span> <span class="n">strike</span><span class="o">=</span><span class="mi">125</span><span class="p">,</span> <span class="n">op_type</span><span class="o">=</span><span class="s1">&#39;p&#39;</span><span class="p">,</span> <span class="n">tr_type</span><span class="o">=</span><span class="s1">&#39;b&#39;</span><span class="p">,</span> <span class="n">op_pr</span><span class="o">=</span><span class="mf">7.5</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../_images/14_options_9_0.png" src="../_images/14_options_9_0.png" />
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">op</span><span class="o">.</span><span class="n">single_plotter</span><span class="p">(</span><span class="n">spot</span><span class="o">=</span><span class="mi">125</span><span class="p">,</span> <span class="n">strike</span><span class="o">=</span><span class="mi">125</span><span class="p">,</span> <span class="n">op_type</span><span class="o">=</span><span class="s1">&#39;p&#39;</span><span class="p">,</span> <span class="n">tr_type</span><span class="o">=</span><span class="s1">&#39;s&#39;</span><span class="p">,</span> <span class="n">op_pr</span><span class="o">=</span><span class="mf">7.5</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../_images/14_options_10_0.png" src="../_images/14_options_10_0.png" />
+</div>
+</div>
+<p>The <code class="docutils literal notranslate"><span class="pre">opstrat</span></code> library also lets you <strong>combine</strong> options into various payoffs and strategies. This is one of the features of options that makes them interesting. You can combine them into various payoff structures that let you express complex views about an asset, or hedge complex risks.</p>
+<p>For example, the <strong>short strangle</strong> below makes money if the price of the asset doesn’t move much. This lets you express a view about the <strong>volatility</strong> of the asset. In fact, this is a <strong>key part</strong> of options and option pricing. Buying and selling options is really like <strong>buying and selling volatility</strong>, as we’ll see below when we get to the Black-Scholes-Merton (BSM) formula for finding the price of a European option.</p>
+<p>A short strangle consists of:</p>
+<ul class="simple">
+<li><p>selling a slightly out-of-the-money put and</p></li>
+<li><p>selling a slightly out-of-the-money call of the same underlying stock and expiration date.</p></li>
+</ul>
+<p>With the <code class="docutils literal notranslate"><span class="pre">opstrat</span></code> library, you can define the two options, put them in a list, and then use <code class="docutils literal notranslate"><span class="pre">.multi_plotter()</span></code> to have all of the same profit diagrams on the same graph.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">op2</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;op_type&#39;</span><span class="p">:</span> <span class="s1">&#39;c&#39;</span><span class="p">,</span> <span class="s1">&#39;strike&#39;</span><span class="p">:</span> <span class="mi">110</span><span class="p">,</span> <span class="s1">&#39;tr_type&#39;</span><span class="p">:</span> <span class="s1">&#39;s&#39;</span><span class="p">,</span> <span class="s1">&#39;op_pr&#39;</span><span class="p">:</span> <span class="mi">2</span><span class="p">}</span>
+<span class="n">op1</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;op_type&#39;</span><span class="p">:</span> <span class="s1">&#39;p&#39;</span><span class="p">,</span> <span class="s1">&#39;strike&#39;</span><span class="p">:</span> <span class="mi">95</span><span class="p">,</span> <span class="s1">&#39;tr_type&#39;</span><span class="p">:</span> <span class="s1">&#39;s&#39;</span><span class="p">,</span> <span class="s1">&#39;op_pr&#39;</span><span class="p">:</span> <span class="mi">6</span><span class="p">}</span>
+
+<span class="n">op_list</span> <span class="o">=</span> <span class="p">[</span><span class="n">op1</span><span class="p">,</span> <span class="n">op2</span><span class="p">]</span>
+<span class="n">op</span><span class="o">.</span><span class="n">multi_plotter</span><span class="p">(</span><span class="n">spot</span><span class="o">=</span><span class="mi">100</span><span class="p">,</span> <span class="n">spot_range</span><span class="o">=</span><span class="mi">20</span><span class="p">,</span> <span class="n">op_list</span><span class="o">=</span><span class="n">op_list</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../_images/14_options_12_0.png" src="../_images/14_options_12_0.png" />
+</div>
+</div>
+</div>
+<div class="section" id="black-scholes-merton">
+<h2>Black-Scholes-Merton<a class="headerlink" href="#black-scholes-merton" title="Permalink to this headline">¶</a></h2>
+<p>Let’s write a <strong>function</strong> that takes the inputs into the BSM model and values a <strong>call option</strong>. You would do something very similar for a <strong>put option</strong>. Again, we are trying to find the <strong>price</strong> that you would pay for the right to buy or sell a stock at a certain price in the future. This price is going to depend on the option contract parameters and, crucially, an assumption about the <strong>volatility</strong> of the asset.</p>
+<p>Notice what <strong>does not</strong> appear in the BSM formula - the expected return on the stock! This is the magic. We don’t need to have any expectations for Apple’s return in order to price their options.</p>
+<p>The BSM formula for a call option price at time 0 (today) is:</p>
+<div class="amsmath math notranslate nohighlight" id="equation-f14720e8-b5f8-42a3-8473-b5e560e64e33">
+<span class="eqno">(15)<a class="headerlink" href="#equation-f14720e8-b5f8-42a3-8473-b5e560e64e33" title="Permalink to this equation">¶</a></span>\[\begin{align}
+C_0 = S_0N(d_1) - e^{-rT}KN(d_2)
+\end{align}\]</div>
+<p>where <span class="math notranslate nohighlight">\(C_0\)</span> is the call price, <span class="math notranslate nohighlight">\(S_0\)</span> is the stock price today, <span class="math notranslate nohighlight">\(K\)</span> is the strike price, <span class="math notranslate nohighlight">\(r\)</span> is the risk-free rate, and <span class="math notranslate nohighlight">\(T\)</span> is the time-to-maturity. You’ll also see <span class="math notranslate nohighlight">\(T-t\)</span>, where <span class="math notranslate nohighlight">\(T\)</span> is the maturity date and <span class="math notranslate nohighlight">\(t\)</span> is today’s date. We’re using <span class="math notranslate nohighlight">\(T\)</span> as the number of years (fractional) until the maturity date.</p>
+<p>Note that <span class="math notranslate nohighlight">\(e^{-rT}\)</span> is just the present value of what it is multiplying when you are doing continuous discounting. In other words, this is like like dividing by <span class="math notranslate nohighlight">\((1+r)^T\)</span>, but in continuous time, rather than discrete time.</p>
+<p>One of the <strong>key ideas</strong> with option pricing is the idea of <strong>risk neutral pricing</strong>. This comes from the idea of the arbitrage relationship and allows us to discount payoffs at a known risk-free rate, rather than something more difficult to calculate, like the required return on equity for a stock based on the CAPM.</p>
+<p>Now, what is <span class="math notranslate nohighlight">\(N()\)</span>? This is the <strong>cumulative density function (CDF)</strong> for the standard normal distribution with a mean of 0 and a standard deviation of 1. What is a <strong>CDF</strong>? Put a number into this function. The CDF gives the probability that a random draw from that distribution will be less than or equal to that number (i.e. the area under the curve of the distribution up to that number on the x-axis). So, N(0) = 0.5, since half of the distribution is to the left of the mean.</p>
+<p>Finally, what are <span class="math notranslate nohighlight">\(d_1\)</span> and <span class="math notranslate nohighlight">\(d_2\)</span>? They are defined as:</p>
+<div class="amsmath math notranslate nohighlight" id="equation-82043fdd-8e36-483e-bb23-148b6cfc9db7">
+<span class="eqno">(16)<a class="headerlink" href="#equation-82043fdd-8e36-483e-bb23-148b6cfc9db7" title="Permalink to this equation">¶</a></span>\[\begin{align}
+d_1 = \frac{log\frac{S_0}{K} + (r + \frac{1}{2} \sigma^2)T}{\sigma\sqrt(T)}
+\end{align}\]</div>
+<div class="amsmath math notranslate nohighlight" id="equation-16fe0abb-d85b-46d5-80c5-035e417d86a7">
+<span class="eqno">(17)<a class="headerlink" href="#equation-16fe0abb-d85b-46d5-80c5-035e417d86a7" title="Permalink to this equation">¶</a></span>\[\begin{align}
+d_2 = d_1 - \sigma\sqrt(T) = \frac{log\frac{S_0}{K} + (r - \frac{1}{2} \sigma^2)T}{\sigma\sqrt(T)}
+\end{align}\]</div>
+<p>You see how there’s some more <span class="math notranslate nohighlight">\(\frac{1}{2}\sigma^2\)</span>, logs, <span class="math notranslate nohighlight">\(T\)</span>, and <span class="math notranslate nohighlight">\(\sqrt(T)\)</span>, like with our simulations? The underlying math (Brownian motion) is the same. <span class="math notranslate nohighlight">\(\sigma^2\)</span> is the variance of the continuously compounded rate of return (log returns) for the asset. Note that we do need to calculate this using data, or some other set of assumptions.</p>
+<p>How can we interpret these formulas? Let’s re-write the BSM formula:</p>
+<div class="amsmath math notranslate nohighlight" id="equation-9baa8e0e-f2e1-40e0-800d-b13498686a8a">
+<span class="eqno">(18)<a class="headerlink" href="#equation-9baa8e0e-f2e1-40e0-800d-b13498686a8a" title="Permalink to this equation">¶</a></span>\[\begin{align}
+C_0 = e^{-rT}(S_0e^{rT}N(d_1) - KN(d_2))
+\end{align}\]</div>
+<p>The BSM formula has two pieces. The pieces represent this idea of an <strong>arbitrage</strong> relationship. In other words, we can create an option from other securities. For a call option, we can <strong>replicate the option</strong> by purchasing the stock and then financing that purchase by borrowing the money needed. Like we say with put-call parity, the option is a combination of the stock and borrowing.</p>
+<p>But how much stock do we need to recreate an option? After some math, we can find that this <span class="math notranslate nohighlight">\(N(d_1)\)</span> is always between 0 and 1 and is the number of shares that we need to purchase. If the call option is at expiration and <strong>in-the-money</strong>, then one option is just one share, so <span class="math notranslate nohighlight">\(N(d_1)\)</span> = 1, the max possible value. If the call option expires <strong>out-of-the-money</strong>, then it is worth <span class="math notranslate nohighlight">\(N(d_1)\)</span> = 0, or no shares.</p>
+<p><span class="math notranslate nohighlight">\(S_0e^{rT}N(d_1)\)</span> represents the future value of the underlying asset conditional on the end stock value S_T being greater than the strike price K (S &gt; K). The second term in the brackets, <span class="math notranslate nohighlight">\(KN(d_2)\)</span>, is the value of the payment K (also the strike price) times the probability that the strike price will be paid, <span class="math notranslate nohighlight">\(N(d_2)\)</span>. So, <span class="math notranslate nohighlight">\(N(d_1)\)</span> represents the number of shares of stock you’d need to own to replicate the option. <span class="math notranslate nohighlight">\(N(d_2)\)</span> is the probability that the option ends up <strong>in-the-money</strong>.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">bsm_call_value</span><span class="p">(</span><span class="n">S</span><span class="p">,</span> <span class="n">K</span><span class="p">,</span> <span class="n">T</span><span class="p">,</span> <span class="n">r</span><span class="p">,</span> <span class="n">sigma</span><span class="p">):</span>
+    
+    <span class="sd">&#39;&#39;&#39; Valuation of European call option in BSM model.</span>
+<span class="sd">    Analytical formula.</span>
+<span class="sd">    Parameters</span>
+<span class="sd">    ==========</span>
+<span class="sd">    S0: float</span>
+<span class="sd">    initial stock/index level</span>
+<span class="sd">    K: float</span>
+<span class="sd">    T: float</span>
+<span class="sd">    maturity date (in year fractions)</span>
+<span class="sd">    r: float</span>
+<span class="sd">    constant risk-free short rate</span>
+<span class="sd">    sigma: float</span>
+<span class="sd">    volatility factor in diffusion term</span>
+<span class="sd">    Returns</span>
+<span class="sd">    =======</span>
+<span class="sd">    value: float</span>
+<span class="sd">    present value of the European call option</span>
+<span class="sd">    &#39;&#39;&#39;</span>
+    
+    <span class="kn">from</span> <span class="nn">math</span> <span class="kn">import</span> <span class="n">log</span><span class="p">,</span> <span class="n">sqrt</span><span class="p">,</span> <span class="n">exp</span>
+    <span class="kn">from</span> <span class="nn">scipy</span> <span class="kn">import</span> <span class="n">stats</span>
+    
+    <span class="n">S</span> <span class="o">=</span> <span class="nb">float</span><span class="p">(</span><span class="n">S</span><span class="p">)</span> <span class="c1"># This is the current stock price. float() just makes sure that it is that type of number, and not in integer.</span>
+    <span class="n">d1</span> <span class="o">=</span> <span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">log</span><span class="p">(</span><span class="n">S</span> <span class="o">/</span> <span class="n">K</span><span class="p">)</span> <span class="o">+</span> <span class="p">(</span><span class="n">r</span> <span class="o">+</span> <span class="mf">0.5</span> <span class="o">*</span> <span class="n">sigma</span> <span class="o">**</span> <span class="mi">2</span><span class="p">)</span> <span class="o">*</span> <span class="n">T</span><span class="p">)</span> <span class="o">/</span> <span class="p">(</span><span class="n">sigma</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="n">T</span><span class="p">))</span>
+    <span class="n">d2</span> <span class="o">=</span> <span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">log</span><span class="p">(</span><span class="n">S</span> <span class="o">/</span> <span class="n">K</span><span class="p">)</span> <span class="o">+</span> <span class="p">(</span><span class="n">r</span> <span class="o">-</span> <span class="mf">0.5</span> <span class="o">*</span> <span class="n">sigma</span> <span class="o">**</span> <span class="mi">2</span><span class="p">)</span> <span class="o">*</span> <span class="n">T</span><span class="p">)</span> <span class="o">/</span> <span class="p">(</span><span class="n">sigma</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="n">T</span><span class="p">))</span>
+    <span class="c1"># stats.norm.cdf --&gt; cumulative distribution function</span>
+    <span class="c1"># for normal distribution</span>
+    <span class="n">value</span> <span class="o">=</span> <span class="p">(</span><span class="n">S</span> <span class="o">*</span> <span class="n">stats</span><span class="o">.</span><span class="n">norm</span><span class="o">.</span><span class="n">cdf</span><span class="p">(</span><span class="n">d1</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">,</span> <span class="mf">1.0</span><span class="p">)</span> <span class="o">-</span> <span class="n">K</span> <span class="o">*</span> <span class="n">exp</span><span class="p">(</span><span class="o">-</span><span class="n">r</span> <span class="o">*</span> <span class="n">T</span><span class="p">)</span> <span class="o">*</span> <span class="n">stats</span><span class="o">.</span><span class="n">norm</span><span class="o">.</span><span class="n">cdf</span><span class="p">(</span><span class="n">d2</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">,</span> <span class="mf">1.0</span><span class="p">))</span>
+    <span class="k">return</span> <span class="n">value</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>Remember, <strong>indentation matters</strong>! And you need that <code class="docutils literal notranslate"><span class="pre">return</span> <span class="pre">value</span></code> at the end, or else the function won’t give you back anything when you use it.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">bsm_call_value</span><span class="p">(</span><span class="mi">100</span><span class="p">,</span> <span class="mi">120</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mf">0.03</span><span class="p">,</span> <span class="mf">0.25</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>4.463301711346105
+</pre></div>
+</div>
+</div>
+</div>
+<p>So, the BSM price for this call option is 4.46.</p>
+<p>Options have values associated with them called <a class="reference external" href="https://en.wikipedia.org/wiki/Black%E2%80%93Scholes_model#The_Options_Greeks">greeks</a>. These are values like <strong>vega</strong> and <strong>delta</strong>. There are many others, each with their own formula. The individual “Greek” formulas come from BSM formula, where you take <strong>partial derivatives</strong> with respect to the thing you’re interest in.</p>
+<p>For example, <a class="reference external" href="https://www.investopedia.com/terms/v/vega.asp">vega</a> is how the option price, in this case a call option, changes with respect to the change in volatility (<span class="math notranslate nohighlight">\(\frac{dC}{d\sigma}\)</span>).</p>
+<p>Fun fact: Vega isn’t even a Greek letter.</p>
+<p>Notice that we need the <strong>probability density function (PDF)</strong> in the vega function below. The PDF tells us the probability density of a particular value from a given distribution. It is also the first derivative of the CDF.</p>
+<p>Another fun fact: Probability densities aren’t quite probabilities. We are dealing with continuous functions. The probability that any draw from a normal distribution has an particular value is…. zero! Why? What is the probability of pulling the number 0.562840274231… from the standard normal distribution? The decimal places go on forever. You’ll never get that exact number! In fact, there are more <a class="reference external" href="https://philosophicaltreasures.com/countable-and-uncountable-infinities/">numbers between 0 and 1</a> then there are all of the integers that you can count. Instead, we are looking at the probability in an <strong>infinitesimal window</strong> around some value. You can <a class="reference external" href="https://en.wikipedia.org/wiki/Probability_density_function">read more here</a>.</p>
+<p>Anyway, things work out fine in the math the way we are using it. We are again using the standard normal distribution.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">bsm_vega</span><span class="p">(</span><span class="n">S</span><span class="p">,</span> <span class="n">K</span><span class="p">,</span> <span class="n">T</span><span class="p">,</span> <span class="n">r</span><span class="p">,</span> <span class="n">sigma</span><span class="p">):</span>
+    <span class="sd">&#39;&#39;&#39; Vega of European option in BSM model.</span>
+<span class="sd">    Parameters</span>
+<span class="sd">    ==========</span>
+<span class="sd">    S0: float</span>
+<span class="sd">    initial stock/index level</span>
+<span class="sd">    K: float</span>
+<span class="sd">    strike price</span>
+<span class="sd">    T: float</span>
+<span class="sd">    maturity date (in year fractions)</span>
+<span class="sd">    r: float</span>
+<span class="sd">    constant risk-free short rate</span>
+<span class="sd">    sigma: float</span>
+<span class="sd">    volatility factor in diffusion term</span>
+<span class="sd">    Returns</span>
+<span class="sd">    =======</span>
+<span class="sd">    vega: float</span>
+<span class="sd">    partial derivative of BSM formula with respect</span>
+<span class="sd">    to sigma, i.e. vega</span>
+<span class="sd">    &#39;&#39;&#39;</span>
+    <span class="kn">from</span> <span class="nn">math</span> <span class="kn">import</span> <span class="n">log</span><span class="p">,</span> <span class="n">sqrt</span>
+    <span class="kn">from</span> <span class="nn">scipy</span> <span class="kn">import</span> <span class="n">stats</span>
+    <span class="n">S0</span> <span class="o">=</span> <span class="nb">float</span><span class="p">(</span><span class="n">S</span><span class="p">)</span>
+    <span class="n">d1</span> <span class="o">=</span> <span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">log</span><span class="p">(</span><span class="n">S</span> <span class="o">/</span> <span class="n">K</span><span class="p">)</span> <span class="o">+</span> <span class="p">(</span><span class="n">r</span> <span class="o">+</span> <span class="mf">0.5</span> <span class="o">*</span> <span class="n">sigma</span> <span class="o">**</span> <span class="mi">2</span><span class="p">)</span> <span class="o">*</span> <span class="n">T</span><span class="p">)</span> <span class="o">/</span> <span class="p">(</span><span class="n">sigma</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="n">T</span><span class="p">))</span>
+    <span class="n">vega</span> <span class="o">=</span> <span class="n">S</span> <span class="o">*</span> <span class="n">stats</span><span class="o">.</span><span class="n">norm</span><span class="o">.</span><span class="n">pdf</span><span class="p">(</span><span class="n">d1</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">,</span> <span class="mf">1.0</span><span class="p">)</span> <span class="o">*</span> <span class="n">sqrt</span><span class="p">(</span><span class="n">T</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">vega</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">bsm_vega</span><span class="p">(</span><span class="mi">100</span><span class="p">,</span> <span class="mi">120</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mf">0.03</span><span class="p">,</span> <span class="mf">0.25</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>35.479855257007806
+</pre></div>
+</div>
+</div>
+</div>
+<p>How do you interpret this number? If the volatility of the underlying asset goes up by 1%, then the price of the option should increase by 0.35.</p>
+<p>Here’s a function to find <strong>delta</strong>. Again, delta tells us the <strong>moneyness</strong> of the option. How much is the call option actually like the stock?</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">bsm_delta_call</span><span class="p">(</span><span class="n">S</span><span class="p">,</span> <span class="n">K</span><span class="p">,</span> <span class="n">T</span><span class="p">,</span> <span class="n">r</span><span class="p">,</span> <span class="n">sigma</span><span class="p">):</span>
+    <span class="n">d1</span> <span class="o">=</span> <span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">log</span><span class="p">(</span><span class="n">S</span> <span class="o">/</span> <span class="n">K</span><span class="p">)</span> <span class="o">+</span> <span class="p">(</span><span class="n">r</span> <span class="o">+</span> <span class="mf">0.5</span> <span class="o">*</span> <span class="n">sigma</span> <span class="o">**</span> <span class="mi">2</span><span class="p">)</span> <span class="o">*</span> <span class="n">T</span><span class="p">)</span> <span class="o">/</span> <span class="p">(</span><span class="n">sigma</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="n">T</span><span class="p">))</span>
+    <span class="n">delta</span> <span class="o">=</span> <span class="n">stats</span><span class="o">.</span><span class="n">norm</span><span class="o">.</span><span class="n">cdf</span><span class="p">(</span><span class="n">d1</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">delta</span> 
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">bsm_delta_call</span><span class="p">(</span><span class="mi">100</span><span class="p">,</span> <span class="mi">120</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mf">0.03</span><span class="p">,</span> <span class="mf">0.25</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>0.3140913745355983
+</pre></div>
+</div>
+</div>
+</div>
+<p>How do you interpret this number? You would need to own 0.31 shares of the stock in order to replicate this call option. This call is <strong>out-of-the-money</strong>, since S &lt; K. As S goes up, the delta of the option will go up, since the option starts to look more and more like just owning the stock.</p>
+<p>We can also solve for something called <strong>implied volatility</strong>. Volatility, or <span class="math notranslate nohighlight">\(\sigma^2\)</span>, is an input into the BSM model. But, what if you take the observed market price of the option as a given. You can then “solve” for the volatility that sets the BSM price equal to the observed market price.</p>
+<p>Here’s a function that does that. I’ll give it the call price from above and we can see if it finds the volatility we assumed (0.25, or 25%).</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">bsm_call_imp_vol</span><span class="p">(</span><span class="n">S</span><span class="p">,</span> <span class="n">K</span><span class="p">,</span> <span class="n">T</span><span class="p">,</span> <span class="n">r</span><span class="p">,</span> <span class="n">C</span><span class="p">,</span> <span class="n">sigma_est</span><span class="p">,</span> <span class="n">tol</span><span class="o">=</span><span class="mf">0.0001</span><span class="p">,</span> <span class="n">max_iterations</span><span class="o">=</span><span class="mi">100</span><span class="p">):</span>
+    <span class="sd">&#39;&#39;&#39;</span>
+
+<span class="sd">    :param C: Observed call price</span>
+<span class="sd">    :param S: Asset price</span>
+<span class="sd">    :param K: Strike Price</span>
+<span class="sd">    :param T: Time to Maturity</span>
+<span class="sd">    :param r: riskfree rate</span>
+<span class="sd">    :param tol: error tolerance in result</span>
+<span class="sd">    :param max_iterations: max iterations to update vol</span>
+<span class="sd">    :return: implied volatility in percent</span>
+<span class="sd">    &#39;&#39;&#39;</span>
+
+
+    <span class="c1">### assigning initial volatility estimate for input in Newton_rap procedure</span>
+    <span class="n">sigma</span> <span class="o">=</span> <span class="n">sigma_est</span>
+    
+    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">max_iterations</span><span class="p">):</span>
+
+        <span class="c1">### calculate difference between blackscholes price and market price with</span>
+        <span class="c1">### iteratively updated volality estimate</span>
+        <span class="n">diff</span> <span class="o">=</span> <span class="n">bsm_call_value</span><span class="p">(</span><span class="n">S</span><span class="p">,</span> <span class="n">K</span><span class="p">,</span> <span class="n">T</span><span class="p">,</span> <span class="n">r</span><span class="p">,</span> <span class="n">sigma</span><span class="p">)</span> <span class="o">-</span> <span class="n">C</span>
+
+        <span class="c1">###break if difference is less than specified tolerance level</span>
+        <span class="k">if</span> <span class="nb">abs</span><span class="p">(</span><span class="n">diff</span><span class="p">)</span> <span class="o">&lt;</span> <span class="n">tol</span><span class="p">:</span>
+            <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;found on </span><span class="si">{</span><span class="n">i</span><span class="si">}</span><span class="s1">th iteration&#39;</span><span class="p">)</span>
+            <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;difference is equal to </span><span class="si">{</span><span class="n">diff</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
+            <span class="k">break</span>
+
+        <span class="c1">### use newton rapshon to update the estimate</span>
+        <span class="n">sigma</span> <span class="o">=</span> <span class="n">sigma</span> <span class="o">-</span> <span class="n">diff</span> <span class="o">/</span> <span class="n">bsm_vega</span><span class="p">(</span><span class="n">S</span><span class="p">,</span> <span class="n">K</span><span class="p">,</span> <span class="n">T</span><span class="p">,</span> <span class="n">r</span><span class="p">,</span> <span class="n">sigma</span><span class="p">)</span>
+
+    <span class="k">return</span> <span class="n">sigma</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">C</span> <span class="o">=</span> <span class="mf">4.463301711346105</span>
+<span class="n">bsm_call_imp_vol</span><span class="p">(</span><span class="mi">100</span><span class="p">,</span> <span class="mi">120</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mf">0.03</span><span class="p">,</span> <span class="n">C</span><span class="p">,</span> <span class="mf">0.20</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>found on 3th iteration
+difference is equal to 9.009966106532374e-10
+</pre></div>
+</div>
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>0.2500000000253945
+</pre></div>
+</div>
+</div>
+</div>
+<p>And it does! It’s beyond the scope of what we’re doing, but this code is using <a class="reference external" href="https://www.codearmo.com/blog/implied-volatility-european-call-python">numerical methods</a> to search for and find the “correct” volatility. Specifically, it is using the <a class="reference external" href="https://en.wikipedia.org/wiki/Newton%27s_method">Newton-Rapshon method</a>. Yeah, that Newton! He didn’t come up with option pricing formulas, but it is fitting that we use approaches he developed, since he <a class="reference external" href="https://www.smithsonianmag.com/smart-news/market-crash-cost-newton-fortune-180961655/">loved to speculate and lost a fortune trading stocks</a>.</p>
+</div>
+<div class="section" id="py-vollib-library">
+<h2>py_vollib library<a class="headerlink" href="#py-vollib-library" title="Permalink to this headline">¶</a></h2>
+<p>The <a class="reference external" href="http://vollib.org/documentation/python/1.0.2/index.html">py_vollib</a> library has a lot of useful functions for option pricing.</p>
+<p>For example, we can find the BSM price and implied volatility for our call option. Note that there is another parameter, <span class="math notranslate nohighlight">\(q\)</span>, which is the annualized continuous dividend rate. We’ve been ignoring dividends.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">S</span> <span class="o">=</span> <span class="mi">100</span>
+<span class="n">K</span> <span class="o">=</span> <span class="mi">120</span>
+<span class="n">sigma</span> <span class="o">=</span> <span class="mf">.25</span>
+<span class="n">r</span> <span class="o">=</span> <span class="mf">.03</span>
+<span class="n">flag</span> <span class="o">=</span> <span class="s1">&#39;c&#39;</span>
+<span class="n">t</span> <span class="o">=</span> <span class="mi">1</span>
+<span class="n">q</span> <span class="o">=</span> <span class="mi">0</span>
+
+<span class="n">price</span> <span class="o">=</span> <span class="n">pyv_bsm</span><span class="o">.</span><span class="n">black_scholes_merton</span><span class="p">(</span><span class="n">flag</span><span class="p">,</span> <span class="n">S</span><span class="p">,</span> <span class="n">K</span><span class="p">,</span> <span class="n">t</span><span class="p">,</span> <span class="n">r</span><span class="p">,</span> <span class="n">sigma</span><span class="p">,</span> <span class="n">q</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">price</span><span class="p">)</span>
+
+<span class="n">iv</span> <span class="o">=</span> <span class="n">pyv_bsm_iv</span><span class="o">.</span><span class="n">implied_volatility</span><span class="p">(</span><span class="n">price</span><span class="p">,</span> <span class="n">S</span><span class="p">,</span> <span class="n">K</span><span class="p">,</span> <span class="n">t</span><span class="p">,</span> <span class="n">r</span><span class="p">,</span> <span class="n">q</span><span class="p">,</span> <span class="n">flag</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">iv</span><span class="p">)</span>
+
+<span class="n">delta</span> <span class="o">=</span> <span class="n">pyv_bsm_greeks_analytic</span><span class="o">.</span><span class="n">delta</span><span class="p">(</span><span class="n">flag</span><span class="p">,</span> <span class="n">S</span><span class="p">,</span> <span class="n">K</span><span class="p">,</span> <span class="n">t</span><span class="p">,</span> <span class="n">r</span><span class="p">,</span> <span class="n">sigma</span><span class="p">,</span> <span class="n">q</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">delta</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>4.463301711346105
+0.25
+0.3140913745355983
+</pre></div>
+</div>
+</div>
+</div>
+<p>That worked too!</p>
+</div>
 </div>
 
     <script type="text/x-thebe-config">
