@@ -585,18 +585,20 @@
 <div class="section" id="part-1">
 <h2>Part 1<a class="headerlink" href="#part-1" title="Permalink to this headline">¶</a></h2>
 <p>Use <code class="docutils literal notranslate"><span class="pre">pandas</span> <span class="pre">data-reader</span></code> to download four stocks of your choosing. Use the <strong>Monte Carlo</strong> methods, discussed in our online notes, to simulate 100 days of future returns for each stock. To do this, make sure that the returns of each stock are <strong>correlated</strong>, using their historical correlations.</p>
-<p>Use two years of prices to get returns.</p>
+<p>Use two years of prices to get returns. Use your tickers to add column names to each of the return columns. When you create the returns, the columns will be labeled as 0, 1, 2, and 3.</p>
+<p>Graph the resulting 100 days for daily returns for each of the four stocks on a single plot. Include a title and legend.</p>
 </div>
 <div class="section" id="part-2">
 <h2>Part 2<a class="headerlink" href="#part-2" title="Permalink to this headline">¶</a></h2>
-<p>Combine these four stocks into an <strong>equally-weighted portfolio</strong>. <strong>Simulate the portfolio returns</strong> 100 times and make a graph for these future paths.</p>
+<p>Combine these four stocks into an <strong>equally-weighted portfolio</strong>. <strong>Simulate the portfolio returns</strong> 100 times and make a graph for these future portfolio <strong>cumulative return paths</strong>.</p>
 </div>
 <div class="section" id="part-3">
 <h2>Part 3<a class="headerlink" href="#part-3" title="Permalink to this headline">¶</a></h2>
 <p>Take one of your stocks and find a listed option price. You can use Yahoo! finance, <a class="reference external" href="https://finance.yahoo.com/quote/AAPL/options?p=AAPL">like this</a>.</p>
 <p>Use the drop down menus to pick a <strong>put option</strong> expiring in May. Pick an option with a lot of open interest. Note the strike price and the time to maturity.</p>
-<p>Use the <strong>BSM pricing model</strong> from our notes, modified for a <strong>put option</strong>, to find the BSM model-implied price of this option. You’ll need an estimate for volatility - try using the standard deviation of returns for the stock that you used above.</p>
-<p>You can find the put option formula <a class="reference external" href="https://www.macroption.com/black-scholes-formula/">here</a>.</p>
+<p>Use the <strong>BSM pricing model</strong> from our notes, modified for a <strong>put option</strong>, to find the BSM model-implied price of this option. You’ll need an estimate for volatility - try using the standard deviation of returns for the stock that you used above. You’ll find <strong>daily covariance</strong> in the covariance matrix. How can you get that to annualized standard deviation?</p>
+<p>You can use <code class="docutils literal notranslate"><span class="pre">.iloc</span></code> to easily get the covariance estimate for your stock from the covariance matrix. The matrix will be stored as a DataFrame.</p>
+<p>You can find the put option formula <a class="reference external" href="https://www.macroption.com/black-scholes-formula/">here</a>. Ignore the exponent with the <em>q</em> - that’s the dividend yield, which we’ll assume are zero.</p>
 <p>How does your price compare to the observed market price for the option? Why might it be different?</p>
 </div>
 <div class="section" id="part-4">
