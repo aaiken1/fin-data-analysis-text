@@ -42,6 +42,8 @@
     <script src="../_static/copybutton.js"></script>
     <script>var togglebuttonSelector = '.toggle, .admonition.dropdown, .tag_hide_input div.cell_input, .tag_hide-input div.cell_input, .tag_hide_output div.cell_output, .tag_hide-output div.cell_output, .tag_hide_cell.cell, .tag_hide-cell.cell';</script>
     <script src="../_static/sphinx-book-theme.d59cb220de22ca1c485ebbdc042f0030.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+    <script src="https://unpkg.com/@jupyter-widgets/html-manager@^0.20.0/dist/embed-amd.js"></script>
     <script async="async" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
     <script>window.MathJax = {"options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
     <script async="async" src="https://unpkg.com/thebe@0.5.1/lib/index.js"></script>
@@ -54,7 +56,7 @@
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
     <link rel="next" title="Option basics" href="14_options.html" />
-    <link rel="prev" title="Finmarketpy package" href="12_finmarketpy.html" />
+    <link rel="prev" title="Risk management" href="12_risk_mang.html" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="docsearch:language" content="None">
     
@@ -280,13 +282,13 @@
   </a>
  </li>
  <li class="toctree-l1">
-  <a class="reference internal" href="11_risk_mang.html">
-   Risk management
+  <a class="reference internal" href="11_regression_topics.html">
+   Regression topics
   </a>
  </li>
  <li class="toctree-l1">
-  <a class="reference internal" href="12_finmarketpy.html">
-   Finmarketpy package
+  <a class="reference internal" href="12_risk_mang.html">
+   Risk management
   </a>
  </li>
  <li class="toctree-l1 current active">
@@ -301,17 +303,7 @@
  </li>
  <li class="toctree-l1">
   <a class="reference internal" href="15_logit_credit.html">
-   Credit modeling with logit regressions
-  </a>
- </li>
- <li class="toctree-l1">
-  <a class="reference internal" href="16_time_vol.html">
-   Volatility modeling
-  </a>
- </li>
- <li class="toctree-l1">
-  <a class="reference internal" href="17_regression_topics.html">
-   Regression topics
+   Logit models
   </a>
  </li>
 </ul>
@@ -364,11 +356,6 @@
  <li class="toctree-l1">
   <a class="reference internal" href="lab08.html">
    Lab 08
-  </a>
- </li>
- <li class="toctree-l1">
-  <a class="reference internal" href="lab09.html">
-   Lab 09
   </a>
  </li>
 </ul>
@@ -573,15 +560,15 @@
 <p>However, when we start to form portfolios, we are going to care about the correlations across assets. We’ve already seen this when looking at portfolio math. When simulating the Bitcoin prices, we took random numbers from the standard normal distribution and then scaled them by our estimate for the volatility of BTC. This allowed us to capture the randomness of the returns.</p>
 <p>However, when dealing with more than one asset, we can’t do that, since the assets are <strong>not independent</strong> from one another. If Apple goes up, Google is more likely to have gone up as well. The two stocks are <strong>correlated</strong>. How can we account for this in our simulation? We will create <strong>correlated random shocks</strong> (<span class="math notranslate nohighlight">\(W\)</span>), where the random movement of one asset depends on another assets movement.</p>
 <p>Let’s try a simulation to see what’s going on. I’ll draw two random variables from the standard normal distribution, N(0,1). The random part of the return for Asset 1, <span class="math notranslate nohighlight">\(W_1\)</span>, is simply the random draw, <span class="math notranslate nohighlight">\(x_1\)</span>. However, the random part of the return for Asset 2, <span class="math notranslate nohighlight">\(W_2\)</span>, is correlated with whatever <span class="math notranslate nohighlight">\(x_1\)</span> ends up being. Mathematically, this dependent random movement is given as:</p>
-<div class="amsmath math notranslate nohighlight" id="equation-8b7c5b2d-df5b-4f4a-876c-363aeeec81cc">
-<span class="eqno">(12)<a class="headerlink" href="#equation-8b7c5b2d-df5b-4f4a-876c-363aeeec81cc" title="Permalink to this equation">¶</a></span>\[\begin{align}
+<div class="amsmath math notranslate nohighlight" id="equation-a7da6f00-9674-4812-b5b5-1cdd5e1acf5f">
+<span class="eqno">(12)<a class="headerlink" href="#equation-a7da6f00-9674-4812-b5b5-1cdd5e1acf5f" title="Permalink to this equation">¶</a></span>\[\begin{align}
 W_2 = \rho x_1 + (1 - \sqrt{\rho^2}) x_2
 \end{align}\]</div>
 <p>I’ll set the correlation, <span class="math notranslate nohighlight">\(\rho\)</span>, to be -0.80. These two assets are negatively correlated, so they should move in opposite directions. We’ll set each asset to have the same mean return and same volatility. I’ll set the starting price of each of these assets to 1.</p>
 <p>We’ll bring in our usual packages and try this out. This code should look a lot like the Bitcoin code, except that I now have two assets. I am only doing one simulation for each asset, so two total simulations.</p>
 <p>How do we simulative prices? Let me remind you of a formula:</p>
-<div class="amsmath math notranslate nohighlight" id="equation-ebe3d180-2ba8-4449-8ea8-02dfe592559c">
-<span class="eqno">(13)<a class="headerlink" href="#equation-ebe3d180-2ba8-4449-8ea8-02dfe592559c" title="Permalink to this equation">¶</a></span>\[\begin{align}
+<div class="amsmath math notranslate nohighlight" id="equation-abdf6a97-06b5-4283-a6d3-35b4731997f8">
+<span class="eqno">(13)<a class="headerlink" href="#equation-abdf6a97-06b5-4283-a6d3-35b4731997f8" title="Permalink to this equation">¶</a></span>\[\begin{align}
 S(t) = S(0) \exp \left(\left(\mu - \frac{1}{2}\sigma^2\right)t + \sigma W(t)\right)
 \end{align}\]</div>
 <p>Take a starting price <span class="math notranslate nohighlight">\(S_0\)</span>. We use <code class="docutils literal notranslate"><span class="pre">exp</span></code> for continuous compounding. Then, the price today, <span class="math notranslate nohighlight">\(S_t\)</span> is a function of two return sources. The first source is called <strong>drift</strong>: <span class="math notranslate nohighlight">\(\mu - \frac{1}{2}\sigma^2\)</span>. This is what an asset returns on average over some period, like a day. This is the <strong>deterministic</strong> piece of the return and would be related to risk. <span class="math notranslate nohighlight">\(\mu\)</span> is the <strong>arithmetic average</strong> and <span class="math notranslate nohighlight">\(\sigma\)</span> is the volatility (standard deviation). They should be in the same units (e.g. daily).</p>
@@ -714,7 +701,7 @@ S(t) = S(0) \exp \left(\left(\mu - \frac{1}{2}\sigma^2\right)t + \sigma W(t)\rig
   <tbody>
     <tr>
       <th>2019-01-03</th>
-      <td>-0.099608</td>
+      <td>-0.099607</td>
       <td>-0.015190</td>
       <td>-0.029039</td>
       <td>-0.025242</td>
@@ -722,7 +709,7 @@ S(t) = S(0) \exp \left(\left(\mu - \frac{1}{2}\sigma^2\right)t + \sigma W(t)\rig
     </tr>
     <tr>
       <th>2019-01-04</th>
-      <td>0.042690</td>
+      <td>0.042689</td>
       <td>0.038560</td>
       <td>0.047138</td>
       <td>0.050064</td>
@@ -770,7 +757,7 @@ S(t) = S(0) \exp \left(\left(\mu - \frac{1}{2}\sigma^2\right)t + \sigma W(t)\rig
     </tr>
     <tr>
       <th>2019-12-26</th>
-      <td>0.019840</td>
+      <td>0.019841</td>
       <td>-0.002112</td>
       <td>0.013017</td>
       <td>0.044467</td>
@@ -778,7 +765,7 @@ S(t) = S(0) \exp \left(\left(\mu - \frac{1}{2}\sigma^2\right)t + \sigma W(t)\rig
     </tr>
     <tr>
       <th>2019-12-27</th>
-      <td>-0.000379</td>
+      <td>-0.000380</td>
       <td>-0.009524</td>
       <td>0.001492</td>
       <td>0.000551</td>
@@ -798,7 +785,7 @@ S(t) = S(0) \exp \left(\left(\mu - \frac{1}{2}\sigma^2\right)t + \sigma W(t)\rig
       <td>0.005405</td>
       <td>0.004109</td>
       <td>0.000514</td>
-      <td>0.004318</td>
+      <td>0.004317</td>
     </tr>
   </tbody>
 </table>
@@ -864,7 +851,7 @@ S(t) = S(0) \exp \left(\left(\mu - \frac{1}{2}\sigma^2\right)t + \sigma W(t)\rig
     </tr>
     <tr>
       <th>min</th>
-      <td>-0.099608</td>
+      <td>-0.099607</td>
       <td>-0.074540</td>
       <td>-0.075055</td>
       <td>-0.053819</td>
@@ -888,7 +875,7 @@ S(t) = S(0) \exp \left(\left(\mu - \frac{1}{2}\sigma^2\right)t + \sigma W(t)\rig
     </tr>
     <tr>
       <th>75%</th>
-      <td>0.011560</td>
+      <td>0.011561</td>
       <td>0.010034</td>
       <td>0.011429</td>
       <td>0.008535</td>
@@ -979,26 +966,26 @@ S(t) = S(0) \exp \left(\left(\mu - \frac{1}{2}\sigma^2\right)t + \sigma W(t)\rig
     <tr>
       <th>AAPL</th>
       <td>1.000000</td>
-      <td>0.305896</td>
-      <td>0.475799</td>
+      <td>0.305897</td>
+      <td>0.475798</td>
       <td>0.592889</td>
       <td>0.416556</td>
     </tr>
     <tr>
       <th>F</th>
-      <td>0.305896</td>
+      <td>0.305897</td>
       <td>1.000000</td>
-      <td>0.280102</td>
+      <td>0.280101</td>
       <td>0.364217</td>
-      <td>0.375396</td>
+      <td>0.375397</td>
     </tr>
     <tr>
       <th>FB</th>
-      <td>0.475799</td>
-      <td>0.280102</td>
+      <td>0.475798</td>
+      <td>0.280101</td>
       <td>1.000000</td>
       <td>0.616672</td>
-      <td>0.338374</td>
+      <td>0.338376</td>
     </tr>
     <tr>
       <th>AMZN</th>
@@ -1006,14 +993,14 @@ S(t) = S(0) \exp \left(\left(\mu - \frac{1}{2}\sigma^2\right)t + \sigma W(t)\rig
       <td>0.364217</td>
       <td>0.616672</td>
       <td>1.000000</td>
-      <td>0.370255</td>
+      <td>0.370256</td>
     </tr>
     <tr>
       <th>XOM</th>
       <td>0.416556</td>
-      <td>0.375396</td>
-      <td>0.338374</td>
-      <td>0.370255</td>
+      <td>0.375397</td>
+      <td>0.338376</td>
+      <td>0.370256</td>
       <td>1.000000</td>
     </tr>
   </tbody>
@@ -1094,41 +1081,41 @@ S(t) = S(0) \exp \left(\left(\mu - \frac{1}{2}\sigma^2\right)t + \sigma W(t)\rig
     <tr>
       <th>0</th>
       <td>1.000000</td>
-      <td>0.313334</td>
-      <td>0.550336</td>
+      <td>0.313335</td>
+      <td>0.550335</td>
       <td>0.609200</td>
       <td>0.498667</td>
     </tr>
     <tr>
       <th>1</th>
-      <td>0.313334</td>
+      <td>0.313335</td>
       <td>1.000000</td>
-      <td>0.329611</td>
-      <td>0.398792</td>
-      <td>0.419703</td>
+      <td>0.329610</td>
+      <td>0.398793</td>
+      <td>0.419704</td>
     </tr>
     <tr>
       <th>2</th>
-      <td>0.550336</td>
-      <td>0.329611</td>
+      <td>0.550335</td>
+      <td>0.329610</td>
       <td>1.000000</td>
       <td>0.678113</td>
-      <td>0.427322</td>
+      <td>0.427324</td>
     </tr>
     <tr>
       <th>3</th>
       <td>0.609200</td>
-      <td>0.398792</td>
+      <td>0.398793</td>
       <td>0.678113</td>
       <td>1.000000</td>
-      <td>0.399525</td>
+      <td>0.399526</td>
     </tr>
     <tr>
       <th>4</th>
       <td>0.498667</td>
-      <td>0.419703</td>
-      <td>0.427322</td>
-      <td>0.399525</td>
+      <td>0.419704</td>
+      <td>0.427324</td>
+      <td>0.399526</td>
       <td>1.000000</td>
     </tr>
   </tbody>
@@ -1308,11 +1295,11 @@ S(t) = S(0) \exp \left(\left(\mu - \frac{1}{2}\sigma^2\right)t + \sigma W(t)\rig
             
                 <!-- Previous / next buttons -->
 <div class='prev-next-area'> 
-    <a class='left-prev' id="prev-link" href="12_finmarketpy.html" title="previous page">
+    <a class='left-prev' id="prev-link" href="12_risk_mang.html" title="previous page">
         <i class="fas fa-angle-left"></i>
         <div class="prev-next-info">
             <p class="prev-next-subtitle">previous</p>
-            <p class="prev-next-title">Finmarketpy package</p>
+            <p class="prev-next-title">Risk management</p>
         </div>
     </a>
     <a class='right-next' id="next-link" href="14_options.html" title="next page">

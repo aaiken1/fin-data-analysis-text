@@ -42,6 +42,8 @@
     <script src="../_static/copybutton.js"></script>
     <script>var togglebuttonSelector = '.toggle, .admonition.dropdown, .tag_hide_input div.cell_input, .tag_hide-input div.cell_input, .tag_hide_output div.cell_output, .tag_hide-output div.cell_output, .tag_hide_cell.cell, .tag_hide-cell.cell';</script>
     <script src="../_static/sphinx-book-theme.d59cb220de22ca1c485ebbdc042f0030.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+    <script src="https://unpkg.com/@jupyter-widgets/html-manager@^0.20.0/dist/embed-amd.js"></script>
     <script async="async" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
     <script>window.MathJax = {"options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
     <script async="async" src="https://unpkg.com/thebe@0.5.1/lib/index.js"></script>
@@ -53,7 +55,7 @@
     <script async="async" src="../_static/sphinx-thebe.js"></script>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
-    <link rel="next" title="Credit modeling with logit regressions" href="15_logit_credit.html" />
+    <link rel="next" title="Logit models" href="15_logit_credit.html" />
     <link rel="prev" title="Monte Carlo and portfolios" href="13_monte_carlo.html" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="docsearch:language" content="None">
@@ -280,13 +282,13 @@
   </a>
  </li>
  <li class="toctree-l1">
-  <a class="reference internal" href="11_risk_mang.html">
-   Risk management
+  <a class="reference internal" href="11_regression_topics.html">
+   Regression topics
   </a>
  </li>
  <li class="toctree-l1">
-  <a class="reference internal" href="12_finmarketpy.html">
-   Finmarketpy package
+  <a class="reference internal" href="12_risk_mang.html">
+   Risk management
   </a>
  </li>
  <li class="toctree-l1">
@@ -301,17 +303,7 @@
  </li>
  <li class="toctree-l1">
   <a class="reference internal" href="15_logit_credit.html">
-   Credit modeling with logit regressions
-  </a>
- </li>
- <li class="toctree-l1">
-  <a class="reference internal" href="16_time_vol.html">
-   Volatility modeling
-  </a>
- </li>
- <li class="toctree-l1">
-  <a class="reference internal" href="17_regression_topics.html">
-   Regression topics
+   Logit models
   </a>
  </li>
 </ul>
@@ -364,11 +356,6 @@
  <li class="toctree-l1">
   <a class="reference internal" href="lab08.html">
    Lab 08
-  </a>
- </li>
- <li class="toctree-l1">
-  <a class="reference internal" href="lab09.html">
-   Lab 09
   </a>
  </li>
 </ul>
@@ -610,8 +597,8 @@
 <p>For example, suppose that K = 100 and the stock ends up at 101 at the call options maturity. You will exercise the option, with a payoff of 1 and a profit of 1 - C. But, if the stock ends up at 99, you just lose C. If you buy a stock at 100 and it ends up at 99, you still have 99 worth of stock.</p>
 <p><strong>European options</strong> can only be exercised on the maturity date of the option. <strong>American options</strong> can be exercised early. The terms don’t have anything to do with where the options are traded.</p>
 <p>Finally, there is an important relationship between the call price, the put price, the current stock price, and the borrowing needed to form the portfolio called <a class="reference external" href="https://en.wikipedia.org/wiki/Put%E2%80%93call_parity">put-call parity</a>.</p>
-<div class="amsmath math notranslate nohighlight" id="equation-52f7337a-bbdb-4ea0-9734-e0d65fdfc7f0">
-<span class="eqno">(14)<a class="headerlink" href="#equation-52f7337a-bbdb-4ea0-9734-e0d65fdfc7f0" title="Permalink to this equation">¶</a></span>\[\begin{align}
+<div class="amsmath math notranslate nohighlight" id="equation-37928a47-2340-4752-9ffd-5bf0dbfb50d6">
+<span class="eqno">(14)<a class="headerlink" href="#equation-37928a47-2340-4752-9ffd-5bf0dbfb50d6" title="Permalink to this equation">¶</a></span>\[\begin{align}
 C - P = S - Ke^{-rt}
 \end{align}\]</div>
 <p>This is an <strong>arbitrage relationship</strong>, as there is free money to be had if it doesn’t hold. If you think you observe a situation where it isn’t true, it is likely because <strong>transactions costs</strong> (i.e. the costs associated with trading) are preventing market participants from exploiting the difference.</p>
@@ -687,8 +674,8 @@ C - P = S - Ke^{-rt}
 <p>Let’s write a <strong>function</strong> that takes the inputs into the BSM model and values a <strong>call option</strong>. You would do something very similar for a <strong>put option</strong>. Again, we are trying to find the <strong>price</strong> that you would pay for the right to buy or sell a stock at a certain price in the future. This price is going to depend on the option contract parameters and, crucially, an assumption about the <strong>volatility</strong> of the asset.</p>
 <p>Notice what <strong>does not</strong> appear in the BSM formula - the expected return on the stock! This is the magic. We don’t need to have any expectations for Apple’s return in order to price their options.</p>
 <p>The BSM formula for a call option price at time 0 (today) is:</p>
-<div class="amsmath math notranslate nohighlight" id="equation-1bac9479-4005-4ca6-a3aa-6b4dbd88e9b0">
-<span class="eqno">(15)<a class="headerlink" href="#equation-1bac9479-4005-4ca6-a3aa-6b4dbd88e9b0" title="Permalink to this equation">¶</a></span>\[\begin{align}
+<div class="amsmath math notranslate nohighlight" id="equation-b6277888-4426-4ea5-8815-328e46b31072">
+<span class="eqno">(15)<a class="headerlink" href="#equation-b6277888-4426-4ea5-8815-328e46b31072" title="Permalink to this equation">¶</a></span>\[\begin{align}
 C_0 = S_0N(d_1) - e^{-rT}KN(d_2)
 \end{align}\]</div>
 <p>where <span class="math notranslate nohighlight">\(C_0\)</span> is the call price, <span class="math notranslate nohighlight">\(S_0\)</span> is the stock price today, <span class="math notranslate nohighlight">\(K\)</span> is the strike price, <span class="math notranslate nohighlight">\(r\)</span> is the risk-free rate, and <span class="math notranslate nohighlight">\(T\)</span> is the time-to-maturity. You’ll also see <span class="math notranslate nohighlight">\(T-t\)</span>, where <span class="math notranslate nohighlight">\(T\)</span> is the maturity date and <span class="math notranslate nohighlight">\(t\)</span> is today’s date. We’re using <span class="math notranslate nohighlight">\(T\)</span> as the number of years (fractional) until the maturity date.</p>
@@ -696,18 +683,18 @@ C_0 = S_0N(d_1) - e^{-rT}KN(d_2)
 <p>One of the <strong>key ideas</strong> with option pricing is the idea of <strong>risk neutral pricing</strong>. This comes from the idea of the arbitrage relationship and allows us to discount payoffs at a known risk-free rate, rather than something more difficult to calculate, like the required return on equity for a stock based on the CAPM.</p>
 <p>Now, what is <span class="math notranslate nohighlight">\(N()\)</span>? This is the <strong>cumulative density function (CDF)</strong> for the standard normal distribution with a mean of 0 and a standard deviation of 1. What is a <strong>CDF</strong>? Put a number into this function. The CDF gives the probability that a random draw from that distribution will be less than or equal to that number (i.e. the area under the curve of the distribution up to that number on the x-axis). So, N(0) = 0.5, since half of the distribution is to the left of the mean.</p>
 <p>Finally, what are <span class="math notranslate nohighlight">\(d_1\)</span> and <span class="math notranslate nohighlight">\(d_2\)</span>? They are defined as:</p>
-<div class="amsmath math notranslate nohighlight" id="equation-49eeb818-b282-4127-a33a-5cd786e8d5d6">
-<span class="eqno">(16)<a class="headerlink" href="#equation-49eeb818-b282-4127-a33a-5cd786e8d5d6" title="Permalink to this equation">¶</a></span>\[\begin{align}
+<div class="amsmath math notranslate nohighlight" id="equation-932cd967-ce7f-49bc-b880-292a83f504f3">
+<span class="eqno">(16)<a class="headerlink" href="#equation-932cd967-ce7f-49bc-b880-292a83f504f3" title="Permalink to this equation">¶</a></span>\[\begin{align}
 d_1 = \frac{log\frac{S_0}{K} + (r + \frac{1}{2} \sigma^2)T}{\sigma\sqrt(T)}
 \end{align}\]</div>
-<div class="amsmath math notranslate nohighlight" id="equation-5cc50116-eab3-4c35-b8c8-a27e9252aea6">
-<span class="eqno">(17)<a class="headerlink" href="#equation-5cc50116-eab3-4c35-b8c8-a27e9252aea6" title="Permalink to this equation">¶</a></span>\[\begin{align}
+<div class="amsmath math notranslate nohighlight" id="equation-12998992-e320-4432-8a43-228712c698bd">
+<span class="eqno">(17)<a class="headerlink" href="#equation-12998992-e320-4432-8a43-228712c698bd" title="Permalink to this equation">¶</a></span>\[\begin{align}
 d_2 = d_1 - \sigma\sqrt(T) = \frac{log\frac{S_0}{K} + (r - \frac{1}{2} \sigma^2)T}{\sigma\sqrt(T)}
 \end{align}\]</div>
 <p>You see how there’s some more <span class="math notranslate nohighlight">\(\frac{1}{2}\sigma^2\)</span>, logs, <span class="math notranslate nohighlight">\(T\)</span>, and <span class="math notranslate nohighlight">\(\sqrt(T)\)</span>, like with our simulations? The underlying math (Brownian motion) is the same. <span class="math notranslate nohighlight">\(\sigma^2\)</span> is the variance of the continuously compounded rate of return (log returns) for the asset. Note that we do need to calculate this using data, or some other set of assumptions.</p>
 <p>How can we interpret these formulas? Let’s re-write the BSM formula:</p>
-<div class="amsmath math notranslate nohighlight" id="equation-ba0250f4-881a-477d-b21e-9c550c4d79d6">
-<span class="eqno">(18)<a class="headerlink" href="#equation-ba0250f4-881a-477d-b21e-9c550c4d79d6" title="Permalink to this equation">¶</a></span>\[\begin{align}
+<div class="amsmath math notranslate nohighlight" id="equation-605d665f-c81f-43a3-8039-c4c99104fa1b">
+<span class="eqno">(18)<a class="headerlink" href="#equation-605d665f-c81f-43a3-8039-c4c99104fa1b" title="Permalink to this equation">¶</a></span>\[\begin{align}
 C_0 = e^{-rT}(S_0e^{rT}N(d_1) - KN(d_2))
 \end{align}\]</div>
 <p>The BSM formula has two pieces. The pieces represent this idea of an <strong>arbitrage</strong> relationship. In other words, we can create an option from other securities. For a call option, we can <strong>replicate the option</strong> by purchasing the stock and then financing that purchase by borrowing the money needed. Like we say with put-call parity, the option is a combination of the stock and borrowing.</p>
@@ -971,7 +958,7 @@ difference is equal to 9.009966106532374e-10
     <a class='right-next' id="next-link" href="15_logit_credit.html" title="next page">
     <div class="prev-next-info">
         <p class="prev-next-subtitle">next</p>
-        <p class="prev-next-title">Credit modeling with logit regressions</p>
+        <p class="prev-next-title">Logit models</p>
     </div>
     <i class="fas fa-angle-right"></i>
     </a>

@@ -42,6 +42,8 @@
     <script src="../_static/copybutton.js"></script>
     <script>var togglebuttonSelector = '.toggle, .admonition.dropdown, .tag_hide_input div.cell_input, .tag_hide-input div.cell_input, .tag_hide_output div.cell_output, .tag_hide-output div.cell_output, .tag_hide_cell.cell, .tag_hide-cell.cell';</script>
     <script src="../_static/sphinx-book-theme.d59cb220de22ca1c485ebbdc042f0030.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+    <script src="https://unpkg.com/@jupyter-widgets/html-manager@^0.20.0/dist/embed-amd.js"></script>
     <script async="async" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
     <script>window.MathJax = {"options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
     <script async="async" src="https://unpkg.com/thebe@0.5.1/lib/index.js"></script>
@@ -280,13 +282,13 @@
   </a>
  </li>
  <li class="toctree-l1">
-  <a class="reference internal" href="11_risk_mang.html">
-   Risk management
+  <a class="reference internal" href="11_regression_topics.html">
+   Regression topics
   </a>
  </li>
  <li class="toctree-l1">
-  <a class="reference internal" href="12_finmarketpy.html">
-   Finmarketpy package
+  <a class="reference internal" href="12_risk_mang.html">
+   Risk management
   </a>
  </li>
  <li class="toctree-l1">
@@ -301,17 +303,7 @@
  </li>
  <li class="toctree-l1">
   <a class="reference internal" href="15_logit_credit.html">
-   Credit modeling with logit regressions
-  </a>
- </li>
- <li class="toctree-l1">
-  <a class="reference internal" href="16_time_vol.html">
-   Volatility modeling
-  </a>
- </li>
- <li class="toctree-l1">
-  <a class="reference internal" href="17_regression_topics.html">
-   Regression topics
+   Logit models
   </a>
  </li>
 </ul>
@@ -364,11 +356,6 @@
  <li class="toctree-l1">
   <a class="reference internal" href="lab08.html">
    Lab 08
-  </a>
- </li>
- <li class="toctree-l1">
-  <a class="reference internal" href="lab09.html">
-   Lab 09
   </a>
  </li>
 </ul>
@@ -1653,14 +1640,14 @@ memory usage: 217.1 KB
 <p>I’m multiplying by 100 just for the display of the data.</p>
 <p>The percent change is called a <strong>linear return</strong>. Or, <strong>simple return</strong>. This is different from <strong>log returns</strong>, or <strong>compounded returns</strong>. Both types of returns are correct and useful. They are just used for different things.</p>
 <p>The formula for simple returns (R) is:</p>
-<div class="amsmath math notranslate nohighlight" id="equation-55b11938-2b90-4e28-8ad8-958ccc105260">
-<span class="eqno">(1)<a class="headerlink" href="#equation-55b11938-2b90-4e28-8ad8-958ccc105260" title="Permalink to this equation">¶</a></span>\[\begin{align}
+<div class="amsmath math notranslate nohighlight" id="equation-5dd0effd-2e2d-4ace-b5b7-eeb1d5c67e4d">
+<span class="eqno">(1)<a class="headerlink" href="#equation-5dd0effd-2e2d-4ace-b5b7-eeb1d5c67e4d" title="Permalink to this equation">¶</a></span>\[\begin{align}
 R_{t} = \frac{V_t}{V_{t-1}} - 1
 \end{align}\]</div>
 <p>where R is the simple return based on the percent change and V is the cash flow, including price and dividends (if any).</p>
 <p>The formula for log returns (r) is:</p>
-<div class="amsmath math notranslate nohighlight" id="equation-b671b941-a1c2-46a7-9a45-acb13c51b014">
-<span class="eqno">(2)<a class="headerlink" href="#equation-b671b941-a1c2-46a7-9a45-acb13c51b014" title="Permalink to this equation">¶</a></span>\[\begin{align}
+<div class="amsmath math notranslate nohighlight" id="equation-50bf3784-be61-4bf1-9723-409289f7cb04">
+<span class="eqno">(2)<a class="headerlink" href="#equation-50bf3784-be61-4bf1-9723-409289f7cb04" title="Permalink to this equation">¶</a></span>\[\begin{align}
 r_{t} = ln(\frac{V_t}{V_{t-1}}) = ln(1 + R_{t})
 \end{align}\]</div>
 <p>See <a class="reference external" href="https://papers.ssrn.com/sol3/papers.cfm?abstract_id=1586656">this article</a> for more on why this difference is important. In short, we need the mean of simple returns when doing portfolio optimization, as these returns work with a weighted average. Simple returns <strong>aggregate across assets</strong>. Log returns, however, <strong>aggregate across time</strong>. In other words, the cumulative return using log returns is the sum of individual log returns over the time period. You definitely can’t do that with simple returns!</p>
@@ -3047,8 +3034,8 @@ r_{t} = ln(\frac{V_t}{V_{t-1}}) = ln(1 + R_{t})
 </div>
 <p>We can also create return series using <strong>simple returns</strong>. We calculate percent returns, add 1 to each to get (1+R), and then <strong>chain returns together</strong> using <code class="docutils literal notranslate"><span class="pre">.cumprod()</span></code>. We subtract one at the end from the total.</p>
 <p>In other words,</p>
-<div class="amsmath math notranslate nohighlight" id="equation-b17b37a9-567f-4e32-aa7d-7da5b19fcc9c">
-<span class="eqno">(3)<a class="headerlink" href="#equation-b17b37a9-567f-4e32-aa7d-7da5b19fcc9c" title="Permalink to this equation">¶</a></span>\[\begin{align}
+<div class="amsmath math notranslate nohighlight" id="equation-fface702-2155-4f65-a328-5bc98a5368bd">
+<span class="eqno">(3)<a class="headerlink" href="#equation-fface702-2155-4f65-a328-5bc98a5368bd" title="Permalink to this equation">¶</a></span>\[\begin{align}
 Total Return = (1 + R_{1})*(1 + R_{2})*(1 + R_{3})*(1 + R_{4})... - 1
 \end{align}\]</div>
 <div class="cell docutils container">
