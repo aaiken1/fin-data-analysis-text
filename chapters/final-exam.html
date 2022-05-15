@@ -706,7 +706,7 @@
 </ul>
 <p>Go back to the full set of returns.</p>
 <ul class="simple">
-<li><p>Use <code class="docutils literal notranslate"><span class="pre">.min</span></code> to create a <strong>new variable</strong> that is the <strong>minimum daily return across all of the stocks</strong>. Call this new variable <em>min_ret</em>. Hint: <code class="docutils literal notranslate"><span class="pre">.min()</span></code> can take an <em>axis</em> argument. First, you tell it what function to use. You tell it the axis you want to apply it to using <code class="docutils literal notranslate"><span class="pre">axis=</span></code>. Do you want to look up and down rows (<code class="docutils literal notranslate"><span class="pre">axis=0</span></code>) or across columns (<code class="docutils literal notranslate"><span class="pre">axis=1</span></code>)?.</p></li>
+<li><p>Use <code class="docutils literal notranslate"><span class="pre">.min</span></code> to create a <strong>new variable</strong> that is the <strong>minimum daily return across all of the stocks</strong>. Call this new variable <em>min_ret</em>. Hint: <code class="docutils literal notranslate"><span class="pre">.min()</span></code> can take an <em>axis</em> argument. First, you tell it what function to use. You tell it the axis you want to apply it to using <code class="docutils literal notranslate"><span class="pre">axis=</span></code>. Do you want to apply the calculation column-wise (e.g. a value of each column) (<code class="docutils literal notranslate"><span class="pre">axis=0</span></code>) or row-wise (e.g. a value for each row) (<code class="docutils literal notranslate"><span class="pre">axis=1</span></code>)? This is a <a class="reference external" href="https://www.statology.org/axis-0-axis-1-python-pandas/">helpful explanation</a>.</p></li>
 <li><p>Now, use <code class="docutils literal notranslate"><span class="pre">.aggregate()</span></code> to do the exact same thing, but call this new variable <em>min_ret_2</em>. Hint: <code class="docutils literal notranslate"><span class="pre">.aggregate()</span></code> takes <strong>two</strong> arguments. This first is the function to use. The second is the axis to apply it to.</p></li>
 </ul>
 </div>
@@ -748,8 +748,7 @@
 </div>
 <div class="tex2jax_ignore mathjax_ignore section" id="part-5">
 <h1>Part 5<a class="headerlink" href="#part-5" title="Permalink to this headline">¶</a></h1>
-<p><strong>15 points.</strong> I have downloaded some <strong>daily</strong> Fama-French factor data for you. You can find it on my GitHub here:</p>
-<p>[https://raw.githubusercontent.com/aaiken1/fin-data-analysis-python/main/data/F-F_Research_Data_Factors_daily.CSV]</p>
+<p><strong>15 points.</strong> I have downloaded some <strong>daily</strong> Fama-French factor data for you. You can find it on my GitHub here: https://raw.githubusercontent.com/aaiken1/fin-data-analysis-python/main/data/F-F_Research_Data_Factors_daily.CSV</p>
 <ul class="simple">
 <li><p>Show me the data type of each variable. Notice how <em>Date</em> is an integer? Turn this into an actual date and make it the index. That way, both your returns data and this Fama-French factor data will have a daily date as their index.</p></li>
 </ul>
@@ -759,7 +758,7 @@
 </div>
 <ul class="simple">
 <li><p>With a “real” date created, <strong>merge</strong> this Fama-French data with the return data, <strong>keeping only the observations that are in your stock data</strong>. Call this new merged DataFrame <em>rets_ff</em>.</p></li>
-<li><p>Rename <em>Mkt-RF</em> as *market_rf, <em>SMB</em> as <em>smb</em>, and <em>HML</em> as <em>hml</em>.</p></li>
+<li><p>Rename <em>Mkt-RF</em> as <em>market_rf</em>, <em>SMB</em> as <em>smb</em>, and <em>HML</em> as <em>hml</em>.</p></li>
 <li><p>Check out the Fama-French variables. Do they look like they are in different units when compared to you stock returns? They are! There’s an <em>implied</em> percent sign. Divide <em>market_rf</em>, <em>smb</em>, and <em>hml</em> by 100. There are many ways to do this. I used <code class="docutils literal notranslate"><span class="pre">.div(100)</span></code>, which you saw a lot in the DataCamp. Make sure that you are saving the result back to that column. I could have also <em>multiplied</em> the stock returns by 100.</p></li>
 <li><p>Finally, <strong>run a Fama-French three-factor regression</strong> on the stock of your choice and <strong>interpret the results</strong>. The three Fama-French factors are the market return, the value factor (hml), and the small factor (smb).</p></li>
 </ul>
@@ -797,7 +796,7 @@
 <div class="tex2jax_ignore mathjax_ignore section" id="part-8">
 <h1>Part 8<a class="headerlink" href="#part-8" title="Permalink to this headline">¶</a></h1>
 <p><strong>15 points</strong> We are going to end our semester with <strong>even more loan data</strong>. This data set is a bit different, though. It contains information on loans made by the Small Business Administration (SBA). These SBA loans are made by the government and go to firms that might have had a difficult time otherwise accessing credit, in the hope of creating jobs. This data is for the state of California.</p>
-<p>You can bring in the data from my Github: [https://raw.githubusercontent.com/aaiken1/fin-data-analysis-python/main/data/loan_data_sba.csv]</p>
+<p>You can bring in the data from my Github: https://raw.githubusercontent.com/aaiken1/fin-data-analysis-python/main/data/loan_data_sba.csv</p>
 <ul class="simple">
 <li><p>Import this data as a DataFrame called <em>sba</em>.</p></li>
 <li><p>Print the number of <strong>missing values</strong> by variable. Notice anything?</p></li>
@@ -808,13 +807,12 @@
 <p>How? Take a look at <a class="reference external" href="https://stackoverflow.com/questions/26886653/pandas-create-new-column-based-on-values-from-other-columns-apply-a-function-o">this post on StackOverflow</a>. Go down to the 3rd solution, the one using <code class="docutils literal notranslate"><span class="pre">np.select</span></code> and talking about <strong>vectorization</strong>. Modify this solution to work for our task.</p>
 <p>Two things to note. First, the third argument for <code class="docutils literal notranslate"><span class="pre">np.select</span></code> is the default, “What do I put?”, if no condition is met. Make this ‘NA’, for Not Available, rather than ‘Other’, since ‘Other’ is actually a category. Second, note that the author is saving this to a new series. We want to instead create a new variable in the <em>sba</em> DataFrame.</p>
 <p>Why am I having you do this? First, modifying a solution you find online is a crucial skill. Second, the idea of vectorization is an important programming concept if you ever need to care about speed. Basically, it has to do with how Python is doing the calculation and avoiding loops.</p>
-<ul>
-<li><p>Create a nice looking table that has the number of observations, total dollars, mean loan size, median loan size, and the standard deviation of loan size, where the loan size for the amount of money disbursed (DisbursementGross), grouped by the new <em>location</em> variable. You’ll find sum, mean, median, and standard deviation in the notes. To get a count, use <code class="docutils literal notranslate"><span class="pre">np.size</span></code>.</p>
-<p>This means <strong>creating a table as a DataFrame</strong> and then working with it to style it the way we want. In other words, you’ll want to <strong>save the table as something</strong> in order to change the style.</p>
-<p>For formatting, try this code: <code class="docutils literal notranslate"><span class="pre">table.loc[:,</span> <span class="pre">'sum']</span> <span class="pre">=</span> <span class="pre">table['sum'].map('${:,d}'.format)</span></code>. Do you see what it’s doing? We’re picking out <em>sum</em> and using the <code class="docutils literal notranslate"><span class="pre">map</span></code> function to format each number in the column a certain way. This won’t work exactly for the other variables - they are floats, not integers, like <em>sum</em>. You’ll need to change the ‘d’ to ‘f’. You can use ‘${:,0f}’ to get rid of all decimal places. <code class="docutils literal notranslate"><span class="pre">map</span></code> is an example of <strong>vectorization</strong> and just means “apply this function to every item in this column or row”.
-<code class="docutils literal notranslate"><span class="pre">Add</span> <span class="pre">a</span> <span class="pre">caption</span> <span class="pre">to</span> <span class="pre">the</span> <span class="pre">table.</span> <span class="pre">Use</span></code>style.set_caption()`.</p>
-</li>
+<ul class="simple">
+<li><p>Create a nice looking table that has the number of observations, total dollars, mean loan size, median loan size, and the standard deviation of loan size, where the loan size for the amount of money disbursed (DisbursementGross), grouped by the new <em>location</em> variable. You’ll find sum, mean, median, and standard deviation in the notes. To get a count, use <code class="docutils literal notranslate"><span class="pre">np.size</span></code>.</p></li>
 </ul>
+<p>This means <strong>creating a table as a DataFrame</strong> and then working with it to style it the way we want. In other words, you’ll want to <strong>save the table as something</strong> in order to change the style.</p>
+<p>For formatting, try this code: <code class="docutils literal notranslate"><span class="pre">table.loc[:,</span> <span class="pre">'sum']</span> <span class="pre">=</span> <span class="pre">table['sum'].map('${:,d}'.format)</span></code>. Do you see what it’s doing? We’re picking out <em>sum</em> and using the <code class="docutils literal notranslate"><span class="pre">map</span></code> function to format each number in the column a certain way. This won’t work exactly for the other variables - they are floats, not integers, like <em>sum</em>. You’ll need to change the ‘d’ to ‘f’. You can use ‘${:,0f}’ to get rid of all decimal places. <code class="docutils literal notranslate"><span class="pre">map</span></code> is an example of <strong>vectorization</strong> and just means “apply this function to every item in this column or row”.</p>
+<p>Add a caption to the table. Use <code class="docutils literal notranslate"><span class="pre">style.set_caption()</span></code>.</p>
 </div>
 <div class="tex2jax_ignore mathjax_ignore section" id="part-9">
 <h1>Part 9<a class="headerlink" href="#part-9" title="Permalink to this headline">¶</a></h1>
