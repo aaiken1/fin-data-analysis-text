@@ -260,6 +260,8 @@
  <li class="toctree-l1">
   <a class="reference internal" href="7_nasdaq_api.html">
    Using NASDAQ BTC data
+   <a id="btc-sim">
+   </a>
   </a>
  </li>
  <li class="toctree-l1">
@@ -280,33 +282,28 @@
   </a>
  </li>
  <li class="toctree-l1">
-  <a class="reference internal" href="11_risk_mang.html">
+  <a class="reference internal" href="11_regression_topics.html">
+   Regression topics
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="12_risk_mang.html">
    Risk management
   </a>
  </li>
  <li class="toctree-l1">
-  <a class="reference internal" href="12_finmarketpy.html">
-   Finmarketpy package
-  </a>
- </li>
- <li class="toctree-l1">
-  <a class="reference internal" href="13_options.html">
-   Option basics
-  </a>
- </li>
- <li class="toctree-l1">
-  <a class="reference internal" href="14_monte_carlo.html">
+  <a class="reference internal" href="13_monte_carlo.html">
    Monte Carlo and portfolios
   </a>
  </li>
  <li class="toctree-l1">
-  <a class="reference internal" href="15_logit_credit.html">
-   Credit modeling with logit regressions
+  <a class="reference internal" href="14_options.html">
+   Option basics
   </a>
  </li>
  <li class="toctree-l1">
-  <a class="reference internal" href="16_time_vol.html">
-   More financial time series with volatility
+  <a class="reference internal" href="15_logit_credit.html">
+   Logit models
   </a>
  </li>
 </ul>
@@ -321,51 +318,6 @@
    Our labs
   </a>
  </li>
- <li class="toctree-l1">
-  <a class="reference internal" href="lab01.html">
-   Lab 01
-  </a>
- </li>
- <li class="toctree-l1">
-  <a class="reference internal" href="lab02.html">
-   Lab 02
-  </a>
- </li>
- <li class="toctree-l1">
-  <a class="reference internal" href="lab03.html">
-   Lab 03
-  </a>
- </li>
- <li class="toctree-l1">
-  <a class="reference internal" href="lab04.html">
-   Lab 04
-  </a>
- </li>
- <li class="toctree-l1">
-  <a class="reference internal" href="lab05.html">
-   Lab 05
-  </a>
- </li>
- <li class="toctree-l1">
-  <a class="reference internal" href="lab06.html">
-   Lab 06
-  </a>
- </li>
- <li class="toctree-l1">
-  <a class="reference internal" href="lab07.html">
-   Lab 07
-  </a>
- </li>
- <li class="toctree-l1">
-  <a class="reference internal" href="lab08.html">
-   Lab 08
-  </a>
- </li>
- <li class="toctree-l1">
-  <a class="reference internal" href="lab09.html">
-   Lab 09
-  </a>
- </li>
 </ul>
 <p aria-level="2" class="caption" role="heading">
  <span class="caption-text">
@@ -376,16 +328,6 @@
  <li class="toctree-l1">
   <a class="reference internal" href="exam_intro.html">
    Our Exams
-  </a>
- </li>
- <li class="toctree-l1">
-  <a class="reference internal" href="exam01.html">
-   Midterm Exam
-  </a>
- </li>
- <li class="toctree-l1">
-  <a class="reference internal" href="final-exam.html">
-   Final Exam
   </a>
  </li>
 </ul>
@@ -1648,14 +1590,14 @@ memory usage: 217.1 KB
 <p>I’m multiplying by 100 just for the display of the data.</p>
 <p>The percent change is called a <strong>linear return</strong>. Or, <strong>simple return</strong>. This is different from <strong>log returns</strong>, or <strong>compounded returns</strong>. Both types of returns are correct and useful. They are just used for different things.</p>
 <p>The formula for simple returns (R) is:</p>
-<div class="amsmath math notranslate nohighlight" id="equation-907ef849-fb18-446e-be22-4e0c18bf5ffc">
-<span class="eqno">(1)<a class="headerlink" href="#equation-907ef849-fb18-446e-be22-4e0c18bf5ffc" title="Permalink to this equation">¶</a></span>\[\begin{align}
+<div class="amsmath math notranslate nohighlight" id="equation-a547d84d-d33b-4a29-a8f4-b9d6edb0648b">
+<span class="eqno">(1)<a class="headerlink" href="#equation-a547d84d-d33b-4a29-a8f4-b9d6edb0648b" title="Permalink to this equation">¶</a></span>\[\begin{align}
 R_{t} = \frac{V_t}{V_{t-1}} - 1
 \end{align}\]</div>
 <p>where R is the simple return based on the percent change and V is the cash flow, including price and dividends (if any).</p>
 <p>The formula for log returns (r) is:</p>
-<div class="amsmath math notranslate nohighlight" id="equation-000adf4d-48e3-4526-807e-026d3cfbd42e">
-<span class="eqno">(2)<a class="headerlink" href="#equation-000adf4d-48e3-4526-807e-026d3cfbd42e" title="Permalink to this equation">¶</a></span>\[\begin{align}
+<div class="amsmath math notranslate nohighlight" id="equation-9910d9fe-d906-49d2-b3c0-c44cbaecd4d7">
+<span class="eqno">(2)<a class="headerlink" href="#equation-9910d9fe-d906-49d2-b3c0-c44cbaecd4d7" title="Permalink to this equation">¶</a></span>\[\begin{align}
 r_{t} = ln(\frac{V_t}{V_{t-1}}) = ln(1 + R_{t})
 \end{align}\]</div>
 <p>See <a class="reference external" href="https://papers.ssrn.com/sol3/papers.cfm?abstract_id=1586656">this article</a> for more on why this difference is important. In short, we need the mean of simple returns when doing portfolio optimization, as these returns work with a weighted average. Simple returns <strong>aggregate across assets</strong>. Log returns, however, <strong>aggregate across time</strong>. In other words, the cumulative return using log returns is the sum of individual log returns over the time period. You definitely can’t do that with simple returns!</p>
@@ -3042,8 +2984,8 @@ r_{t} = ln(\frac{V_t}{V_{t-1}}) = ln(1 + R_{t})
 </div>
 <p>We can also create return series using <strong>simple returns</strong>. We calculate percent returns, add 1 to each to get (1+R), and then <strong>chain returns together</strong> using <code class="docutils literal notranslate"><span class="pre">.cumprod()</span></code>. We subtract one at the end from the total.</p>
 <p>In other words,</p>
-<div class="amsmath math notranslate nohighlight" id="equation-63aa4044-e4f3-4bdb-a2e5-62f9636f6c86">
-<span class="eqno">(3)<a class="headerlink" href="#equation-63aa4044-e4f3-4bdb-a2e5-62f9636f6c86" title="Permalink to this equation">¶</a></span>\[\begin{align}
+<div class="amsmath math notranslate nohighlight" id="equation-078eb386-f9be-44a9-b650-c064604077ba">
+<span class="eqno">(3)<a class="headerlink" href="#equation-078eb386-f9be-44a9-b650-c064604077ba" title="Permalink to this equation">¶</a></span>\[\begin{align}
 Total Return = (1 + R_{1})*(1 + R_{2})*(1 + R_{3})*(1 + R_{4})... - 1
 \end{align}\]</div>
 <div class="cell docutils container">
@@ -4455,7 +4397,7 @@ or the last edge (i.e. the last date). The option <em>right</em> means the last 
     <a class='right-next' id="next-link" href="7_nasdaq_api.html" title="next page">
     <div class="prev-next-info">
         <p class="prev-next-subtitle">next</p>
-        <p class="prev-next-title">Using NASDAQ BTC data</p>
+        <p class="prev-next-title">Using NASDAQ BTC data <a id='btc-sim'></a></p>
     </div>
     <i class="fas fa-angle-right"></i>
     </a>

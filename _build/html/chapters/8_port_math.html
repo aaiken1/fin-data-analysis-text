@@ -42,6 +42,8 @@
     <script src="../_static/copybutton.js"></script>
     <script>var togglebuttonSelector = '.toggle, .admonition.dropdown, .tag_hide_input div.cell_input, .tag_hide-input div.cell_input, .tag_hide_output div.cell_output, .tag_hide-output div.cell_output, .tag_hide_cell.cell, .tag_hide-cell.cell';</script>
     <script src="../_static/sphinx-book-theme.d59cb220de22ca1c485ebbdc042f0030.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+    <script src="https://unpkg.com/@jupyter-widgets/html-manager@^0.20.0/dist/embed-amd.js"></script>
     <script async="async" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
     <script>window.MathJax = {"options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
     <script async="async" src="https://unpkg.com/thebe@0.5.1/lib/index.js"></script>
@@ -280,13 +282,13 @@
   </a>
  </li>
  <li class="toctree-l1">
-  <a class="reference internal" href="11_risk_mang.html">
-   Risk management
+  <a class="reference internal" href="11_regression_topics.html">
+   Regression topics
   </a>
  </li>
  <li class="toctree-l1">
-  <a class="reference internal" href="12_finmarketpy.html">
-   Finmarketpy package
+  <a class="reference internal" href="12_risk_mang.html">
+   Risk management
   </a>
  </li>
  <li class="toctree-l1">
@@ -301,12 +303,7 @@
  </li>
  <li class="toctree-l1">
   <a class="reference internal" href="15_logit_credit.html">
-   Credit modeling with logit regressions
-  </a>
- </li>
- <li class="toctree-l1">
-  <a class="reference internal" href="16_time_vol.html">
-   More financial time series with volatility
+   Logit models
   </a>
  </li>
 </ul>
@@ -321,51 +318,6 @@
    Our labs
   </a>
  </li>
- <li class="toctree-l1">
-  <a class="reference internal" href="lab01.html">
-   Lab 01
-  </a>
- </li>
- <li class="toctree-l1">
-  <a class="reference internal" href="lab02.html">
-   Lab 02
-  </a>
- </li>
- <li class="toctree-l1">
-  <a class="reference internal" href="lab03.html">
-   Lab 03
-  </a>
- </li>
- <li class="toctree-l1">
-  <a class="reference internal" href="lab04.html">
-   Lab 04
-  </a>
- </li>
- <li class="toctree-l1">
-  <a class="reference internal" href="lab05.html">
-   Lab 05
-  </a>
- </li>
- <li class="toctree-l1">
-  <a class="reference internal" href="lab06.html">
-   Lab 06
-  </a>
- </li>
- <li class="toctree-l1">
-  <a class="reference internal" href="lab07.html">
-   Lab 07
-  </a>
- </li>
- <li class="toctree-l1">
-  <a class="reference internal" href="lab08.html">
-   Lab 08
-  </a>
- </li>
- <li class="toctree-l1">
-  <a class="reference internal" href="lab09.html">
-   Lab 09
-  </a>
- </li>
 </ul>
 <p aria-level="2" class="caption" role="heading">
  <span class="caption-text">
@@ -376,16 +328,6 @@
  <li class="toctree-l1">
   <a class="reference internal" href="exam_intro.html">
    Our Exams
-  </a>
- </li>
- <li class="toctree-l1">
-  <a class="reference internal" href="exam01.html">
-   Midterm Exam
-  </a>
- </li>
- <li class="toctree-l1">
-  <a class="reference internal" href="final-exam.html">
-   Final Exam
   </a>
  </li>
 </ul>
@@ -948,8 +890,8 @@
 <div><p>However, the variance drain on a sequence of volatile returns still matters when financial advisors use Monte Carlo analysis, which by design actually projects sequences of random volatile returns (based on the probability that they will occur) to determine the outcome of particular retirement strategies. Because the fact that volatility drag is already part of a Monte Carlo analysis means that the return assumption plugged into a Monte Carlo projection should actually be the (higher) arithmetic return, and not the investment’s long-term compound average growth rate. Otherwise, the impact of volatility drag is effectively counted twice, which can understate long-term returns and overstate the actual risk of the prospective retirement plan!</p>
 </div></blockquote>
 <p>We can put that reasoning into a simple, but important formula.</p>
-<div class="amsmath math notranslate nohighlight" id="equation-5384d81e-930a-4c8b-987b-e644e50a8d94">
-<span class="eqno">(6)<a class="headerlink" href="#equation-5384d81e-930a-4c8b-987b-e644e50a8d94" title="Permalink to this equation">¶</a></span>\[\begin{align}
+<div class="amsmath math notranslate nohighlight" id="equation-934f4c49-320a-4db9-af9f-2515d4a39b6a">
+<span class="eqno">(6)<a class="headerlink" href="#equation-934f4c49-320a-4db9-af9f-2515d4a39b6a" title="Permalink to this equation">¶</a></span>\[\begin{align}
 \text{Compound Return}_i = E[R_p] - \frac{1}{2}\sigma^2_p
 \end{align}\]</div>
 <p>where <span class="math notranslate nohighlight">\(E[R_i]\)</span> is the arithmetic mean of the portfolio (i.e. the expected return) and <span class="math notranslate nohighlight">\(\sigma^2_p\)</span> is the variance of the portfolio. Note that this math works for single assets, too. It isn’t portfolio specific.</p>
@@ -989,7 +931,7 @@
 <div class="cell_output docutils container">
 <div class="output text_html"><style type="text/css">
 </style>
-<table id="T_34ba9_">
+<table id="T_bc869_">
   <caption>Hedge Fund Style Returns</caption>
   <thead>
     <tr>
@@ -999,20 +941,20 @@
   </thead>
   <tbody>
     <tr>
-      <th id="T_34ba9_level0_row0" class="row_heading level0 row0" >L/S Equity</th>
-      <td id="T_34ba9_row0_col0" class="data row0 col0" >0.754%</td>
+      <th id="T_bc869_level0_row0" class="row_heading level0 row0" >L/S Equity</th>
+      <td id="T_bc869_row0_col0" class="data row0 col0" >0.754%</td>
     </tr>
     <tr>
-      <th id="T_34ba9_level0_row1" class="row_heading level0 row1" >Equity Market Neutral</th>
-      <td id="T_34ba9_row1_col0" class="data row1 col0" >0.441%</td>
+      <th id="T_bc869_level0_row1" class="row_heading level0 row1" >Equity Market Neutral</th>
+      <td id="T_bc869_row1_col0" class="data row1 col0" >0.441%</td>
     </tr>
     <tr>
-      <th id="T_34ba9_level0_row2" class="row_heading level0 row2" >Global Macro</th>
-      <td id="T_34ba9_row2_col0" class="data row2 col0" >0.959%</td>
+      <th id="T_bc869_level0_row2" class="row_heading level0 row2" >Global Macro</th>
+      <td id="T_bc869_row2_col0" class="data row2 col0" >0.959%</td>
     </tr>
     <tr>
-      <th id="T_34ba9_level0_row3" class="row_heading level0 row3" >Managed Futures</th>
-      <td id="T_34ba9_row3_col0" class="data row3 col0" >0.511%</td>
+      <th id="T_bc869_level0_row3" class="row_heading level0 row3" >Managed Futures</th>
+      <td id="T_bc869_row3_col0" class="data row3 col0" >0.511%</td>
     </tr>
   </tbody>
 </table>
@@ -1037,7 +979,7 @@
 <div class="cell_output docutils container">
 <div class="output text_html"><style type="text/css">
 </style>
-<table id="T_da5dc_">
+<table id="T_87e0f_">
   <caption>Hedge Fund Style Returns</caption>
   <thead>
     <tr>
@@ -1047,20 +989,20 @@
   </thead>
   <tbody>
     <tr>
-      <th id="T_da5dc_level0_row0" class="row_heading level0 row0" >L/S Equity</th>
-      <td id="T_da5dc_row0_col0" class="data row0 col0" >0.754%</td>
+      <th id="T_87e0f_level0_row0" class="row_heading level0 row0" >L/S Equity</th>
+      <td id="T_87e0f_row0_col0" class="data row0 col0" >0.754%</td>
     </tr>
     <tr>
-      <th id="T_da5dc_level0_row1" class="row_heading level0 row1" >Equity Market Neutral</th>
-      <td id="T_da5dc_row1_col0" class="data row1 col0" >0.441%</td>
+      <th id="T_87e0f_level0_row1" class="row_heading level0 row1" >Equity Market Neutral</th>
+      <td id="T_87e0f_row1_col0" class="data row1 col0" >0.441%</td>
     </tr>
     <tr>
-      <th id="T_da5dc_level0_row2" class="row_heading level0 row2" >Global Macro</th>
-      <td id="T_da5dc_row2_col0" class="data row2 col0" >0.959%</td>
+      <th id="T_87e0f_level0_row2" class="row_heading level0 row2" >Global Macro</th>
+      <td id="T_87e0f_row2_col0" class="data row2 col0" >0.959%</td>
     </tr>
     <tr>
-      <th id="T_da5dc_level0_row3" class="row_heading level0 row3" >Managed Futures</th>
-      <td id="T_da5dc_row3_col0" class="data row3 col0" >0.511%</td>
+      <th id="T_87e0f_level0_row3" class="row_heading level0 row3" >Managed Futures</th>
+      <td id="T_87e0f_row3_col0" class="data row3 col0" >0.511%</td>
     </tr>
   </tbody>
 </table>
@@ -1130,14 +1072,14 @@
 <div class="section" id="risk-measures-at-the-portfolio-level">
 <h2>Risk measures at the portfolio-level<a class="headerlink" href="#risk-measures-at-the-portfolio-level" title="Permalink to this headline">¶</a></h2>
 <p>As you know from your investments class, the variance of a portfolio is <strong>not</strong> the average variance of the assets in the portfolio. We need to take into account the effects of <strong>diversification</strong>. For example, here’s the formula for the variance of a portfolio with two assets. We need weights, variances, and the covariance between the two.</p>
-<div class="amsmath math notranslate nohighlight" id="equation-6d95151d-d29c-465e-b632-17e2f7ec1619">
-<span class="eqno">(7)<a class="headerlink" href="#equation-6d95151d-d29c-465e-b632-17e2f7ec1619" title="Permalink to this equation">¶</a></span>\[\begin{align}
+<div class="amsmath math notranslate nohighlight" id="equation-736cf311-4a8c-467b-8b4f-824ad1a4e493">
+<span class="eqno">(7)<a class="headerlink" href="#equation-736cf311-4a8c-467b-8b4f-824ad1a4e493" title="Permalink to this equation">¶</a></span>\[\begin{align}
 \sigma^2_p = w^2_1 \sigma^2_1 + w^2_2 \sigma^2_2 + 2 w_1 w_2 \sigma^2_{1,2}
 \end{align}\]</div>
 <p>That last sigma, <span class="math notranslate nohighlight">\(\sigma^2_{1,2}\)</span>, is the <strong>covariance</strong> between the two assets.</p>
 <p>This formula generalizes for <strong>any number of assets</strong>.</p>
-<div class="amsmath math notranslate nohighlight" id="equation-c28fa7c3-861c-430c-8cd9-86c4e785eaba">
-<span class="eqno">(8)<a class="headerlink" href="#equation-c28fa7c3-861c-430c-8cd9-86c4e785eaba" title="Permalink to this equation">¶</a></span>\[\begin{align}
+<div class="amsmath math notranslate nohighlight" id="equation-1be23385-9443-4af1-8492-09b93340fa81">
+<span class="eqno">(8)<a class="headerlink" href="#equation-1be23385-9443-4af1-8492-09b93340fa81" title="Permalink to this equation">¶</a></span>\[\begin{align}
 \sigma^2_p = w^T \Sigma w
 \end{align}\]</div>
 <p>where <span class="math notranslate nohighlight">\(w\)</span> is a <strong>vector</strong> containing all of our portfolio weights and sigma is the variance-covariance matrix for our assets. The “T” means the matrix operation <strong>transpose</strong>. This is necessary for the matrix multiplication.</p>

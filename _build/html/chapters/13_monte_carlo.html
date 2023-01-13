@@ -42,6 +42,8 @@
     <script src="../_static/copybutton.js"></script>
     <script>var togglebuttonSelector = '.toggle, .admonition.dropdown, .tag_hide_input div.cell_input, .tag_hide-input div.cell_input, .tag_hide_output div.cell_output, .tag_hide-output div.cell_output, .tag_hide_cell.cell, .tag_hide-cell.cell';</script>
     <script src="../_static/sphinx-book-theme.d59cb220de22ca1c485ebbdc042f0030.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+    <script src="https://unpkg.com/@jupyter-widgets/html-manager@^0.20.0/dist/embed-amd.js"></script>
     <script async="async" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
     <script>window.MathJax = {"options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
     <script async="async" src="https://unpkg.com/thebe@0.5.1/lib/index.js"></script>
@@ -54,7 +56,7 @@
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
     <link rel="next" title="Option basics" href="14_options.html" />
-    <link rel="prev" title="Finmarketpy package" href="12_finmarketpy.html" />
+    <link rel="prev" title="Risk management" href="12_risk_mang.html" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="docsearch:language" content="None">
     
@@ -280,13 +282,13 @@
   </a>
  </li>
  <li class="toctree-l1">
-  <a class="reference internal" href="11_risk_mang.html">
-   Risk management
+  <a class="reference internal" href="11_regression_topics.html">
+   Regression topics
   </a>
  </li>
  <li class="toctree-l1">
-  <a class="reference internal" href="12_finmarketpy.html">
-   Finmarketpy package
+  <a class="reference internal" href="12_risk_mang.html">
+   Risk management
   </a>
  </li>
  <li class="toctree-l1 current active">
@@ -301,12 +303,7 @@
  </li>
  <li class="toctree-l1">
   <a class="reference internal" href="15_logit_credit.html">
-   Credit modeling with logit regressions
-  </a>
- </li>
- <li class="toctree-l1">
-  <a class="reference internal" href="16_time_vol.html">
-   More financial time series with volatility
+   Logit models
   </a>
  </li>
 </ul>
@@ -321,51 +318,6 @@
    Our labs
   </a>
  </li>
- <li class="toctree-l1">
-  <a class="reference internal" href="lab01.html">
-   Lab 01
-  </a>
- </li>
- <li class="toctree-l1">
-  <a class="reference internal" href="lab02.html">
-   Lab 02
-  </a>
- </li>
- <li class="toctree-l1">
-  <a class="reference internal" href="lab03.html">
-   Lab 03
-  </a>
- </li>
- <li class="toctree-l1">
-  <a class="reference internal" href="lab04.html">
-   Lab 04
-  </a>
- </li>
- <li class="toctree-l1">
-  <a class="reference internal" href="lab05.html">
-   Lab 05
-  </a>
- </li>
- <li class="toctree-l1">
-  <a class="reference internal" href="lab06.html">
-   Lab 06
-  </a>
- </li>
- <li class="toctree-l1">
-  <a class="reference internal" href="lab07.html">
-   Lab 07
-  </a>
- </li>
- <li class="toctree-l1">
-  <a class="reference internal" href="lab08.html">
-   Lab 08
-  </a>
- </li>
- <li class="toctree-l1">
-  <a class="reference internal" href="lab09.html">
-   Lab 09
-  </a>
- </li>
 </ul>
 <p aria-level="2" class="caption" role="heading">
  <span class="caption-text">
@@ -376,16 +328,6 @@
  <li class="toctree-l1">
   <a class="reference internal" href="exam_intro.html">
    Our Exams
-  </a>
- </li>
- <li class="toctree-l1">
-  <a class="reference internal" href="exam01.html">
-   Midterm Exam
-  </a>
- </li>
- <li class="toctree-l1">
-  <a class="reference internal" href="final-exam.html">
-   Final Exam
   </a>
  </li>
 </ul>
@@ -540,7 +482,7 @@
                 
   <div class="tex2jax_ignore mathjax_ignore section" id="monte-carlo-and-portfolios">
 <h1>Monte Carlo and portfolios<a class="headerlink" href="#monte-carlo-and-portfolios" title="Permalink to this headline">¶</a></h1>
-<p>We saw how to simulate the price of an asset back when we looked at the price of <a class="reference external" href="chapters/7_nasdaq_api.html#btc-sim">Bitcoin</a> and using the Nasdaq API. We are going to take a more complete look here at <strong>simulating correlated assets within a portfolio</strong>. These methods can be used for measuring portfolio risk, for simulating client portfolios in a <a class="reference external" href="https://www.kitces.com/blog/volatility-drag-variance-drain-mean-arithmetic-vs-geometric-average-investment-returns/">financial planning setting</a>, or <a class="reference external" href="https://en.wikipedia.org/wiki/Monte_Carlo_methods_for_option_pricing">pricing complex options</a> like <a class="reference external" href="https://en.wikipedia.org/wiki/Asian_option">Asian options</a>.</p>
+<p>We saw how to simulate the price of an asset back when we looked at the price of <a class="reference external" href="7_nasdaq_api.html#btc-sim">Bitcoin</a> and using the Nasdaq API. We are going to take a more complete look here at <strong>simulating correlated assets within a portfolio</strong>. These methods can be used for measuring portfolio risk, for simulating client portfolios in a <a class="reference external" href="https://www.kitces.com/blog/volatility-drag-variance-drain-mean-arithmetic-vs-geometric-average-investment-returns/">financial planning setting</a>, or <a class="reference external" href="https://en.wikipedia.org/wiki/Monte_Carlo_methods_for_option_pricing">pricing complex options</a> like <a class="reference external" href="https://en.wikipedia.org/wiki/Asian_option">Asian options</a>.</p>
 <p>I am basing a lot of my code and discussion on this <a class="reference external" href="https://medium.com/codex/simulate-multi-asset-baskets-with-correlated-price-paths-using-python-472cbec4e379">blog post</a>.</p>
 <p>This material is related to the <a class="reference external" href="https://www.codearmo.com/python-tutorial/heston-model-simulation-python">Heston model</a> for simulating the prices of correlated assets. The volatility of the assets are linked together. In the Heston model, the volatility of an asset today is also related to past volatility. We’ll do more on this when we get to <a class="reference external" href="https://en.wikipedia.org/wiki/Autoregressive_conditional_heteroskedasticity">GARCH models</a>.</p>
 <p>We’ll also use <strong>pandas data-reader</strong> to bring in some stock prices from Yahoo! finance. You’ll need to run <code class="docutils literal notranslate"><span class="pre">pip</span> <span class="pre">install</span> <span class="pre">pandas-datareader</span></code> in the terminal. You can read more about it <a class="reference external" href="https://pydata.github.io/pandas-datareader/remote_data.html">here</a>.</p>
@@ -567,13 +509,22 @@
 <h2>How correlation affects our simulations<a class="headerlink" href="#how-correlation-affects-our-simulations" title="Permalink to this headline">¶</a></h2>
 <p>However, when we start to form portfolios, we are going to care about the correlations across assets. We’ve already seen this when looking at portfolio math. When simulating the Bitcoin prices, we took random numbers from the standard normal distribution and then scaled them by our estimate for the volatility of BTC. This allowed us to capture the randomness of the returns.</p>
 <p>However, when dealing with more than one asset, we can’t do that, since the assets are <strong>not independent</strong> from one another. If Apple goes up, Google is more likely to have gone up as well. The two stocks are <strong>correlated</strong>. How can we account for this in our simulation? We will create <strong>correlated random shocks</strong> (<span class="math notranslate nohighlight">\(W\)</span>), where the random movement of one asset depends on another assets movement.</p>
-<p>Let’s try a simulation to see what’s going on. I’ll draw two random variables from the standard normal distribution, N(0,1). The random part of the return for Asset 1, <span class="math notranslate nohighlight">\(W_1\)</span>, is simply the random draw, <span class="math notranslate nohighlight">\(x_1\)</span>. However, the random part of the return for Asset 2 <span class="math notranslate nohighlight">\(W_2\)</span>, is correlated with whatever <span class="math notranslate nohighlight">\(x_1\)</span> ends up being. Mathematically, this dependent random movement is given as:</p>
-<div class="amsmath math notranslate nohighlight" id="equation-bc68e5be-6553-4261-b00c-c84c60b3f534">
-<span class="eqno">(12)<a class="headerlink" href="#equation-bc68e5be-6553-4261-b00c-c84c60b3f534" title="Permalink to this equation">¶</a></span>\[\begin{align}
+<p>Let’s try a simulation to see what’s going on. I’ll draw two random variables from the standard normal distribution, N(0,1). The random part of the return for Asset 1, <span class="math notranslate nohighlight">\(W_1\)</span>, is simply the random draw, <span class="math notranslate nohighlight">\(x_1\)</span>. However, the random part of the return for Asset 2, <span class="math notranslate nohighlight">\(W_2\)</span>, is correlated with whatever <span class="math notranslate nohighlight">\(x_1\)</span> ends up being. Mathematically, this dependent random movement is given as:</p>
+<div class="amsmath math notranslate nohighlight" id="equation-1c96f169-25b1-4741-a5f3-1742ccf08ff1">
+<span class="eqno">(12)<a class="headerlink" href="#equation-1c96f169-25b1-4741-a5f3-1742ccf08ff1" title="Permalink to this equation">¶</a></span>\[\begin{align}
 W_2 = \rho x_1 + (1 - \sqrt{\rho^2}) x_2
 \end{align}\]</div>
 <p>I’ll set the correlation, <span class="math notranslate nohighlight">\(\rho\)</span>, to be -0.80. These two assets are negatively correlated, so they should move in opposite directions. We’ll set each asset to have the same mean return and same volatility. I’ll set the starting price of each of these assets to 1.</p>
 <p>We’ll bring in our usual packages and try this out. This code should look a lot like the Bitcoin code, except that I now have two assets. I am only doing one simulation for each asset, so two total simulations.</p>
+<p>How do we simulative prices? Let me remind you of a formula:</p>
+<div class="amsmath math notranslate nohighlight" id="equation-06bfea92-213a-4c4d-be3d-872e5ea99f45">
+<span class="eqno">(13)<a class="headerlink" href="#equation-06bfea92-213a-4c4d-be3d-872e5ea99f45" title="Permalink to this equation">¶</a></span>\[\begin{align}
+S(t) = S(0) \exp \left(\left(\mu - \frac{1}{2}\sigma^2\right)t + \sigma W(t)\right)
+\end{align}\]</div>
+<p>Take a starting price <span class="math notranslate nohighlight">\(S_0\)</span>. We use <code class="docutils literal notranslate"><span class="pre">exp</span></code> for continuous compounding. Then, the price today, <span class="math notranslate nohighlight">\(S_t\)</span> is a function of two return sources. The first source is called <strong>drift</strong>: <span class="math notranslate nohighlight">\(\mu - \frac{1}{2}\sigma^2\)</span>. This is what an asset returns on average over some period, like a day. This is the <strong>deterministic</strong> piece of the return and would be related to risk. <span class="math notranslate nohighlight">\(\mu\)</span> is the <strong>arithmetic average</strong> and <span class="math notranslate nohighlight">\(\sigma\)</span> is the volatility (standard deviation). They should be in the same units (e.g. daily).</p>
+<p>The second piece of the return is the <strong>diffusion</strong>: <span class="math notranslate nohighlight">\(\sigma W(t)\)</span>. <span class="math notranslate nohighlight">\(W(t)\)</span> is called a <strong>Brownian motion</strong> and is, essentially, cumulative random wiggles. You multiply by <span class="math notranslate nohighlight">\(\sigma\)</span> to scale it: more volatility, more wiggles.</p>
+<p><span class="math notranslate nohighlight">\(dW\)</span> denotes the random wiggle in just one period.</p>
+<p>In this example, our random wiggles are going to be <strong>correlated</strong> across assets.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">datetime</span>
@@ -593,6 +544,7 @@ W_2 = \rho x_1 + (1 - \sqrt{\rho^2}) x_2
 <span class="n">rho</span> <span class="o">=</span> <span class="o">-</span><span class="mf">0.80</span> <span class="c1"># Correlation between our two assets. Change me to get different patterns!</span>
 <span class="n">mu</span> <span class="o">=</span> <span class="mf">0.05</span><span class="o">/</span><span class="mi">252</span> <span class="c1"># Mean return (log). Using daily. </span>
 <span class="n">sigma</span> <span class="o">=</span> <span class="mf">0.12</span><span class="o">/</span><span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="mi">252</span><span class="p">)</span>  <span class="c1"># Volatility of returns (standard deviation). Using daily. </span>
+<span class="n">drift</span> <span class="o">=</span> <span class="n">mu</span> <span class="o">-</span> <span class="mf">0.5</span> <span class="o">*</span> <span class="n">sigma</span> <span class="o">**</span> <span class="mi">2</span> <span class="c1"># Drift is the same each day.</span>
 
 <span class="n">S_0</span> <span class="o">=</span> <span class="mi">1</span> <span class="c1"># Starting price</span>
 
@@ -606,13 +558,17 @@ W_2 = \rho x_1 + (1 - \sqrt{\rho^2}) x_2
 <span class="n">dW</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="n">X</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="c1"># Same as first row in X</span>
 <span class="n">dW</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="n">rho</span> <span class="o">*</span> <span class="n">X</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">+</span> <span class="p">(</span><span class="mi">1</span> <span class="o">-</span> <span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="n">rho</span><span class="o">**</span><span class="mi">2</span><span class="p">))</span> <span class="o">*</span> <span class="n">X</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="c1"># Dependent on both sets of random values. How dependent? Correlation determines.</span>
 
-<span class="c1">#Cumulative sum of random shocks for our assets.</span>
+<span class="c1">#An array containing the sum of random shocks for our assets.</span>
 <span class="n">W</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">cumsum</span><span class="p">(</span><span class="n">dW</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span> 
 
-<span class="n">time_step</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="n">dt</span><span class="p">,</span> <span class="n">T</span><span class="p">,</span> <span class="n">N</span><span class="p">)</span>
-<span class="n">time_steps</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">broadcast_to</span><span class="p">(</span><span class="n">time_step</span><span class="p">,</span> <span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="n">N</span><span class="p">))</span>
+<span class="n">diffusion</span> <span class="o">=</span> <span class="n">sigma</span> <span class="o">*</span> <span class="n">W</span> <span class="c1"># This is CUMULATIVE diffusion returns over time, rather than daily diffusion returns. </span>
 
-<span class="n">S_t</span> <span class="o">=</span> <span class="n">S_0</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">exp</span><span class="p">((</span><span class="n">mu</span> <span class="o">-</span> <span class="mf">0.5</span> <span class="o">*</span> <span class="n">sigma</span> <span class="o">**</span> <span class="mi">2</span><span class="p">)</span> <span class="o">*</span> <span class="n">time_steps</span> <span class="o">+</span> <span class="n">sigma</span> <span class="o">*</span> <span class="n">W</span><span class="p">)</span>
+<span class="n">time_step</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="n">dt</span><span class="p">,</span> <span class="n">T</span><span class="p">,</span> <span class="n">N</span><span class="p">)</span> <span class="c1"># An array of 1, 2, 3, 4, 5..., keeping track of what time period we are in.</span>
+<span class="n">time_steps</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">broadcast_to</span><span class="p">(</span><span class="n">time_step</span><span class="p">,</span> <span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="n">N</span><span class="p">))</span> <span class="c1"># An array of 1, 2, 3, 4, 5..., but for each asset. </span>
+
+<span class="c1"># This is taking the drift (mu - 0.5 * sigma ** 2), which is the same each day, and multiplying it by 1 on Day 1, 2 on Day 2, 3 on Day 3, etc. Then, that term has sigma (volatility) * the cumulative shock added to it. </span>
+<span class="c1"># Then, Staring Price * e^(r) = Price Today, since r is really a cumulative return.</span>
+<span class="n">S_t</span> <span class="o">=</span> <span class="n">S_0</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">exp</span><span class="p">((</span><span class="n">drift</span><span class="p">)</span> <span class="o">*</span> <span class="n">time_steps</span> <span class="o">+</span> <span class="n">diffusion</span><span class="p">)</span> 
 
 <span class="n">S_t</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">insert</span><span class="p">(</span><span class="n">S_t</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="n">S_0</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
 </pre></div>
@@ -648,6 +604,55 @@ W_2 = \rho x_1 + (1 - \sqrt{\rho^2}) x_2
 <span class="n">prices</span> <span class="o">=</span> <span class="n">stock_data</span><span class="p">[</span><span class="s1">&#39;Adj Close&#39;</span><span class="p">]</span>
 
 <span class="n">rets</span> <span class="o">=</span> <span class="n">prices</span><span class="o">.</span><span class="n">pct_change</span><span class="p">()</span><span class="o">.</span><span class="n">dropna</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output traceback highlight-ipythontb notranslate"><div class="highlight"><pre><span></span><span class="gt">---------------------------------------------------------------------------</span>
+<span class="ne">TypeError</span><span class="g g-Whitespace">                                 </span>Traceback (most recent call last)
+<span class="o">/</span><span class="n">var</span><span class="o">/</span><span class="n">folders</span><span class="o">/</span><span class="n">sm</span><span class="o">/</span><span class="n">f4lq92s11392x68kwf0scq3w0000gn</span><span class="o">/</span><span class="n">T</span><span class="o">/</span><span class="n">ipykernel_89910</span><span class="o">/</span><span class="mf">2771594103.</span><span class="n">py</span> <span class="ow">in</span> <span class="o">&lt;</span><span class="n">module</span><span class="o">&gt;</span>
+<span class="g g-Whitespace">      </span><span class="mi">3</span> <span class="n">ticker_list</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;AAPL&quot;</span><span class="p">,</span> <span class="s2">&quot;F&quot;</span><span class="p">,</span> <span class="s2">&quot;FB&quot;</span><span class="p">,</span> <span class="s2">&quot;AMZN&quot;</span><span class="p">,</span> <span class="s2">&quot;XOM&quot;</span><span class="p">]</span>
+<span class="g g-Whitespace">      </span><span class="mi">4</span> 
+<span class="ne">----&gt; </span><span class="mi">5</span> <span class="n">stock_data</span> <span class="o">=</span> <span class="n">pdr</span><span class="o">.</span><span class="n">DataReader</span><span class="p">(</span><span class="n">ticker_list</span><span class="p">,</span> <span class="s2">&quot;yahoo&quot;</span><span class="p">,</span> <span class="n">start_date</span><span class="p">,</span> <span class="n">end_date</span><span class="p">)</span>
+<span class="g g-Whitespace">      </span><span class="mi">6</span> 
+<span class="g g-Whitespace">      </span><span class="mi">7</span> <span class="n">prices</span> <span class="o">=</span> <span class="n">stock_data</span><span class="p">[</span><span class="s1">&#39;Adj Close&#39;</span><span class="p">]</span>
+
+<span class="nn">~/opt/anaconda3/lib/python3.9/site-packages/pandas/util/_decorators.py</span> in <span class="ni">wrapper</span><span class="nt">(*args, **kwargs)</span>
+<span class="g g-Whitespace">    </span><span class="mi">205</span>                 <span class="k">else</span><span class="p">:</span>
+<span class="g g-Whitespace">    </span><span class="mi">206</span>                     <span class="n">kwargs</span><span class="p">[</span><span class="n">new_arg_name</span><span class="p">]</span> <span class="o">=</span> <span class="n">new_arg_value</span>
+<span class="ne">--&gt; </span><span class="mi">207</span>             <span class="k">return</span> <span class="n">func</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+<span class="g g-Whitespace">    </span><span class="mi">208</span> 
+<span class="g g-Whitespace">    </span><span class="mi">209</span>         <span class="k">return</span> <span class="n">cast</span><span class="p">(</span><span class="n">F</span><span class="p">,</span> <span class="n">wrapper</span><span class="p">)</span>
+
+<span class="nn">~/opt/anaconda3/lib/python3.9/site-packages/pandas_datareader/data.py</span> in <span class="ni">DataReader</span><span class="nt">(name, data_source, start, end, retry_count, pause, session, api_key)</span>
+<span class="g g-Whitespace">    </span><span class="mi">368</span> 
+<span class="g g-Whitespace">    </span><span class="mi">369</span>     <span class="k">if</span> <span class="n">data_source</span> <span class="o">==</span> <span class="s2">&quot;yahoo&quot;</span><span class="p">:</span>
+<span class="ne">--&gt; </span><span class="mi">370</span>         <span class="k">return</span> <span class="n">YahooDailyReader</span><span class="p">(</span>
+<span class="g g-Whitespace">    </span><span class="mi">371</span>             <span class="n">symbols</span><span class="o">=</span><span class="n">name</span><span class="p">,</span>
+<span class="g g-Whitespace">    </span><span class="mi">372</span>             <span class="n">start</span><span class="o">=</span><span class="n">start</span><span class="p">,</span>
+
+<span class="nn">~/opt/anaconda3/lib/python3.9/site-packages/pandas_datareader/base.py</span> in <span class="ni">read</span><span class="nt">(self)</span>
+<span class="g g-Whitespace">    </span><span class="mi">256</span>             <span class="n">df</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_dl_mult_symbols</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">symbols</span><span class="o">.</span><span class="n">index</span><span class="p">)</span>
+<span class="g g-Whitespace">    </span><span class="mi">257</span>         <span class="k">else</span><span class="p">:</span>
+<span class="ne">--&gt; </span><span class="mi">258</span>             <span class="n">df</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_dl_mult_symbols</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">symbols</span><span class="p">)</span>
+<span class="g g-Whitespace">    </span><span class="mi">259</span>         <span class="k">return</span> <span class="n">df</span>
+<span class="g g-Whitespace">    </span><span class="mi">260</span> 
+
+<span class="nn">~/opt/anaconda3/lib/python3.9/site-packages/pandas_datareader/base.py</span> in <span class="ni">_dl_mult_symbols</span><span class="nt">(self, symbols)</span>
+<span class="g g-Whitespace">    </span><span class="mi">266</span>             <span class="k">for</span> <span class="n">sym</span> <span class="ow">in</span> <span class="n">sym_group</span><span class="p">:</span>
+<span class="g g-Whitespace">    </span><span class="mi">267</span>                 <span class="k">try</span><span class="p">:</span>
+<span class="ne">--&gt; </span><span class="mi">268</span>                     <span class="n">stocks</span><span class="p">[</span><span class="n">sym</span><span class="p">]</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_read_one_data</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">url</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_get_params</span><span class="p">(</span><span class="n">sym</span><span class="p">))</span>
+<span class="g g-Whitespace">    </span><span class="mi">269</span>                     <span class="n">passed</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">sym</span><span class="p">)</span>
+<span class="g g-Whitespace">    </span><span class="mi">270</span>                 <span class="k">except</span> <span class="p">(</span><span class="ne">IOError</span><span class="p">,</span> <span class="ne">KeyError</span><span class="p">):</span>
+
+<span class="nn">~/opt/anaconda3/lib/python3.9/site-packages/pandas_datareader/yahoo/daily.py</span> in <span class="ni">_read_one_data</span><span class="nt">(self, url, params)</span>
+<span class="g g-Whitespace">    </span><span class="mi">151</span>         <span class="k">try</span><span class="p">:</span>
+<span class="g g-Whitespace">    </span><span class="mi">152</span>             <span class="n">j</span> <span class="o">=</span> <span class="n">json</span><span class="o">.</span><span class="n">loads</span><span class="p">(</span><span class="n">re</span><span class="o">.</span><span class="n">search</span><span class="p">(</span><span class="n">ptrn</span><span class="p">,</span> <span class="n">resp</span><span class="o">.</span><span class="n">text</span><span class="p">,</span> <span class="n">re</span><span class="o">.</span><span class="n">DOTALL</span><span class="p">)</span><span class="o">.</span><span class="n">group</span><span class="p">(</span><span class="mi">1</span><span class="p">))</span>
+<span class="ne">--&gt; </span><span class="mi">153</span>             <span class="n">data</span> <span class="o">=</span> <span class="n">j</span><span class="p">[</span><span class="s2">&quot;context&quot;</span><span class="p">][</span><span class="s2">&quot;dispatcher&quot;</span><span class="p">][</span><span class="s2">&quot;stores&quot;</span><span class="p">][</span><span class="s2">&quot;HistoricalPriceStore&quot;</span><span class="p">]</span>
+<span class="g g-Whitespace">    </span><span class="mi">154</span>         <span class="k">except</span> <span class="ne">KeyError</span><span class="p">:</span>
+<span class="g g-Whitespace">    </span><span class="mi">155</span>             <span class="n">msg</span> <span class="o">=</span> <span class="s2">&quot;No data fetched for symbol </span><span class="si">{}</span><span class="s2"> using </span><span class="si">{}</span><span class="s2">&quot;</span>
+
+<span class="ne">TypeError</span>: string indices must be integers
 </pre></div>
 </div>
 </div>
@@ -731,7 +736,7 @@ W_2 = \rho x_1 + (1 - \sqrt{\rho^2}) x_2
       <td>0.041816</td>
       <td>0.011927</td>
       <td>0.001714</td>
-      <td>0.005275</td>
+      <td>0.005274</td>
     </tr>
     <tr>
       <th>...</th>
@@ -873,11 +878,11 @@ W_2 = \rho x_1 + (1 - \sqrt{\rho^2}) x_2
       <td>0.010034</td>
       <td>0.011429</td>
       <td>0.008535</td>
-      <td>0.007803</td>
+      <td>0.007802</td>
     </tr>
     <tr>
       <th>max</th>
-      <td>0.068334</td>
+      <td>0.068335</td>
       <td>0.107447</td>
       <td>0.108164</td>
       <td>0.050064</td>
@@ -960,18 +965,18 @@ W_2 = \rho x_1 + (1 - \sqrt{\rho^2}) x_2
     <tr>
       <th>AAPL</th>
       <td>1.000000</td>
-      <td>0.305895</td>
+      <td>0.305896</td>
       <td>0.475798</td>
-      <td>0.592889</td>
+      <td>0.592888</td>
       <td>0.416556</td>
     </tr>
     <tr>
       <th>F</th>
-      <td>0.305895</td>
+      <td>0.305896</td>
       <td>1.000000</td>
       <td>0.280101</td>
-      <td>0.364216</td>
-      <td>0.375397</td>
+      <td>0.364217</td>
+      <td>0.375396</td>
     </tr>
     <tr>
       <th>FB</th>
@@ -979,22 +984,22 @@ W_2 = \rho x_1 + (1 - \sqrt{\rho^2}) x_2
       <td>0.280101</td>
       <td>1.000000</td>
       <td>0.616672</td>
-      <td>0.338375</td>
+      <td>0.338376</td>
     </tr>
     <tr>
       <th>AMZN</th>
-      <td>0.592889</td>
-      <td>0.364216</td>
+      <td>0.592888</td>
+      <td>0.364217</td>
       <td>0.616672</td>
       <td>1.000000</td>
-      <td>0.370256</td>
+      <td>0.370257</td>
     </tr>
     <tr>
       <th>XOM</th>
       <td>0.416556</td>
-      <td>0.375397</td>
-      <td>0.338375</td>
-      <td>0.370256</td>
+      <td>0.375396</td>
+      <td>0.338376</td>
+      <td>0.370257</td>
       <td>1.000000</td>
     </tr>
   </tbody>
@@ -1005,8 +1010,8 @@ W_2 = \rho x_1 + (1 - \sqrt{\rho^2}) x_2
 <p>The first line picks out he latest prices for each stock. This is where we will start. You could start each stock at $1 and get the same return result, since it’s the change that matters.</p>
 <p>The second line is our <strong>math magic</strong>. This takes our variance-covariance matrix and does something called the <strong>Cholesky Decomposition</strong>. The variance-covariance matrix contains the information for how our assets move together (i.e. covariance). This method will allow us to use the <strong>correlation among our assets</strong> when simulating the random price paths. We want correlated assets to move together. You can read more about these methods <a class="reference external" href="https://papers.ssrn.com/sol3/papers.cfm?abstract_id=4066115">here</a>.</p>
 <p><code class="docutils literal notranslate"><span class="pre">A</span></code> is a <span class="math notranslate nohighlight">\(5\times5\)</span> matrix, just like the variance-covariance matrix, but the upper triangular part is all zeroes, while the lower triangular part still contains the dependencies among our assets.</p>
-<p><code class="docutils literal notranslate"><span class="pre">S</span></code> is 252 days of “empty” prices for our 5 assets. We’ll fill these in with simulated prices. We make the first price in the array equal to the latest price.</p>
-<p>Then, we have a <code class="docutils literal notranslate"><span class="pre">for</span></code> loop that simulates prices for each asset across all 252 days.</p>
+<p><code class="docutils literal notranslate"><span class="pre">S</span></code> is 252 days of “empty” prices for our 5 assets. Why 252? We want our starting price plus 251 days of simulated prices. We’ll fill these in with simulated prices. We make the first price in the array equal to the latest price.</p>
+<p>Then, we have a <code class="docutils literal notranslate"><span class="pre">for</span></code> loop that simulates prices for each asset across all 252 days. Ranges in Python start at and include the first, but stop one before the last number. Why do we start at 1? S[:, 0] are our initial prices. See how the fourth line has <code class="docutils literal notranslate"><span class="pre">i-1</span></code>. So, the first time through, it will use the starting price <code class="docutils literal notranslate"><span class="pre">S[:,1-1]</span></code>, or <code class="docutils literal notranslate"><span class="pre">S[:,0]</span></code>, to find the first simulated price <code class="docutils literal notranslate"><span class="pre">S[:,1]</span></code>. The loop will then go to 252 and stop one before, or 251. This gives us a starting price plus 251 daily simulated prices. Counting isn’t always easy!</p>
 <p>We first calculate the <strong>drift</strong>, or deterministic component, of the return. This is based on the mean and standard deviation of the returns. <code class="docutils literal notranslate"><span class="pre">dt</span></code> is just 1 day in this case.</p>
 <p>We then pull 5 random variables, one for each asset, from the standard normal distribution. We’ll call these 5 numbers <code class="docutils literal notranslate"><span class="pre">Z</span></code>.</p>
 <p>If you multiply <code class="docutils literal notranslate"><span class="pre">A</span></code> and <code class="docutils literal notranslate"><span class="pre">Z</span></code>, then you get correlated standard normal variables, instead of five sets of random variables with no relationships among them.</p>
@@ -1017,14 +1022,14 @@ W_2 = \rho x_1 + (1 - \sqrt{\rho^2}) x_2
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">S_0</span> <span class="o">=</span> <span class="n">prices</span><span class="o">.</span><span class="n">iloc</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
 <span class="n">A</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linalg</span><span class="o">.</span><span class="n">cholesky</span><span class="p">(</span><span class="n">cov</span><span class="p">)</span>
-<span class="n">S</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">([</span><span class="n">noa</span><span class="p">,</span> <span class="n">N</span><span class="p">])</span>
+<span class="n">S</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">([</span><span class="n">noa</span><span class="p">,</span> <span class="n">N</span><span class="p">])</span> <span class="c1"># Why N+1? We want our starting price + 252 days of prices.</span>
 <span class="n">S</span><span class="p">[:,</span> <span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="n">S_0</span>
 
 <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="n">N</span><span class="p">):</span>    
     <span class="n">drift</span> <span class="o">=</span> <span class="p">(</span><span class="n">mu</span> <span class="o">-</span> <span class="mf">0.5</span> <span class="o">*</span> <span class="n">sigma</span><span class="o">**</span><span class="mi">2</span><span class="p">)</span> <span class="o">*</span> <span class="n">dt</span> <span class="c1"># dt = 1. This is the deterministic part of the daily return. It&#39;s the same every day.</span>
     <span class="n">Z</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">normal</span><span class="p">(</span><span class="mf">0.</span><span class="p">,</span> <span class="mf">1.</span><span class="p">,</span> <span class="n">noa</span><span class="p">)</span> <span class="c1"># Putting as period after a number in Python makes division work correctly when dealing with integers. Not sure we even need it here.</span>
     <span class="n">diffusion</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">matmul</span><span class="p">(</span><span class="n">A</span><span class="p">,</span> <span class="n">Z</span><span class="p">)</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="n">dt</span><span class="p">)</span> <span class="c1"># dt = 1. This is the random part. </span>
-    <span class="n">S</span><span class="p">[:,</span> <span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="n">S</span><span class="p">[:,</span> <span class="n">i</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span><span class="o">*</span><span class="n">np</span><span class="o">.</span><span class="n">exp</span><span class="p">(</span><span class="n">drift</span> <span class="o">+</span> <span class="n">diffusion</span><span class="p">)</span> <span class="c1"># S_t = S_t-1 * e^(r). Continuous compounding. </span>
+    <span class="n">S</span><span class="p">[:,</span> <span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="n">S</span><span class="p">[:,</span> <span class="n">i</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span><span class="o">*</span><span class="n">np</span><span class="o">.</span><span class="n">exp</span><span class="p">(</span><span class="n">drift</span> <span class="o">+</span> <span class="n">diffusion</span><span class="p">)</span> <span class="c1"># S_t = S_t-1 * e^(r). Continuous compounding, where r is just that day&#39;s return, rather than a cumulative return. </span>
 
 <span class="n">R</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">S</span><span class="o">.</span><span class="n">T</span><span class="p">)</span><span class="o">.</span><span class="n">pct_change</span><span class="p">()</span><span class="o">.</span><span class="n">dropna</span><span class="p">()</span> <span class="c1"># Create returns from those simulated prices.</span>
 
@@ -1033,9 +1038,10 @@ W_2 = \rho x_1 + (1 - \sqrt{\rho^2}) x_2
 </div>
 </div>
 </div>
+<p>This method is coded up a bit differently from the two-asset and BTC example. There are no <code class="docutils literal notranslate"><span class="pre">timesteps</span></code>. Instead, <code class="docutils literal notranslate"><span class="pre">dt</span></code> = 1. Each previous stock return S_t-1 is being multiplied by a single daily return (drift+diffusion), rather than a cumulative return.</p>
 <div class="admonition hint">
 <p class="admonition-title">Hint</p>
-<p>I recommend running each line separately and then looking at the resulting variabl/array. This is how you can figure out what’s going on in the simulation.</p>
+<p>I recommend running each line separately and then looking at the resulting variable/array. This is how you can figure out what’s going on in the simulation.</p>
 </div>
 <p>Let’s check the correlations and descriptives for these simulated returns.</p>
 <div class="cell docutils container">
@@ -1074,14 +1080,14 @@ W_2 = \rho x_1 + (1 - \sqrt{\rho^2}) x_2
     <tr>
       <th>0</th>
       <td>1.000000</td>
-      <td>0.313332</td>
+      <td>0.313334</td>
       <td>0.550335</td>
-      <td>0.609200</td>
-      <td>0.498666</td>
+      <td>0.609199</td>
+      <td>0.498667</td>
     </tr>
     <tr>
       <th>1</th>
-      <td>0.313332</td>
+      <td>0.313334</td>
       <td>1.000000</td>
       <td>0.329610</td>
       <td>0.398792</td>
@@ -1093,11 +1099,11 @@ W_2 = \rho x_1 + (1 - \sqrt{\rho^2}) x_2
       <td>0.329610</td>
       <td>1.000000</td>
       <td>0.678113</td>
-      <td>0.427323</td>
+      <td>0.427324</td>
     </tr>
     <tr>
       <th>3</th>
-      <td>0.609200</td>
+      <td>0.609199</td>
       <td>0.398792</td>
       <td>0.678113</td>
       <td>1.000000</td>
@@ -1105,9 +1111,9 @@ W_2 = \rho x_1 + (1 - \sqrt{\rho^2}) x_2
     </tr>
     <tr>
       <th>4</th>
-      <td>0.498666</td>
+      <td>0.498667</td>
       <td>0.419703</td>
-      <td>0.427323</td>
+      <td>0.427324</td>
       <td>0.399526</td>
       <td>1.000000</td>
     </tr>
@@ -1218,6 +1224,7 @@ W_2 = \rho x_1 + (1 - \sqrt{\rho^2}) x_2
 </div>
 <p>They seem to make sense! The simulated correlations, in particular, are close to the empirical correlations.</p>
 <p>Finally, let’s add <strong>one more element to this loop</strong>. We can find 50 different portfolio returns by wrapping the code above in another <code class="docutils literal notranslate"><span class="pre">for</span></code> loop.</p>
+<p>The first loop is counting a bit differently. Our first simulation is indexed at 0 in Python. We will go up to, but not include the number of simulations we are doing. So, 0 through 49. This gives us 50 total simulations.</p>
 <p>Remember, the <strong>indentation</strong> matters! It tells us how the loops are <strong>nested</strong>.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -1250,15 +1257,12 @@ W_2 = \rho x_1 + (1 - \sqrt{\rho^2}) x_2
 <span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">port_returns_all</span><span class="p">)</span>
 <span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s1">&#39;Portfolio Returns&#39;</span><span class="p">)</span>
 <span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s1">&#39;Days&#39;</span><span class="p">)</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s1">&#39;Simulated Portfolio Returns in 30 days&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s1">&#39;Simulated Portfolio Returns For 252 days&#39;</span><span class="p">);</span>
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Text(0.5, 1.0, &#39;Simulated Portfolio Returns in 30 days&#39;)
-</pre></div>
-</div>
-<img alt="../_images/13_monte_carlo_23_1.png" src="../_images/13_monte_carlo_23_1.png" />
+<img alt="../_images/13_monte_carlo_23_0.png" src="../_images/13_monte_carlo_23_0.png" />
 </div>
 </div>
 <p>That’s a large spread of possible cumulative portfolio returns over the year! This type of simulation is potentially useful for financial planners, and let’s you “answer” questions like, “What’s the probability that my portfolio falls below a particular level over the next decade?”. You can also use price paths like this to price certain options, where the value of the option depends on the paths that a basket of stocks took.</p>
@@ -1290,11 +1294,11 @@ W_2 = \rho x_1 + (1 - \sqrt{\rho^2}) x_2
             
                 <!-- Previous / next buttons -->
 <div class='prev-next-area'> 
-    <a class='left-prev' id="prev-link" href="12_finmarketpy.html" title="previous page">
+    <a class='left-prev' id="prev-link" href="12_risk_mang.html" title="previous page">
         <i class="fas fa-angle-left"></i>
         <div class="prev-next-info">
             <p class="prev-next-subtitle">previous</p>
-            <p class="prev-next-title">Finmarketpy package</p>
+            <p class="prev-next-title">Risk management</p>
         </div>
     </a>
     <a class='right-next' id="next-link" href="14_options.html" title="next page">

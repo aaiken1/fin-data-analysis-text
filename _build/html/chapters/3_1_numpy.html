@@ -42,6 +42,8 @@
     <script src="../_static/copybutton.js"></script>
     <script>var togglebuttonSelector = '.toggle, .admonition.dropdown, .tag_hide_input div.cell_input, .tag_hide-input div.cell_input, .tag_hide_output div.cell_output, .tag_hide-output div.cell_output, .tag_hide_cell.cell, .tag_hide-cell.cell';</script>
     <script src="../_static/sphinx-book-theme.d59cb220de22ca1c485ebbdc042f0030.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+    <script src="https://unpkg.com/@jupyter-widgets/html-manager@^0.20.0/dist/embed-amd.js"></script>
     <script async="async" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
     <script>window.MathJax = {"options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
     <script async="async" src="https://unpkg.com/thebe@0.5.1/lib/index.js"></script>
@@ -280,13 +282,13 @@
   </a>
  </li>
  <li class="toctree-l1">
-  <a class="reference internal" href="11_risk_mang.html">
-   Risk management
+  <a class="reference internal" href="11_regression_topics.html">
+   Regression topics
   </a>
  </li>
  <li class="toctree-l1">
-  <a class="reference internal" href="12_finmarketpy.html">
-   Finmarketpy package
+  <a class="reference internal" href="12_risk_mang.html">
+   Risk management
   </a>
  </li>
  <li class="toctree-l1">
@@ -301,12 +303,7 @@
  </li>
  <li class="toctree-l1">
   <a class="reference internal" href="15_logit_credit.html">
-   Credit modeling with logit regressions
-  </a>
- </li>
- <li class="toctree-l1">
-  <a class="reference internal" href="16_time_vol.html">
-   More financial time series with volatility
+   Logit models
   </a>
  </li>
 </ul>
@@ -321,51 +318,6 @@
    Our labs
   </a>
  </li>
- <li class="toctree-l1">
-  <a class="reference internal" href="lab01.html">
-   Lab 01
-  </a>
- </li>
- <li class="toctree-l1">
-  <a class="reference internal" href="lab02.html">
-   Lab 02
-  </a>
- </li>
- <li class="toctree-l1">
-  <a class="reference internal" href="lab03.html">
-   Lab 03
-  </a>
- </li>
- <li class="toctree-l1">
-  <a class="reference internal" href="lab04.html">
-   Lab 04
-  </a>
- </li>
- <li class="toctree-l1">
-  <a class="reference internal" href="lab05.html">
-   Lab 05
-  </a>
- </li>
- <li class="toctree-l1">
-  <a class="reference internal" href="lab06.html">
-   Lab 06
-  </a>
- </li>
- <li class="toctree-l1">
-  <a class="reference internal" href="lab07.html">
-   Lab 07
-  </a>
- </li>
- <li class="toctree-l1">
-  <a class="reference internal" href="lab08.html">
-   Lab 08
-  </a>
- </li>
- <li class="toctree-l1">
-  <a class="reference internal" href="lab09.html">
-   Lab 09
-  </a>
- </li>
 </ul>
 <p aria-level="2" class="caption" role="heading">
  <span class="caption-text">
@@ -376,16 +328,6 @@
  <li class="toctree-l1">
   <a class="reference internal" href="exam_intro.html">
    Our Exams
-  </a>
- </li>
- <li class="toctree-l1">
-  <a class="reference internal" href="exam01.html">
-   Midterm Exam
-  </a>
- </li>
- <li class="toctree-l1">
-  <a class="reference internal" href="final-exam.html">
-   Final Exam
   </a>
  </li>
 </ul>
@@ -679,8 +621,8 @@
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>array([[ 0.68452879, -1.24605676, -0.53689675],
-       [ 1.36024815,  0.3318352 ,  1.24711203]])
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>array([[-0.63701335, -0.65137438, -0.83027634],
+       [-0.64850388,  0.07554205,  0.6719345 ]])
 </pre></div>
 </div>
 </div>
@@ -746,16 +688,16 @@
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>array([[ 0.32703009, -0.83082742, -0.35395402,  1.52190141,  0.16871127],
-       [-1.07512769, -0.69755082, -0.22089491,  1.3299816 , -0.52097722],
-       [ 1.09609272,  0.16790149, -0.34768521, -1.84835723,  0.61381971],
-       [ 0.10131929, -0.33173151,  1.35103456, -0.75393164,  1.11658899],
-       [-0.76825802,  1.94861097,  1.42293595, -0.49907121, -0.50952892],
-       [ 0.33643289, -0.39113887,  0.09753758, -0.68774659, -0.64254971],
-       [-1.11711626,  0.20795976, -0.10431918, -0.69646446, -0.18126744],
-       [ 1.39651618,  0.64329889,  1.03175788, -1.68598187,  0.86199259],
-       [-0.68121939, -0.57043203,  0.63111631,  0.60779848, -1.29911933],
-       [-1.22879387, -1.37675102,  1.97702564,  0.51210693, -0.50031988]])
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>array([[ 0.61092849, -0.72466217, -0.76332677, -1.49533078, -0.93420859],
+       [-0.08275907, -0.20805825,  0.44202084,  1.04174452, -0.50798003],
+       [-1.27562401, -0.01635218,  0.56940937, -0.25565062, -0.59961692],
+       [-0.54017247,  0.63834803,  1.45945865,  1.97789987, -1.70528668],
+       [ 0.64663965,  0.2774968 , -0.54964659,  0.60000314,  1.03597467],
+       [ 1.28001347,  1.0758511 ,  2.38025154, -0.66533627, -2.06219491],
+       [-0.69183693,  0.90072952,  0.02139771, -0.08477376,  0.44355208],
+       [ 1.66016691, -0.78064492,  0.23548072,  0.03444223, -1.76542556],
+       [-1.2797352 ,  1.22795744,  0.85149573, -0.62051605,  0.63700334],
+       [ 1.60715124,  0.37165871, -0.12711484, -0.31066819, -0.51761059]])
 </pre></div>
 </div>
 </div>
@@ -921,11 +863,11 @@
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>array([[0.55425177, 0.05712512],
-       [0.26834053, 0.39488051],
-       [0.94243534, 0.23244791],
-       [0.57709183, 0.63824186],
-       [0.27151331, 0.45788697]])
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>array([[0.94504941, 0.81037639],
+       [0.81592161, 0.26654731],
+       [0.84471635, 0.92289708],
+       [0.45486048, 0.82014777],
+       [0.6774966 , 0.41254502]])
 </pre></div>
 </div>
 </div>
@@ -938,8 +880,8 @@
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>array([[0.55425177, 0.26834053, 0.94243534, 0.57709183, 0.27151331],
-       [0.05712512, 0.39488051, 0.23244791, 0.63824186, 0.45788697]])
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>array([[0.94504941, 0.81592161, 0.84471635, 0.45486048, 0.6774966 ],
+       [0.81037639, 0.26654731, 0.92289708, 0.82014777, 0.41254502]])
 </pre></div>
 </div>
 </div>
@@ -954,12 +896,12 @@
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>array([[0.90560607, 0.06450981],
-       [0.54379031, 0.62154385],
-       [0.96901726, 0.16209788],
-       [0.35924244, 0.24077696],
-       [0.00763413, 0.42387335],
-       [0.35168865, 0.44123989]])
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>array([[0.52325078, 0.05907389],
+       [0.4240998 , 0.76468316],
+       [0.54103889, 0.48888359],
+       [0.98181453, 0.26995676],
+       [0.31285911, 0.08270809],
+       [0.00233248, 0.38145822]])
 </pre></div>
 </div>
 </div>
@@ -971,9 +913,9 @@
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>array([[0.90560607, 0.06450981, 0.54379031, 0.62154385],
-       [0.96901726, 0.16209788, 0.35924244, 0.24077696],
-       [0.00763413, 0.42387335, 0.35168865, 0.44123989]])
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>array([[0.52325078, 0.05907389, 0.4240998 , 0.76468316],
+       [0.54103889, 0.48888359, 0.98181453, 0.26995676],
+       [0.31285911, 0.08270809, 0.00233248, 0.38145822]])
 </pre></div>
 </div>
 </div>
@@ -985,10 +927,10 @@
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>array([[0.90560607, 0.54379031, 0.96901726, 0.35924244, 0.00763413,
-        0.35168865],
-       [0.06450981, 0.62154385, 0.16209788, 0.24077696, 0.42387335,
-        0.44123989]])
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>array([[0.52325078, 0.4240998 , 0.54103889, 0.98181453, 0.31285911,
+        0.00233248],
+       [0.05907389, 0.76468316, 0.48888359, 0.26995676, 0.08270809,
+        0.38145822]])
 </pre></div>
 </div>
 </div>
@@ -1002,12 +944,12 @@
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>array([[0.33234141, 0.72659965],
-       [0.75599769, 0.48955018],
-       [0.38416927, 0.41097224],
-       [0.5752103 , 0.50046102],
-       [0.86999462, 0.42927127],
-       [0.11812205, 0.6020271 ]])
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>array([[0.34125556, 0.542781  ],
+       [0.77469175, 0.31517868],
+       [0.16882812, 0.74408562],
+       [0.25611312, 0.6979109 ],
+       [0.536433  , 0.47577611],
+       [0.66917578, 0.60492449]])
 </pre></div>
 </div>
 </div>
@@ -1020,7 +962,7 @@
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>array([[0.33234141, 0.72659965]])
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>array([[0.34125556, 0.542781  ]])
 </pre></div>
 </div>
 </div>
@@ -1033,18 +975,18 @@
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>array([[0.33234141, 0.72659965],
-       [0.75599769, 0.48955018],
-       [0.38416927, 0.41097224],
-       [0.5752103 , 0.50046102],
-       [0.86999462, 0.42927127],
-       [0.11812205, 0.6020271 ],
-       [0.33234141, 0.72659965],
-       [0.75599769, 0.48955018],
-       [0.38416927, 0.41097224],
-       [0.5752103 , 0.50046102],
-       [0.86999462, 0.42927127],
-       [0.11812205, 0.6020271 ]])
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>array([[0.34125556, 0.542781  ],
+       [0.77469175, 0.31517868],
+       [0.16882812, 0.74408562],
+       [0.25611312, 0.6979109 ],
+       [0.536433  , 0.47577611],
+       [0.66917578, 0.60492449],
+       [0.34125556, 0.542781  ],
+       [0.77469175, 0.31517868],
+       [0.16882812, 0.74408562],
+       [0.25611312, 0.6979109 ],
+       [0.536433  , 0.47577611],
+       [0.66917578, 0.60492449]])
 </pre></div>
 </div>
 </div>
@@ -1062,12 +1004,12 @@
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>array([[0.21651632, 0.97529023],
-       [0.12540074, 0.38525702],
-       [0.47688778, 0.16750421],
-       [0.17055327, 0.55274803],
-       [0.29287458, 0.65021029],
-       [0.62854233, 0.65875232]])
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>array([[0.84022016, 0.50646694],
+       [0.58326051, 0.6283461 ],
+       [0.99693373, 0.84356097],
+       [0.37102603, 0.68588487],
+       [0.60948117, 0.78216139],
+       [0.15416685, 0.33399101]])
 </pre></div>
 </div>
 </div>
@@ -1084,9 +1026,9 @@
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>array([[0.21651632, 0.97529023, 0.12540074, 0.38525702],
-       [0.47688778, 0.16750421, 0.17055327, 0.55274803],
-       [0.29287458, 0.65021029, 0.62854233, 0.65875232]])
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>array([[0.84022016, 0.50646694, 0.58326051, 0.6283461 ],
+       [0.99693373, 0.84356097, 0.37102603, 0.68588487],
+       [0.60948117, 0.78216139, 0.15416685, 0.33399101]])
 </pre></div>
 </div>
 </div>
@@ -1099,9 +1041,9 @@
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>array([[0.21651632, 0.97529023, 0.12540074, 0.38525702],
-       [0.47688778, 0.16750421, 0.17055327, 0.55274803],
-       [0.29287458, 0.65021029, 0.62854233, 0.65875232]])
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>array([[0.84022016, 0.50646694, 0.58326051, 0.6283461 ],
+       [0.99693373, 0.84356097, 0.37102603, 0.68588487],
+       [0.60948117, 0.78216139, 0.15416685, 0.33399101]])
 </pre></div>
 </div>
 </div>
@@ -1120,7 +1062,7 @@
 <div class="cell_output docutils container">
 <div class="output traceback highlight-ipythontb notranslate"><div class="highlight"><pre><span></span><span class="gt">---------------------------------------------------------------------------</span>
 <span class="ne">ValueError</span><span class="g g-Whitespace">                                </span>Traceback (most recent call last)
-<span class="o">/</span><span class="n">var</span><span class="o">/</span><span class="n">folders</span><span class="o">/</span><span class="n">sm</span><span class="o">/</span><span class="n">f4lq92s11392x68kwf0scq3w0000gn</span><span class="o">/</span><span class="n">T</span><span class="o">/</span><span class="n">ipykernel_61563</span><span class="o">/</span><span class="mf">582752103.</span><span class="n">py</span> <span class="ow">in</span> <span class="o">&lt;</span><span class="n">module</span><span class="o">&gt;</span>
+<span class="o">/</span><span class="n">var</span><span class="o">/</span><span class="n">folders</span><span class="o">/</span><span class="n">sm</span><span class="o">/</span><span class="n">f4lq92s11392x68kwf0scq3w0000gn</span><span class="o">/</span><span class="n">T</span><span class="o">/</span><span class="n">ipykernel_90007</span><span class="o">/</span><span class="mf">582752103.</span><span class="n">py</span> <span class="ow">in</span> <span class="o">&lt;</span><span class="n">module</span><span class="o">&gt;</span>
 <span class="ne">----&gt; </span><span class="mi">1</span> <span class="n">x</span><span class="o">.</span><span class="n">resize</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span>
 
 <span class="ne">ValueError</span>: cannot resize an array that references or is referenced

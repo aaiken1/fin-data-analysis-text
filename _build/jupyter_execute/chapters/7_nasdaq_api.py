@@ -145,7 +145,7 @@ plt.subplots_adjust(wspace=0.5, hspace=0.5);
 # You can solve this equation to get the value of the asset at any point in time t. You just need to know the total of all of the shocks at time t.
 # 
 # \begin{align}
-# S(t) = S(0) \exp \left(\left(\mu - \frac{1}{2}\sigma^2\right)t + \sigma \sqrt{t} W(t)\right)
+# S(t) = S(0) \exp \left(\left(\mu - \frac{1}{2}\sigma^2\right)t + \sigma W(t)\right)
 # \end{align}
 
 # In[10]:

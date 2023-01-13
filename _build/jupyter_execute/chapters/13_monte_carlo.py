@@ -3,7 +3,7 @@
 
 # # Monte Carlo and portfolios
 # 
-# We saw how to simulate the price of an asset back when we looked at the price of [Bitcoin](chapters/7_nasdaq_api.html#btc-sim) and using the Nasdaq API. We are going to take a more complete look here at **simulating correlated assets within a portfolio**. These methods can be used for measuring portfolio risk, for simulating client portfolios in a [financial planning setting](https://www.kitces.com/blog/volatility-drag-variance-drain-mean-arithmetic-vs-geometric-average-investment-returns/), or [pricing complex options](https://en.wikipedia.org/wiki/Monte_Carlo_methods_for_option_pricing) like [Asian options](https://en.wikipedia.org/wiki/Asian_option). 
+# We saw how to simulate the price of an asset back when we looked at the price of [Bitcoin](7_nasdaq_api.html#btc-sim) and using the Nasdaq API. We are going to take a more complete look here at **simulating correlated assets within a portfolio**. These methods can be used for measuring portfolio risk, for simulating client portfolios in a [financial planning setting](https://www.kitces.com/blog/volatility-drag-variance-drain-mean-arithmetic-vs-geometric-average-investment-returns/), or [pricing complex options](https://en.wikipedia.org/wiki/Monte_Carlo_methods_for_option_pricing) like [Asian options](https://en.wikipedia.org/wiki/Asian_option). 
 # 
 # I am basing a lot of my code and discussion on this [blog post](https://medium.com/codex/simulate-multi-asset-baskets-with-correlated-price-paths-using-python-472cbec4e379). 
 # 
@@ -26,7 +26,7 @@
 # 
 # However, when dealing with more than one asset, we can't do that, since the assets are **not independent** from one another. If Apple goes up, Google is more likely to have gone up as well. The two stocks are **correlated**. How can we account for this in our simulation? We will create **correlated random shocks** ($W$), where the random movement of one asset depends on another assets movement.
 # 
-# Let's try a simulation to see what's going on. I'll draw two random variables from the standard normal distribution, N(0,1). The random part of the return for Asset 1, $W_1$, is simply the random draw, $x_1$. However, the random part of the return for Asset 2 $W_2$, is correlated with whatever $x_1$ ends up being. Mathematically, this dependent random movement is given as:
+# Let's try a simulation to see what's going on. I'll draw two random variables from the standard normal distribution, N(0,1). The random part of the return for Asset 1, $W_1$, is simply the random draw, $x_1$. However, the random part of the return for Asset 2, $W_2$, is correlated with whatever $x_1$ ends up being. Mathematically, this dependent random movement is given as:
 # 
 # \begin{align}
 # W_2 = \rho x_1 + (1 - \sqrt{\rho^2}) x_2
@@ -36,6 +36,19 @@
 # 
 # We'll bring in our usual packages and try this out. This code should look a lot like the Bitcoin code, except that I now have two assets. I am only doing one simulation for each asset, so two total simulations.
 # 
+# How do we simulative prices? Let me remind you of a formula:
+# 
+# \begin{align}
+# S(t) = S(0) \exp \left(\left(\mu - \frac{1}{2}\sigma^2\right)t + \sigma W(t)\right)
+# \end{align}
+# 
+# Take a starting price $S_0$. We use `exp` for continuous compounding. Then, the price today, $S_t$ is a function of two return sources. The first source is called **drift**: $\mu - \frac{1}{2}\sigma^2$. This is what an asset returns on average over some period, like a day. This is the **deterministic** piece of the return and would be related to risk. $\mu$ is the **arithmetic average** and $\sigma$ is the volatility (standard deviation). They should be in the same units (e.g. daily).
+# 
+# The second piece of the return is the **diffusion**: $\sigma W(t)$. $W(t)$ is called a **Brownian motion** and is, essentially, cumulative random wiggles. You multiply by $\sigma$ to scale it: more volatility, more wiggles.
+# 
+# $dW$ denotes the random wiggle in just one period. 
+# 
+# In this example, our random wiggles are going to be **correlated** across assets.
 
 # In[1]:
 
@@ -56,6 +69,7 @@ N = 251 # number of time points in the prediction time horizon, making this the 
 rho = -0.80 # Correlation between our two assets. Change me to get different patterns!
 mu = 0.05/252 # Mean return (log). Using daily. 
 sigma = 0.12/np.sqrt(252)  # Volatility of returns (standard deviation). Using daily. 
+drift = mu - 0.5 * sigma ** 2 # Drift is the same each day.
 
 S_0 = 1 # Starting price
 
@@ -69,13 +83,17 @@ X = np.random.normal(scale = np.sqrt(dt), size=(2, N))
 dW[0] = X[0] # Same as first row in X
 dW[1] = rho * X[0] + (1 - np.sqrt(rho**2)) * X[1] # Dependent on both sets of random values. How dependent? Correlation determines.
 
-#Cumulative sum of random shocks for our assets.
+#An array containing the sum of random shocks for our assets.
 W = np.cumsum(dW, axis=1) 
 
-time_step = np.linspace(dt, T, N)
-time_steps = np.broadcast_to(time_step, (2, N))
+diffusion = sigma * W # This is CUMULATIVE diffusion returns over time, rather than daily diffusion returns. 
 
-S_t = S_0 * np.exp((mu - 0.5 * sigma ** 2) * time_steps + sigma * W)
+time_step = np.linspace(dt, T, N) # An array of 1, 2, 3, 4, 5..., keeping track of what time period we are in.
+time_steps = np.broadcast_to(time_step, (2, N)) # An array of 1, 2, 3, 4, 5..., but for each asset. 
+
+# This is taking the drift (mu - 0.5 * sigma ** 2), which is the same each day, and multiplying it by 1 on Day 1, 2 on Day 2, 3 on Day 3, etc. Then, that term has sigma (volatility) * the cumulative shock added to it. 
+# Then, Staring Price * e^(r) = Price Today, since r is really a cumulative return.
+S_t = S_0 * np.exp((drift) * time_steps + diffusion) 
 
 S_t = np.insert(S_t, 0, S_0, axis=1)
 
@@ -171,9 +189,9 @@ corr
 # 
 # `A` is a $5\times5$ matrix, just like the variance-covariance matrix, but the upper triangular part is all zeroes, while the lower triangular part still contains the dependencies among our assets. 
 # 
-# `S` is 252 days of "empty" prices for our 5 assets. We'll fill these in with simulated prices. We make the first price in the array equal to the latest price.
+# `S` is 252 days of "empty" prices for our 5 assets. Why 252? We want our starting price plus 251 days of simulated prices. We'll fill these in with simulated prices. We make the first price in the array equal to the latest price.
 # 
-# Then, we have a `for` loop that simulates prices for each asset across all 252 days.
+# Then, we have a `for` loop that simulates prices for each asset across all 252 days. Ranges in Python start at and include the first, but stop one before the last number. Why do we start at 1? S[:, 0] are our initial prices. See how the fourth line has `i-1`. So, the first time through, it will use the starting price `S[:,1-1]`, or `S[:,0]`, to find the first simulated price `S[:,1]`. The loop will then go to 252 and stop one before, or 251. This gives us a starting price plus 251 daily simulated prices. Counting isn't always easy! 
 # 
 # We first calculate the **drift**, or deterministic component, of the return. This is based on the mean and standard deviation of the returns. `dt` is just 1 day in this case.
 # 
@@ -192,22 +210,24 @@ corr
 
 S_0 = prices.iloc[-1]
 A = np.linalg.cholesky(cov)
-S = np.zeros([noa, N])
+S = np.zeros([noa, N]) # Why N+1? We want our starting price + 252 days of prices.
 S[:, 0] = S_0
 
 for i in range(1, N):    
     drift = (mu - 0.5 * sigma**2) * dt # dt = 1. This is the deterministic part of the daily return. It's the same every day.
     Z = np.random.normal(0., 1., noa) # Putting as period after a number in Python makes division work correctly when dealing with integers. Not sure we even need it here.
     diffusion = np.matmul(A, Z) * np.sqrt(dt) # dt = 1. This is the random part. 
-    S[:, i] = S[:, i-1]*np.exp(drift + diffusion) # S_t = S_t-1 * e^(r). Continuous compounding. 
+    S[:, i] = S[:, i-1]*np.exp(drift + diffusion) # S_t = S_t-1 * e^(r). Continuous compounding, where r is just that day's return, rather than a cumulative return. 
 
 R = pd.DataFrame(S.T).pct_change().dropna() # Create returns from those simulated prices.
 
 port_rets = np.cumprod(np.inner(weights, R) + 1) # Weights x returns, cumulative product to get cumulative portfolio returns.
 
 
+# This method is coded up a bit differently from the two-asset and BTC example. There are no `timesteps`. Instead, `dt` = 1. Each previous stock return S_t-1 is being multiplied by a single daily return (drift+diffusion), rather than a cumulative return. 
+# 
 # ```{hint}
-# I recommend running each line separately and then looking at the resulting variabl/array. This is how you can figure out what's going on in the simulation.
+# I recommend running each line separately and then looking at the resulting variable/array. This is how you can figure out what's going on in the simulation.
 # ```
 # 
 # Let's check the correlations and descriptives for these simulated returns. 
@@ -227,6 +247,8 @@ R.describe()
 # They seem to make sense! The simulated correlations, in particular, are close to the empirical correlations. 
 
 # Finally, let's add **one more element to this loop**. We can find 50 different portfolio returns by wrapping the code above in another `for` loop.
+# 
+# The first loop is counting a bit differently. Our first simulation is indexed at 0 in Python. We will go up to, but not include the number of simulations we are doing. So, 0 through 49. This gives us 50 total simulations.
 # 
 # Remember, the **indentation** matters! It tells us how the loops are **nested**. 
 # 
@@ -264,7 +286,7 @@ port_returns_all = pd.DataFrame(port_returns_all)
 plt.plot(port_returns_all)
 plt.ylabel('Portfolio Returns')
 plt.xlabel('Days')
-plt.title('Simulated Portfolio Returns in 30 days')
+plt.title('Simulated Portfolio Returns For 252 days');
 
 
 # That's a large spread of possible cumulative portfolio returns over the year! This type of simulation is potentially useful for financial planners, and let's you "answer" questions like, "What's the probability that my portfolio falls below a particular level over the next decade?". You can also use price paths like this to price certain options, where the value of the option depends on the paths that a basket of stocks took. 
