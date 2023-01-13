@@ -1,0 +1,77 @@
+Traceback (most recent call last):
+  File "/Users/adamaiken/opt/anaconda3/lib/python3.9/site-packages/jupyter_cache/executors/utils.py", line 51, in single_nb_execution
+    executenb(
+  File "/Users/adamaiken/opt/anaconda3/lib/python3.9/site-packages/nbclient/client.py", line 1112, in execute
+    return NotebookClient(nb=nb, resources=resources, km=km, **kwargs).execute()
+  File "/Users/adamaiken/opt/anaconda3/lib/python3.9/site-packages/nbclient/util.py", line 74, in wrapped
+    return just_run(coro(*args, **kwargs))
+  File "/Users/adamaiken/opt/anaconda3/lib/python3.9/site-packages/nbclient/util.py", line 53, in just_run
+    return loop.run_until_complete(coro)
+  File "/Users/adamaiken/opt/anaconda3/lib/python3.9/asyncio/base_events.py", line 642, in run_until_complete
+    return future.result()
+  File "/Users/adamaiken/opt/anaconda3/lib/python3.9/site-packages/nbclient/client.py", line 553, in async_execute
+    await self.async_execute_cell(
+  File "/Users/adamaiken/opt/anaconda3/lib/python3.9/site-packages/nbclient/client.py", line 857, in async_execute_cell
+    self._check_raise_for_error(cell, exec_reply)
+  File "/Users/adamaiken/opt/anaconda3/lib/python3.9/site-packages/nbclient/client.py", line 760, in _check_raise_for_error
+    raise CellExecutionError.from_cell_and_msg(cell, exec_reply_content)
+nbclient.exceptions.CellExecutionError: An error occurred while executing the following cell:
+------------------
+start_date = datetime.datetime(2019, 1, 1)
+end_date = datetime.datetime(2020, 1, 1)
+ticker_list = ["AAPL", "F", "FB", "AMZN", "XOM"]
+
+stock_data = pdr.DataReader(ticker_list, "yahoo", start_date, end_date)
+
+prices = stock_data['Adj Close']
+
+rets = prices.pct_change().dropna()
+------------------
+
+[0;31m---------------------------------------------------------------------------[0m
+[0;31mTypeError[0m                                 Traceback (most recent call last)
+[0;32m/var/folders/sm/f4lq92s11392x68kwf0scq3w0000gn/T/ipykernel_89910/2771594103.py[0m in [0;36m<module>[0;34m[0m
+[1;32m      3[0m [0mticker_list[0m [0;34m=[0m [0;34m[[0m[0;34m"AAPL"[0m[0;34m,[0m [0;34m"F"[0m[0;34m,[0m [0;34m"FB"[0m[0;34m,[0m [0;34m"AMZN"[0m[0;34m,[0m [0;34m"XOM"[0m[0;34m][0m[0;34m[0m[0;34m[0m[0m
+[1;32m      4[0m [0;34m[0m[0m
+[0;32m----> 5[0;31m [0mstock_data[0m [0;34m=[0m [0mpdr[0m[0;34m.[0m[0mDataReader[0m[0;34m([0m[0mticker_list[0m[0;34m,[0m [0;34m"yahoo"[0m[0;34m,[0m [0mstart_date[0m[0;34m,[0m [0mend_date[0m[0;34m)[0m[0;34m[0m[0;34m[0m[0m
+[0m[1;32m      6[0m [0;34m[0m[0m
+[1;32m      7[0m [0mprices[0m [0;34m=[0m [0mstock_data[0m[0;34m[[0m[0;34m'Adj Close'[0m[0;34m][0m[0;34m[0m[0;34m[0m[0m
+
+[0;32m~/opt/anaconda3/lib/python3.9/site-packages/pandas/util/_decorators.py[0m in [0;36mwrapper[0;34m(*args, **kwargs)[0m
+[1;32m    205[0m                 [0;32melse[0m[0;34m:[0m[0;34m[0m[0;34m[0m[0m
+[1;32m    206[0m                     [0mkwargs[0m[0;34m[[0m[0mnew_arg_name[0m[0;34m][0m [0;34m=[0m [0mnew_arg_value[0m[0;34m[0m[0;34m[0m[0m
+[0;32m--> 207[0;31m             [0;32mreturn[0m [0mfunc[0m[0;34m([0m[0;34m*[0m[0margs[0m[0;34m,[0m [0;34m**[0m[0mkwargs[0m[0;34m)[0m[0;34m[0m[0;34m[0m[0m
+[0m[1;32m    208[0m [0;34m[0m[0m
+[1;32m    209[0m         [0;32mreturn[0m [0mcast[0m[0;34m([0m[0mF[0m[0;34m,[0m [0mwrapper[0m[0;34m)[0m[0;34m[0m[0;34m[0m[0m
+
+[0;32m~/opt/anaconda3/lib/python3.9/site-packages/pandas_datareader/data.py[0m in [0;36mDataReader[0;34m(name, data_source, start, end, retry_count, pause, session, api_key)[0m
+[1;32m    368[0m [0;34m[0m[0m
+[1;32m    369[0m     [0;32mif[0m [0mdata_source[0m [0;34m==[0m [0;34m"yahoo"[0m[0;34m:[0m[0;34m[0m[0;34m[0m[0m
+[0;32m--> 370[0;31m         return YahooDailyReader(
+[0m[1;32m    371[0m             [0msymbols[0m[0;34m=[0m[0mname[0m[0;34m,[0m[0;34m[0m[0;34m[0m[0m
+[1;32m    372[0m             [0mstart[0m[0;34m=[0m[0mstart[0m[0;34m,[0m[0;34m[0m[0;34m[0m[0m
+
+[0;32m~/opt/anaconda3/lib/python3.9/site-packages/pandas_datareader/base.py[0m in [0;36mread[0;34m(self)[0m
+[1;32m    256[0m             [0mdf[0m [0;34m=[0m [0mself[0m[0;34m.[0m[0m_dl_mult_symbols[0m[0;34m([0m[0mself[0m[0;34m.[0m[0msymbols[0m[0;34m.[0m[0mindex[0m[0;34m)[0m[0;34m[0m[0;34m[0m[0m
+[1;32m    257[0m         [0;32melse[0m[0;34m:[0m[0;34m[0m[0;34m[0m[0m
+[0;32m--> 258[0;31m             [0mdf[0m [0;34m=[0m [0mself[0m[0;34m.[0m[0m_dl_mult_symbols[0m[0;34m([0m[0mself[0m[0;34m.[0m[0msymbols[0m[0;34m)[0m[0;34m[0m[0;34m[0m[0m
+[0m[1;32m    259[0m         [0;32mreturn[0m [0mdf[0m[0;34m[0m[0;34m[0m[0m
+[1;32m    260[0m [0;34m[0m[0m
+
+[0;32m~/opt/anaconda3/lib/python3.9/site-packages/pandas_datareader/base.py[0m in [0;36m_dl_mult_symbols[0;34m(self, symbols)[0m
+[1;32m    266[0m             [0;32mfor[0m [0msym[0m [0;32min[0m [0msym_group[0m[0;34m:[0m[0;34m[0m[0;34m[0m[0m
+[1;32m    267[0m                 [0;32mtry[0m[0;34m:[0m[0;34m[0m[0;34m[0m[0m
+[0;32m--> 268[0;31m                     [0mstocks[0m[0;34m[[0m[0msym[0m[0;34m][0m [0;34m=[0m [0mself[0m[0;34m.[0m[0m_read_one_data[0m[0;34m([0m[0mself[0m[0;34m.[0m[0murl[0m[0;34m,[0m [0mself[0m[0;34m.[0m[0m_get_params[0m[0;34m([0m[0msym[0m[0;34m)[0m[0;34m)[0m[0;34m[0m[0;34m[0m[0m
+[0m[1;32m    269[0m                     [0mpassed[0m[0;34m.[0m[0mappend[0m[0;34m([0m[0msym[0m[0;34m)[0m[0;34m[0m[0;34m[0m[0m
+[1;32m    270[0m                 [0;32mexcept[0m [0;34m([0m[0mIOError[0m[0;34m,[0m [0mKeyError[0m[0;34m)[0m[0;34m:[0m[0;34m[0m[0;34m[0m[0m
+
+[0;32m~/opt/anaconda3/lib/python3.9/site-packages/pandas_datareader/yahoo/daily.py[0m in [0;36m_read_one_data[0;34m(self, url, params)[0m
+[1;32m    151[0m         [0;32mtry[0m[0;34m:[0m[0;34m[0m[0;34m[0m[0m
+[1;32m    152[0m             [0mj[0m [0;34m=[0m [0mjson[0m[0;34m.[0m[0mloads[0m[0;34m([0m[0mre[0m[0;34m.[0m[0msearch[0m[0;34m([0m[0mptrn[0m[0;34m,[0m [0mresp[0m[0;34m.[0m[0mtext[0m[0;34m,[0m [0mre[0m[0;34m.[0m[0mDOTALL[0m[0;34m)[0m[0;34m.[0m[0mgroup[0m[0;34m([0m[0;36m1[0m[0;34m)[0m[0;34m)[0m[0;34m[0m[0;34m[0m[0m
+[0;32m--> 153[0;31m             [0mdata[0m [0;34m=[0m [0mj[0m[0;34m[[0m[0;34m"context"[0m[0;34m][0m[0;34m[[0m[0;34m"dispatcher"[0m[0;34m][0m[0;34m[[0m[0;34m"stores"[0m[0;34m][0m[0;34m[[0m[0;34m"HistoricalPriceStore"[0m[0;34m][0m[0;34m[0m[0;34m[0m[0m
+[0m[1;32m    154[0m         [0;32mexcept[0m [0mKeyError[0m[0;34m:[0m[0;34m[0m[0;34m[0m[0m
+[1;32m    155[0m             [0mmsg[0m [0;34m=[0m [0;34m"No data fetched for symbol {} using {}"[0m[0;34m[0m[0;34m[0m[0m
+
+[0;31mTypeError[0m: string indices must be integers
+TypeError: string indices must be integers
+
