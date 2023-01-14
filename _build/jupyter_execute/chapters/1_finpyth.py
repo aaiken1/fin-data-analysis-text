@@ -53,7 +53,7 @@
 
 # ## A first look at Python
 # 
-# Let's use an example from Chapter 1 of our textbook, just to see what Python can help us with. We'll bring in some data and make a graph of prices and volatility. Something that comes up all the time. Python makes this not just easy - by writing down the code, we have a **reproducible** example. Compare this to Excel, where it can be difficult, if not impossible, to tell how someone got from start to finish. Our code gives us a **recipe** for how to do something.
+# Let's use an example from Chapter 1 of [Python for Finance, 2e](https://www.oreilly.com/library/view/python-for-finance/9781492024323/, just to see what Python can help us with. We'll bring in some data and make a graph of prices and volatility. Something that comes up all the time. Python makes this not just easy - by writing down the code, we have a **reproducible** example. Compare this to Excel, where it can be difficult, if not impossible, to tell how someone got from start to finish. Our code gives us a **recipe** for how to do something.
 
 # In[1]:
 
