@@ -14,6 +14,6 @@ Don't get discouraged!
 
 This course is focused on using Python (and the VS Code IDE, Markdown, etc.) to solve financial problems. However, if you're interested in building a full set of data/analytics tools, you need to know more.
 
-This article, also by Vicki Boykis, outlines the need to learn three additional tools: [Git, SQL, and the command line](https://vickiboykis.com/2022/01/09/git-sql-cli/). I use all three in my day-to-day work, though I'm far from an expert in any of them.
+This article, also by Vicki Boykis, outlines the need to learn three additional tools: [Git, SQL, and the command line](https://vickiboykis.com/2022/01/09/git-sql-cli/). I use all three in my day-to-day work, though I'm far from an expert in any of them. **If you are thinking about working with data as a career, you should know these three tools.**
 
 Our notes touch on SQL, which is the standard database query language.

@@ -29,7 +29,7 @@ name: 02-anaconda-nav.png
 align: center
 class: with-border
 ---
-My Anaconda Navigator layout when I open it. See the Jupyter Notebook button? This is what you'll want. Your layout will likely look a bit different from mine.
+My Anaconda Navigator layout when I open it. See the Jupyter Notebook button? We'll be using Jupyter notebooks, but mainly through VS Code. Your layout will likely look a bit different from mine.
 ```
 
 
@@ -71,6 +71,17 @@ My class folder, **fin-data-analysis-python** and sub-folders. You won't have th
 ```
 
 When I open up Jupyter or VS Code, I open up that class folder. Then, I can see my folder structure. I then use **relative file paths** to open and save files. 
+
+And, instead of a single code folder, you can set-up a folder for each assignment. Then, inside each of these folders are folders called *code*, *data*, etc.
+
+```{figure} ../images/02-file-paths.png
+---
+name: 02-file-paths.png
+align: center
+class: with-border
+---
+Each assignment can get its own folder and sub-folder structure.
+```
 
 And, this is a [great presentation](https://speakerdeck.com/jennybc/how-to-name-files) on how to name files. You want your file names to be machine readable, human readable, easily searchable, and easily sorted. There's something of a science to doing this correctly. 
 

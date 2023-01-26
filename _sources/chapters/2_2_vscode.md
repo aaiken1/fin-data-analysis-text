@@ -87,7 +87,6 @@ You definitely need:
 - Markdown All in One
 
 I recommend: 
-- Bracket Pair Colorizer 2
 - Code Spell Checker
 - Excel Viewer
 - indent-rainbow
@@ -105,6 +104,8 @@ OK, I'll admit it. I've never used this feature, but I have tested it and it see
 ### Tips, Tricks, and Shortcuts
 
 The more you use VS Code, the faster you'll get. They have a [tips and tricks](https://code.visualstudio.com/docs/getstarted/tips-and-tricks) guide that is helpful.
+
+You'll come across the term **linting**. In fact, the Python extension for VS Code comes with a "linter". Linting is about finding [syntax and stylistic errors in your code](https://code.visualstudio.com/docs/python/linting).
 
 ```{margin}
 ```{note}

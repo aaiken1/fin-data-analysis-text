@@ -4,11 +4,13 @@
 <html>
   <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
     <title>3.2. Numpy and arrays &#8212; Data Analysis in Finance</title>
     
-  <link href="../_static/css/theme.css" rel="stylesheet">
-  <link href="../_static/css/index.ff1ffe594081f20da1ef19478df9384b.css" rel="stylesheet">
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../_static/styles/theme.css?digest=1999514e3f237ded88cf" rel="stylesheet">
+<link href="../_static/styles/pydata-sphinx-theme.css?digest=1999514e3f237ded88cf" rel="stylesheet">
 
     
   <link rel="stylesheet"
@@ -18,39 +20,38 @@
   <link rel="preload" as="font" type="font/woff2" crossorigin
     href="../_static/vendor/fontawesome/5.13.0/webfonts/fa-brands-400.woff2">
 
-    
-      
-
-    
     <link rel="stylesheet" type="text/css" href="../_static/pygments.css" />
-    <link rel="stylesheet" type="text/css" href="../_static/sphinx-book-theme.css?digest=c3fdc42140077d1ad13ad2f1588a4309" />
+    <link rel="stylesheet" href="../_static/styles/sphinx-book-theme.css?digest=5115cc725059bd94278eecd172e13a965bf8f5a9" type="text/css" />
     <link rel="stylesheet" type="text/css" href="../_static/togglebutton.css" />
     <link rel="stylesheet" type="text/css" href="../_static/copybutton.css" />
     <link rel="stylesheet" type="text/css" href="../_static/mystnb.css" />
     <link rel="stylesheet" type="text/css" href="../_static/sphinx-thebe.css" />
-    <link rel="stylesheet" type="text/css" href="../_static/panels-main.c949a650a448cc0ae9fd3441c0e17fb0.css" />
-    <link rel="stylesheet" type="text/css" href="../_static/panels-variables.06eb56fa6e07937060861dad626602ad.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/design-style.b7bb847fb20b106c3d81b95245e65545.min.css" />
     
-  <link rel="preload" as="script" href="../_static/js/index.be7d3bbb2ef33a8344ce.js">
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../_static/scripts/pydata-sphinx-theme.js?digest=1999514e3f237ded88cf">
 
     <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
     <script src="../_static/jquery.js"></script>
     <script src="../_static/underscore.js"></script>
     <script src="../_static/doctools.js"></script>
-    <script src="../_static/togglebutton.js"></script>
     <script src="../_static/clipboard.min.js"></script>
     <script src="../_static/copybutton.js"></script>
+    <script src="../_static/scripts/sphinx-book-theme.js?digest=9c920249402e914e316237a7dbc6769907cce411"></script>
+    <script>let toggleHintShow = 'Click to show';</script>
+    <script>let toggleHintHide = 'Click to hide';</script>
+    <script>let toggleOpenOnPrint = 'true';</script>
+    <script src="../_static/togglebutton.js"></script>
     <script>var togglebuttonSelector = '.toggle, .admonition.dropdown, .tag_hide_input div.cell_input, .tag_hide-input div.cell_input, .tag_hide_output div.cell_output, .tag_hide-output div.cell_output, .tag_hide_cell.cell, .tag_hide-cell.cell';</script>
-    <script src="../_static/sphinx-book-theme.d59cb220de22ca1c485ebbdc042f0030.js"></script>
-    <script async="async" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
-    <script>window.MathJax = {"options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
-    <script async="async" src="https://unpkg.com/thebe@0.5.1/lib/index.js"></script>
-    <script>
-        const thebe_selector = ".thebe"
-        const thebe_selector_input = "pre"
-        const thebe_selector_output = ".output"
-    </script>
+    <script src="../_static/design-tabs.js"></script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"
+const thebe_selector = ".thebe,.cell"
+const thebe_selector_input = "pre"
+const thebe_selector_output = ".output, .cell_output"
+</script>
     <script async="async" src="../_static/sphinx-thebe.js"></script>
+    <script>window.MathJax = {"options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
+    <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
     <link rel="next" title="4. Pandas and data" href="4_intro.html" />
@@ -62,7 +63,21 @@
     <!-- Google Analytics -->
     
   </head>
-  <body data-spy="scroll" data-target="#bd-toc-nav" data-offset="80">
+  <body data-spy="scroll" data-target="#bd-toc-nav" data-offset="60">
+<!-- Checkboxes to toggle the left sidebar -->
+<input type="checkbox" class="sidebar-toggle" name="__navigation" id="__navigation" aria-label="Toggle navigation sidebar">
+<label class="overlay overlay-navbar" for="__navigation">
+    <div class="visually-hidden">Toggle navigation sidebar</div>
+</label>
+<!-- Checkboxes to toggle the in-page toc -->
+<input type="checkbox" class="sidebar-toggle" name="__page-toc" id="__page-toc" aria-label="Toggle in-page Table of Contents">
+<label class="overlay overlay-pagetoc" for="__page-toc">
+    <div class="visually-hidden">Toggle in-page Table of Contents</div>
+</label>
+<!-- Headers at the top -->
+<div class="announcement header-item noprint"></div>
+<div class="header header-item noprint"></div>
+
     
     <div class="container-fluid" id="banner"></div>
 
@@ -71,9 +86,10 @@
     <div class="container-xl">
       <div class="row">
           
-<div class="col-12 col-md-3 bd-sidebar site-navigation show" id="site-navigation">
-    
-        <div class="navbar-brand-box">
+<!-- Sidebar -->
+<div class="bd-sidebar noprint" id="site-navigation">
+    <div class="bd-sidebar__content">
+        <div class="bd-sidebar__top"><div class="navbar-brand-box">
     <a class="navbar-brand text-wrap" href="../index.html">
       
         <!-- `logo` is deprecated in Sphinx 4.0, so remove this when we stop supporting 3 -->
@@ -91,14 +107,15 @@
   <input type="search" class="form-control" name="q" id="search-input" placeholder="Search this book..." aria-label="Search this book..." autocomplete="off" >
 </form><nav class="bd-links" id="bd-docs-nav" aria-label="Main">
     <div class="bd-toc-item active">
-        <ul class="nav bd-sidenav">
- <li class="toctree-l1">
-  <a class="reference internal" href="../intro.html">
-   Welcome
-  </a>
- </li>
-</ul>
-<p aria-level="2" class="caption" role="heading">
+        
+        <ul class="nav bd-sidenav bd-sidenav__home-link">
+            <li class="toctree-l1">
+                <a class="reference internal" href="../intro.html">
+                    Welcome
+                </a>
+            </li>
+        </ul>
+        <p aria-level="2" class="caption" role="heading">
  <span class="caption-text">
   Getting Started
  </span>
@@ -189,27 +206,27 @@
   <ul>
    <li class="toctree-l2">
     <a class="reference internal" href="4_0_dataframes.html">
-     4.2. Data importing
+     4.1. Data importing
     </a>
    </li>
    <li class="toctree-l2">
     <a class="reference internal" href="4_1_pandas.html">
-     4.3. pandas
+     4.2. pandas
     </a>
    </li>
    <li class="toctree-l2">
     <a class="reference internal" href="4_2_cleaning_data.html">
-     4.4. Cleaning our data
+     4.3. Cleaning our data
     </a>
    </li>
    <li class="toctree-l2">
     <a class="reference internal" href="4_3_eda.html">
-     4.5. Exploratory data analysis (EDA)
+     4.4. Exploratory data analysis (EDA)
     </a>
    </li>
    <li class="toctree-l2">
     <a class="reference internal" href="4_4_merge_shape.html">
-     4.6. Merging and reshaping data
+     4.5. Merging and reshaping data
     </a>
    </li>
   </ul>
@@ -331,104 +348,177 @@
 </ul>
 
     </div>
-</nav> <!-- To handle the deprecated key -->
-
-<div class="navbar_extra_footer">
-  Powered by <a href="https://jupyterbook.org">Jupyter Book</a>
-</div>
-
-</div>
-
-
-          
-
-
-          
-<main class="col py-md-3 pl-md-4 bd-content overflow-auto" role="main">
-    
-    <div class="topbar container-xl fixed-top">
-    <div class="topbar-contents row">
-        <div class="col-12 col-md-3 bd-topbar-whitespace site-navigation show"></div>
-        <div class="col pl-md-4 topbar-main">
+</nav></div>
+        <div class="bd-sidebar__bottom">
+             <!-- To handle the deprecated key -->
             
-            <button id="navbar-toggler" class="navbar-toggler ml-0" type="button" data-toggle="collapse"
-                data-toggle="tooltip" data-placement="bottom" data-target=".site-navigation" aria-controls="navbar-menu"
-                aria-expanded="true" aria-label="Toggle navigation" aria-controls="site-navigation"
-                title="Toggle navigation" data-toggle="tooltip" data-placement="left">
-                <i class="fas fa-bars"></i>
-                <i class="fas fa-arrow-left"></i>
-                <i class="fas fa-arrow-up"></i>
-            </button>
-            
-            
-<div class="dropdown-buttons-trigger">
-    <button id="dropdown-buttons-trigger" class="btn btn-secondary topbarbtn" aria-label="Download this page"><i
-            class="fas fa-download"></i></button>
-
-    <div class="dropdown-buttons">
-        <!-- ipynb file if we had a myst markdown file -->
-        
-        <!-- Download raw file -->
-        <a class="dropdown-buttons" href="../_sources/chapters/3_1_numpy.ipynb"><button type="button"
-                class="btn btn-secondary topbarbtn" title="Download source file" data-toggle="tooltip"
-                data-placement="left">.ipynb</button></a>
-        <!-- Download PDF via print -->
-        <button type="button" id="download-print" class="btn btn-secondary topbarbtn" title="Print to PDF"
-                onclick="printPdf(this)" data-toggle="tooltip" data-placement="left">.pdf</button>
-    </div>
-</div>
-
-            <!-- Source interaction buttons -->
-
-<div class="dropdown-buttons-trigger">
-    <button id="dropdown-buttons-trigger" class="btn btn-secondary topbarbtn"
-        aria-label="Connect with source repository"><i class="fab fa-github"></i></button>
-    <div class="dropdown-buttons sourcebuttons">
-        <a class="repository-button"
-            href="https://github.com/executablebooks/jupyter-book"><button type="button" class="btn btn-secondary topbarbtn"
-                data-toggle="tooltip" data-placement="left" title="Source repository"><i
-                    class="fab fa-github"></i>repository</button></a>
-        
-        
-    </div>
-</div>
-
-            <!-- Full screen (wrap in <a> to have style consistency -->
-
-<a class="full-screen-button"><button type="button" class="btn btn-secondary topbarbtn" data-toggle="tooltip"
-        data-placement="bottom" onclick="toggleFullScreen()" aria-label="Fullscreen mode"
-        title="Fullscreen mode"><i
-            class="fas fa-expand"></i></button></a>
-
-            <!-- Launch buttons -->
-
-<div class="dropdown-buttons-trigger">
-    <button id="dropdown-buttons-trigger" class="btn btn-secondary topbarbtn"
-        aria-label="Launch interactive content"><i class="fas fa-rocket"></i></button>
-    <div class="dropdown-buttons">
-        
-        <a class="binder-button" href="https://mybinder.org/v2/gh/executablebooks/jupyter-book/master?urlpath=tree/docs/chapters/3_1_numpy.ipynb"><button type="button"
-                class="btn btn-secondary topbarbtn" title="Launch Binder" data-toggle="tooltip"
-                data-placement="left"><img class="binder-button-logo"
-                    src="../_static/images/logo_binder.svg"
-                    alt="Interact on binder">Binder</button></a>
-        
-        
-        
-        
-    </div>
-</div>
-
-        </div>
-
-        <!-- Table of contents -->
-        <div class="d-none d-md-block col-md-2 bd-toc show noprint">
-            
-            <div class="tocsection onthispage pt-5 pb-3">
-                <i class="fas fa-list"></i> Contents
+            <div class="navbar_extra_footer">
+            Powered by <a href="https://jupyterbook.org">Jupyter Book</a>
             </div>
-            <nav id="bd-toc-nav" aria-label="Page">
-                <ul class="visible nav section-nav flex-column">
+            
+        </div>
+    </div>
+    <div id="rtd-footer-container"></div>
+</div>
+
+
+          
+
+
+          
+<!-- A tiny helper pixel to detect if we've scrolled -->
+<div class="sbt-scroll-pixel-helper"></div>
+<!-- Main content -->
+<div class="col py-0 content-container">
+    
+    <div class="header-article row sticky-top noprint">
+        
+
+
+
+<div class="col py-1 d-flex header-article-main">
+    <div class="header-article__left">
+        
+        <label for="__navigation"
+  class="headerbtn"
+  data-toggle="tooltip"
+data-placement="right"
+title="Toggle navigation"
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-bars"></i>
+  </span>
+
+</label>
+
+        
+    </div>
+    <div class="header-article__right">
+<div class="menu-dropdown menu-dropdown-launch-buttons">
+  <button class="headerbtn menu-dropdown__trigger"
+      aria-label="Launch interactive content">
+      <i class="fas fa-rocket"></i>
+  </button>
+  <div class="menu-dropdown__content">
+    <ul>
+      <li>
+        <a href="https://mybinder.org/v2/gh/executablebooks/jupyter-book/master?urlpath=tree/docs/chapters/3_1_numpy.ipynb"
+   class="headerbtn"
+   data-toggle="tooltip"
+data-placement="left"
+title="Launch on Binder"
+>
+  
+
+<span class="headerbtn__icon-container">
+  
+    <img src="../_static/images/logo_binder.svg">
+  </span>
+<span class="headerbtn__text-container">Binder</span>
+</a>
+
+      </li>
+      
+    </ul>
+  </div>
+</div>
+
+<button onclick="toggleFullScreen()"
+  class="headerbtn"
+  data-toggle="tooltip"
+data-placement="bottom"
+title="Fullscreen mode"
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+<a href="https://github.com/executablebooks/jupyter-book"
+   class="headerbtn"
+   data-toggle="tooltip"
+data-placement="bottom"
+title="Source repository"
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fab fa-github"></i>
+  </span>
+
+</a>
+
+<div class="menu-dropdown menu-dropdown-download-buttons">
+  <button class="headerbtn menu-dropdown__trigger"
+      aria-label="Download this page">
+      <i class="fas fa-download"></i>
+  </button>
+  <div class="menu-dropdown__content">
+    <ul>
+      <li>
+        <a href="../_sources/chapters/3_1_numpy.ipynb"
+   class="headerbtn"
+   data-toggle="tooltip"
+data-placement="left"
+title="Download source file"
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="headerbtn__text-container">.ipynb</span>
+</a>
+
+      </li>
+      
+      <li>
+        
+<button onclick="printPdf(this)"
+  class="headerbtn"
+  data-toggle="tooltip"
+data-placement="left"
+title="Print to PDF"
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="headerbtn__text-container">.pdf</span>
+</button>
+
+      </li>
+      
+    </ul>
+  </div>
+</div>
+<label for="__page-toc"
+  class="headerbtn headerbtn-page-toc"
+  
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-list"></i>
+  </span>
+
+</label>
+
+    </div>
+</div>
+
+<!-- Table of contents -->
+<div class="col-md-3 bd-toc show noprint">
+    <div class="tocsection onthispage pt-5 pb-3">
+        <i class="fas fa-list"></i> Contents
+    </div>
+    <nav id="bd-toc-nav" aria-label="Page">
+        <ul class="visible nav section-nav flex-column">
  <li class="toc-h2 nav-item toc-entry">
   <a class="reference internal nav-link" href="#chapter-four-highlights">
    3.2.1. Chapter Four Highlights
@@ -473,12 +563,11 @@
  </li>
 </ul>
 
-            </nav>
-        </div>
-    </div>
+    </nav>
 </div>
-    <div id="main-content" class="row">
-        <div class="col-12 col-md-9 pl-md-3 pr-md-0">
+    </div>
+    <div class="article row">
+        <div class="col pl-md-3 pl-lg-5 content-container">
             <!-- Table of contents that is only displayed when printing the page -->
             <div id="jb-print-docs-body" class="onlyprint">
                 <h1>Numpy and arrays</h1>
@@ -539,11 +628,12 @@
                     </div>
                 </div>
             </div>
-            
+            <main id="main-content" role="main">
+                
               <div>
                 
-  <div class="tex2jax_ignore mathjax_ignore section" id="numpy-and-arrays">
-<h1><span class="section-number">3.2. </span>Numpy and arrays<a class="headerlink" href="#numpy-and-arrays" title="Permalink to this headline">¶</a></h1>
+  <section class="tex2jax_ignore mathjax_ignore" id="numpy-and-arrays">
+<h1><span class="section-number">3.2. </span>Numpy and arrays<a class="headerlink" href="#numpy-and-arrays" title="Permalink to this headline">#</a></h1>
 <p>It is time for our first Python library! <strong>Chapter 4</strong> of our text covers the <a class="reference external" href="https://numpy.org">NumPy</a> library and <code class="docutils literal notranslate"><span class="pre">arrays</span></code>. Arrays can hold many different values, which you then reference or perform operations on. For example, a <strong>matrix</strong> is a two-dimensional array of numbers. However, arrays themselves can have any number <em>n</em> dimensions.</p>
 <p>Why do we need arrays? Math stuff. Linear algebra. They allow us to perform mathematical operations on numbers, like stock prices and returns. Arrays are also necessary for machine learning, image recognition, and anything else that requires computation. In short, you really can’t do much with arrays and matrices.</p>
 <div class="admonition note">
@@ -552,13 +642,13 @@
 </div>
 <p>You may have already seen <a class="reference external" href="https://support.microsoft.com/en-us/office/guidelines-and-examples-of-array-formulas-7d94a64e-3ff3-4686-9372-ecfd5caa57c7">arrays in Excel</a>!</p>
 <p>Check out this <a class="reference external" href="https://www.datacamp.com/community/tutorials/python-arrays">DataCamp tutorial on arrays in Python</a> for more.</p>
-<div class="margin sidebar">
+<aside class="margin sidebar">
 <p class="sidebar-title">Our textbook calls this numerical computing.</p>
 <p>Numerical computing and numerical methods are an entire field of computer science and mathematics. And the whole world is basically linear algebra.</p>
-</div>
+</aside>
 <p>This set of <a class="reference external" href="https://www.w3schools.com/python/numpy/default.asp">notes from W3</a> is also a good resource.</p>
-<div class="section" id="chapter-four-highlights">
-<h2><span class="section-number">3.2.1. </span>Chapter Four Highlights<a class="headerlink" href="#chapter-four-highlights" title="Permalink to this headline">¶</a></h2>
+<section id="chapter-four-highlights">
+<h2><span class="section-number">3.2.1. </span>Chapter Four Highlights<a class="headerlink" href="#chapter-four-highlights" title="Permalink to this headline">#</a></h2>
 <table class="colwidths-auto table">
 <thead>
 <tr class="row-odd"><th class="text-align:left head"><p>Topic</p></th>
@@ -578,10 +668,12 @@
 </tbody>
 </table>
 <p>NumPy stands for <strong>Numerical Python</strong> and is a crucial package for data work in Python. The <code class="docutils literal notranslate"><span class="pre">numpy</span></code> array object is used in essentially all data work, so we need to understand their propoerties and how to manipulate them. Arrays are “n-dimensional” data structures that can contain all the basic Python data types, e.g., floats, integers, strings, etc. However, we are going to use them mainly for <strong>numerical data</strong>. NumPy arrays (“ndarrays”) are homogenous, which means that items in the array should be of the same type - no mixing of integers and strings, for example.</p>
-<div class="figure align-center" id="numpy-arrays-png">
+<figure class="align-center" id="numpy-arrays-png">
 <img alt="../_images/03-numpy_arrays.png" src="../_images/03-numpy_arrays.png" />
-<p class="caption"><span class="caption-number">Fig. 3.2 </span><span class="caption-text">A graphical representation of arrays. You’re probably most familiar with the two-dimensional version, a matrix. Source: <a class="reference external" href="https://www.tomasbeuzen.com/python-programming-for-data-science/chapters/chapter5-numpy.html">Chapter 5 of Python for Data Science</a></span><a class="headerlink" href="#numpy-arrays-png" title="Permalink to this image">¶</a></p>
-</div>
+<figcaption>
+<p><span class="caption-number">Fig. 3.2 </span><span class="caption-text">A graphical representation of arrays. You’re probably most familiar with the two-dimensional version, a matrix. Source: <a class="reference external" href="https://www.tomasbeuzen.com/python-programming-for-data-science/chapters/chapter5-numpy.html">Chapter 5 of Python for Data Science</a></span><a class="headerlink" href="#numpy-arrays-png" title="Permalink to this image">#</a></p>
+</figcaption>
+</figure>
 <p>We need to import the <code class="docutils literal notranslate"><span class="pre">numpy</span></code> package in order to use <code class="docutils literal notranslate"><span class="pre">narrays</span></code>. Here’s the syntax for bringing in a package to our code. We’re going to type this at the start of basically all of our code. We are going to use the <em>np</em> part to tell Python where to look for a function/method in the <code class="docutils literal notranslate"><span class="pre">numpy</span></code> package. This is important, as <code class="docutils literal notranslate"><span class="pre">numpy</span></code> contains functions like <code class="docutils literal notranslate"><span class="pre">min</span></code> or <code class="docutils literal notranslate"><span class="pre">max</span></code> that are also built-in the standard Python. If you just write <code class="docutils literal notranslate"><span class="pre">max(x)</span></code>, Python is going to wonder what <code class="docutils literal notranslate"><span class="pre">max</span></code> you mean!</p>
 <p>You only need to import once per Python session. But, if you restart your Python kernel, you’ll need to run the import again.</p>
 <div class="cell docutils container">
@@ -591,9 +683,9 @@
 </div>
 </div>
 </div>
-</div>
-<div class="section" id="creating-arrays">
-<h2><span class="section-number">3.2.2. </span>Creating Arrays<a class="headerlink" href="#creating-arrays" title="Permalink to this headline">¶</a></h2>
+</section>
+<section id="creating-arrays">
+<h2><span class="section-number">3.2.2. </span>Creating Arrays<a class="headerlink" href="#creating-arrays" title="Permalink to this headline">#</a></h2>
 <p>We can create our own arrays using data we input ourselves.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -619,8 +711,8 @@
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>array([[-0.63701335, -0.65137438, -0.83027634],
-       [-0.64850388,  0.07554205,  0.6719345 ]])
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>array([[-0.6110082 ,  0.53353707, -1.52708546],
+       [ 0.132144  , -0.80305575,  0.70891435]])
 </pre></div>
 </div>
 </div>
@@ -686,16 +778,16 @@
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>array([[ 0.61092849, -0.72466217, -0.76332677, -1.49533078, -0.93420859],
-       [-0.08275907, -0.20805825,  0.44202084,  1.04174452, -0.50798003],
-       [-1.27562401, -0.01635218,  0.56940937, -0.25565062, -0.59961692],
-       [-0.54017247,  0.63834803,  1.45945865,  1.97789987, -1.70528668],
-       [ 0.64663965,  0.2774968 , -0.54964659,  0.60000314,  1.03597467],
-       [ 1.28001347,  1.0758511 ,  2.38025154, -0.66533627, -2.06219491],
-       [-0.69183693,  0.90072952,  0.02139771, -0.08477376,  0.44355208],
-       [ 1.66016691, -0.78064492,  0.23548072,  0.03444223, -1.76542556],
-       [-1.2797352 ,  1.22795744,  0.85149573, -0.62051605,  0.63700334],
-       [ 1.60715124,  0.37165871, -0.12711484, -0.31066819, -0.51761059]])
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>array([[ 0.52768213, -0.21908958,  0.94762499,  0.8725141 , -0.36610216],
+       [ 0.80675511,  1.30468937,  1.37290778, -1.92852406,  1.44834306],
+       [-0.09362064, -0.84972753, -0.75580991, -1.22050357,  0.35482536],
+       [ 0.69978106, -0.20580004, -0.51669993, -0.3045534 , -0.70307342],
+       [-0.51122532, -0.53826614,  0.29677039, -0.71420965, -0.78743989],
+       [-1.15636356, -0.88073769,  0.78781082,  0.74211918, -1.29755121],
+       [-0.37628171, -0.01995842, -0.45985161, -0.48467239, -1.34750754],
+       [-1.52376421,  0.18120115,  2.09489315,  0.13462846,  0.0898035 ],
+       [ 0.21503553, -0.85219816,  0.71755535, -1.40793611,  1.51882954],
+       [-1.64633809, -0.96847755, -1.53281257, -0.90358752,  0.19790823]])
 </pre></div>
 </div>
 </div>
@@ -739,9 +831,9 @@
 </div>
 </div>
 <p>There are 10 * 5 = 50 total elements in that array.</p>
-</div>
-<div class="section" id="array-math">
-<h2><span class="section-number">3.2.3. </span>Array Math<a class="headerlink" href="#array-math" title="Permalink to this headline">¶</a></h2>
+</section>
+<section id="array-math">
+<h2><span class="section-number">3.2.3. </span>Array Math<a class="headerlink" href="#array-math" title="Permalink to this headline">#</a></h2>
 <p>We’ll start with <strong>element-by-element</strong> operations. You’ve likely seen these in a math class somewhere. We’ll start by creating a 1-D array of ones. You’d be surprised how often you just need a bunch of ones in linear algebra!</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -818,9 +910,9 @@
 </div>
 </div>
 </div>
-</div>
-<div class="section" id="reshaping-and-resizing">
-<h2><span class="section-number">3.2.4. </span>Reshaping and Resizing<a class="headerlink" href="#reshaping-and-resizing" title="Permalink to this headline">¶</a></h2>
+</section>
+<section id="reshaping-and-resizing">
+<h2><span class="section-number">3.2.4. </span>Reshaping and Resizing<a class="headerlink" href="#reshaping-and-resizing" title="Permalink to this headline">#</a></h2>
 <p>You can also <strong>reshape</strong> your arrays. This means rearranging the different axis. Let’s create 1-D array with 8 elements to play with. We can again see the shape attribute with <code class="docutils literal notranslate"><span class="pre">.shape()</span></code>.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -861,11 +953,11 @@
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>array([[0.94504941, 0.81037639],
-       [0.81592161, 0.26654731],
-       [0.84471635, 0.92289708],
-       [0.45486048, 0.82014777],
-       [0.6774966 , 0.41254502]])
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>array([[0.12725156, 0.13249322],
+       [0.5559846 , 0.1355375 ],
+       [0.15902386, 0.44623849],
+       [0.68183219, 0.58345599],
+       [0.46217439, 0.16579724]])
 </pre></div>
 </div>
 </div>
@@ -878,8 +970,8 @@
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>array([[0.94504941, 0.81592161, 0.84471635, 0.45486048, 0.6774966 ],
-       [0.81037639, 0.26654731, 0.92289708, 0.82014777, 0.41254502]])
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>array([[0.12725156, 0.5559846 , 0.15902386, 0.68183219, 0.46217439],
+       [0.13249322, 0.1355375 , 0.44623849, 0.58345599, 0.16579724]])
 </pre></div>
 </div>
 </div>
@@ -894,12 +986,12 @@
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>array([[0.52325078, 0.05907389],
-       [0.4240998 , 0.76468316],
-       [0.54103889, 0.48888359],
-       [0.98181453, 0.26995676],
-       [0.31285911, 0.08270809],
-       [0.00233248, 0.38145822]])
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>array([[0.66759589, 0.76133265],
+       [0.84617624, 0.68732563],
+       [0.12327185, 0.52727092],
+       [0.12192505, 0.03271527],
+       [0.52931643, 0.86940335],
+       [0.56094463, 0.02972022]])
 </pre></div>
 </div>
 </div>
@@ -911,9 +1003,9 @@
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>array([[0.52325078, 0.05907389, 0.4240998 , 0.76468316],
-       [0.54103889, 0.48888359, 0.98181453, 0.26995676],
-       [0.31285911, 0.08270809, 0.00233248, 0.38145822]])
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>array([[0.66759589, 0.76133265, 0.84617624, 0.68732563],
+       [0.12327185, 0.52727092, 0.12192505, 0.03271527],
+       [0.52931643, 0.86940335, 0.56094463, 0.02972022]])
 </pre></div>
 </div>
 </div>
@@ -925,10 +1017,10 @@
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>array([[0.52325078, 0.4240998 , 0.54103889, 0.98181453, 0.31285911,
-        0.00233248],
-       [0.05907389, 0.76468316, 0.48888359, 0.26995676, 0.08270809,
-        0.38145822]])
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>array([[0.66759589, 0.84617624, 0.12327185, 0.12192505, 0.52931643,
+        0.56094463],
+       [0.76133265, 0.68732563, 0.52727092, 0.03271527, 0.86940335,
+        0.02972022]])
 </pre></div>
 </div>
 </div>
@@ -942,12 +1034,12 @@
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>array([[0.34125556, 0.542781  ],
-       [0.77469175, 0.31517868],
-       [0.16882812, 0.74408562],
-       [0.25611312, 0.6979109 ],
-       [0.536433  , 0.47577611],
-       [0.66917578, 0.60492449]])
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>array([[0.79565438, 0.66947282],
+       [0.84032265, 0.71692924],
+       [0.06527573, 0.39186371],
+       [0.39392176, 0.21286171],
+       [0.56594124, 0.36558321],
+       [0.75260358, 0.62985875]])
 </pre></div>
 </div>
 </div>
@@ -960,7 +1052,7 @@
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>array([[0.34125556, 0.542781  ]])
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>array([[0.79565438, 0.66947282]])
 </pre></div>
 </div>
 </div>
@@ -973,26 +1065,26 @@
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>array([[0.34125556, 0.542781  ],
-       [0.77469175, 0.31517868],
-       [0.16882812, 0.74408562],
-       [0.25611312, 0.6979109 ],
-       [0.536433  , 0.47577611],
-       [0.66917578, 0.60492449],
-       [0.34125556, 0.542781  ],
-       [0.77469175, 0.31517868],
-       [0.16882812, 0.74408562],
-       [0.25611312, 0.6979109 ],
-       [0.536433  , 0.47577611],
-       [0.66917578, 0.60492449]])
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>array([[0.79565438, 0.66947282],
+       [0.84032265, 0.71692924],
+       [0.06527573, 0.39186371],
+       [0.39392176, 0.21286171],
+       [0.56594124, 0.36558321],
+       [0.75260358, 0.62985875],
+       [0.79565438, 0.66947282],
+       [0.84032265, 0.71692924],
+       [0.06527573, 0.39186371],
+       [0.39392176, 0.21286171],
+       [0.56594124, 0.36558321],
+       [0.75260358, 0.62985875]])
 </pre></div>
 </div>
 </div>
 </div>
 <p>Why do we need to do any of this? Matrix math sometimes requires our data to be in a certain shape.</p>
 <p>But, wait… I just wrote my code differently. There’s an <code class="docutils literal notranslate"><span class="pre">x</span></code> inside the <code class="docutils literal notranslate"><span class="pre">.resize()</span></code>, rather than just writing <code class="docutils literal notranslate"><span class="pre">x.resize()</span></code>! And, why are there parentheses around the dimensions? What’s going on?</p>
-<div class="section" id="an-aside-functions-methods-and-objects">
-<h3><span class="section-number">3.2.4.1. </span>An Aside: Functions, Methods and Objects<a class="headerlink" href="#an-aside-functions-methods-and-objects" title="Permalink to this headline">¶</a></h3>
+<section id="an-aside-functions-methods-and-objects">
+<h3><span class="section-number">3.2.4.1. </span>An Aside: Functions, Methods and Objects<a class="headerlink" href="#an-aside-functions-methods-and-objects" title="Permalink to this headline">#</a></h3>
 <p>Let’s look at two lines of code from above.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -1002,12 +1094,12 @@
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>array([[0.84022016, 0.50646694],
-       [0.58326051, 0.6283461 ],
-       [0.99693373, 0.84356097],
-       [0.37102603, 0.68588487],
-       [0.60948117, 0.78216139],
-       [0.15416685, 0.33399101]])
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>array([[0.31731293, 0.84960763],
+       [0.62304474, 0.29383461],
+       [0.53965424, 0.10435204],
+       [0.47887492, 0.64019146],
+       [0.32677599, 0.1667115 ],
+       [0.28056646, 0.03429233]])
 </pre></div>
 </div>
 </div>
@@ -1024,9 +1116,9 @@
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>array([[0.84022016, 0.50646694, 0.58326051, 0.6283461 ],
-       [0.99693373, 0.84356097, 0.37102603, 0.68588487],
-       [0.60948117, 0.78216139, 0.15416685, 0.33399101]])
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>array([[0.31731293, 0.84960763, 0.62304474, 0.29383461],
+       [0.53965424, 0.10435204, 0.47887492, 0.64019146],
+       [0.32677599, 0.1667115 , 0.28056646, 0.03429233]])
 </pre></div>
 </div>
 </div>
@@ -1039,18 +1131,14 @@
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>array([[0.84022016, 0.50646694, 0.58326051, 0.6283461 ],
-       [0.99693373, 0.84356097, 0.37102603, 0.68588487],
-       [0.60948117, 0.78216139, 0.15416685, 0.33399101]])
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>array([[0.31731293, 0.84960763, 0.62304474, 0.29383461],
+       [0.53965424, 0.10435204, 0.47887492, 0.64019146],
+       [0.32677599, 0.1667115 , 0.28056646, 0.03429233]])
 </pre></div>
 </div>
 </div>
 </div>
 <p>Why do it this way? It lets us use the <code class="docutils literal notranslate"><span class="pre">np.</span></code> pre-fix, which means that Python won’t get confused. For example there’s a <code class="docutils literal notranslate"><span class="pre">np.resize()</span></code> method and a regular <code class="docutils literal notranslate"><span class="pre">.resize()</span></code> method. You also need the <code class="docutils literal notranslate"><span class="pre">np.</span></code> pre-fix in order to be able to put your cursor over the code to get help in VS Code.</p>
-<div class="admonition note">
-<p class="admonition-title">Note</p>
-<p>Our textbook tends to write the code this way.</p>
-</div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">x</span><span class="o">.</span><span class="n">resize</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span>
@@ -1060,7 +1148,7 @@
 <div class="cell_output docutils container">
 <div class="output traceback highlight-ipythontb notranslate"><div class="highlight"><pre><span></span><span class="gt">---------------------------------------------------------------------------</span>
 <span class="ne">ValueError</span><span class="g g-Whitespace">                                </span>Traceback (most recent call last)
-<span class="o">/</span><span class="n">var</span><span class="o">/</span><span class="n">folders</span><span class="o">/</span><span class="n">sm</span><span class="o">/</span><span class="n">f4lq92s11392x68kwf0scq3w0000gn</span><span class="o">/</span><span class="n">T</span><span class="o">/</span><span class="n">ipykernel_90007</span><span class="o">/</span><span class="mf">582752103.</span><span class="n">py</span> <span class="ow">in</span> <span class="o">&lt;</span><span class="n">module</span><span class="o">&gt;</span>
+<span class="o">/</span><span class="n">var</span><span class="o">/</span><span class="n">folders</span><span class="o">/</span><span class="n">sm</span><span class="o">/</span><span class="n">f4lq92s11392x68kwf0scq3w0000gn</span><span class="o">/</span><span class="n">T</span><span class="o">/</span><span class="n">ipykernel_83526</span><span class="o">/</span><span class="mf">582752103.</span><span class="n">py</span> <span class="ow">in</span> <span class="o">&lt;</span><span class="n">module</span><span class="o">&gt;</span>
 <span class="ne">----&gt; </span><span class="mi">1</span> <span class="n">x</span><span class="o">.</span><span class="n">resize</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span>
 
 <span class="ne">ValueError</span>: cannot resize an array that references or is referenced
@@ -1078,17 +1166,17 @@
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>array([[0.5279706 , 0.26466664]])
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>array([[0.91298579, 0.41171994]])
 </pre></div>
 </div>
 </div>
 </div>
 <p>Much better!</p>
 <p>You’ll see code written a variety of ways when looking for help online or looking at different books. While this stuff can be confusing at first, it’s helpful to kind of understand what’s going on, so that you can see the subtle differences in syntax and why they matter.</p>
-</div>
-</div>
-<div class="section" id="indexing-and-slicing">
-<h2><span class="section-number">3.2.5. </span>Indexing and Slicing<a class="headerlink" href="#indexing-and-slicing" title="Permalink to this headline">¶</a></h2>
+</section>
+</section>
+<section id="indexing-and-slicing">
+<h2><span class="section-number">3.2.5. </span>Indexing and Slicing<a class="headerlink" href="#indexing-and-slicing" title="Permalink to this headline">#</a></h2>
 <p>We’ve seen indexing and slicing already. Let’s look at how we can pull a particular number, row, or column out of an array. There are three particular pieces of syntax to pay attention to: we are using square brackets with arrays <code class="docutils literal notranslate"><span class="pre">[]</span></code>, use are using a comma <code class="docutils literal notranslate"><span class="pre">,</span></code> to separate the different axis (e.g. rows and columns in a two-dimensional array), and we are using a colon <code class="docutils literal notranslate"><span class="pre">:</span></code> to <strong>slice</strong> and get back certain parts of the array.</p>
 <p>Let’s create a simple 1-D array to start, the numbers 0 - 9. Remember how Python starts indexing at 0?</p>
 <div class="cell docutils container">
@@ -1178,10 +1266,10 @@
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>array([[9, 7, 4, 2, 7, 1],
-       [9, 4, 6, 3, 9, 2],
-       [8, 3, 8, 9, 9, 7],
-       [2, 4, 3, 4, 2, 8]])
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>array([[6, 2, 5, 0, 7, 1],
+       [3, 4, 2, 9, 0, 8],
+       [9, 6, 0, 6, 6, 8],
+       [0, 0, 2, 4, 3, 5]])
 </pre></div>
 </div>
 </div>
@@ -1194,7 +1282,7 @@
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>2
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>3
 </pre></div>
 </div>
 </div>
@@ -1207,7 +1295,7 @@
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>array([2, 4, 3, 4, 2, 8])
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>array([0, 0, 2, 4, 3, 5])
 </pre></div>
 </div>
 </div>
@@ -1220,7 +1308,7 @@
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>array([7, 9, 9, 2])
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>array([7, 0, 6, 3])
 </pre></div>
 </div>
 </div>
@@ -1233,8 +1321,8 @@
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>array([[9, 7, 4, 2, 7, 1],
-       [9, 4, 6, 3, 9, 2]])
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>array([[6, 2, 5, 0, 7, 1],
+       [3, 4, 2, 9, 0, 8]])
 </pre></div>
 </div>
 </div>
@@ -1247,8 +1335,8 @@
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>array([[9, 7, 4, 2, 7, 1],
-       [9, 4, 6, 3, 9, 2]])
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>array([[6, 2, 5, 0, 7, 1],
+       [3, 4, 2, 9, 0, 8]])
 </pre></div>
 </div>
 </div>
@@ -1261,10 +1349,10 @@
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>array([[9, 7],
-       [9, 4],
-       [8, 3],
-       [2, 4]])
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>array([[6, 2],
+       [3, 4],
+       [9, 6],
+       [0, 0]])
 </pre></div>
 </div>
 </div>
@@ -1278,8 +1366,8 @@
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>array([[6, 3],
-       [8, 9]])
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>array([[2, 9],
+       [0, 6]])
 </pre></div>
 </div>
 </div>
@@ -1293,17 +1381,17 @@
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>array([[   9,    7,    4,    2,    7,    1],
-       [   9, 1000,    6,    3,    9,    2],
-       [   8,    3,    8,    9,    9,    7],
-       [   2,    4,    3,    4,    2,    8]])
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>array([[   6,    2,    5,    0,    7,    1],
+       [   3, 1000,    2,    9,    0,    8],
+       [   9,    6,    0,    6,    6,    8],
+       [   0,    0,    2,    4,    3,    5]])
 </pre></div>
 </div>
 </div>
 </div>
-</div>
-<div class="section" id="vectorization">
-<h2><span class="section-number">3.2.6. </span>Vectorization<a class="headerlink" href="#vectorization" title="Permalink to this headline">¶</a></h2>
+</section>
+<section id="vectorization">
+<h2><span class="section-number">3.2.6. </span>Vectorization<a class="headerlink" href="#vectorization" title="Permalink to this headline">#</a></h2>
 <p>Vectorization let’s us avoid slow, inefficient loops. Let’s look at example.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -1354,14 +1442,14 @@
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Vectorized operation is 4.00x faster than looping here.
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Vectorized operation is 3.63x faster than looping here.
 </pre></div>
 </div>
 </div>
 </div>
-</div>
-<div class="section" id="broadcasting">
-<h2><span class="section-number">3.2.7. </span>Broadcasting<a class="headerlink" href="#broadcasting" title="Permalink to this headline">¶</a></h2>
+</section>
+<section id="broadcasting">
+<h2><span class="section-number">3.2.7. </span>Broadcasting<a class="headerlink" href="#broadcasting" title="Permalink to this headline">#</a></h2>
 <p>We’ll end with <strong>broadcasting</strong>. Arrays of different dimensions can’t be directly used in arithmetic, element-by-element, operations. For example, let’s create two arrays of different sizes and try adding them together.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -1374,7 +1462,7 @@
 <div class="cell_output docutils container">
 <div class="output traceback highlight-ipythontb notranslate"><div class="highlight"><pre><span></span><span class="gt">---------------------------------------------------------------------------</span>
 <span class="ne">ValueError</span><span class="g g-Whitespace">                                </span>Traceback (most recent call last)
-<span class="o">/</span><span class="n">var</span><span class="o">/</span><span class="n">folders</span><span class="o">/</span><span class="n">sm</span><span class="o">/</span><span class="n">f4lq92s11392x68kwf0scq3w0000gn</span><span class="o">/</span><span class="n">T</span><span class="o">/</span><span class="n">ipykernel_94648</span><span class="o">/</span><span class="mf">2577290910.</span><span class="n">py</span> <span class="ow">in</span> <span class="o">&lt;</span><span class="n">module</span><span class="o">&gt;</span>
+<span class="o">/</span><span class="n">var</span><span class="o">/</span><span class="n">folders</span><span class="o">/</span><span class="n">sm</span><span class="o">/</span><span class="n">f4lq92s11392x68kwf0scq3w0000gn</span><span class="o">/</span><span class="n">T</span><span class="o">/</span><span class="n">ipykernel_82966</span><span class="o">/</span><span class="mf">2577290910.</span><span class="n">py</span> <span class="ow">in</span> <span class="o">&lt;</span><span class="n">module</span><span class="o">&gt;</span>
 <span class="g g-Whitespace">      </span><span class="mi">1</span> <span class="n">a</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">ones</span><span class="p">((</span><span class="mi">2</span><span class="p">,</span> <span class="mi">2</span><span class="p">))</span>
 <span class="g g-Whitespace">      </span><span class="mi">2</span> <span class="n">b</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">ones</span><span class="p">((</span><span class="mi">3</span><span class="p">,</span> <span class="mi">3</span><span class="p">))</span>
 <span class="ne">----&gt; </span><span class="mi">3</span> <span class="n">a</span> <span class="o">+</span> <span class="n">b</span>
@@ -1576,8 +1664,8 @@
 </div>
 <p>Python is <strong>broadcasting</strong>, which means that it is doing that <code class="docutils literal notranslate"><span class="pre">.repeat()</span></code> for us to get the multiplication to work out. We now have the correct revenue for each product by day!</p>
 <p>We’ll go over <a class="reference external" href="https://www.datacamp.com/community/tutorials/python-scipy-tutorial#linear">matrix multiplication in Python</a> more when we get to some portfolio mathematics and using <a class="reference external" href="https://www.datacamp.com/community/blog/python-scipy-cheat-sheet">SciPy</a>.</p>
-</div>
-</div>
+</section>
+</section>
 
     <script type="text/x-thebe-config">
     {
@@ -1601,9 +1689,11 @@
 
               </div>
               
-            
-                <!-- Previous / next buttons -->
-<div class='prev-next-area'> 
+            </main>
+            <footer class="footer-article noprint">
+                
+    <!-- Previous / next buttons -->
+<div class='prev-next-area'>
     <a class='left-prev' id="prev-link" href="3_0_comp101.html" title="previous page">
         <i class="fas fa-angle-left"></i>
         <div class="prev-next-info">
@@ -1619,23 +1709,27 @@
     <i class="fas fa-angle-right"></i>
     </a>
 </div>
-            
+            </footer>
         </div>
     </div>
-    <footer class="footer">
-  <p>
+    <div class="footer-content row">
+        <footer class="col footer"><p>
+  
+    By Prof. Adam Aiken<br/>
+  
+</p>
+        </footer>
+    </div>
     
-      By Prof. Adam Aiken<br/>
-    
-  </p>
-</footer>
-</main>
+</div>
 
 
       </div>
     </div>
   
-  <script src="../_static/js/index.be7d3bbb2ef33a8344ce.js"></script>
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="../_static/scripts/pydata-sphinx-theme.js?digest=1999514e3f237ded88cf"></script>
+
 
   </body>
 </html>

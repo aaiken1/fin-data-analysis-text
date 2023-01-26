@@ -4,11 +4,13 @@
 <html>
   <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
     <title>1. Why Python and finance? &#8212; Data Analysis in Finance</title>
     
-  <link href="../_static/css/theme.css" rel="stylesheet">
-  <link href="../_static/css/index.ff1ffe594081f20da1ef19478df9384b.css" rel="stylesheet">
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../_static/styles/theme.css?digest=1999514e3f237ded88cf" rel="stylesheet">
+<link href="../_static/styles/pydata-sphinx-theme.css?digest=1999514e3f237ded88cf" rel="stylesheet">
 
     
   <link rel="stylesheet"
@@ -18,36 +20,35 @@
   <link rel="preload" as="font" type="font/woff2" crossorigin
     href="../_static/vendor/fontawesome/5.13.0/webfonts/fa-brands-400.woff2">
 
-    
-      
-
-    
     <link rel="stylesheet" type="text/css" href="../_static/pygments.css" />
-    <link rel="stylesheet" type="text/css" href="../_static/sphinx-book-theme.css?digest=c3fdc42140077d1ad13ad2f1588a4309" />
+    <link rel="stylesheet" href="../_static/styles/sphinx-book-theme.css?digest=5115cc725059bd94278eecd172e13a965bf8f5a9" type="text/css" />
     <link rel="stylesheet" type="text/css" href="../_static/togglebutton.css" />
     <link rel="stylesheet" type="text/css" href="../_static/copybutton.css" />
     <link rel="stylesheet" type="text/css" href="../_static/mystnb.css" />
     <link rel="stylesheet" type="text/css" href="../_static/sphinx-thebe.css" />
-    <link rel="stylesheet" type="text/css" href="../_static/panels-main.c949a650a448cc0ae9fd3441c0e17fb0.css" />
-    <link rel="stylesheet" type="text/css" href="../_static/panels-variables.06eb56fa6e07937060861dad626602ad.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/design-style.b7bb847fb20b106c3d81b95245e65545.min.css" />
     
-  <link rel="preload" as="script" href="../_static/js/index.be7d3bbb2ef33a8344ce.js">
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../_static/scripts/pydata-sphinx-theme.js?digest=1999514e3f237ded88cf">
 
     <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
     <script src="../_static/jquery.js"></script>
     <script src="../_static/underscore.js"></script>
     <script src="../_static/doctools.js"></script>
-    <script src="../_static/togglebutton.js"></script>
     <script src="../_static/clipboard.min.js"></script>
     <script src="../_static/copybutton.js"></script>
+    <script src="../_static/scripts/sphinx-book-theme.js?digest=9c920249402e914e316237a7dbc6769907cce411"></script>
+    <script>let toggleHintShow = 'Click to show';</script>
+    <script>let toggleHintHide = 'Click to hide';</script>
+    <script>let toggleOpenOnPrint = 'true';</script>
+    <script src="../_static/togglebutton.js"></script>
     <script>var togglebuttonSelector = '.toggle, .admonition.dropdown, .tag_hide_input div.cell_input, .tag_hide-input div.cell_input, .tag_hide_output div.cell_output, .tag_hide-output div.cell_output, .tag_hide_cell.cell, .tag_hide-cell.cell';</script>
-    <script src="../_static/sphinx-book-theme.d59cb220de22ca1c485ebbdc042f0030.js"></script>
-    <script async="async" src="https://unpkg.com/thebe@0.5.1/lib/index.js"></script>
-    <script>
-        const thebe_selector = ".thebe"
-        const thebe_selector_input = "pre"
-        const thebe_selector_output = ".output"
-    </script>
+    <script src="../_static/design-tabs.js"></script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"
+const thebe_selector = ".thebe,.cell"
+const thebe_selector_input = "pre"
+const thebe_selector_output = ".output, .cell_output"
+</script>
     <script async="async" src="../_static/sphinx-thebe.js"></script>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
@@ -60,7 +61,21 @@
     <!-- Google Analytics -->
     
   </head>
-  <body data-spy="scroll" data-target="#bd-toc-nav" data-offset="80">
+  <body data-spy="scroll" data-target="#bd-toc-nav" data-offset="60">
+<!-- Checkboxes to toggle the left sidebar -->
+<input type="checkbox" class="sidebar-toggle" name="__navigation" id="__navigation" aria-label="Toggle navigation sidebar">
+<label class="overlay overlay-navbar" for="__navigation">
+    <div class="visually-hidden">Toggle navigation sidebar</div>
+</label>
+<!-- Checkboxes to toggle the in-page toc -->
+<input type="checkbox" class="sidebar-toggle" name="__page-toc" id="__page-toc" aria-label="Toggle in-page Table of Contents">
+<label class="overlay overlay-pagetoc" for="__page-toc">
+    <div class="visually-hidden">Toggle in-page Table of Contents</div>
+</label>
+<!-- Headers at the top -->
+<div class="announcement header-item noprint"></div>
+<div class="header header-item noprint"></div>
+
     
     <div class="container-fluid" id="banner"></div>
 
@@ -69,9 +84,10 @@
     <div class="container-xl">
       <div class="row">
           
-<div class="col-12 col-md-3 bd-sidebar site-navigation show" id="site-navigation">
-    
-        <div class="navbar-brand-box">
+<!-- Sidebar -->
+<div class="bd-sidebar noprint" id="site-navigation">
+    <div class="bd-sidebar__content">
+        <div class="bd-sidebar__top"><div class="navbar-brand-box">
     <a class="navbar-brand text-wrap" href="../index.html">
       
         <!-- `logo` is deprecated in Sphinx 4.0, so remove this when we stop supporting 3 -->
@@ -89,14 +105,15 @@
   <input type="search" class="form-control" name="q" id="search-input" placeholder="Search this book..." aria-label="Search this book..." autocomplete="off" >
 </form><nav class="bd-links" id="bd-docs-nav" aria-label="Main">
     <div class="bd-toc-item active">
-        <ul class="nav bd-sidenav">
- <li class="toctree-l1">
-  <a class="reference internal" href="../intro.html">
-   Welcome
-  </a>
- </li>
-</ul>
-<p aria-level="2" class="caption" role="heading">
+        
+        <ul class="nav bd-sidenav bd-sidenav__home-link">
+            <li class="toctree-l1">
+                <a class="reference internal" href="../intro.html">
+                    Welcome
+                </a>
+            </li>
+        </ul>
+        <p aria-level="2" class="caption" role="heading">
  <span class="caption-text">
   Getting Started
  </span>
@@ -187,27 +204,27 @@
   <ul>
    <li class="toctree-l2">
     <a class="reference internal" href="4_0_dataframes.html">
-     4.2. Data importing
+     4.1. Data importing
     </a>
    </li>
    <li class="toctree-l2">
     <a class="reference internal" href="4_1_pandas.html">
-     4.3. pandas
+     4.2. pandas
     </a>
    </li>
    <li class="toctree-l2">
     <a class="reference internal" href="4_2_cleaning_data.html">
-     4.4. Cleaning our data
+     4.3. Cleaning our data
     </a>
    </li>
    <li class="toctree-l2">
     <a class="reference internal" href="4_3_eda.html">
-     4.5. Exploratory data analysis (EDA)
+     4.4. Exploratory data analysis (EDA)
     </a>
    </li>
    <li class="toctree-l2">
     <a class="reference internal" href="4_4_merge_shape.html">
-     4.6. Merging and reshaping data
+     4.5. Merging and reshaping data
     </a>
    </li>
   </ul>
@@ -329,104 +346,177 @@
 </ul>
 
     </div>
-</nav> <!-- To handle the deprecated key -->
-
-<div class="navbar_extra_footer">
-  Powered by <a href="https://jupyterbook.org">Jupyter Book</a>
-</div>
-
-</div>
-
-
-          
-
-
-          
-<main class="col py-md-3 pl-md-4 bd-content overflow-auto" role="main">
-    
-    <div class="topbar container-xl fixed-top">
-    <div class="topbar-contents row">
-        <div class="col-12 col-md-3 bd-topbar-whitespace site-navigation show"></div>
-        <div class="col pl-md-4 topbar-main">
+</nav></div>
+        <div class="bd-sidebar__bottom">
+             <!-- To handle the deprecated key -->
             
-            <button id="navbar-toggler" class="navbar-toggler ml-0" type="button" data-toggle="collapse"
-                data-toggle="tooltip" data-placement="bottom" data-target=".site-navigation" aria-controls="navbar-menu"
-                aria-expanded="true" aria-label="Toggle navigation" aria-controls="site-navigation"
-                title="Toggle navigation" data-toggle="tooltip" data-placement="left">
-                <i class="fas fa-bars"></i>
-                <i class="fas fa-arrow-left"></i>
-                <i class="fas fa-arrow-up"></i>
-            </button>
-            
-            
-<div class="dropdown-buttons-trigger">
-    <button id="dropdown-buttons-trigger" class="btn btn-secondary topbarbtn" aria-label="Download this page"><i
-            class="fas fa-download"></i></button>
-
-    <div class="dropdown-buttons">
-        <!-- ipynb file if we had a myst markdown file -->
-        
-        <!-- Download raw file -->
-        <a class="dropdown-buttons" href="../_sources/chapters/1_finpyth.ipynb"><button type="button"
-                class="btn btn-secondary topbarbtn" title="Download source file" data-toggle="tooltip"
-                data-placement="left">.ipynb</button></a>
-        <!-- Download PDF via print -->
-        <button type="button" id="download-print" class="btn btn-secondary topbarbtn" title="Print to PDF"
-                onclick="printPdf(this)" data-toggle="tooltip" data-placement="left">.pdf</button>
-    </div>
-</div>
-
-            <!-- Source interaction buttons -->
-
-<div class="dropdown-buttons-trigger">
-    <button id="dropdown-buttons-trigger" class="btn btn-secondary topbarbtn"
-        aria-label="Connect with source repository"><i class="fab fa-github"></i></button>
-    <div class="dropdown-buttons sourcebuttons">
-        <a class="repository-button"
-            href="https://github.com/executablebooks/jupyter-book"><button type="button" class="btn btn-secondary topbarbtn"
-                data-toggle="tooltip" data-placement="left" title="Source repository"><i
-                    class="fab fa-github"></i>repository</button></a>
-        
-        
-    </div>
-</div>
-
-            <!-- Full screen (wrap in <a> to have style consistency -->
-
-<a class="full-screen-button"><button type="button" class="btn btn-secondary topbarbtn" data-toggle="tooltip"
-        data-placement="bottom" onclick="toggleFullScreen()" aria-label="Fullscreen mode"
-        title="Fullscreen mode"><i
-            class="fas fa-expand"></i></button></a>
-
-            <!-- Launch buttons -->
-
-<div class="dropdown-buttons-trigger">
-    <button id="dropdown-buttons-trigger" class="btn btn-secondary topbarbtn"
-        aria-label="Launch interactive content"><i class="fas fa-rocket"></i></button>
-    <div class="dropdown-buttons">
-        
-        <a class="binder-button" href="https://mybinder.org/v2/gh/executablebooks/jupyter-book/master?urlpath=tree/docs/chapters/1_finpyth.ipynb"><button type="button"
-                class="btn btn-secondary topbarbtn" title="Launch Binder" data-toggle="tooltip"
-                data-placement="left"><img class="binder-button-logo"
-                    src="../_static/images/logo_binder.svg"
-                    alt="Interact on binder">Binder</button></a>
-        
-        
-        
-        
-    </div>
-</div>
-
-        </div>
-
-        <!-- Table of contents -->
-        <div class="d-none d-md-block col-md-2 bd-toc show noprint">
-            
-            <div class="tocsection onthispage pt-5 pb-3">
-                <i class="fas fa-list"></i> Contents
+            <div class="navbar_extra_footer">
+            Powered by <a href="https://jupyterbook.org">Jupyter Book</a>
             </div>
-            <nav id="bd-toc-nav" aria-label="Page">
-                <ul class="visible nav section-nav flex-column">
+            
+        </div>
+    </div>
+    <div id="rtd-footer-container"></div>
+</div>
+
+
+          
+
+
+          
+<!-- A tiny helper pixel to detect if we've scrolled -->
+<div class="sbt-scroll-pixel-helper"></div>
+<!-- Main content -->
+<div class="col py-0 content-container">
+    
+    <div class="header-article row sticky-top noprint">
+        
+
+
+
+<div class="col py-1 d-flex header-article-main">
+    <div class="header-article__left">
+        
+        <label for="__navigation"
+  class="headerbtn"
+  data-toggle="tooltip"
+data-placement="right"
+title="Toggle navigation"
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-bars"></i>
+  </span>
+
+</label>
+
+        
+    </div>
+    <div class="header-article__right">
+<div class="menu-dropdown menu-dropdown-launch-buttons">
+  <button class="headerbtn menu-dropdown__trigger"
+      aria-label="Launch interactive content">
+      <i class="fas fa-rocket"></i>
+  </button>
+  <div class="menu-dropdown__content">
+    <ul>
+      <li>
+        <a href="https://mybinder.org/v2/gh/executablebooks/jupyter-book/master?urlpath=tree/docs/chapters/1_finpyth.ipynb"
+   class="headerbtn"
+   data-toggle="tooltip"
+data-placement="left"
+title="Launch on Binder"
+>
+  
+
+<span class="headerbtn__icon-container">
+  
+    <img src="../_static/images/logo_binder.svg">
+  </span>
+<span class="headerbtn__text-container">Binder</span>
+</a>
+
+      </li>
+      
+    </ul>
+  </div>
+</div>
+
+<button onclick="toggleFullScreen()"
+  class="headerbtn"
+  data-toggle="tooltip"
+data-placement="bottom"
+title="Fullscreen mode"
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+<a href="https://github.com/executablebooks/jupyter-book"
+   class="headerbtn"
+   data-toggle="tooltip"
+data-placement="bottom"
+title="Source repository"
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fab fa-github"></i>
+  </span>
+
+</a>
+
+<div class="menu-dropdown menu-dropdown-download-buttons">
+  <button class="headerbtn menu-dropdown__trigger"
+      aria-label="Download this page">
+      <i class="fas fa-download"></i>
+  </button>
+  <div class="menu-dropdown__content">
+    <ul>
+      <li>
+        <a href="../_sources/chapters/1_finpyth.ipynb"
+   class="headerbtn"
+   data-toggle="tooltip"
+data-placement="left"
+title="Download source file"
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="headerbtn__text-container">.ipynb</span>
+</a>
+
+      </li>
+      
+      <li>
+        
+<button onclick="printPdf(this)"
+  class="headerbtn"
+  data-toggle="tooltip"
+data-placement="left"
+title="Print to PDF"
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="headerbtn__text-container">.pdf</span>
+</button>
+
+      </li>
+      
+    </ul>
+  </div>
+</div>
+<label for="__page-toc"
+  class="headerbtn headerbtn-page-toc"
+  
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-list"></i>
+  </span>
+
+</label>
+
+    </div>
+</div>
+
+<!-- Table of contents -->
+<div class="col-md-3 bd-toc show noprint">
+    <div class="tocsection onthispage pt-5 pb-3">
+        <i class="fas fa-list"></i> Contents
+    </div>
+    <nav id="bd-toc-nav" aria-label="Page">
+        <ul class="visible nav section-nav flex-column">
  <li class="toc-h2 nav-item toc-entry">
   <a class="reference internal nav-link" href="#a-first-look-at-python">
    1.1. A first look at Python
@@ -434,12 +524,11 @@
  </li>
 </ul>
 
-            </nav>
-        </div>
-    </div>
+    </nav>
 </div>
-    <div id="main-content" class="row">
-        <div class="col-12 col-md-9 pl-md-3 pr-md-0">
+    </div>
+    <div class="article row">
+        <div class="col pl-md-3 pl-lg-5 content-container">
             <!-- Table of contents that is only displayed when printing the page -->
             <div id="jb-print-docs-body" class="onlyprint">
                 <h1>Why Python and finance?</h1>
@@ -463,11 +552,12 @@
                     </div>
                 </div>
             </div>
-            
+            <main id="main-content" role="main">
+                
               <div>
                 
-  <div class="tex2jax_ignore mathjax_ignore section" id="why-python-and-finance">
-<h1><span class="section-number">1. </span>Why Python and finance?<a class="headerlink" href="#why-python-and-finance" title="Permalink to this headline">¶</a></h1>
+  <section class="tex2jax_ignore mathjax_ignore" id="why-python-and-finance">
+<h1><span class="section-number">1. </span>Why Python and finance?<a class="headerlink" href="#why-python-and-finance" title="Permalink to this headline">#</a></h1>
 <p>Being able to code, even just a little, is becoming an <a class="reference external" href="https://www.efinancialcareers.co.uk/news/2018/11/python-for-finance">integral part of finance</a>. <a class="reference external" href="https://www.wsj.com/articles/wall-street-erases-the-line-between-its-jocks-and-nerds-1534564810?mod=article_inline">Everything is tech now</a>.</p>
 <p>I think of finance career paths as having two stages. First, you get paid for what you know, helping your team, and how fast you can do it. Then, you get paid for convincing other people that your ideas make sense, that your firm’s product is the best, that you can make money. Now is the time to work on Stage One and learn as much as we can.</p>
 <p>Want to work at a <a class="reference external" href="https://www.efinancialcareers.co.uk/news/2019/11/python-replaced-excel-banking">bank</a>? <a class="reference external" href="https://www.ft.com/content/4c17d6ce-c8b2-11e8-ba8f-ee390057b8c9">Coding is a key skill</a></p>
@@ -478,14 +568,19 @@
 <blockquote>
 <div><p>Source: <a class="reference external" href="https://www.efinancialcareers.co.uk/news/2019/11/python-replaced-excel-banking">https://www.efinancialcareers.co.uk/news/2019/11/python-replaced-excel-banking</a></p>
 </div></blockquote>
-<p>FinTech? Outside of customer support roles, FinTech is <a class="reference external" href="https://jobs.solana.com/jobs">10% Fin and 90% Tech</a>.</p>
-<div class="margin figure align-center" id="jpmorgan-png">
+<figure class="margin align-center" id="jpmorgan-png">
 <img alt="../_images/01-jpmorgan.png" src="../_images/01-jpmorgan.png" />
-<p class="caption"><span class="caption-number">Fig. 1.1 </span><span class="caption-text">Might as well learn now!</span><a class="headerlink" href="#jpmorgan-png" title="Permalink to this image">¶</a></p>
-</div>
-<p>Wealth management? Roboadvisors (and traditional firms) are using <a class="reference external" href="https://www.wealthfront.com/careers">model portfolios that are rebalanced automatically</a>. Some wealth management firms have <a class="reference external" href="https://ofdollarsanddata.com/how-to-invest-your-money-when-inflation-is-high/">data scientists</a>. Even the traditional firms, like <a class="reference external" href="https://www.vanguardjobs.com/job-search-results/?category=Data%20%26%20Analytics">Vanguard</a> are hiring for data analysts. And they have their own <a class="reference external" href="https://investor.vanguard.com/advice/digital-advisor/">digital advisor too</a>.</p>
-<p>We are going to learn Python because it is <a class="reference external" href="https://bootcamp.cvn.columbia.edu/blog/best-programming-languages-finance-fintech/">ubiquitous in finance</a>. It’s not the fastest language, or the latest, or the one being used to <a class="reference external" href="https://solana.com/news/getting-started-with-solana-development">write smart contracts on the Blockchain</a>. But, it is the one everyone kind of assumes that you will know if you look for a more technical role.</p>
+<figcaption>
+<p><span class="caption-number">Fig. 1.1 </span><span class="caption-text">Might as well learn now!</span><a class="headerlink" href="#jpmorgan-png" title="Permalink to this image">#</a></p>
+</figcaption>
+</figure>
+<p>Wealth management? Roboadvisors (and traditional firms) are using <a class="reference external" href="https://www.wealthfront.com/careers">model portfolios that are rebalanced automatically</a>. Some wealth management firms have <a class="reference external" href="https://ofdollarsanddata.com/how-to-invest-your-money-when-inflation-is-high/">data scientists</a>.</p>
+<p>Even the traditional firms, like <a class="reference external" href="https://www.vanguardjobs.com/job-search-results/?category=Data%20%26%20Analytics">Vanguard</a> are hiring for data analysts. And they have their own <a class="reference external" href="https://investor.vanguard.com/advice/digital-advisor/">digital advisor too</a>.</p>
+<p>And, of course, most firms now have their own analytics teams. And CFO and CIO roles can get blended together as firms use more advanced data capabilities to forecast and plan. You can even get some <a class="reference external" href="https://www.wsj.com/articles/anthem-looks-to-fuel-ai-efforts-with-petabytes-of-synthetic-data-11652781602">pretty unique cases in the finance industry</a>.</p>
+<p>We are going to learn Python because it is <a class="reference external" href="https://bootcamp.cvn.columbia.edu/blog/best-programming-languages-finance-fintech/">ubiquitous in finance</a>. It’s not the fastest language, or the latest. But, it is the one everyone kind of assumes that you will know if you look for a more technical role.</p>
 <p>I want to prove to you that Python, and coding more generally, is extremely helpful even outside of a purely technical role. Python and Excel even <a class="reference external" href="https://www.efinancialcareers.com/news/2021/11/python-excel">go well together</a>! And you don’t have to be a computer science major to get these skills, <a class="reference external" href="https://www.hamiltonproject.org/papers/major_decisions_what_graduates_earn_over_their_lifetimes">though that never hurt anyone</a>. Life-long learning is important, even for <a class="reference external" href="https://www.efinancialcareers.co.uk/news/2022/01/top-machine-learning-courses">Goldman MDs apparently</a>.</p>
+<p>We are going to cover material that might be found in a data science or analytics curriculum, but from a finance perspective.  There’s <strong>domain knowledge</strong>, which helps us know what questions to ask. Don’t under estimate this part – too many people go right to running a regression or, worse, some fancy machine learning thing without knowing the what and why. There’s <strong>coding knowledge</strong>, the Python part. And then there’s the <strong>statistics knowledge</strong>, which tells you what to code to answer the question. Few people (no one?) is an expert in all parts, which is why data-oriented teams are so interdisciplinary and filled with physics majors, biostats, computer scientists, and folks with a more traditional business background.</p>
+<p>These jobs are changing too, though. <a class="reference external" href="https://www.datacamp.com/blog/what-is-data-engineering">Data engineering</a>, or how to manage real-time data pipelines (e.g. the ETL process) is very important. You can’t answer data questions if your data are wrong!</p>
 <blockquote>
 <div><p>Before you start a sales and trading internship, I’d also suggest that you make sure you know quite a bit about Excel, Python and VBA. - Those three things will really make a difference to your ability to do real work.</p>
 </div></blockquote>
@@ -493,14 +588,16 @@
 <div><p>Source: <a class="reference external" href="https://www.efinancialcareers.co.uk/news/2022/01/investment-bank-internship">https://www.efinancialcareers.co.uk/news/2022/01/investment-bank-internship</a></p>
 </div></blockquote>
 <p>So, <strong>what are we going to do</strong>? Our textbook and these notes cover the basics of Python, enough to be dangerous. We’ll learn how to get our data into Python, how to clean it, how to visualize it, how to explore it, and how to use it. We’ll learn how to integrate our code with our finance knowledge, creating Markdown reports that combine code, output, and text. We’ll do all of this with a goal of creating a simple trading algorithm in mind. The trading algo isn’t really the end-product, though. I want you to get a foundation that will then let you explore on your own.</p>
-<div class="margin figure align-center" id="compliance-png">
+<figure class="margin align-center" id="compliance-png">
 <img alt="../_images/01-compliance.png" src="../_images/01-compliance.png" />
-<p class="caption"><span class="caption-number">Fig. 1.2 </span><span class="caption-text">Even jobs that don’t seem like tech, have some coding these days.</span><a class="headerlink" href="#compliance-png" title="Permalink to this image">¶</a></p>
-</div>
+<figcaption>
+<p><span class="caption-number">Fig. 1.2 </span><span class="caption-text">Even jobs that don’t seem like tech, have some coding these days.</span><a class="headerlink" href="#compliance-png" title="Permalink to this image">#</a></p>
+</figcaption>
+</figure>
 <p>This <a class="reference external" href="https://www.datacamp.com/community/tutorials/finance-python-trading">DataCamp tutorial on algorithmic trading in finance</a> will give you an idea of where we are going.</p>
-<div class="section" id="a-first-look-at-python">
-<h2><span class="section-number">1.1. </span>A first look at Python<a class="headerlink" href="#a-first-look-at-python" title="Permalink to this headline">¶</a></h2>
-<p>Let’s use an example from Chapter 1 of [Python for Finance, 2e](https://www.oreilly.com/library/view/python-for-finance/9781492024323/, just to see what Python can help us with. We’ll bring in some data and make a graph of prices and volatility. Something that comes up all the time. Python makes this not just easy - by writing down the code, we have a <strong>reproducible</strong> example. Compare this to Excel, where it can be difficult, if not impossible, to tell how someone got from start to finish. Our code gives us a <strong>recipe</strong> for how to do something.</p>
+<section id="a-first-look-at-python">
+<h2><span class="section-number">1.1. </span>A first look at Python<a class="headerlink" href="#a-first-look-at-python" title="Permalink to this headline">#</a></h2>
+<p>Let’s use an example from Chapter 1 of <a class="reference external" href="https://www.oreilly.com/library/view/python-for-finance/9781492024323/">Python for Finance, 2e</a>, just to see what Python can help us with. We’ll bring in some data and make a graph of prices and volatility. Something that comes up all the time. Python makes this not just easy - by writing down the code, we have a <strong>reproducible</strong> example. Compare this to Excel, where it can be difficult, if not impossible, to tell how someone got from start to finish. Our code gives us a <strong>recipe</strong> for how to do something.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Bring in the packages that we need. </span>
@@ -521,10 +618,10 @@
 </div>
 </div>
 </div>
-<div class="margin sidebar">
+<aside class="margin sidebar">
 <p class="sidebar-title">Finance knowledge is still crucial!</p>
 <p>Even if an entire financial product, like a Roboadvisor, is code-based, you still need finance theory to understand what you should be doing in the first place. Or else you end up making <a class="reference external" href="https://blog.wealthfront.com/updates-to-smart-beta/">mistakes</a> and creating products that underperform for predictable reasons.</p>
-</div>
+</aside>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Read in some eod prices and select just the S&amp;P 500</span>
@@ -568,8 +665,8 @@ memory usage: 33.4 KB
 <div class="cell_output docutils container">
 <img alt="../_images/1_finpyth_7_0.svg" src="../_images/1_finpyth_7_0.svg" /></div>
 </div>
-</div>
-</div>
+</section>
+</section>
 
     <script type="text/x-thebe-config">
     {
@@ -593,9 +690,11 @@ memory usage: 33.4 KB
 
               </div>
               
-            
-                <!-- Previous / next buttons -->
-<div class='prev-next-area'> 
+            </main>
+            <footer class="footer-article noprint">
+                
+    <!-- Previous / next buttons -->
+<div class='prev-next-area'>
     <a class='left-prev' id="prev-link" href="../intro.html" title="previous page">
         <i class="fas fa-angle-left"></i>
         <div class="prev-next-info">
@@ -611,23 +710,27 @@ memory usage: 33.4 KB
     <i class="fas fa-angle-right"></i>
     </a>
 </div>
-            
+            </footer>
         </div>
     </div>
-    <footer class="footer">
-  <p>
+    <div class="footer-content row">
+        <footer class="col footer"><p>
+  
+    By Prof. Adam Aiken<br/>
+  
+</p>
+        </footer>
+    </div>
     
-      By Prof. Adam Aiken<br/>
-    
-  </p>
-</footer>
-</main>
+</div>
 
 
       </div>
     </div>
   
-  <script src="../_static/js/index.be7d3bbb2ef33a8344ce.js"></script>
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="../_static/scripts/pydata-sphinx-theme.js?digest=1999514e3f237ded88cf"></script>
+
 
   </body>
 </html>

@@ -4,11 +4,13 @@
 <html>
   <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
     <title>9. Portfolio optimization &#8212; Data Analysis in Finance</title>
     
-  <link href="../_static/css/theme.css" rel="stylesheet">
-  <link href="../_static/css/index.ff1ffe594081f20da1ef19478df9384b.css" rel="stylesheet">
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../_static/styles/theme.css?digest=1999514e3f237ded88cf" rel="stylesheet">
+<link href="../_static/styles/pydata-sphinx-theme.css?digest=1999514e3f237ded88cf" rel="stylesheet">
 
     
   <link rel="stylesheet"
@@ -18,39 +20,40 @@
   <link rel="preload" as="font" type="font/woff2" crossorigin
     href="../_static/vendor/fontawesome/5.13.0/webfonts/fa-brands-400.woff2">
 
-    
-      
-
-    
     <link rel="stylesheet" type="text/css" href="../_static/pygments.css" />
-    <link rel="stylesheet" type="text/css" href="../_static/sphinx-book-theme.css?digest=c3fdc42140077d1ad13ad2f1588a4309" />
+    <link rel="stylesheet" href="../_static/styles/sphinx-book-theme.css?digest=5115cc725059bd94278eecd172e13a965bf8f5a9" type="text/css" />
     <link rel="stylesheet" type="text/css" href="../_static/togglebutton.css" />
     <link rel="stylesheet" type="text/css" href="../_static/copybutton.css" />
     <link rel="stylesheet" type="text/css" href="../_static/mystnb.css" />
     <link rel="stylesheet" type="text/css" href="../_static/sphinx-thebe.css" />
-    <link rel="stylesheet" type="text/css" href="../_static/panels-main.c949a650a448cc0ae9fd3441c0e17fb0.css" />
-    <link rel="stylesheet" type="text/css" href="../_static/panels-variables.06eb56fa6e07937060861dad626602ad.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/design-style.b7bb847fb20b106c3d81b95245e65545.min.css" />
     
-  <link rel="preload" as="script" href="../_static/js/index.be7d3bbb2ef33a8344ce.js">
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../_static/scripts/pydata-sphinx-theme.js?digest=1999514e3f237ded88cf">
 
     <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
     <script src="../_static/jquery.js"></script>
     <script src="../_static/underscore.js"></script>
     <script src="../_static/doctools.js"></script>
-    <script src="../_static/togglebutton.js"></script>
     <script src="../_static/clipboard.min.js"></script>
     <script src="../_static/copybutton.js"></script>
+    <script src="../_static/scripts/sphinx-book-theme.js?digest=9c920249402e914e316237a7dbc6769907cce411"></script>
+    <script>let toggleHintShow = 'Click to show';</script>
+    <script>let toggleHintHide = 'Click to hide';</script>
+    <script>let toggleOpenOnPrint = 'true';</script>
+    <script src="../_static/togglebutton.js"></script>
     <script>var togglebuttonSelector = '.toggle, .admonition.dropdown, .tag_hide_input div.cell_input, .tag_hide-input div.cell_input, .tag_hide_output div.cell_output, .tag_hide-output div.cell_output, .tag_hide_cell.cell, .tag_hide-cell.cell';</script>
-    <script src="../_static/sphinx-book-theme.d59cb220de22ca1c485ebbdc042f0030.js"></script>
-    <script async="async" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
-    <script>window.MathJax = {"options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
-    <script async="async" src="https://unpkg.com/thebe@0.5.1/lib/index.js"></script>
-    <script>
-        const thebe_selector = ".thebe"
-        const thebe_selector_input = "pre"
-        const thebe_selector_output = ".output"
-    </script>
+    <script src="../_static/design-tabs.js"></script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"
+const thebe_selector = ".thebe,.cell"
+const thebe_selector_input = "pre"
+const thebe_selector_output = ".output, .cell_output"
+</script>
     <script async="async" src="../_static/sphinx-thebe.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+    <script src="https://unpkg.com/@jupyter-widgets/html-manager@^0.20.0/dist/embed-amd.js"></script>
+    <script>window.MathJax = {"options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
+    <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
     <link rel="next" title="10. Factor models" href="10_factor_models.html" />
@@ -62,7 +65,21 @@
     <!-- Google Analytics -->
     
   </head>
-  <body data-spy="scroll" data-target="#bd-toc-nav" data-offset="80">
+  <body data-spy="scroll" data-target="#bd-toc-nav" data-offset="60">
+<!-- Checkboxes to toggle the left sidebar -->
+<input type="checkbox" class="sidebar-toggle" name="__navigation" id="__navigation" aria-label="Toggle navigation sidebar">
+<label class="overlay overlay-navbar" for="__navigation">
+    <div class="visually-hidden">Toggle navigation sidebar</div>
+</label>
+<!-- Checkboxes to toggle the in-page toc -->
+<input type="checkbox" class="sidebar-toggle" name="__page-toc" id="__page-toc" aria-label="Toggle in-page Table of Contents">
+<label class="overlay overlay-pagetoc" for="__page-toc">
+    <div class="visually-hidden">Toggle in-page Table of Contents</div>
+</label>
+<!-- Headers at the top -->
+<div class="announcement header-item noprint"></div>
+<div class="header header-item noprint"></div>
+
     
     <div class="container-fluid" id="banner"></div>
 
@@ -71,9 +88,10 @@
     <div class="container-xl">
       <div class="row">
           
-<div class="col-12 col-md-3 bd-sidebar site-navigation show" id="site-navigation">
-    
-        <div class="navbar-brand-box">
+<!-- Sidebar -->
+<div class="bd-sidebar noprint" id="site-navigation">
+    <div class="bd-sidebar__content">
+        <div class="bd-sidebar__top"><div class="navbar-brand-box">
     <a class="navbar-brand text-wrap" href="../index.html">
       
         <!-- `logo` is deprecated in Sphinx 4.0, so remove this when we stop supporting 3 -->
@@ -91,14 +109,15 @@
   <input type="search" class="form-control" name="q" id="search-input" placeholder="Search this book..." aria-label="Search this book..." autocomplete="off" >
 </form><nav class="bd-links" id="bd-docs-nav" aria-label="Main">
     <div class="bd-toc-item active">
-        <ul class="nav bd-sidenav">
- <li class="toctree-l1">
-  <a class="reference internal" href="../intro.html">
-   Welcome
-  </a>
- </li>
-</ul>
-<p aria-level="2" class="caption" role="heading">
+        
+        <ul class="nav bd-sidenav bd-sidenav__home-link">
+            <li class="toctree-l1">
+                <a class="reference internal" href="../intro.html">
+                    Welcome
+                </a>
+            </li>
+        </ul>
+        <p aria-level="2" class="caption" role="heading">
  <span class="caption-text">
   Getting Started
  </span>
@@ -189,27 +208,27 @@
   <ul>
    <li class="toctree-l2">
     <a class="reference internal" href="4_0_dataframes.html">
-     4.2. Data importing
+     4.1. Data importing
     </a>
    </li>
    <li class="toctree-l2">
     <a class="reference internal" href="4_1_pandas.html">
-     4.3. pandas
+     4.2. pandas
     </a>
    </li>
    <li class="toctree-l2">
     <a class="reference internal" href="4_2_cleaning_data.html">
-     4.4. Cleaning our data
+     4.3. Cleaning our data
     </a>
    </li>
    <li class="toctree-l2">
     <a class="reference internal" href="4_3_eda.html">
-     4.5. Exploratory data analysis (EDA)
+     4.4. Exploratory data analysis (EDA)
     </a>
    </li>
    <li class="toctree-l2">
     <a class="reference internal" href="4_4_merge_shape.html">
-     4.6. Merging and reshaping data
+     4.5. Merging and reshaping data
     </a>
    </li>
   </ul>
@@ -331,104 +350,177 @@
 </ul>
 
     </div>
-</nav> <!-- To handle the deprecated key -->
-
-<div class="navbar_extra_footer">
-  Powered by <a href="https://jupyterbook.org">Jupyter Book</a>
-</div>
-
-</div>
-
-
-          
-
-
-          
-<main class="col py-md-3 pl-md-4 bd-content overflow-auto" role="main">
-    
-    <div class="topbar container-xl fixed-top">
-    <div class="topbar-contents row">
-        <div class="col-12 col-md-3 bd-topbar-whitespace site-navigation show"></div>
-        <div class="col pl-md-4 topbar-main">
+</nav></div>
+        <div class="bd-sidebar__bottom">
+             <!-- To handle the deprecated key -->
             
-            <button id="navbar-toggler" class="navbar-toggler ml-0" type="button" data-toggle="collapse"
-                data-toggle="tooltip" data-placement="bottom" data-target=".site-navigation" aria-controls="navbar-menu"
-                aria-expanded="true" aria-label="Toggle navigation" aria-controls="site-navigation"
-                title="Toggle navigation" data-toggle="tooltip" data-placement="left">
-                <i class="fas fa-bars"></i>
-                <i class="fas fa-arrow-left"></i>
-                <i class="fas fa-arrow-up"></i>
-            </button>
-            
-            
-<div class="dropdown-buttons-trigger">
-    <button id="dropdown-buttons-trigger" class="btn btn-secondary topbarbtn" aria-label="Download this page"><i
-            class="fas fa-download"></i></button>
-
-    <div class="dropdown-buttons">
-        <!-- ipynb file if we had a myst markdown file -->
-        
-        <!-- Download raw file -->
-        <a class="dropdown-buttons" href="../_sources/chapters/9_portfolio_opt.ipynb"><button type="button"
-                class="btn btn-secondary topbarbtn" title="Download source file" data-toggle="tooltip"
-                data-placement="left">.ipynb</button></a>
-        <!-- Download PDF via print -->
-        <button type="button" id="download-print" class="btn btn-secondary topbarbtn" title="Print to PDF"
-                onclick="printPdf(this)" data-toggle="tooltip" data-placement="left">.pdf</button>
-    </div>
-</div>
-
-            <!-- Source interaction buttons -->
-
-<div class="dropdown-buttons-trigger">
-    <button id="dropdown-buttons-trigger" class="btn btn-secondary topbarbtn"
-        aria-label="Connect with source repository"><i class="fab fa-github"></i></button>
-    <div class="dropdown-buttons sourcebuttons">
-        <a class="repository-button"
-            href="https://github.com/executablebooks/jupyter-book"><button type="button" class="btn btn-secondary topbarbtn"
-                data-toggle="tooltip" data-placement="left" title="Source repository"><i
-                    class="fab fa-github"></i>repository</button></a>
-        
-        
-    </div>
-</div>
-
-            <!-- Full screen (wrap in <a> to have style consistency -->
-
-<a class="full-screen-button"><button type="button" class="btn btn-secondary topbarbtn" data-toggle="tooltip"
-        data-placement="bottom" onclick="toggleFullScreen()" aria-label="Fullscreen mode"
-        title="Fullscreen mode"><i
-            class="fas fa-expand"></i></button></a>
-
-            <!-- Launch buttons -->
-
-<div class="dropdown-buttons-trigger">
-    <button id="dropdown-buttons-trigger" class="btn btn-secondary topbarbtn"
-        aria-label="Launch interactive content"><i class="fas fa-rocket"></i></button>
-    <div class="dropdown-buttons">
-        
-        <a class="binder-button" href="https://mybinder.org/v2/gh/executablebooks/jupyter-book/master?urlpath=tree/docs/chapters/9_portfolio_opt.ipynb"><button type="button"
-                class="btn btn-secondary topbarbtn" title="Launch Binder" data-toggle="tooltip"
-                data-placement="left"><img class="binder-button-logo"
-                    src="../_static/images/logo_binder.svg"
-                    alt="Interact on binder">Binder</button></a>
-        
-        
-        
-        
-    </div>
-</div>
-
-        </div>
-
-        <!-- Table of contents -->
-        <div class="d-none d-md-block col-md-2 bd-toc show noprint">
-            
-            <div class="tocsection onthispage pt-5 pb-3">
-                <i class="fas fa-list"></i> Contents
+            <div class="navbar_extra_footer">
+            Powered by <a href="https://jupyterbook.org">Jupyter Book</a>
             </div>
-            <nav id="bd-toc-nav" aria-label="Page">
-                <ul class="visible nav section-nav flex-column">
+            
+        </div>
+    </div>
+    <div id="rtd-footer-container"></div>
+</div>
+
+
+          
+
+
+          
+<!-- A tiny helper pixel to detect if we've scrolled -->
+<div class="sbt-scroll-pixel-helper"></div>
+<!-- Main content -->
+<div class="col py-0 content-container">
+    
+    <div class="header-article row sticky-top noprint">
+        
+
+
+
+<div class="col py-1 d-flex header-article-main">
+    <div class="header-article__left">
+        
+        <label for="__navigation"
+  class="headerbtn"
+  data-toggle="tooltip"
+data-placement="right"
+title="Toggle navigation"
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-bars"></i>
+  </span>
+
+</label>
+
+        
+    </div>
+    <div class="header-article__right">
+<div class="menu-dropdown menu-dropdown-launch-buttons">
+  <button class="headerbtn menu-dropdown__trigger"
+      aria-label="Launch interactive content">
+      <i class="fas fa-rocket"></i>
+  </button>
+  <div class="menu-dropdown__content">
+    <ul>
+      <li>
+        <a href="https://mybinder.org/v2/gh/executablebooks/jupyter-book/master?urlpath=tree/docs/chapters/9_portfolio_opt.ipynb"
+   class="headerbtn"
+   data-toggle="tooltip"
+data-placement="left"
+title="Launch on Binder"
+>
+  
+
+<span class="headerbtn__icon-container">
+  
+    <img src="../_static/images/logo_binder.svg">
+  </span>
+<span class="headerbtn__text-container">Binder</span>
+</a>
+
+      </li>
+      
+    </ul>
+  </div>
+</div>
+
+<button onclick="toggleFullScreen()"
+  class="headerbtn"
+  data-toggle="tooltip"
+data-placement="bottom"
+title="Fullscreen mode"
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+<a href="https://github.com/executablebooks/jupyter-book"
+   class="headerbtn"
+   data-toggle="tooltip"
+data-placement="bottom"
+title="Source repository"
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fab fa-github"></i>
+  </span>
+
+</a>
+
+<div class="menu-dropdown menu-dropdown-download-buttons">
+  <button class="headerbtn menu-dropdown__trigger"
+      aria-label="Download this page">
+      <i class="fas fa-download"></i>
+  </button>
+  <div class="menu-dropdown__content">
+    <ul>
+      <li>
+        <a href="../_sources/chapters/9_portfolio_opt.ipynb"
+   class="headerbtn"
+   data-toggle="tooltip"
+data-placement="left"
+title="Download source file"
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="headerbtn__text-container">.ipynb</span>
+</a>
+
+      </li>
+      
+      <li>
+        
+<button onclick="printPdf(this)"
+  class="headerbtn"
+  data-toggle="tooltip"
+data-placement="left"
+title="Print to PDF"
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="headerbtn__text-container">.pdf</span>
+</button>
+
+      </li>
+      
+    </ul>
+  </div>
+</div>
+<label for="__page-toc"
+  class="headerbtn headerbtn-page-toc"
+  
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-list"></i>
+  </span>
+
+</label>
+
+    </div>
+</div>
+
+<!-- Table of contents -->
+<div class="col-md-3 bd-toc show noprint">
+    <div class="tocsection onthispage pt-5 pb-3">
+        <i class="fas fa-list"></i> Contents
+    </div>
+    <nav id="bd-toc-nav" aria-label="Page">
+        <ul class="visible nav section-nav flex-column">
  <li class="toc-h2 nav-item toc-entry">
   <a class="reference internal nav-link" href="#getting-started">
    9.1. Getting started
@@ -468,12 +560,11 @@
  </li>
 </ul>
 
-            </nav>
-        </div>
-    </div>
+    </nav>
 </div>
-    <div id="main-content" class="row">
-        <div class="col-12 col-md-9 pl-md-3 pr-md-0">
+    </div>
+    <div class="article row">
+        <div class="col pl-md-3 pl-lg-5 content-container">
             <!-- Table of contents that is only displayed when printing the page -->
             <div id="jb-print-docs-body" class="onlyprint">
                 <h1>Portfolio optimization</h1>
@@ -529,17 +620,18 @@
                     </div>
                 </div>
             </div>
-            
+            <main id="main-content" role="main">
+                
               <div>
                 
-  <div class="tex2jax_ignore mathjax_ignore section" id="portfolio-optimization">
-<h1><span class="section-number">9. </span>Portfolio optimization<a class="headerlink" href="#portfolio-optimization" title="Permalink to this headline">¶</a></h1>
+  <section class="tex2jax_ignore mathjax_ignore" id="portfolio-optimization">
+<h1><span class="section-number">9. </span>Portfolio optimization<a class="headerlink" href="#portfolio-optimization" title="Permalink to this headline">#</a></h1>
 <p>Portfolio optimization is an important part of many quantitative strategies. You take some inputs related to risk and return and you try to find the portfolio with the desired characteristics. Those characteristics might be something like the best risk-reward trade-off, often given with a Sharpe Ratio. Or, you might be trying to find a portfolio with a particular expected return and the lowest possible risk to get that return.</p>
 <p>We’ll start with the example of portfolio optimization using <code class="docutils literal notranslate"><span class="pre">scipy.optimize</span></code>, very similar to the code found in Chapter 13 of our textbook. This is very much like using <strong>Solver in Excel</strong>. You are having Python numerically solve an optimization problem with some set of constraints or limits on the answer. This means that Python will try to guess values until it gets really, really close to the “best” possible solution.</p>
 <p>We are also going to see some interesting Python. We’ll use <strong>tuples</strong>, a basic (primitive) data type in Python. We have <strong>for</strong> loops. We’ll <strong>define our own functions</strong>. We’ll even use something called a <strong>lambda function</strong>.</p>
 <p>Finally, we’ll use the <code class="docutils literal notranslate"><span class="pre">PyPortfolioOpt</span></code> <a class="reference external" href="https://pypi.org/project/pyportfolioopt/">package</a>, which is also discussed in the DataCamp assignments. This lets us avoid some of the more math-like aspects of using <code class="docutils literal notranslate"><span class="pre">scipy.optimize</span></code> and have a library do the work for us using more familiar finance terms. Still, I think it is really important to understand at least a little bit about the optimization process itself. These tools are used in all sorts of applications.</p>
-<div class="section" id="getting-started">
-<h2><span class="section-number">9.1. </span>Getting started<a class="headerlink" href="#getting-started" title="Permalink to this headline">¶</a></h2>
+<section id="getting-started">
+<h2><span class="section-number">9.1. </span>Getting started<a class="headerlink" href="#getting-started" title="Permalink to this headline">#</a></h2>
 <p>Let’s bring in our usual set of prices, pick four assets, calculate <strong>discrete</strong> returns, and plot a histogram of those returns.</p>
 <p>We are going to use <strong>discrete</strong> (or simple, or arithmetic) returns instead of <strong>log</strong> returns, because we are doing <strong>portfolio optimization</strong>. In short, the return of a portfolio is the weighted average of the mean discrete returns. This is not true for mean log returns.</p>
 <div class="cell docutils container">
@@ -792,7 +884,7 @@ dtype: float64
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>0.11823162280153396
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>0.10902023677003092
 </pre></div>
 </div>
 </div>
@@ -805,7 +897,7 @@ dtype: float64
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>0.015264478529827721
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>0.018407939809074764
 </pre></div>
 </div>
 </div>
@@ -818,20 +910,22 @@ dtype: float64
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>0.12354949829856746
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>0.13567586303051388
 </pre></div>
 </div>
 </div>
 </div>
 <p>Ok, all of this was with random weights. Can we do any better than that, if we assume that our expected returns and variance co-variance matrix represent our best guess about how these assets will behave in the future? Note that his is a really big assumption. The past might not tells us much about the future.</p>
-</div>
-<div class="section" id="plotting-the-efficient-frontier">
-<h2><span class="section-number">9.2. </span>Plotting the efficient frontier<a class="headerlink" href="#plotting-the-efficient-frontier" title="Permalink to this headline">¶</a></h2>
+</section>
+<section id="plotting-the-efficient-frontier">
+<h2><span class="section-number">9.2. </span>Plotting the efficient frontier<a class="headerlink" href="#plotting-the-efficient-frontier" title="Permalink to this headline">#</a></h2>
 <p>The efficient frontier represents the relationship between risk and return. Each point on the curve is the best return that you can get for a given level of risk. Or, equivalently, each point is the lowest risk that you can take for a particular expected return. We would expect to see a positive relationship between risk and return.</p>
-<div class="figure align-center" id="cal-2-png">
+<figure class="align-center" id="cal-2-png">
 <img alt="../_images/10-cal.png" src="../_images/10-cal.png" />
-<p class="caption"><span class="caption-number">Fig. 9.1 </span><span class="caption-text">The Capital Allocation Line, or CAL. The mean-variance frontier is the highest return you can get for a given level of risk. The CAL is all possible combinations have the highest Sharpe Ratio portfolio (the tangency portfolio) and the risk-free asset. If all investors have the same beliefs about all underlying assets, then they will all hold the same market portfolio, just in different quantities, depending on their risk preferences. Source: Asset Management by Andrew Ang</span><a class="headerlink" href="#cal-2-png" title="Permalink to this image">¶</a></p>
-</div>
+<figcaption>
+<p><span class="caption-number">Fig. 9.1 </span><span class="caption-text">The Capital Allocation Line, or CAL. The mean-variance frontier is the highest return you can get for a given level of risk. The CAL is all possible combinations have the highest Sharpe Ratio portfolio (the tangency portfolio) and the risk-free asset. If all investors have the same beliefs about all underlying assets, then they will all hold the same market portfolio, just in different quantities, depending on their risk preferences. Source: Asset Management by Andrew Ang</span><a class="headerlink" href="#cal-2-png" title="Permalink to this image">#</a></p>
+</figcaption>
+</figure>
 <p>What if we picked a bunch of random portfolios, found their risk and return, and then plotted each on a scatter plot? We should see the efficient frontier “emerge” as we essentially throw darts, since some risk-return combinations are not possible for a given set of assets. There’s only so much return you can get for a given level of risk.</p>
 <p>To do this, let’s define two functions. One just takes weights and finds the portfolio return using the mean returns. The other finds the volatility of the portfolio using the weights passed to it. Note that both are just the formulas used above, but now in a function that we’ve defined.</p>
 <p>How do you <strong>read the format of a user defined function</strong>? You use <code class="docutils literal notranslate"><span class="pre">def</span></code> to define the function name. Inside of <code class="docutils literal notranslate"><span class="pre">()</span></code>, you put the items that are getting passed, or given to, the function. In this case, whatever we give the function will be called <em>weights</em> inside of the function. What’s inside the function. You must end the first line with a <code class="docutils literal notranslate"><span class="pre">:</span></code>. Then, you need to <strong>indent everything that happens when the function is used</strong>. In this case, that’s just one line. The function will <strong>return</strong> whatever is on the line with <strong>return</strong>. In this case, the portfolio return and volatility.</p>
@@ -887,14 +981,14 @@ dtype: float64
 <p>We’ve just generated the <strong>efficient frontier</strong> from a simulation. No “formulas”, per se. Just make 2500 random portfolios and at least some of them are going to be good!</p>
 <p>Each portfolio on the <strong>envelope</strong>, the edge of the shape we see above, is on the efficient frontier. Each of these portfolios has the highest return for a given level of risk (or the lowest risk for a given return).</p>
 <p>We’ll draw the efficient frontier below.</p>
-</div>
-<div class="section" id="optimizing">
-<h2><span class="section-number">9.3. </span>Optimizing<a class="headerlink" href="#optimizing" title="Permalink to this headline">¶</a></h2>
+</section>
+<section id="optimizing">
+<h2><span class="section-number">9.3. </span>Optimizing<a class="headerlink" href="#optimizing" title="Permalink to this headline">#</a></h2>
 <p>Let’s use an <strong>optimizer</strong> actually find the portfolio with the best Sharpe Ratio. This will be, for a given risk-free rate, the single portfolio with the best risk-reward trade-off.</p>
 <p>We’ll also find the portfolio with the lower volatility (risk). This portfolio is sometimes called the <strong>minimum variance portfolio</strong>.</p>
 <p>We will assume in this example that the risk-free rate is zero. We are not subtracting the risk-free rate from the portfolio return in the numerator. Note that as you change the risk-free rate, then you get different maximum Sharpe Ratio portfolios. What you’re doing, graphically, is <strong>tracing</strong> out the efficient frontier, finding different porfolios that are on the envelope.</p>
-<div class="section" id="finding-the-max-sharpe-portfolio">
-<h3><span class="section-number">9.3.1. </span>Finding the max Sharpe portfolio<a class="headerlink" href="#finding-the-max-sharpe-portfolio" title="Permalink to this headline">¶</a></h3>
+<section id="finding-the-max-sharpe-portfolio">
+<h3><span class="section-number">9.3.1. </span>Finding the max Sharpe portfolio<a class="headerlink" href="#finding-the-max-sharpe-portfolio" title="Permalink to this headline">#</a></h3>
 <p>We’ll start by defining a new function. This is our <strong>Sharpe Ratio</strong>. The optimization process that we’re going to use wants to find the <strong>minimum</strong> of something. So, we’ll make the Sharpe Ratio negative. This will then be the equivalent of finding the **maximum.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -973,7 +1067,7 @@ dtype: float64
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>scipy.optimize.optimize.OptimizeResult
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>scipy.optimize._optimize.OptimizeResult
 </pre></div>
 </div>
 </div>
@@ -986,15 +1080,15 @@ dtype: float64
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>     fun: -1.039672055952566
-     jac: array([-6.12437725e-06, -2.13503838e-04,  5.58644533e-05,  3.93256545e-04])
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>     fun: -1.0396720559721215
+     jac: array([-6.13927841e-06, -2.13488936e-04,  5.58048487e-05,  3.93271446e-04])
  message: &#39;Optimization terminated successfully&#39;
     nfev: 35
      nit: 7
     njev: 7
   status: 0
  success: True
-       x: array([0.50109745, 0.23793622, 0.14449823, 0.1164681 ])
+       x: array([0.50109751, 0.23793631, 0.14449806, 0.11646812])
 </pre></div>
 </div>
 </div>
@@ -1046,14 +1140,14 @@ dtype: float64
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>1.039672055952566
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>1.0396720559721215
 </pre></div>
 </div>
 </div>
 </div>
-</div>
-<div class="section" id="finding-the-minimum-variance-portfolio">
-<h3><span class="section-number">9.3.2. </span>Finding the minimum variance portfolio.<a class="headerlink" href="#finding-the-minimum-variance-portfolio" title="Permalink to this headline">¶</a></h3>
+</section>
+<section id="finding-the-minimum-variance-portfolio">
+<h3><span class="section-number">9.3.2. </span>Finding the minimum variance portfolio.<a class="headerlink" href="#finding-the-minimum-variance-portfolio" title="Permalink to this headline">#</a></h3>
 <p>We can do the same things and find the set of weights that <strong>minimize portfolio variance</strong>. Instead of minimizing the negative of the Sharpe Ratio, we’ll minimize the function that contains the formula for portfolio volatility, <em>port_vol</em>.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -1071,7 +1165,7 @@ dtype: float64
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>     fun: 0.10912534155379648
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>     fun: 0.10912534155360436
      jac: array([0.11099017, 0.10919402, 0.10910396, 0.10915083])
  message: &#39;Optimization terminated successfully&#39;
     nfev: 45
@@ -1079,7 +1173,7 @@ dtype: float64
     njev: 9
   status: 0
  success: True
-       x: array([1.40946282e-18, 0.00000000e+00, 5.43849155e-01, 4.56150845e-01])
+       x: array([3.25260652e-19, 4.33680869e-19, 5.43849160e-01, 4.56150840e-01])
 </pre></div>
 </div>
 </div>
@@ -1130,15 +1224,15 @@ dtype: float64
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>0.6605053013045209
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>0.660505304749604
 </pre></div>
 </div>
 </div>
 </div>
-</div>
-</div>
-<div class="section" id="efficient-frontier">
-<h2><span class="section-number">9.4. </span>Efficient Frontier<a class="headerlink" href="#efficient-frontier" title="Permalink to this headline">¶</a></h2>
+</section>
+</section>
+<section id="efficient-frontier">
+<h2><span class="section-number">9.4. </span>Efficient Frontier<a class="headerlink" href="#efficient-frontier" title="Permalink to this headline">#</a></h2>
 <p>Let’s now trace out the actual <strong>efficient frontier</strong>. We are going to follow an “algorithm”, so to speak. Here are the steps:</p>
 <ol class="simple">
 <li><p>Pick a target return.</p></li>
@@ -1211,8 +1305,8 @@ dtype: float64
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>CPU times: user 8.23 s, sys: 465 ms, total: 8.7 s
-Wall time: 1.22 s
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>CPU times: user 1.03 s, sys: 43.5 ms, total: 1.07 s
+Wall time: 1.08 s
 </pre></div>
 </div>
 </div>
@@ -1238,16 +1332,18 @@ Wall time: 1.22 s
 <img alt="../_images/9_portfolio_opt_69_0.png" src="../_images/9_portfolio_opt_69_0.png" />
 </div>
 </div>
-</div>
-<div class="section" id="pyportfolioopt">
-<h2><span class="section-number">9.5. </span>PyPortfolioOpt<a class="headerlink" href="#pyportfolioopt" title="Permalink to this headline">¶</a></h2>
+</section>
+<section id="pyportfolioopt">
+<h2><span class="section-number">9.5. </span>PyPortfolioOpt<a class="headerlink" href="#pyportfolioopt" title="Permalink to this headline">#</a></h2>
 <p>To get started, you’ll need to type <code class="docutils literal notranslate"><span class="pre">pip</span> <span class="pre">install</span> <span class="pre">PyPortfolioOpt</span></code> in your Terminal below. This will install the package, since it doesn’t come with Anaconda. We can then bring in what we need.</p>
 <p>You can read all about the <code class="docutils literal notranslate"><span class="pre">PyPortfolioOpt</span></code> package <a class="reference external" href="https://pypi.org/project/pyportfolioopt/">here</a>.</p>
 <p>You can also find examples on the author’s <a class="reference external" href="https://github.com/robertmartin8/PyPortfolioOpt/tree/master/cookbook">Github page</a>. The creator of this package is <a class="reference external" href="https://reasonabledeviations.com/about/">a recent Cambridge graduate, not much older than you</a>.</p>
-<div class="figure align-center" id="pyport-png">
+<figure class="align-center" id="pyport-png">
 <img alt="../_images/09-pyport.png" src="../_images/09-pyport.png" />
-<p class="caption"><span class="caption-number">Fig. 9.2 </span><span class="caption-text">The portfolio optimization process. Source: PyPortfolioOpt</span><a class="headerlink" href="#pyport-png" title="Permalink to this image">¶</a></p>
-</div>
+<figcaption>
+<p><span class="caption-number">Fig. 9.2 </span><span class="caption-text">The portfolio optimization process. Source: PyPortfolioOpt</span><a class="headerlink" href="#pyport-png" title="Permalink to this image">#</a></p>
+</figcaption>
+</figure>
 <p>This <a class="reference external" href="https://pyportfolioopt.readthedocs.io/en/latest/UserGuide.html">page</a> takes the explanations on the Github page and provides some nicer formatting.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -1636,7 +1732,7 @@ context of a mean-variance optimizer, which will maximise the erroneous inputs.<
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;pypfopt.efficient_frontier.efficient_frontier.EfficientFrontier at 0x7ff3997cedf0&gt;
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;pypfopt.efficient_frontier.efficient_frontier.EfficientFrontier at 0x7ff188875280&gt;
 </pre></div>
 </div>
 </div>
@@ -1650,8 +1746,8 @@ context of a mean-variance optimizer, which will maximise the erroneous inputs.<
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>OrderedDict([(&#39;AAPL.O&#39;, 0.688149209643207),
-             (&#39;MSFT.O&#39;, 0.311850790356793),
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>OrderedDict([(&#39;AAPL.O&#39;, 0.6881492096432075),
+             (&#39;MSFT.O&#39;, 0.3118507903567928),
              (&#39;SPY&#39;, 0.0),
              (&#39;GLD&#39;, 0.0)])
 </pre></div>
@@ -1689,7 +1785,7 @@ Annual volatility: 21.2%
 Sharpe Ratio: 0.91
 </pre></div>
 </div>
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>(0.21868665539725798, 0.2124945591992392, 0.9114899512116612)
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>(0.21868665539725807, 0.21249455919923926, 0.9114899512116613)
 </pre></div>
 </div>
 </div>
@@ -1714,7 +1810,7 @@ Sharpe Ratio: 0.91
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>0.21868665539725798
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>0.21868665539725807
 </pre></div>
 </div>
 </div>
@@ -1739,13 +1835,13 @@ Annual volatility: 17.3%
 Sharpe Ratio: 0.92
 </pre></div>
 </div>
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>(0.17999999999999997, 0.17313170716569976, 0.9241519223677973)
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>(0.17999999999999997, 0.17313170716569973, 0.9241519223677974)
 </pre></div>
 </div>
 </div>
 </div>
-</div>
-</div>
+</section>
+</section>
 
     <script type="text/x-thebe-config">
     {
@@ -1769,9 +1865,11 @@ Sharpe Ratio: 0.92
 
               </div>
               
-            
-                <!-- Previous / next buttons -->
-<div class='prev-next-area'> 
+            </main>
+            <footer class="footer-article noprint">
+                
+    <!-- Previous / next buttons -->
+<div class='prev-next-area'>
     <a class='left-prev' id="prev-link" href="8_port_math.html" title="previous page">
         <i class="fas fa-angle-left"></i>
         <div class="prev-next-info">
@@ -1787,23 +1885,27 @@ Sharpe Ratio: 0.92
     <i class="fas fa-angle-right"></i>
     </a>
 </div>
-            
+            </footer>
         </div>
     </div>
-    <footer class="footer">
-  <p>
+    <div class="footer-content row">
+        <footer class="col footer"><p>
+  
+    By Prof. Adam Aiken<br/>
+  
+</p>
+        </footer>
+    </div>
     
-      By Prof. Adam Aiken<br/>
-    
-  </p>
-</footer>
-</main>
+</div>
 
 
       </div>
     </div>
   
-  <script src="../_static/js/index.be7d3bbb2ef33a8344ce.js"></script>
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="../_static/scripts/pydata-sphinx-theme.js?digest=1999514e3f237ded88cf"></script>
+
 
   </body>
 </html>
