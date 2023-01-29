@@ -1,14 +1,14 @@
 # CompSci 101: Types, control, and numpy arrays
 
-These notes follow along with Chapters 3 and 4 of our textbook. In Chapter 3, we discuss **data types** and **data structures**, such as the differences between integers and floats, booleans (i.e. True or False), a bit about strings (text), and lists. Chapter 4 introduces the crucial [numpy](https://numpy.org) library. This library will allow us to use **arrays** in Python. Numpy arrays allow us to do a lot of different math, like linear algebra, in Python and are much faster than the Python list data type.
+This is where we start with some computer science basics. Essentially, where every coding class begins. We'll discuss **data types** and **data structures**, such as the differences between integers and floats, booleans (i.e. True or False), a bit about strings (text), and lists. 
 
-```{note}
- As we go through out textbook, I highlight what I think are the most important concepts and note the page numbers.
-```
+We'll then get into more Python-specific material and introduce the crucial [numpy](https://numpy.org) package. This package will allow us to use **arrays** in Python. Arrays are a way to store things, like numbers, in Python.
 
-There are also mentions of **functional programming** (something we'll come back to) and **control structures**, like `if` and `else` statements.
+`Numpy` arrays allow us to do a lot of different math, like linear algebra, in Python and are much faster than the Python list data type.
 
- My notes here combine examples from our text, with other resources and my own commentary. I let you know where all of the material is coming from.
+I also mention **functional programming** (something we'll come back to) and **control structures**, like `if` and `else` statements.
 
- Finally, you'll see this material again in your first Datacamp assignment, **Introduction to Python for Finance**. Control structures will appear in your second assignment, **Intermediate Python for Finance**. 
+These notes follow along with Chapters 3 and 4 of [Python for Finance, 2e](https://www.oreilly.com/library/view/python-for-finance/9781492024323/).
+
+Finally, you'll see this material again in your first Datacamp assignment, **Introduction to Python for Finance**. Control structures will appear in your second assignment, **Intermediate Python for Finance**. 
 

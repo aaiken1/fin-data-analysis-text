@@ -98,7 +98,7 @@ I recommend:
 
 ### Using Live Share in VS Code
 
-OK, I'll admit it. I've never used this feature, but I have tested it and it seems cool. You'll need a Github account to set-up the [Live Share extension in VS Code](https://code.visualstudio.com/learn/collaboration/live-share).
+I've never used this feature, but I have tested it and it seems cool. You'll need a Github account to set-up the [Live Share extension in VS Code](https://code.visualstudio.com/learn/collaboration/live-share).
 
 
 ### Tips, Tricks, and Shortcuts

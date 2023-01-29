@@ -52,7 +52,7 @@ const thebe_selector_output = ".output, .cell_output"
     <script async="async" src="../_static/sphinx-thebe.js"></script>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
-    <link rel="next" title="3. CompSci 101: Types, control, and numpy arrays" href="3_intro.html" />
+    <link rel="next" title="2.7. Code Style and PEP8" href="2_5_style.html" />
     <link rel="prev" title="2.5. Markdown" href="2_3_markdown.html" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="docsearch:language" content="None">
@@ -159,6 +159,11 @@ const thebe_selector_output = ".output, .cell_output"
    <li class="toctree-l2 current active">
     <a class="current reference internal" href="#">
      2.6. Packages
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="2_5_style.html">
+     2.7. Code Style and PEP8
     </a>
    </li>
   </ul>
@@ -524,6 +529,10 @@ title="Print to PDF"
 <p>Packages, like <code class="docutils literal notranslate"><span class="pre">numpy</span></code> and <code class="docutils literal notranslate"><span class="pre">pandas</span></code>, expand what Python can do. These packages also come with the Anaconda install of Python. Packages are also sometimes called libraries.</p>
 <p>Other packages, like <code class="docutils literal notranslate"><span class="pre">nasdaq-data-link</span></code>, do not come with Anaconda. We are going to need to go out and get them.</p>
 <p>We are going to see two basic ways to install packages. Both involve typing commands <strong>in the terminal</strong>. You can access your terminal via VSCode, or directly on your computer. On a Mac, search for <a class="reference external" href="https://support.apple.com/guide/terminal/open-or-quit-terminal-apd5265185d-f365-44cb-8b09-71a064a42125/mac">Terminal</a>. On a Windows machine, look for the <a class="reference external" href="https://docs.microsoft.com/en-us/windows-server/administration/windows-commands/windows-commands">Windows Command Line Shell</a>. Both let you do things in a text-based way. This can be very powerful.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>By importing a package, you get access to all of the <strong>classes</strong> and <strong>methods</strong> that come with that package. This are important concepts from <strong>software engineering</strong> and make your code much easier to read and use. Essentially, you get built-in <strong>modularity</strong> – you don’t have to reinvent the wheel and define, say, an array every time you use them. We’ll talk a bit more about this when we get to <strong>object oriented programming</strong> and related concepts.</p>
+</div>
 <p>First, if a package is <a class="reference external" href="https://docs.anaconda.com/anaconda/user-guide/tasks/install-packages/">available via Anaconda</a>, you can install it at least two ways. In the terminal, you will type:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">conda</span> <span class="n">install</span> <span class="n">package</span><span class="o">-</span><span class="n">name</span>
 </pre></div>
@@ -537,7 +546,9 @@ title="Print to PDF"
 </figure>
 <p>In the notes, you’ll see that I install several packages, like <code class="docutils literal notranslate"><span class="pre">plotly</span></code>, this way. You’ll need to close VS Code and open it back up when you’re done.</p>
 <p>However, many of the packages that we want to use are specialty packages for finance, so don’t come with the Anaconda distribution of Python. Or, they are just new, so haven’t become “official” enough to get included by the folks at Anaconda. We are going to use <code class="docutils literal notranslate"><span class="pre">pip</span></code> to install these packages. This is where it can get tricky.</p>
-<p><code class="docutils literal notranslate"><span class="pre">pip</span></code> is a way to install Python packages via the command line. But, where is it installing the packages? Which version of Python will it be associated with?</p>
+<p><code class="docutils literal notranslate"><span class="pre">pip</span></code> is a way to install Python packages via the command line and stands for <em>pip installs packages</em>. This is a computer science joke – the acronym is in the definition, which gives it a recursive definition.</p>
+<p><code class="docutils literal notranslate"><span class="pre">pip</span></code> will also install <strong>package dependencies</strong>, or other packages that the package that we want is using.</p>
+<p>But, where is it installing the packages? Which version of Python will it be associated with? This is the tricky part and one of the frustrating aspects of Python.</p>
 <p>You can use the following to see which <code class="docutils literal notranslate"><span class="pre">pip</span></code> and which Python your computer is currently looking at.</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">which</span> <span class="o">-</span><span class="n">a</span> <span class="n">pip</span>
 <span class="n">which</span> <span class="o">-</span><span class="n">a</span> <span class="n">python</span>
@@ -550,7 +561,7 @@ title="Print to PDF"
 </figcaption>
 </figure>
 <p>When I run that code, I can see that I am using the Anaconda3 distribution of <code class="docutils literal notranslate"><span class="pre">pip</span></code> and that I have two versions of <code class="docutils literal notranslate"><span class="pre">Python</span></code>, including Anaconda. This means that, when I use <code class="docutils literal notranslate"><span class="pre">pip</span></code>, that my packages will <strong>also be installed in Anaconda</strong>.</p>
-<p>A bit of an aside: There’s also another version of Python that doesn’t get listed there, because I looked for Python, and not Python3. I can see it when I do <strong>select Kernel</strong> in VS Code. There’s a Python 2.x and a Python 3.x that are in my <code class="docutils literal notranslate"><span class="pre">/usr/bin/</span></code> folder. These are the version of Python that came with my Mac. I want to use the latest Anaconda version and not these. So, I want all of my packages to be associated with the Anaconda version.</p>
+<p>A bit of an aside: There’s also another version of Python that doesn’t get listed there, because I looked for Python, and not Python3. I can see it when I do <strong>select Kernel</strong> in VS Code. There’s a Python 2.x and a Python 3.x that are in my <code class="docutils literal notranslate"><span class="pre">/usr/bin/</span></code> folder. These are the version of Python that came with my Mac. I want to use the latest Anaconda version and not these. So, I want all of my packages to be associated with the Anaconda version of Python.</p>
 <figure class="align-center" id="kernels-png">
 <img alt="../_images/02-kernels.png" class="with-border" src="../_images/02-kernels.png" />
 <figcaption>
@@ -572,7 +583,7 @@ title="Print to PDF"
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">nasdaq</span><span class="o">-</span><span class="n">data</span><span class="o">-</span><span class="n">link</span>
 </pre></div>
 </div>
-<p>This <code class="docutils literal notranslate"><span class="pre">pip</span></code> method should work for any non-Anaconda package.</p>
+<p>This <code class="docutils literal notranslate"><span class="pre">pip</span></code> method should work for all of the packages that we’re using.</p>
 <figure class="align-center" id="xkcd-png">
 <img alt="../_images/02-xkcd.png" class="with-border" src="../_images/02-xkcd.png" />
 <figcaption>
@@ -616,10 +627,10 @@ title="Print to PDF"
             <p class="prev-next-title"><span class="section-number">2.5. </span>Markdown</p>
         </div>
     </a>
-    <a class='right-next' id="next-link" href="3_intro.html" title="next page">
+    <a class='right-next' id="next-link" href="2_5_style.html" title="next page">
     <div class="prev-next-info">
         <p class="prev-next-subtitle">next</p>
-        <p class="prev-next-title"><span class="section-number">3. </span>CompSci 101: Types, control, and numpy arrays</p>
+        <p class="prev-next-title"><span class="section-number">2.7. </span>Code Style and PEP8</p>
     </div>
     <i class="fas fa-angle-right"></i>
     </a>
