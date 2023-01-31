@@ -74,5 +74,3 @@ plt.show();
 sns.jointplot(x=stocks.aapl_ret, y=stocks.msft_ret, kind='hex')
 plt.show();
 
-
-# 

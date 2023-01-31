@@ -31,7 +31,7 @@ Bookmark important links so that you don't have to go searching for them.
 
 I have pulled material from many different sources in order to create these notes and I am very grateful that they have made their work available. For example, I include commentary on examples from our book. There are also many other excellent and, often, free guides to using Python, Jupyter notebooks, and VS Code.
 
-[Python for Finance, 2e](https://www.oreilly.com/library/view/python-for-finance/9781492024323/). This is probably the best single book for finance and Python that I've found. This textbook also has a Github repository that [contains the code used in the book](https://github.com/yhilpisch/py4fi2nd).
+[Python for Finance, 2e](https://www.oreilly.com/library/view/python-for-finance/9781492024323/). This is probably the best single book for finance and Python that I've found. However, it does jump from the basics into more advanced material quite quickly. This textbook also has a Github repository that [contains the code used in the book](https://github.com/yhilpisch/py4fi2nd).
 
 There are also many free resources available. The key is being able to find what's helpful - web searches often lead you to awful AI-generated Medium posts. While these guides are not finance-related, *per se*, they cover material that will come up in any sort of data science project. I thank the authors for making these resources available and I use examples from them in my notes.
 
@@ -53,6 +53,12 @@ We are also using [DataCamp](https://www.datacamp.com) throughout the semester. 
 - [Seaborn - another visualization package with better looking output](http://datacamp-community-prod.s3.amazonaws.com/263130e2-2c92-4348-a356-9ed9b5034247)
 - [Scikit Lean - basic machine learning in Python](http://datacamp-community-prod.s3.amazonaws.com/eb807da5-dce5-4b97-a54d-74e89f14266b)
 - [SciPy - linear algebra in Python because everything is linear algebra](http://datacamp-community-prod.s3.amazonaws.com/dfdb6d58-e044-4b38-bab3-5de0b825909b)
+
+I also have a collection of non-DataCamp cheat sheets. 
+
+- [Comprehensive Python Cheatsheet](https://gto76.github.io/python-cheatsheet/)
+
+I have also found the [The Self-Taught Programmer](https://www.theselftaughtprogrammer.io) a useful book, especially for someone like me, who does write code for research, but has only had a few formal computer science courses.
 
 ## Getting help
 

@@ -4,11 +4,13 @@
 <html>
   <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Option basics &#8212; Data Analysis in Finance</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
+    <title>14. Option basics &#8212; Data Analysis in Finance</title>
     
-  <link href="../_static/css/theme.css" rel="stylesheet">
-  <link href="../_static/css/index.ff1ffe594081f20da1ef19478df9384b.css" rel="stylesheet">
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../_static/styles/theme.css?digest=1999514e3f237ded88cf" rel="stylesheet">
+<link href="../_static/styles/pydata-sphinx-theme.css?digest=1999514e3f237ded88cf" rel="stylesheet">
 
     
   <link rel="stylesheet"
@@ -18,45 +20,44 @@
   <link rel="preload" as="font" type="font/woff2" crossorigin
     href="../_static/vendor/fontawesome/5.13.0/webfonts/fa-brands-400.woff2">
 
-    
-      
-
-    
     <link rel="stylesheet" type="text/css" href="../_static/pygments.css" />
-    <link rel="stylesheet" type="text/css" href="../_static/sphinx-book-theme.css?digest=c3fdc42140077d1ad13ad2f1588a4309" />
+    <link rel="stylesheet" href="../_static/styles/sphinx-book-theme.css?digest=5115cc725059bd94278eecd172e13a965bf8f5a9" type="text/css" />
     <link rel="stylesheet" type="text/css" href="../_static/togglebutton.css" />
     <link rel="stylesheet" type="text/css" href="../_static/copybutton.css" />
     <link rel="stylesheet" type="text/css" href="../_static/mystnb.css" />
     <link rel="stylesheet" type="text/css" href="../_static/sphinx-thebe.css" />
-    <link rel="stylesheet" type="text/css" href="../_static/panels-main.c949a650a448cc0ae9fd3441c0e17fb0.css" />
-    <link rel="stylesheet" type="text/css" href="../_static/panels-variables.06eb56fa6e07937060861dad626602ad.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/design-style.b7bb847fb20b106c3d81b95245e65545.min.css" />
     
-  <link rel="preload" as="script" href="../_static/js/index.be7d3bbb2ef33a8344ce.js">
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../_static/scripts/pydata-sphinx-theme.js?digest=1999514e3f237ded88cf">
 
     <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
     <script src="../_static/jquery.js"></script>
     <script src="../_static/underscore.js"></script>
     <script src="../_static/doctools.js"></script>
-    <script src="../_static/togglebutton.js"></script>
     <script src="../_static/clipboard.min.js"></script>
     <script src="../_static/copybutton.js"></script>
+    <script src="../_static/scripts/sphinx-book-theme.js?digest=9c920249402e914e316237a7dbc6769907cce411"></script>
+    <script>let toggleHintShow = 'Click to show';</script>
+    <script>let toggleHintHide = 'Click to hide';</script>
+    <script>let toggleOpenOnPrint = 'true';</script>
+    <script src="../_static/togglebutton.js"></script>
     <script>var togglebuttonSelector = '.toggle, .admonition.dropdown, .tag_hide_input div.cell_input, .tag_hide-input div.cell_input, .tag_hide_output div.cell_output, .tag_hide-output div.cell_output, .tag_hide_cell.cell, .tag_hide-cell.cell';</script>
-    <script src="../_static/sphinx-book-theme.d59cb220de22ca1c485ebbdc042f0030.js"></script>
+    <script src="../_static/design-tabs.js"></script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"
+const thebe_selector = ".thebe,.cell"
+const thebe_selector_input = "pre"
+const thebe_selector_output = ".output, .cell_output"
+</script>
+    <script async="async" src="../_static/sphinx-thebe.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
     <script src="https://unpkg.com/@jupyter-widgets/html-manager@^0.20.0/dist/embed-amd.js"></script>
-    <script async="async" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
     <script>window.MathJax = {"options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
-    <script async="async" src="https://unpkg.com/thebe@0.5.1/lib/index.js"></script>
-    <script>
-        const thebe_selector = ".thebe"
-        const thebe_selector_input = "pre"
-        const thebe_selector_output = ".output"
-    </script>
-    <script async="async" src="../_static/sphinx-thebe.js"></script>
+    <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
-    <link rel="next" title="Logit models" href="15_logit_credit.html" />
-    <link rel="prev" title="Monte Carlo and portfolios" href="13_monte_carlo.html" />
+    <link rel="next" title="15. Logit models" href="15_logit_credit.html" />
+    <link rel="prev" title="13. Monte Carlo and portfolios" href="13_monte_carlo.html" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="docsearch:language" content="None">
     
@@ -64,7 +65,21 @@
     <!-- Google Analytics -->
     
   </head>
-  <body data-spy="scroll" data-target="#bd-toc-nav" data-offset="80">
+  <body data-spy="scroll" data-target="#bd-toc-nav" data-offset="60">
+<!-- Checkboxes to toggle the left sidebar -->
+<input type="checkbox" class="sidebar-toggle" name="__navigation" id="__navigation" aria-label="Toggle navigation sidebar">
+<label class="overlay overlay-navbar" for="__navigation">
+    <div class="visually-hidden">Toggle navigation sidebar</div>
+</label>
+<!-- Checkboxes to toggle the in-page toc -->
+<input type="checkbox" class="sidebar-toggle" name="__page-toc" id="__page-toc" aria-label="Toggle in-page Table of Contents">
+<label class="overlay overlay-pagetoc" for="__page-toc">
+    <div class="visually-hidden">Toggle in-page Table of Contents</div>
+</label>
+<!-- Headers at the top -->
+<div class="announcement header-item noprint"></div>
+<div class="header header-item noprint"></div>
+
     
     <div class="container-fluid" id="banner"></div>
 
@@ -73,9 +88,10 @@
     <div class="container-xl">
       <div class="row">
           
-<div class="col-12 col-md-3 bd-sidebar site-navigation show" id="site-navigation">
-    
-        <div class="navbar-brand-box">
+<!-- Sidebar -->
+<div class="bd-sidebar noprint" id="site-navigation">
+    <div class="bd-sidebar__content">
+        <div class="bd-sidebar__top"><div class="navbar-brand-box">
     <a class="navbar-brand text-wrap" href="../index.html">
       
         <!-- `logo` is deprecated in Sphinx 4.0, so remove this when we stop supporting 3 -->
@@ -93,14 +109,15 @@
   <input type="search" class="form-control" name="q" id="search-input" placeholder="Search this book..." aria-label="Search this book..." autocomplete="off" >
 </form><nav class="bd-links" id="bd-docs-nav" aria-label="Main">
     <div class="bd-toc-item active">
-        <ul class="nav bd-sidenav">
- <li class="toctree-l1">
-  <a class="reference internal" href="../intro.html">
-   Welcome!
-  </a>
- </li>
-</ul>
-<p aria-level="2" class="caption" role="heading">
+        
+        <ul class="nav bd-sidenav bd-sidenav__home-link">
+            <li class="toctree-l1">
+                <a class="reference internal" href="../intro.html">
+                    Welcome
+                </a>
+            </li>
+        </ul>
+        <p aria-level="2" class="caption" role="heading">
  <span class="caption-text">
   Getting Started
  </span>
@@ -108,12 +125,12 @@
 <ul class="nav bd-sidenav">
  <li class="toctree-l1">
   <a class="reference internal" href="1_finpyth.html">
-   Why Python and finance?
+   1. Why Python and finance?
   </a>
  </li>
  <li class="toctree-l1 has-children">
-  <a class="reference internal" href="2_intro.html">
-   Python set-up
+  <a class="reference internal" href="2_1_intro.html">
+   2. Python set-up
    <a id="python_set-up">
    </a>
   </a>
@@ -124,28 +141,33 @@
   </label>
   <ul>
    <li class="toctree-l2">
-    <a class="reference internal" href="2_0_install.html">
-     Installation
+    <a class="reference internal" href="2_2_install.html">
+     2.2. Installation
     </a>
    </li>
    <li class="toctree-l2">
-    <a class="reference internal" href="2_1_jupyter.html">
-     Jupyter notebooks
+    <a class="reference internal" href="2_3_jupyter.html">
+     2.3. Jupyter notebooks
     </a>
    </li>
    <li class="toctree-l2">
-    <a class="reference internal" href="2_2_vscode.html">
-     VS Code
+    <a class="reference internal" href="2_4_vscode.html">
+     2.4. VS Code
     </a>
    </li>
    <li class="toctree-l2">
-    <a class="reference internal" href="2_3_markdown.html">
-     Markdown
+    <a class="reference internal" href="2_5_markdown.html">
+     2.5. Markdown
     </a>
    </li>
    <li class="toctree-l2">
-    <a class="reference internal" href="2_4_packages.html">
-     Packages
+    <a class="reference internal" href="2_6_packages.html">
+     2.6. Packages
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="2_7_style.html">
+     2.7. Code Style, PEP8, and Linting
     </a>
    </li>
   </ul>
@@ -158,8 +180,8 @@
 </p>
 <ul class="nav bd-sidenav">
  <li class="toctree-l1 has-children">
-  <a class="reference internal" href="3_intro.html">
-   CompSci 101: Types, control, and numpy arrays
+  <a class="reference internal" href="3_1_intro.html">
+   3. CompSci 101: Types, control, and numpy arrays
   </a>
   <input class="toctree-checkbox" id="toctree-checkbox-2" name="toctree-checkbox-2" type="checkbox"/>
   <label for="toctree-checkbox-2">
@@ -168,20 +190,20 @@
   </label>
   <ul>
    <li class="toctree-l2">
-    <a class="reference internal" href="3_0_comp101.html">
-     The Basics
+    <a class="reference internal" href="3_2_comp101.html">
+     3.1. The Basics
     </a>
    </li>
    <li class="toctree-l2">
-    <a class="reference internal" href="3_1_numpy.html">
-     Numpy and arrays
+    <a class="reference internal" href="3_3_numpy.html">
+     3.2. Numpy and arrays
     </a>
    </li>
   </ul>
  </li>
  <li class="toctree-l1 has-children">
   <a class="reference internal" href="4_intro.html">
-   Pandas and data
+   4. Pandas and data
   </a>
   <input class="toctree-checkbox" id="toctree-checkbox-3" name="toctree-checkbox-3" type="checkbox"/>
   <label for="toctree-checkbox-3">
@@ -191,34 +213,34 @@
   <ul>
    <li class="toctree-l2">
     <a class="reference internal" href="4_0_dataframes.html">
-     Data importing
+     4.1. Data importing
     </a>
    </li>
    <li class="toctree-l2">
     <a class="reference internal" href="4_1_pandas.html">
-     pandas
+     4.2. pandas
     </a>
    </li>
    <li class="toctree-l2">
     <a class="reference internal" href="4_2_cleaning_data.html">
-     Cleaning our data
+     4.3. Cleaning our data
     </a>
    </li>
    <li class="toctree-l2">
     <a class="reference internal" href="4_3_eda.html">
-     Exploratory data analysis (EDA)
+     4.4. Exploratory data analysis (EDA)
     </a>
    </li>
    <li class="toctree-l2">
     <a class="reference internal" href="4_4_merge_shape.html">
-     Merging and reshaping data
+     4.5. Merging and reshaping data
     </a>
    </li>
   </ul>
  </li>
  <li class="toctree-l1 has-children">
   <a class="reference internal" href="5_intro.html">
-   Data visualization
+   5. Data visualization
   </a>
   <input class="toctree-checkbox" id="toctree-checkbox-4" name="toctree-checkbox-4" type="checkbox"/>
   <label for="toctree-checkbox-4">
@@ -228,24 +250,24 @@
   <ul>
    <li class="toctree-l2">
     <a class="reference internal" href="5_0_matplotlib.html">
-     matplotlib
+     5.2. matplotlib
     </a>
    </li>
    <li class="toctree-l2">
     <a class="reference internal" href="5_1_plotly.html">
-     plotly
+     5.3. plotly
     </a>
    </li>
    <li class="toctree-l2">
     <a class="reference internal" href="5_2_seaborn.html">
-     seaborn
+     5.4. seaborn
     </a>
    </li>
   </ul>
  </li>
  <li class="toctree-l1">
   <a class="reference internal" href="6_financial_ts.html">
-   Financial time series
+   6. Financial time series
    <a id="financial-time-series">
    </a>
   </a>
@@ -259,51 +281,51 @@
 <ul class="current nav bd-sidenav">
  <li class="toctree-l1">
   <a class="reference internal" href="7_nasdaq_api.html">
-   Using NASDAQ BTC data
+   7. Using NASDAQ BTC data
    <a id="btc-sim">
    </a>
   </a>
  </li>
  <li class="toctree-l1">
   <a class="reference internal" href="8_port_math.html">
-   Essential portfolio math
+   8. Essential portfolio math
   </a>
  </li>
  <li class="toctree-l1">
   <a class="reference internal" href="9_portfolio_opt.html">
-   Portfolio optimization
+   9. Portfolio optimization
   </a>
  </li>
  <li class="toctree-l1">
   <a class="reference internal" href="10_factor_models.html">
-   Factor models
+   10. Factor models
    <a id="factor_models">
    </a>
   </a>
  </li>
  <li class="toctree-l1">
   <a class="reference internal" href="11_regression_topics.html">
-   Regression topics
+   11. Regression topics
   </a>
  </li>
  <li class="toctree-l1">
   <a class="reference internal" href="12_risk_mang.html">
-   Risk management
+   12. Risk management
   </a>
  </li>
  <li class="toctree-l1">
   <a class="reference internal" href="13_monte_carlo.html">
-   Monte Carlo and portfolios
+   13. Monte Carlo and portfolios
   </a>
  </li>
  <li class="toctree-l1 current active">
   <a class="current reference internal" href="#">
-   Option basics
+   14. Option basics
   </a>
  </li>
  <li class="toctree-l1">
   <a class="reference internal" href="15_logit_credit.html">
-   Logit models
+   15. Logit models
   </a>
  </li>
 </ul>
@@ -333,127 +355,199 @@
 </ul>
 
     </div>
-</nav> <!-- To handle the deprecated key -->
-
-<div class="navbar_extra_footer">
-  Powered by <a href="https://jupyterbook.org">Jupyter Book</a>
-</div>
-
-</div>
-
-
-          
-
-
-          
-<main class="col py-md-3 pl-md-4 bd-content overflow-auto" role="main">
-    
-    <div class="topbar container-xl fixed-top">
-    <div class="topbar-contents row">
-        <div class="col-12 col-md-3 bd-topbar-whitespace site-navigation show"></div>
-        <div class="col pl-md-4 topbar-main">
+</nav></div>
+        <div class="bd-sidebar__bottom">
+             <!-- To handle the deprecated key -->
             
-            <button id="navbar-toggler" class="navbar-toggler ml-0" type="button" data-toggle="collapse"
-                data-toggle="tooltip" data-placement="bottom" data-target=".site-navigation" aria-controls="navbar-menu"
-                aria-expanded="true" aria-label="Toggle navigation" aria-controls="site-navigation"
-                title="Toggle navigation" data-toggle="tooltip" data-placement="left">
-                <i class="fas fa-bars"></i>
-                <i class="fas fa-arrow-left"></i>
-                <i class="fas fa-arrow-up"></i>
-            </button>
-            
-            
-<div class="dropdown-buttons-trigger">
-    <button id="dropdown-buttons-trigger" class="btn btn-secondary topbarbtn" aria-label="Download this page"><i
-            class="fas fa-download"></i></button>
-
-    <div class="dropdown-buttons">
-        <!-- ipynb file if we had a myst markdown file -->
-        
-        <!-- Download raw file -->
-        <a class="dropdown-buttons" href="../_sources/chapters/14_options.ipynb"><button type="button"
-                class="btn btn-secondary topbarbtn" title="Download source file" data-toggle="tooltip"
-                data-placement="left">.ipynb</button></a>
-        <!-- Download PDF via print -->
-        <button type="button" id="download-print" class="btn btn-secondary topbarbtn" title="Print to PDF"
-                onclick="printPdf(this)" data-toggle="tooltip" data-placement="left">.pdf</button>
-    </div>
-</div>
-
-            <!-- Source interaction buttons -->
-
-<div class="dropdown-buttons-trigger">
-    <button id="dropdown-buttons-trigger" class="btn btn-secondary topbarbtn"
-        aria-label="Connect with source repository"><i class="fab fa-github"></i></button>
-    <div class="dropdown-buttons sourcebuttons">
-        <a class="repository-button"
-            href="https://github.com/executablebooks/jupyter-book"><button type="button" class="btn btn-secondary topbarbtn"
-                data-toggle="tooltip" data-placement="left" title="Source repository"><i
-                    class="fab fa-github"></i>repository</button></a>
-        
-        
-    </div>
-</div>
-
-            <!-- Full screen (wrap in <a> to have style consistency -->
-
-<a class="full-screen-button"><button type="button" class="btn btn-secondary topbarbtn" data-toggle="tooltip"
-        data-placement="bottom" onclick="toggleFullScreen()" aria-label="Fullscreen mode"
-        title="Fullscreen mode"><i
-            class="fas fa-expand"></i></button></a>
-
-            <!-- Launch buttons -->
-
-<div class="dropdown-buttons-trigger">
-    <button id="dropdown-buttons-trigger" class="btn btn-secondary topbarbtn"
-        aria-label="Launch interactive content"><i class="fas fa-rocket"></i></button>
-    <div class="dropdown-buttons">
-        
-        <a class="binder-button" href="https://mybinder.org/v2/gh/executablebooks/jupyter-book/master?urlpath=tree/docs/chapters/14_options.ipynb"><button type="button"
-                class="btn btn-secondary topbarbtn" title="Launch Binder" data-toggle="tooltip"
-                data-placement="left"><img class="binder-button-logo"
-                    src="../_static/images/logo_binder.svg"
-                    alt="Interact on binder">Binder</button></a>
-        
-        
-        
-        
-    </div>
-</div>
-
-        </div>
-
-        <!-- Table of contents -->
-        <div class="d-none d-md-block col-md-2 bd-toc show noprint">
-            
-            <div class="tocsection onthispage pt-5 pb-3">
-                <i class="fas fa-list"></i> Contents
+            <div class="navbar_extra_footer">
+            Powered by <a href="https://jupyterbook.org">Jupyter Book</a>
             </div>
-            <nav id="bd-toc-nav" aria-label="Page">
-                <ul class="visible nav section-nav flex-column">
+            
+        </div>
+    </div>
+    <div id="rtd-footer-container"></div>
+</div>
+
+
+          
+
+
+          
+<!-- A tiny helper pixel to detect if we've scrolled -->
+<div class="sbt-scroll-pixel-helper"></div>
+<!-- Main content -->
+<div class="col py-0 content-container">
+    
+    <div class="header-article row sticky-top noprint">
+        
+
+
+
+<div class="col py-1 d-flex header-article-main">
+    <div class="header-article__left">
+        
+        <label for="__navigation"
+  class="headerbtn"
+  data-toggle="tooltip"
+data-placement="right"
+title="Toggle navigation"
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-bars"></i>
+  </span>
+
+</label>
+
+        
+    </div>
+    <div class="header-article__right">
+<div class="menu-dropdown menu-dropdown-launch-buttons">
+  <button class="headerbtn menu-dropdown__trigger"
+      aria-label="Launch interactive content">
+      <i class="fas fa-rocket"></i>
+  </button>
+  <div class="menu-dropdown__content">
+    <ul>
+      <li>
+        <a href="https://mybinder.org/v2/gh/executablebooks/jupyter-book/master?urlpath=tree/docs/chapters/14_options.ipynb"
+   class="headerbtn"
+   data-toggle="tooltip"
+data-placement="left"
+title="Launch on Binder"
+>
+  
+
+<span class="headerbtn__icon-container">
+  
+    <img src="../_static/images/logo_binder.svg">
+  </span>
+<span class="headerbtn__text-container">Binder</span>
+</a>
+
+      </li>
+      
+    </ul>
+  </div>
+</div>
+
+<button onclick="toggleFullScreen()"
+  class="headerbtn"
+  data-toggle="tooltip"
+data-placement="bottom"
+title="Fullscreen mode"
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+<a href="https://github.com/executablebooks/jupyter-book"
+   class="headerbtn"
+   data-toggle="tooltip"
+data-placement="bottom"
+title="Source repository"
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fab fa-github"></i>
+  </span>
+
+</a>
+
+<div class="menu-dropdown menu-dropdown-download-buttons">
+  <button class="headerbtn menu-dropdown__trigger"
+      aria-label="Download this page">
+      <i class="fas fa-download"></i>
+  </button>
+  <div class="menu-dropdown__content">
+    <ul>
+      <li>
+        <a href="../_sources/chapters/14_options.ipynb"
+   class="headerbtn"
+   data-toggle="tooltip"
+data-placement="left"
+title="Download source file"
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="headerbtn__text-container">.ipynb</span>
+</a>
+
+      </li>
+      
+      <li>
+        
+<button onclick="printPdf(this)"
+  class="headerbtn"
+  data-toggle="tooltip"
+data-placement="left"
+title="Print to PDF"
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="headerbtn__text-container">.pdf</span>
+</button>
+
+      </li>
+      
+    </ul>
+  </div>
+</div>
+<label for="__page-toc"
+  class="headerbtn headerbtn-page-toc"
+  
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-list"></i>
+  </span>
+
+</label>
+
+    </div>
+</div>
+
+<!-- Table of contents -->
+<div class="col-md-3 bd-toc show noprint">
+    <div class="tocsection onthispage pt-5 pb-3">
+        <i class="fas fa-list"></i> Contents
+    </div>
+    <nav id="bd-toc-nav" aria-label="Page">
+        <ul class="visible nav section-nav flex-column">
  <li class="toc-h2 nav-item toc-entry">
   <a class="reference internal nav-link" href="#payoff-diagrams">
-   Payoff Diagrams
+   14.1. Payoff Diagrams
   </a>
  </li>
  <li class="toc-h2 nav-item toc-entry">
   <a class="reference internal nav-link" href="#black-scholes-merton">
-   Black-Scholes-Merton
+   14.2. Black-Scholes-Merton
   </a>
  </li>
  <li class="toc-h2 nav-item toc-entry">
   <a class="reference internal nav-link" href="#py-vollib-library">
-   py_vollib library
+   14.3. py_vollib library
   </a>
  </li>
 </ul>
 
-            </nav>
-        </div>
-    </div>
+    </nav>
 </div>
-    <div id="main-content" class="row">
-        <div class="col-12 col-md-9 pl-md-3 pr-md-0">
+    </div>
+    <div class="article row">
+        <div class="col pl-md-3 pl-lg-5 content-container">
             <!-- Table of contents that is only displayed when printing the page -->
             <div id="jb-print-docs-body" class="onlyprint">
                 <h1>Option basics</h1>
@@ -468,17 +562,17 @@
                             <ul class="visible nav section-nav flex-column">
  <li class="toc-h2 nav-item toc-entry">
   <a class="reference internal nav-link" href="#payoff-diagrams">
-   Payoff Diagrams
+   14.1. Payoff Diagrams
   </a>
  </li>
  <li class="toc-h2 nav-item toc-entry">
   <a class="reference internal nav-link" href="#black-scholes-merton">
-   Black-Scholes-Merton
+   14.2. Black-Scholes-Merton
   </a>
  </li>
  <li class="toc-h2 nav-item toc-entry">
   <a class="reference internal nav-link" href="#py-vollib-library">
-   py_vollib library
+   14.3. py_vollib library
   </a>
  </li>
 </ul>
@@ -487,11 +581,12 @@
                     </div>
                 </div>
             </div>
-            
+            <main id="main-content" role="main">
+                
               <div>
                 
-  <div class="tex2jax_ignore mathjax_ignore section" id="option-basics">
-<h1>Option basics<a class="headerlink" href="#option-basics" title="Permalink to this headline">¶</a></h1>
+  <section class="tex2jax_ignore mathjax_ignore" id="option-basics">
+<h1><span class="section-number">14. </span>Option basics<a class="headerlink" href="#option-basics" title="Permalink to this headline">#</a></h1>
 <p>This chapter introduces option payoffs and the <a class="reference external" href="https://www.investopedia.com/terms/b/blackscholes.asp">Black-Scholes-Merton model (BSM)</a> for pricing <strong>European options</strong>. We will see <strong>call</strong> options and <strong>put</strong> options. Call options give the owner the right, but not the obligation to purchase a stock at a certain price, <strong>X</strong>, or the strike price.</p>
 <p>What makes options and other derivatives interesting? How do we value stocks and bonds? We think about the present value of cash flows. These values, especially for stocks, contain a great deal of uncertainty - we don’t know the future! But, options and other derivatives are different. Their value is <strong>based on the value of another security</strong>. It turns out that we can come up with prices for them based on <strong>arbitrage principles</strong>, or the idea that we can “recreate” the derivative from other assets. And, if we know the prices of the other assets, then the derivative <strong>must have a certain price</strong>, or else there’s free money to be made.</p>
 <p>We’ll start with <strong>payoff diagrams</strong>. These tell us what payoff of exercising the option would be, based on the current value of the underlying security, like a stock. When we do this, we’ll assume a certain price is paid for the option.</p>
@@ -523,8 +618,8 @@
 </div>
 </div>
 </div>
-<div class="section" id="payoff-diagrams">
-<h2>Payoff Diagrams<a class="headerlink" href="#payoff-diagrams" title="Permalink to this headline">¶</a></h2>
+<section id="payoff-diagrams">
+<h2><span class="section-number">14.1. </span>Payoff Diagrams<a class="headerlink" href="#payoff-diagrams" title="Permalink to this headline">#</a></h2>
 <p>Let’s start with the basic “hockey stick” payoff diagrams that you see in every investments class. We could draw these ourselves using <code class="docutils literal notranslate"><span class="pre">matplotlib</span></code>, but let’s use that <code class="docutils literal notranslate"><span class="pre">opstrat</span></code> library instead. After all, one of the reasons for using Python is to get access to the work other people have done for us!</p>
 <p>An <strong>option payoff</strong> is defined by:</p>
 <ul class="simple">
@@ -547,8 +642,8 @@
 <p>For example, suppose that K = 100 and the stock ends up at 101 at the call options maturity. You will exercise the option, with a payoff of 1 and a profit of 1 - C. But, if the stock ends up at 99, you just lose C. If you buy a stock at 100 and it ends up at 99, you still have 99 worth of stock.</p>
 <p><strong>European options</strong> can only be exercised on the maturity date of the option. <strong>American options</strong> can be exercised early. The terms don’t have anything to do with where the options are traded.</p>
 <p>Finally, there is an important relationship between the call price, the put price, the current stock price, and the borrowing needed to form the portfolio called <a class="reference external" href="https://en.wikipedia.org/wiki/Put%E2%80%93call_parity">put-call parity</a>.</p>
-<div class="amsmath math notranslate nohighlight" id="equation-3df12b66-f250-452c-b433-261cd1372ebd">
-<span class="eqno">(14)<a class="headerlink" href="#equation-3df12b66-f250-452c-b433-261cd1372ebd" title="Permalink to this equation">¶</a></span>\[\begin{align}
+<div class="amsmath math notranslate nohighlight" id="equation-9abbf3d0-8dd3-4308-9603-c2fdbd46b217">
+<span class="eqno">(14.1)<a class="headerlink" href="#equation-9abbf3d0-8dd3-4308-9603-c2fdbd46b217" title="Permalink to this equation">#</a></span>\[\begin{align}
 C - P = S - Ke^{-rt}
 \end{align}\]</div>
 <p>This is an <strong>arbitrage relationship</strong>, as there is free money to be had if it doesn’t hold. If you think you observe a situation where it isn’t true, it is likely because <strong>transactions costs</strong> (i.e. the costs associated with trading) are preventing market participants from exploiting the difference.</p>
@@ -618,14 +713,14 @@ C - P = S - Ke^{-rt}
 <img alt="../_images/14_options_12_0.png" src="../_images/14_options_12_0.png" />
 </div>
 </div>
-</div>
-<div class="section" id="black-scholes-merton">
-<h2>Black-Scholes-Merton<a class="headerlink" href="#black-scholes-merton" title="Permalink to this headline">¶</a></h2>
+</section>
+<section id="black-scholes-merton">
+<h2><span class="section-number">14.2. </span>Black-Scholes-Merton<a class="headerlink" href="#black-scholes-merton" title="Permalink to this headline">#</a></h2>
 <p>Let’s write a <strong>function</strong> that takes the inputs into the BSM model and values a <strong>call option</strong>. You would do something very similar for a <strong>put option</strong>. Again, we are trying to find the <strong>price</strong> that you would pay for the right to buy or sell a stock at a certain price in the future. This price is going to depend on the option contract parameters and, crucially, an assumption about the <strong>volatility</strong> of the asset.</p>
 <p>Notice what <strong>does not</strong> appear in the BSM formula - the expected return on the stock! This is the magic. We don’t need to have any expectations for Apple’s return in order to price their options.</p>
 <p>The BSM formula for a call option price at time 0 (today) is:</p>
-<div class="amsmath math notranslate nohighlight" id="equation-70967cd7-bd97-48f7-a173-c42af04aa92b">
-<span class="eqno">(15)<a class="headerlink" href="#equation-70967cd7-bd97-48f7-a173-c42af04aa92b" title="Permalink to this equation">¶</a></span>\[\begin{align}
+<div class="amsmath math notranslate nohighlight" id="equation-964df3a3-0d6f-412a-a860-ca3ab1942f8d">
+<span class="eqno">(14.2)<a class="headerlink" href="#equation-964df3a3-0d6f-412a-a860-ca3ab1942f8d" title="Permalink to this equation">#</a></span>\[\begin{align}
 C_0 = S_0N(d_1) - e^{-rT}KN(d_2)
 \end{align}\]</div>
 <p>where <span class="math notranslate nohighlight">\(C_0\)</span> is the call price, <span class="math notranslate nohighlight">\(S_0\)</span> is the stock price today, <span class="math notranslate nohighlight">\(K\)</span> is the strike price, <span class="math notranslate nohighlight">\(r\)</span> is the risk-free rate, and <span class="math notranslate nohighlight">\(T\)</span> is the time-to-maturity. You’ll also see <span class="math notranslate nohighlight">\(T-t\)</span>, where <span class="math notranslate nohighlight">\(T\)</span> is the maturity date and <span class="math notranslate nohighlight">\(t\)</span> is today’s date. We’re using <span class="math notranslate nohighlight">\(T\)</span> as the number of years (fractional) until the maturity date.</p>
@@ -633,18 +728,18 @@ C_0 = S_0N(d_1) - e^{-rT}KN(d_2)
 <p>One of the <strong>key ideas</strong> with option pricing is the idea of <strong>risk neutral pricing</strong>. This comes from the idea of the arbitrage relationship and allows us to discount payoffs at a known risk-free rate, rather than something more difficult to calculate, like the required return on equity for a stock based on the CAPM.</p>
 <p>Now, what is <span class="math notranslate nohighlight">\(N()\)</span>? This is the <strong>cumulative density function (CDF)</strong> for the standard normal distribution with a mean of 0 and a standard deviation of 1. What is a <strong>CDF</strong>? Put a number into this function. The CDF gives the probability that a random draw from that distribution will be less than or equal to that number (i.e. the area under the curve of the distribution up to that number on the x-axis). So, N(0) = 0.5, since half of the distribution is to the left of the mean.</p>
 <p>Finally, what are <span class="math notranslate nohighlight">\(d_1\)</span> and <span class="math notranslate nohighlight">\(d_2\)</span>? They are defined as:</p>
-<div class="amsmath math notranslate nohighlight" id="equation-fd30eeaa-620d-4349-9b5b-7e260ef506ca">
-<span class="eqno">(16)<a class="headerlink" href="#equation-fd30eeaa-620d-4349-9b5b-7e260ef506ca" title="Permalink to this equation">¶</a></span>\[\begin{align}
+<div class="amsmath math notranslate nohighlight" id="equation-461eb3f0-942a-4296-9243-960ed400547a">
+<span class="eqno">(14.3)<a class="headerlink" href="#equation-461eb3f0-942a-4296-9243-960ed400547a" title="Permalink to this equation">#</a></span>\[\begin{align}
 d_1 = \frac{log\frac{S_0}{K} + (r + \frac{1}{2} \sigma^2)T}{\sigma\sqrt(T)}
 \end{align}\]</div>
-<div class="amsmath math notranslate nohighlight" id="equation-0882e915-4fbe-4d81-8d1a-0b4b57dbf438">
-<span class="eqno">(17)<a class="headerlink" href="#equation-0882e915-4fbe-4d81-8d1a-0b4b57dbf438" title="Permalink to this equation">¶</a></span>\[\begin{align}
+<div class="amsmath math notranslate nohighlight" id="equation-c65bd1ca-78db-47a4-90f3-75576a38c6a4">
+<span class="eqno">(14.4)<a class="headerlink" href="#equation-c65bd1ca-78db-47a4-90f3-75576a38c6a4" title="Permalink to this equation">#</a></span>\[\begin{align}
 d_2 = d_1 - \sigma\sqrt(T) = \frac{log\frac{S_0}{K} + (r - \frac{1}{2} \sigma^2)T}{\sigma\sqrt(T)}
 \end{align}\]</div>
 <p>You see how there’s some more <span class="math notranslate nohighlight">\(\frac{1}{2}\sigma^2\)</span>, logs, <span class="math notranslate nohighlight">\(T\)</span>, and <span class="math notranslate nohighlight">\(\sqrt(T)\)</span>, like with our simulations? The underlying math (Brownian motion) is the same. <span class="math notranslate nohighlight">\(\sigma^2\)</span> is the variance of the continuously compounded rate of return (log returns) for the asset. Note that we do need to calculate this using data, or some other set of assumptions.</p>
 <p>How can we interpret these formulas? Let’s re-write the BSM formula:</p>
-<div class="amsmath math notranslate nohighlight" id="equation-611669e9-dcfd-46a4-915c-534105127ce1">
-<span class="eqno">(18)<a class="headerlink" href="#equation-611669e9-dcfd-46a4-915c-534105127ce1" title="Permalink to this equation">¶</a></span>\[\begin{align}
+<div class="amsmath math notranslate nohighlight" id="equation-d739ba80-4639-45cb-9bde-5c2dff2b4eac">
+<span class="eqno">(14.5)<a class="headerlink" href="#equation-d739ba80-4639-45cb-9bde-5c2dff2b4eac" title="Permalink to this equation">#</a></span>\[\begin{align}
 C_0 = e^{-rT}(S_0e^{rT}N(d_1) - KN(d_2))
 \end{align}\]</div>
 <p>The BSM formula has two pieces. The pieces represent this idea of an <strong>arbitrage</strong> relationship. In other words, we can create an option from other securities. For a call option, we can <strong>replicate the option</strong> by purchasing the stock and then financing that purchase by borrowing the money needed. Like we say with put-call parity, the option is a combination of the stock and borrowing.</p>
@@ -835,9 +930,9 @@ difference is equal to 9.009966106532374e-10
 </div>
 </div>
 <p>And it does! It’s beyond the scope of what we’re doing, but this code is using <a class="reference external" href="https://www.codearmo.com/blog/implied-volatility-european-call-python">numerical methods</a> to search for and find the “correct” volatility. Specifically, it is using the <a class="reference external" href="https://en.wikipedia.org/wiki/Newton%27s_method">Newton-Rapshon method</a>. Yeah, that Newton! He didn’t come up with option pricing formulas, but it is fitting that we use approaches he developed, since he <a class="reference external" href="https://www.smithsonianmag.com/smart-news/market-crash-cost-newton-fortune-180961655/">loved to speculate and lost a fortune trading stocks</a>.</p>
-</div>
-<div class="section" id="py-vollib-library">
-<h2>py_vollib library<a class="headerlink" href="#py-vollib-library" title="Permalink to this headline">¶</a></h2>
+</section>
+<section id="py-vollib-library">
+<h2><span class="section-number">14.3. </span>py_vollib library<a class="headerlink" href="#py-vollib-library" title="Permalink to this headline">#</a></h2>
 <p>The <a class="reference external" href="http://vollib.org/documentation/python/1.0.2/index.html">py_vollib</a> library has a lot of useful functions for option pricing.</p>
 <p>For example, we can find the BSM price and implied volatility for our call option. Note that there is another parameter, <span class="math notranslate nohighlight">\(q\)</span>, which is the annualized continuous dividend rate. We’ve been ignoring dividends.</p>
 <div class="cell docutils container">
@@ -863,17 +958,15 @@ difference is equal to 9.009966106532374e-10
 </div>
 <div class="cell_output docutils container">
 <div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>4.463301711346105
-</pre></div>
-</div>
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>0.25
+0.25
 0.3140913745355983
 </pre></div>
 </div>
 </div>
 </div>
 <p>That worked too!</p>
-</div>
-</div>
+</section>
+</section>
 
     <script type="text/x-thebe-config">
     {
@@ -897,42 +990,47 @@ difference is equal to 9.009966106532374e-10
 
               </div>
               
-            
-                <!-- Previous / next buttons -->
-<div class='prev-next-area'> 
+            </main>
+            <footer class="footer-article noprint">
+                
+    <!-- Previous / next buttons -->
+<div class='prev-next-area'>
     <a class='left-prev' id="prev-link" href="13_monte_carlo.html" title="previous page">
         <i class="fas fa-angle-left"></i>
         <div class="prev-next-info">
             <p class="prev-next-subtitle">previous</p>
-            <p class="prev-next-title">Monte Carlo and portfolios</p>
+            <p class="prev-next-title"><span class="section-number">13. </span>Monte Carlo and portfolios</p>
         </div>
     </a>
     <a class='right-next' id="next-link" href="15_logit_credit.html" title="next page">
     <div class="prev-next-info">
         <p class="prev-next-subtitle">next</p>
-        <p class="prev-next-title">Logit models</p>
+        <p class="prev-next-title"><span class="section-number">15. </span>Logit models</p>
     </div>
     <i class="fas fa-angle-right"></i>
     </a>
 </div>
-            
+            </footer>
         </div>
     </div>
-    <footer class="footer">
-  <p>
+    <div class="footer-content row">
+        <footer class="col footer"><p>
+  
+    By Prof. Adam Aiken<br/>
+  
+</p>
+        </footer>
+    </div>
     
-      By Prof. Adam Aiken<br/>
-    
-        &copy; Copyright 2021.<br/>
-  </p>
-</footer>
-</main>
+</div>
 
 
       </div>
     </div>
   
-  <script src="../_static/js/index.be7d3bbb2ef33a8344ce.js"></script>
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="../_static/scripts/pydata-sphinx-theme.js?digest=1999514e3f237ded88cf"></script>
+
 
   </body>
 </html>

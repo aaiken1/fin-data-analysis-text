@@ -1,0 +1,208 @@
+Traceback (most recent call last):
+  File "/Users/adamaiken/opt/anaconda3/lib/python3.9/site-packages/jupyter_cache/executors/utils.py", line 51, in single_nb_execution
+    executenb(
+  File "/Users/adamaiken/opt/anaconda3/lib/python3.9/site-packages/nbclient/client.py", line 1204, in execute
+    return NotebookClient(nb=nb, resources=resources, km=km, **kwargs).execute()
+  File "/Users/adamaiken/opt/anaconda3/lib/python3.9/site-packages/nbclient/util.py", line 84, in wrapped
+    return just_run(coro(*args, **kwargs))
+  File "/Users/adamaiken/opt/anaconda3/lib/python3.9/site-packages/nbclient/util.py", line 62, in just_run
+    return loop.run_until_complete(coro)
+  File "/Users/adamaiken/opt/anaconda3/lib/python3.9/asyncio/base_events.py", line 647, in run_until_complete
+    return future.result()
+  File "/Users/adamaiken/opt/anaconda3/lib/python3.9/site-packages/nbclient/client.py", line 663, in async_execute
+    await self.async_execute_cell(
+  File "/Users/adamaiken/opt/anaconda3/lib/python3.9/site-packages/nbclient/client.py", line 965, in async_execute_cell
+    await self._check_raise_for_error(cell, cell_index, exec_reply)
+  File "/Users/adamaiken/opt/anaconda3/lib/python3.9/site-packages/nbclient/client.py", line 862, in _check_raise_for_error
+    raise CellExecutionError.from_cell_and_msg(cell, exec_reply_content)
+nbclient.exceptions.CellExecutionError: An error occurred while executing the following cell:
+------------------
+# Set-up
+import numpy as np
+import pandas as pd
+import seaborn as sns
+import matplotlib.pyplot as plt
+sns.set_theme(style="white")
+
+
+# Read in some eod prices
+stocks = pd.read_csv('https://raw.githubusercontent.com/aaiken1/fin-data-analysis-python/main/data/tr_eikon_eod_data.csv',
+                  index_col=0, parse_dates=True)  
+
+stocks.dropna(inplace=True)  
+
+from janitor import clean_names
+
+stocks = clean_names(stocks)
+
+stocks['aapl_ret'] = np.log(stocks.aapl_o / stocks.aapl_o.shift(1))  
+stocks['msft_ret'] = np.log(stocks.msft_o / stocks.msft_o.shift(1))  
+
+stocks.info()
+------------------
+
+[0;31m---------------------------------------------------------------------------[0m
+[0;31mTimeoutError[0m                              Traceback (most recent call last)
+[0;32m~/opt/anaconda3/lib/python3.9/urllib/request.py[0m in [0;36mdo_open[0;34m(self, http_class, req, **http_conn_args)[0m
+[1;32m   1345[0m             [0;32mtry[0m[0;34m:[0m[0;34m[0m[0;34m[0m[0m
+[0;32m-> 1346[0;31m                 h.request(req.get_method(), req.selector, req.data, headers,
+[0m[1;32m   1347[0m                           encode_chunked=req.has_header('Transfer-encoding'))
+
+[0;32m~/opt/anaconda3/lib/python3.9/http/client.py[0m in [0;36mrequest[0;34m(self, method, url, body, headers, encode_chunked)[0m
+[1;32m   1284[0m         [0;34m"""Send a complete request to the server."""[0m[0;34m[0m[0;34m[0m[0m
+[0;32m-> 1285[0;31m         [0mself[0m[0;34m.[0m[0m_send_request[0m[0;34m([0m[0mmethod[0m[0;34m,[0m [0murl[0m[0;34m,[0m [0mbody[0m[0;34m,[0m [0mheaders[0m[0;34m,[0m [0mencode_chunked[0m[0;34m)[0m[0;34m[0m[0;34m[0m[0m
+[0m[1;32m   1286[0m [0;34m[0m[0m
+
+[0;32m~/opt/anaconda3/lib/python3.9/http/client.py[0m in [0;36m_send_request[0;34m(self, method, url, body, headers, encode_chunked)[0m
+[1;32m   1330[0m             [0mbody[0m [0;34m=[0m [0m_encode[0m[0;34m([0m[0mbody[0m[0;34m,[0m [0;34m'body'[0m[0;34m)[0m[0;34m[0m[0;34m[0m[0m
+[0;32m-> 1331[0;31m         [0mself[0m[0;34m.[0m[0mendheaders[0m[0;34m([0m[0mbody[0m[0;34m,[0m [0mencode_chunked[0m[0;34m=[0m[0mencode_chunked[0m[0;34m)[0m[0;34m[0m[0;34m[0m[0m
+[0m[1;32m   1332[0m [0;34m[0m[0m
+
+[0;32m~/opt/anaconda3/lib/python3.9/http/client.py[0m in [0;36mendheaders[0;34m(self, message_body, encode_chunked)[0m
+[1;32m   1279[0m             [0;32mraise[0m [0mCannotSendHeader[0m[0;34m([0m[0;34m)[0m[0;34m[0m[0;34m[0m[0m
+[0;32m-> 1280[0;31m         [0mself[0m[0;34m.[0m[0m_send_output[0m[0;34m([0m[0mmessage_body[0m[0;34m,[0m [0mencode_chunked[0m[0;34m=[0m[0mencode_chunked[0m[0;34m)[0m[0;34m[0m[0;34m[0m[0m
+[0m[1;32m   1281[0m [0;34m[0m[0m
+
+[0;32m~/opt/anaconda3/lib/python3.9/http/client.py[0m in [0;36m_send_output[0;34m(self, message_body, encode_chunked)[0m
+[1;32m   1039[0m         [0;32mdel[0m [0mself[0m[0;34m.[0m[0m_buffer[0m[0;34m[[0m[0;34m:[0m[0;34m][0m[0;34m[0m[0;34m[0m[0m
+[0;32m-> 1040[0;31m         [0mself[0m[0;34m.[0m[0msend[0m[0;34m([0m[0mmsg[0m[0;34m)[0m[0;34m[0m[0;34m[0m[0m
+[0m[1;32m   1041[0m [0;34m[0m[0m
+
+[0;32m~/opt/anaconda3/lib/python3.9/http/client.py[0m in [0;36msend[0;34m(self, data)[0m
+[1;32m    979[0m             [0;32mif[0m [0mself[0m[0;34m.[0m[0mauto_open[0m[0;34m:[0m[0;34m[0m[0;34m[0m[0m
+[0;32m--> 980[0;31m                 [0mself[0m[0;34m.[0m[0mconnect[0m[0;34m([0m[0;34m)[0m[0;34m[0m[0;34m[0m[0m
+[0m[1;32m    981[0m             [0;32melse[0m[0;34m:[0m[0;34m[0m[0;34m[0m[0m
+
+[0;32m~/opt/anaconda3/lib/python3.9/http/client.py[0m in [0;36mconnect[0;34m(self)[0m
+[1;32m   1453[0m [0;34m[0m[0m
+[0;32m-> 1454[0;31m             self.sock = self._context.wrap_socket(self.sock,
+[0m[1;32m   1455[0m                                                   server_hostname=server_hostname)
+
+[0;32m~/opt/anaconda3/lib/python3.9/ssl.py[0m in [0;36mwrap_socket[0;34m(self, sock, server_side, do_handshake_on_connect, suppress_ragged_eofs, server_hostname, session)[0m
+[1;32m    500[0m         [0;31m# ctx._wrap_socket()[0m[0;34m[0m[0;34m[0m[0m
+[0;32m--> 501[0;31m         return self.sslsocket_class._create(
+[0m[1;32m    502[0m             [0msock[0m[0;34m=[0m[0msock[0m[0;34m,[0m[0;34m[0m[0;34m[0m[0m
+
+[0;32m~/opt/anaconda3/lib/python3.9/ssl.py[0m in [0;36m_create[0;34m(cls, sock, server_side, do_handshake_on_connect, suppress_ragged_eofs, server_hostname, context, session)[0m
+[1;32m   1040[0m                         [0;32mraise[0m [0mValueError[0m[0;34m([0m[0;34m"do_handshake_on_connect should not be specified for non-blocking sockets"[0m[0;34m)[0m[0;34m[0m[0;34m[0m[0m
+[0;32m-> 1041[0;31m                     [0mself[0m[0;34m.[0m[0mdo_handshake[0m[0;34m([0m[0;34m)[0m[0;34m[0m[0;34m[0m[0m
+[0m[1;32m   1042[0m             [0;32mexcept[0m [0;34m([0m[0mOSError[0m[0;34m,[0m [0mValueError[0m[0;34m)[0m[0;34m:[0m[0;34m[0m[0;34m[0m[0m
+
+[0;32m~/opt/anaconda3/lib/python3.9/ssl.py[0m in [0;36mdo_handshake[0;34m(self, block)[0m
+[1;32m   1309[0m                 [0mself[0m[0;34m.[0m[0msettimeout[0m[0;34m([0m[0;32mNone[0m[0;34m)[0m[0;34m[0m[0;34m[0m[0m
+[0;32m-> 1310[0;31m             [0mself[0m[0;34m.[0m[0m_sslobj[0m[0;34m.[0m[0mdo_handshake[0m[0;34m([0m[0;34m)[0m[0;34m[0m[0;34m[0m[0m
+[0m[1;32m   1311[0m         [0;32mfinally[0m[0;34m:[0m[0;34m[0m[0;34m[0m[0m
+
+[0;31mTimeoutError[0m: [Errno 60] Operation timed out
+
+During handling of the above exception, another exception occurred:
+
+[0;31mURLError[0m                                  Traceback (most recent call last)
+[0;32m/var/folders/sm/f4lq92s11392x68kwf0scq3w0000gn/T/ipykernel_82798/2238847516.py[0m in [0;36m<module>[0;34m[0m
+[1;32m      8[0m [0;34m[0m[0m
+[1;32m      9[0m [0;31m# Read in some eod prices[0m[0;34m[0m[0;34m[0m[0m
+[0;32m---> 10[0;31m stocks = pd.read_csv('https://raw.githubusercontent.com/aaiken1/fin-data-analysis-python/main/data/tr_eikon_eod_data.csv',
+[0m[1;32m     11[0m                   index_col=0, parse_dates=True)  
+[1;32m     12[0m [0;34m[0m[0m
+
+[0;32m~/opt/anaconda3/lib/python3.9/site-packages/pandas/util/_decorators.py[0m in [0;36mwrapper[0;34m(*args, **kwargs)[0m
+[1;32m    309[0m                     [0mstacklevel[0m[0;34m=[0m[0mstacklevel[0m[0;34m,[0m[0;34m[0m[0;34m[0m[0m
+[1;32m    310[0m                 )
+[0;32m--> 311[0;31m             [0;32mreturn[0m [0mfunc[0m[0;34m([0m[0;34m*[0m[0margs[0m[0;34m,[0m [0;34m**[0m[0mkwargs[0m[0;34m)[0m[0;34m[0m[0;34m[0m[0m
+[0m[1;32m    312[0m [0;34m[0m[0m
+[1;32m    313[0m         [0;32mreturn[0m [0mwrapper[0m[0;34m[0m[0;34m[0m[0m
+
+[0;32m~/opt/anaconda3/lib/python3.9/site-packages/pandas/io/parsers/readers.py[0m in [0;36mread_csv[0;34m(filepath_or_buffer, sep, delimiter, header, names, index_col, usecols, squeeze, prefix, mangle_dupe_cols, dtype, engine, converters, true_values, false_values, skipinitialspace, skiprows, skipfooter, nrows, na_values, keep_default_na, na_filter, verbose, skip_blank_lines, parse_dates, infer_datetime_format, keep_date_col, date_parser, dayfirst, cache_dates, iterator, chunksize, compression, thousands, decimal, lineterminator, quotechar, quoting, doublequote, escapechar, comment, encoding, encoding_errors, dialect, error_bad_lines, warn_bad_lines, on_bad_lines, delim_whitespace, low_memory, memory_map, float_precision, storage_options)[0m
+[1;32m    676[0m     [0mkwds[0m[0;34m.[0m[0mupdate[0m[0;34m([0m[0mkwds_defaults[0m[0;34m)[0m[0;34m[0m[0;34m[0m[0m
+[1;32m    677[0m [0;34m[0m[0m
+[0;32m--> 678[0;31m     [0;32mreturn[0m [0m_read[0m[0;34m([0m[0mfilepath_or_buffer[0m[0;34m,[0m [0mkwds[0m[0;34m)[0m[0;34m[0m[0;34m[0m[0m
+[0m[1;32m    679[0m [0;34m[0m[0m
+[1;32m    680[0m [0;34m[0m[0m
+
+[0;32m~/opt/anaconda3/lib/python3.9/site-packages/pandas/io/parsers/readers.py[0m in [0;36m_read[0;34m(filepath_or_buffer, kwds)[0m
+[1;32m    573[0m [0;34m[0m[0m
+[1;32m    574[0m     [0;31m# Create the parser.[0m[0;34m[0m[0;34m[0m[0m
+[0;32m--> 575[0;31m     [0mparser[0m [0;34m=[0m [0mTextFileReader[0m[0;34m([0m[0mfilepath_or_buffer[0m[0;34m,[0m [0;34m**[0m[0mkwds[0m[0;34m)[0m[0;34m[0m[0;34m[0m[0m
+[0m[1;32m    576[0m [0;34m[0m[0m
+[1;32m    577[0m     [0;32mif[0m [0mchunksize[0m [0;32mor[0m [0miterator[0m[0;34m:[0m[0;34m[0m[0;34m[0m[0m
+
+[0;32m~/opt/anaconda3/lib/python3.9/site-packages/pandas/io/parsers/readers.py[0m in [0;36m__init__[0;34m(self, f, engine, **kwds)[0m
+[1;32m    930[0m [0;34m[0m[0m
+[1;32m    931[0m         [0mself[0m[0;34m.[0m[0mhandles[0m[0;34m:[0m [0mIOHandles[0m [0;34m|[0m [0;32mNone[0m [0;34m=[0m [0;32mNone[0m[0;34m[0m[0;34m[0m[0m
+[0;32m--> 932[0;31m         [0mself[0m[0;34m.[0m[0m_engine[0m [0;34m=[0m [0mself[0m[0;34m.[0m[0m_make_engine[0m[0;34m([0m[0mf[0m[0;34m,[0m [0mself[0m[0;34m.[0m[0mengine[0m[0;34m)[0m[0;34m[0m[0;34m[0m[0m
+[0m[1;32m    933[0m [0;34m[0m[0m
+[1;32m    934[0m     [0;32mdef[0m [0mclose[0m[0;34m([0m[0mself[0m[0;34m)[0m[0;34m:[0m[0;34m[0m[0;34m[0m[0m
+
+[0;32m~/opt/anaconda3/lib/python3.9/site-packages/pandas/io/parsers/readers.py[0m in [0;36m_make_engine[0;34m(self, f, engine)[0m
+[1;32m   1214[0m             [0;31m# "Union[str, PathLike[str], ReadCsvBuffer[bytes], ReadCsvBuffer[str]]"[0m[0;34m[0m[0;34m[0m[0m
+[1;32m   1215[0m             [0;31m# , "str", "bool", "Any", "Any", "Any", "Any", "Any"[0m[0;34m[0m[0;34m[0m[0m
+[0;32m-> 1216[0;31m             self.handles = get_handle(  # type: ignore[call-overload]
+[0m[1;32m   1217[0m                 [0mf[0m[0;34m,[0m[0;34m[0m[0;34m[0m[0m
+[1;32m   1218[0m                 [0mmode[0m[0;34m,[0m[0;34m[0m[0;34m[0m[0m
+
+[0;32m~/opt/anaconda3/lib/python3.9/site-packages/pandas/io/common.py[0m in [0;36mget_handle[0;34m(path_or_buf, mode, encoding, compression, memory_map, is_text, errors, storage_options)[0m
+[1;32m    665[0m [0;34m[0m[0m
+[1;32m    666[0m     [0;31m# open URLs[0m[0;34m[0m[0;34m[0m[0m
+[0;32m--> 667[0;31m     ioargs = _get_filepath_or_buffer(
+[0m[1;32m    668[0m         [0mpath_or_buf[0m[0;34m,[0m[0;34m[0m[0;34m[0m[0m
+[1;32m    669[0m         [0mencoding[0m[0;34m=[0m[0mencoding[0m[0;34m,[0m[0;34m[0m[0;34m[0m[0m
+
+[0;32m~/opt/anaconda3/lib/python3.9/site-packages/pandas/io/common.py[0m in [0;36m_get_filepath_or_buffer[0;34m(filepath_or_buffer, encoding, compression, mode, storage_options)[0m
+[1;32m    334[0m         [0;31m# assuming storage_options is to be interpreted as headers[0m[0;34m[0m[0;34m[0m[0m
+[1;32m    335[0m         [0mreq_info[0m [0;34m=[0m [0murllib[0m[0;34m.[0m[0mrequest[0m[0;34m.[0m[0mRequest[0m[0;34m([0m[0mfilepath_or_buffer[0m[0;34m,[0m [0mheaders[0m[0;34m=[0m[0mstorage_options[0m[0;34m)[0m[0;34m[0m[0;34m[0m[0m
+[0;32m--> 336[0;31m         [0;32mwith[0m [0murlopen[0m[0;34m([0m[0mreq_info[0m[0;34m)[0m [0;32mas[0m [0mreq[0m[0;34m:[0m[0;34m[0m[0;34m[0m[0m
+[0m[1;32m    337[0m             [0mcontent_encoding[0m [0;34m=[0m [0mreq[0m[0;34m.[0m[0mheaders[0m[0;34m.[0m[0mget[0m[0;34m([0m[0;34m"Content-Encoding"[0m[0;34m,[0m [0;32mNone[0m[0;34m)[0m[0;34m[0m[0;34m[0m[0m
+[1;32m    338[0m             [0;32mif[0m [0mcontent_encoding[0m [0;34m==[0m [0;34m"gzip"[0m[0;34m:[0m[0;34m[0m[0;34m[0m[0m
+
+[0;32m~/opt/anaconda3/lib/python3.9/site-packages/pandas/io/common.py[0m in [0;36murlopen[0;34m(*args, **kwargs)[0m
+[1;32m    234[0m     [0;32mimport[0m [0murllib[0m[0;34m.[0m[0mrequest[0m[0;34m[0m[0;34m[0m[0m
+[1;32m    235[0m [0;34m[0m[0m
+[0;32m--> 236[0;31m     [0;32mreturn[0m [0murllib[0m[0;34m.[0m[0mrequest[0m[0;34m.[0m[0murlopen[0m[0;34m([0m[0;34m*[0m[0margs[0m[0;34m,[0m [0;34m**[0m[0mkwargs[0m[0;34m)[0m[0;34m[0m[0;34m[0m[0m
+[0m[1;32m    237[0m [0;34m[0m[0m
+[1;32m    238[0m [0;34m[0m[0m
+
+[0;32m~/opt/anaconda3/lib/python3.9/urllib/request.py[0m in [0;36murlopen[0;34m(url, data, timeout, cafile, capath, cadefault, context)[0m
+[1;32m    212[0m     [0;32melse[0m[0;34m:[0m[0;34m[0m[0;34m[0m[0m
+[1;32m    213[0m         [0mopener[0m [0;34m=[0m [0m_opener[0m[0;34m[0m[0;34m[0m[0m
+[0;32m--> 214[0;31m     [0;32mreturn[0m [0mopener[0m[0;34m.[0m[0mopen[0m[0;34m([0m[0murl[0m[0;34m,[0m [0mdata[0m[0;34m,[0m [0mtimeout[0m[0;34m)[0m[0;34m[0m[0;34m[0m[0m
+[0m[1;32m    215[0m [0;34m[0m[0m
+[1;32m    216[0m [0;32mdef[0m [0minstall_opener[0m[0;34m([0m[0mopener[0m[0;34m)[0m[0;34m:[0m[0;34m[0m[0;34m[0m[0m
+
+[0;32m~/opt/anaconda3/lib/python3.9/urllib/request.py[0m in [0;36mopen[0;34m(self, fullurl, data, timeout)[0m
+[1;32m    515[0m [0;34m[0m[0m
+[1;32m    516[0m         [0msys[0m[0;34m.[0m[0maudit[0m[0;34m([0m[0;34m'urllib.Request'[0m[0;34m,[0m [0mreq[0m[0;34m.[0m[0mfull_url[0m[0;34m,[0m [0mreq[0m[0;34m.[0m[0mdata[0m[0;34m,[0m [0mreq[0m[0;34m.[0m[0mheaders[0m[0;34m,[0m [0mreq[0m[0;34m.[0m[0mget_method[0m[0;34m([0m[0;34m)[0m[0;34m)[0m[0;34m[0m[0;34m[0m[0m
+[0;32m--> 517[0;31m         [0mresponse[0m [0;34m=[0m [0mself[0m[0;34m.[0m[0m_open[0m[0;34m([0m[0mreq[0m[0;34m,[0m [0mdata[0m[0;34m)[0m[0;34m[0m[0;34m[0m[0m
+[0m[1;32m    518[0m [0;34m[0m[0m
+[1;32m    519[0m         [0;31m# post-process response[0m[0;34m[0m[0;34m[0m[0m
+
+[0;32m~/opt/anaconda3/lib/python3.9/urllib/request.py[0m in [0;36m_open[0;34m(self, req, data)[0m
+[1;32m    532[0m [0;34m[0m[0m
+[1;32m    533[0m         [0mprotocol[0m [0;34m=[0m [0mreq[0m[0;34m.[0m[0mtype[0m[0;34m[0m[0;34m[0m[0m
+[0;32m--> 534[0;31m         result = self._call_chain(self.handle_open, protocol, protocol +
+[0m[1;32m    535[0m                                   '_open', req)
+[1;32m    536[0m         [0;32mif[0m [0mresult[0m[0;34m:[0m[0;34m[0m[0;34m[0m[0m
+
+[0;32m~/opt/anaconda3/lib/python3.9/urllib/request.py[0m in [0;36m_call_chain[0;34m(self, chain, kind, meth_name, *args)[0m
+[1;32m    492[0m         [0;32mfor[0m [0mhandler[0m [0;32min[0m [0mhandlers[0m[0;34m:[0m[0;34m[0m[0;34m[0m[0m
+[1;32m    493[0m             [0mfunc[0m [0;34m=[0m [0mgetattr[0m[0;34m([0m[0mhandler[0m[0;34m,[0m [0mmeth_name[0m[0;34m)[0m[0;34m[0m[0;34m[0m[0m
+[0;32m--> 494[0;31m             [0mresult[0m [0;34m=[0m [0mfunc[0m[0;34m([0m[0;34m*[0m[0margs[0m[0;34m)[0m[0;34m[0m[0;34m[0m[0m
+[0m[1;32m    495[0m             [0;32mif[0m [0mresult[0m [0;32mis[0m [0;32mnot[0m [0;32mNone[0m[0;34m:[0m[0;34m[0m[0;34m[0m[0m
+[1;32m    496[0m                 [0;32mreturn[0m [0mresult[0m[0;34m[0m[0;34m[0m[0m
+
+[0;32m~/opt/anaconda3/lib/python3.9/urllib/request.py[0m in [0;36mhttps_open[0;34m(self, req)[0m
+[1;32m   1387[0m [0;34m[0m[0m
+[1;32m   1388[0m         [0;32mdef[0m [0mhttps_open[0m[0;34m([0m[0mself[0m[0;34m,[0m [0mreq[0m[0;34m)[0m[0;34m:[0m[0;34m[0m[0;34m[0m[0m
+[0;32m-> 1389[0;31m             return self.do_open(http.client.HTTPSConnection, req,
+[0m[1;32m   1390[0m                 context=self._context, check_hostname=self._check_hostname)
+[1;32m   1391[0m [0;34m[0m[0m
+
+[0;32m~/opt/anaconda3/lib/python3.9/urllib/request.py[0m in [0;36mdo_open[0;34m(self, http_class, req, **http_conn_args)[0m
+[1;32m   1347[0m                           encode_chunked=req.has_header('Transfer-encoding'))
+[1;32m   1348[0m             [0;32mexcept[0m [0mOSError[0m [0;32mas[0m [0merr[0m[0;34m:[0m [0;31m# timeout error[0m[0;34m[0m[0;34m[0m[0m
+[0;32m-> 1349[0;31m                 [0;32mraise[0m [0mURLError[0m[0;34m([0m[0merr[0m[0;34m)[0m[0;34m[0m[0;34m[0m[0m
+[0m[1;32m   1350[0m             [0mr[0m [0;34m=[0m [0mh[0m[0;34m.[0m[0mgetresponse[0m[0;34m([0m[0;34m)[0m[0;34m[0m[0;34m[0m[0m
+[1;32m   1351[0m         [0;32mexcept[0m[0;34m:[0m[0;34m[0m[0;34m[0m[0m
+
+[0;31mURLError[0m: <urlopen error [Errno 60] Operation timed out>
+URLError: <urlopen error [Errno 60] Operation timed out>
+
