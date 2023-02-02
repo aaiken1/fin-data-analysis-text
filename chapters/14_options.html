@@ -129,7 +129,7 @@ const thebe_selector_output = ".output, .cell_output"
   </a>
  </li>
  <li class="toctree-l1 has-children">
-  <a class="reference internal" href="2_intro.html">
+  <a class="reference internal" href="2_1_intro.html">
    2. Python set-up
    <a id="python_set-up">
    </a>
@@ -141,28 +141,33 @@ const thebe_selector_output = ".output, .cell_output"
   </label>
   <ul>
    <li class="toctree-l2">
-    <a class="reference internal" href="2_0_install.html">
+    <a class="reference internal" href="2_2_install.html">
      2.2. Installation
     </a>
    </li>
    <li class="toctree-l2">
-    <a class="reference internal" href="2_1_jupyter.html">
+    <a class="reference internal" href="2_3_jupyter.html">
      2.3. Jupyter notebooks
     </a>
    </li>
    <li class="toctree-l2">
-    <a class="reference internal" href="2_2_vscode.html">
+    <a class="reference internal" href="2_4_vscode.html">
      2.4. VS Code
     </a>
    </li>
    <li class="toctree-l2">
-    <a class="reference internal" href="2_3_markdown.html">
+    <a class="reference internal" href="2_5_markdown.html">
      2.5. Markdown
     </a>
    </li>
    <li class="toctree-l2">
-    <a class="reference internal" href="2_4_packages.html">
+    <a class="reference internal" href="2_6_packages.html">
      2.6. Packages
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="2_7_style.html">
+     2.7. Code Style, PEP8, and Linting
     </a>
    </li>
   </ul>
@@ -175,7 +180,7 @@ const thebe_selector_output = ".output, .cell_output"
 </p>
 <ul class="nav bd-sidenav">
  <li class="toctree-l1 has-children">
-  <a class="reference internal" href="3_intro.html">
+  <a class="reference internal" href="3_1_intro.html">
    3. CompSci 101: Types, control, and numpy arrays
   </a>
   <input class="toctree-checkbox" id="toctree-checkbox-2" name="toctree-checkbox-2" type="checkbox"/>
@@ -185,12 +190,12 @@ const thebe_selector_output = ".output, .cell_output"
   </label>
   <ul>
    <li class="toctree-l2">
-    <a class="reference internal" href="3_0_comp101.html">
+    <a class="reference internal" href="3_2_comp101.html">
      3.1. The Basics
     </a>
    </li>
    <li class="toctree-l2">
-    <a class="reference internal" href="3_1_numpy.html">
+    <a class="reference internal" href="3_3_numpy.html">
      3.2. Numpy and arrays
     </a>
    </li>
@@ -637,8 +642,8 @@ title="Print to PDF"
 <p>For example, suppose that K = 100 and the stock ends up at 101 at the call options maturity. You will exercise the option, with a payoff of 1 and a profit of 1 - C. But, if the stock ends up at 99, you just lose C. If you buy a stock at 100 and it ends up at 99, you still have 99 worth of stock.</p>
 <p><strong>European options</strong> can only be exercised on the maturity date of the option. <strong>American options</strong> can be exercised early. The terms don’t have anything to do with where the options are traded.</p>
 <p>Finally, there is an important relationship between the call price, the put price, the current stock price, and the borrowing needed to form the portfolio called <a class="reference external" href="https://en.wikipedia.org/wiki/Put%E2%80%93call_parity">put-call parity</a>.</p>
-<div class="amsmath math notranslate nohighlight" id="equation-8c3caafa-194b-4bd7-90ae-65fd34e5b547">
-<span class="eqno">(14.1)<a class="headerlink" href="#equation-8c3caafa-194b-4bd7-90ae-65fd34e5b547" title="Permalink to this equation">#</a></span>\[\begin{align}
+<div class="amsmath math notranslate nohighlight" id="equation-a9688520-b036-4a23-89b0-6b429828bc75">
+<span class="eqno">(14.1)<a class="headerlink" href="#equation-a9688520-b036-4a23-89b0-6b429828bc75" title="Permalink to this equation">#</a></span>\[\begin{align}
 C - P = S - Ke^{-rt}
 \end{align}\]</div>
 <p>This is an <strong>arbitrage relationship</strong>, as there is free money to be had if it doesn’t hold. If you think you observe a situation where it isn’t true, it is likely because <strong>transactions costs</strong> (i.e. the costs associated with trading) are preventing market participants from exploiting the difference.</p>
@@ -714,8 +719,8 @@ C - P = S - Ke^{-rt}
 <p>Let’s write a <strong>function</strong> that takes the inputs into the BSM model and values a <strong>call option</strong>. You would do something very similar for a <strong>put option</strong>. Again, we are trying to find the <strong>price</strong> that you would pay for the right to buy or sell a stock at a certain price in the future. This price is going to depend on the option contract parameters and, crucially, an assumption about the <strong>volatility</strong> of the asset.</p>
 <p>Notice what <strong>does not</strong> appear in the BSM formula - the expected return on the stock! This is the magic. We don’t need to have any expectations for Apple’s return in order to price their options.</p>
 <p>The BSM formula for a call option price at time 0 (today) is:</p>
-<div class="amsmath math notranslate nohighlight" id="equation-65850dba-aea6-40e2-9c51-d5fa992337d1">
-<span class="eqno">(14.2)<a class="headerlink" href="#equation-65850dba-aea6-40e2-9c51-d5fa992337d1" title="Permalink to this equation">#</a></span>\[\begin{align}
+<div class="amsmath math notranslate nohighlight" id="equation-9008de39-b598-455c-b838-295aa98c5b8c">
+<span class="eqno">(14.2)<a class="headerlink" href="#equation-9008de39-b598-455c-b838-295aa98c5b8c" title="Permalink to this equation">#</a></span>\[\begin{align}
 C_0 = S_0N(d_1) - e^{-rT}KN(d_2)
 \end{align}\]</div>
 <p>where <span class="math notranslate nohighlight">\(C_0\)</span> is the call price, <span class="math notranslate nohighlight">\(S_0\)</span> is the stock price today, <span class="math notranslate nohighlight">\(K\)</span> is the strike price, <span class="math notranslate nohighlight">\(r\)</span> is the risk-free rate, and <span class="math notranslate nohighlight">\(T\)</span> is the time-to-maturity. You’ll also see <span class="math notranslate nohighlight">\(T-t\)</span>, where <span class="math notranslate nohighlight">\(T\)</span> is the maturity date and <span class="math notranslate nohighlight">\(t\)</span> is today’s date. We’re using <span class="math notranslate nohighlight">\(T\)</span> as the number of years (fractional) until the maturity date.</p>
@@ -723,18 +728,18 @@ C_0 = S_0N(d_1) - e^{-rT}KN(d_2)
 <p>One of the <strong>key ideas</strong> with option pricing is the idea of <strong>risk neutral pricing</strong>. This comes from the idea of the arbitrage relationship and allows us to discount payoffs at a known risk-free rate, rather than something more difficult to calculate, like the required return on equity for a stock based on the CAPM.</p>
 <p>Now, what is <span class="math notranslate nohighlight">\(N()\)</span>? This is the <strong>cumulative density function (CDF)</strong> for the standard normal distribution with a mean of 0 and a standard deviation of 1. What is a <strong>CDF</strong>? Put a number into this function. The CDF gives the probability that a random draw from that distribution will be less than or equal to that number (i.e. the area under the curve of the distribution up to that number on the x-axis). So, N(0) = 0.5, since half of the distribution is to the left of the mean.</p>
 <p>Finally, what are <span class="math notranslate nohighlight">\(d_1\)</span> and <span class="math notranslate nohighlight">\(d_2\)</span>? They are defined as:</p>
-<div class="amsmath math notranslate nohighlight" id="equation-e01ee249-aa5c-4bd1-9fea-a2413ec96fa7">
-<span class="eqno">(14.3)<a class="headerlink" href="#equation-e01ee249-aa5c-4bd1-9fea-a2413ec96fa7" title="Permalink to this equation">#</a></span>\[\begin{align}
+<div class="amsmath math notranslate nohighlight" id="equation-2d77ee0c-3191-460b-b0cb-1e4829489d88">
+<span class="eqno">(14.3)<a class="headerlink" href="#equation-2d77ee0c-3191-460b-b0cb-1e4829489d88" title="Permalink to this equation">#</a></span>\[\begin{align}
 d_1 = \frac{log\frac{S_0}{K} + (r + \frac{1}{2} \sigma^2)T}{\sigma\sqrt(T)}
 \end{align}\]</div>
-<div class="amsmath math notranslate nohighlight" id="equation-32676868-32f3-409a-bde8-1725e3a09760">
-<span class="eqno">(14.4)<a class="headerlink" href="#equation-32676868-32f3-409a-bde8-1725e3a09760" title="Permalink to this equation">#</a></span>\[\begin{align}
+<div class="amsmath math notranslate nohighlight" id="equation-9640e641-756c-4ade-add1-3a645a35ca07">
+<span class="eqno">(14.4)<a class="headerlink" href="#equation-9640e641-756c-4ade-add1-3a645a35ca07" title="Permalink to this equation">#</a></span>\[\begin{align}
 d_2 = d_1 - \sigma\sqrt(T) = \frac{log\frac{S_0}{K} + (r - \frac{1}{2} \sigma^2)T}{\sigma\sqrt(T)}
 \end{align}\]</div>
 <p>You see how there’s some more <span class="math notranslate nohighlight">\(\frac{1}{2}\sigma^2\)</span>, logs, <span class="math notranslate nohighlight">\(T\)</span>, and <span class="math notranslate nohighlight">\(\sqrt(T)\)</span>, like with our simulations? The underlying math (Brownian motion) is the same. <span class="math notranslate nohighlight">\(\sigma^2\)</span> is the variance of the continuously compounded rate of return (log returns) for the asset. Note that we do need to calculate this using data, or some other set of assumptions.</p>
 <p>How can we interpret these formulas? Let’s re-write the BSM formula:</p>
-<div class="amsmath math notranslate nohighlight" id="equation-56b7d1cc-d795-448d-bbca-1a4556fbcf9d">
-<span class="eqno">(14.5)<a class="headerlink" href="#equation-56b7d1cc-d795-448d-bbca-1a4556fbcf9d" title="Permalink to this equation">#</a></span>\[\begin{align}
+<div class="amsmath math notranslate nohighlight" id="equation-d48e4d50-e8ab-4d96-9aaf-0bc6f62415f8">
+<span class="eqno">(14.5)<a class="headerlink" href="#equation-d48e4d50-e8ab-4d96-9aaf-0bc6f62415f8" title="Permalink to this equation">#</a></span>\[\begin{align}
 C_0 = e^{-rT}(S_0e^{rT}N(d_1) - KN(d_2))
 \end{align}\]</div>
 <p>The BSM formula has two pieces. The pieces represent this idea of an <strong>arbitrage</strong> relationship. In other words, we can create an option from other securities. For a call option, we can <strong>replicate the option</strong> by purchasing the stock and then financing that purchase by borrowing the money needed. Like we say with put-call parity, the option is a combination of the stock and borrowing.</p>

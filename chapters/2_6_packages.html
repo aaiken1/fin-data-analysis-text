@@ -50,6 +50,8 @@ const thebe_selector_input = "pre"
 const thebe_selector_output = ".output, .cell_output"
 </script>
     <script async="async" src="../_static/sphinx-thebe.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+    <script src="https://unpkg.com/@jupyter-widgets/html-manager@^0.20.0/dist/embed-amd.js"></script>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
     <link rel="next" title="2.7. Code Style, PEP8, and Linting" href="2_7_style.html" />
@@ -176,7 +178,7 @@ const thebe_selector_output = ".output, .cell_output"
 </p>
 <ul class="nav bd-sidenav">
  <li class="toctree-l1 has-children">
-  <a class="reference internal" href="3_intro.html">
+  <a class="reference internal" href="3_1_intro.html">
    3. CompSci 101: Types, control, and numpy arrays
   </a>
   <input class="toctree-checkbox" id="toctree-checkbox-2" name="toctree-checkbox-2" type="checkbox"/>
@@ -186,12 +188,12 @@ const thebe_selector_output = ".output, .cell_output"
   </label>
   <ul>
    <li class="toctree-l2">
-    <a class="reference internal" href="3_0_comp101.html">
+    <a class="reference internal" href="3_2_comp101.html">
      3.1. The Basics
     </a>
    </li>
    <li class="toctree-l2">
-    <a class="reference internal" href="3_1_numpy.html">
+    <a class="reference internal" href="3_3_numpy.html">
      3.2. Numpy and arrays
     </a>
    </li>
@@ -545,9 +547,12 @@ title="Print to PDF"
 </figcaption>
 </figure>
 <p>In the notes, you’ll see that I install several packages, like <code class="docutils literal notranslate"><span class="pre">plotly</span></code>, this way. You’ll need to close VS Code and open it back up when you’re done.</p>
-<p>However, many of the packages that we want to use are specialty packages for finance, so don’t come with the Anaconda distribution of Python. Or, they are just new, so haven’t become “official” enough to get included by the folks at Anaconda. We are going to use <code class="docutils literal notranslate"><span class="pre">pip</span></code> to install these packages. This is where it can get tricky.</p>
+<p>You will also see many packages that say to use <code class="docutils literal notranslate"><span class="pre">pip</span></code> to install them. This is where it can get tricky – packages have <strong>dependencies</strong>, or other packages that the package that we want is using. <code class="docutils literal notranslate"><span class="pre">pip</span></code> may or may not be able to install every package dependency, though it will try.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p><code class="docutils literal notranslate"><span class="pre">pip</span></code> can only handle Python packages. Some packages, like the portfolio optimizer that we’re using require non-Python dependencies to work. Long story short, newer M1/M2 Macs may not have these installed by default. In that case, you have to install them first using <code class="docutils literal notranslate"><span class="pre">conda</span></code>, which can handle non-Python dependencies. This is easier when using what are called <strong>virtual environments</strong>.</p>
+</div>
 <p><code class="docutils literal notranslate"><span class="pre">pip</span></code> is a way to install Python packages via the command line and stands for <em>pip installs packages</em>. This is a computer science joke – the acronym is in the definition, which gives it a recursive definition.</p>
-<p><code class="docutils literal notranslate"><span class="pre">pip</span></code> will also install <strong>package dependencies</strong>, or other packages that the package that we want is using.</p>
 <p>But, where is it installing the packages? Which version of Python will it be associated with? This is the tricky part and one of the frustrating aspects of Python.</p>
 <p>You can use the following to see which <code class="docutils literal notranslate"><span class="pre">pip</span></code> and which Python your computer is currently looking at.</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">which</span> <span class="o">-</span><span class="n">a</span> <span class="n">pip</span>

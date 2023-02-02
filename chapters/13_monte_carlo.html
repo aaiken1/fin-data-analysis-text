@@ -50,8 +50,6 @@ const thebe_selector_input = "pre"
 const thebe_selector_output = ".output, .cell_output"
 </script>
     <script async="async" src="../_static/sphinx-thebe.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
-    <script src="https://unpkg.com/@jupyter-widgets/html-manager@^0.20.0/dist/embed-amd.js"></script>
     <script>window.MathJax = {"options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
     <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
     <link rel="index" title="Index" href="../genindex.html" />
@@ -129,7 +127,7 @@ const thebe_selector_output = ".output, .cell_output"
   </a>
  </li>
  <li class="toctree-l1 has-children">
-  <a class="reference internal" href="2_intro.html">
+  <a class="reference internal" href="2_1_intro.html">
    2. Python set-up
    <a id="python_set-up">
    </a>
@@ -141,28 +139,33 @@ const thebe_selector_output = ".output, .cell_output"
   </label>
   <ul>
    <li class="toctree-l2">
-    <a class="reference internal" href="2_0_install.html">
+    <a class="reference internal" href="2_2_install.html">
      2.2. Installation
     </a>
    </li>
    <li class="toctree-l2">
-    <a class="reference internal" href="2_1_jupyter.html">
+    <a class="reference internal" href="2_3_jupyter.html">
      2.3. Jupyter notebooks
     </a>
    </li>
    <li class="toctree-l2">
-    <a class="reference internal" href="2_2_vscode.html">
+    <a class="reference internal" href="2_4_vscode.html">
      2.4. VS Code
     </a>
    </li>
    <li class="toctree-l2">
-    <a class="reference internal" href="2_3_markdown.html">
+    <a class="reference internal" href="2_5_markdown.html">
      2.5. Markdown
     </a>
    </li>
    <li class="toctree-l2">
-    <a class="reference internal" href="2_4_packages.html">
+    <a class="reference internal" href="2_6_packages.html">
      2.6. Packages
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="2_7_style.html">
+     2.7. Code Style, PEP8, and Linting
     </a>
    </li>
   </ul>
@@ -175,7 +178,7 @@ const thebe_selector_output = ".output, .cell_output"
 </p>
 <ul class="nav bd-sidenav">
  <li class="toctree-l1 has-children">
-  <a class="reference internal" href="3_intro.html">
+  <a class="reference internal" href="3_1_intro.html">
    3. CompSci 101: Types, control, and numpy arrays
   </a>
   <input class="toctree-checkbox" id="toctree-checkbox-2" name="toctree-checkbox-2" type="checkbox"/>
@@ -185,12 +188,12 @@ const thebe_selector_output = ".output, .cell_output"
   </label>
   <ul>
    <li class="toctree-l2">
-    <a class="reference internal" href="3_0_comp101.html">
+    <a class="reference internal" href="3_2_comp101.html">
      3.1. The Basics
     </a>
    </li>
    <li class="toctree-l2">
-    <a class="reference internal" href="3_1_numpy.html">
+    <a class="reference internal" href="3_3_numpy.html">
      3.2. Numpy and arrays
     </a>
    </li>
@@ -600,15 +603,15 @@ title="Print to PDF"
 <p>However, when we start to form portfolios, we are going to care about the correlations across assets. We’ve already seen this when looking at portfolio math. When simulating the Bitcoin prices, we took random numbers from the standard normal distribution and then scaled them by our estimate for the volatility of BTC. This allowed us to capture the randomness of the returns.</p>
 <p>However, when dealing with more than one asset, we can’t do that, since the assets are <strong>not independent</strong> from one another. If Apple goes up, Google is more likely to have gone up as well. The two stocks are <strong>correlated</strong>. How can we account for this in our simulation? We will create <strong>correlated random shocks</strong> (<span class="math notranslate nohighlight">\(W\)</span>), where the random movement of one asset depends on another assets movement.</p>
 <p>Let’s try a simulation to see what’s going on. I’ll draw two random variables from the standard normal distribution, N(0,1). The random part of the return for Asset 1, <span class="math notranslate nohighlight">\(W_1\)</span>, is simply the random draw, <span class="math notranslate nohighlight">\(x_1\)</span>. However, the random part of the return for Asset 2, <span class="math notranslate nohighlight">\(W_2\)</span>, is correlated with whatever <span class="math notranslate nohighlight">\(x_1\)</span> ends up being. Mathematically, this dependent random movement is given as:</p>
-<div class="amsmath math notranslate nohighlight" id="equation-d561d24e-4163-44d4-9fbe-7260eb4eaa41">
-<span class="eqno">(13.1)<a class="headerlink" href="#equation-d561d24e-4163-44d4-9fbe-7260eb4eaa41" title="Permalink to this equation">#</a></span>\[\begin{align}
+<div class="amsmath math notranslate nohighlight" id="equation-aceba85b-bb87-4519-aff7-f9eed6e96bda">
+<span class="eqno">(13.1)<a class="headerlink" href="#equation-aceba85b-bb87-4519-aff7-f9eed6e96bda" title="Permalink to this equation">#</a></span>\[\begin{align}
 W_2 = \rho x_1 + (1 - \sqrt{\rho^2}) x_2
 \end{align}\]</div>
 <p>I’ll set the correlation, <span class="math notranslate nohighlight">\(\rho\)</span>, to be -0.80. These two assets are negatively correlated, so they should move in opposite directions. We’ll set each asset to have the same mean return and same volatility. I’ll set the starting price of each of these assets to 1.</p>
 <p>We’ll bring in our usual packages and try this out. This code should look a lot like the Bitcoin code, except that I now have two assets. I am only doing one simulation for each asset, so two total simulations.</p>
 <p>How do we simulative prices? Let me remind you of a formula:</p>
-<div class="amsmath math notranslate nohighlight" id="equation-2079738d-ef06-4fea-8b9e-4159d659851e">
-<span class="eqno">(13.2)<a class="headerlink" href="#equation-2079738d-ef06-4fea-8b9e-4159d659851e" title="Permalink to this equation">#</a></span>\[\begin{align}
+<div class="amsmath math notranslate nohighlight" id="equation-a956aeb3-0d63-4e4e-aa4f-37b978764fc5">
+<span class="eqno">(13.2)<a class="headerlink" href="#equation-a956aeb3-0d63-4e4e-aa4f-37b978764fc5" title="Permalink to this equation">#</a></span>\[\begin{align}
 S(t) = S(0) \exp \left(\left(\mu - \frac{1}{2}\sigma^2\right)t + \sigma W(t)\right)
 \end{align}\]</div>
 <p>Take a starting price <span class="math notranslate nohighlight">\(S_0\)</span>. We use <code class="docutils literal notranslate"><span class="pre">exp</span></code> for continuous compounding. Then, the price today, <span class="math notranslate nohighlight">\(S_t\)</span> is a function of two return sources. The first source is called <strong>drift</strong>: <span class="math notranslate nohighlight">\(\mu - \frac{1}{2}\sigma^2\)</span>. This is what an asset returns on average over some period, like a day. This is the <strong>deterministic</strong> piece of the return and would be related to risk. <span class="math notranslate nohighlight">\(\mu\)</span> is the <strong>arithmetic average</strong> and <span class="math notranslate nohighlight">\(\sigma\)</span> is the volatility (standard deviation). They should be in the same units (e.g. daily).</p>
@@ -687,7 +690,7 @@ S(t) = S(0) \exp \left(\left(\mu - \frac{1}{2}\sigma^2\right)t + \sigma W(t)\rig
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">start_date</span> <span class="o">=</span> <span class="n">datetime</span><span class="o">.</span><span class="n">datetime</span><span class="p">(</span><span class="mi">2019</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
 <span class="n">end_date</span> <span class="o">=</span> <span class="n">datetime</span><span class="o">.</span><span class="n">datetime</span><span class="p">(</span><span class="mi">2020</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
-<span class="n">ticker_list</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;AAPL&quot;</span><span class="p">,</span> <span class="s2">&quot;F&quot;</span><span class="p">,</span> <span class="s2">&quot;FB&quot;</span><span class="p">,</span> <span class="s2">&quot;AMZN&quot;</span><span class="p">,</span> <span class="s2">&quot;XOM&quot;</span><span class="p">]</span>
+<span class="n">ticker_list</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;AAPL&quot;</span><span class="p">,</span> <span class="s2">&quot;F&quot;</span><span class="p">,</span> <span class="s2">&quot;CAG&quot;</span><span class="p">,</span> <span class="s2">&quot;AMZN&quot;</span><span class="p">,</span> <span class="s2">&quot;XOM&quot;</span><span class="p">]</span>
 
 <span class="n">stock_data</span> <span class="o">=</span> <span class="n">pdr</span><span class="o">.</span><span class="n">DataReader</span><span class="p">(</span><span class="n">ticker_list</span><span class="p">,</span> <span class="s2">&quot;yahoo&quot;</span><span class="p">,</span> <span class="n">start_date</span><span class="p">,</span> <span class="n">end_date</span><span class="p">)</span>
 
@@ -700,47 +703,58 @@ S(t) = S(0) \exp \left(\left(\mu - \frac{1}{2}\sigma^2\right)t + \sigma W(t)\rig
 <div class="cell_output docutils container">
 <div class="output traceback highlight-ipythontb notranslate"><div class="highlight"><pre><span></span><span class="gt">---------------------------------------------------------------------------</span>
 <span class="ne">TypeError</span><span class="g g-Whitespace">                                 </span>Traceback (most recent call last)
-<span class="o">/</span><span class="n">var</span><span class="o">/</span><span class="n">folders</span><span class="o">/</span><span class="n">sm</span><span class="o">/</span><span class="n">f4lq92s11392x68kwf0scq3w0000gn</span><span class="o">/</span><span class="n">T</span><span class="o">/</span><span class="n">ipykernel_82637</span><span class="o">/</span><span class="mf">2771594103.</span><span class="n">py</span> <span class="ow">in</span> <span class="o">&lt;</span><span class="n">module</span><span class="o">&gt;</span>
-<span class="g g-Whitespace">      </span><span class="mi">3</span> <span class="n">ticker_list</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;AAPL&quot;</span><span class="p">,</span> <span class="s2">&quot;F&quot;</span><span class="p">,</span> <span class="s2">&quot;FB&quot;</span><span class="p">,</span> <span class="s2">&quot;AMZN&quot;</span><span class="p">,</span> <span class="s2">&quot;XOM&quot;</span><span class="p">]</span>
-<span class="g g-Whitespace">      </span><span class="mi">4</span> 
+<span class="nn">Input In [4],</span> in <span class="ni">&lt;cell line: 5&gt;</span><span class="nt">()</span>
+<span class="g g-Whitespace">      </span><span class="mi">2</span> <span class="n">end_date</span> <span class="o">=</span> <span class="n">datetime</span><span class="o">.</span><span class="n">datetime</span><span class="p">(</span><span class="mi">2020</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
+<span class="g g-Whitespace">      </span><span class="mi">3</span> <span class="n">ticker_list</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;AAPL&quot;</span><span class="p">,</span> <span class="s2">&quot;F&quot;</span><span class="p">,</span> <span class="s2">&quot;CAG&quot;</span><span class="p">,</span> <span class="s2">&quot;AMZN&quot;</span><span class="p">,</span> <span class="s2">&quot;XOM&quot;</span><span class="p">]</span>
 <span class="ne">----&gt; </span><span class="mi">5</span> <span class="n">stock_data</span> <span class="o">=</span> <span class="n">pdr</span><span class="o">.</span><span class="n">DataReader</span><span class="p">(</span><span class="n">ticker_list</span><span class="p">,</span> <span class="s2">&quot;yahoo&quot;</span><span class="p">,</span> <span class="n">start_date</span><span class="p">,</span> <span class="n">end_date</span><span class="p">)</span>
-<span class="g g-Whitespace">      </span><span class="mi">6</span> 
 <span class="g g-Whitespace">      </span><span class="mi">7</span> <span class="n">prices</span> <span class="o">=</span> <span class="n">stock_data</span><span class="p">[</span><span class="s1">&#39;Adj Close&#39;</span><span class="p">]</span>
+<span class="g g-Whitespace">      </span><span class="mi">9</span> <span class="n">rets</span> <span class="o">=</span> <span class="n">prices</span><span class="o">.</span><span class="n">pct_change</span><span class="p">()</span><span class="o">.</span><span class="n">dropna</span><span class="p">()</span>
 
-<span class="nn">~/opt/anaconda3/lib/python3.9/site-packages/pandas/util/_decorators.py</span> in <span class="ni">wrapper</span><span class="nt">(*args, **kwargs)</span>
-<span class="g g-Whitespace">    </span><span class="mi">205</span>                 <span class="k">else</span><span class="p">:</span>
-<span class="g g-Whitespace">    </span><span class="mi">206</span>                     <span class="n">kwargs</span><span class="p">[</span><span class="n">new_arg_name</span><span class="p">]</span> <span class="o">=</span> <span class="n">new_arg_value</span>
-<span class="ne">--&gt; </span><span class="mi">207</span>             <span class="k">return</span> <span class="n">func</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
-<span class="g g-Whitespace">    </span><span class="mi">208</span> 
-<span class="g g-Whitespace">    </span><span class="mi">209</span>         <span class="k">return</span> <span class="n">cast</span><span class="p">(</span><span class="n">F</span><span class="p">,</span> <span class="n">wrapper</span><span class="p">)</span>
+<span class="nn">File /opt/anaconda3/lib/python3.9/site-packages/pandas/util/_decorators.py:207,</span> in <span class="ni">deprecate_kwarg.&lt;locals&gt;._deprecate_kwarg.&lt;locals&gt;.wrapper</span><span class="nt">(*args, **kwargs)</span>
+<span class="g g-Whitespace">    </span><span class="mi">205</span>     <span class="k">else</span><span class="p">:</span>
+<span class="g g-Whitespace">    </span><span class="mi">206</span>         <span class="n">kwargs</span><span class="p">[</span><span class="n">new_arg_name</span><span class="p">]</span> <span class="o">=</span> <span class="n">new_arg_value</span>
+<span class="ne">--&gt; </span><span class="mi">207</span> <span class="k">return</span> <span class="n">func</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
 
-<span class="nn">~/opt/anaconda3/lib/python3.9/site-packages/pandas_datareader/data.py</span> in <span class="ni">DataReader</span><span class="nt">(name, data_source, start, end, retry_count, pause, session, api_key)</span>
-<span class="g g-Whitespace">    </span><span class="mi">368</span> 
-<span class="g g-Whitespace">    </span><span class="mi">369</span>     <span class="k">if</span> <span class="n">data_source</span> <span class="o">==</span> <span class="s2">&quot;yahoo&quot;</span><span class="p">:</span>
-<span class="ne">--&gt; </span><span class="mi">370</span>         <span class="k">return</span> <span class="n">YahooDailyReader</span><span class="p">(</span>
-<span class="g g-Whitespace">    </span><span class="mi">371</span>             <span class="n">symbols</span><span class="o">=</span><span class="n">name</span><span class="p">,</span>
-<span class="g g-Whitespace">    </span><span class="mi">372</span>             <span class="n">start</span><span class="o">=</span><span class="n">start</span><span class="p">,</span>
+<span class="nn">File /opt/anaconda3/lib/python3.9/site-packages/pandas_datareader/data.py:370,</span> in <span class="ni">DataReader</span><span class="nt">(name, data_source, start, end, retry_count, pause, session, api_key)</span>
+<span class="g g-Whitespace">    </span><span class="mi">367</span>     <span class="k">raise</span> <span class="ne">NotImplementedError</span><span class="p">(</span><span class="n">msg</span><span class="p">)</span>
+<span class="g g-Whitespace">    </span><span class="mi">369</span> <span class="k">if</span> <span class="n">data_source</span> <span class="o">==</span> <span class="s2">&quot;yahoo&quot;</span><span class="p">:</span>
+<span class="ne">--&gt; </span><span class="mi">370</span>     <span class="k">return</span> <span class="n">YahooDailyReader</span><span class="p">(</span>
+<span class="g g-Whitespace">    </span><span class="mi">371</span>         <span class="n">symbols</span><span class="o">=</span><span class="n">name</span><span class="p">,</span>
+<span class="g g-Whitespace">    </span><span class="mi">372</span>         <span class="n">start</span><span class="o">=</span><span class="n">start</span><span class="p">,</span>
+<span class="g g-Whitespace">    </span><span class="mi">373</span>         <span class="n">end</span><span class="o">=</span><span class="n">end</span><span class="p">,</span>
+<span class="g g-Whitespace">    </span><span class="mi">374</span>         <span class="n">adjust_price</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
+<span class="g g-Whitespace">    </span><span class="mi">375</span>         <span class="n">chunksize</span><span class="o">=</span><span class="mi">25</span><span class="p">,</span>
+<span class="g g-Whitespace">    </span><span class="mi">376</span>         <span class="n">retry_count</span><span class="o">=</span><span class="n">retry_count</span><span class="p">,</span>
+<span class="g g-Whitespace">    </span><span class="mi">377</span>         <span class="n">pause</span><span class="o">=</span><span class="n">pause</span><span class="p">,</span>
+<span class="g g-Whitespace">    </span><span class="mi">378</span>         <span class="n">session</span><span class="o">=</span><span class="n">session</span><span class="p">,</span>
+<span class="g g-Whitespace">    </span><span class="mi">379</span>     <span class="p">)</span><span class="o">.</span><span class="n">read</span><span class="p">()</span>
+<span class="g g-Whitespace">    </span><span class="mi">381</span> <span class="k">elif</span> <span class="n">data_source</span> <span class="o">==</span> <span class="s2">&quot;iex&quot;</span><span class="p">:</span>
+<span class="g g-Whitespace">    </span><span class="mi">382</span>     <span class="k">return</span> <span class="n">IEXDailyReader</span><span class="p">(</span>
+<span class="g g-Whitespace">    </span><span class="mi">383</span>         <span class="n">symbols</span><span class="o">=</span><span class="n">name</span><span class="p">,</span>
+<span class="g g-Whitespace">    </span><span class="mi">384</span>         <span class="n">start</span><span class="o">=</span><span class="n">start</span><span class="p">,</span>
+   <span class="p">(</span><span class="o">...</span><span class="p">)</span>
+<span class="g g-Whitespace">    </span><span class="mi">390</span>         <span class="n">session</span><span class="o">=</span><span class="n">session</span><span class="p">,</span>
+<span class="g g-Whitespace">    </span><span class="mi">391</span>     <span class="p">)</span><span class="o">.</span><span class="n">read</span><span class="p">()</span>
 
-<span class="nn">~/opt/anaconda3/lib/python3.9/site-packages/pandas_datareader/base.py</span> in <span class="ni">read</span><span class="nt">(self)</span>
-<span class="g g-Whitespace">    </span><span class="mi">256</span>             <span class="n">df</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_dl_mult_symbols</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">symbols</span><span class="o">.</span><span class="n">index</span><span class="p">)</span>
-<span class="g g-Whitespace">    </span><span class="mi">257</span>         <span class="k">else</span><span class="p">:</span>
-<span class="ne">--&gt; </span><span class="mi">258</span>             <span class="n">df</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_dl_mult_symbols</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">symbols</span><span class="p">)</span>
-<span class="g g-Whitespace">    </span><span class="mi">259</span>         <span class="k">return</span> <span class="n">df</span>
-<span class="g g-Whitespace">    </span><span class="mi">260</span> 
+<span class="nn">File /opt/anaconda3/lib/python3.9/site-packages/pandas_datareader/base.py:258,</span> in <span class="ni">_DailyBaseReader.read</span><span class="nt">(self)</span>
+<span class="g g-Whitespace">    </span><span class="mi">256</span>     <span class="n">df</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_dl_mult_symbols</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">symbols</span><span class="o">.</span><span class="n">index</span><span class="p">)</span>
+<span class="g g-Whitespace">    </span><span class="mi">257</span> <span class="k">else</span><span class="p">:</span>
+<span class="ne">--&gt; </span><span class="mi">258</span>     <span class="n">df</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_dl_mult_symbols</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">symbols</span><span class="p">)</span>
+<span class="g g-Whitespace">    </span><span class="mi">259</span> <span class="k">return</span> <span class="n">df</span>
 
-<span class="nn">~/opt/anaconda3/lib/python3.9/site-packages/pandas_datareader/base.py</span> in <span class="ni">_dl_mult_symbols</span><span class="nt">(self, symbols)</span>
-<span class="g g-Whitespace">    </span><span class="mi">266</span>             <span class="k">for</span> <span class="n">sym</span> <span class="ow">in</span> <span class="n">sym_group</span><span class="p">:</span>
-<span class="g g-Whitespace">    </span><span class="mi">267</span>                 <span class="k">try</span><span class="p">:</span>
-<span class="ne">--&gt; </span><span class="mi">268</span>                     <span class="n">stocks</span><span class="p">[</span><span class="n">sym</span><span class="p">]</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_read_one_data</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">url</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_get_params</span><span class="p">(</span><span class="n">sym</span><span class="p">))</span>
-<span class="g g-Whitespace">    </span><span class="mi">269</span>                     <span class="n">passed</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">sym</span><span class="p">)</span>
-<span class="g g-Whitespace">    </span><span class="mi">270</span>                 <span class="k">except</span> <span class="p">(</span><span class="ne">IOError</span><span class="p">,</span> <span class="ne">KeyError</span><span class="p">):</span>
+<span class="nn">File /opt/anaconda3/lib/python3.9/site-packages/pandas_datareader/base.py:268,</span> in <span class="ni">_DailyBaseReader._dl_mult_symbols</span><span class="nt">(self, symbols)</span>
+<span class="g g-Whitespace">    </span><span class="mi">266</span> <span class="k">for</span> <span class="n">sym</span> <span class="ow">in</span> <span class="n">sym_group</span><span class="p">:</span>
+<span class="g g-Whitespace">    </span><span class="mi">267</span>     <span class="k">try</span><span class="p">:</span>
+<span class="ne">--&gt; </span><span class="mi">268</span>         <span class="n">stocks</span><span class="p">[</span><span class="n">sym</span><span class="p">]</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_read_one_data</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">url</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_get_params</span><span class="p">(</span><span class="n">sym</span><span class="p">))</span>
+<span class="g g-Whitespace">    </span><span class="mi">269</span>         <span class="n">passed</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">sym</span><span class="p">)</span>
+<span class="g g-Whitespace">    </span><span class="mi">270</span>     <span class="k">except</span> <span class="p">(</span><span class="ne">IOError</span><span class="p">,</span> <span class="ne">KeyError</span><span class="p">):</span>
 
-<span class="nn">~/opt/anaconda3/lib/python3.9/site-packages/pandas_datareader/yahoo/daily.py</span> in <span class="ni">_read_one_data</span><span class="nt">(self, url, params)</span>
-<span class="g g-Whitespace">    </span><span class="mi">151</span>         <span class="k">try</span><span class="p">:</span>
-<span class="g g-Whitespace">    </span><span class="mi">152</span>             <span class="n">j</span> <span class="o">=</span> <span class="n">json</span><span class="o">.</span><span class="n">loads</span><span class="p">(</span><span class="n">re</span><span class="o">.</span><span class="n">search</span><span class="p">(</span><span class="n">ptrn</span><span class="p">,</span> <span class="n">resp</span><span class="o">.</span><span class="n">text</span><span class="p">,</span> <span class="n">re</span><span class="o">.</span><span class="n">DOTALL</span><span class="p">)</span><span class="o">.</span><span class="n">group</span><span class="p">(</span><span class="mi">1</span><span class="p">))</span>
-<span class="ne">--&gt; </span><span class="mi">153</span>             <span class="n">data</span> <span class="o">=</span> <span class="n">j</span><span class="p">[</span><span class="s2">&quot;context&quot;</span><span class="p">][</span><span class="s2">&quot;dispatcher&quot;</span><span class="p">][</span><span class="s2">&quot;stores&quot;</span><span class="p">][</span><span class="s2">&quot;HistoricalPriceStore&quot;</span><span class="p">]</span>
-<span class="g g-Whitespace">    </span><span class="mi">154</span>         <span class="k">except</span> <span class="ne">KeyError</span><span class="p">:</span>
-<span class="g g-Whitespace">    </span><span class="mi">155</span>             <span class="n">msg</span> <span class="o">=</span> <span class="s2">&quot;No data fetched for symbol </span><span class="si">{}</span><span class="s2"> using </span><span class="si">{}</span><span class="s2">&quot;</span>
+<span class="nn">File /opt/anaconda3/lib/python3.9/site-packages/pandas_datareader/yahoo/daily.py:153,</span> in <span class="ni">YahooDailyReader._read_one_data</span><span class="nt">(self, url, params)</span>
+<span class="g g-Whitespace">    </span><span class="mi">151</span> <span class="k">try</span><span class="p">:</span>
+<span class="g g-Whitespace">    </span><span class="mi">152</span>     <span class="n">j</span> <span class="o">=</span> <span class="n">json</span><span class="o">.</span><span class="n">loads</span><span class="p">(</span><span class="n">re</span><span class="o">.</span><span class="n">search</span><span class="p">(</span><span class="n">ptrn</span><span class="p">,</span> <span class="n">resp</span><span class="o">.</span><span class="n">text</span><span class="p">,</span> <span class="n">re</span><span class="o">.</span><span class="n">DOTALL</span><span class="p">)</span><span class="o">.</span><span class="n">group</span><span class="p">(</span><span class="mi">1</span><span class="p">))</span>
+<span class="ne">--&gt; </span><span class="mi">153</span>     <span class="n">data</span> <span class="o">=</span> <span class="n">j</span><span class="p">[</span><span class="s2">&quot;context&quot;</span><span class="p">][</span><span class="s2">&quot;dispatcher&quot;</span><span class="p">][</span><span class="s2">&quot;stores&quot;</span><span class="p">][</span><span class="s2">&quot;HistoricalPriceStore&quot;</span><span class="p">]</span>
+<span class="g g-Whitespace">    </span><span class="mi">154</span> <span class="k">except</span> <span class="ne">KeyError</span><span class="p">:</span>
+<span class="g g-Whitespace">    </span><span class="mi">155</span>     <span class="n">msg</span> <span class="o">=</span> <span class="s2">&quot;No data fetched for symbol </span><span class="si">{}</span><span class="s2"> using </span><span class="si">{}</span><span class="s2">&quot;</span>
 
 <span class="ne">TypeError</span>: string indices must be integers
 </pre></div>

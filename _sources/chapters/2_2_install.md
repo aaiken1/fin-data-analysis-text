@@ -42,7 +42,7 @@ My Anaconda Navigator layout when I open it. See the Jupyter Notebook button? We
 
 Once you have Anaconda installed, you should install [VS Code](https://code.visualstudio.com/Download).
 
-Click the big buttons on the page that correspond to your operating system.
+Click the **big buttons** on the page that correspond to your operating system.
 
 And that's about it. We'll cover how to use Jupyter notebooks and VS Code next.
 
