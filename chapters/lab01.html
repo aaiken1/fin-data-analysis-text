@@ -1,0 +1,853 @@
+
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
+    <title>Lab 01 &#8212; Data Analysis in Finance</title>
+    
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../_static/styles/theme.css?digest=1999514e3f237ded88cf" rel="stylesheet">
+<link href="../_static/styles/pydata-sphinx-theme.css?digest=1999514e3f237ded88cf" rel="stylesheet">
+
+    
+  <link rel="stylesheet"
+    href="../_static/vendor/fontawesome/5.13.0/css/all.min.css">
+  <link rel="preload" as="font" type="font/woff2" crossorigin
+    href="../_static/vendor/fontawesome/5.13.0/webfonts/fa-solid-900.woff2">
+  <link rel="preload" as="font" type="font/woff2" crossorigin
+    href="../_static/vendor/fontawesome/5.13.0/webfonts/fa-brands-400.woff2">
+
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css" />
+    <link rel="stylesheet" href="../_static/styles/sphinx-book-theme.css?digest=5115cc725059bd94278eecd172e13a965bf8f5a9" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="../_static/togglebutton.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/copybutton.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/mystnb.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/sphinx-thebe.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/design-style.b7bb847fb20b106c3d81b95245e65545.min.css" />
+    
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../_static/scripts/pydata-sphinx-theme.js?digest=1999514e3f237ded88cf">
+
+    <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
+    <script src="../_static/jquery.js"></script>
+    <script src="../_static/underscore.js"></script>
+    <script src="../_static/doctools.js"></script>
+    <script src="../_static/clipboard.min.js"></script>
+    <script src="../_static/copybutton.js"></script>
+    <script src="../_static/scripts/sphinx-book-theme.js?digest=9c920249402e914e316237a7dbc6769907cce411"></script>
+    <script>let toggleHintShow = 'Click to show';</script>
+    <script>let toggleHintHide = 'Click to hide';</script>
+    <script>let toggleOpenOnPrint = 'true';</script>
+    <script src="../_static/togglebutton.js"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown, .tag_hide_input div.cell_input, .tag_hide-input div.cell_input, .tag_hide_output div.cell_output, .tag_hide-output div.cell_output, .tag_hide_cell.cell, .tag_hide-cell.cell';</script>
+    <script src="../_static/design-tabs.js"></script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"
+const thebe_selector = ".thebe,.cell"
+const thebe_selector_input = "pre"
+const thebe_selector_output = ".output, .cell_output"
+</script>
+    <script async="async" src="../_static/sphinx-thebe.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="Our Exams" href="exam_intro.html" />
+    <link rel="prev" title="Our labs" href="lab_intro.html" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="docsearch:language" content="None">
+    
+
+    <!-- Google Analytics -->
+    
+  </head>
+  <body data-spy="scroll" data-target="#bd-toc-nav" data-offset="60">
+<!-- Checkboxes to toggle the left sidebar -->
+<input type="checkbox" class="sidebar-toggle" name="__navigation" id="__navigation" aria-label="Toggle navigation sidebar">
+<label class="overlay overlay-navbar" for="__navigation">
+    <div class="visually-hidden">Toggle navigation sidebar</div>
+</label>
+<!-- Checkboxes to toggle the in-page toc -->
+<input type="checkbox" class="sidebar-toggle" name="__page-toc" id="__page-toc" aria-label="Toggle in-page Table of Contents">
+<label class="overlay overlay-pagetoc" for="__page-toc">
+    <div class="visually-hidden">Toggle in-page Table of Contents</div>
+</label>
+<!-- Headers at the top -->
+<div class="announcement header-item noprint"></div>
+<div class="header header-item noprint"></div>
+
+    
+    <div class="container-fluid" id="banner"></div>
+
+    
+
+    <div class="container-xl">
+      <div class="row">
+          
+<!-- Sidebar -->
+<div class="bd-sidebar noprint" id="site-navigation">
+    <div class="bd-sidebar__content">
+        <div class="bd-sidebar__top"><div class="navbar-brand-box">
+    <a class="navbar-brand text-wrap" href="../index.html">
+      
+        <!-- `logo` is deprecated in Sphinx 4.0, so remove this when we stop supporting 3 -->
+        
+      
+      
+      <img src="../_static/cat.png" class="logo" alt="logo">
+      
+      
+      <h1 class="site-logo" id="site-title">Data Analysis in Finance</h1>
+      
+    </a>
+</div><form class="bd-search d-flex align-items-center" action="../search.html" method="get">
+  <i class="icon fas fa-search"></i>
+  <input type="search" class="form-control" name="q" id="search-input" placeholder="Search this book..." aria-label="Search this book..." autocomplete="off" >
+</form><nav class="bd-links" id="bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item active">
+        
+        <ul class="nav bd-sidenav bd-sidenav__home-link">
+            <li class="toctree-l1">
+                <a class="reference internal" href="../intro.html">
+                    Welcome
+                </a>
+            </li>
+        </ul>
+        <p aria-level="2" class="caption" role="heading">
+ <span class="caption-text">
+  Getting Started
+ </span>
+</p>
+<ul class="nav bd-sidenav">
+ <li class="toctree-l1">
+  <a class="reference internal" href="1_finpyth.html">
+   1. Why Python and finance?
+  </a>
+ </li>
+ <li class="toctree-l1 has-children">
+  <a class="reference internal" href="2_1_intro.html">
+   2. Python set-up
+   <a id="python_set-up">
+   </a>
+  </a>
+  <input class="toctree-checkbox" id="toctree-checkbox-1" name="toctree-checkbox-1" type="checkbox"/>
+  <label for="toctree-checkbox-1">
+   <i class="fas fa-chevron-down">
+   </i>
+  </label>
+  <ul>
+   <li class="toctree-l2">
+    <a class="reference internal" href="2_2_install.html">
+     2.2. Installation
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="2_3_jupyter.html">
+     2.3. Jupyter notebooks
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="2_4_vscode.html">
+     2.4. VS Code
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="2_5_markdown.html">
+     2.5. Markdown
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="2_6_packages.html">
+     2.6. Packages
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="2_7_style.html">
+     2.7. Code Style, PEP8, and Linting
+    </a>
+   </li>
+  </ul>
+ </li>
+</ul>
+<p aria-level="2" class="caption" role="heading">
+ <span class="caption-text">
+  The Basics
+ </span>
+</p>
+<ul class="nav bd-sidenav">
+ <li class="toctree-l1 has-children">
+  <a class="reference internal" href="3_1_intro.html">
+   3. CompSci 101: Types, control, and numpy arrays
+  </a>
+  <input class="toctree-checkbox" id="toctree-checkbox-2" name="toctree-checkbox-2" type="checkbox"/>
+  <label for="toctree-checkbox-2">
+   <i class="fas fa-chevron-down">
+   </i>
+  </label>
+  <ul>
+   <li class="toctree-l2">
+    <a class="reference internal" href="3_2_comp101.html">
+     3.1. The Basics
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="3_3_numpy.html">
+     3.2. Numpy and arrays
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toctree-l1 has-children">
+  <a class="reference internal" href="4_intro.html">
+   4. Pandas and data
+  </a>
+  <input class="toctree-checkbox" id="toctree-checkbox-3" name="toctree-checkbox-3" type="checkbox"/>
+  <label for="toctree-checkbox-3">
+   <i class="fas fa-chevron-down">
+   </i>
+  </label>
+  <ul>
+   <li class="toctree-l2">
+    <a class="reference internal" href="4_0_dataframes.html">
+     4.1. Data importing
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="4_1_pandas.html">
+     4.2. pandas
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="4_2_cleaning_data.html">
+     4.3. Cleaning our data
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="4_3_eda.html">
+     4.4. Exploratory data analysis (EDA)
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="4_4_merge_shape.html">
+     4.5. Merging and reshaping data
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toctree-l1 has-children">
+  <a class="reference internal" href="5_intro.html">
+   5. Data visualization
+  </a>
+  <input class="toctree-checkbox" id="toctree-checkbox-4" name="toctree-checkbox-4" type="checkbox"/>
+  <label for="toctree-checkbox-4">
+   <i class="fas fa-chevron-down">
+   </i>
+  </label>
+  <ul>
+   <li class="toctree-l2">
+    <a class="reference internal" href="5_0_matplotlib.html">
+     5.2. matplotlib
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="5_1_plotly.html">
+     5.3. plotly
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="5_2_seaborn.html">
+     5.4. seaborn
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="6_financial_ts.html">
+   6. Financial time series
+   <a id="financial-time-series">
+   </a>
+  </a>
+ </li>
+</ul>
+<p aria-level="2" class="caption" role="heading">
+ <span class="caption-text">
+  Applications
+ </span>
+</p>
+<ul class="nav bd-sidenav">
+ <li class="toctree-l1">
+  <a class="reference internal" href="7_nasdaq_api.html">
+   7. Using NASDAQ BTC data
+   <a id="btc-sim">
+   </a>
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="8_port_math.html">
+   8. Essential portfolio math
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="9_portfolio_opt.html">
+   9. Portfolio optimization
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="10_factor_models.html">
+   10. Factor models
+   <a id="factor_models">
+   </a>
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="11_regression_topics.html">
+   11. Regression topics
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="12_risk_mang.html">
+   12. Risk management
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="13_monte_carlo.html">
+   13. Monte Carlo and portfolios
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="14_options.html">
+   14. Option basics
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="15_logit_credit.html">
+   15. Logit models
+  </a>
+ </li>
+</ul>
+<p aria-level="2" class="caption" role="heading">
+ <span class="caption-text">
+  Labs
+ </span>
+</p>
+<ul class="current nav bd-sidenav">
+ <li class="toctree-l1">
+  <a class="reference internal" href="lab_intro.html">
+   Our labs
+  </a>
+ </li>
+ <li class="toctree-l1 current active">
+  <a class="current reference internal" href="#">
+   Lab 01
+  </a>
+ </li>
+</ul>
+<p aria-level="2" class="caption" role="heading">
+ <span class="caption-text">
+  Exams
+ </span>
+</p>
+<ul class="nav bd-sidenav">
+ <li class="toctree-l1">
+  <a class="reference internal" href="exam_intro.html">
+   Our Exams
+  </a>
+ </li>
+</ul>
+
+    </div>
+</nav></div>
+        <div class="bd-sidebar__bottom">
+             <!-- To handle the deprecated key -->
+            
+            <div class="navbar_extra_footer">
+            Powered by <a href="https://jupyterbook.org">Jupyter Book</a>
+            </div>
+            
+        </div>
+    </div>
+    <div id="rtd-footer-container"></div>
+</div>
+
+
+          
+
+
+          
+<!-- A tiny helper pixel to detect if we've scrolled -->
+<div class="sbt-scroll-pixel-helper"></div>
+<!-- Main content -->
+<div class="col py-0 content-container">
+    
+    <div class="header-article row sticky-top noprint">
+        
+
+
+
+<div class="col py-1 d-flex header-article-main">
+    <div class="header-article__left">
+        
+        <label for="__navigation"
+  class="headerbtn"
+  data-toggle="tooltip"
+data-placement="right"
+title="Toggle navigation"
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-bars"></i>
+  </span>
+
+</label>
+
+        
+    </div>
+    <div class="header-article__right">
+<div class="menu-dropdown menu-dropdown-launch-buttons">
+  <button class="headerbtn menu-dropdown__trigger"
+      aria-label="Launch interactive content">
+      <i class="fas fa-rocket"></i>
+  </button>
+  <div class="menu-dropdown__content">
+    <ul>
+      <li>
+        <a href="https://mybinder.org/v2/gh/executablebooks/jupyter-book/master?urlpath=tree/docs/chapters/lab01.ipynb"
+   class="headerbtn"
+   data-toggle="tooltip"
+data-placement="left"
+title="Launch on Binder"
+>
+  
+
+<span class="headerbtn__icon-container">
+  
+    <img src="../_static/images/logo_binder.svg">
+  </span>
+<span class="headerbtn__text-container">Binder</span>
+</a>
+
+      </li>
+      
+    </ul>
+  </div>
+</div>
+
+<button onclick="toggleFullScreen()"
+  class="headerbtn"
+  data-toggle="tooltip"
+data-placement="bottom"
+title="Fullscreen mode"
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+<a href="https://github.com/executablebooks/jupyter-book"
+   class="headerbtn"
+   data-toggle="tooltip"
+data-placement="bottom"
+title="Source repository"
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fab fa-github"></i>
+  </span>
+
+</a>
+
+<div class="menu-dropdown menu-dropdown-download-buttons">
+  <button class="headerbtn menu-dropdown__trigger"
+      aria-label="Download this page">
+      <i class="fas fa-download"></i>
+  </button>
+  <div class="menu-dropdown__content">
+    <ul>
+      <li>
+        <a href="../_sources/chapters/lab01.ipynb"
+   class="headerbtn"
+   data-toggle="tooltip"
+data-placement="left"
+title="Download source file"
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="headerbtn__text-container">.ipynb</span>
+</a>
+
+      </li>
+      
+      <li>
+        
+<button onclick="printPdf(this)"
+  class="headerbtn"
+  data-toggle="tooltip"
+data-placement="left"
+title="Print to PDF"
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="headerbtn__text-container">.pdf</span>
+</button>
+
+      </li>
+      
+    </ul>
+  </div>
+</div>
+<label for="__page-toc"
+  class="headerbtn headerbtn-page-toc"
+  
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-list"></i>
+  </span>
+
+</label>
+
+    </div>
+</div>
+
+<!-- Table of contents -->
+<div class="col-md-3 bd-toc show noprint">
+    <div class="tocsection onthispage pt-5 pb-3">
+        <i class="fas fa-list"></i> Contents
+    </div>
+    <nav id="bd-toc-nav" aria-label="Page">
+        <ul class="visible nav section-nav flex-column">
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#getting-started-with-python-jupyter-notebooks-and-vs-code">
+   Getting Started with Python, Jupyter Notebooks, and VS Code
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#part-1">
+   Part 1
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#part-2">
+   Part 2
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#part-3">
+   Part 3
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#part-4">
+   Part 4
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#part-5">
+   Part 5
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#part-6">
+   Part 6
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#part-7">
+   Part 7
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#part-8">
+   Part 8
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#part-9">
+   Part 9
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#part-10">
+   Part 10
+  </a>
+ </li>
+</ul>
+
+    </nav>
+</div>
+    </div>
+    <div class="article row">
+        <div class="col pl-md-3 pl-lg-5 content-container">
+            <!-- Table of contents that is only displayed when printing the page -->
+            <div id="jb-print-docs-body" class="onlyprint">
+                <h1>Lab 01</h1>
+                <!-- Table of contents -->
+                <div id="print-main-content">
+                    <div id="jb-print-toc">
+                        
+                        <div>
+                            <h2> Contents </h2>
+                        </div>
+                        <nav aria-label="Page">
+                            <ul class="visible nav section-nav flex-column">
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#getting-started-with-python-jupyter-notebooks-and-vs-code">
+   Getting Started with Python, Jupyter Notebooks, and VS Code
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#part-1">
+   Part 1
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#part-2">
+   Part 2
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#part-3">
+   Part 3
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#part-4">
+   Part 4
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#part-5">
+   Part 5
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#part-6">
+   Part 6
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#part-7">
+   Part 7
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#part-8">
+   Part 8
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#part-9">
+   Part 9
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#part-10">
+   Part 10
+  </a>
+ </li>
+</ul>
+
+                        </nav>
+                    </div>
+                </div>
+            </div>
+            <main id="main-content" role="main">
+                
+              <div>
+                
+  <section class="tex2jax_ignore mathjax_ignore" id="lab-01">
+<h1>Lab 01<a class="headerlink" href="#lab-01" title="Permalink to this headline">#</a></h1>
+<section id="getting-started-with-python-jupyter-notebooks-and-vs-code">
+<h2>Getting Started with Python, Jupyter Notebooks, and VS Code<a class="headerlink" href="#getting-started-with-python-jupyter-notebooks-and-vs-code" title="Permalink to this headline">#</a></h2>
+<p>In this lab, we’ll send some time getting comfortable with our work environment. The first Data Camp assignment will introduce you to Python basics. We’ll walk through the basic set-up.</p>
+<p>I am writing these notes in <strong>Markdown</strong>. You can open up this <code class="docutils literal notranslate"><span class="pre">.ipynb</span></code> file (iPython, or Jupyter, notebook - they changed names) in VS Code and check out the actual code.</p>
+<p>Use our online notes to complete our labs. I have my own commentary and links that will help. You can work through the parts below in order.</p>
+<p>In particular, <a class="reference external" href="https://code.visualstudio.com/docs/datascience/jupyter-notebooks">this from Visual Studio will help</a>.</p>
+<p>In our online notes, I point your towards the <a class="reference external" href="https://aeturrell.github.io/coding-for-economists/intro.html">Coding for Economists</a> site. His <a class="reference external" href="https://aeturrell.github.io/coding-for-economists/code-basics.html">coding basics page</a> is also a great resource for the basic Python concepts that we’re going to discuss here. You’ll see a lot of this material in our first Datacamp as well.</p>
+<p>Coding for Economists also has more notes that cover <a class="reference external" href="https://aeturrell.github.io/coding-for-economists/code-preliminaries.html">getting started in VS Code</a>.</p>
+</section>
+<section id="part-1">
+<h2>Part 1<a class="headerlink" href="#part-1" title="Permalink to this headline">#</a></h2>
+<p>Open up VS Code. Have you set up your class folder yet? I’ve posted a video that will help you figure that part out. Open up that folder under File. You should see it in the <strong>EXPLORER</strong> window pane on the left.</p>
+<p>Type <strong>Cmd-Shift-P</strong> (Ctrl-Shift-P in Windows) to open up the command palette. Make sure there’s a little <code class="docutils literal notranslate"><span class="pre">&gt;</span></code> in the search bar that pops up (there should be). Search for <code class="docutils literal notranslate"><span class="pre">Jupyter:</span> <span class="pre">Create</span> <span class="pre">New</span> <span class="pre">Jupyter</span> <span class="pre">Notebook</span></code>. This will open up a blank <code class="docutils literal notranslate"><span class="pre">.ipynb</span></code> file. Save this in a new folder in your course folder called <code class="docutils literal notranslate"><span class="pre">lab01</span></code>. Call this file <code class="docutils literal notranslate"><span class="pre">lab01-lastname-firstname</span></code>, where you fill in your name, of course!</p>
+</section>
+<section id="part-2">
+<h2>Part 2<a class="headerlink" href="#part-2" title="Permalink to this headline">#</a></h2>
+<p>You’ll see a blank code cell, or <strong>cell</strong>, at the top. By default, this is set to Python. See the lower right-hand corner of the cell? Click there and search and select <strong>Markdown</strong>.</p>
+<p>Create the following in that top Markdown cell.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="c1"># Lab01</span>
+<span class="n">Firstname</span> <span class="n">Lastname</span>
+<span class="n">Date</span>
+</pre></div>
+</div>
+<p>If you look at my markdown for this file, you’ll see that I have that code “fenced” with three single quotes. This lets me show you the code without the code trying to run. In other words, though <code class="docutils literal notranslate"><span class="pre">#</span></code> means header, I’m not actually creating the header. I’m showing you the code, instead.</p>
+<p>You can find the actual <code class="docutils literal notranslate"><span class="pre">.ipynb</span></code> file for these lab instructions on our <a class="reference external" href="https://github.com/aaiken1/fin-data-analysis-python">Github page</a>.</p>
+<p>As you answer the questions below, use new Markdown cells and headers to separate your answers, as appropriate.</p>
+</section>
+<section id="part-3">
+<h2>Part 3<a class="headerlink" href="#part-3" title="Permalink to this headline">#</a></h2>
+<p>OK, let’s try some code now. Create a new Python cell underneath your Markdown. Type:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">formula_string</span> <span class="o">=</span> <span class="s1">&#39;Capital Asset Pricing Model&#39;</span> 
+</pre></div>
+</div>
+<p>Run that cell. VS Code may ask you which version of Python you want to use to execute your code. You should see a window open that the bottom that now displays your <strong>JUPYTER:VARIABLES</strong>.</p>
+<ul class="simple">
+<li><p>What type is this variable?</p></li>
+<li><p>Add code to print this variable in the same cell that you define it.</p></li>
+</ul>
+<p>In Python, everything is something called an <strong>object</strong>. All objects have <strong>types</strong>.</p>
+</section>
+<section id="part-4">
+<h2>Part 4<a class="headerlink" href="#part-4" title="Permalink to this headline">#</a></h2>
+<p>What is the present value of $150 received two years from now, if the discount rate is 5%? Do your work in a new code cell. Save this value in variable called <em>pv</em>. What type is <em>pv</em>?</p>
+<p>In a new cell, use the following to print the variable <em>pv</em>.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Present Value: $</span><span class="si">%.2f</span><span class="s2">&quot;</span> <span class="o">%</span> <span class="n">pv</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>OK, what is this <code class="docutils literal notranslate"><span class="pre">print()</span></code> function doing? It prints the text inside of the quotation marks. But, you can insert a variable to get printed as well. There’s a placeholder for that, which also gives the format for the variable. This is the <code class="docutils literal notranslate"><span class="pre">%.2f</span></code> part. This is telling Python “Put the variable here and format it as a float with two decimal places. Now, what variable is it going to put there? The one you specified – <em>pv</em>.</p>
+</section>
+<section id="part-5">
+<h2>Part 5<a class="headerlink" href="#part-5" title="Permalink to this headline">#</a></h2>
+<p>Create a <code class="docutils literal notranslate"><span class="pre">list</span></code> that contains the following: ‘Apple Inc.’, ‘AAPL’, and 172.39. Call this <code class="docutils literal notranslate"><span class="pre">list</span></code> <em>stock</em>. In the same cell, check the type of this object. Finally, use an <strong>index</strong> to print just the second element of the <code class="docutils literal notranslate"><span class="pre">list</span></code>, the ticker.</p>
+<p>This material and data types is covered in our online notes and in the first Datacamp assignment.</p>
+</section>
+<section id="part-6">
+<h2>Part 6<a class="headerlink" href="#part-6" title="Permalink to this headline">#</a></h2>
+<p>Data types are important in coding. So are <strong>control structures</strong>. Control structures let us create some logic in our code, telling it to do something only if something else is true. This means <em>if</em>, <em>elif</em>, <em>for</em>, and <em>while</em>. Let’s look at a few of these. There are examples in our online notes.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Indentation is important in Python and actually tells the code what to do. Indentation works like brackets <code class="docutils literal notranslate"><span class="pre">{}</span></code> in other languages and define the scope of the control structure.</p>
+</div>
+<ul class="simple">
+<li><p>Define a new variable called <em>StockPercentile</em> and define it to be 90. Write an <code class="docutils literal notranslate"><span class="pre">if</span></code> statement that prints ‘Add this stock to buy list.’ if <em>StockPercentile</em> is greater than or equal to 90.</p></li>
+<li><p>In a new cell, copy and modify this <code class="docutils literal notranslate"><span class="pre">if</span></code> statement to include an <code class="docutils literal notranslate"><span class="pre">else</span></code> that prints ‘Exclude stock.’ in all other cases. Redefine <em>StockPercentile</em> to be 80 in order to test this.</p></li>
+<li><p>Finally, use an <code class="docutils literal notranslate"><span class="pre">if</span></code>, <code class="docutils literal notranslate"><span class="pre">elif</span></code>, <code class="docutils literal notranslate"><span class="pre">else</span></code> construction to test if <em>StockPercentile</em> is greater than 100, if <em>StockPercentile</em> &gt;= 90, and then all remaining cases. If <em>StockPercentile</em> is greater than 100, print ‘Check calculations.’ When ranking things, percentiles can’t be greater than 100. Redefine <em>StockPercentile</em> to be 110 to test the code.</p></li>
+</ul>
+<p>Did you notice how VS code helped you out with the indentation? If it didn’t, make sure that you have all of the suggested extensions installed.</p>
+<p>I am using something called <strong>CamelCase</strong> to write out the variable <em>StockPercentile</em>. You want to pick a consistent method for naming your variables to make things easier to read.</p>
+<p>Do you see <em>StockPercentile</em> down there in the variable window? Also, highlight <em>StockPercentile</em>. Do you see how all other instances of the word are also highlighted in your notebook? VS Code is making it easier to see where you use something.</p>
+</section>
+<section id="part-7">
+<h2>Part 7<a class="headerlink" href="#part-7" title="Permalink to this headline">#</a></h2>
+<p>Let’s look at another control structure, a <code class="docutils literal notranslate"><span class="pre">while</span></code> loop. This will run some code <strong>while</strong> a condition is true.</p>
+<p>In a new code cell, write a <code class="docutils literal notranslate"><span class="pre">while</span></code> loop that will print <code class="docutils literal notranslate"><span class="pre">Counting</span> <span class="pre">down...</span></code> and then a number. Count down from 10. You should defined a variable <code class="docutils literal notranslate"><span class="pre">i</span></code> to equal 10. Then, every time through the <code class="docutils literal notranslate"><span class="pre">while</span></code> loop, you should subtract 1 from i.</p>
+<p>When you get to 0, print “Blastoff!”.</p>
+<p>Like above, note how the <code class="docutils literal notranslate"><span class="pre">print</span></code> function can be used to insert a variable into it, as well as for formatting that variable in the output. Instead of using <code class="docutils literal notranslate"><span class="pre">%.2f</span></code> as your placeholder, use <code class="docutils literal notranslate"><span class="pre">%d</span></code>, which means <strong>integer</strong> to Python.</p>
+</section>
+<section id="part-8">
+<h2>Part 8<a class="headerlink" href="#part-8" title="Permalink to this headline">#</a></h2>
+<p>Let’s import our first library, <code class="docutils literal notranslate"><span class="pre">numpy</span></code>. Do this the standard way and so that we can refer to <code class="docutils literal notranslate"><span class="pre">numpy</span></code> as <code class="docutils literal notranslate"><span class="pre">np</span></code> in our code. We are going to use <code class="docutils literal notranslate"><span class="pre">numpy</span></code> to deal with <code class="docutils literal notranslate"><span class="pre">arrays</span></code>. Arrays are covered in our notes and in the first Datacamp assignment.</p>
+<p><code class="docutils literal notranslate"><span class="pre">numpy</span></code> is one of the libraries that lets us do math and handle data in Python. It works well with <code class="docutils literal notranslate"><span class="pre">pandas</span></code>, which is the library that lets us actually import and use our data.</p>
+<p>Then, do the following:</p>
+<ul class="simple">
+<li><p>Use <code class="docutils literal notranslate"><span class="pre">np.arange</span></code> to create an array of numbers from 5 to 100 (including 100) by 5. You can call this array <em>a</em>.</p></li>
+<li><p>Print the 1st element of the array.</p></li>
+<li><p>Print the 10th element of the array.</p></li>
+</ul>
+<p>Remember, Python starts counting elements or <strong>indexing</strong> arrays at 0. You can do all of this in one cell.</p>
+<p>Finally, in a new cell, square every number in this array and call this new array <em>b</em>. Check and make sure it worked by showing the contents of <em>b</em>. Check the <code class="docutils literal notranslate"><span class="pre">type</span></code> of <em>b</em> in your code. Then, go to the VARIABLES window below and find <em>b</em>. Click the “pop out” button on the left. Your data should open up in a new window and look a bit like an Excel file. This lets you look at your data sets inside of VS Code.</p>
+</section>
+<section id="part-9">
+<h2>Part 9<a class="headerlink" href="#part-9" title="Permalink to this headline">#</a></h2>
+<p>Arrays can have <strong>multiple dimensions</strong>. For example, a <strong>matrix</strong> is a two-dimensional array, with rows and columns. In Python, the different dimensions of the array are called <strong>axis</strong>. For example, with a two-dimensional array, the rows are axis 0 and the columns are axis 1.</p>
+<p>See our notes for more. There are also some examples <a class="reference external" href="https://www.w3schools.com/python/numpy/numpy_array_slicing.asp">here</a></p>
+<p>Let’s look at a two-dimensional array:</p>
+<ul class="simple">
+<li><p>Create a 4 x 4 diagonal matrix with ones along with diagonal and save this as array <em>c</em>. You can do this with the <code class="docutils literal notranslate"><span class="pre">np.eye</span></code> function. <a class="reference external" href="https://en.wikipedia.org/wiki/Identity_matrix">Matrices that look like this</a> come up all of the time, which is why there’s a special command. Get it, “eye”? “I”? Math is funny.</p></li>
+<li><p>Use the appropriate <code class="docutils literal notranslate"><span class="pre">np</span></code> attributes to check the following for <em>c</em>: size, number of dimensions, shape, and type. See pg. 97. Notice how the syntax changes when we move from a function that is creating an object to checking an attribute of an existing object?</p></li>
+<li><p>Multiply each element of this array by 3. This is an example of <strong>vectorization</strong>. No need to create loops that look at each element separately and then performs an operation.</p></li>
+<li><p>Print the element in the 2nd row and 2nd column. And by “2nd”, we are talking about <strong>indexing</strong>, so you want to start counting from zero. Do you get 1 or 3? Why?</p></li>
+<li><p>Print just the 2nd column. This creates a one-dimensional array, where the column is now along axis 0 (i.e. it looks horizontal).</p></li>
+<li><p>This one is a bit tricky. Print just the first two columns of the array. You’ll use a <strong>slice</strong> for this.</p></li>
+<li><p>Let’s end with the trickiest one. Print just this portion of the array:</p></li>
+</ul>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="p">[[</span><span class="mf">0.</span> <span class="mf">0.</span><span class="p">]</span>
+ <span class="p">[</span><span class="mf">1.</span> <span class="mf">0.</span><span class="p">]]</span>
+</pre></div>
+</div>
+</section>
+<section id="part-10">
+<h2>Part 10<a class="headerlink" href="#part-10" title="Permalink to this headline">#</a></h2>
+<p>Finally, <strong>clear the outputs of all of your cells</strong> using the button at the top of the notebook. Restart your Python kernel. This will clear everything from memory. Then, <strong>Run All</strong>. All of you cells should now run, in order, from top to bottom.</p>
+<p>I like to do this occasionally, to make sure things are working correctly. One downside of working in a notebook environment is that it is very easy to run code “out of order”. For example, you can run code in one cell, then skip down and run another cell. But, if that cell below needed something from a cell in the middle to run, it won’t work. You can lose track of what variables have been defined, what inputs have been created, what Python “knows” about. So, it’s a good idea to run things from scratch.</p>
+<p>You are done! <strong>Turn in this .ipynb file via Moodle.</strong></p>
+</section>
+</section>
+
+    <script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "binder-examples/jupyter-stacks-datascience",
+            ref: "master",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "python"
+        },
+        kernelOptions: {
+            kernelName: "python3",
+            path: "./chapters"
+        },
+        predefinedOutput: true
+    }
+    </script>
+    <script>kernelName = 'python3'</script>
+
+              </div>
+              
+            </main>
+            <footer class="footer-article noprint">
+                
+    <!-- Previous / next buttons -->
+<div class='prev-next-area'>
+    <a class='left-prev' id="prev-link" href="lab_intro.html" title="previous page">
+        <i class="fas fa-angle-left"></i>
+        <div class="prev-next-info">
+            <p class="prev-next-subtitle">previous</p>
+            <p class="prev-next-title">Our labs</p>
+        </div>
+    </a>
+    <a class='right-next' id="next-link" href="exam_intro.html" title="next page">
+    <div class="prev-next-info">
+        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-title">Our Exams</p>
+    </div>
+    <i class="fas fa-angle-right"></i>
+    </a>
+</div>
+            </footer>
+        </div>
+    </div>
+    <div class="footer-content row">
+        <footer class="col footer"><p>
+  
+    By Prof. Adam Aiken<br/>
+  
+</p>
+        </footer>
+    </div>
+    
+</div>
+
+
+      </div>
+    </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="../_static/scripts/pydata-sphinx-theme.js?digest=1999514e3f237ded88cf"></script>
+
+
+  </body>
+</html>

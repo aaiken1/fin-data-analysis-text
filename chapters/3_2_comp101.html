@@ -50,8 +50,6 @@ const thebe_selector_input = "pre"
 const thebe_selector_output = ".output, .cell_output"
 </script>
     <script async="async" src="../_static/sphinx-thebe.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
-    <script src="https://unpkg.com/@jupyter-widgets/html-manager@^0.20.0/dist/embed-amd.js"></script>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
     <link rel="next" title="3.2. Numpy and arrays" href="3_3_numpy.html" />
@@ -336,6 +334,11 @@ const thebe_selector_output = ".output, .cell_output"
  <li class="toctree-l1">
   <a class="reference internal" href="lab_intro.html">
    Our labs
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="lab01.html">
+   Lab 01
   </a>
  </li>
 </ul>
@@ -1317,8 +1320,98 @@ title="Print to PDF"
 </section>
 <section id="dictionaries-sets-and-tuples">
 <h3><span class="section-number">3.1.2.2. </span>Dictionaries, sets, and tuples<a class="headerlink" href="#dictionaries-sets-and-tuples" title="Permalink to this headline">#</a></h3>
-<p>See our text for more on these. As mentioned, we aren’t going to be using them much, but they are other data structures available in Python.</p>
-<p>Lists can be modified, while tuples can not.</p>
+<p>These are three other data types that we won’t use as much, but they do appear in the DataCamp assignments.</p>
+<p>Python <strong>dictionaries</strong> are key:value pairs. They associate a key with a value, in other words. You can change them and they do not allow you to have duplicate entries. You can create one using brackets, like this:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">d</span> <span class="o">=</span> <span class="p">{</span>
+     <span class="s1">&#39;Name&#39;</span> <span class="p">:</span> <span class="s1">&#39;Adam Aiken&#39;</span><span class="p">,</span>
+     <span class="s1">&#39;University&#39;</span> <span class="p">:</span> <span class="s1">&#39;Elon University&#39;</span><span class="p">,</span>
+     <span class="s1">&#39;Department&#39;</span> <span class="p">:</span> <span class="s1">&#39;Finance&#39;</span><span class="p">,</span>
+     <span class="s1">&#39;PhD Program&#39;</span> <span class="p">:</span> <span class="s1">&#39;Arizona State&#39;</span>
+     <span class="p">}</span>
+<span class="nb">type</span><span class="p">(</span><span class="n">d</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>dict
+</pre></div>
+</div>
+</div>
+</div>
+<p>You can then print items from the dictionary, as well as show the keys and the values.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="n">d</span><span class="p">[</span><span class="s1">&#39;Name&#39;</span><span class="p">],</span> <span class="n">d</span><span class="p">[</span><span class="s1">&#39;University&#39;</span><span class="p">])</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Adam Aiken Elon University
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">d</span><span class="o">.</span><span class="n">keys</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>dict_keys([&#39;Name&#39;, &#39;University&#39;, &#39;Department&#39;, &#39;PhD Program&#39;])
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">d</span><span class="o">.</span><span class="n">values</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>dict_values([&#39;Adam Aiken&#39;, &#39;Elon University&#39;, &#39;Finance&#39;, &#39;Arizona State&#39;])
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">d</span><span class="o">.</span><span class="n">items</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>dict_items([(&#39;Name&#39;, &#39;Adam Aiken&#39;), (&#39;University&#39;, &#39;Elon University&#39;), (&#39;Department&#39;, &#39;Finance&#39;), (&#39;PhD Program&#39;, &#39;Arizona State&#39;)])
+</pre></div>
+</div>
+</div>
+</div>
+<p>Python <strong>sets</strong> let you store unordered values in a single variable. There’s no relationship between the items and they are <strong>unordered</strong>. You also can’t change them, though you can add and delete items.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">adam_set</span> <span class="o">=</span> <span class="p">{</span><span class="s2">&quot;Adam&quot;</span><span class="p">,</span> <span class="s2">&quot;Aiken&quot;</span><span class="p">,</span> <span class="s2">&quot;Elon&quot;</span><span class="p">,</span> <span class="s2">&quot;Arizona State&quot;</span><span class="p">}</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">adam_set</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>{&#39;Adam&#39;, &#39;Arizona State&#39;, &#39;Elon&#39;, &#39;Aiken&#39;}
+</pre></div>
+</div>
+</div>
+</div>
+<p>Finally, a Python <strong>tuple</strong> is like a set, except that the order does matter. You define these with <code class="docutils literal notranslate"><span class="pre">()</span></code>, instead of <code class="docutils literal notranslate"><span class="pre">{}</span></code>.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">adam_tuple</span> <span class="o">=</span> <span class="p">(</span><span class="s2">&quot;Adam&quot;</span><span class="p">,</span> <span class="s2">&quot;Aiken&quot;</span><span class="p">,</span> <span class="s2">&quot;Elon&quot;</span><span class="p">,</span> <span class="s2">&quot;Arizona State&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>To summarize, we’ve seen <strong>four</strong> ways to store data in Python: lists, dictionaries, sets, and tuples. We’ll use lists the most. But, we’re going to need other ways. This is where we get to <code class="docutils literal notranslate"><span class="pre">numpy</span></code> arrays and <code class="docutils literal notranslate"><span class="pre">pandas</span></code> DataFrames.</p>
 </section>
 </section>
 <section id="syntax-in-python">
@@ -1411,7 +1504,7 @@ title="Print to PDF"
 </div>
 </div>
 </div>
-<p>We can use control structures and modulo operations to see if numbers are even or odd. We can also combine loops and if/else statements.</p>
+<p>As noted above, you can use <code class="docutils literal notranslate"><span class="pre">elif</span></code> to test multiple conditions. This example, from Chapter 3 of <a class="reference external" href="https://www.oreilly.com/library/view/python-for-finance/9781492024323/">Python for Finance, 2e</a>, uses a <code class="docutils literal notranslate"><span class="pre">range</span></code> function to create the numbers 1 through 9 (not 10 though!) and then test two conditions and ending with the <code class="docutils literal notranslate"><span class="pre">else</span></code>. The <code class="docutils literal notranslate"><span class="pre">range</span></code> acts like a loop that we have now combined with if/else statements.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">10</span><span class="p">):</span>
