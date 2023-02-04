@@ -2,9 +2,11 @@
 
 We are going to use Jupyter notebooks, both on their own and in the VS Code environment. All of the computers in our labs have Jupyter installed with their Anaconda installation. You should have Jupyter on your own machine as well.
 
+You can also create Jupyter notebooks using [Google Colab](https://colab.research.google.com), another browser-based developer environment. I discuss this in the next chapter.
+
 What are [Jupyter notebooks](https://jupyter.org)? They are a way to combine Python and [Markdown](https://www.markdownguide.org). Each **cell** in a Jupyter notebook contains come kind of code. That code might be Python. When you **run** the cell, that code is executed and you'll see the result below. You can all have Markdown code in a cell. Markdown let's you include text along with your Python code. This means that you end up producing a **notebook** that has your code, your output, and your own write-up. This type of notebook environment is very popular for exploring data and the reporting on what you found.
 
-You can read about using [VS Code and Jupyter notebooks](https://code.visualstudio.com/docs/datascience/jupyter-notebooks) here. The next section goes into more detail on using notebooks with VS Code. 
+You can read about using [VS Code and Jupyter notebooks](https://code.visualstudio.com/docs/datascience/jupyter-notebooks) here. I go into more detail on using notebooks with VS Code later. 
 
 And here's the link to the [Datacamp Cheatsheet for Jupyter notebooks](http://datacamp-community-prod.s3.amazonaws.com/21fdc814-3f08-4aa9-90fa-247eedefd655) again.
 
