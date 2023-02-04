@@ -101,7 +101,7 @@ I recommend:
 I've never used this feature, but I have tested it and it seems cool. You'll need a Github account to set-up the [Live Share extension in VS Code](https://code.visualstudio.com/learn/collaboration/live-share).
 
 
-### Tips, Tricks, and Shortcuts
+### Tips, tricks, and shortcuts
 
 The more you use VS Code, the faster you'll get. They have a [tips and tricks](https://code.visualstudio.com/docs/getstarted/tips-and-tricks) guide that is helpful.
 
