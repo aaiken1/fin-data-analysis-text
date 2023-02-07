@@ -31,6 +31,8 @@ Bookmark important links so that you don't have to go searching for them.
 
 I have pulled material from many different sources in order to create these notes and I am very grateful that they have made their work available. For example, I include commentary on examples from our book. There are also many other excellent and, often, free guides to using Python, Jupyter notebooks, and VS Code.
 
+[The Python Tutorial](https://docs.python.org/3/tutorial/index.html). This is the main tutorial from the folks who develop Python. I'll refer to it throughout the text if you want a more in-depth look at something.
+
 [Python for Finance, 2e](https://www.oreilly.com/library/view/python-for-finance/9781492024323/). This is probably the best single book for finance and Python that I've found. However, it does jump from the basics into more advanced material quite quickly. This textbook also has a Github repository that [contains the code used in the book](https://github.com/yhilpisch/py4fi2nd).
 
 There are also many free resources available. The key is being able to find what's helpful - web searches often lead you to awful AI-generated Medium posts. While these guides are not finance-related, *per se*, they cover material that will come up in any sort of data science project. I thank the authors for making these resources available and I use examples from them in my notes.

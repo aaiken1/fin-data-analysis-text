@@ -1,0 +1,915 @@
+
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
+    <title>Lab 02 &#8212; Data Analysis in Finance</title>
+    
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../_static/styles/theme.css?digest=1999514e3f237ded88cf" rel="stylesheet">
+<link href="../_static/styles/pydata-sphinx-theme.css?digest=1999514e3f237ded88cf" rel="stylesheet">
+
+    
+  <link rel="stylesheet"
+    href="../_static/vendor/fontawesome/5.13.0/css/all.min.css">
+  <link rel="preload" as="font" type="font/woff2" crossorigin
+    href="../_static/vendor/fontawesome/5.13.0/webfonts/fa-solid-900.woff2">
+  <link rel="preload" as="font" type="font/woff2" crossorigin
+    href="../_static/vendor/fontawesome/5.13.0/webfonts/fa-brands-400.woff2">
+
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css" />
+    <link rel="stylesheet" href="../_static/styles/sphinx-book-theme.css?digest=5115cc725059bd94278eecd172e13a965bf8f5a9" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="../_static/togglebutton.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/copybutton.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/mystnb.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/sphinx-thebe.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/design-style.b7bb847fb20b106c3d81b95245e65545.min.css" />
+    
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../_static/scripts/pydata-sphinx-theme.js?digest=1999514e3f237ded88cf">
+
+    <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
+    <script src="../_static/jquery.js"></script>
+    <script src="../_static/underscore.js"></script>
+    <script src="../_static/doctools.js"></script>
+    <script src="../_static/clipboard.min.js"></script>
+    <script src="../_static/copybutton.js"></script>
+    <script src="../_static/scripts/sphinx-book-theme.js?digest=9c920249402e914e316237a7dbc6769907cce411"></script>
+    <script>let toggleHintShow = 'Click to show';</script>
+    <script>let toggleHintHide = 'Click to hide';</script>
+    <script>let toggleOpenOnPrint = 'true';</script>
+    <script src="../_static/togglebutton.js"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown, .tag_hide_input div.cell_input, .tag_hide-input div.cell_input, .tag_hide_output div.cell_output, .tag_hide-output div.cell_output, .tag_hide_cell.cell, .tag_hide-cell.cell';</script>
+    <script src="../_static/design-tabs.js"></script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"
+const thebe_selector = ".thebe,.cell"
+const thebe_selector_input = "pre"
+const thebe_selector_output = ".output, .cell_output"
+</script>
+    <script async="async" src="../_static/sphinx-thebe.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+    <script src="https://unpkg.com/@jupyter-widgets/html-manager@^0.20.0/dist/embed-amd.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="Our Exams" href="exam_intro.html" />
+    <link rel="prev" title="Lab 01" href="lab01.html" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="docsearch:language" content="None">
+    
+
+    <!-- Google Analytics -->
+    
+  </head>
+  <body data-spy="scroll" data-target="#bd-toc-nav" data-offset="60">
+<!-- Checkboxes to toggle the left sidebar -->
+<input type="checkbox" class="sidebar-toggle" name="__navigation" id="__navigation" aria-label="Toggle navigation sidebar">
+<label class="overlay overlay-navbar" for="__navigation">
+    <div class="visually-hidden">Toggle navigation sidebar</div>
+</label>
+<!-- Checkboxes to toggle the in-page toc -->
+<input type="checkbox" class="sidebar-toggle" name="__page-toc" id="__page-toc" aria-label="Toggle in-page Table of Contents">
+<label class="overlay overlay-pagetoc" for="__page-toc">
+    <div class="visually-hidden">Toggle in-page Table of Contents</div>
+</label>
+<!-- Headers at the top -->
+<div class="announcement header-item noprint"></div>
+<div class="header header-item noprint"></div>
+
+    
+    <div class="container-fluid" id="banner"></div>
+
+    
+
+    <div class="container-xl">
+      <div class="row">
+          
+<!-- Sidebar -->
+<div class="bd-sidebar noprint" id="site-navigation">
+    <div class="bd-sidebar__content">
+        <div class="bd-sidebar__top"><div class="navbar-brand-box">
+    <a class="navbar-brand text-wrap" href="../index.html">
+      
+        <!-- `logo` is deprecated in Sphinx 4.0, so remove this when we stop supporting 3 -->
+        
+      
+      
+      <img src="../_static/cat.png" class="logo" alt="logo">
+      
+      
+      <h1 class="site-logo" id="site-title">Data Analysis in Finance</h1>
+      
+    </a>
+</div><form class="bd-search d-flex align-items-center" action="../search.html" method="get">
+  <i class="icon fas fa-search"></i>
+  <input type="search" class="form-control" name="q" id="search-input" placeholder="Search this book..." aria-label="Search this book..." autocomplete="off" >
+</form><nav class="bd-links" id="bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item active">
+        
+        <ul class="nav bd-sidenav bd-sidenav__home-link">
+            <li class="toctree-l1">
+                <a class="reference internal" href="../intro.html">
+                    Welcome
+                </a>
+            </li>
+        </ul>
+        <p aria-level="2" class="caption" role="heading">
+ <span class="caption-text">
+  Getting Started
+ </span>
+</p>
+<ul class="nav bd-sidenav">
+ <li class="toctree-l1">
+  <a class="reference internal" href="1_finpyth.html">
+   1. Why Python and finance?
+  </a>
+ </li>
+ <li class="toctree-l1 has-children">
+  <a class="reference internal" href="2_1_intro.html">
+   2. Python set-up
+   <a id="python_set-up">
+   </a>
+  </a>
+  <input class="toctree-checkbox" id="toctree-checkbox-1" name="toctree-checkbox-1" type="checkbox"/>
+  <label for="toctree-checkbox-1">
+   <i class="fas fa-chevron-down">
+   </i>
+  </label>
+  <ul>
+   <li class="toctree-l2">
+    <a class="reference internal" href="2_2_install.html">
+     2.2. Installation
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="2_3_jupyter.html">
+     2.3. Jupyter notebooks
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="2_4_googlecolab.html">
+     2.4. Google Colab
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="2_5_vscode.html">
+     2.5. VS Code
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="2_6_markdown.html">
+     2.6. Markdown
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="2_7_packages.html">
+     2.7. Packages
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="2_8_style.html">
+     2.8. Code style, PEP8, and linting
+    </a>
+   </li>
+  </ul>
+ </li>
+</ul>
+<p aria-level="2" class="caption" role="heading">
+ <span class="caption-text">
+  The Basics
+ </span>
+</p>
+<ul class="nav bd-sidenav">
+ <li class="toctree-l1 has-children">
+  <a class="reference internal" href="3_1_intro.html">
+   3. CompSci 101: Types, control, and numpy arrays
+  </a>
+  <input class="toctree-checkbox" id="toctree-checkbox-2" name="toctree-checkbox-2" type="checkbox"/>
+  <label for="toctree-checkbox-2">
+   <i class="fas fa-chevron-down">
+   </i>
+  </label>
+  <ul>
+   <li class="toctree-l2">
+    <a class="reference internal" href="3_2_comp101.html">
+     3.1. The Basics
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="3_3_numpy.html">
+     3.2. Numpy and arrays
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toctree-l1 has-children">
+  <a class="reference internal" href="4_intro.html">
+   4. Pandas and data
+  </a>
+  <input class="toctree-checkbox" id="toctree-checkbox-3" name="toctree-checkbox-3" type="checkbox"/>
+  <label for="toctree-checkbox-3">
+   <i class="fas fa-chevron-down">
+   </i>
+  </label>
+  <ul>
+   <li class="toctree-l2">
+    <a class="reference internal" href="4_0_dataframes.html">
+     4.1. Data importing
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="4_1_pandas.html">
+     4.2. pandas
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="4_2_cleaning_data.html">
+     4.3. Cleaning our data
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="4_3_eda.html">
+     4.4. Exploratory data analysis (EDA)
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="4_4_merge_shape.html">
+     4.5. Merging and reshaping data
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toctree-l1 has-children">
+  <a class="reference internal" href="5_intro.html">
+   5. Data visualization
+  </a>
+  <input class="toctree-checkbox" id="toctree-checkbox-4" name="toctree-checkbox-4" type="checkbox"/>
+  <label for="toctree-checkbox-4">
+   <i class="fas fa-chevron-down">
+   </i>
+  </label>
+  <ul>
+   <li class="toctree-l2">
+    <a class="reference internal" href="5_0_matplotlib.html">
+     5.2. matplotlib
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="5_1_plotly.html">
+     5.3. plotly
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="5_2_seaborn.html">
+     5.4. seaborn
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="6_financial_ts.html">
+   6. Financial time series
+   <a id="financial-time-series">
+   </a>
+  </a>
+ </li>
+</ul>
+<p aria-level="2" class="caption" role="heading">
+ <span class="caption-text">
+  Applications
+ </span>
+</p>
+<ul class="nav bd-sidenav">
+ <li class="toctree-l1">
+  <a class="reference internal" href="7_nasdaq_api.html">
+   7. Using NASDAQ BTC data
+   <a id="btc-sim">
+   </a>
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="8_port_math.html">
+   8. Essential portfolio math
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="9_portfolio_opt.html">
+   9. Portfolio optimization
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="10_factor_models.html">
+   10. Factor models
+   <a id="factor_models">
+   </a>
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="11_regression_topics.html">
+   11. Regression topics
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="12_risk_mang.html">
+   12. Risk management
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="13_monte_carlo.html">
+   13. Monte Carlo and portfolios
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="14_options.html">
+   14. Option basics
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="15_logit_credit.html">
+   15. Logit models
+  </a>
+ </li>
+</ul>
+<p aria-level="2" class="caption" role="heading">
+ <span class="caption-text">
+  Labs
+ </span>
+</p>
+<ul class="current nav bd-sidenav">
+ <li class="toctree-l1">
+  <a class="reference internal" href="lab_intro.html">
+   Our labs
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="lab01.html">
+   Lab 01
+  </a>
+ </li>
+ <li class="toctree-l1 current active">
+  <a class="current reference internal" href="#">
+   Lab 02
+  </a>
+ </li>
+</ul>
+<p aria-level="2" class="caption" role="heading">
+ <span class="caption-text">
+  Exams
+ </span>
+</p>
+<ul class="nav bd-sidenav">
+ <li class="toctree-l1">
+  <a class="reference internal" href="exam_intro.html">
+   Our Exams
+  </a>
+ </li>
+</ul>
+
+    </div>
+</nav></div>
+        <div class="bd-sidebar__bottom">
+             <!-- To handle the deprecated key -->
+            
+            <div class="navbar_extra_footer">
+            Powered by <a href="https://jupyterbook.org">Jupyter Book</a>
+            </div>
+            
+        </div>
+    </div>
+    <div id="rtd-footer-container"></div>
+</div>
+
+
+          
+
+
+          
+<!-- A tiny helper pixel to detect if we've scrolled -->
+<div class="sbt-scroll-pixel-helper"></div>
+<!-- Main content -->
+<div class="col py-0 content-container">
+    
+    <div class="header-article row sticky-top noprint">
+        
+
+
+
+<div class="col py-1 d-flex header-article-main">
+    <div class="header-article__left">
+        
+        <label for="__navigation"
+  class="headerbtn"
+  data-toggle="tooltip"
+data-placement="right"
+title="Toggle navigation"
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-bars"></i>
+  </span>
+
+</label>
+
+        
+    </div>
+    <div class="header-article__right">
+<div class="menu-dropdown menu-dropdown-launch-buttons">
+  <button class="headerbtn menu-dropdown__trigger"
+      aria-label="Launch interactive content">
+      <i class="fas fa-rocket"></i>
+  </button>
+  <div class="menu-dropdown__content">
+    <ul>
+      <li>
+        <a href="https://mybinder.org/v2/gh/executablebooks/jupyter-book/master?urlpath=tree/docs/chapters/lab02.ipynb"
+   class="headerbtn"
+   data-toggle="tooltip"
+data-placement="left"
+title="Launch on Binder"
+>
+  
+
+<span class="headerbtn__icon-container">
+  
+    <img src="../_static/images/logo_binder.svg">
+  </span>
+<span class="headerbtn__text-container">Binder</span>
+</a>
+
+      </li>
+      
+    </ul>
+  </div>
+</div>
+
+<button onclick="toggleFullScreen()"
+  class="headerbtn"
+  data-toggle="tooltip"
+data-placement="bottom"
+title="Fullscreen mode"
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+<a href="https://github.com/executablebooks/jupyter-book"
+   class="headerbtn"
+   data-toggle="tooltip"
+data-placement="bottom"
+title="Source repository"
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fab fa-github"></i>
+  </span>
+
+</a>
+
+<div class="menu-dropdown menu-dropdown-download-buttons">
+  <button class="headerbtn menu-dropdown__trigger"
+      aria-label="Download this page">
+      <i class="fas fa-download"></i>
+  </button>
+  <div class="menu-dropdown__content">
+    <ul>
+      <li>
+        <a href="../_sources/chapters/lab02.ipynb"
+   class="headerbtn"
+   data-toggle="tooltip"
+data-placement="left"
+title="Download source file"
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="headerbtn__text-container">.ipynb</span>
+</a>
+
+      </li>
+      
+      <li>
+        
+<button onclick="printPdf(this)"
+  class="headerbtn"
+  data-toggle="tooltip"
+data-placement="left"
+title="Print to PDF"
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="headerbtn__text-container">.pdf</span>
+</button>
+
+      </li>
+      
+    </ul>
+  </div>
+</div>
+<label for="__page-toc"
+  class="headerbtn headerbtn-page-toc"
+  
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-list"></i>
+  </span>
+
+</label>
+
+    </div>
+</div>
+
+<!-- Table of contents -->
+<div class="col-md-3 bd-toc show noprint">
+    <div class="tocsection onthispage pt-5 pb-3">
+        <i class="fas fa-list"></i> Contents
+    </div>
+    <nav id="bd-toc-nav" aria-label="Page">
+        <ul class="visible nav section-nav flex-column">
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#king-county-housing">
+   King County Housing
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#part-1">
+   Part 1
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#part-2">
+   Part 2
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#part-3">
+   Part 3
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#part-4">
+   Part 4
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#part-5">
+   Part 5
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#part-6">
+   Part 6
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#part-7">
+   Part 7
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#part-8">
+   Part 8
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#part-9">
+   Part 9
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#part-10">
+   Part 10
+  </a>
+ </li>
+</ul>
+
+    </nav>
+</div>
+    </div>
+    <div class="article row">
+        <div class="col pl-md-3 pl-lg-5 content-container">
+            <!-- Table of contents that is only displayed when printing the page -->
+            <div id="jb-print-docs-body" class="onlyprint">
+                <h1>Lab 02</h1>
+                <!-- Table of contents -->
+                <div id="print-main-content">
+                    <div id="jb-print-toc">
+                        
+                        <div>
+                            <h2> Contents </h2>
+                        </div>
+                        <nav aria-label="Page">
+                            <ul class="visible nav section-nav flex-column">
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#king-county-housing">
+   King County Housing
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#part-1">
+   Part 1
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#part-2">
+   Part 2
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#part-3">
+   Part 3
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#part-4">
+   Part 4
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#part-5">
+   Part 5
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#part-6">
+   Part 6
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#part-7">
+   Part 7
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#part-8">
+   Part 8
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#part-9">
+   Part 9
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#part-10">
+   Part 10
+  </a>
+ </li>
+</ul>
+
+                        </nav>
+                    </div>
+                </div>
+            </div>
+            <main id="main-content" role="main">
+                
+              <div>
+                
+  <section class="tex2jax_ignore mathjax_ignore" id="lab-02">
+<h1>Lab 02<a class="headerlink" href="#lab-02" title="Permalink to this headline">#</a></h1>
+<section id="king-county-housing">
+<h2>King County Housing<a class="headerlink" href="#king-county-housing" title="Permalink to this headline">#</a></h2>
+<p>In this lab, we are going to import data into Python using <code class="docutils literal notranslate"><span class="pre">pandas</span></code> and play around. We’ll do some <strong>exploratory data analysis</strong>, as well. We’ll use more housing data, this time from <a class="reference external" href="https://geodacenter.github.io/data-and-lab/KingCounty-HouseSales2015/">King County in Washington State</a>.</p>
+<p>Use our online notes to complete our labs. I have my own commentary and links that will help. You can work through the parts below in order.</p>
+<p>If you are getting errors and are not sure why, my first suggestion is always to <strong>Restart</strong> the Python kernel, to <strong>Clear All Output</strong>, and run each code cell <strong>one-by-one</strong> from the top.</p>
+<aside class="margin sidebar">
+<p class="sidebar-title"></p>
+<p>My instructions will refer to VS Code, but you can use VS Code, Anaconda Jupyter notebook, or Google Colab. The key is have a Jupyter notebook when you’re done that can run from start to finish.</p>
+</aside>
+<p>Let each code cell represent one idea, or output. Take advantage of <strong>Markdown</strong> in your write-up. Use headers and formatting. Here’s a <a class="reference external" href="https://www.markdownguide.org/cheat-sheet/">Markdown cheat sheet</a> that I keep handy. Once you figure out some of the basics, you might not want to go back to Word or Google Docs.</p>
+<p>And don’t forget about our <a class="reference external" href="http://datacamp-community-prod.s3.amazonaws.com/f04456d7-8e61-482f-9cc9-da6f7f25fc9b">cheat sheets</a>.</p>
+<p>Finally, use our online notes as a resource. I will also be incorporating ideas from the first two DataCamp assignments.</p>
+</section>
+<section id="part-1">
+<h2>Part 1<a class="headerlink" href="#part-1" title="Permalink to this headline">#</a></h2>
+<p>Open up VS Code. Have you set up your class folder yet? I’ve posted a video that will help you figure that part out. Open up that folder under File. You should see it in the <strong>EXPLORER</strong> window pane on the left.</p>
+<p>Type <strong>Cmd-Shift-P</strong> (Ctrl-Shift-P in Windows) to open up the command palette. Make sure there’s a little <code class="docutils literal notranslate"><span class="pre">&gt;</span></code> in the search bar that pops up (there should be). Search for <code class="docutils literal notranslate"><span class="pre">Jupyter:</span> <span class="pre">Create</span> <span class="pre">New</span> <span class="pre">Jupyter</span> <span class="pre">Notebook</span></code>. This will open up a blank <code class="docutils literal notranslate"><span class="pre">.ipynb</span></code> file. Save this in a new folder in your course folder called <code class="docutils literal notranslate"><span class="pre">lab02</span></code>. Call this file <code class="docutils literal notranslate"><span class="pre">lab02-lastname-firstname</span></code>, where you fill in your name, of course!</p>
+<p>If you’re using Anaconda Jupyter notebooks or Google Colab, you’ll do something very similar. Create a new <code class="docutils literal notranslate"><span class="pre">.ipynb</span></code> file. In Google Colab, this file will be saved to your Google Drive. You can then download it when you’re done. See the online notes for more on using Google Colab.</p>
+</section>
+<section id="part-2">
+<h2>Part 2<a class="headerlink" href="#part-2" title="Permalink to this headline">#</a></h2>
+<p>You’ll see a blank code cell, or <strong>cell</strong>, at the top. By default, this is set to Python. See the lower right-hand corner of the cell? Click there and search and select <strong>Markdown</strong>.</p>
+<p>Create the following in that top Markdown cell.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="c1"># Lab02</span>
+<span class="n">Firstname</span> <span class="n">Lastname</span>
+<span class="n">Date</span>
+</pre></div>
+</div>
+<p>As you answer the questions below, use new Markdown cells and headers to separate your answers, as appropriate.</p>
+<p>Create your first code cell where you <code class="docutils literal notranslate"><span class="pre">import</span></code> both <code class="docutils literal notranslate"><span class="pre">numpy</span></code> and <code class="docutils literal notranslate"><span class="pre">pandas</span></code> as <code class="docutils literal notranslate"><span class="pre">np</span></code> and <code class="docutils literal notranslate"><span class="pre">pd</span></code>, respectively.</p>
+<p>Also include <code class="docutils literal notranslate"><span class="pre">import</span> <span class="pre">datetime</span> <span class="pre">as</span> <span class="pre">datetime</span></code>. The <code class="docutils literal notranslate"><span class="pre">datetime</span></code> library is discussed in the first part of the second DataCamp assignment.</p>
+<p>Add a <strong>comment</strong> to that cell calling it <strong>Set-Up</strong>. You can add comments to each code cell to remind yourself what you’re doing. Comments are different from the Markdown that you’re using to write your narrative - they go in the Python cells and use <code class="docutils literal notranslate"><span class="pre">#</span></code>.</p>
+</section>
+<section id="part-3">
+<h2>Part 3<a class="headerlink" href="#part-3" title="Permalink to this headline">#</a></h2>
+<p>Let’s get that data.</p>
+<p>The DataFrame we will be working with today will come from <code class="docutils literal notranslate"><span class="pre">kc_house_data.csv</span></code>, which is up in my data folder on <a class="reference external" href="https://github.com/aaiken1/fin-data-analysis-python/tree/main/data">GitHub</a>.</p>
+<p><code class="docutils literal notranslate"><span class="pre">kc_house_data.csv</span></code> is a CSV file on home sales and characteristics from May 2014 - May 2015 in King County, Washington State. I pulled the file from Kaggle, a data science competition page and a good resource for interesting data sets. This file is <strong>tidy data</strong>, as each row represents an observation and each column represents a variable.</p>
+<blockquote>
+<div><p>What’s not tidy? Using colors to represent values in a spreadsheet. Lots of spacing in the data file. Multiple values in the same column separated by a comma. All of these things might make a spreadsheet easier to read to the eye, but machines do not care.</p>
+</div></blockquote>
+<p>The <strong>url</strong> for the data is <a class="reference external" href="https://raw.githubusercontent.com/aaiken1/fin-data-analysis-python/main/data/kc_house_data.csv">https://raw.githubusercontent.com/aaiken1/fin-data-analysis-python/main/data/kc_house_data.csv</a>. Download it directly using <code class="docutils literal notranslate"><span class="pre">pandas</span></code> and put it into a DataFrame called <code class="docutils literal notranslate"><span class="pre">kc</span></code>. There is a variable called <code class="docutils literal notranslate"><span class="pre">id</span></code> in the first column. Make that the index value for the DataFrame.</p>
+<p>Take a peek at your DataFrame and view its dimensions and variables with the <code class="docutils literal notranslate"><span class="pre">info()</span></code> function. Also, check that we did the index correctly. You can do this using the <code class="docutils literal notranslate"><span class="pre">index</span></code> attribute. Functions use <code class="docutils literal notranslate"><span class="pre">()</span></code>. Attributes do not. Functions are taking the DataFrame and doing something. Attributes are checking on a specific feature of the DataFrame. Or, at least that’s how I think about it.</p>
+<p>Let’s say that we were trying to understand this particular housing market. Let’s think about some questions we might want to answer with these data:</p>
+<ul class="simple">
+<li><p>What time period does this data cover?</p></li>
+<li><p>How large our houses in King County? What are the typical number of bedrooms or bathrooms?</p></li>
+<li><p>What does the distribution of prices look like?</p></li>
+<li><p>What types of amenities are present?</p></li>
+<li><p>What housing characteristics do people value?</p></li>
+<li><p>Can we predict home values?</p></li>
+</ul>
+<p>We will start to answer these questions in this lab. Other questions will need to wait until we’ve covered additional tools, like <code class="docutils literal notranslate"><span class="pre">matplotlib</span></code> for making graphs. We’ll also need statistical methods, such as OLS and logit.</p>
+</section>
+<section id="part-4">
+<h2>Part 4<a class="headerlink" href="#part-4" title="Permalink to this headline">#</a></h2>
+<p>We brought in the data with <code class="docutils literal notranslate"><span class="pre">id</span></code> as our <strong>index</strong>. This lets us refer to each row by that value. Now, let’s clean up the <strong>date</strong>. You’ll see more about dates in the second DataCamp assignment.</p>
+<p>Right now, Python thinks that the <code class="docutils literal notranslate"><span class="pre">date</span></code> variable is an <code class="docutils literal notranslate"><span class="pre">object</span></code>. An object is a <code class="docutils literal notranslate"><span class="pre">pandas</span></code> data type that is very general. It can have mixed values, or be text. Basically, when <code class="docutils literal notranslate"><span class="pre">pandas</span></code> isn’t sure what something is, it brings it in as an `object.</p>
+<p>You can read more about <code class="docutils literal notranslate"><span class="pre">pandas</span></code> data types <a class="reference external" href="https://pbpython.com/pandas_dtypes.html">here</a>.</p>
+<p>Look at the raw data on Github using the URL I gave you. The <code class="docutils literal notranslate"><span class="pre">date</span></code> variable has this “T000000” in it. Python sees that, shrugs, and calls the <code class="docutils literal notranslate"><span class="pre">date</span></code> an object, rather than something date-specific. We want Python to know that this is a date, so that you can use date-specific functions.</p>
+<p>We will use a basic <code class="docutils literal notranslate"><span class="pre">str</span></code> method to remove that extra text. Use this code, changing it as needed:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">kc</span><span class="p">[</span><span class="s1">&#39;VARIABLE&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">kc</span><span class="p">[</span><span class="s1">&#39;VARIABLE&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">str</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s1">&#39;TEXT TO REPLACE&#39;</span><span class="p">,</span><span class="s1">&#39;&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>Do you see what this is doing? This is just one of many ways to get rid of that extra text.</p>
+<p>Check that this worked by printing just the <code class="docutils literal notranslate"><span class="pre">date</span></code>, <code class="docutils literal notranslate"><span class="pre">price</span></code>, and <code class="docutils literal notranslate"><span class="pre">sqft_living</span></code> columns.</p>
+</section>
+<section id="part-5">
+<h2>Part 5<a class="headerlink" href="#part-5" title="Permalink to this headline">#</a></h2>
+<p>Let’s finally fix that date. Use this code, changing it as needed:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">kc</span><span class="p">[</span><span class="s1">&#39;VARIABLE&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">to_datetime</span><span class="p">(</span><span class="n">kc</span><span class="p">[</span><span class="s1">&#39;VARIABLE&#39;</span><span class="p">],</span> <span class="nb">format</span><span class="o">=</span><span class="s1">&#39;FILL ME IN&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+<p><code class="docutils literal notranslate"><span class="pre">pd.to_datetime</span></code> is a <code class="docutils literal notranslate"><span class="pre">pandas</span></code> method that takes a variable in your DataFrame and tries to convert it to a <code class="docutils literal notranslate"><span class="pre">datetime</span></code> format.</p>
+<p>What should you fill in for the <code class="docutils literal notranslate"><span class="pre">format</span></code>? Check out the first part in the second DataCamp assignment or <a class="reference external" href="https://datagy.io/pandas-datetime/">this</a> for a summary of how <code class="docutils literal notranslate"><span class="pre">datetime</span></code> formats work.</p>
+<p>Show that you have successfully changed the data type. We’ll be working with dates all semester.</p>
+<p>Finally, let’s <strong>create a new variable</strong> in our DataFrame called <code class="docutils literal notranslate"><span class="pre">year</span></code> and another called <code class="docutils literal notranslate"><span class="pre">month</span></code>.</p>
+<p>See <a class="reference external" href="https://www.geeksforgeeks.org/get-month-and-year-from-date-in-pandas-python/">this page</a> for how to create a new variable from a <code class="docutils literal notranslate"><span class="pre">datetime</span></code>.</p>
+</section>
+<section id="part-6">
+<h2>Part 6<a class="headerlink" href="#part-6" title="Permalink to this headline">#</a></h2>
+<p>We’ve cleaned things up a bit, saw our first date, and created our first new variable. We can now <strong>explore this data</strong> to see what we have. Try the following:</p>
+<ul class="simple">
+<li><p>Use <code class="docutils literal notranslate"><span class="pre">shape</span></code> to give the number of rows and columns in the DataFrame.</p></li>
+<li><p>Use <code class="docutils literal notranslate"><span class="pre">columns</span></code> to show our variables.</p></li>
+<li><p>Use <code class="docutils literal notranslate"><span class="pre">describe()</span></code> to get summary statistics for all of the columns</p></li>
+<li><p>Use <code class="docutils literal notranslate"><span class="pre">describe()</span></code> to get summary statistics for just <code class="docutils literal notranslate"><span class="pre">price</span></code>, <code class="docutils literal notranslate"><span class="pre">bedrooms</span></code>, <code class="docutils literal notranslate"><span class="pre">bathrooms</span></code>, and <code class="docutils literal notranslate"><span class="pre">sqft_living</span></code>.</p></li>
+<li><p>That doesn’t look great. Add this code and re-run your last <code class="docutils literal notranslate"><span class="pre">describe()</span></code>: <code class="docutils literal notranslate"><span class="pre">pd.options.display.float_format</span> <span class="pre">=</span> <span class="pre">'{:,.2f}'.format</span></code>. This will change the format for any float variables that had a lot of decimal places being displayed. Note that it is a “permanent” change in that all floats will look like this when displayed from now on in your notebook. You can also do some temporary formatting using other methods.</p></li>
+</ul>
+<p>This <a class="reference external" href="https://www.statology.org/pandas-describe/">page</a> gives you some of the details for the <code class="docutils literal notranslate"><span class="pre">describe()</span></code> method. You can also take a look at our online notes for more.</p>
+<p>We should check for <strong>missing values</strong>. Print the total number of missing values by variable. Include all variables.</p>
+<p>Finally, we have some interesting variables in this data set. What do <code class="docutils literal notranslate"><span class="pre">view</span></code>, <code class="docutils literal notranslate"><span class="pre">condition</span></code>, and <code class="docutils literal notranslate"><span class="pre">grade</span></code> represent? How many unique values do they each have?</p>
+</section>
+<section id="part-7">
+<h2>Part 7<a class="headerlink" href="#part-7" title="Permalink to this headline">#</a></h2>
+<p>This data set is from May 2014 through May 2015. Let’s see what our date range looks like and then do some <code class="docutils literal notranslate"><span class="pre">groupby</span></code> summary stats. You’ll see these ideas called <strong>group-apply-combine</strong>, or <strong>split-apply-combine</strong>. You take your DataFrame, split your data and <strong>group by</strong> some characteristic (e.g. firm or date), <strong>apply</strong> a calculation to find a statistic for that group (e.g. mean or median), and the <strong>combine</strong> these summary statistics back into a new DataFrame.</p>
+<p>You can see <a class="reference external" href="https://datagy.io/pandas-groupby/">this page</a> for some examples. This section of <a class="reference external" href="https://www.tomasbeuzen.com/python-programming-for-data-science/chapters/chapter8-wrangling-basics.html#grouping">Chapter 8 in Python for Data Science</a> also has nice examples for the group-apply-combine framework.</p>
+<p>We are doing the type of work that you might use <strong>pivot tables</strong> or <strong>Power BI</strong> in Excel to do.</p>
+<ul>
+<li><p>Use <code class="docutils literal notranslate"><span class="pre">min()</span></code> and <code class="docutils literal notranslate"><span class="pre">max()</span></code> to print the min and max date in the data set. Note how there are both May 2014 and May 2015 observations. So, “May” will not uniquely identify a set of sales by year.</p></li>
+<li><p>Let’s create a new year-month <code class="docutils literal notranslate"><span class="pre">datetime</span></code> variable. This is different from the original <code class="docutils literal notranslate"><span class="pre">date</span></code>, since that included the day. We just want something like “2014-05” and “2015-05”. Why? We want to look at housing sales <strong>by each year-month group</strong>. Try this and describe what it is doing in your write-up.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">kc</span><span class="p">[</span><span class="s1">&#39;ym&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">kc</span><span class="p">[</span><span class="s1">&#39;date&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">dt</span><span class="o">.</span><span class="n">strftime</span><span class="p">(</span><span class="s1">&#39;%Y-%m&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</li>
+</ul>
+<p>Let’s work on our data by year-month group.</p>
+<ul class="simple">
+<li><p>Create a <code class="docutils literal notranslate"><span class="pre">GroupBy</span></code> object called <code class="docutils literal notranslate"><span class="pre">ym_group</span></code> and print both the number of groups and the size of each group. You should see that we have 13 groups. This is why we couldn’t assume that each month as unique. Which two months have the smallest number of home sales? Why?</p></li>
+<li><p>Print mean <code class="docutils literal notranslate"><span class="pre">price</span></code> by <code class="docutils literal notranslate"><span class="pre">ym_group</span></code>. How can you select just one column, <code class="docutils literal notranslate"><span class="pre">price</span></code>, from the group?</p></li>
+</ul>
+<p>Notice that there is now a new variable of <code class="docutils literal notranslate"><span class="pre">DatFrameGroupByObject</span></code> type in the variables window at the bottom.</p>
+<p>We actually didn’t need to create the new <code class="docutils literal notranslate"><span class="pre">GroupBy</span></code> object. See the link above for how to do this. I also have examples in our online notes.</p>
+<ul class="simple">
+<li><p>Use <code class="docutils literal notranslate"><span class="pre">groupby()</span></code> to find the mean of price by <code class="docutils literal notranslate"><span class="pre">ym</span></code></p></li>
+<li><p>Use <code class="docutils literal notranslate"><span class="pre">groupby()</span></code> and <code class="docutils literal notranslate"><span class="pre">agg()</span></code> to find the mean, median, and standard deviation of price by <code class="docutils literal notranslate"><span class="pre">ym</span></code>.</p></li>
+</ul>
+<p>And, believe it or not, we actually didn’t even need to create that <code class="docutils literal notranslate"><span class="pre">ym</span></code> variable. Use <code class="docutils literal notranslate"><span class="pre">groupby()</span></code> and <code class="docutils literal notranslate"><span class="pre">agg()</span></code> to again to find the same set of summary statistics, but instead of <code class="docutils literal notranslate"><span class="pre">ym</span></code>, give <code class="docutils literal notranslate"><span class="pre">groupby()</span></code> the <code class="docutils literal notranslate"><span class="pre">year</span></code> and <code class="docutils literal notranslate"><span class="pre">month</span></code> variables. See if you can figure out the syntax. Add this line of code right above your work <code class="docutils literal notranslate"><span class="pre">pd.options.display.float_format</span> <span class="pre">=</span> <span class="pre">'${:,.0f}'.format</span></code>. This is changing the formatting of all floats to have a dollar sign and no decimal places. Looks good!</p>
+</section>
+<section id="part-8">
+<h2>Part 8<a class="headerlink" href="#part-8" title="Permalink to this headline">#</a></h2>
+<p>We’ve now see <code class="docutils literal notranslate"><span class="pre">groupby()</span></code>, which lets us summarize our data by different groups. We can also select just portions of our data for analysis, as we’ve seen in our notes. Do the following:</p>
+<ul class="simple">
+<li><p>We have changed our formatting a few times. Let’s set it back to a default with:</p></li>
+</ul>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">pd</span><span class="o">.</span><span class="n">options</span><span class="o">.</span><span class="n">display</span><span class="o">.</span><span class="n">float_format</span> <span class="o">=</span> <span class="s1">&#39;</span><span class="si">{:.2f}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span>
+</pre></div>
+</div>
+<p>We keep changing the float formats, but not any date or integer formats.</p>
+<ul class="simple">
+<li><p>Use <code class="docutils literal notranslate"><span class="pre">loc</span></code> to select all rows and just columns <code class="docutils literal notranslate"><span class="pre">date</span></code>, <code class="docutils literal notranslate"><span class="pre">price</span></code>, and <code class="docutils literal notranslate"><span class="pre">sqft_living</span></code>. Remember, you can use <code class="docutils literal notranslate"><span class="pre">:</span></code> to select all of one axis, like the rows.</p></li>
+<li><p>Use <code class="docutils literal notranslate"><span class="pre">loc</span></code> to select just the observation where <code class="docutils literal notranslate"><span class="pre">id</span></code> is 5631500400, all columns. Note that you don’t need <code class="docutils literal notranslate"><span class="pre">''</span></code> around the <code class="docutils literal notranslate"><span class="pre">id</span></code> when using <code class="docutils literal notranslate"><span class="pre">loc</span></code>.</p></li>
+<li><p>Use <code class="docutils literal notranslate"><span class="pre">iloc</span></code> to select the 10th through 25th <code class="docutils literal notranslate"><span class="pre">id</span></code> values and the 2nd through 5th columns. We are starting our count from 0.</p></li>
+<li><p>Filter to find all of the home sales where <code class="docutils literal notranslate"><span class="pre">ym</span></code> is ‘2014-12’.</p></li>
+<li><p>That’s a lot. Find just the first week of December 2014. Can you use the <code class="docutils literal notranslate"><span class="pre">ym</span></code> variable now?</p></li>
+</ul>
+<p>That’s still a lot, so the notebook won’t show you all of them. You could save this subset of observations to a new DataFrame. Nothing is ever saved to memory until you define a new DataFrame. And, just because a file is in memory, that doesn’t mean that it is saved to a drive.</p>
+<p>We’ll be doing more on summarizing, sorting, and filtering our data.</p>
+</section>
+<section id="part-9">
+<h2>Part 9<a class="headerlink" href="#part-9" title="Permalink to this headline">#</a></h2>
+<p>You have added new variables to this DataFrame. Let’s export it to a CSV file. You should try to save it in a data folder for this class. You can do this using either a <strong>relative path</strong> or an <strong>absolute path</strong>. Let’s use an <strong>absolute path</strong>, just for now. Your solution to this lab should live in a folder called <code class="docutils literal notranslate"><span class="pre">lab02</span></code> inside of your main course folder. However, we are going to be using the same data again and again. Let’s figure out how to save this data in a folder called <code class="docutils literal notranslate"><span class="pre">data</span></code> inside of the main class folder. For me, that path is:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="o">/</span><span class="n">Users</span><span class="o">/</span><span class="n">adamaiken</span><span class="o">/</span><span class="n">fin</span><span class="o">-</span><span class="n">data</span><span class="o">-</span><span class="n">analysis</span><span class="o">-</span><span class="n">python</span><span class="o">/</span><span class="n">data</span>
+</pre></div>
+</div>
+<p>Add the following code in a cell at the <strong>top of your notebook</strong>. Alter it to fit your file structure.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">pathlib</span> <span class="kn">import</span> <span class="n">Path</span>
+
+<span class="n">data_path</span> <span class="o">=</span> <span class="n">Path</span><span class="p">(</span><span class="s1">&#39;/Users/adamaiken/fin-data-analysis-python/data&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>Can you alter that to get it to work on your end? You’ll need the actual path for the file. On a Mac, Control- or right-click a file or folder. After the menu appears, press the Option key. Your menu choices will change. Select Copy “file name or folder name” as Pathname. For Windows, check out <a class="reference external" href="https://www.addictivetips.com/windows-tips/get-complete-path-to-a-file-or-folder-on-windows-10/">this page</a>.</p>
+<p>Now, you can do this <strong>at the bottom of your notebook</strong> to save to that folder:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">kc</span><span class="o">.</span><span class="n">to_csv</span><span class="p">(</span><span class="n">data_path</span> <span class="o">/</span> <span class="s1">&#39;kc_house_data_edit.csv&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>We’ll do more with <strong>relative paths</strong> when we get to input/output operations later on. I just wanted to get you use to the idea of your files living in certain places.</p>
+</section>
+<section id="part-10">
+<h2>Part 10<a class="headerlink" href="#part-10" title="Permalink to this headline">#</a></h2>
+<p>Finally, <strong>clear the outputs of all of your cells</strong> using the button at the top of the notebook. Restart your Python kernel. This will clear everything from memory. Then, <strong>Run All</strong>. All of you cells should now run, in order, from top to bottom.</p>
+<p>I like to do this occasionally, to make sure things are working correctly. One downside of working in a notebook environment is that it is very easy to run code “out of order”. For example, you can run code in one cell, then skip down and run another cell. But, if that cell below needed something from a cell in the middle to run, it won’t work. You can lose track of what variables have been defined, what inputs have been created, what Python “knows” about. So, it’s a good idea to run things from scratch.</p>
+<p>You are done! <strong>Turn in this .ipynb file via Moodle.</strong></p>
+<p>We’ve only done two labs. I hope that you’re beginning to feel more comfortable in VS Code and with Python. You already know enough to use Python instead of Excel to clean up some data, make new variables, create a summary, and then save it as something you can then use in Excel!</p>
+</section>
+</section>
+
+    <script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "binder-examples/jupyter-stacks-datascience",
+            ref: "master",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "python"
+        },
+        kernelOptions: {
+            kernelName: "python3",
+            path: "./chapters"
+        },
+        predefinedOutput: true
+    }
+    </script>
+    <script>kernelName = 'python3'</script>
+
+              </div>
+              
+            </main>
+            <footer class="footer-article noprint">
+                
+    <!-- Previous / next buttons -->
+<div class='prev-next-area'>
+    <a class='left-prev' id="prev-link" href="lab01.html" title="previous page">
+        <i class="fas fa-angle-left"></i>
+        <div class="prev-next-info">
+            <p class="prev-next-subtitle">previous</p>
+            <p class="prev-next-title">Lab 01</p>
+        </div>
+    </a>
+    <a class='right-next' id="next-link" href="exam_intro.html" title="next page">
+    <div class="prev-next-info">
+        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-title">Our Exams</p>
+    </div>
+    <i class="fas fa-angle-right"></i>
+    </a>
+</div>
+            </footer>
+        </div>
+    </div>
+    <div class="footer-content row">
+        <footer class="col footer"><p>
+  
+    By Prof. Adam Aiken<br/>
+  
+</p>
+        </footer>
+    </div>
+    
+</div>
+
+
+      </div>
+    </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="../_static/scripts/pydata-sphinx-theme.js?digest=1999514e3f237ded88cf"></script>
+
+
+  </body>
+</html>
