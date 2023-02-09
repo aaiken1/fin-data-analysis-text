@@ -50,8 +50,6 @@ const thebe_selector_input = "pre"
 const thebe_selector_output = ".output, .cell_output"
 </script>
     <script async="async" src="../_static/sphinx-thebe.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
-    <script src="https://unpkg.com/@jupyter-widgets/html-manager@^0.20.0/dist/embed-amd.js"></script>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
     <link rel="next" title="4.2. pandas" href="4_1_pandas.html" />
@@ -566,10 +564,10 @@ title="Print to PDF"
 </div>
 </div>
 </div>
-<p>This is similar to the example on pgs. 114 - 115 of our textbook. I am creating a DataFrame with one column. This column has four stock prices. I am labeling that column as <code class="docutils literal notranslate"><span class="pre">Prices</span></code>. I then have an <code class="docutils literal notranslate"><span class="pre">index</span></code> value that refers to each row. I am using numbers. This could easily be a date!</p>
+<p>This is similar to an example from <a class="reference external" href="https://www.oreilly.com/library/view/python-for-finance/9781492024323/">Python for Finance, 2e</a>. I am creating a DataFrame with one column. This column has four stock prices. I am labeling that column as <code class="docutils literal notranslate"><span class="pre">Prices</span></code>. I then have an <code class="docutils literal notranslate"><span class="pre">index</span></code> value that refers to each row. I am using numbers. This could easily be a date and, in fact, will be later on when we import real price data.</p>
 <p>See how this is kind of like a spreadsheet? And, unlike an array, we have <strong>labels</strong> or <strong>headers</strong> for columns. And we have indexes for each row that aren’t really part of the data.</p>
 <p>We’ll do more with this in the next section.</p>
-<p>Ok, let’s import that CSV file into a <code class="docutils literal notranslate"><span class="pre">DataFrame</span></code>.</p>
+<p>Ok, let’s import that CSV file into a <code class="docutils literal notranslate"><span class="pre">DataFrame</span></code>. You’ll need to data on your local computer (or Google Drive) for code like this to work. We’ll change that in a second.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">prices</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s1">&#39;../data/tr_eikon_eod_data.csv&#39;</span><span class="p">,</span>
@@ -578,14 +576,14 @@ title="Print to PDF"
 </div>
 </div>
 </div>
-<p>First, click the <strong>Variables</strong> button at the top. You’ll see the two DataFrames that we now have in memory appear below. Click the pop-out button to view them.</p>
-<p>Notice how I did the path name. <code class="docutils literal notranslate"><span class="pre">../</span></code> means to start start from my home directory. What’s my home directory? That’s where you <code class="docutils literal notranslate"><span class="pre">.ipynb</span></code> file lives. <strong>Relative</strong> to that directory, Python looks for a folder called <code class="docutils literal notranslate"><span class="pre">data</span></code>. Finally, it looks for the .csv file called <code class="docutils literal notranslate"><span class="pre">tr_eikon_eod_data.csv</span></code> inside of that folder.</p>
+<p>First, if you’re in Jupyter Notebook in VS Code, click the <strong>Variables</strong> button at the top. Google Colab has a similar button on the left. You’ll see the two DataFrames that we now have in memory appear below. Click the pop-out button to view them.</p>
+<p>Notice how I did the path name. <code class="docutils literal notranslate"><span class="pre">../</span></code> means to start start from my home directory. What’s my home directory? That’s where your <code class="docutils literal notranslate"><span class="pre">.ipynb</span></code> file lives. <strong>Relative</strong> to that directory, Python looks for a folder called <code class="docutils literal notranslate"><span class="pre">data</span></code>. Finally, it looks for the .csv file called <code class="docutils literal notranslate"><span class="pre">tr_eikon_eod_data.csv</span></code> inside of that folder.</p>
 <p>What are those other options doing? <code class="docutils literal notranslate"><span class="pre">index_col=0</span></code> tells <code class="docutils literal notranslate"><span class="pre">pandas</span></code> to create a DataFrame where column 0 (the first column in the .csv file) is the index. Check out the CSV file - that’s the date. With finance data, the date will often be the index, since we are dealing with time series data (e.g. stock prices or returns).</p>
 <p>Sometimes data will be <strong>multi-index</strong>. For example, if we have multiple stocks and dates. More on this later - it depends on how the data are organized.</p>
-<p>The option <code class="docutils literal notranslate"><span class="pre">parse_dates</span></code> is telling <code class="docutils literal notranslate"><span class="pre">pandas</span></code> to look at the index column and try to turn what it sees into official Python dates. That works in this case. Finance coders will joke that 90% of their time is spend doing date corrections. For example, what happens if you have multiple markets in different time zones and you’re trying to deal with time series at a trade-level frequency (i.e. less than a second)? Have fun!</p>
+<p>The option <code class="docutils literal notranslate"><span class="pre">parse_dates</span></code> is telling <code class="docutils literal notranslate"><span class="pre">pandas</span></code> to look at the index column and try to turn what it sees into official Python dates. That works in this case. Finance coders will joke that 90% of their time is spent doing date corrections. For example, what happens if you have multiple markets in different time zones and you’re trying to deal with time series at a trade-level frequency (i.e. less than a second)? Have fun!</p>
 <p>You can read about the <code class="docutils literal notranslate"><span class="pre">pd.read_csv</span></code> method on the <a class="reference external" href="https://pandas.pydata.org/docs/reference/api/pandas.read_csv.html"><code class="docutils literal notranslate"><span class="pre">pandas</span></code> web page</a>.</p>
 <p>You can also write Python data to a .csv or Excel file. Our DataCamp assignments will go over all of this.</p>
-<p>Let’s now read in this file directly from our class Github. I’ll call the resulting DataFrame <code class="docutils literal notranslate"><span class="pre">prices2</span></code>, just so that we can see that we actually have the same thing twice.</p>
+<p>Let’s now read in this file directly from our class Github page. When reading data in from Github, you won’t have to download it first. I’ll call the resulting DataFrame <code class="docutils literal notranslate"><span class="pre">prices2</span></code>, just so that we can see that we actually have the same thing twice.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">prices2</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s1">&#39;https://github.com/aaiken1/fin-data-analysis-python/raw/main/data/tr_eikon_eod_data.csv&#39;</span><span class="p">)</span>
@@ -593,14 +591,457 @@ title="Print to PDF"
 </div>
 </div>
 </div>
-<p>I made a “mistake” on purpose there. Notice how I didn’t do the <code class="docutils literal notranslate"><span class="pre">index_col</span></code>? Check out the <code class="docutils literal notranslate"><span class="pre">prices2</span></code> DataFrame below. You’ll see an index column with 1, 2, 3,.. and then the date column. The <code class="docutils literal notranslate"><span class="pre">read_csv</span></code> created an index for me, since I didn’t specify one. Let’s redo that.</p>
+<p>I made a “mistake” on purpose there. Notice how I didn’t do the <code class="docutils literal notranslate"><span class="pre">index_col</span></code>? Check out the <code class="docutils literal notranslate"><span class="pre">prices2</span></code> DataFrame below. You’ll see an index column with 1, 2, 3,.. and then the date column. The <code class="docutils literal notranslate"><span class="pre">read_csv</span></code> created an index for me, since I didn’t specify one.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">prices2</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>Date</th>
+      <th>AAPL.O</th>
+      <th>MSFT.O</th>
+      <th>INTC.O</th>
+      <th>AMZN.O</th>
+      <th>GS.N</th>
+      <th>SPY</th>
+      <th>.SPX</th>
+      <th>.VIX</th>
+      <th>EUR=</th>
+      <th>XAU=</th>
+      <th>GDX</th>
+      <th>GLD</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>2010-01-01</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>1.4323</td>
+      <td>1096.35</td>
+      <td>NaN</td>
+      <td>NaN</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>2010-01-04</td>
+      <td>30.572827</td>
+      <td>30.950</td>
+      <td>20.88</td>
+      <td>133.90</td>
+      <td>173.08</td>
+      <td>113.33</td>
+      <td>1132.99</td>
+      <td>20.04</td>
+      <td>1.4411</td>
+      <td>1120.00</td>
+      <td>47.71</td>
+      <td>109.80</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>2010-01-05</td>
+      <td>30.625684</td>
+      <td>30.960</td>
+      <td>20.87</td>
+      <td>134.69</td>
+      <td>176.14</td>
+      <td>113.63</td>
+      <td>1136.52</td>
+      <td>19.35</td>
+      <td>1.4368</td>
+      <td>1118.65</td>
+      <td>48.17</td>
+      <td>109.70</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>2010-01-06</td>
+      <td>30.138541</td>
+      <td>30.770</td>
+      <td>20.80</td>
+      <td>132.25</td>
+      <td>174.26</td>
+      <td>113.71</td>
+      <td>1137.14</td>
+      <td>19.16</td>
+      <td>1.4412</td>
+      <td>1138.50</td>
+      <td>49.34</td>
+      <td>111.51</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>2010-01-07</td>
+      <td>30.082827</td>
+      <td>30.452</td>
+      <td>20.60</td>
+      <td>130.00</td>
+      <td>177.67</td>
+      <td>114.19</td>
+      <td>1141.69</td>
+      <td>19.06</td>
+      <td>1.4318</td>
+      <td>1131.90</td>
+      <td>49.10</td>
+      <td>110.82</td>
+    </tr>
+    <tr>
+      <th>...</th>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+    </tr>
+    <tr>
+      <th>2211</th>
+      <td>2018-06-25</td>
+      <td>182.170000</td>
+      <td>98.390</td>
+      <td>50.71</td>
+      <td>1663.15</td>
+      <td>221.54</td>
+      <td>271.00</td>
+      <td>2717.07</td>
+      <td>17.33</td>
+      <td>1.1702</td>
+      <td>1265.00</td>
+      <td>22.01</td>
+      <td>119.89</td>
+    </tr>
+    <tr>
+      <th>2212</th>
+      <td>2018-06-26</td>
+      <td>184.430000</td>
+      <td>99.080</td>
+      <td>49.67</td>
+      <td>1691.09</td>
+      <td>221.58</td>
+      <td>271.60</td>
+      <td>2723.06</td>
+      <td>15.92</td>
+      <td>1.1645</td>
+      <td>1258.64</td>
+      <td>21.95</td>
+      <td>119.26</td>
+    </tr>
+    <tr>
+      <th>2213</th>
+      <td>2018-06-27</td>
+      <td>184.160000</td>
+      <td>97.540</td>
+      <td>48.76</td>
+      <td>1660.51</td>
+      <td>220.18</td>
+      <td>269.35</td>
+      <td>2699.63</td>
+      <td>17.91</td>
+      <td>1.1552</td>
+      <td>1251.62</td>
+      <td>21.81</td>
+      <td>118.58</td>
+    </tr>
+    <tr>
+      <th>2214</th>
+      <td>2018-06-28</td>
+      <td>185.500000</td>
+      <td>98.630</td>
+      <td>49.25</td>
+      <td>1701.45</td>
+      <td>223.42</td>
+      <td>270.89</td>
+      <td>2716.31</td>
+      <td>16.85</td>
+      <td>1.1567</td>
+      <td>1247.88</td>
+      <td>21.93</td>
+      <td>118.22</td>
+    </tr>
+    <tr>
+      <th>2215</th>
+      <td>2018-06-29</td>
+      <td>185.110000</td>
+      <td>98.610</td>
+      <td>49.71</td>
+      <td>1699.80</td>
+      <td>220.57</td>
+      <td>271.28</td>
+      <td>2718.37</td>
+      <td>16.09</td>
+      <td>1.1683</td>
+      <td>1252.25</td>
+      <td>22.31</td>
+      <td>118.65</td>
+    </tr>
+  </tbody>
+</table>
+<p>2216 rows × 13 columns</p>
+</div></div></div>
+</div>
+<p>Let’s redo that.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">prices2</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s1">&#39;https://github.com/aaiken1/fin-data-analysis-python/raw/main/data/tr_eikon_eod_data.csv&#39;</span><span class="p">,</span>
                       <span class="n">index_col</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">parse_dates</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+
+<span class="n">prices2</span>
 </pre></div>
 </div>
 </div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>AAPL.O</th>
+      <th>MSFT.O</th>
+      <th>INTC.O</th>
+      <th>AMZN.O</th>
+      <th>GS.N</th>
+      <th>SPY</th>
+      <th>.SPX</th>
+      <th>.VIX</th>
+      <th>EUR=</th>
+      <th>XAU=</th>
+      <th>GDX</th>
+      <th>GLD</th>
+    </tr>
+    <tr>
+      <th>Date</th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>2010-01-01</th>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>1.4323</td>
+      <td>1096.35</td>
+      <td>NaN</td>
+      <td>NaN</td>
+    </tr>
+    <tr>
+      <th>2010-01-04</th>
+      <td>30.572827</td>
+      <td>30.950</td>
+      <td>20.88</td>
+      <td>133.90</td>
+      <td>173.08</td>
+      <td>113.33</td>
+      <td>1132.99</td>
+      <td>20.04</td>
+      <td>1.4411</td>
+      <td>1120.00</td>
+      <td>47.71</td>
+      <td>109.80</td>
+    </tr>
+    <tr>
+      <th>2010-01-05</th>
+      <td>30.625684</td>
+      <td>30.960</td>
+      <td>20.87</td>
+      <td>134.69</td>
+      <td>176.14</td>
+      <td>113.63</td>
+      <td>1136.52</td>
+      <td>19.35</td>
+      <td>1.4368</td>
+      <td>1118.65</td>
+      <td>48.17</td>
+      <td>109.70</td>
+    </tr>
+    <tr>
+      <th>2010-01-06</th>
+      <td>30.138541</td>
+      <td>30.770</td>
+      <td>20.80</td>
+      <td>132.25</td>
+      <td>174.26</td>
+      <td>113.71</td>
+      <td>1137.14</td>
+      <td>19.16</td>
+      <td>1.4412</td>
+      <td>1138.50</td>
+      <td>49.34</td>
+      <td>111.51</td>
+    </tr>
+    <tr>
+      <th>2010-01-07</th>
+      <td>30.082827</td>
+      <td>30.452</td>
+      <td>20.60</td>
+      <td>130.00</td>
+      <td>177.67</td>
+      <td>114.19</td>
+      <td>1141.69</td>
+      <td>19.06</td>
+      <td>1.4318</td>
+      <td>1131.90</td>
+      <td>49.10</td>
+      <td>110.82</td>
+    </tr>
+    <tr>
+      <th>...</th>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+    </tr>
+    <tr>
+      <th>2018-06-25</th>
+      <td>182.170000</td>
+      <td>98.390</td>
+      <td>50.71</td>
+      <td>1663.15</td>
+      <td>221.54</td>
+      <td>271.00</td>
+      <td>2717.07</td>
+      <td>17.33</td>
+      <td>1.1702</td>
+      <td>1265.00</td>
+      <td>22.01</td>
+      <td>119.89</td>
+    </tr>
+    <tr>
+      <th>2018-06-26</th>
+      <td>184.430000</td>
+      <td>99.080</td>
+      <td>49.67</td>
+      <td>1691.09</td>
+      <td>221.58</td>
+      <td>271.60</td>
+      <td>2723.06</td>
+      <td>15.92</td>
+      <td>1.1645</td>
+      <td>1258.64</td>
+      <td>21.95</td>
+      <td>119.26</td>
+    </tr>
+    <tr>
+      <th>2018-06-27</th>
+      <td>184.160000</td>
+      <td>97.540</td>
+      <td>48.76</td>
+      <td>1660.51</td>
+      <td>220.18</td>
+      <td>269.35</td>
+      <td>2699.63</td>
+      <td>17.91</td>
+      <td>1.1552</td>
+      <td>1251.62</td>
+      <td>21.81</td>
+      <td>118.58</td>
+    </tr>
+    <tr>
+      <th>2018-06-28</th>
+      <td>185.500000</td>
+      <td>98.630</td>
+      <td>49.25</td>
+      <td>1701.45</td>
+      <td>223.42</td>
+      <td>270.89</td>
+      <td>2716.31</td>
+      <td>16.85</td>
+      <td>1.1567</td>
+      <td>1247.88</td>
+      <td>21.93</td>
+      <td>118.22</td>
+    </tr>
+    <tr>
+      <th>2018-06-29</th>
+      <td>185.110000</td>
+      <td>98.610</td>
+      <td>49.71</td>
+      <td>1699.80</td>
+      <td>220.57</td>
+      <td>271.28</td>
+      <td>2718.37</td>
+      <td>16.09</td>
+      <td>1.1683</td>
+      <td>1252.25</td>
+      <td>22.31</td>
+      <td>118.65</td>
+    </tr>
+  </tbody>
+</table>
+<p>2216 rows × 12 columns</p>
+</div></div></div>
 </div>
 <p>That’s better! We’ll end by looking at some of the <strong>attributes</strong> of our <code class="docutils literal notranslate"><span class="pre">prices</span></code> DataFrame.</p>
 <p>First, let’s check our index. Is it really a date?</p>
