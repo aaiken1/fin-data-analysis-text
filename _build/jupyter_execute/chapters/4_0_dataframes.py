@@ -33,13 +33,13 @@ import pandas as pd
 df = pd.DataFrame([75,79,82,60], columns = ['Prices'], index =[1,2,3,4])
 
 
-# This is similar to the example on pgs. 114 - 115 of our textbook. I am creating a DataFrame with one column. This column has four stock prices. I am labeling that column as `Prices`. I then have an `index` value that refers to each row. I am using numbers. This could easily be a date!
+# This is similar to an example from [Python for Finance, 2e](https://www.oreilly.com/library/view/python-for-finance/9781492024323/). I am creating a DataFrame with one column. This column has four stock prices. I am labeling that column as `Prices`. I then have an `index` value that refers to each row. I am using numbers. This could easily be a date and, in fact, will be later on when we import real price data.
 # 
 # See how this is kind of like a spreadsheet? And, unlike an array, we have **labels** or **headers** for columns. And we have indexes for each row that aren't really part of the data. 
 # 
 # We'll do more with this in the next section.
 # 
-# Ok, let's import that CSV file into a `DataFrame`.
+# Ok, let's import that CSV file into a `DataFrame`. You'll need to data on your local computer (or Google Drive) for code like this to work. We'll change that in a second.
 
 # In[3]:
 
@@ -48,21 +48,21 @@ prices = pd.read_csv('../data/tr_eikon_eod_data.csv',
                   index_col=0, parse_dates=True)
 
 
-# First, click the **Variables** button at the top. You'll see the two DataFrames that we now have in memory appear below. Click the pop-out button to view them.
+# First, if you're in Jupyter Notebook in VS Code, click the **Variables** button at the top. Google Colab has a similar button on the left. You'll see the two DataFrames that we now have in memory appear below. Click the pop-out button to view them.
 # 
-# Notice how I did the path name. `../` means to start start from my home directory. What's my home directory? That's where you `.ipynb` file lives. **Relative** to that directory, Python looks for a folder called `data`. Finally, it looks for the .csv file called `tr_eikon_eod_data.csv` inside of that folder.
+# Notice how I did the path name. `../` means to start start from my home directory. What's my home directory? That's where your `.ipynb` file lives. **Relative** to that directory, Python looks for a folder called `data`. Finally, it looks for the .csv file called `tr_eikon_eod_data.csv` inside of that folder.
 # 
 # What are those other options doing? `index_col=0` tells `pandas` to create a DataFrame where column 0 (the first column in the .csv file) is the index. Check out the CSV file - that's the date. With finance data, the date will often be the index, since we are dealing with time series data (e.g. stock prices or returns).
 # 
 # Sometimes data will be **multi-index**. For example, if we have multiple stocks and dates. More on this later - it depends on how the data are organized.
 # 
-# The option `parse_dates` is telling `pandas` to look at the index column and try to turn what it sees into official Python dates. That works in this case. Finance coders will joke that 90% of their time is spend doing date corrections. For example, what happens if you have multiple markets in different time zones and you're trying to deal with time series at a trade-level frequency (i.e. less than a second)? Have fun!
+# The option `parse_dates` is telling `pandas` to look at the index column and try to turn what it sees into official Python dates. That works in this case. Finance coders will joke that 90% of their time is spent doing date corrections. For example, what happens if you have multiple markets in different time zones and you're trying to deal with time series at a trade-level frequency (i.e. less than a second)? Have fun!
 # 
 # You can read about the `pd.read_csv` method on the [`pandas` web page](https://pandas.pydata.org/docs/reference/api/pandas.read_csv.html).
 # 
 # You can also write Python data to a .csv or Excel file. Our DataCamp assignments will go over all of this.
 # 
-# Let's now read in this file directly from our class Github. I'll call the resulting DataFrame `prices2`, just so that we can see that we actually have the same thing twice.
+# Let's now read in this file directly from our class Github page. When reading data in from Github, you won't have to download it first. I'll call the resulting DataFrame `prices2`, just so that we can see that we actually have the same thing twice.
 # 
 
 # In[4]:
@@ -71,20 +71,30 @@ prices = pd.read_csv('../data/tr_eikon_eod_data.csv',
 prices2 = pd.read_csv('https://github.com/aaiken1/fin-data-analysis-python/raw/main/data/tr_eikon_eod_data.csv')
 
 
-# I made a "mistake" on purpose there. Notice how I didn't do the `index_col`? Check out the `prices2` DataFrame below. You'll see an index column with 1, 2, 3,.. and then the date column. The `read_csv` created an index for me, since I didn't specify one. Let's redo that.
+# I made a "mistake" on purpose there. Notice how I didn't do the `index_col`? Check out the `prices2` DataFrame below. You'll see an index column with 1, 2, 3,.. and then the date column. The `read_csv` created an index for me, since I didn't specify one.
 
 # In[5]:
 
 
+prices2
+
+
+# Let's redo that.
+
+# In[6]:
+
+
 prices2 = pd.read_csv('https://github.com/aaiken1/fin-data-analysis-python/raw/main/data/tr_eikon_eod_data.csv',
                       index_col=0, parse_dates=True)
+
+prices2
 
 
 # That's better! We'll end by looking at some of the **attributes** of our `prices` DataFrame.
 # 
 # First, let's check our index. Is it really a date?
 
-# In[6]:
+# In[7]:
 
 
 prices.index
@@ -94,7 +104,7 @@ prices.index
 # 
 # Let's look at the columns.
 
-# In[7]:
+# In[8]:
 
 
 prices.columns
@@ -107,7 +117,7 @@ prices.columns
 # 
 # 
 
-# In[8]:
+# In[9]:
 
 
 prices100 = pd.read_csv('https://github.com/aaiken1/fin-data-analysis-python/raw/main/data/tr_eikon_eod_data.csv',
@@ -116,7 +126,7 @@ prices100 = pd.read_csv('https://github.com/aaiken1/fin-data-analysis-python/raw
 
 # You can bring in just certain columns. In `pandas`, we select columns using `['COLUMN']`.
 
-# In[9]:
+# In[10]:
 
 
 prices_spx= pd.read_csv('https://github.com/aaiken1/fin-data-analysis-python/raw/main/data/tr_eikon_eod_data.csv',
@@ -125,7 +135,7 @@ prices_spx= pd.read_csv('https://github.com/aaiken1/fin-data-analysis-python/raw
 
 # You can also specify if a particular value should be set to missing. `read_csv()` already looks for common items, like 'NA' or 'n/a'. I'll have it look for '-' as well, though that isn't a missing value in this data.
 
-# In[10]:
+# In[11]:
 
 
 prices2 = pd.read_csv('https://github.com/aaiken1/fin-data-analysis-python/raw/main/data/tr_eikon_eod_data.csv',
@@ -134,7 +144,7 @@ prices2 = pd.read_csv('https://github.com/aaiken1/fin-data-analysis-python/raw/m
 
 # We can also read data in from **Excel files**, using `.read_excel()`. I'll read in some HF return data.
 
-# In[11]:
+# In[12]:
 
 
 

@@ -32,7 +32,7 @@ uw = pd.read_csv('https://github.com/aaiken1/fin-data-analysis-python/raw/main/d
 uw.info()
 
 
-# Just to show you, I'm going to reimport that data, but force that one variable to also come in as the same variable type. I don't want anything unexpected to happen, so let's get all numerics as floats.
+# Just to show you, I'm going to reimport that data, but force that one variable to also come in as the same variable type. I don't want anything unexpected to happen, so let's get all numerics as floats. Notice how I do this -- I give the column, or variable name, and the data type I want. I'm using a particular type of float type that comes with the `numpy` package.
 
 # In[3]:
 
@@ -99,11 +99,13 @@ uw
 # 
 # `df = df.some_stuff`
 # 
-# This means that our work is getting saved. In this case, I'm replacing my original DataFrame *df* with another DataFrame, also called *df*. I could have changed the name of the DataFrame.
+# This means that our work is getting assigned to something in memory. This is kind of like saving our work. In this case, I'm replacing my original DataFrame *df* with another DataFrame, also called *df*. I could have changed the name of the DataFrame.
 # 
 # You'll also see the `inplace=True` argument in some functions. This means that the old DataFrame will get overwritten automatically by whatever you just did.
 # 
-# THe key: **If you don't save your work, then the Jupyter Notebook will show you a result, but it doesn't get reflected in the DataFrame. So, if you try use what you just did, Python won't know about it!**
+# ```{note}
+# If you don't assign your work to a placeholder in memory, then the Jupyter Notebook will show you a result, but it doesn't get reflected in the DataFrame. So, if you try use what you just did, Python won't know about it!
+# ```
 
 # ## Selecting our data
 # 
@@ -123,9 +125,9 @@ uw['RegionType']
 uw.RegionType
 
 
-# Notice how as you're typing, VS Code is trying to autocomplete for you? Helpful!
+# Notice how as you're typing, VS Code and Google Colab are trying to autocomplete for you? Helpful!
 # 
-# You can also do multiple columns. Use a `,` to separate the column names in `[]`.
+# You can also do multiple columns. Use a `,` to separate the column names in `[]`. There are now two pairs of `[]`.
 # 
 
 # In[9]:
@@ -143,7 +145,9 @@ uw_only_three_columns = uw[['RegionType', 'RegionName', 'UWHomes_Tier2']]
 uw_only_three_columns
 
 
-# We are using a **list** - the column names are in a list with `[]`. You can also pull out just certain rows. We used `head` and `tail` above to do this in an "automated" way.
+# We are using a **list** - the column names are in a list defined using `[]`. This is why we had to go through lists earlier - they show up a lot. 
+# 
+# You can also pull out just certain rows. We used `head` and `tail` above to do this in an "automated" way.
 
 # In[11]:
 
@@ -242,7 +246,7 @@ print(uw_sub3.equals(uw_sub4))
 
 # ### Filtering
 # 
-# Let's try **filtering** our data and keeping just the MSA observations. The text calls this **complex selection**. See pg. 132.
+# Let's try **filtering** our data and keeping just the MSA observations. This is sometimes called **complex selection**. 
 # 
 # Here's some [help on filtering](https://datagy.io/filter-pandas/) data with `pandas`.
 
@@ -252,7 +256,11 @@ print(uw_sub3.equals(uw_sub4))
 uw[uw['RegionType'] == 'MSA'].head(15)
 
 
-# How about just North Carolina MSAs? I'll use the bigger DataFrame and just show the observations, rather than create a new DataFrame.
+# Pay attention to the **syntax**. You are selecting a column from the DataFrame and asking to only keep the rows where that column(variable) is equal to 'MSA'. I'm then displaying just the first 15 rows. And, I'm not saving this filtered data set anywhere -- I'm just looking at it.
+# 
+# How about just North Carolina MSAs? I'll again use the bigger DataFrame and just show the observations, rather than create a new DataFrame.
+# 
+# And, I'm now using **compound conditions** joined with an `&`. This **boolean operator** means **and** -- both conditions need to be true. 
 
 # In[21]:
 
@@ -260,7 +268,7 @@ uw[uw['RegionType'] == 'MSA'].head(15)
 uw[(uw['RegionType'] == 'MSA') & (uw['StateName'] == 'North Carolina')].head(15)
 
 
-# Notice how I needed to put `()` around each condition. Python is testing to see if each of these are `True` or `False` and then filtering our data accordingly. Pgs. 132 - 135 of our text show you more about this type of **boolean** filtering. You'll also see **masking** in the DataCamp assignments. Here's an example.
+# Notice how I needed to put `()` around each condition. Python is testing to see if each of these are `True` or `False` and then filtering our data accordingly. You'll also see **masking** in the DataCamp assignments. Here's an example.
 
 # In[22]:
 
@@ -269,7 +277,7 @@ in_nc = (uw['RegionType'] == 'MSA') & (uw['StateName'] == 'North Carolina')
 uw[in_nc].head(15)
 
 
-# The series *in_nc* is a list of True/False values for whether or not an observation meets the criteria. I can then pass that series to the DataFrame *uw*, which will select observations that meet the *True* criteria.
+# The series *in_nc* is a list of True/False values for whether or not an observation meets the criteria. I can then pass that series to the DataFrame *uw*, which will select observations that meet the *True* criteria. We are **masking** the big DataFrame and only selecting observations that have a `True` associated with them, based on the criteria specified. Essentially, this is just another way of filtering our data.
 # 
 # I can also use `.loc` to filter and then select certain columns.
 
@@ -289,7 +297,7 @@ my_columns = ['RegionType', 'RegionName', 'MSAName', 'AllHomes_Tier1']
 uw.loc[my_filter, my_columns].head(15)
 
 
-# ## First Look at an Index
+# ## First look at an index
 # 
 # Let's go back to the stock data and work with indices a bit more. Remember how that one had the `Date` as the index?
 
@@ -310,8 +318,8 @@ prices.index
 prices.loc['2010-01-01':'2010-01-31',['.SPX', '.VIX']]
 
 
-# You can even see in the output above how `Date` is in a different row than `.SPX` and `.VIX`. The date is not a variable anymore. It is an index.
+# You can even see in the output above how `Date` is in a different row than `.SPX` and `.VIX`. The date is not a variable anymore. It is an **index**.
 # 
-# This is a much simpler example than the Zillow data. 
+# This is a much simpler example than the Zillow data, which had multi-levels of data (e.g. MSA vs. Region vs. Zip), but no dates.
 # 
 # I do a more complicated multi-index, or multi-level, example when looking at reshaping our data.

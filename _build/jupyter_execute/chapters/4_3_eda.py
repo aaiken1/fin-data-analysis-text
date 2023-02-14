@@ -15,6 +15,7 @@
 # - Do we have any **datetime** variables?
 # - How are our variables related to each other?
 # - How can we **summarize** them?
+#   
 # 
 # We'll graphically summarize our data in the [next section](#dataviz). We'll look more at **datetime** variables when we get to our work on [financial time series](#financial-times-series). 
 # 

@@ -18,6 +18,10 @@
 # 
 # [Chapter 3 of Python for Data Analysis, 3E](https://wesmckinney.com/book/python-builtin.html) also covers data structures and functions.
 # 
+# You can find more on the basics of Python in the [Python tutorial](https://docs.python.org/3/tutorial/introduction.html).
+# 
+# Lists, dictionaries, and tuples are also covered in detail in the [Python tutorial](https://docs.python.org/3/tutorial/datastructures.html). 
+# 
 # Do not feel like you need to look at this stuff and understand everything all at once. The key is to **know that these ideas and tools exist**, try them, get an error message, and iterate. 
 # 
 # 
@@ -35,8 +39,6 @@
 
 # ### Common built-in Python data types and structures
 # 
-# Chapter 3 of our textbook covers the basic data types and structures.
-# 
 # | English name          | Type name  | Type Category  | Description                                   | Example                                    |
 # | :-------------------- | :--------- | :------------- | :-------------------------------------------- | :----------------------------------------- |
 # | integer               | `int`      | Numeric Type   | positive/negative whole numbers               | `42`                                       |
@@ -50,7 +52,7 @@
 # 
 # Source: [Chapter 1 of Python for Data Science](https://www.tomasbeuzen.com/python-programming-for-data-science/chapters/chapter1-basics.html)
 
-# ### Arithmetic Operators
+# ### Arithmetic operators
 # 
 # You can do all of the arithmetic that you'd expect.
 # 
@@ -272,7 +274,7 @@ txt.replace(' ', '******')
 # 
 # Sometimes we need to explicitly **cast** a value from one type to another. We can do this using functions like `str()`, `int()`, and `float()`. Python tries to do the conversion, or throws an error if it can't.
 
-# ## Data Structures
+# ## Data structures
 # 
 # Our book differentiates between data types and data structures. Of the basic data structures, I think we'll deal with **lists** the most. We'll see arrays and data frames in the next few chapters. We'll use those two and their associated methods all of the time.
 
@@ -362,9 +364,66 @@ my_list[-1]
 
 # ### Dictionaries, sets, and tuples
 # 
-# See our text for more on these. As mentioned, we aren't going to be using them much, but they are other data structures available in Python.
+# These are three other data types that we won't use as much, but they do appear in the DataCamp assignments. 
 # 
-# Lists can be modified, while tuples can not. 
+# Python **dictionaries** are key:value pairs. They associate a key with a value, in other words. You can change them and they do not allow you to have duplicate entries. You can create one using brackets, like this:
+
+# In[34]:
+
+
+d = {
+     'Name' : 'Adam Aiken',
+     'University' : 'Elon University',
+     'Department' : 'Finance',
+     'PhD Program' : 'Arizona State'
+     }
+type(d)
+
+
+# You can then print items from the dictionary, as well as show the keys and the values. 
+
+# In[35]:
+
+
+print(d['Name'], d['University'])
+
+
+# In[36]:
+
+
+d.keys()
+
+
+# In[37]:
+
+
+d.values()
+
+
+# In[38]:
+
+
+d.items()
+
+
+# Python **sets** let you store unordered values in a single variable. There's no relationship between the items and they are **unordered**. You also can't change them, though you can add and delete items.
+
+# In[39]:
+
+
+adam_set = {"Adam", "Aiken", "Elon", "Arizona State"}
+print(adam_set)
+
+
+# Finally, a Python **tuple** is like a set, except that the order does matter. You define these with `()`, instead of `{}`.
+
+# In[40]:
+
+
+adam_tuple = ("Adam", "Aiken", "Elon", "Arizona State")
+
+
+# To summarize, we've seen **four** ways to store data in Python: lists, dictionaries, sets, and tuples. We'll use lists the most. But, we're going to need other ways. This is where we get to `numpy` arrays and `pandas` DataFrames.
 
 # ## Syntax in Python
 # Syntax, or the way you write your code, is really important. As mentioned `=` and `==` are not the same thing. Python is case sensitive, as we saw.
@@ -376,7 +435,7 @@ my_list[-1]
 # Most importantly, **we don't use brackets in Python** to tell our code what statements go with which control structure. Instead, we use **indentation**. Let me show you what I mean.
 # 
 
-# ## Control Structures
+# ## Control structures
 
 # **Control structures** allow you to determine the flow of your code. We'll start with **conditional statements**. [Conditional statements](https://www.datacamp.com/community/tutorials/elif-statements-python) make it so that only certain blocks of code will run (i.e. get executed), depending, or **conditional**, on the state of the code at that time (i.e. what is true). This is where `if`, `elif`, and `else` come in. You've probably used something like this in Excel.
 # 
@@ -384,7 +443,9 @@ my_list[-1]
 # 
 # In general, loops can slow down your code. **Functional programming** can speed things up. The book mentions this. We will get to it later.
 # 
-# Let's start with conditional statements and then humble `if`.
+# You can find more on control structures in the [Python tutorial](https://docs.python.org/3/tutorial/controlflow.html).
+# 
+# Let's start with conditional statements and the humble `if`.
 # 
 # **Conditional statements** introduce *if/then/else-style* logic. The main points to notice:
 # - Use keywords `if`, `elif` and `else`
@@ -398,7 +459,7 @@ my_list[-1]
 # 
 # Let's check if some numbers are even or odd. The modulo operator `%` gives us the remainder from division. We'll check and see if 7 is even or odd.
 
-# In[34]:
+# In[41]:
 
 
 i = 7
@@ -409,7 +470,12 @@ else:
     print("%d is odd" % i)
 
 
-# Note the format - you need those `:` and the indentation. Check out the text for string replacement to see what the `print("%d is even" % i)` code is doing. In short, the code is substituting `i` into the string for `%d`. Our text does this all of the time. Also note how there is no condition after the `else`. You do this when the logic above is `false`. 
+# This the basic set-up for if/else. Note the format - you need those `:` and the indentation. Check out the text for string replacement to see what the `print("%d is even" % i)` code is doing. In short, the code is substituting `i` into the string for `%d`. Our text does this all of the time. Also note how there is no condition after the `else`. You do this when the logic above is `false`. 
+# 
+# 
+# ```{note}
+# When creating more complicated control structures, I suggest going step-by-step on a piece of paper. What does the computer "know" at any point in the sequence? What are the values of your variables? What will it do? Does it do what you expect it to do?
+# ```
 
 # Let's turn to **loops**. We'll also put some `if`, `elif`, and `else` logic inside of a loop.
 # 
@@ -434,23 +500,28 @@ else:
 # You can find more on loops and functions in [Chapter 2 of Python Programming for Data Science](https://www.tomasbeuzen.com/python-programming-for-data-science/chapters/chapter2-loops-functions.html).
 # ```
 
-# In[35]:
+# In[42]:
 
 
 num_list = [1,2,3,4,5]
 num_list
 
 
-# In[36]:
+# Here's a basic `for` loop. Note the indexing on the list. It starts at the 0th element (the 1st item) and goes up to the 3rd element (the 4th item), but doesn't include it, and stops.
+
+# In[43]:
 
 
 for element in num_list[0:3]:
     print(element ** 2)
 
 
-# We can use control structures and modulo operations to see if numbers are even or odd. We can also combine loops and if/else statements.
+# Each item in the list gets put into the variable *element*. That number is then squared and printed. The `for` loop then moves on to the next item in the list. The loop will **exit** when the last item in the list is reached.
+# 
+# As noted above, you can use `elif` to test multiple conditions. This example, from Chapter 3 of [Python for Finance, 2e](https://www.oreilly.com/library/view/python-for-finance/9781492024323/), uses a `range` function to create the numbers 1 through 9 (not 10 though!) and then test two conditions and ending with the `else`. The `range` acts like a loop that we have now combined with if/else statements.
+# 
 
-# In[37]:
+# In[44]:
 
 
 for i in range(1, 10):
@@ -462,11 +533,27 @@ for i in range(1, 10):
         print("%d is odd" % i)
 
 
-# Again, note the `:` to end each line **control structure**, as well as the tab-based indentation. Try deleting the indentation before the first `if` and running this code. What happens?
+# Again, note the `:` to end each line **control structure**, as well as the four-space indentation. Try deleting the indentation before the first `if` and running this code. What happens?
+# 
+# `for` loops are one type of look. We can also use `while` loops. These are slightly different in their logic -- check out the graphic above.
+# 
+# Here's a simple example of a `while` loop.
+
+# In[45]:
+
+
+i = 0 
+while i < 4:
+    print(i)
+    i += 1
+
+
+# The variable *i* starts at 0, gets printed, and then has 1 added to it. The loop then returns to the top and is evaluated again. The loop will **exit** when i = 4. 
+
 # 
 # Let's look at a while loop and some if-else logic together. We again see the use of the `print` function. I am taking the integer number and **casting** it as a string to be included in the `print` output. The `+` operator with strings means [concatenation in Python](https://www.freecodecamp.org/news/python-print-variable-how-to-print-a-string-and-variable/).
 
-# In[38]:
+# In[46]:
 
 
 # Take user input
@@ -480,12 +567,12 @@ while number < 5:
     else:
         print("The number "+str(number)+" is odd")
     # Increment `number` by 1
-    number = number+1
+    number = number + 1
 
 
 # I will again point out the `:` and the indentation. If you're control structures are getting your error messages, those are the first two things to check.
 
-# ## Functions and Functional Programming
+# ## Functions and functional programming
 # 
 # I just want to introduce the idea of functions and **functional programming**. You can, of course, write your own functions in Python. Functions take input and give you an output.
 # 
@@ -498,12 +585,12 @@ while number < 5:
 # This is just a first look at writing functions. We'll do more later.
 # ```
 # 
-# Like with control structures we have a `:` after the first line defining the function. We then have **indentation** to indicate what code is part of the function.
+# Like with control structures we have a `:` after the first line defining the function. We then have ** four-space indentation** to indicate what code is part of the function.
 # 
 # You can again find more at this [DataCamp tutorial](https://www.datacamp.com/community/tutorials/functions-python-tutorial).
 # 
 
-# In[39]:
+# In[47]:
 
 
 def square(x):
@@ -513,7 +600,7 @@ square(2)
 
 # We can also print the [Fibonacci Sequence](https://en.wikipedia.org/wiki/Fibonacci_number) up to some term `n`, which can be an input into your function.
 
-# In[40]:
+# In[48]:
 
 
 def fib(n):
@@ -535,3 +622,27 @@ fib(10)
 # [Functional programming](https://realpython.com/python-functional-programming/) is a way of telling the computer what to do in an efficient manner. This is the world of **lambda functions**, and `map()`, `filter()`, `reduce()`. 
 # 
 # [Excel can even use lambda functions now](https://support.microsoft.com/en-us/office/lambda-function-bd212d27-1cd1-4321-a34a-ccbf254b8b67).
+
+# ## Printing and formatting
+# 
+# We've used the `print` function a few times now. Something like this:
+
+# In[49]:
+
+
+i = 3
+print("%d is odd" % i)
+
+
+# This code is printing text inside of the quotes. The `%` is a placeholder for a variable. What variable? The one that comes after the `%` inside of the `print` function. In this case, that variable is called *i*.
+# 
+# What is the `d` doing next to the `%`? This is **not** a variable. This is telling Python how to **format** the variable inside of the string. `d` stands for **integer**. We can also format numbers as **floats** and specify decimal places. For example, 
+
+# In[50]:
+
+
+i = 42.23456
+print("%.2f is a float" % i)
+
+
+# The [Python tutorial](https://docs.python.org/3/tutorial/inputoutput.html) has much more on how to format output. 

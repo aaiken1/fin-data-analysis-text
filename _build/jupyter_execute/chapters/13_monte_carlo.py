@@ -9,7 +9,7 @@
 # 
 # This material is related to the [Heston model](https://www.codearmo.com/python-tutorial/heston-model-simulation-python) for simulating the prices of correlated assets. The volatility of the assets are linked together. In the Heston model, the volatility of an asset today is also related to past volatility. We'll do more on this when we get to [GARCH models](https://en.wikipedia.org/wiki/Autoregressive_conditional_heteroskedasticity). 
 # 
-# We'll also use **pandas data-reader** to bring in some stock prices from Yahoo! finance. You'll need to run `pip install pandas-datareader` in the terminal. You can read more about it [here](https://pydata.github.io/pandas-datareader/remote_data.html).
+# We'll also use **yfinance** to bring in some stock prices from Yahoo! finance. You'll need to run `pip install yfinance` in the terminal. You can read more about it [here](https://pypi.org/project/yfinance/).
 # 
 # The textbook goes into more detail than we need, but this is the type of material that you'd cover in a first-semester mathematical finance course in a Masters program.
 # 
@@ -55,7 +55,7 @@
 
 import datetime
 import pandas as pd
-import pandas_datareader as pdr
+import yfinance as yf
 import numpy as np
 import matplotlib.pyplot as plt
 
@@ -113,16 +113,16 @@ ax.set_title('Simulated Asset Returns with Correlation of -0.80', fontsize=12);
 
 # You can really see the negative correlation!
 # 
-# Let's move to some real data now. I am using `pandas data-reader` to bring in adjusted closing prices for five stocks. I then calculate discrete returns and check my descriptives.
+# Let's move to some real data now. I am using `yfinance` to bring in price and volume data. I then keep just the adjusted closing prices for five stocks. Finally, I can calculate discrete returns and check my descriptives.
 
 # In[4]:
 
 
 start_date = datetime.datetime(2019, 1, 1)
 end_date = datetime.datetime(2020, 1, 1)
-ticker_list = ["AAPL", "F", "FB", "AMZN", "XOM"]
+ticker_list = ["AAPL", "F", "CAG", "AMZN", "XOM"]
 
-stock_data = pdr.DataReader(ticker_list, "yahoo", start_date, end_date)
+stock_data = yf.download(ticker_list, start_date, end_date)
 
 prices = stock_data['Adj Close']
 
@@ -132,10 +132,16 @@ rets = prices.pct_change().dropna()
 # In[5]:
 
 
-rets
+stock_data
 
 
 # In[6]:
+
+
+rets
+
+
+# In[7]:
 
 
 rets.describe()
@@ -151,7 +157,7 @@ rets.describe()
 # 
 # We then find our usual variance-covariance matrix using `.cov()`.
 
-# In[7]:
+# In[8]:
 
 
 np.random.seed(1986)
@@ -175,7 +181,7 @@ port_returns_all = np.full((T-1, N_SIM), 0.) # One less return than price
 
 # We can look at the actual correlations among our assets to get a sense of what we are using to form portfolios.
 
-# In[8]:
+# In[9]:
 
 
 corr
@@ -205,7 +211,7 @@ corr
 # 
 # Finally, I take the returns and multiply them by our chosen weights to get a single set of **portfolio returns**.
 
-# In[9]:
+# In[10]:
 
 
 S_0 = prices.iloc[-1]
@@ -232,13 +238,13 @@ port_rets = np.cumprod(np.inner(weights, R) + 1) # Weights x returns, cumulative
 # 
 # Let's check the correlations and descriptives for these simulated returns. 
 
-# In[10]:
+# In[11]:
 
 
 R.corr()
 
 
-# In[11]:
+# In[12]:
 
 
 R.describe()
@@ -253,7 +259,7 @@ R.describe()
 # Remember, the **indentation** matters! It tells us how the loops are **nested**. 
 # 
 
-# In[12]:
+# In[13]:
 
 
 S_0 = prices.iloc[-1]
@@ -278,7 +284,7 @@ for t in range(0, N_SIM):
 # 
 # Let's graph these 50 different portfolio paths to see what our future may hold.
 
-# In[13]:
+# In[14]:
 
 
 port_returns_all = pd.DataFrame(port_returns_all)

@@ -9,12 +9,12 @@
 # 
 # What is **portfolio construction**? Choosing and sizing the various trades (or, assets, more generally) to achieve a good trade-off between risk and expected return.
 # 
-# 1. Diversification
+# 1. Diversification!
 # 2. Position limits and risk limits: At the level of securities, asset classes, and overall portfolio. 
 # 3. Larger bets on higher conviction trade.
-# 4. Size bets in terms of risk
+# 4. Size bets in terms of risk.
 # 5. Correlations matter: For a long position, correlation with other longs is bad, corr. with shorts is good. Powerful to go long/short within each industry, diversify across industries. Can use ETFs and futures to “hedge” out sector and market exposure.
-# 6. Resize positions according to forward-looking risk and conviction
+# 6. Resize positions according to forward-looking risk and conviction.
 # 
 # We'll start by bringing in some **monthly hedge fund return data**. We'll calculate some portfolio returns, using assumed weights. We'll then move on to portfolio-level **variance and standard deviation**. We'll see how to **annualize returns and volatility**. We'll look at other risk measures, like **skewness** and **kurtosis**. We'll see **Sharpe** and **Sortino** ratios. Finally, we'll make a graph showing the **drawdown**, or worse loss, of our portfolio.
 # 

@@ -32,11 +32,13 @@
 # 
 # In the notes, you'll see that I install several packages, like `plotly`, this way. You'll need to close VS Code and open it back up when you're done.
 # 
-# However, many of the packages that we want to use are specialty packages for finance, so don't come with the Anaconda distribution of Python. Or, they are just new, so haven't become "official" enough to get included by the folks at Anaconda. We are going to use `pip` to install these packages. This is where it can get tricky.
+# You will also see many packages that say to use `pip` to install them. This is where it can get tricky -- packages have **dependencies**, or other packages that the package that we want is using. `pip` may or may not be able to install every package dependency, though it will try. 
+# 
+# ```{note}
+# `pip` can only handle Python packages. Some packages, like the portfolio optimizer that we're using require non-Python dependencies to work. Long story short, newer M1/M2 Macs may not have these installed by default. In that case, you have to install them first using `conda`, which can handle non-Python dependencies. This is easier when using what are called **virtual environments**. 
+# ````
 # 
 # `pip` is a way to install Python packages via the command line and stands for *pip installs packages*. This is a computer science joke -- the acronym is in the definition, which gives it a recursive definition. 
-# 
-# `pip` will also install **package dependencies**, or other packages that the package that we want is using.
 # 
 # But, where is it installing the packages? Which version of Python will it be associated with? This is the tricky part and one of the frustrating aspects of Python.
 # 

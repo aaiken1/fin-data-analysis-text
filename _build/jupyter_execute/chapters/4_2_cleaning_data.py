@@ -36,6 +36,8 @@ uw.info()
 uw['UWHomes_Tier2'] = uw['UWHomes_Tier2'].astype('float64')
 
 
+# This code is actually taking the column, changing its type, and saving it to the DataFrame with the same column name. Note that we could changed the name of the column.
+
 # ## Counting, missings, and dupes
 # 
 # When you first bring in some data, you often want to do some simple checks. How many observations do you have? Are you missing anything? Are their duplicate observations? How do we define duplicate observations?
@@ -76,6 +78,8 @@ uw.isna()
 unique_regions = uw.RegionName.unique()
 
 
+# I'm using the `.ColumnName` construction to pull the variable. 
+# 
 # We can count the number of unique values for a variable.
 
 # In[7]:
@@ -92,7 +96,7 @@ uw.RegionName.nunique()
 uw[uw['RegionType'] == 'MSA'].MSAName.nunique()
 
 
-# This syntax works too!
+# This syntax works too! We are pulling the column name out using a **list** defined by the column names inside of `[]`.
 
 # In[9]:
 

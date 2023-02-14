@@ -23,7 +23,7 @@
 # 
 # This set of [notes from W3](https://www.w3schools.com/python/numpy/default.asp) is also a good resource.
 
-# ## Getting Started
+# ## Getting started
 # 
 # NumPy stands for **Numerical Python** and is a crucial package for data work in Python. The `numpy` array object is used in essentially all data work, so we need to understand their propoerties and how to manipulate them. Arrays are “n-dimensional” data structures that can contain all the basic Python data types, e.g., floats, integers, strings, etc. However, we are going to use them mainly for **numerical data**. NumPy arrays (“ndarrays”) are homogenous, which means that items in the array should be of the same type - no mixing of integers and strings, for example.
 # 
@@ -45,7 +45,7 @@
 import numpy as np
 
 
-# ## Creating Arrays
+# ## Creating arrays
 # 
 # We can create our own arrays using data we input ourselves.
 
@@ -132,7 +132,7 @@ x.size
 
 # There are 10 * 5 = 50 total elements in that array.
 
-# ## Array Math
+# ## Array math
 # 
 # We'll start with **element-by-element** operations. You've likely seen these in a math class somewhere. We'll start by creating a 1-D array of ones. You'd be surprised how often you just need a bunch of ones in linear algebra!
 
@@ -176,7 +176,7 @@ x ** y
 x / y
 
 
-# ## Reshaping and Resizing
+# ## Reshaping and resizing
 
 # You can also **reshape** your arrays. This means rearranging the different axis. Let's create 1-D array with 8 elements to play with. We can again see the shape attribute with `.shape()`.
 
@@ -269,7 +269,7 @@ np.resize(x,(12,2))
 # 
 # But, wait... I just wrote my code differently. There's an `x` inside the `.resize()`, rather than just writing `x.resize()`! And, why are there parentheses around the dimensions? What's going on?
 
-# ### An Aside: Functions, Methods and Objects
+# ### An aside: Functions, methods and objects
 # 
 # Let's look at two lines of code from above.
 
@@ -325,7 +325,7 @@ np.resize(x, (1,2))
 # 
 # You'll see code written a variety of ways when looking for help online or looking at different books. While this stuff can be confusing at first, it's helpful to kind of understand what's going on, so that you can see the subtle differences in syntax and why they matter.
 
-# ## Indexing and Slicing
+# ## Indexing and slicing
 # 
 # We've seen indexing and slicing already. Let's look at how we can pull a particular number, row, or column out of an array. There are three particular pieces of syntax to pay attention to: we are using square brackets with arrays `[]`, use are using a comma `,` to separate the different axis (e.g. rows and columns in a two-dimensional array), and we are using a colon `:` to **slice** and get back certain parts of the array.
 # 
@@ -477,9 +477,9 @@ array **= 2
 # 
 # The first block is a `for` loop. For each element (number) in the array, that that element and square it.
 # 
-# The second block is *vectorized**. Python is doing everything at once, in a sense. The `**=` means take each number in the array and square it. It is a short-cut way to write the loop, but, even better than that, it is faster to run.
+# The second block is **vectorized**. Python is doing everything at once, in a sense. The `**=` means take each number in the array and square it. It is a short-cut way to write the loop, but, even better than that, it is faster to run.
 # 
-# By the way, you'll see the "operation"= thing a lot in code. It means take the thing on the left-hand side, do the operation, in this case "**2", or square the number, and replace the original array with all of the squared terms. Here's another example:
+# By the way, you'll see the "operation"= thing a lot in code. It means take the thing on the left-hand side, do the operation, in this case "**2", or square the number, and replace the original array with all of the squared terms. Here's another example using addition. You can do the same thing with subtraction.
 # 
 
 # In[51]:
