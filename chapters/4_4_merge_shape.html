@@ -253,17 +253,17 @@ const thebe_selector_output = ".output, .cell_output"
   <ul>
    <li class="toctree-l2">
     <a class="reference internal" href="5_0_matplotlib.html">
-     5.2. matplotlib
+     5.1. matplotlib
     </a>
    </li>
    <li class="toctree-l2">
     <a class="reference internal" href="5_1_plotly.html">
-     5.3. plotly
+     5.2. plotly
     </a>
    </li>
    <li class="toctree-l2">
     <a class="reference internal" href="5_2_seaborn.html">
-     5.4. seaborn
+     5.3. seaborn
     </a>
    </li>
   </ul>
@@ -610,12 +610,12 @@ title="Print to PDF"
                 
   <section class="tex2jax_ignore mathjax_ignore" id="merging-and-reshaping-data">
 <h1><span class="section-number">4.5. </span>Merging and reshaping data<a class="headerlink" href="#merging-and-reshaping-data" title="Permalink to this headline">#</a></h1>
-<p>This brief section follows along with the last part of Chapter 5 of out textbook. There are two main topics. First, we want to learn about <strong>merging</strong> or <strong>joining</strong> data sets. Think of this like <a class="reference external" href="https://support.microsoft.com/en-us/office/xlookup-function-b7fd680e-6d10-43e6-84f9-88eae8bf5929">xlookup</a> in Excel, or, more generally, SQL queries. In fact, you can do <a class="reference external" href="https://www.datacamp.com/community/tutorials/mysql-python">SQL in Python</a>, if you’re familiar with it. We will also see <strong>concatenating</strong>, or <strong>stacking</strong> data. We will see how to <strong>reshape our data</strong>. We’ll see <strong>wide</strong> and <strong>long</strong> data. We’ll end with using <strong>multi-level indices</strong> to shape our data.</p>
+<p>We are going to cover two main topics in this brief section. First, we want to learn about <strong>merging</strong> or <strong>joining</strong> data sets. Think of this like <a class="reference external" href="https://support.microsoft.com/en-us/office/xlookup-function-b7fd680e-6d10-43e6-84f9-88eae8bf5929">xlookup</a> in Excel, or, more generally, SQL queries. In fact, you can do <a class="reference external" href="https://www.datacamp.com/community/tutorials/mysql-python">SQL in Python</a>, if you’re familiar with it. We will also see <strong>concatenating</strong>, or <strong>stacking</strong> data. We will see how to <strong>reshape our data</strong>. We’ll see <strong>wide</strong> and <strong>long</strong> data. We’ll end with using <strong>multi-level indices</strong> to shape our data.</p>
 <aside class="margin sidebar">
 <p class="sidebar-title">The Keys to Our Data</p>
 <p>What variables (e.g. security ID and a date) uniquely identify our data? What variables are common across data sets?</p>
 </aside>
-<p>I’ll work through a few common examples below using stock data. You can find more examples in the textbook.</p>
+<p>I’ll work through a few common examples below using stock data.</p>
 <p>Here are some <a class="reference external" href="https://jalammar.github.io/visualizing-pandas-pivoting-and-reshaping/">visualizations</a> for what these different functions do.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -665,10 +665,43 @@ memory usage: 88.8+ KB
 </div>
 </div>
 </div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">xom</span><span class="o">.</span><span class="n">info</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;class &#39;pandas.core.frame.DataFrame&#39;&gt;
+RangeIndex: 756 entries, 0 to 755
+Data columns (total 15 columns):
+ #   Column   Non-Null Count  Dtype  
+---  ------   --------------  -----  
+ 0   PERMNO   756 non-null    int64  
+ 1   date     756 non-null    int64  
+ 2   TICKER   756 non-null    object 
+ 3   CUSIP    756 non-null    object 
+ 4   DISTCD   12 non-null     float64
+ 5   DIVAMT   12 non-null     float64
+ 6   FACPR    12 non-null     float64
+ 7   FACSHR   12 non-null     float64
+ 8   PRC      756 non-null    float64
+ 9   VOL      756 non-null    int64  
+ 10  RET      756 non-null    float64
+ 11  SHROUT   756 non-null    int64  
+ 12  CFACPR   756 non-null    int64  
+ 13  CFACSHR  756 non-null    int64  
+ 14  sprtrn   756 non-null    float64
+dtypes: float64(7), int64(6), object(2)
+memory usage: 88.7+ KB
+</pre></div>
+</div>
+</div>
+</div>
 <section id="appending-data-sets">
 <h2><span class="section-number">4.5.1. </span>Appending data sets<a class="headerlink" href="#appending-data-sets" title="Permalink to this headline">#</a></h2>
 <p>Appending, or concatenation, or stacking data. This is when you simply put one data set on top of another. However, you need to be careful! Do the data sets share the same variables? How are index values handled?</p>
-<p>There are two ways of doing this. You can use <code class="docutils literal notranslate"><span class="pre">.append()</span></code> or <code class="docutils literal notranslate"><span class="pre">.concat()</span></code> from <code class="docutils literal notranslate"><span class="pre">pandas</span></code>.</p>
+<p>There are two ways of doing this. You can use <code class="docutils literal notranslate"><span class="pre">.append()</span></code> or <code class="docutils literal notranslate"><span class="pre">.concat()</span></code> from <code class="docutils literal notranslate"><span class="pre">pandas</span></code>. Notice that our two datasets don’t have exactly the same number of rows.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">ap1</span> <span class="o">=</span> <span class="n">aapl</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">xom</span><span class="p">,</span> <span class="n">sort</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
@@ -677,7 +710,7 @@ memory usage: 88.8+ KB
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>/var/folders/kx/y8vj3n6n5kq_d74vj24jsnh40000gn/T/ipykernel_25235/1314613175.py:1: FutureWarning: The frame.append method is deprecated and will be removed from pandas in a future version. Use pandas.concat instead.
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>/var/folders/kx/y8vj3n6n5kq_d74vj24jsnh40000gn/T/ipykernel_3313/1314613175.py:1: FutureWarning: The frame.append method is deprecated and will be removed from pandas in a future version. Use pandas.concat instead.
   ap1 = aapl.append(xom, sort=False)
 </pre></div>
 </div>
@@ -929,7 +962,7 @@ memory usage: 88.8+ KB
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>/var/folders/kx/y8vj3n6n5kq_d74vj24jsnh40000gn/T/ipykernel_25235/3399014175.py:1: FutureWarning: The frame.append method is deprecated and will be removed from pandas in a future version. Use pandas.concat instead.
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>/var/folders/kx/y8vj3n6n5kq_d74vj24jsnh40000gn/T/ipykernel_3313/3399014175.py:1: FutureWarning: The frame.append method is deprecated and will be removed from pandas in a future version. Use pandas.concat instead.
   aapl.append(xom, ignore_index=True, sort=False)
 </pre></div>
 </div>
@@ -1768,7 +1801,7 @@ memory usage: 88.8+ KB
 <p>We can use <code class="docutils literal notranslate"><span class="pre">pd.melt</span></code> to take this wide data and make it long. Long data will have a firm identifier (or several), a date, a column that contains the <strong>names</strong> of the different variables (e.g. PRC, RET), and a column for the <strong>values</strong> of the variables. I will keep <em>PERMNO</em> as my ID, keep <em>PRC</em> and <em>RET</em>, name my variable column <em>vars</em> and my value column <em>values</em>. I’ll save this to a new DataFrame called <em>long</em>.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">long</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">melt</span><span class="p">(</span><span class="n">wide</span><span class="p">,</span> <span class="n">id_vars</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;PERMNO&#39;</span><span class="p">],</span> <span class="n">value_vars</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;PRC&#39;</span><span class="p">,</span> <span class="s1">&#39;RET&#39;</span><span class="p">],</span> <span class="n">var_name</span><span class="o">=</span><span class="s1">&#39;vars&#39;</span><span class="p">,</span> <span class="n">value_name</span><span class="o">=</span><span class="s1">&#39;values&#39;</span><span class="p">)</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">long</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">melt</span><span class="p">(</span><span class="n">wide</span><span class="p">,</span> <span class="n">id_vars</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;PERMNO&#39;</span><span class="p">],</span> <span class="n">value_vars</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;PRC&#39;</span><span class="p">,</span> <span class="s1">&#39;RET&#39;</span><span class="p">],</span> <span class="n">var_name</span> <span class="o">=</span> <span class="s1">&#39;vars&#39;</span><span class="p">,</span> <span class="n">value_name</span> <span class="o">=</span> <span class="s1">&#39;values&#39;</span><span class="p">)</span>
 <span class="n">long</span>
 </pre></div>
 </div>
@@ -1853,7 +1886,7 @@ memory usage: 88.8+ KB
 <p>You don’t have to explicitly specify everything that I did. Here, I melt and just tell it to create a <em>PERMNO</em> ID column. Keep everything else. You can really see the long part now.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">pd</span><span class="o">.</span><span class="n">melt</span><span class="p">(</span><span class="n">wide</span><span class="p">,</span> <span class="n">id_vars</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;PERMNO&#39;</span><span class="p">])</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">pd</span><span class="o">.</span><span class="n">melt</span><span class="p">(</span><span class="n">wide</span><span class="p">,</span> <span class="n">id_vars</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;PERMNO&#39;</span><span class="p">])</span>
 </pre></div>
 </div>
 </div>
@@ -2057,7 +2090,7 @@ memory usage: 88.8+ KB
 <p>You can also have two different identifying variables. This is helpful if you have <strong>panel</strong> data, with multiple firm observations across different dates. This is obviously very common in finance.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">long2</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">melt</span><span class="p">(</span><span class="n">wide</span><span class="p">,</span> <span class="n">id_vars</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;PERMNO&#39;</span><span class="p">,</span> <span class="s1">&#39;date&#39;</span><span class="p">],</span> <span class="n">value_vars</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;PRC&#39;</span><span class="p">,</span> <span class="s1">&#39;RET&#39;</span><span class="p">],</span> <span class="n">var_name</span><span class="o">=</span><span class="s1">&#39;vars&#39;</span><span class="p">,</span> <span class="n">value_name</span><span class="o">=</span><span class="s1">&#39;values&#39;</span><span class="p">)</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">long2</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">melt</span><span class="p">(</span><span class="n">wide</span><span class="p">,</span> <span class="n">id_vars</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;PERMNO&#39;</span><span class="p">,</span> <span class="s1">&#39;date&#39;</span><span class="p">],</span> <span class="n">value_vars</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;PRC&#39;</span><span class="p">,</span> <span class="s1">&#39;RET&#39;</span><span class="p">],</span> <span class="n">var_name</span> <span class="o">=</span> <span class="s1">&#39;vars&#39;</span><span class="p">,</span> <span class="n">value_name</span> <span class="o">=</span> <span class="s1">&#39;values&#39;</span><span class="p">)</span>
 <span class="n">long2</span>
 </pre></div>
 </div>
@@ -2151,7 +2184,7 @@ memory usage: 88.8+ KB
 <p>We can put our long data back to wide using <code class="docutils literal notranslate"><span class="pre">pd.pivot</span></code>. You need to tell it the column that has the values, the column that has the variable names, and the column to create your index (ID).</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">wide2</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">pivot</span><span class="p">(</span><span class="n">long</span><span class="p">,</span> <span class="n">values</span><span class="o">=</span><span class="s1">&#39;values&#39;</span><span class="p">,</span> <span class="n">columns</span><span class="o">=</span><span class="s1">&#39;vars&#39;</span><span class="p">,</span> <span class="n">index</span><span class="o">=</span><span class="s1">&#39;PERMNO&#39;</span><span class="p">)</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">wide2</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">pivot</span><span class="p">(</span><span class="n">long</span><span class="p">,</span> <span class="n">values</span> <span class="o">=</span> <span class="s1">&#39;values&#39;</span><span class="p">,</span> <span class="n">columns</span> <span class="o">=</span> <span class="s1">&#39;vars&#39;</span><span class="p">,</span> <span class="n">index</span> <span class="o">=</span> <span class="s1">&#39;PERMNO&#39;</span><span class="p">)</span>
 <span class="n">wide2</span>
 </pre></div>
 </div>
@@ -2212,7 +2245,7 @@ memory usage: 88.8+ KB
 <p>We can use the long data that kept the date to create wide data with multiple indices: the firm ID and the date. This will again be very helpful when we deal with multiple firms over multiple time periods. The firm ID and the date will uniquely identify each observation.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">wide3</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">pivot</span><span class="p">(</span><span class="n">long2</span><span class="p">,</span> <span class="n">values</span><span class="o">=</span><span class="s1">&#39;values&#39;</span><span class="p">,</span> <span class="n">columns</span><span class="o">=</span><span class="s1">&#39;vars&#39;</span><span class="p">,</span> <span class="n">index</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;PERMNO&#39;</span><span class="p">,</span> <span class="s1">&#39;date&#39;</span><span class="p">])</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">wide3</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">pivot</span><span class="p">(</span><span class="n">long2</span><span class="p">,</span> <span class="n">values</span> <span class="o">=</span> <span class="s1">&#39;values&#39;</span><span class="p">,</span> <span class="n">columns</span> <span class="o">=</span> <span class="s1">&#39;vars&#39;</span><span class="p">,</span> <span class="n">index</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;PERMNO&#39;</span><span class="p">,</span> <span class="s1">&#39;date&#39;</span><span class="p">])</span>
 <span class="n">wide3</span>
 </pre></div>
 </div>
@@ -2687,7 +2720,7 @@ memory usage: 88.8+ KB
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">crsp2_clean</span> <span class="o">=</span> <span class="n">crsp2</span><span class="p">[[</span><span class="s1">&#39;PERMNO&#39;</span><span class="p">,</span> <span class="s1">&#39;date&#39;</span><span class="p">,</span> <span class="s1">&#39;RETX&#39;</span><span class="p">]]</span>
-<span class="n">merged</span> <span class="o">=</span> <span class="n">crsp1</span><span class="o">.</span><span class="n">merge</span><span class="p">(</span><span class="n">crsp2_clean</span><span class="p">,</span> <span class="n">how</span><span class="o">=</span><span class="s1">&#39;inner&#39;</span><span class="p">,</span> <span class="n">on</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;PERMNO&#39;</span><span class="p">,</span> <span class="s1">&#39;date&#39;</span><span class="p">]</span> <span class="p">)</span>
+<span class="n">merged</span> <span class="o">=</span> <span class="n">crsp1</span><span class="o">.</span><span class="n">merge</span><span class="p">(</span><span class="n">crsp2_clean</span><span class="p">,</span> <span class="n">how</span> <span class="o">=</span> <span class="s1">&#39;inner&#39;</span><span class="p">,</span> <span class="n">on</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;PERMNO&#39;</span><span class="p">,</span> <span class="s1">&#39;date&#39;</span><span class="p">]</span> <span class="p">)</span>
 <span class="n">merged</span>
 </pre></div>
 </div>
@@ -2948,7 +2981,7 @@ memory usage: 88.8+ KB
 <p>What happens if you don’t clean up with <em>crsp2</em> data first?</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">merged</span> <span class="o">=</span> <span class="n">crsp1</span><span class="o">.</span><span class="n">merge</span><span class="p">(</span><span class="n">crsp2</span><span class="p">,</span> <span class="n">how</span><span class="o">=</span><span class="s1">&#39;inner&#39;</span><span class="p">,</span> <span class="n">on</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;PERMNO&#39;</span><span class="p">,</span> <span class="s1">&#39;date&#39;</span><span class="p">]</span> <span class="p">)</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">merged</span> <span class="o">=</span> <span class="n">crsp1</span><span class="o">.</span><span class="n">merge</span><span class="p">(</span><span class="n">crsp2</span><span class="p">,</span> <span class="n">how</span> <span class="o">=</span> <span class="s1">&#39;inner&#39;</span><span class="p">,</span> <span class="n">on</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;PERMNO&#39;</span><span class="p">,</span> <span class="s1">&#39;date&#39;</span><span class="p">]</span> <span class="p">)</span>
 <span class="n">merged</span>
 </pre></div>
 </div>
@@ -3547,7 +3580,7 @@ memory usage: 88.8+ KB
 <p>Let’s group by <em>PERMNO</em>, or our Level 1 index and calculate the average return for each stock across all dates.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">crsp3</span><span class="o">.</span><span class="n">groupby</span><span class="p">(</span><span class="n">level</span><span class="o">=</span><span class="mi">1</span><span class="p">)[</span><span class="s1">&#39;RETX&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">crsp3</span><span class="o">.</span><span class="n">groupby</span><span class="p">(</span><span class="n">level</span> <span class="o">=</span> <span class="mi">1</span><span class="p">)[</span><span class="s1">&#39;RETX&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span>
 </pre></div>
 </div>
 </div>
@@ -3564,7 +3597,7 @@ Name: RETX, dtype: float64
 <p>Let’s do the same thing using the first level, or the <em>date</em>. This gives the average return of the three stocks on each date.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">crsp3</span><span class="o">.</span><span class="n">groupby</span><span class="p">(</span><span class="n">level</span><span class="o">=</span><span class="mi">0</span><span class="p">)[</span><span class="s1">&#39;RETX&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">crsp3</span><span class="o">.</span><span class="n">groupby</span><span class="p">(</span><span class="n">level</span> <span class="o">=</span> <span class="mi">0</span><span class="p">)[</span><span class="s1">&#39;RETX&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span>
 </pre></div>
 </div>
 </div>
@@ -3589,7 +3622,7 @@ Name: RETX, Length: 757, dtype: float64
 <p>As before, we can use <code class="docutils literal notranslate"><span class="pre">to.frame()</span></code> to go from a series to a DataFrame and make the output look a little nicer.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">crsp3</span><span class="o">.</span><span class="n">groupby</span><span class="p">(</span><span class="n">level</span><span class="o">=</span><span class="mi">1</span><span class="p">)[</span><span class="s1">&#39;RETX&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span><span class="o">.</span><span class="n">to_frame</span><span class="p">()</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">crsp3</span><span class="o">.</span><span class="n">groupby</span><span class="p">(</span><span class="n">level</span> <span class="o">=</span> <span class="mi">1</span><span class="p">)[</span><span class="s1">&#39;RETX&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span><span class="o">.</span><span class="n">to_frame</span><span class="p">()</span>
 </pre></div>
 </div>
 </div>
@@ -3639,7 +3672,7 @@ Name: RETX, Length: 757, dtype: float64
 <p>We can use the name of the levels, too. Here I’ll find the min and the max return for each stock and save it as a new DataFrame.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">crsp3_agg</span> <span class="o">=</span> <span class="n">crsp3</span><span class="o">.</span><span class="n">groupby</span><span class="p">(</span><span class="n">level</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;PERMNO&#39;</span><span class="p">])[</span><span class="s1">&#39;RETX&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">agg</span><span class="p">([</span><span class="s1">&#39;max&#39;</span><span class="p">,</span> <span class="s1">&#39;min&#39;</span><span class="p">])</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">crsp3_agg</span> <span class="o">=</span> <span class="n">crsp3</span><span class="o">.</span><span class="n">groupby</span><span class="p">(</span><span class="n">level</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;PERMNO&#39;</span><span class="p">])[</span><span class="s1">&#39;RETX&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">agg</span><span class="p">([</span><span class="s1">&#39;max&#39;</span><span class="p">,</span> <span class="s1">&#39;min&#39;</span><span class="p">])</span>
 <span class="n">crsp3_agg</span>
 </pre></div>
 </div>

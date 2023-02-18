@@ -50,6 +50,8 @@ const thebe_selector_input = "pre"
 const thebe_selector_output = ".output, .cell_output"
 </script>
     <script async="async" src="../_static/sphinx-thebe.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+    <script src="https://unpkg.com/@jupyter-widgets/html-manager@^0.20.0/dist/embed-amd.js"></script>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
     <link rel="next" title="4.3. Cleaning our data" href="4_2_cleaning_data.html" />
@@ -251,17 +253,17 @@ const thebe_selector_output = ".output, .cell_output"
   <ul>
    <li class="toctree-l2">
     <a class="reference internal" href="5_0_matplotlib.html">
-     5.2. matplotlib
+     5.1. matplotlib
     </a>
    </li>
    <li class="toctree-l2">
     <a class="reference internal" href="5_1_plotly.html">
-     5.3. plotly
+     5.2. plotly
     </a>
    </li>
    <li class="toctree-l2">
     <a class="reference internal" href="5_2_seaborn.html">
-     5.4. seaborn
+     5.3. seaborn
     </a>
    </li>
   </ul>
@@ -715,7 +717,7 @@ memory usage: 489.5+ KB
 <p>Just to show you, I’m going to reimport that data, but force that one variable to also come in as the same variable type. I don’t want anything unexpected to happen, so let’s get all numerics as floats. Notice how I do this – I give the column, or variable name, and the data type I want. I’m using a particular type of float type that comes with the <code class="docutils literal notranslate"><span class="pre">numpy</span></code> package.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">uw</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s1">&#39;https://github.com/aaiken1/fin-data-analysis-python/raw/main/data/zestimatesAndCutoffs_byGeo_uw_2017-10-10_forDataPage.csv&#39;</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="p">{</span><span class="s1">&#39;UWHomes_Tier2&#39;</span><span class="p">:</span><span class="n">np</span><span class="o">.</span><span class="n">float64</span><span class="p">})</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">uw</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s1">&#39;https://github.com/aaiken1/fin-data-analysis-python/raw/main/data/zestimatesAndCutoffs_byGeo_uw_2017-10-10_forDataPage.csv&#39;</span><span class="p">,</span> <span class="n">dtype</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;UWHomes_Tier2&#39;</span><span class="p">:</span><span class="n">np</span><span class="o">.</span><span class="n">float64</span><span class="p">})</span>
 <span class="n">uw</span><span class="o">.</span><span class="n">info</span><span class="p">()</span>
 </pre></div>
 </div>
@@ -3024,6 +3026,13 @@ Name: 0, dtype: object
 <section id="comparing-four-selection-methods">
 <h3><span class="section-number">4.2.3.3. </span>Comparing four selection methods<a class="headerlink" href="#comparing-four-selection-methods" title="Permalink to this headline">#</a></h3>
 <p>You can use these methods to select and save columns to a new DataFrame. Each of the following does the same thing.</p>
+<aside class="margin sidebar">
+<p class="sidebar-title"></p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>There are many ways to do the same thing in Python and <code class="docutils literal notranslate"><span class="pre">pandas</span></code>!</p>
+</div>
+</aside>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">uw_sub1</span> <span class="o">=</span> <span class="n">uw</span><span class="p">[[</span><span class="s1">&#39;RegionType&#39;</span><span class="p">,</span> <span class="s1">&#39;RegionName&#39;</span><span class="p">,</span> <span class="s1">&#39;UWHomes_Tier2&#39;</span><span class="p">]]</span>
@@ -3045,11 +3054,14 @@ True
 </div>
 </div>
 </div>
+<p>I can use the <code class="docutils literal notranslate"><span class="pre">.equals()</span></code> to test for the equality of each DataFrame.</p>
+<p>Again, each way is correct. We are going to see the first way – passing the list of variables 0 – used in the next section where we <strong>filter</strong> our data based on different criteria.</p>
 </section>
 <section id="filtering">
 <h3><span class="section-number">4.2.3.4. </span>Filtering<a class="headerlink" href="#filtering" title="Permalink to this headline">#</a></h3>
 <p>Let’s try <strong>filtering</strong> our data and keeping just the MSA observations. This is sometimes called <strong>complex selection</strong>.</p>
 <p>Here’s some <a class="reference external" href="https://datagy.io/filter-pandas/">help on filtering</a> data with <code class="docutils literal notranslate"><span class="pre">pandas</span></code>.</p>
+<p>Our first example simply selects that rows where the variable/column <code class="docutils literal notranslate"><span class="pre">'RegionType'</span></code> is equal to the string <code class="docutils literal notranslate"><span class="pre">'MSA'</span></code></p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">uw</span><span class="p">[</span><span class="n">uw</span><span class="p">[</span><span class="s1">&#39;RegionType&#39;</span><span class="p">]</span> <span class="o">==</span> <span class="s1">&#39;MSA&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">head</span><span class="p">(</span><span class="mi">15</span><span class="p">)</span>
@@ -4158,7 +4170,7 @@ True
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">prices</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s1">&#39;https://github.com/aaiken1/fin-data-analysis-python/raw/main/data/tr_eikon_eod_data.csv&#39;</span><span class="p">,</span>
-                      <span class="n">index_col</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">parse_dates</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+                      <span class="n">index_col</span> <span class="o">=</span> <span class="mi">0</span><span class="p">,</span> <span class="n">parse_dates</span> <span class="o">=</span> <span class="kc">True</span><span class="p">)</span>
 
 <span class="n">prices</span><span class="o">.</span><span class="n">index</span>
 </pre></div>
@@ -4177,7 +4189,7 @@ True
 </div>
 </div>
 </div>
-<p>Now, let’s try <code class="docutils literal notranslate"><span class="pre">loc</span></code>, but using our <code class="docutils literal notranslate"><span class="pre">dtype=datetime</span></code> index. We’ll pull in the SPX and VIX for just January 2010.</p>
+<p>Now, let’s try <code class="docutils literal notranslate"><span class="pre">loc</span></code>, but using our <code class="docutils literal notranslate"><span class="pre">dtype</span> <span class="pre">=</span> <span class="pre">datetime</span></code> index. We’ll pull in the SPX and VIX for just January 2010.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">prices</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="s1">&#39;2010-01-01&#39;</span><span class="p">:</span><span class="s1">&#39;2010-01-31&#39;</span><span class="p">,[</span><span class="s1">&#39;.SPX&#39;</span><span class="p">,</span> <span class="s1">&#39;.VIX&#39;</span><span class="p">]]</span>
