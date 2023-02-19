@@ -50,8 +50,6 @@ const thebe_selector_input = "pre"
 const thebe_selector_output = ".output, .cell_output"
 </script>
     <script async="async" src="../_static/sphinx-thebe.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
-    <script src="https://unpkg.com/@jupyter-widgets/html-manager@^0.20.0/dist/embed-amd.js"></script>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
     <link rel="next" title="5.2. plotly" href="5_1_plotly.html" />
@@ -353,6 +351,11 @@ const thebe_selector_output = ".output, .cell_output"
    Lab 02
   </a>
  </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="lab03.html">
+   Lab 03
+  </a>
+ </li>
 </ul>
 <p aria-level="2" class="caption" role="heading">
  <span class="caption-text">
@@ -625,6 +628,11 @@ title="Print to PDF"
   <section class="tex2jax_ignore mathjax_ignore" id="matplotlib">
 <h1><span class="section-number">5.1. </span>matplotlib<a class="headerlink" href="#matplotlib" title="Permalink to this headline">#</a></h1>
 <p>This chapter will look at how to use <a class="reference external" href="https://matplotlib.org">matplotlib</a> to create graphics in Python. <code class="docutils literal notranslate"><span class="pre">matplotlib</span></code> plays well with <code class="docutils literal notranslate"><span class="pre">DataFrames</span></code>, so this is a good place to start.</p>
+<p>The <code class="docutils literal notranslate"><span class="pre">matplotlob</span></code> team has an <a class="reference external" href="https://matplotlib.org/stable/tutorials/index">official tutorial</a>. Check it out.</p>
+<aside class="margin sidebar">
+<p class="sidebar-title"></p>
+<p>Like with everything we’re doing, you’re going to have to Google around for things. How do I change the color of my scatter plot? That kind of stuff.</p>
+</aside>
 <p>There is, of course, a <a class="reference external" href="https://www.datacamp.com/blog/matplotlib-cheat-sheet-plotting-in-python">Datacamp matplotlib cheat sheet</a>.</p>
 <p><a class="reference external" href="https://wesmckinney.com/book/plotting-and-visualization.html">Chapter 9</a> of <em>Python fof Data Analysis</em> is a nice introduction to the syntax of <code class="docutils literal notranslate"><span class="pre">matplotlib</span></code>.</p>
 <p>Here is another <a class="reference external" href="https://github.com/rougier/matplotlib-tutorial">Matplotlib tutorial</a> that goes over how to customize your plots.</p>
@@ -891,6 +899,7 @@ memory usage: 5.0+ KB
 </div>
 </div>
 <p>Let’s make a scatter plot using this same workflow. I’m going to convert the <strong>aapl</strong> and <strong>msft</strong> prices into returns now. I’ll save the returns to the <strong>stocks</strong> DataFrame. We’ll do more with this when we get to time series functions.</p>
+<p>And, notice how I’m referring to the columns – the names don’t have spaces, so I don’t have to use the square brackets with quotes method.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span> <span class="mi">6</span><span class="p">))</span>
@@ -1005,16 +1014,59 @@ memory usage: 5.0+ KB
 <img alt="../_images/5_0_matplotlib_29_0.png" src="../_images/5_0_matplotlib_29_0.png" />
 </div>
 </div>
-<p>We can use the same <code class="docutils literal notranslate"><span class="pre">figure</span></code> and <code class="docutils literal notranslate"><span class="pre">axis</span></code> logic to just a 2 x 2 grid of graphs. This is where you can really start to see the power of this.</p>
-<p>Let’s look at that first line. You can create the <strong>fig</strong> canvas and the <strong>axs</strong> together using <code class="docutils literal notranslate"><span class="pre">plt.subplot</span></code>. This line creates the figure and a 2 x 2 set of <strong>axs</strong>, where each element is a potential plot. <code class="docutils literal notranslate"><span class="pre">plt.subplots</span></code> is different from <code class="docutils literal notranslate"><span class="pre">plt.add_subplot</span></code>. It can take arguments which normally go to <code class="docutils literal notranslate"><span class="pre">plt.figure</span></code>, which is why I can change the figure size inside of it. It also creates an <code class="docutils literal notranslate"><span class="pre">array</span></code> that I’m calling <strong>axs</strong>. That array is 2 x 2 in this case and is going to hold my four plots.</p>
+<p>We can condense the code a bit to create <strong>fig</strong> (the canvas) and <strong>axs</strong> (the plots) on the same line. <code class="docutils literal notranslate"><span class="pre">plt.subplots()</span></code> can do everything for us. With no arguments (i.e. nothing inside of the function), it will create a single canvas and plot.</p>
+<p><code class="docutils literal notranslate"><span class="pre">plt.subplots</span></code> is different from <code class="docutils literal notranslate"><span class="pre">plt.add_subplot</span></code>. It also creates an <code class="docutils literal notranslate"><span class="pre">array</span></code> that I’m calling <strong>ax</strong>, which can can store our plots.</p>
+<aside class="margin sidebar">
+<p class="sidebar-title"></p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>You’ll often start your figure code with the condensed fig, ax line.</p>
+</div>
+</aside>
+<p>I’ll follow this basic example from the <a class="reference external" href="https://matplotlib.org/stable/plot_types/basic/scatter_plot.html#sphx-glr-plot-types-basic-scatter-plot-py">Matplotlib documentation</a> and make a scatter plot of Apple and Microsoft returns again. There’s just one <code class="docutils literal notranslate"><span class="pre">ax</span></code> in this example, so only one graph or plot.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Plot</span>
+<span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">()</span>
+
+<span class="n">ax</span><span class="o">.</span><span class="n">scatter</span><span class="p">(</span><span class="n">stocks</span><span class="o">.</span><span class="n">aapl_ret</span><span class="p">,</span> <span class="n">stocks</span><span class="o">.</span><span class="n">msft_ret</span><span class="p">)</span>
+
+<span class="n">ax</span><span class="o">.</span><span class="n">set</span><span class="p">(</span><span class="n">xlim</span><span class="o">=</span><span class="p">(</span><span class="o">-</span><span class="mf">.15</span><span class="p">,</span> <span class="mf">.15</span><span class="p">),</span> <span class="n">xticks</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="o">-</span><span class="mf">0.15</span><span class="p">,</span> <span class="mf">0.18</span><span class="p">,</span> <span class="mf">0.03</span><span class="p">),</span>
+       <span class="n">ylim</span><span class="o">=</span><span class="p">(</span><span class="o">-</span><span class="mf">.15</span><span class="p">,</span> <span class="mf">.15</span><span class="p">),</span> <span class="n">yticks</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="o">-</span><span class="mf">0.15</span><span class="p">,</span> <span class="mf">0.18</span><span class="p">,</span> <span class="mf">0.03</span><span class="p">),</span>
+       <span class="n">title</span><span class="o">=</span><span class="s2">&quot;Daily Returns&quot;</span><span class="p">,</span>
+       <span class="n">xlabel</span><span class="o">=</span><span class="s2">&quot;AAPL Returns&quot;</span><span class="p">,</span>
+       <span class="n">ylabel</span><span class="o">=</span><span class="s2">&quot;MSFT Returns&quot;</span><span class="p">)</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../_images/5_0_matplotlib_31_0.png" src="../_images/5_0_matplotlib_31_0.png" />
+</div>
+</div>
+<p>Let’s walk through some of those options a bit. We create the <strong>fig</strong> and single <strong>ax</strong> together using <code class="docutils literal notranslate"><span class="pre">plt.subplots()</span></code> from <code class="docutils literal notranslate"><span class="pre">matplotlib</span></code>. We then define our <code class="docutils literal notranslate"><span class="pre">ax</span></code> as a scatter plot.</p>
+<p>Next, we change our settings for the <strong>ax</strong> using <code class="docutils literal notranslate"><span class="pre">ax.set</span></code>. This method lets me put different options together, rather than do a bunch of separate <code class="docutils literal notranslate"><span class="pre">ax.set_</span></code> methods, like in the example above.</p>
+<p>These are daily returns, so I’ll let both axis have a lower limit of -15% and an upper limit of 15%. We should check this, of course, by looking at minimum and maximum returns. We can also set the tick marks using <code class="docutils literal notranslate"><span class="pre">np.arange</span></code>. Remember, this method lets you create an array of numbers. The first argument is the starting point, the second argument is the stopping point (not inclusive), and the third argument is the step size.</p>
+<p>I then add a title and labels. Again, <code class="docutils literal notranslate"><span class="pre">ax.set</span></code> lets me do all of this together.</p>
+<p>Finally, notice the <code class="docutils literal notranslate"><span class="pre">plt.show()</span></code>. <strong>You don’t need that in a Jupyter Notebook.</strong> But, you do if you’re using a basic <code class="docutils literal notranslate"><span class="pre">.py</span></code> Python script.</p>
+<aside class="margin sidebar">
+<p class="sidebar-title"></p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>You’ll see <code class="docutils literal notranslate"><span class="pre">plt.show()</span></code> in all of your DataCamp assignments, since they are assuming that you’re using a Python script.</p>
+</div>
+</aside>
+<p>We can use the same <code class="docutils literal notranslate"><span class="pre">figure</span></code> and <code class="docutils literal notranslate"><span class="pre">axis</span></code> logic to create a 2 x 2 grid of graphs. This is where you can really start to see the power of this.</p>
+<p>Let’s look at that first line. We can again create the <strong>fig</strong> canvas and the <strong>axs</strong> together using <code class="docutils literal notranslate"><span class="pre">plt.subplot</span></code>. This line creates the figure and a 2 x 2 set of <strong>axs</strong>, where each element is a potential plot. As mentioned above, <code class="docutils literal notranslate"><span class="pre">plt.subplots</span></code> is different from <code class="docutils literal notranslate"><span class="pre">plt.add_subplot</span></code>. It can take arguments which normally go to <code class="docutils literal notranslate"><span class="pre">plt.figure</span></code>, which is why I can change the figure size inside of it. It also creates an <code class="docutils literal notranslate"><span class="pre">array</span></code> that I’m calling <strong>axs</strong>. That array is 2 x 2 in this case and is going to hold my four plots.</p>
 <p>I use our usual <code class="docutils literal notranslate"><span class="pre">array</span></code> syntax to create a subplot in each of the four positions. I added some colors so that you can see which plot goes where in the grid. I’m using some random numbers just to demonstrate. I also adjusted the white space around the grid.</p>
-<p>Then array syntax is convenient and means that I can avoid defining <strong>ax1</strong>, <strong>ax2</strong>, <strong>ax3</strong>, and <strong>ax4</strong>. I could have done it that way, though!</p>
+<p>The array syntax is convenient and means that I can avoid defining <strong>ax1</strong>, <strong>ax2</strong>, <strong>ax3</strong>, and <strong>ax4</strong>. I could have done it that way, though!</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">fig</span><span class="p">,</span> <span class="n">axs</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="n">sharex</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">sharey</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span> <span class="mi">6</span><span class="p">))</span>
 
-<span class="nb">print</span><span class="p">(</span><span class="nb">type</span><span class="p">(</span><span class="n">fig</span><span class="p">))</span>
-<span class="nb">print</span><span class="p">(</span><span class="nb">type</span><span class="p">(</span><span class="n">axs</span><span class="p">))</span>
+<span class="nb">print</span><span class="p">(</span><span class="nb">type</span><span class="p">(</span><span class="n">fig</span><span class="p">))</span> <span class="c1"># See the output, this is a matplotlib figure object</span>
+<span class="nb">print</span><span class="p">(</span><span class="nb">type</span><span class="p">(</span><span class="n">axs</span><span class="p">))</span> <span class="c1"># See the output, this is an array of axs, or graphs/plots!</span>
 
 <span class="n">axs</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">hist</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">randn</span><span class="p">(</span><span class="mi">500</span><span class="p">),</span> <span class="n">bins</span><span class="o">=</span><span class="mi">50</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;k&#39;</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.5</span><span class="p">)</span>
 <span class="n">axs</span><span class="p">[</span><span class="mi">1</span><span class="p">,</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">hist</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">randn</span><span class="p">(</span><span class="mi">500</span><span class="p">),</span> <span class="n">bins</span><span class="o">=</span><span class="mi">50</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;b&#39;</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.5</span><span class="p">)</span>
@@ -1030,7 +1082,7 @@ memory usage: 5.0+ KB
 &lt;class &#39;numpy.ndarray&#39;&gt;
 </pre></div>
 </div>
-<img alt="../_images/5_0_matplotlib_31_1.png" src="../_images/5_0_matplotlib_31_1.png" />
+<img alt="../_images/5_0_matplotlib_34_1.png" src="../_images/5_0_matplotlib_34_1.png" />
 </div>
 </div>
 </section>
