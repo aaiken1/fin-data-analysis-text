@@ -353,6 +353,11 @@ const thebe_selector_output = ".output, .cell_output"
    Lab 02
   </a>
  </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="lab03.html">
+   Lab 03
+  </a>
+ </li>
 </ul>
 <p aria-level="2" class="caption" role="heading">
  <span class="caption-text">
@@ -614,7 +619,7 @@ title="Print to PDF"
 <p>You will also see many packages that say to use <code class="docutils literal notranslate"><span class="pre">pip</span></code> to install them. This is where it can get tricky – packages have <strong>dependencies</strong>, or other packages that the package that we want is using. <code class="docutils literal notranslate"><span class="pre">pip</span></code> may or may not be able to install every package dependency, though it will try.</p>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
-<p><code class="docutils literal notranslate"><span class="pre">pip</span></code> can only handle Python packages. Some packages, like the portfolio optimizer that we’re using require non-Python dependencies to work. Long story short, newer M1/M2 Macs may not have these installed by default. In that case, you have to install them first using <code class="docutils literal notranslate"><span class="pre">conda</span></code>, which can handle non-Python dependencies. This is easier when using what are called <strong>virtual environments</strong>.</p>
+<p><code class="docutils literal notranslate"><span class="pre">pip</span></code> can only handle Python packages. Some packages, like the portfolio optimizer that we’re using, require non-Python dependencies to work. Long story short, newer M1/M2 Macs may not have these installed by default. In that case, you have to install them first using <code class="docutils literal notranslate"><span class="pre">conda</span></code>, which can handle non-Python dependencies. This is easier when using what are called <strong>virtual environments</strong>.</p>
 </div>
 <p><code class="docutils literal notranslate"><span class="pre">pip</span></code> is a way to install Python packages via the command line and stands for <em>pip installs packages</em>. This is a computer science joke – the acronym is in the definition, which gives it a recursive definition.</p>
 <p>But, where is it installing the packages? Which version of Python will it be associated with? This is the tricky part and one of the frustrating aspects of Python.</p>
@@ -643,10 +648,10 @@ title="Print to PDF"
 </div>
 <p>Let’s use <code class="docutils literal notranslate"><span class="pre">pip</span></code> to install the <a class="reference external" href="https://data.nasdaq.com">data package for the NASDAQ</a>. You can <a class="reference external" href="https://data.nasdaq.com/sign-up">set-up an academic account</a> with them before doing this.</p>
 <p>With my account set-up, I can <a class="reference external" href="https://docs.data.nasdaq.com/docs/python-installation">install the package</a> by running the following in the Terminal <strong>if the <code class="docutils literal notranslate"><span class="pre">pip</span></code> that I’m using is associated with my Anaconda3 install</strong>. This should be the case.</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">pip</span> <span class="n">install</span> <span class="n">nasdaq</span><span class="o">-</span><span class="n">data</span><span class="o">-</span><span class="n">link</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">python</span> <span class="o">-</span><span class="n">m</span> <span class="n">pip</span> <span class="n">install</span> <span class="n">nasdaq</span><span class="o">-</span><span class="n">data</span><span class="o">-</span><span class="n">link</span>
 </pre></div>
 </div>
-<p>You should now <strong>shut down VS Code and open it back up</strong>.</p>
+<p>The <code class="docutils literal notranslate"><span class="pre">python</span> <span class="pre">-m</span></code> part tells <code class="docutils literal notranslate"><span class="pre">pip</span></code> to associate the package install with your current Python executable (i.e. the version of Python that you’re running right now). You should now <strong>shut down VS Code and open it back up</strong>.</p>
 <p>You can even go back and check to see if Anaconda now has your library. Open up the Anaconda Navigator and search for the package.</p>
 <p>Then, in either a Python script or Markdown cell, try the following:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">nasdaq</span><span class="o">-</span><span class="n">data</span><span class="o">-</span><span class="n">link</span>
@@ -674,6 +679,7 @@ title="Print to PDF"
 </pre></div>
 </div>
 <p>Note the exclamation point. This lets use run a <strong>shell command</strong> (i.e. something that would run in the terminal) directly from a Python notebook. Since we don’t have a terminal window in Google Colab, we need to do that.</p>
+<p>You can use the <code class="docutils literal notranslate"><span class="pre">!pip</span></code> method in any Jupyter notebook, including in VS Code. But - every time you run that code cell, <code class="docutils literal notranslate"><span class="pre">pip</span></code>is going to try to install the package, unless you comment it out. This is why I like using the terminal or command line to install packages when needed. This is not an option when using Google Colab.</p>
 </section>
 </section>
 
