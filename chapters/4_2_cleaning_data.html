@@ -50,8 +50,6 @@ const thebe_selector_input = "pre"
 const thebe_selector_output = ".output, .cell_output"
 </script>
     <script async="async" src="../_static/sphinx-thebe.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
-    <script src="https://unpkg.com/@jupyter-widgets/html-manager@^0.20.0/dist/embed-amd.js"></script>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
     <link rel="next" title="4.4. Exploratory data analysis (EDA)" href="4_3_eda.html" />
@@ -3591,17 +3589,21 @@ dtype: int64
 </section>
 <section id="pyjanitor">
 <h2><span class="section-number">4.3.8. </span>Pyjanitor<a class="headerlink" href="#pyjanitor" title="Permalink to this headline">#</a></h2>
-<p>We are going to look at a fun package that is based on something from the <a class="reference external" href="https://www.r-project.org">R</a> statistical programming language, called <a class="reference external" href="https://pyjanitor-devs.github.io/pyjanitor/">pyjanitor</a>.</p>
+<p>We are going to look at a fun package that is based on something from the <a class="reference external" href="https://www.r-project.org">R</a> statistical programming language, called <a class="reference external" href="https://pyjanitor-devs.github.io/pyjanitor/#installation">pyjanitor</a>.</p>
 <p>To use this package, you’ll need to type the following in the terminal (Mac) or command prompt (Windows).</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">pip</span> <span class="n">install</span> <span class="n">pyjanitor</span>
 </pre></div>
 </div>
 <p>This will install <code class="docutils literal notranslate"><span class="pre">pyjanitor</span></code> using <code class="docutils literal notranslate"><span class="pre">pip</span></code>. You’ll need to restart VS Code once you’ve installed it.</p>
+<p>If you’re using Google Colab, there’s currently a bug in pyjanitor that requires you to install a previous version. You can do this in a Jupyter cell. Note that you need to use <code class="docutils literal notranslate"><span class="pre">!pip</span></code> when using a terminal command inside of a Jupyter notebook.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>!pip install pyjanitor==0.23.1
+</pre></div>
+</div>
 <p>There are even <a class="reference external" href="https://pyjanitor-devs.github.io/pyjanitor/api/finance/">finance specific tools</a>.</p>
+<p>We can bring in <code class="docutils literal notranslate"><span class="pre">janitor</span></code> and treat it as part of <code class="docutils literal notranslate"><span class="pre">pandas</span></code> using the <code class="docutils literal notranslate"><span class="pre">import</span></code> function.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">janitor</span>
-<span class="kn">from</span> <span class="nn">janitor</span> <span class="kn">import</span> <span class="n">clean_names</span>
 </pre></div>
 </div>
 </div>
@@ -3632,13 +3634,16 @@ dtype: int64
 </div>
 </div>
 </div>
-<p>Again, a variety of syntaxes to do the same thing.</p>
+<p>Note the syntax - you start with the DataFrame and then apply the function to it.</p>
+<p>You might see another syntax, though. You can import the functions directly and then include the DataFrame as an argument to that function. Both ways are detailed in the <a class="reference external" href="https://pyjanitor-devs.github.io/pyjanitor/#installation">pyjanitor</a> instructions.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">prices</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s1">&#39;https://github.com/aaiken1/fin-data-analysis-python/raw/main/data/tr_eikon_eod_data.csv&#39;</span><span class="p">,</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">janitor</span> <span class="kn">import</span> <span class="n">clean_names</span><span class="p">,</span> <span class="n">remove_empty</span>
+ 
+<span class="n">prices</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s1">&#39;https://github.com/aaiken1/fin-data-analysis-python/raw/main/data/tr_eikon_eod_data.csv&#39;</span><span class="p">,</span>
                       <span class="n">index_col</span> <span class="o">=</span> <span class="mi">0</span><span class="p">,</span> <span class="n">parse_dates</span> <span class="o">=</span> <span class="kc">True</span><span class="p">)</span>
 
-<span class="n">prices</span> <span class="o">=</span> <span class="n">clean_names</span><span class="p">(</span><span class="n">prices</span><span class="p">)</span>
+<span class="n">prices</span> <span class="o">=</span> <span class="n">clean_names</span><span class="p">(</span><span class="n">prices</span><span class="p">)</span> <span class="c1"># See the difference?</span>
 </pre></div>
 </div>
 </div>
@@ -3649,15 +3654,7 @@ dtype: int64
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">prices</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s1">&#39;https://github.com/aaiken1/fin-data-analysis-python/raw/main/data/tr_eikon_eod_data.csv&#39;</span><span class="p">,</span>
                       <span class="n">index_col</span> <span class="o">=</span> <span class="mi">0</span><span class="p">,</span> <span class="n">parse_dates</span> <span class="o">=</span> <span class="kc">True</span><span class="p">)</span>
 
-<span class="n">prices</span> <span class="o">=</span> <span class="n">prices</span><span class="o">.</span><span class="n">flag_nulls</span><span class="p">()</span>
-</pre></div>
-</div>
-</div>
-</div>
-<p>Finally, simple way to see if we have any rows of duplicate data. This will happen surprisingly (and unfortunately) often when we start merging data together.</p>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">prices</span><span class="o">.</span><span class="n">get_dupes</span><span class="p">()</span>
+<span class="n">prices</span><span class="o">.</span><span class="n">flag_nulls</span><span class="p">()</span>
 </pre></div>
 </div>
 </div>
@@ -3697,6 +3694,243 @@ dtype: int64
     <tr>
       <th>Date</th>
       <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>2010-01-01</th>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>1.4323</td>
+      <td>1096.35</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>1</td>
+    </tr>
+    <tr>
+      <th>2010-01-04</th>
+      <td>30.572827</td>
+      <td>30.950</td>
+      <td>20.88</td>
+      <td>133.90</td>
+      <td>173.08</td>
+      <td>113.33</td>
+      <td>1132.99</td>
+      <td>20.04</td>
+      <td>1.4411</td>
+      <td>1120.00</td>
+      <td>47.71</td>
+      <td>109.80</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <th>2010-01-05</th>
+      <td>30.625684</td>
+      <td>30.960</td>
+      <td>20.87</td>
+      <td>134.69</td>
+      <td>176.14</td>
+      <td>113.63</td>
+      <td>1136.52</td>
+      <td>19.35</td>
+      <td>1.4368</td>
+      <td>1118.65</td>
+      <td>48.17</td>
+      <td>109.70</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <th>2010-01-06</th>
+      <td>30.138541</td>
+      <td>30.770</td>
+      <td>20.80</td>
+      <td>132.25</td>
+      <td>174.26</td>
+      <td>113.71</td>
+      <td>1137.14</td>
+      <td>19.16</td>
+      <td>1.4412</td>
+      <td>1138.50</td>
+      <td>49.34</td>
+      <td>111.51</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <th>2010-01-07</th>
+      <td>30.082827</td>
+      <td>30.452</td>
+      <td>20.60</td>
+      <td>130.00</td>
+      <td>177.67</td>
+      <td>114.19</td>
+      <td>1141.69</td>
+      <td>19.06</td>
+      <td>1.4318</td>
+      <td>1131.90</td>
+      <td>49.10</td>
+      <td>110.82</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <th>...</th>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+    </tr>
+    <tr>
+      <th>2018-06-25</th>
+      <td>182.170000</td>
+      <td>98.390</td>
+      <td>50.71</td>
+      <td>1663.15</td>
+      <td>221.54</td>
+      <td>271.00</td>
+      <td>2717.07</td>
+      <td>17.33</td>
+      <td>1.1702</td>
+      <td>1265.00</td>
+      <td>22.01</td>
+      <td>119.89</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <th>2018-06-26</th>
+      <td>184.430000</td>
+      <td>99.080</td>
+      <td>49.67</td>
+      <td>1691.09</td>
+      <td>221.58</td>
+      <td>271.60</td>
+      <td>2723.06</td>
+      <td>15.92</td>
+      <td>1.1645</td>
+      <td>1258.64</td>
+      <td>21.95</td>
+      <td>119.26</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <th>2018-06-27</th>
+      <td>184.160000</td>
+      <td>97.540</td>
+      <td>48.76</td>
+      <td>1660.51</td>
+      <td>220.18</td>
+      <td>269.35</td>
+      <td>2699.63</td>
+      <td>17.91</td>
+      <td>1.1552</td>
+      <td>1251.62</td>
+      <td>21.81</td>
+      <td>118.58</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <th>2018-06-28</th>
+      <td>185.500000</td>
+      <td>98.630</td>
+      <td>49.25</td>
+      <td>1701.45</td>
+      <td>223.42</td>
+      <td>270.89</td>
+      <td>2716.31</td>
+      <td>16.85</td>
+      <td>1.1567</td>
+      <td>1247.88</td>
+      <td>21.93</td>
+      <td>118.22</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <th>2018-06-29</th>
+      <td>185.110000</td>
+      <td>98.610</td>
+      <td>49.71</td>
+      <td>1699.80</td>
+      <td>220.57</td>
+      <td>271.28</td>
+      <td>2718.37</td>
+      <td>16.09</td>
+      <td>1.1683</td>
+      <td>1252.25</td>
+      <td>22.31</td>
+      <td>118.65</td>
+      <td>0</td>
+    </tr>
+  </tbody>
+</table>
+<p>2216 rows × 13 columns</p>
+</div></div></div>
+</div>
+<p>Finally, simple way to see if we have any rows of duplicate data. This will happen surprisingly (and unfortunately) often when we start merging data together.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">prices</span><span class="o">.</span><span class="n">get_dupes</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>AAPL.O</th>
+      <th>MSFT.O</th>
+      <th>INTC.O</th>
+      <th>AMZN.O</th>
+      <th>GS.N</th>
+      <th>SPY</th>
+      <th>.SPX</th>
+      <th>.VIX</th>
+      <th>EUR=</th>
+      <th>XAU=</th>
+      <th>GDX</th>
+      <th>GLD</th>
+    </tr>
+    <tr>
+      <th>Date</th>
       <th></th>
       <th></th>
       <th></th>
