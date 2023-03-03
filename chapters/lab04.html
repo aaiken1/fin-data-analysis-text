@@ -741,15 +741,15 @@ title="Print to PDF"
 <blockquote>
 <div><p>Price, dividend, shares, and volume data are historically adjusted for split events to make data directly comparable at different times during the history of a security… An adjustment base date is chosen as the anchor date. All data on this date are unadjusted, and other data are converted based on the split events between the base date and the time of that data.</p>
 </div></blockquote>
-<p>To see why this is important, check out Apple on 8/28/20. See how the price goes from <span class="math notranslate nohighlight">\(499.23 to \)</span>129.04? The stock had a 4:1 split! But, if we divide all of the prices by <code class="docutils literal notranslate"><span class="pre">CFACPR</span></code>, or the <a class="reference external" href="https://crsp.org/products/documentation/data-definitions-f">cumulative factor to adjust price</a>, then we’ll be able to compare prices across time.</p>
+<p>To see why this is important, check out Apple on 8/28/20. See how the price goes from 499.23 to 129.04? The stock had a 4:1 split! But, if we divide all of the prices by <code class="docutils literal notranslate"><span class="pre">CFACPR</span></code>, or the <a class="reference external" href="https://crsp.org/products/documentation/data-definitions-f">cumulative factor to adjust price</a>, then we’ll be able to compare prices across time.</p>
 <p><strong>Create a new variable called <code class="docutils literal notranslate"><span class="pre">PRC_ADJ</span></code> that does this.</strong></p>
 <aside class="margin sidebar">
 <p class="sidebar-title">CRSP Returns</p>
 <p>The <code class="docutils literal notranslate"><span class="pre">RET</span></code> variable already does all of this for us. These are just the returns, calculated correctly. But, it is good to see all of the careful work that goes into calculating returns!</p>
 </aside>
 <p>OK, we can compare prices across time now. Let’s calculate our own returns <strong>by group</strong>. We’ll use <strong>discrete, or simple, returns</strong> and include any distributions made.</p>
-<div class="amsmath math notranslate nohighlight" id="equation-0fc4d2a2-2261-4888-bf3a-4d7501b9b227">
-<span class="eqno">(1)<a class="headerlink" href="#equation-0fc4d2a2-2261-4888-bf3a-4d7501b9b227" title="Permalink to this equation">#</a></span>\[\begin{align}
+<div class="amsmath math notranslate nohighlight" id="equation-42f9e6d1-a3c9-4fa9-a7f8-367899f93f9d">
+<span class="eqno">(1)<a class="headerlink" href="#equation-42f9e6d1-a3c9-4fa9-a7f8-367899f93f9d" title="Permalink to this equation">#</a></span>\[\begin{align}
 R_{t} = \frac{V_t}{V_{t-1}} - 1 =  \frac{P_t + D_t}{P_{t-1}} - 1
 \end{align}\]</div>
 <p>We need to use our adjusted prices to get things right. And, we need a <strong>lagged</strong> price in the calculation. This means using something like <code class="docutils literal notranslate"><span class="pre">.shift()</span></code>. But, how can we do a <code class="docutils literal notranslate"><span class="pre">.shift()</span></code> when we have groups? If we’re not careful, we’ll use another stock’s price in our calculations because there are different security prices all stacked on top of each other! We need think in <strong>groups</strong>.</p>
@@ -765,8 +765,8 @@ R_{t} = \frac{V_t}{V_{t-1}} - 1 =  \frac{P_t + D_t}{P_{t-1}} - 1
 <section id="part-5">
 <h2>Part 5<a class="headerlink" href="#part-5" title="Permalink to this headline">#</a></h2>
 <p>OK, we can use the official CRSP return now. Let’s use the <code class="docutils literal notranslate"><span class="pre">ret</span></code> variable to create cumulative returns <strong>by group</strong>. These are discrete returns, <strong>not</strong> log returns. So, we can’t add them up to get cumulative returns. How do you do this? If the first return is at time i = 1, then the cumulative return at time T is:</p>
-<div class="amsmath math notranslate nohighlight" id="equation-ef7a68a9-c3c5-4ab1-af95-a05b1f57662c">
-<span class="eqno">(2)<a class="headerlink" href="#equation-ef7a68a9-c3c5-4ab1-af95-a05b1f57662c" title="Permalink to this equation">#</a></span>\[\begin{align}
+<div class="amsmath math notranslate nohighlight" id="equation-9bb3e2ef-55e2-4cec-9672-e41d438f04a0">
+<span class="eqno">(2)<a class="headerlink" href="#equation-9bb3e2ef-55e2-4cec-9672-e41d438f04a0" title="Permalink to this equation">#</a></span>\[\begin{align}
 \text{Cumulative Return}_{T} = \prod_{i=1}^T (1+r_i) - 1
 \end{align}\]</div>
 <p>We do this in our notes, but it is when the entire DataFrame are returns for individual securities in a wide format. Now, we are in a long format and we want to <strong>create a new variable for cumulative returns by security</strong>.</p>
