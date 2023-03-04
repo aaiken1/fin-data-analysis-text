@@ -76,7 +76,7 @@ class: with-border
 You can see the extensions that I have installed on the left.
 ```
 
-You can access **extensions** in the bar on the left, or under View:Extensions, or with Command-Shift-X. See the figure above for the extensions that I have installed. 
+You can access **extensions** in the bar on the left, or under View:Extensions, or with Command-Shift-X (Mac), or with Ctrl-Shift-X (PC). See the figure above for the extensions that I have installed. 
 
 You definitely need:
 - Python
@@ -94,10 +94,29 @@ I recommend:
 - markdownlint
 - Python Indent
 
+```{figure} ../images/02-install-python-windows-vscode.png
+---
+name: 02-install-python-windows-vscode.png
+align: center
+class: with-border
+---
+Inside of the extensions bar on the left, you can search and choose extensions to install. Here's the Microsoft Python extension -- we need this one for VS Code to understand Python.
+```
+
 
 ```{note}
 Are you not able to run your code? Make sure that you have a **kernel** selected. You can choose this by clicking the **kernel button** in the upper-right.  You might have several versions of Python to choose from on your machine. You want the Python kernel that came with Anaconda. Are you not able to select any kernels? See my comments about **restricted mode** below -- you can turn this off. 
 ```
+
+```{figure} ../images/02-python-vscode-windows.png
+---
+name: 02-python-vscode-windows.png
+align: center
+class: with-border
+---
+You can read more about extensions, as well as uninstall them, inside of VS Code. This is the Microsoft Python extension inside of the Windows VS Code.
+```
+
 
 
 ### Using Live Share in VS Code
