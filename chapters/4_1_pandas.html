@@ -50,8 +50,6 @@ const thebe_selector_input = "pre"
 const thebe_selector_output = ".output, .cell_output"
 </script>
     <script async="async" src="../_static/sphinx-thebe.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
-    <script src="https://unpkg.com/@jupyter-widgets/html-manager@^0.20.0/dist/embed-amd.js"></script>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
     <link rel="next" title="4.3. Cleaning our data" href="4_2_cleaning_data.html" />
@@ -1467,7 +1465,7 @@ memory usage: 489.5+ KB
 <p>You’re going to see syntax like:</p>
 <p><code class="docutils literal notranslate"><span class="pre">df</span> <span class="pre">=</span> <span class="pre">df.some_stuff</span></code></p>
 <p>This means that our work is getting assigned to something in memory. This is kind of like saving our work. In this case, I’m replacing my original DataFrame <em>df</em> with another DataFrame, also called <em>df</em>. I could have changed the name of the DataFrame.</p>
-<p>You’ll also see the <code class="docutils literal notranslate"><span class="pre">inplace=True</span></code> argument in some functions. This means that the old DataFrame will get overwritten automatically by whatever you just did.</p>
+<p>You’ll also see the <code class="docutils literal notranslate"><span class="pre">inplace</span> <span class="pre">=</span> <span class="pre">True</span></code> argument in some functions. This means that the old DataFrame will get overwritten automatically by whatever you just did.</p>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
 <p>If you don’t assign your work to a placeholder in memory, then the Jupyter Notebook will show you a result, but it doesn’t get reflected in the DataFrame. So, if you try use what you just did, Python won’t know about it!</p>
@@ -3494,6 +3492,7 @@ True
 <p>Pay attention to the <strong>syntax</strong>. You are selecting a column from the DataFrame and asking to only keep the rows where that column(variable) is equal to ‘MSA’. I’m then displaying just the first 15 rows. And, I’m not saving this filtered data set anywhere – I’m just looking at it.</p>
 <p>How about just North Carolina MSAs? I’ll again use the bigger DataFrame and just show the observations, rather than create a new DataFrame.</p>
 <p>And, I’m now using <strong>compound conditions</strong> joined with an <code class="docutils literal notranslate"><span class="pre">&amp;</span></code>. This <strong>boolean operator</strong> means <strong>and</strong> – both conditions need to be true.</p>
+<p>You can also use <code class="docutils literal notranslate"><span class="pre">|</span></code> for “or”.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">uw</span><span class="p">[(</span><span class="n">uw</span><span class="p">[</span><span class="s1">&#39;RegionType&#39;</span><span class="p">]</span> <span class="o">==</span> <span class="s1">&#39;MSA&#39;</span><span class="p">)</span> <span class="o">&amp;</span> <span class="p">(</span><span class="n">uw</span><span class="p">[</span><span class="s1">&#39;StateName&#39;</span><span class="p">]</span> <span class="o">==</span> <span class="s1">&#39;North Carolina&#39;</span><span class="p">)]</span><span class="o">.</span><span class="n">head</span><span class="p">(</span><span class="mi">15</span><span class="p">)</span>
