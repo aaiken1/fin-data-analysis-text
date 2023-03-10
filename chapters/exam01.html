@@ -863,15 +863,15 @@ The pricing and transactions data is here: <a class="reference external" href="h
 <section id="part-6">
 <h2>Part 6<a class="headerlink" href="#part-6" title="Permalink to this headline">#</a></h2>
 <p><em>15 points</em> Where does Zillow do the worst job at pricing homes? In other words, where do their Zestimates have the largest absolute difference from the actual sale price? The pricing error is called <em>logerror</em> in the data.</p>
-<div class="amsmath math notranslate nohighlight" id="equation-a2f286ec-6d51-4823-923f-fe09e3da7a97">
-<span class="eqno">(3)<a class="headerlink" href="#equation-a2f286ec-6d51-4823-923f-fe09e3da7a97" title="Permalink to this equation">#</a></span>\[\begin{align}
+<div class="amsmath math notranslate nohighlight" id="equation-323971ed-9774-4ec6-b537-7bf58be56876">
+<span class="eqno">(3)<a class="headerlink" href="#equation-323971ed-9774-4ec6-b537-7bf58be56876" title="Permalink to this equation">#</a></span>\[\begin{align}
 log(pricing error) = log(Zestimate) − log(SalePrice)
 \end{align}\]</div>
 <p>Log here means the natural log. We often take the natural log of data, as the log has some nice properties (i.e. reduces the skew of the data, the influence of outliers).</p>
 <p>Now, we are going to count variables two ways, with different outputs.</p>
 <section id="table-of-counts">
 <h3>Table of counts<a class="headerlink" href="#table-of-counts" title="Permalink to this headline">#</a></h3>
-<p>Go back to the Zillow data <strong>before you did Q5 and saved that new DataFrame</strong> with only a subset of the variables and the transaction ID.**</p>
+<p>Go back to the Zillow data <strong>before you did Q5 and saved that new DataFrame</strong> with only a subset of the variables and the transaction ID. In other words, the DataFrame that has all of the variables.</p>
 <p>Using the main data, first <strong>count up the number of times each <em>regionidcity</em> appears in the data</strong> and output this to a new DataFrame. You’ll want to use <code class="docutils literal notranslate"><span class="pre">.value_counts()</span></code>. But, note that <code class="docutils literal notranslate"><span class="pre">.value_counts()</span></code> outputs a series. This is not a DataFrame. What can you add after <code class="docutils literal notranslate"><span class="pre">.value_counts()</span></code> to get the output saved into a DataFrame? Check the notes.</p>
 <p><strong>You are counting up the number of unique observations for each <em>regionidcity</em>, and, since each row is a transaction in the data, this is a count of transactions by <em>regionidcity</em>.</strong> Show me a table that gives only the <em>regionidcity</em> that have over 100 transactions (i.e. observations) in the data.</p>
 </section>
@@ -905,7 +905,7 @@ log(pricing error) = log(Zestimate) − log(SalePrice)
 <p>The <em>regions</em> DataFrame has all of the different region types and values in the Zillow data. For example, you can pull cities, zip codes, counties, metro-areas, etc. Note that this data is in a <strong>long format</strong> – there’s a variable name and the value. See how this way of structuring data is useful? You can get all of the different regions and codes stacked on top of each other.</p>
 <p>You also have three other data sets from Zillow: ZSFH, ZATT, and ZABT. These are overall single family home, top-tier, and bottom-tier price series. This is also <strong>long data</strong>.</p>
 <p>I brought in prices series for three counties that I’ve lived in: Orange County, NC (region_id = 1289), Maricopa County, AZ (region_id = 2402), and Fairfield County, CT (region_id = 2694). We’ll learn about APIs and bringing in data from various sources after this mid-term. Then, you can choose you’re own data!</p>
-<p><strong>Clean up each DataFrame.</strong>. Drop that <em>None</em> column and save the resulting new DataFrames.</p>
+<p><strong>Clean up each DataFrame.</strong> Drop that <em>None</em> column and save the resulting new DataFrames.</p>
 <p>Then, go to the <em>regions</em> DataFrame and <strong>filter to just show the three rows with those three <em>region_id</em></strong>. Do this in one line of code using a <strong>boolean filter</strong> for “or”, which is denoted as <code class="docutils literal notranslate"><span class="pre">|</span></code>. For example, (x == 5) | (x == 4) | (x == 3).</p>
 </section>
 <section id="part-9">
@@ -927,7 +927,7 @@ log(pricing error) = log(Zestimate) − log(SalePrice)
 <p>Then, drop the <em>indicator_id</em> column. Why? There’s only one indicator ID now, so the column is redundant. Modify this code and make sure you save the resulting DataFrame.</p>
 <p><code class="docutils literal notranslate"><span class="pre">indices.drop('FILL</span> <span class="pre">IN</span> <span class="pre">COLUMN</span> <span class="pre">NAME',</span> <span class="pre">axis=1)</span></code></p>
 <p><code class="docutils literal notranslate"><span class="pre">axis=1</span></code> means that whatever you typed in is a column name.</p>
-<p>Then, <strong>pivot the data</strong> to go wide. You can ignore that <em>pct</em> column now - we’ll drop it as we pivot. Modify this code:</p>
+<p>Then, <strong>pivot the data</strong> to go wide. Keep your percent change column as your value. Modify this code:</p>
 <p><code class="docutils literal notranslate"><span class="pre">indices</span> <span class="pre">=</span> <span class="pre">pd.pivot(indices,</span> <span class="pre">values='_____',</span> <span class="pre">columns='_____',</span> <span class="pre">index='_____')</span></code></p>
 <p>See our online notes for an example. Note I’m using <code class="docutils literal notranslate"><span class="pre">.pivot()</span></code>, not <code class="docutils literal notranslate"><span class="pre">.pivot_table()</span></code>. They are similar.</p>
 <p>Once the data are wide, rename those silly numerical column names. To do this, use <code class="docutils literal notranslate"><span class="pre">.rename</span></code> from <code class="docutils literal notranslate"><span class="pre">pandas</span></code> and a <strong>dictionary</strong>. Like this:</p>
