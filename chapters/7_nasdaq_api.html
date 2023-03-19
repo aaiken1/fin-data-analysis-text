@@ -6,7 +6,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
 
-    <title>7. Using the NASDAQ API &#8212; Data Analysis in Finance</title>
+    <title>7. Using APIs for Data Imports &#8212; Data Analysis in Finance</title>
     
   <!-- Loaded before other Sphinx assets -->
   <link href="../_static/styles/theme.css?digest=1999514e3f237ded88cf" rel="stylesheet">
@@ -284,7 +284,7 @@ const thebe_selector_output = ".output, .cell_output"
 <ul class="current nav bd-sidenav">
  <li class="toctree-l1 current active">
   <a class="current reference internal" href="#">
-   7. Using the NASDAQ API
+   7. Using APIs for Data Imports
    <a id="btc-sim">
    </a>
   </a>
@@ -532,23 +532,60 @@ title="Print to PDF"
     </ul>
   </div>
 </div>
+<label for="__page-toc"
+  class="headerbtn headerbtn-page-toc"
+  
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-list"></i>
+  </span>
+
+</label>
 
     </div>
 </div>
 
 <!-- Table of contents -->
 <div class="col-md-3 bd-toc show noprint">
+    <div class="tocsection onthispage pt-5 pb-3">
+        <i class="fas fa-list"></i> Contents
+    </div>
+    <nav id="bd-toc-nav" aria-label="Page">
+        <ul class="visible nav section-nav flex-column">
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#using-pandas-datareader">
+   7.1. Using pandas-datareader
+  </a>
+ </li>
+</ul>
+
+    </nav>
 </div>
     </div>
     <div class="article row">
         <div class="col pl-md-3 pl-lg-5 content-container">
             <!-- Table of contents that is only displayed when printing the page -->
             <div id="jb-print-docs-body" class="onlyprint">
-                <h1>Using the NASDAQ API <a id='btc-sim'></a></h1>
+                <h1>Using APIs for Data Imports <a id='btc-sim'></a></h1>
                 <!-- Table of contents -->
                 <div id="print-main-content">
                     <div id="jb-print-toc">
                         
+                        <div>
+                            <h2> Contents </h2>
+                        </div>
+                        <nav aria-label="Page">
+                            <ul class="visible nav section-nav flex-column">
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#using-pandas-datareader">
+   7.1. Using pandas-datareader
+  </a>
+ </li>
+</ul>
+
+                        </nav>
                     </div>
                 </div>
             </div>
@@ -556,9 +593,9 @@ title="Print to PDF"
                 
               <div>
                 
-  <section class="tex2jax_ignore mathjax_ignore" id="using-the-nasdaq-api-a-id-btc-sim-a">
-<h1><span class="section-number">7. </span>Using the NASDAQ API <a id='btc-sim'></a><a class="headerlink" href="#using-the-nasdaq-api-a-id-btc-sim-a" title="Permalink to this headline">#</a></h1>
-<p>This chapter will use the NASDAQ data link to download some BTC price and return data. We’ll also see our first set of <strong>simulations</strong>.</p>
+  <section class="tex2jax_ignore mathjax_ignore" id="using-apis-for-data-imports-a-id-btc-sim-a">
+<h1><span class="section-number">7. </span>Using APIs for Data Imports <a id='btc-sim'></a><a class="headerlink" href="#using-apis-for-data-imports-a-id-btc-sim-a" title="Permalink to this headline">#</a></h1>
+<p>This chapter starts by using <a class="reference external" href="https://data.nasdaq.com/tools/api">NASDAQ Data Link</a> to download some BTC price and return data. We’ll also see our first set of <strong>simulations</strong>. I’ll then show you how to use <a class="reference external" href="https://pandas-datareader.readthedocs.io/en/latest/">Pandas Data Reader</a>.</p>
 <p>This is also our first time using an <strong>API</strong>. Their API, or Application Programming Interface, let’s us talk to a remote data storage system and pull in what we need. APIs are more general, though, and are used whenever you need one application to talk to another.</p>
 <p>We’ll use the <a class="reference external" href="https://data.nasdaq.com/tools/api">NASDAQ Data Link</a>. They also have <a class="reference external" href="https://data.nasdaq.com/tools/python">Python specific instructions</a>.</p>
 <p>You can read about the install <a class="reference external" href="https://pypi.org/project/Nasdaq-Data-Link/">on their package page</a>.</p>
@@ -571,16 +608,24 @@ title="Print to PDF"
 </pre></div>
 </div>
 <p>When you sign-up for NASDAQ Data Link, you’ll get an API Key. You will need to add this key to the set-up to access the NASDAQ data using Quandl.</p>
-<p>I have saved my key locally and am bringing it in with <code class="docutils literal notranslate"><span class="pre">quandl.read_key</span></code>, so that it isn’t publicly available.</p>
-<p>You don’t need that bit of code.</p>
+<p>I have saved my key locally and am bringing it in with <code class="docutils literal notranslate"><span class="pre">quandl.read_key</span></code>, so that it isn’t publicly available. You don’t need that bit of code.</p>
+<p>You can also install <code class="docutils literal notranslate"><span class="pre">pandas-datareader</span></code> using <code class="docutils literal notranslate"><span class="pre">pip</span></code>.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">pip</span> <span class="n">install</span> <span class="n">pandas</span><span class="o">-</span><span class="n">datareader</span>
+</pre></div>
+</div>
+<p>Again, add the <code class="docutils literal notranslate"><span class="pre">$</span> <span class="pre">pip</span></code> if you’re in Google Colab.</p>
+<p>Finally, for a large set of APIs for access data, check our <a class="reference external" href="https://rapidapi.com/hub">Rapid API</a>. Some are free, others you have to pay for. You’ll need to get an access API key for each one. <strong>This is a great way to get data for projects!</strong>.</p>
+<p>Let’s do our usual sort of set-up code.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Set-up</span>
 
-<span class="kn">import</span> <span class="nn">nasdaqdatalink</span>
+<span class="kn">import</span> <span class="nn">nasdaqdatalink</span> <span class="c1"># You could also do something like: import nasdaqdatalink as ndl</span>
+<span class="kn">import</span> <span class="nn">pandas_datareader</span> <span class="k">as</span> <span class="nn">pdr</span>
 
 <span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
 <span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
+<span class="kn">import</span> <span class="nn">datetime</span> <span class="k">as</span> <span class="nn">dt</span>
 
 <span class="kn">import</span> <span class="nn">matplotlib</span> <span class="k">as</span> <span class="nn">mpl</span> 
 
@@ -755,7 +800,7 @@ title="Print to PDF"
 <div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;AxesSubplot:xlabel=&#39;Date&#39;&gt;
 </pre></div>
 </div>
-<img alt="../_images/7_nasdaq_api_5_1.png" src="../_images/7_nasdaq_api_5_1.png" />
+<img alt="../_images/7_nasdaq_api_6_1.png" src="../_images/7_nasdaq_api_6_1.png" />
 </div>
 </div>
 <p>Well, that’s not a very good graph. The returns and price levels are in different units. Let’s use an <code class="docutils literal notranslate"><span class="pre">f</span> <span class="pre">print</span></code> to show and format the average BTC return.</p>
@@ -912,7 +957,7 @@ title="Print to PDF"
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../_images/7_nasdaq_api_11_0.png" src="../_images/7_nasdaq_api_11_0.png" />
+<img alt="../_images/7_nasdaq_api_12_0.png" src="../_images/7_nasdaq_api_12_0.png" />
 </div>
 </div>
 <p>I can make the same graph using the <code class="docutils literal notranslate"><span class="pre">.add_subplot()</span></code> syntax. The method above gives you some more flexibility, since you can give both plots the same x-axis.</p>
@@ -937,20 +982,20 @@ title="Print to PDF"
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../_images/7_nasdaq_api_13_0.png" src="../_images/7_nasdaq_api_13_0.png" />
+<img alt="../_images/7_nasdaq_api_14_0.png" src="../_images/7_nasdaq_api_14_0.png" />
 </div>
 </div>
 <p>Let’s put together some ideas, write a function, and run a simulation. We’ll use something called <strong>geometric brownian motion</strong> (GBM). What is GBM? It is a particular <a class="reference external" href="https://arxiv.org/pdf/1504.05309.pdf">stochastic differential equation</a>. But, what’s important for us is the idea, which is fairly simple. Here’s the formula:</p>
-<div class="amsmath math notranslate nohighlight" id="equation-48989a4c-2347-4cf8-8b22-be0a66bb4d2d">
-<span class="eqno">(7.1)<a class="headerlink" href="#equation-48989a4c-2347-4cf8-8b22-be0a66bb4d2d" title="Permalink to this equation">#</a></span>\[\begin{align}
+<div class="amsmath math notranslate nohighlight" id="equation-275a69bb-493c-4c59-aa99-fcc598b3ab0c">
+<span class="eqno">(7.1)<a class="headerlink" href="#equation-275a69bb-493c-4c59-aa99-fcc598b3ab0c" title="Permalink to this equation">#</a></span>\[\begin{align}
 dS = \mu S dt + \sigma S dW_t
 \end{align}\]</div>
 <p>This says that the change in the stock price has two components - a <strong>drift</strong>, or average increase over time, and a <strong>shock</strong> that it is random at each point in time. The shock is scaled by the standard deviation of returns that you use. So, larger standard deviation, the bigger the shocks can be. This is basically the simplest way that you can model an asset price.</p>
 <p>The shocks are what make the price wiggle around around, or else it would just go up over time, based on the drift value that we use.</p>
 <p>And, I’ll stress - we aren’t predicting here, so to speak. We are trying to capture some basic reality about how an asset moves and then seeing what is possible in the future. We aren’t making a statement about whether we think an asset is overvalued or undervalued, will go up or down, etc.</p>
 <p>You can solve this equation to get the value of the asset at any point in time t. You just need to know the total of all of the shocks at time t.</p>
-<div class="amsmath math notranslate nohighlight" id="equation-708ab6a9-bf9d-43dc-a2e8-5bb7a09412ea">
-<span class="eqno">(7.2)<a class="headerlink" href="#equation-708ab6a9-bf9d-43dc-a2e8-5bb7a09412ea" title="Permalink to this equation">#</a></span>\[\begin{align}
+<div class="amsmath math notranslate nohighlight" id="equation-5bd00b80-1bbf-4f19-83eb-502435114b8e">
+<span class="eqno">(7.2)<a class="headerlink" href="#equation-5bd00b80-1bbf-4f19-83eb-502435114b8e" title="Permalink to this equation">#</a></span>\[\begin{align}
 S(t) = S(0) \exp \left(\left(\mu - \frac{1}{2}\sigma^2\right)t + \sigma W(t)\right)
 \end{align}\]</div>
 <div class="cell docutils container">
@@ -1016,19 +1061,19 @@ S(t) = S(0) \exp \left(\left(\mu - \frac{1}{2}\sigma^2\right)t + \sigma W(t)\rig
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>array([[ 9.06770766e-01, -7.48781249e-01, -5.67291046e-01, ...,
-        -2.16467935e+00,  2.84987971e-01,  6.74870251e-01],
-       [-1.60557902e-01, -5.60822114e-01,  1.57428177e+00, ...,
-        -1.96603126e+00, -1.27410491e+00, -5.36008438e-01],
-       [ 9.48049039e-01, -9.97348671e-01, -1.76093259e-01, ...,
-         4.22074313e-01,  4.58971548e-01, -1.76769336e+00],
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>array([[ 1.15257946, -0.35009185, -1.14270682, ...,  1.4586292 ,
+         2.36969817, -0.54265282],
+       [ 0.36332281,  1.68808391,  2.31874741, ...,  0.27404864,
+         0.17297628, -0.24131127],
+       [ 0.91421135, -0.65092344,  0.25666009, ..., -0.77553038,
+        -0.10437924,  0.2106228 ],
        ...,
-       [ 7.58973518e-02, -1.03083229e+00,  1.31441292e+00, ...,
-        -1.00044907e+00, -1.33631609e+00,  8.20769098e-01],
-       [ 4.15223868e-01,  1.05713519e-01, -6.42261147e-01, ...,
-        -2.28964863e+00, -1.18092098e-02,  1.11118915e+00],
-       [-1.07144484e+00, -4.90996836e-04, -1.90655993e+00, ...,
-        -4.49578242e-01, -7.10088744e-01,  2.02170939e-01]])
+       [-0.9053768 ,  1.18772954, -0.91895404, ..., -0.16111764,
+        -0.38137153, -0.15675486],
+       [ 1.35251571, -0.14596008, -1.0687372 , ...,  0.58957003,
+        -0.18685868, -1.16414058],
+       [-0.91745051, -0.16733629,  1.51392639, ...,  0.56149393,
+        -0.33573188,  0.91879575]])
 </pre></div>
 </div>
 </div>
@@ -1097,10 +1142,53 @@ S(t) = S(0) \exp \left(\left(\mu - \frac{1}{2}\sigma^2\right)t + \sigma W(t)\rig
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../_images/7_nasdaq_api_28_0.png" src="../_images/7_nasdaq_api_28_0.png" />
+<img alt="../_images/7_nasdaq_api_29_0.png" src="../_images/7_nasdaq_api_29_0.png" />
 </div>
 </div>
 <p>The y-axis has a very wide range, since some extreme values are possible, given this simulation.</p>
+<section id="using-pandas-datareader">
+<h2><span class="section-number">7.1. </span>Using pandas-datareader<a class="headerlink" href="#using-pandas-datareader" title="Permalink to this headline">#</a></h2>
+<p>The <a class="reference external" href="https://pydata.github.io/pandas-datareader/">pandas data-reader</a> API lets us access additional data sources, such as <a class="reference external" href="https://fred.stlouisfed.org">FRED</a>.</p>
+<p>There are also API that let you access the same data. For example, Yahoo! Finance has several, like <a class="reference external" href="https://pypi.org/project/yfinance/">yfinance</a>. I think that the Yahoo! Finance access for <code class="docutils literal notranslate"><span class="pre">pandas-datareader</span></code> was <a class="reference external" href="https://stackoverflow.com/questions/74834834/pdr-datareader-typeerror-string-indices-must-be-integers">broken in a recent update</a>.</p>
+<p>Lots of developers have written APIs to access different data sources.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Different data sources might require API keys. Sometimes you have to pay. Always read the documentation.</p>
+</div>
+<p>Here’s another FRED example, but using <code class="docutils literal notranslate"><span class="pre">pandas-datareader</span></code>.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">start</span> <span class="o">=</span> <span class="n">dt</span><span class="o">.</span><span class="n">datetime</span><span class="p">(</span><span class="mi">2010</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
+
+<span class="n">end</span> <span class="o">=</span> <span class="n">dt</span><span class="o">.</span><span class="n">datetime</span><span class="p">(</span><span class="mi">2013</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">27</span><span class="p">)</span>
+
+<span class="n">gdp</span> <span class="o">=</span> <span class="n">pdr</span><span class="o">.</span><span class="n">DataReader</span><span class="p">(</span><span class="s1">&#39;GDP&#39;</span><span class="p">,</span> <span class="s1">&#39;fred&#39;</span><span class="p">,</span> <span class="n">start</span><span class="p">,</span> <span class="n">end</span><span class="p">)</span>
+
+<span class="n">gdp</span><span class="o">.</span><span class="n">head</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;bound method NDFrame.head of                   GDP
+DATE                 
+2010-01-01  14764.611
+2010-04-01  14980.193
+2010-07-01  15141.605
+2010-10-01  15309.471
+2011-01-01  15351.444
+2011-04-01  15557.535
+2011-07-01  15647.681
+2011-10-01  15842.267
+2012-01-01  16068.824
+2012-04-01  16207.130
+2012-07-01  16319.540
+2012-10-01  16420.386
+2013-01-01  16629.050&gt;
+</pre></div>
+</div>
+</div>
+</div>
+</section>
 </section>
 
     <script type="text/x-thebe-config">
