@@ -50,8 +50,6 @@ const thebe_selector_input = "pre"
 const thebe_selector_output = ".output, .cell_output"
 </script>
     <script async="async" src="../_static/sphinx-thebe.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
-    <script src="https://unpkg.com/@jupyter-widgets/html-manager@^0.20.0/dist/embed-amd.js"></script>
     <script>window.MathJax = {"options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
     <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
     <link rel="index" title="Index" href="../genindex.html" />
@@ -561,12 +559,15 @@ title="Print to PDF"
   <section class="tex2jax_ignore mathjax_ignore" id="using-nasdaq-btc-data-a-id-btc-sim-a">
 <h1><span class="section-number">7. </span>Using NASDAQ BTC data <a id='btc-sim'></a><a class="headerlink" href="#using-nasdaq-btc-data-a-id-btc-sim-a" title="Permalink to this headline">#</a></h1>
 <p>This chapter will use the NASDAQ data link to download some BTC price and return data. We’ll also see our first set of <strong>simulations</strong>.</p>
-<p>We’ll need to install a few packages to access the Nasdaq data. There’s <a class="reference external" href="https://github.com/Nasdaq/data-link-python">NASDAQ Data Link</a> and <a class="reference external" href="https://github.com/quandl/quandl-python">Quandl</a>. NASDAQ has purchased Quandl and they are trying to integrate their tools into one system. This actually makes things a bit confusing right now, as some examples use NASDAQ Data Link and others still refer to Quandl.</p>
-<p>I am going to use Quandl in my examples below.</p>
-<p>You can read about the install here: <a class="reference external" href="https://docs.data.nasdaq.com/docs/python-installation">https://docs.data.nasdaq.com/docs/python-installation</a></p>
-<p><code class="docutils literal notranslate"><span class="pre">pip</span></code> is a way to install packages via the command line. This should code should install any package to your Anaconda distribution of Python.</p>
+<p>This is also our first time using an <strong>API</strong>. Their API, or Application Programming Interface, let’s us talk to a remote data storage system and pull in what we need. APIs are more general, though, and are used whenever you need one application to talk to another.</p>
+<p>We’ll use the <a class="reference external" href="https://data.nasdaq.com/tools/api">NASDAQ Data Link</a>. They also have <a class="reference external" href="https://data.nasdaq.com/tools/python">Python specific instructions</a>.</p>
+<p>You can read about the install <a class="reference external" href="https://pypi.org/project/Nasdaq-Data-Link/">on their package page</a>.</p>
+<p>We can again use <code class="docutils literal notranslate"><span class="pre">pip</span></code> to install packages via the command line or in your Jupyter notebook.</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">pip</span> <span class="n">install</span> <span class="n">nasdaq</span><span class="o">-</span><span class="n">data</span><span class="o">-</span><span class="n">link</span>
-<span class="n">pip</span> <span class="n">install</span> <span class="n">quandl</span>
+</pre></div>
+</div>
+<p>To install a package directly in your notebook (e.g. in Google Colabs), use the <code class="docutils literal notranslate"><span class="pre">$</span></code> convention.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>$ pip install nasdaq-data-link
 </pre></div>
 </div>
 <p>When you sign-up for NASDAQ Data Link, you’ll get an API Key. You will need to add this key to the set-up to access the NASDAQ data using Quandl.</p>
@@ -577,7 +578,6 @@ title="Print to PDF"
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Set-up</span>
 
 <span class="kn">import</span> <span class="nn">nasdaqdatalink</span>
-<span class="kn">import</span> <span class="nn">quandl</span>
 
 <span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
 <span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
@@ -586,19 +586,19 @@ title="Print to PDF"
 
 <span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
 
-<span class="c1"># quandl.ApiConfig.api_key = &#39;YOUR_KEY_HERE&#39;</span>
+<span class="c1"># nasdaqdatalink.ApiConfig.api_key = &#39;YOUR_KEY_HERE&#39;</span>
 
-<span class="n">quandl</span><span class="o">.</span><span class="n">read_key</span><span class="p">()</span>
+<span class="n">nasdaqdatalink</span><span class="o">.</span><span class="n">read_key</span><span class="p">()</span>
 
 <span class="c1">#nasdaqdatalink.read_key(filepath=&quot;/data/.corporatenasdaqdatalinkapikey&quot;)</span>
-<span class="c1">#print(quandl.ApiConfig.api_key)</span>
+<span class="c1">#print(nasdaqdatalink.ApiConfig.api_key)</span>
 </pre></div>
 </div>
 </div>
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">gdp</span> <span class="o">=</span> <span class="n">quandl</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;FRED/GDP&#39;</span><span class="p">)</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">gdp</span> <span class="o">=</span> <span class="n">nasdaqdatalink</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;FRED/GDP&#39;</span><span class="p">)</span>
 <span class="n">gdp</span>
 </pre></div>
 </div>
@@ -681,7 +681,7 @@ title="Print to PDF"
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">btc</span> <span class="o">=</span> <span class="n">quandl</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;BCHAIN/MKPRU&#39;</span><span class="p">)</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">btc</span> <span class="o">=</span> <span class="n">nasdaqdatalink</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;BCHAIN/MKPRU&#39;</span><span class="p">)</span>
 <span class="n">btc</span><span class="o">.</span><span class="n">tail</span><span class="p">()</span>
 </pre></div>
 </div>
@@ -714,24 +714,24 @@ title="Print to PDF"
   </thead>
   <tbody>
     <tr>
-      <th>2023-03-04</th>
-      <td>22351.72</td>
+      <th>2023-03-15</th>
+      <td>24767.46</td>
     </tr>
     <tr>
-      <th>2023-03-05</th>
-      <td>22348.51</td>
+      <th>2023-03-16</th>
+      <td>24376.39</td>
     </tr>
     <tr>
-      <th>2023-03-06</th>
-      <td>22427.56</td>
+      <th>2023-03-17</th>
+      <td>25053.64</td>
     </tr>
     <tr>
-      <th>2023-03-07</th>
-      <td>22410.62</td>
+      <th>2023-03-18</th>
+      <td>27462.77</td>
     </tr>
     <tr>
-      <th>2023-03-08</th>
-      <td>22197.49</td>
+      <th>2023-03-19</th>
+      <td>26975.39</td>
     </tr>
   </tbody>
 </table>
@@ -758,6 +758,7 @@ title="Print to PDF"
 <img alt="../_images/7_nasdaq_api_5_1.png" src="../_images/7_nasdaq_api_5_1.png" />
 </div>
 </div>
+<p>Well, that’s not a very good graph. The returns and price levels are in different units. Let’s use an <code class="docutils literal notranslate"><span class="pre">f</span> <span class="pre">print</span></code> to show and format the average BTC return.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;Average return: </span><span class="si">{</span><span class="mi">100</span> <span class="o">*</span> <span class="n">btc</span><span class="o">.</span><span class="n">ret</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span><span class="si">:</span><span class="s1">.2f</span><span class="si">}</span><span class="s1">%&#39;</span><span class="p">)</span>
@@ -765,12 +766,12 @@ title="Print to PDF"
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Average return: 0.22%
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Average return: 0.23%
 </pre></div>
 </div>
 </div>
 </div>
-<p>Make a cumulative return chart and daily return chart. Stack on top of each other.</p>
+<p>Let’s make a cumulative return chart and daily return chart. We can then stack these on top of each other. I’ll use the <code class="docutils literal notranslate"><span class="pre">.sub(1)</span></code> method to subtract 1 from the cumulative product. You see this a lot in the DataCamps.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">btc</span><span class="p">[</span><span class="s1">&#39;ret_g&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">btc</span><span class="o">.</span><span class="n">ret</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span> <span class="c1"># gross return</span>
@@ -855,45 +856,46 @@ title="Print to PDF"
       <td>...</td>
     </tr>
     <tr>
-      <th>2023-03-04</th>
-      <td>22351.72</td>
-      <td>-0.047540</td>
-      <td>0.952460</td>
-      <td>69.800507</td>
+      <th>2023-03-15</th>
+      <td>24767.46</td>
+      <td>0.022868</td>
+      <td>1.022868</td>
+      <td>77.452518</td>
     </tr>
     <tr>
-      <th>2023-03-05</th>
-      <td>22348.51</td>
-      <td>-0.000144</td>
-      <td>0.999856</td>
-      <td>69.790339</td>
+      <th>2023-03-16</th>
+      <td>24376.39</td>
+      <td>-0.015790</td>
+      <td>0.984210</td>
+      <td>76.213779</td>
     </tr>
     <tr>
-      <th>2023-03-06</th>
-      <td>22427.56</td>
-      <td>0.003537</td>
-      <td>1.003537</td>
-      <td>70.040735</td>
+      <th>2023-03-17</th>
+      <td>25053.64</td>
+      <td>0.027783</td>
+      <td>1.027783</td>
+      <td>78.359012</td>
     </tr>
     <tr>
-      <th>2023-03-07</th>
-      <td>22410.62</td>
-      <td>-0.000755</td>
-      <td>0.999245</td>
-      <td>69.987076</td>
+      <th>2023-03-18</th>
+      <td>27462.77</td>
+      <td>0.096159</td>
+      <td>1.096159</td>
+      <td>85.990086</td>
     </tr>
     <tr>
-      <th>2023-03-08</th>
-      <td>22197.49</td>
-      <td>-0.009510</td>
-      <td>0.990490</td>
-      <td>69.311973</td>
+      <th>2023-03-19</th>
+      <td>26975.39</td>
+      <td>-0.017747</td>
+      <td>0.982253</td>
+      <td>84.446278</td>
     </tr>
   </tbody>
 </table>
-<p>2989 rows × 4 columns</p>
+<p>3000 rows × 4 columns</p>
 </div></div></div>
 </div>
+<p>We can now make a graph using the <strong>fig, axs</strong> method. This is good review! Again, notice that semi-colon at the end. This suppresses some annoying output in the Jupyter notebook.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">fig</span><span class="p">,</span> <span class="n">axs</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="n">sharex</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">sharey</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span> <span class="mi">6</span><span class="p">))</span>
@@ -905,15 +907,12 @@ title="Print to PDF"
 <span class="n">axs</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s1">&#39;BTC Daily Returns&#39;</span><span class="p">)</span>
 
 <span class="n">axs</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">legend</span><span class="p">()</span>
-<span class="n">axs</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">legend</span><span class="p">()</span>
+<span class="n">axs</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">legend</span><span class="p">();</span>
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;matplotlib.legend.Legend at 0x14dc6e160&gt;
-</pre></div>
-</div>
-<img alt="../_images/7_nasdaq_api_9_1.png" src="../_images/7_nasdaq_api_9_1.png" />
+<img alt="../_images/7_nasdaq_api_11_0.png" src="../_images/7_nasdaq_api_11_0.png" />
 </div>
 </div>
 <p>I can make the same graph using the <code class="docutils literal notranslate"><span class="pre">.add_subplot()</span></code> syntax. The method above gives you some more flexibility, since you can give both plots the same x-axis.</p>
@@ -938,20 +937,20 @@ title="Print to PDF"
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../_images/7_nasdaq_api_11_0.png" src="../_images/7_nasdaq_api_11_0.png" />
+<img alt="../_images/7_nasdaq_api_13_0.png" src="../_images/7_nasdaq_api_13_0.png" />
 </div>
 </div>
-<p>Let’s put together some ideas, write a function, and run a simulation. We’ll use something called <strong>geometric brownian motion</strong> (GBM). What is GBM? It is a particular <strong>stochastic differential equation</strong>. But, what’s important for us is the idea, which is fairly simple. Here’s the formula:</p>
-<div class="amsmath math notranslate nohighlight" id="equation-408518e4-8f9f-446d-aa4d-f689f3f8fdd4">
-<span class="eqno">(7.1)<a class="headerlink" href="#equation-408518e4-8f9f-446d-aa4d-f689f3f8fdd4" title="Permalink to this equation">#</a></span>\[\begin{align}
+<p>Let’s put together some ideas, write a function, and run a simulation. We’ll use something called <strong>geometric brownian motion</strong> (GBM). What is GBM? It is a particular <a class="reference external" href="https://arxiv.org/pdf/1504.05309.pdf">stochastic differential equation</a>. But, what’s important for us is the idea, which is fairly simple. Here’s the formula:</p>
+<div class="amsmath math notranslate nohighlight" id="equation-7f6f76a6-c080-4dee-a7c3-85466b699f04">
+<span class="eqno">(7.1)<a class="headerlink" href="#equation-7f6f76a6-c080-4dee-a7c3-85466b699f04" title="Permalink to this equation">#</a></span>\[\begin{align}
 dS = \mu S dt + \sigma S dW_t
 \end{align}\]</div>
 <p>This says that the change in the stock price has two components - a <strong>drift</strong>, or average increase over time, and a <strong>shock</strong> that it is random at each point in time. The shock is scaled by the standard deviation of returns that you use. So, larger standard deviation, the bigger the shocks can be. This is basically the simplest way that you can model an asset price.</p>
 <p>The shocks are what make the price wiggle around around, or else it would just go up over time, based on the drift value that we use.</p>
 <p>And, I’ll stress - we aren’t predicting here, so to speak. We are trying to capture some basic reality about how an asset moves and then seeing what is possible in the future. We aren’t making a statement about whether we think an asset is overvalued or undervalued, will go up or down, etc.</p>
 <p>You can solve this equation to get the value of the asset at any point in time t. You just need to know the total of all of the shocks at time t.</p>
-<div class="amsmath math notranslate nohighlight" id="equation-05f2eb8a-127d-411e-a418-ff779116d0d1">
-<span class="eqno">(7.2)<a class="headerlink" href="#equation-05f2eb8a-127d-411e-a418-ff779116d0d1" title="Permalink to this equation">#</a></span>\[\begin{align}
+<div class="amsmath math notranslate nohighlight" id="equation-2307b79d-13b5-4196-9cd0-c60b8d286020">
+<span class="eqno">(7.2)<a class="headerlink" href="#equation-2307b79d-13b5-4196-9cd0-c60b8d286020" title="Permalink to this equation">#</a></span>\[\begin{align}
 S(t) = S(0) \exp \left(\left(\mu - \frac{1}{2}\sigma^2\right)t + \sigma W(t)\right)
 \end{align}\]</div>
 <div class="cell docutils container">
@@ -966,7 +965,7 @@ S(t) = S(0) \exp \left(\left(\mu - \frac{1}{2}\sigma^2\right)t + \sigma W(t)\rig
 </div>
 </div>
 </div>
-<p>This is the basic syntax for writing a function in Python.</p>
+<p>This is the basic syntax for writing a function in Python. We saw this earlier, back when doing “Comp 101”. Remember, in Python, <strong>indentation matters</strong>!</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">simulate_gbm</span><span class="p">(</span><span class="n">s_0</span><span class="p">,</span> <span class="n">mu</span><span class="p">,</span> <span class="n">sigma</span><span class="p">,</span> <span class="n">n_sims</span><span class="p">,</span> <span class="n">T</span><span class="p">,</span> <span class="n">N</span><span class="p">):</span>
@@ -983,7 +982,8 @@ S(t) = S(0) \exp \left(\left(\mu - \frac{1}{2}\sigma^2\right)t + \sigma W(t)\rig
 </div>
 </div>
 </div>
-<p>We can look at each piece of the function code, with some numbers hard-coded, to get a sense of what’s going on.</p>
+<p>Nothing happens when we define a function. We’ve just created something called <code class="docutils literal notranslate"><span class="pre">simulate_gbm</span></code> that we can now use just like any other Python function.</p>
+<p>We can look at each piece of the function code, with some numbers hard-coded, to get a sense of what’s going on. This gets tricky - keep track of the dimensions. I think that’s the hardest part. How many numbers are we creating in each array? What do they mean?</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Creates 100 rows of 30 random numbers from the standard normal distribution.</span>
@@ -1004,6 +1004,73 @@ S(t) = S(0) \exp \left(\left(\mu - \frac{1}{2}\sigma^2\right)t + \sigma W(t)\rig
 
 <span class="c1"># This inserts the initial price at the start of each row.</span>
 <span class="n">S_t</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">insert</span><span class="p">(</span><span class="n">S_t</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="n">S_0</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>We can look at these individually, too.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">dW</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>array([[ 0.17148733, -0.17671194, -1.25937358, ...,  0.09462793,
+        -0.34873609,  0.53177675],
+       [ 0.75098207, -1.20891188,  0.47737049, ..., -0.68649313,
+        -0.27472298,  0.24318259],
+       [-1.10575228,  0.80295928, -0.9382116 , ..., -0.67150343,
+        -0.48209047, -0.49383048],
+       ...,
+       [-0.85739129, -1.81415325,  0.38190158, ..., -1.3799231 ,
+        -0.28719344, -2.4587455 ],
+       [ 0.48794215,  0.72204143,  1.21540124, ..., -0.00341502,
+         1.28923291,  0.91025483],
+       [ 2.05821589, -0.15185135, -2.01737199, ...,  0.38159679,
+         1.35493729, -0.64528584]])
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">time_steps</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>array([[ 1.,  2.,  3., ..., 28., 29., 30.],
+       [ 1.,  2.,  3., ..., 28., 29., 30.],
+       [ 1.,  2.,  3., ..., 28., 29., 30.],
+       ...,
+       [ 1.,  2.,  3., ..., 28., 29., 30.],
+       [ 1.,  2.,  3., ..., 28., 29., 30.],
+       [ 1.,  2.,  3., ..., 28., 29., 30.]])
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="nb">len</span><span class="p">(</span><span class="n">time_steps</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>100
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">np</span><span class="o">.</span><span class="n">shape</span><span class="p">(</span><span class="n">time_steps</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>(100, 30)
 </pre></div>
 </div>
 </div>
@@ -1030,7 +1097,7 @@ S(t) = S(0) \exp \left(\left(\mu - \frac{1}{2}\sigma^2\right)t + \sigma W(t)\rig
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../_images/7_nasdaq_api_21_0.png" src="../_images/7_nasdaq_api_21_0.png" />
+<img alt="../_images/7_nasdaq_api_28_0.png" src="../_images/7_nasdaq_api_28_0.png" />
 </div>
 </div>
 <p>The y-axis has a very wide range, since some extreme values are possible, given this simulation.</p>

@@ -863,8 +863,8 @@ The pricing and transactions data is here: <a class="reference external" href="h
 <section id="part-6">
 <h2>Part 6<a class="headerlink" href="#part-6" title="Permalink to this headline">#</a></h2>
 <p><em>15 points</em> Where does Zillow do the worst job at pricing homes? In other words, where do their Zestimates have the largest absolute difference from the actual sale price? The pricing error is called <em>logerror</em> in the data.</p>
-<div class="amsmath math notranslate nohighlight" id="equation-323971ed-9774-4ec6-b537-7bf58be56876">
-<span class="eqno">(3)<a class="headerlink" href="#equation-323971ed-9774-4ec6-b537-7bf58be56876" title="Permalink to this equation">#</a></span>\[\begin{align}
+<div class="amsmath math notranslate nohighlight" id="equation-a0d0bce8-eef0-4af3-87c9-1bf94baca0ce">
+<span class="eqno">(3)<a class="headerlink" href="#equation-a0d0bce8-eef0-4af3-87c9-1bf94baca0ce" title="Permalink to this equation">#</a></span>\[\begin{align}
 log(pricing error) = log(Zestimate) − log(SalePrice)
 \end{align}\]</div>
 <p>Log here means the natural log. We often take the natural log of data, as the log has some nice properties (i.e. reduces the skew of the data, the influence of outliers).</p>
@@ -927,7 +927,7 @@ log(pricing error) = log(Zestimate) − log(SalePrice)
 <p>Then, drop the <em>indicator_id</em> column. Why? There’s only one indicator ID now, so the column is redundant. Modify this code and make sure you save the resulting DataFrame.</p>
 <p><code class="docutils literal notranslate"><span class="pre">indices.drop('FILL</span> <span class="pre">IN</span> <span class="pre">COLUMN</span> <span class="pre">NAME',</span> <span class="pre">axis=1)</span></code></p>
 <p><code class="docutils literal notranslate"><span class="pre">axis=1</span></code> means that whatever you typed in is a column name.</p>
-<p>Then, <strong>pivot the data</strong> to go wide. Keep your percent change column as your value. Modify this code:</p>
+<p>Then, <strong>pivot the data</strong> to go wide. Keep your percent change column as your <code class="docutils literal notranslate"><span class="pre">values</span></code>. Modify this code:</p>
 <p><code class="docutils literal notranslate"><span class="pre">indices</span> <span class="pre">=</span> <span class="pre">pd.pivot(indices,</span> <span class="pre">values='_____',</span> <span class="pre">columns='_____',</span> <span class="pre">index='_____')</span></code></p>
 <p>See our online notes for an example. Note I’m using <code class="docutils literal notranslate"><span class="pre">.pivot()</span></code>, not <code class="docutils literal notranslate"><span class="pre">.pivot_table()</span></code>. They are similar.</p>
 <p>Once the data are wide, rename those silly numerical column names. To do this, use <code class="docutils literal notranslate"><span class="pre">.rename</span></code> from <code class="docutils literal notranslate"><span class="pre">pandas</span></code> and a <strong>dictionary</strong>. Like this:</p>
