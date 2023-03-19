@@ -1,0 +1,751 @@
+
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
+    <title>4.7. polars: A fast, fancy pandas alternative &#8212; Data Analysis in Finance</title>
+    
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../_static/styles/theme.css?digest=1999514e3f237ded88cf" rel="stylesheet">
+<link href="../_static/styles/pydata-sphinx-theme.css?digest=1999514e3f237ded88cf" rel="stylesheet">
+
+    
+  <link rel="stylesheet"
+    href="../_static/vendor/fontawesome/5.13.0/css/all.min.css">
+  <link rel="preload" as="font" type="font/woff2" crossorigin
+    href="../_static/vendor/fontawesome/5.13.0/webfonts/fa-solid-900.woff2">
+  <link rel="preload" as="font" type="font/woff2" crossorigin
+    href="../_static/vendor/fontawesome/5.13.0/webfonts/fa-brands-400.woff2">
+
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css" />
+    <link rel="stylesheet" href="../_static/styles/sphinx-book-theme.css?digest=5115cc725059bd94278eecd172e13a965bf8f5a9" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="../_static/togglebutton.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/copybutton.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/mystnb.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/sphinx-thebe.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/design-style.b7bb847fb20b106c3d81b95245e65545.min.css" />
+    
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../_static/scripts/pydata-sphinx-theme.js?digest=1999514e3f237ded88cf">
+
+    <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
+    <script src="../_static/jquery.js"></script>
+    <script src="../_static/underscore.js"></script>
+    <script src="../_static/doctools.js"></script>
+    <script src="../_static/clipboard.min.js"></script>
+    <script src="../_static/copybutton.js"></script>
+    <script src="../_static/scripts/sphinx-book-theme.js?digest=9c920249402e914e316237a7dbc6769907cce411"></script>
+    <script>let toggleHintShow = 'Click to show';</script>
+    <script>let toggleHintHide = 'Click to hide';</script>
+    <script>let toggleOpenOnPrint = 'true';</script>
+    <script src="../_static/togglebutton.js"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown, .tag_hide_input div.cell_input, .tag_hide-input div.cell_input, .tag_hide_output div.cell_output, .tag_hide-output div.cell_output, .tag_hide_cell.cell, .tag_hide-cell.cell';</script>
+    <script src="../_static/design-tabs.js"></script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"
+const thebe_selector = ".thebe,.cell"
+const thebe_selector_input = "pre"
+const thebe_selector_output = ".output, .cell_output"
+</script>
+    <script async="async" src="../_static/sphinx-thebe.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+    <script src="https://unpkg.com/@jupyter-widgets/html-manager@^0.20.0/dist/embed-amd.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="5. Data visualization" href="5_intro.html" />
+    <link rel="prev" title="4.6. Using SQL in Python" href="4_5_sql.html" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="docsearch:language" content="None">
+    
+
+    <!-- Google Analytics -->
+    
+  </head>
+  <body data-spy="scroll" data-target="#bd-toc-nav" data-offset="60">
+<!-- Checkboxes to toggle the left sidebar -->
+<input type="checkbox" class="sidebar-toggle" name="__navigation" id="__navigation" aria-label="Toggle navigation sidebar">
+<label class="overlay overlay-navbar" for="__navigation">
+    <div class="visually-hidden">Toggle navigation sidebar</div>
+</label>
+<!-- Checkboxes to toggle the in-page toc -->
+<input type="checkbox" class="sidebar-toggle" name="__page-toc" id="__page-toc" aria-label="Toggle in-page Table of Contents">
+<label class="overlay overlay-pagetoc" for="__page-toc">
+    <div class="visually-hidden">Toggle in-page Table of Contents</div>
+</label>
+<!-- Headers at the top -->
+<div class="announcement header-item noprint"></div>
+<div class="header header-item noprint"></div>
+
+    
+    <div class="container-fluid" id="banner"></div>
+
+    
+
+    <div class="container-xl">
+      <div class="row">
+          
+<!-- Sidebar -->
+<div class="bd-sidebar noprint" id="site-navigation">
+    <div class="bd-sidebar__content">
+        <div class="bd-sidebar__top"><div class="navbar-brand-box">
+    <a class="navbar-brand text-wrap" href="../index.html">
+      
+        <!-- `logo` is deprecated in Sphinx 4.0, so remove this when we stop supporting 3 -->
+        
+      
+      
+      <img src="../_static/cat.png" class="logo" alt="logo">
+      
+      
+      <h1 class="site-logo" id="site-title">Data Analysis in Finance</h1>
+      
+    </a>
+</div><form class="bd-search d-flex align-items-center" action="../search.html" method="get">
+  <i class="icon fas fa-search"></i>
+  <input type="search" class="form-control" name="q" id="search-input" placeholder="Search this book..." aria-label="Search this book..." autocomplete="off" >
+</form><nav class="bd-links" id="bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item active">
+        
+        <ul class="nav bd-sidenav bd-sidenav__home-link">
+            <li class="toctree-l1">
+                <a class="reference internal" href="../intro.html">
+                    Welcome
+                </a>
+            </li>
+        </ul>
+        <p aria-level="2" class="caption" role="heading">
+ <span class="caption-text">
+  Getting Started
+ </span>
+</p>
+<ul class="nav bd-sidenav">
+ <li class="toctree-l1">
+  <a class="reference internal" href="1_finpyth.html">
+   1. Why Python and finance?
+  </a>
+ </li>
+ <li class="toctree-l1 has-children">
+  <a class="reference internal" href="2_1_intro.html">
+   2. Python set-up
+   <a id="python_set-up">
+   </a>
+  </a>
+  <input class="toctree-checkbox" id="toctree-checkbox-1" name="toctree-checkbox-1" type="checkbox"/>
+  <label for="toctree-checkbox-1">
+   <i class="fas fa-chevron-down">
+   </i>
+  </label>
+  <ul>
+   <li class="toctree-l2">
+    <a class="reference internal" href="2_2_install.html">
+     2.2. Installation
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="2_3_jupyter.html">
+     2.3. Jupyter notebooks
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="2_4_googlecolab.html">
+     2.4. Google Colab
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="2_5_vscode.html">
+     2.5. VS Code
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="2_6_markdown.html">
+     2.6. Markdown
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="2_7_packages.html">
+     2.7. Packages
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="2_8_style.html">
+     2.8. Code style, PEP8, and linting
+    </a>
+   </li>
+  </ul>
+ </li>
+</ul>
+<p aria-level="2" class="caption" role="heading">
+ <span class="caption-text">
+  The Basics
+ </span>
+</p>
+<ul class="current nav bd-sidenav">
+ <li class="toctree-l1 has-children">
+  <a class="reference internal" href="3_1_intro.html">
+   3. CompSci 101: Types, control, and numpy arrays
+  </a>
+  <input class="toctree-checkbox" id="toctree-checkbox-2" name="toctree-checkbox-2" type="checkbox"/>
+  <label for="toctree-checkbox-2">
+   <i class="fas fa-chevron-down">
+   </i>
+  </label>
+  <ul>
+   <li class="toctree-l2">
+    <a class="reference internal" href="3_2_comp101.html">
+     3.1. The Basics
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="3_3_numpy.html">
+     3.2. Numpy and arrays
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toctree-l1 current active has-children">
+  <a class="reference internal" href="4_intro.html">
+   4. Pandas and data
+  </a>
+  <input checked="" class="toctree-checkbox" id="toctree-checkbox-3" name="toctree-checkbox-3" type="checkbox"/>
+  <label for="toctree-checkbox-3">
+   <i class="fas fa-chevron-down">
+   </i>
+  </label>
+  <ul class="current">
+   <li class="toctree-l2">
+    <a class="reference internal" href="4_0_dataframes.html">
+     4.1. Data importing
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="4_1_pandas.html">
+     4.2. pandas
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="4_2_cleaning_data.html">
+     4.3. Cleaning our data
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="4_3_eda.html">
+     4.4. Exploratory data analysis (EDA)
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="4_4_merge_shape.html">
+     4.5. Merging and reshaping data
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="4_5_sql.html">
+     4.6. Using SQL in Python
+    </a>
+   </li>
+   <li class="toctree-l2 current active">
+    <a class="current reference internal" href="#">
+     4.7. polars: A fast, fancy pandas alternative
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toctree-l1 has-children">
+  <a class="reference internal" href="5_intro.html">
+   5. Data visualization
+  </a>
+  <input class="toctree-checkbox" id="toctree-checkbox-4" name="toctree-checkbox-4" type="checkbox"/>
+  <label for="toctree-checkbox-4">
+   <i class="fas fa-chevron-down">
+   </i>
+  </label>
+  <ul>
+   <li class="toctree-l2">
+    <a class="reference internal" href="5_0_matplotlib.html">
+     5.1. matplotlib
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="5_1_plotly.html">
+     5.2. plotly
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="5_2_seaborn.html">
+     5.3. seaborn
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="6_financial_ts.html">
+   6. Financial time series
+   <a id="financial-time-series">
+   </a>
+  </a>
+ </li>
+</ul>
+<p aria-level="2" class="caption" role="heading">
+ <span class="caption-text">
+  Applications
+ </span>
+</p>
+<ul class="nav bd-sidenav">
+ <li class="toctree-l1">
+  <a class="reference internal" href="7_nasdaq_api.html">
+   7. Using APIs for Data Imports
+   <a id="btc-sim">
+   </a>
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="8_port_math.html">
+   8. Essential portfolio math
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="9_portfolio_opt.html">
+   9. Portfolio optimization
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="10_factor_models.html">
+   10. Factor models
+   <a id="factor_models">
+   </a>
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="11_regression_topics.html">
+   11. Regression topics
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="12_risk_mang.html">
+   12. Risk management
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="13_monte_carlo.html">
+   13. Monte Carlo and portfolios
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="14_options.html">
+   14. Option basics
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="15_logit_credit.html">
+   15. Logit models
+  </a>
+ </li>
+</ul>
+<p aria-level="2" class="caption" role="heading">
+ <span class="caption-text">
+  Labs
+ </span>
+</p>
+<ul class="nav bd-sidenav">
+ <li class="toctree-l1">
+  <a class="reference internal" href="lab_intro.html">
+   Our labs
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="lab01.html">
+   Lab 01
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="lab02.html">
+   Lab 02
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="lab03.html">
+   Lab 03
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="lab04.html">
+   Lab 04
+  </a>
+ </li>
+</ul>
+<p aria-level="2" class="caption" role="heading">
+ <span class="caption-text">
+  Exams
+ </span>
+</p>
+<ul class="nav bd-sidenav">
+ <li class="toctree-l1">
+  <a class="reference internal" href="exam_intro.html">
+   Our Exams
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="exam01.html">
+   Midterm Exam
+  </a>
+ </li>
+</ul>
+
+    </div>
+</nav></div>
+        <div class="bd-sidebar__bottom">
+             <!-- To handle the deprecated key -->
+            
+            <div class="navbar_extra_footer">
+            Powered by <a href="https://jupyterbook.org">Jupyter Book</a>
+            </div>
+            
+        </div>
+    </div>
+    <div id="rtd-footer-container"></div>
+</div>
+
+
+          
+
+
+          
+<!-- A tiny helper pixel to detect if we've scrolled -->
+<div class="sbt-scroll-pixel-helper"></div>
+<!-- Main content -->
+<div class="col py-0 content-container">
+    
+    <div class="header-article row sticky-top noprint">
+        
+
+
+
+<div class="col py-1 d-flex header-article-main">
+    <div class="header-article__left">
+        
+        <label for="__navigation"
+  class="headerbtn"
+  data-toggle="tooltip"
+data-placement="right"
+title="Toggle navigation"
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-bars"></i>
+  </span>
+
+</label>
+
+        
+    </div>
+    <div class="header-article__right">
+<div class="menu-dropdown menu-dropdown-launch-buttons">
+  <button class="headerbtn menu-dropdown__trigger"
+      aria-label="Launch interactive content">
+      <i class="fas fa-rocket"></i>
+  </button>
+  <div class="menu-dropdown__content">
+    <ul>
+      <li>
+        <a href="https://mybinder.org/v2/gh/executablebooks/jupyter-book/master?urlpath=tree/docs/chapters/4_6_polar.ipynb"
+   class="headerbtn"
+   data-toggle="tooltip"
+data-placement="left"
+title="Launch on Binder"
+>
+  
+
+<span class="headerbtn__icon-container">
+  
+    <img src="../_static/images/logo_binder.svg">
+  </span>
+<span class="headerbtn__text-container">Binder</span>
+</a>
+
+      </li>
+      
+    </ul>
+  </div>
+</div>
+
+<button onclick="toggleFullScreen()"
+  class="headerbtn"
+  data-toggle="tooltip"
+data-placement="bottom"
+title="Fullscreen mode"
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+<a href="https://github.com/executablebooks/jupyter-book"
+   class="headerbtn"
+   data-toggle="tooltip"
+data-placement="bottom"
+title="Source repository"
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fab fa-github"></i>
+  </span>
+
+</a>
+
+<div class="menu-dropdown menu-dropdown-download-buttons">
+  <button class="headerbtn menu-dropdown__trigger"
+      aria-label="Download this page">
+      <i class="fas fa-download"></i>
+  </button>
+  <div class="menu-dropdown__content">
+    <ul>
+      <li>
+        <a href="../_sources/chapters/4_6_polar.ipynb"
+   class="headerbtn"
+   data-toggle="tooltip"
+data-placement="left"
+title="Download source file"
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="headerbtn__text-container">.ipynb</span>
+</a>
+
+      </li>
+      
+      <li>
+        
+<button onclick="printPdf(this)"
+  class="headerbtn"
+  data-toggle="tooltip"
+data-placement="left"
+title="Print to PDF"
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="headerbtn__text-container">.pdf</span>
+</button>
+
+      </li>
+      
+    </ul>
+  </div>
+</div>
+
+    </div>
+</div>
+
+<!-- Table of contents -->
+<div class="col-md-3 bd-toc show noprint">
+</div>
+    </div>
+    <div class="article row">
+        <div class="col pl-md-3 pl-lg-5 content-container">
+            <!-- Table of contents that is only displayed when printing the page -->
+            <div id="jb-print-docs-body" class="onlyprint">
+                <h1>polars: A fast, fancy pandas alternative</h1>
+                <!-- Table of contents -->
+                <div id="print-main-content">
+                    <div id="jb-print-toc">
+                        
+                    </div>
+                </div>
+            </div>
+            <main id="main-content" role="main">
+                
+              <div>
+                
+  <section class="tex2jax_ignore mathjax_ignore" id="polars-a-fast-fancy-pandas-alternative">
+<h1><span class="section-number">4.7. </span>polars: A fast, fancy pandas alternative<a class="headerlink" href="#polars-a-fast-fancy-pandas-alternative" title="Permalink to this headline">#</a></h1>
+<p>Most data folks use <code class="docutils literal notranslate"><span class="pre">pandas</span></code>. However, there is an alternative that I just wanted to bring to your attention. <a class="reference external" href="https://www.pola.rs">polars</a> is a faster and, perhaps, more modern way to handle data in Python. Still, <code class="docutils literal notranslate"><span class="pre">pandas</span></code> is ubiquitous, so I wanted to start with that.</p>
+<p>Here’s the <a class="reference external" href="https://pola-rs.github.io/polars-book/user-guide/">user’s guide</a>.</p>
+<p>Why not use <code class="docutils literal notranslate"><span class="pre">pandas</span></code>? Here’s the <a class="reference external" href="https://wesmckinney.com/blog/apache-arrow-pandas-internals/">author of pandas</a> on why <code class="docutils literal notranslate"><span class="pre">pandas</span></code> isn’t always the best tool for data manipulation. We’re getting more advanced here, worrying about speed, being closer to the “metal”, etc.</p>
+<p>We can insall <code class="docutils literal notranslate"><span class="pre">polars</span></code> using <code class="docutils literal notranslate"><span class="pre">pip</span></code> the usual way. Don’t forget to add the <code class="docutils literal notranslate"><span class="pre">$</span></code> infront of <code class="docutils literal notranslate"><span class="pre">pip</span></code> if you’re using Google Colab.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">pip</span> <span class="n">install</span> <span class="n">polars</span>
+</pre></div>
+</div>
+<p>You’ll see my basic import statement below.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Set-up</span>
+
+<span class="kn">import</span> <span class="nn">polars</span> <span class="k">as</span> <span class="nn">pl</span>
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
+
+<span class="n">df</span> <span class="o">=</span> <span class="n">pl</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s1">&#39;https://raw.githubusercontent.com/aaiken1/fin-data-analysis-python/main/data/ncbreweries.csv&#39;</span><span class="p">)</span>
+
+<span class="nb">type</span><span class="p">(</span><span class="n">df</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>polars.dataframe.frame.DataFrame
+</pre></div>
+</div>
+</div>
+</div>
+<p>See what I did there? That was <code class="docutils literal notranslate"><span class="pre">pl.read_csv</span></code> from <code class="docutils literal notranslate"><span class="pre">polars</span></code>. I’ve created a <code class="docutils literal notranslate"><span class="pre">polars</span></code> DataFrame.</p>
+<p>Now, you can read the manual to find out all of things that you can do!</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">df</span><span class="o">.</span><span class="n">describe</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div><style>
+.dataframe > thead > tr > th,
+.dataframe > tbody > tr > td {
+  text-align: right;
+}
+</style>
+<small>shape: (7, 8)</small><table border="1" class="dataframe"><thead><tr><th>describe</th><th>Name</th><th>City</th><th>Type</th><th>Beer Count</th><th>Est</th><th>Status</th><th>URL</th></tr><tr><td>str</td><td>str</td><td>str</td><td>str</td><td>f64</td><td>f64</td><td>str</td><td>str</td></tr></thead><tbody><tr><td>&quot;count&quot;</td><td>&quot;251&quot;</td><td>&quot;251&quot;</td><td>&quot;251&quot;</td><td>251.0</td><td>251.0</td><td>&quot;251&quot;</td><td>&quot;251&quot;</td></tr><tr><td>&quot;null_count&quot;</td><td>&quot;0&quot;</td><td>&quot;0&quot;</td><td>&quot;0&quot;</td><td>0.0</td><td>0.0</td><td>&quot;0&quot;</td><td>&quot;0&quot;</td></tr><tr><td>&quot;mean&quot;</td><td>null</td><td>null</td><td>null</td><td>32.960159</td><td>2012.155378</td><td>null</td><td>null</td></tr><tr><td>&quot;std&quot;</td><td>null</td><td>null</td><td>null</td><td>43.723385</td><td>8.749158</td><td>null</td><td>null</td></tr><tr><td>&quot;min&quot;</td><td>&quot;217 Brew Works...</td><td>&quot;Aberdeen&quot;</td><td>&quot;Brewpub&quot;</td><td>1.0</td><td>1900.0</td><td>&quot;Active&quot;</td><td>&quot;https://www.ra...</td></tr><tr><td>&quot;max&quot;</td><td>&quot;Zebulon Artisa...</td><td>&quot;Winston-Salem&quot;</td><td>&quot;Microbrewery&quot;</td><td>424.0</td><td>2018.0</td><td>&quot;Closed&quot;</td><td>&quot;https://www.ra...</td></tr><tr><td>&quot;median&quot;</td><td>null</td><td>null</td><td>null</td><td>18.0</td><td>2014.0</td><td>null</td><td>null</td></tr></tbody></table></div></div></div>
+</div>
+<p>Looks a little different. I like it.</p>
+<p>You can select certain columns, as well. You can filter, do “group bys”. All the usual things.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">df</span><span class="o">.</span><span class="n">select</span><span class="p">(</span>
+    <span class="n">pl</span><span class="o">.</span><span class="n">col</span><span class="p">([</span><span class="s1">&#39;Name&#39;</span><span class="p">,</span> <span class="s1">&#39;City&#39;</span><span class="p">])</span>
+<span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div><style>
+.dataframe > thead > tr > th,
+.dataframe > tbody > tr > td {
+  text-align: right;
+}
+</style>
+<small>shape: (251, 2)</small><table border="1" class="dataframe"><thead><tr><th>Name</th><th>City</th></tr><tr><td>str</td><td>str</td></tr></thead><tbody><tr><td>&quot;217 Brew Works...</td><td>&quot;Wilson&quot;</td></tr><tr><td>&quot;3rd Rock Brewi...</td><td>&quot;Trenton&quot;</td></tr><tr><td>&quot;7 Clans Brewin...</td><td>&quot;Cherokee&quot;</td></tr><tr><td>&quot;Andrews Brewin...</td><td>&quot;Andrews&quot;</td></tr><tr><td>&quot;Angry Troll Br...</td><td>&quot;Elkin&quot;</td></tr><tr><td>&quot;Appalachian Mo...</td><td>&quot;Boone&quot;</td></tr><tr><td>&quot;Archetype Brew...</td><td>&quot;Asheville&quot;</td></tr><tr><td>&quot;Asheville Brew...</td><td>&quot;Asheville&quot;</td></tr><tr><td>&quot;Ass Clown Brew...</td><td>&quot;Cornelius&quot;</td></tr><tr><td>&quot;Aviator Brewin...</td><td>&quot;Fuquay Varina&quot;</td></tr><tr><td>&quot;Barking Duck B...</td><td>&quot;Mint Hill&quot;</td></tr><tr><td>&quot;Barrel Culture...</td><td>&quot;Durham&quot;</td></tr><tr><td>&hellip;</td><td>&hellip;</td></tr><tr><td>&quot;Greenshields B...</td><td>&quot;Raleigh&quot;</td></tr><tr><td>&quot;Hams Restauran...</td><td>&quot;Greenville&quot;</td></tr><tr><td>&quot;Heinzelmannche...</td><td>&quot;Sylva&quot;</td></tr><tr><td>&quot;High Tide Brew...</td><td>&quot;Jacksonville&quot;</td></tr><tr><td>&quot;Hosanna Brewin...</td><td>&quot;Fuqauy Varina&quot;</td></tr><tr><td>&quot;Jack of the Wo...</td><td>&quot;Asheville&quot;</td></tr><tr><td>&quot;Loe&#x27;s Brewing ...</td><td>&quot;Hickory&quot;</td></tr><tr><td>&quot;Sweet Taters&quot;</td><td>&quot;Rocky Mount&quot;</td></tr><tr><td>&quot;Triangle Brewi...</td><td>&quot;Durham&quot;</td></tr><tr><td>&quot;White Rabbit B...</td><td>&quot;Angier&quot;</td></tr><tr><td>&quot;Williamsville ...</td><td>&quot;Farmville&quot;</td></tr><tr><td>&quot;Wolf Beer Comp...</td><td>&quot;Wilmington&quot;</td></tr></tbody></table></div></div></div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">df</span><span class="o">.</span><span class="n">filter</span><span class="p">(</span>
+    <span class="n">pl</span><span class="o">.</span><span class="n">col</span><span class="p">(</span><span class="s2">&quot;Beer Count&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">is_between</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span> <span class="mi">100</span><span class="p">))</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div><style>
+.dataframe > thead > tr > th,
+.dataframe > tbody > tr > td {
+  text-align: right;
+}
+</style>
+<small>shape: (177, 7)</small><table border="1" class="dataframe"><thead><tr><th>Name</th><th>City</th><th>Type</th><th>Beer Count</th><th>Est</th><th>Status</th><th>URL</th></tr><tr><td>str</td><td>str</td><td>str</td><td>i64</td><td>i64</td><td>str</td><td>str</td></tr></thead><tbody><tr><td>&quot;217 Brew Works...</td><td>&quot;Wilson&quot;</td><td>&quot;Microbrewery&quot;</td><td>10</td><td>2017</td><td>&quot;Active&quot;</td><td>&quot;https://www.ra...</td></tr><tr><td>&quot;3rd Rock Brewi...</td><td>&quot;Trenton&quot;</td><td>&quot;Microbrewery&quot;</td><td>12</td><td>2016</td><td>&quot;Active&quot;</td><td>&quot;https://www.ra...</td></tr><tr><td>&quot;Andrews Brewin...</td><td>&quot;Andrews&quot;</td><td>&quot;Microbrewery&quot;</td><td>18</td><td>2014</td><td>&quot;Active&quot;</td><td>&quot;https://www.ra...</td></tr><tr><td>&quot;Appalachian Mo...</td><td>&quot;Boone&quot;</td><td>&quot;Microbrewery&quot;</td><td>78</td><td>2013</td><td>&quot;Active&quot;</td><td>&quot;https://www.ra...</td></tr><tr><td>&quot;Archetype Brew...</td><td>&quot;Asheville&quot;</td><td>&quot;Microbrewery&quot;</td><td>15</td><td>2017</td><td>&quot;Active&quot;</td><td>&quot;https://www.ra...</td></tr><tr><td>&quot;Asheville Brew...</td><td>&quot;Asheville&quot;</td><td>&quot;Brewpub&quot;</td><td>87</td><td>2003</td><td>&quot;Active&quot;</td><td>&quot;https://www.ra...</td></tr><tr><td>&quot;Aviator Brewin...</td><td>&quot;Fuquay Varina&quot;</td><td>&quot;Microbrewery&quot;</td><td>59</td><td>2008</td><td>&quot;Active&quot;</td><td>&quot;https://www.ra...</td></tr><tr><td>&quot;Barking Duck B...</td><td>&quot;Mint Hill&quot;</td><td>&quot;Microbrewery&quot;</td><td>16</td><td>2014</td><td>&quot;Active&quot;</td><td>&quot;https://www.ra...</td></tr><tr><td>&quot;Barrel Culture...</td><td>&quot;Durham&quot;</td><td>&quot;Microbrewery&quot;</td><td>29</td><td>2017</td><td>&quot;Active&quot;</td><td>&quot;https://www.ra...</td></tr><tr><td>&quot;Bayne Brewing ...</td><td>&quot;Cornelius&quot;</td><td>&quot;Microbrewery&quot;</td><td>16</td><td>2014</td><td>&quot;Active&quot;</td><td>&quot;https://www.ra...</td></tr><tr><td>&quot;BearWaters Bre...</td><td>&quot;Canton&quot;</td><td>&quot;Microbrewery&quot;</td><td>39</td><td>2012</td><td>&quot;Active&quot;</td><td>&quot;https://www.ra...</td></tr><tr><td>&quot;Beer Army Comb...</td><td>&quot;Trenton&quot;</td><td>&quot;Microbrewery&quot;</td><td>11</td><td>2012</td><td>&quot;Active&quot;</td><td>&quot;https://www.ra...</td></tr><tr><td>&hellip;</td><td>&hellip;</td><td>&hellip;</td><td>&hellip;</td><td>&hellip;</td><td>&hellip;</td><td>&hellip;</td></tr><tr><td>&quot;Chesapeake Bay...</td><td>&quot;Raleigh&quot;</td><td>&quot;Microbrewery&quot;</td><td>14</td><td>1999</td><td>&quot;Closed&quot;</td><td>&quot;https://www.ra...</td></tr><tr><td>&quot;Craggie Brewin...</td><td>&quot;Asheville&quot;</td><td>&quot;Microbrewery&quot;</td><td>30</td><td>2009</td><td>&quot;Closed&quot;</td><td>&quot;https://www.ra...</td></tr><tr><td>&quot;Draft Line Bre...</td><td>&quot;Fuquay-Varina&quot;</td><td>&quot;Microbrewery&quot;</td><td>19</td><td>2014</td><td>&quot;Closed&quot;</td><td>&quot;https://www.ra...</td></tr><tr><td>&quot;Four Friends B...</td><td>&quot;Charlotte&quot;</td><td>&quot;Microbrewery&quot;</td><td>11</td><td>2009</td><td>&quot;Closed&quot;</td><td>&quot;https://www.ra...</td></tr><tr><td>&quot;G2B Gastropub ...</td><td>&quot;Durham&quot;</td><td>&quot;Brewpub/Brewer...</td><td>18</td><td>2015</td><td>&quot;Closed&quot;</td><td>&quot;https://www.ra...</td></tr><tr><td>&quot;Greenshields B...</td><td>&quot;Raleigh&quot;</td><td>&quot;Microbrewery&quot;</td><td>15</td><td>1999</td><td>&quot;Closed&quot;</td><td>&quot;https://www.ra...</td></tr><tr><td>&quot;Hams Restauran...</td><td>&quot;Greenville&quot;</td><td>&quot;Brewpub&quot;</td><td>26</td><td>2003</td><td>&quot;Closed&quot;</td><td>&quot;https://www.ra...</td></tr><tr><td>&quot;Heinzelmannche...</td><td>&quot;Sylva&quot;</td><td>&quot;Microbrewery&quot;</td><td>18</td><td>2005</td><td>&quot;Closed&quot;</td><td>&quot;https://www.ra...</td></tr><tr><td>&quot;Hosanna Brewin...</td><td>&quot;Fuqauy Varina&quot;</td><td>&quot;Brewpub&quot;</td><td>12</td><td>2013</td><td>&quot;Closed&quot;</td><td>&quot;https://www.ra...</td></tr><tr><td>&quot;Jack of the Wo...</td><td>&quot;Asheville&quot;</td><td>&quot;Brewpub&quot;</td><td>13</td><td>2004</td><td>&quot;Closed&quot;</td><td>&quot;https://www.ra...</td></tr><tr><td>&quot;Triangle Brewi...</td><td>&quot;Durham&quot;</td><td>&quot;Microbrewery&quot;</td><td>21</td><td>2007</td><td>&quot;Closed&quot;</td><td>&quot;https://www.ra...</td></tr><tr><td>&quot;White Rabbit B...</td><td>&quot;Angier&quot;</td><td>&quot;Microbrewery&quot;</td><td>19</td><td>2013</td><td>&quot;Closed&quot;</td><td>&quot;https://www.ra...</td></tr></tbody></table></div></div></div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">df</span><span class="o">.</span><span class="n">filter</span><span class="p">(</span>
+    <span class="p">(</span><span class="n">pl</span><span class="o">.</span><span class="n">col</span><span class="p">(</span><span class="s1">&#39;Beer Count&#39;</span><span class="p">)</span> <span class="o">&lt;=</span> <span class="mi">10</span><span class="p">)</span> <span class="o">&amp;</span> <span class="p">(</span><span class="n">pl</span><span class="o">.</span><span class="n">col</span><span class="p">(</span><span class="s1">&#39;Status&#39;</span><span class="p">)</span> <span class="o">!=</span> <span class="s2">&quot;Closed&quot;</span><span class="p">)</span>
+<span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div><style>
+.dataframe > thead > tr > th,
+.dataframe > tbody > tr > td {
+  text-align: right;
+}
+</style>
+<small>shape: (54, 7)</small><table border="1" class="dataframe"><thead><tr><th>Name</th><th>City</th><th>Type</th><th>Beer Count</th><th>Est</th><th>Status</th><th>URL</th></tr><tr><td>str</td><td>str</td><td>str</td><td>i64</td><td>i64</td><td>str</td><td>str</td></tr></thead><tbody><tr><td>&quot;217 Brew Works...</td><td>&quot;Wilson&quot;</td><td>&quot;Microbrewery&quot;</td><td>10</td><td>2017</td><td>&quot;Active&quot;</td><td>&quot;https://www.ra...</td></tr><tr><td>&quot;7 Clans Brewin...</td><td>&quot;Cherokee&quot;</td><td>&quot;Client Brewer&quot;</td><td>1</td><td>2018</td><td>&quot;Active&quot;</td><td>&quot;https://www.ra...</td></tr><tr><td>&quot;Angry Troll Br...</td><td>&quot;Elkin&quot;</td><td>&quot;Microbrewery&quot;</td><td>8</td><td>2017</td><td>&quot;Active&quot;</td><td>&quot;https://www.ra...</td></tr><tr><td>&quot;Bear Creek Bre...</td><td>&quot;Bear Creek&quot;</td><td>&quot;Microbrewery&quot;</td><td>6</td><td>2012</td><td>&quot;Active&quot;</td><td>&quot;https://www.ra...</td></tr><tr><td>&quot;Beech Mountain...</td><td>&quot;Beech Mountain...</td><td>&quot;Microbrewery&quot;</td><td>7</td><td>2014</td><td>&quot;Active&quot;</td><td>&quot;https://www.ra...</td></tr><tr><td>&quot;Bill&#x27;s Front P...</td><td>&quot;Wilmington&quot;</td><td>&quot;Brewpub/Brewer...</td><td>10</td><td>2016</td><td>&quot;Active&quot;</td><td>&quot;https://www.ra...</td></tr><tr><td>&quot;Biltmore Brewi...</td><td>&quot;Asheville&quot;</td><td>&quot;Client Brewer&quot;</td><td>4</td><td>2010</td><td>&quot;Active&quot;</td><td>&quot;https://www.ra...</td></tr><tr><td>&quot;BottleTree Bee...</td><td>&quot;Tryon&quot;</td><td>&quot;Client Brewer&quot;</td><td>2</td><td>2010</td><td>&quot;Active&quot;</td><td>&quot;https://www.ra...</td></tr><tr><td>&quot;Bright Light B...</td><td>&quot;Fayetteville&quot;</td><td>&quot;Microbrewery&quot;</td><td>5</td><td>2018</td><td>&quot;Active&quot;</td><td>&quot;https://www.ra...</td></tr><tr><td>&quot;Broomtail Craf...</td><td>&quot;Wilmington&quot;</td><td>&quot;Microbrewery&quot;</td><td>10</td><td>2014</td><td>&quot;Active&quot;</td><td>&quot;https://www.ra...</td></tr><tr><td>&quot;Bull City Cide...</td><td>&quot;Durham&quot;</td><td>&quot;Commercial Bre...</td><td>9</td><td>2014</td><td>&quot;Active&quot;</td><td>&quot;https://www.ra...</td></tr><tr><td>&quot;Bull Durham Be...</td><td>&quot;Durham&quot;</td><td>&quot;Microbrewery&quot;</td><td>7</td><td>2015</td><td>&quot;Active&quot;</td><td>&quot;https://www.ra...</td></tr><tr><td>&hellip;</td><td>&hellip;</td><td>&hellip;</td><td>&hellip;</td><td>&hellip;</td><td>&hellip;</td><td>&hellip;</td></tr><tr><td>&quot;Slammin&#x27; Sam B...</td><td>&quot;Pinehurst&quot;</td><td>&quot;Client Brewer&quot;</td><td>1</td><td>2012</td><td>&quot;Active&quot;</td><td>&quot;https://www.ra...</td></tr><tr><td>&quot;Southern Range...</td><td>&quot;Monroe&quot;</td><td>&quot;Microbrewery&quot;</td><td>6</td><td>2016</td><td>&quot;Active&quot;</td><td>&quot;https://www.ra...</td></tr><tr><td>&quot;Tarboro Brewin...</td><td>&quot;Tarboro&quot;</td><td>&quot;Microbrewery&quot;</td><td>8</td><td>2016</td><td>&quot;Active&quot;</td><td>&quot;https://www.ra...</td></tr><tr><td>&quot;Tek Mountain B...</td><td>&quot;Wilmington&quot;</td><td>&quot;Microbrewery&quot;</td><td>7</td><td>2016</td><td>&quot;Active&quot;</td><td>&quot;https://www.ra...</td></tr><tr><td>&quot;The Mason Jar ...</td><td>&quot;Fuquay Varina&quot;</td><td>&quot;Microbrewery&quot;</td><td>5</td><td>2017</td><td>&quot;Active&quot;</td><td>&quot;https://www.ra...</td></tr><tr><td>&quot;Thristy Souls ...</td><td>&quot;Mount Airy&quot;</td><td>&quot;Brewpub/Brewer...</td><td>10</td><td>2018</td><td>&quot;Active&quot;</td><td>&quot;https://www.ra...</td></tr><tr><td>&quot;Tobacco Road S...</td><td>&quot;Raleigh&quot;</td><td>&quot;Brewpub&quot;</td><td>7</td><td>2017</td><td>&quot;Active&quot;</td><td>&quot;https://www.ra...</td></tr><tr><td>&quot;Valley River B...</td><td>&quot;Murphy&quot;</td><td>&quot;Brewpub&quot;</td><td>8</td><td>2017</td><td>&quot;Active&quot;</td><td>&quot;https://www.ra...</td></tr><tr><td>&quot;Vicious Fishes...</td><td>&quot;Angier&quot;</td><td>&quot;Microbrewery&quot;</td><td>1</td><td>2017</td><td>&quot;Active&quot;</td><td>&quot;https://www.ra...</td></tr><tr><td>&quot;Waterline Brew...</td><td>&quot;Wilmington&quot;</td><td>&quot;Microbrewery&quot;</td><td>6</td><td>2015</td><td>&quot;Active&quot;</td><td>&quot;https://www.ra...</td></tr><tr><td>&quot;Winding Creek ...</td><td>&quot;Columbus&quot;</td><td>&quot;Microbrewery&quot;</td><td>9</td><td>2017</td><td>&quot;Active&quot;</td><td>&quot;https://www.ra...</td></tr><tr><td>&quot;York Chester B...</td><td>&quot;Belmont&quot;</td><td>&quot;Microbrewery&quot;</td><td>8</td><td>2016</td><td>&quot;Active&quot;</td><td>&quot;https://www.ra...</td></tr></tbody></table></div></div></div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">df</span><span class="o">.</span><span class="n">groupby</span><span class="p">(</span><span class="s2">&quot;Type&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">count</span><span class="p">()</span><span class="o">.</span><span class="n">sort</span><span class="p">(</span><span class="n">by</span><span class="o">=</span><span class="s2">&quot;count&quot;</span><span class="p">,</span> <span class="n">descending</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div><style>
+.dataframe > thead > tr > th,
+.dataframe > tbody > tr > td {
+  text-align: right;
+}
+</style>
+<small>shape: (5, 2)</small><table border="1" class="dataframe"><thead><tr><th>Type</th><th>count</th></tr><tr><td>str</td><td>u32</td></tr></thead><tbody><tr><td>&quot;Microbrewery&quot;</td><td>165</td></tr><tr><td>&quot;Brewpub/Brewer...</td><td>41</td></tr><tr><td>&quot;Brewpub&quot;</td><td>33</td></tr><tr><td>&quot;Client Brewer&quot;</td><td>9</td></tr><tr><td>&quot;Commercial Bre...</td><td>3</td></tr></tbody></table></div></div></div>
+</div>
+<p>Not bad!</p>
+</section>
+
+    <script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "binder-examples/jupyter-stacks-datascience",
+            ref: "master",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "python"
+        },
+        kernelOptions: {
+            kernelName: "python3",
+            path: "./chapters"
+        },
+        predefinedOutput: true
+    }
+    </script>
+    <script>kernelName = 'python3'</script>
+
+              </div>
+              
+            </main>
+            <footer class="footer-article noprint">
+                
+    <!-- Previous / next buttons -->
+<div class='prev-next-area'>
+    <a class='left-prev' id="prev-link" href="4_5_sql.html" title="previous page">
+        <i class="fas fa-angle-left"></i>
+        <div class="prev-next-info">
+            <p class="prev-next-subtitle">previous</p>
+            <p class="prev-next-title"><span class="section-number">4.6. </span>Using SQL in Python</p>
+        </div>
+    </a>
+    <a class='right-next' id="next-link" href="5_intro.html" title="next page">
+    <div class="prev-next-info">
+        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-title"><span class="section-number">5. </span>Data visualization</p>
+    </div>
+    <i class="fas fa-angle-right"></i>
+    </a>
+</div>
+            </footer>
+        </div>
+    </div>
+    <div class="footer-content row">
+        <footer class="col footer"><p>
+  
+    By Prof. Adam Aiken<br/>
+  
+</p>
+        </footer>
+    </div>
+    
+</div>
+
+
+      </div>
+    </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="../_static/scripts/pydata-sphinx-theme.js?digest=1999514e3f237ded88cf"></script>
+
+
+  </body>
+</html>

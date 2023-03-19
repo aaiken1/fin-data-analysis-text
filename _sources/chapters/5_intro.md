@@ -8,7 +8,7 @@ This section follows Chapter 7 of [Python for Finance, 2e](https://www.oreilly.c
 
 However, there are many, more modern plotting libraries available for Python, such as `plotly`, `seaborn`, `bokeh`, and `altair`. Some of these, like [plotly](https://plotly.com) and [bokeh](https://bokeh.org), let you build interactive graphics. We'll look a little bit at [plotly](https://plotly.com/python/) and [seaborn](https://seaborn.pydata.org).
 
-We'll focus on financial data and the basic building blocks of creating plots, but just be aware that these packages can do a lot more. 
+We'll focus on financial data and the basic building blocks of creating plots, but just be aware that these packages can do a lot more.
 
 The [Intro to Data Visualisation](https://aeturrell.github.io/coding-for-economists/vis-intro.html) for *Coding for Economists* covers some basic design principles. His section [Narrative Data Visualisation](https://aeturrell.github.io/coding-for-economists/vis-narrative.html) expands on these ideas. He discusses the "anatomy" of figures and how to choose the best plot for your data.
 

@@ -50,6 +50,8 @@ const thebe_selector_input = "pre"
 const thebe_selector_output = ".output, .cell_output"
 </script>
     <script async="async" src="../_static/sphinx-thebe.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+    <script src="https://unpkg.com/@jupyter-widgets/html-manager@^0.20.0/dist/embed-amd.js"></script>
     <script>window.MathJax = {"options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
     <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
     <link rel="index" title="Index" href="../genindex.html" />
@@ -237,6 +239,16 @@ const thebe_selector_output = ".output, .cell_output"
    <li class="toctree-l2">
     <a class="reference internal" href="4_4_merge_shape.html">
      4.5. Merging and reshaping data
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="4_5_sql.html">
+     4.6. Using SQL in Python
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="4_6_polar.html">
+     4.7. polars: A fast, fancy pandas alternative
     </a>
    </li>
   </ul>
@@ -986,16 +998,16 @@ title="Print to PDF"
 </div>
 </div>
 <p>Let’s put together some ideas, write a function, and run a simulation. We’ll use something called <strong>geometric brownian motion</strong> (GBM). What is GBM? It is a particular <a class="reference external" href="https://arxiv.org/pdf/1504.05309.pdf">stochastic differential equation</a>. But, what’s important for us is the idea, which is fairly simple. Here’s the formula:</p>
-<div class="amsmath math notranslate nohighlight" id="equation-275a69bb-493c-4c59-aa99-fcc598b3ab0c">
-<span class="eqno">(7.1)<a class="headerlink" href="#equation-275a69bb-493c-4c59-aa99-fcc598b3ab0c" title="Permalink to this equation">#</a></span>\[\begin{align}
+<div class="amsmath math notranslate nohighlight" id="equation-aed40b22-19ef-4777-a1fe-46113966d894">
+<span class="eqno">(7.1)<a class="headerlink" href="#equation-aed40b22-19ef-4777-a1fe-46113966d894" title="Permalink to this equation">#</a></span>\[\begin{align}
 dS = \mu S dt + \sigma S dW_t
 \end{align}\]</div>
 <p>This says that the change in the stock price has two components - a <strong>drift</strong>, or average increase over time, and a <strong>shock</strong> that it is random at each point in time. The shock is scaled by the standard deviation of returns that you use. So, larger standard deviation, the bigger the shocks can be. This is basically the simplest way that you can model an asset price.</p>
 <p>The shocks are what make the price wiggle around around, or else it would just go up over time, based on the drift value that we use.</p>
 <p>And, I’ll stress - we aren’t predicting here, so to speak. We are trying to capture some basic reality about how an asset moves and then seeing what is possible in the future. We aren’t making a statement about whether we think an asset is overvalued or undervalued, will go up or down, etc.</p>
 <p>You can solve this equation to get the value of the asset at any point in time t. You just need to know the total of all of the shocks at time t.</p>
-<div class="amsmath math notranslate nohighlight" id="equation-5bd00b80-1bbf-4f19-83eb-502435114b8e">
-<span class="eqno">(7.2)<a class="headerlink" href="#equation-5bd00b80-1bbf-4f19-83eb-502435114b8e" title="Permalink to this equation">#</a></span>\[\begin{align}
+<div class="amsmath math notranslate nohighlight" id="equation-e06e991d-e39b-44e8-b4dc-f28c43f5467d">
+<span class="eqno">(7.2)<a class="headerlink" href="#equation-e06e991d-e39b-44e8-b4dc-f28c43f5467d" title="Permalink to this equation">#</a></span>\[\begin{align}
 S(t) = S(0) \exp \left(\left(\mu - \frac{1}{2}\sigma^2\right)t + \sigma W(t)\right)
 \end{align}\]</div>
 <div class="cell docutils container">
@@ -1061,19 +1073,19 @@ S(t) = S(0) \exp \left(\left(\mu - \frac{1}{2}\sigma^2\right)t + \sigma W(t)\rig
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>array([[ 1.15257946, -0.35009185, -1.14270682, ...,  1.4586292 ,
-         2.36969817, -0.54265282],
-       [ 0.36332281,  1.68808391,  2.31874741, ...,  0.27404864,
-         0.17297628, -0.24131127],
-       [ 0.91421135, -0.65092344,  0.25666009, ..., -0.77553038,
-        -0.10437924,  0.2106228 ],
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>array([[-1.09430043,  0.37910166,  1.16937425, ...,  0.36955442,
+        -0.57946529, -0.54645465],
+       [ 1.614403  , -0.36239722, -0.97319329, ..., -0.89255989,
+        -1.45821779, -0.30863734],
+       [ 0.16459839,  0.17617307,  0.65640299, ...,  0.6401765 ,
+         0.39666892, -0.2073329 ],
        ...,
-       [-0.9053768 ,  1.18772954, -0.91895404, ..., -0.16111764,
-        -0.38137153, -0.15675486],
-       [ 1.35251571, -0.14596008, -1.0687372 , ...,  0.58957003,
-        -0.18685868, -1.16414058],
-       [-0.91745051, -0.16733629,  1.51392639, ...,  0.56149393,
-        -0.33573188,  0.91879575]])
+       [-0.68923136,  0.17059873, -0.21643089, ..., -0.72180631,
+        -0.19280083, -1.03769525],
+       [-0.06195567,  1.38595931, -0.79395647, ...,  0.36291578,
+        -0.80519954, -1.95874841],
+       [-0.57736652,  1.81202426, -0.03697439, ..., -1.53425417,
+        -0.05556348, -0.53726322]])
 </pre></div>
 </div>
 </div>
