@@ -10,7 +10,6 @@ DataFrames are a `class`. A `class` is like a blueprint. We create a DataFrame `
 Chapter 4 contains perhaps the most important topics we'll cover.
 ```
 
-
 An [excellent and concise guide](https://www.mit.edu/~amidi/teaching/data-science-tools/study-guide/data-manipulation-with-python/#main-concepts) for data manipulation in `pandas`.
 
 The [official `pandas` guide](https://pandas.pydata.org/pandas-docs/stable/user_guide/10min.html) is also very helpful.
