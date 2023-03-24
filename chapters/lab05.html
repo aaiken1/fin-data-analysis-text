@@ -1,0 +1,897 @@
+
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
+    <title>Lab 05 &#8212; Data Analysis in Finance</title>
+    
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../_static/styles/theme.css?digest=1999514e3f237ded88cf" rel="stylesheet">
+<link href="../_static/styles/pydata-sphinx-theme.css?digest=1999514e3f237ded88cf" rel="stylesheet">
+
+    
+  <link rel="stylesheet"
+    href="../_static/vendor/fontawesome/5.13.0/css/all.min.css">
+  <link rel="preload" as="font" type="font/woff2" crossorigin
+    href="../_static/vendor/fontawesome/5.13.0/webfonts/fa-solid-900.woff2">
+  <link rel="preload" as="font" type="font/woff2" crossorigin
+    href="../_static/vendor/fontawesome/5.13.0/webfonts/fa-brands-400.woff2">
+
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css" />
+    <link rel="stylesheet" href="../_static/styles/sphinx-book-theme.css?digest=5115cc725059bd94278eecd172e13a965bf8f5a9" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="../_static/togglebutton.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/copybutton.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/mystnb.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/sphinx-thebe.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/design-style.b7bb847fb20b106c3d81b95245e65545.min.css" />
+    
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../_static/scripts/pydata-sphinx-theme.js?digest=1999514e3f237ded88cf">
+
+    <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
+    <script src="../_static/jquery.js"></script>
+    <script src="../_static/underscore.js"></script>
+    <script src="../_static/doctools.js"></script>
+    <script src="../_static/clipboard.min.js"></script>
+    <script src="../_static/copybutton.js"></script>
+    <script src="../_static/scripts/sphinx-book-theme.js?digest=9c920249402e914e316237a7dbc6769907cce411"></script>
+    <script>let toggleHintShow = 'Click to show';</script>
+    <script>let toggleHintHide = 'Click to hide';</script>
+    <script>let toggleOpenOnPrint = 'true';</script>
+    <script src="../_static/togglebutton.js"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown, .tag_hide_input div.cell_input, .tag_hide-input div.cell_input, .tag_hide_output div.cell_output, .tag_hide-output div.cell_output, .tag_hide_cell.cell, .tag_hide-cell.cell';</script>
+    <script src="../_static/design-tabs.js"></script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"
+const thebe_selector = ".thebe,.cell"
+const thebe_selector_input = "pre"
+const thebe_selector_output = ".output, .cell_output"
+</script>
+    <script async="async" src="../_static/sphinx-thebe.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="Our Exams" href="exam_intro.html" />
+    <link rel="prev" title="Lab 04" href="lab04.html" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="docsearch:language" content="None">
+    
+
+    <!-- Google Analytics -->
+    
+  </head>
+  <body data-spy="scroll" data-target="#bd-toc-nav" data-offset="60">
+<!-- Checkboxes to toggle the left sidebar -->
+<input type="checkbox" class="sidebar-toggle" name="__navigation" id="__navigation" aria-label="Toggle navigation sidebar">
+<label class="overlay overlay-navbar" for="__navigation">
+    <div class="visually-hidden">Toggle navigation sidebar</div>
+</label>
+<!-- Checkboxes to toggle the in-page toc -->
+<input type="checkbox" class="sidebar-toggle" name="__page-toc" id="__page-toc" aria-label="Toggle in-page Table of Contents">
+<label class="overlay overlay-pagetoc" for="__page-toc">
+    <div class="visually-hidden">Toggle in-page Table of Contents</div>
+</label>
+<!-- Headers at the top -->
+<div class="announcement header-item noprint"></div>
+<div class="header header-item noprint"></div>
+
+    
+    <div class="container-fluid" id="banner"></div>
+
+    
+
+    <div class="container-xl">
+      <div class="row">
+          
+<!-- Sidebar -->
+<div class="bd-sidebar noprint" id="site-navigation">
+    <div class="bd-sidebar__content">
+        <div class="bd-sidebar__top"><div class="navbar-brand-box">
+    <a class="navbar-brand text-wrap" href="../index.html">
+      
+        <!-- `logo` is deprecated in Sphinx 4.0, so remove this when we stop supporting 3 -->
+        
+      
+      
+      <img src="../_static/cat.png" class="logo" alt="logo">
+      
+      
+      <h1 class="site-logo" id="site-title">Data Analysis in Finance</h1>
+      
+    </a>
+</div><form class="bd-search d-flex align-items-center" action="../search.html" method="get">
+  <i class="icon fas fa-search"></i>
+  <input type="search" class="form-control" name="q" id="search-input" placeholder="Search this book..." aria-label="Search this book..." autocomplete="off" >
+</form><nav class="bd-links" id="bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item active">
+        
+        <ul class="nav bd-sidenav bd-sidenav__home-link">
+            <li class="toctree-l1">
+                <a class="reference internal" href="../intro.html">
+                    Welcome
+                </a>
+            </li>
+        </ul>
+        <p aria-level="2" class="caption" role="heading">
+ <span class="caption-text">
+  Getting Started
+ </span>
+</p>
+<ul class="nav bd-sidenav">
+ <li class="toctree-l1">
+  <a class="reference internal" href="1_finpyth.html">
+   1. Why Python and finance?
+  </a>
+ </li>
+ <li class="toctree-l1 has-children">
+  <a class="reference internal" href="2_1_intro.html">
+   2. Python set-up
+   <a id="python_set-up">
+   </a>
+  </a>
+  <input class="toctree-checkbox" id="toctree-checkbox-1" name="toctree-checkbox-1" type="checkbox"/>
+  <label for="toctree-checkbox-1">
+   <i class="fas fa-chevron-down">
+   </i>
+  </label>
+  <ul>
+   <li class="toctree-l2">
+    <a class="reference internal" href="2_2_install.html">
+     2.2. Installation
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="2_3_jupyter.html">
+     2.3. Jupyter notebooks
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="2_4_googlecolab.html">
+     2.4. Google Colab
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="2_5_vscode.html">
+     2.5. VS Code
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="2_6_markdown.html">
+     2.6. Markdown
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="2_7_packages.html">
+     2.7. Packages
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="2_8_style.html">
+     2.8. Code style, PEP8, and linting
+    </a>
+   </li>
+  </ul>
+ </li>
+</ul>
+<p aria-level="2" class="caption" role="heading">
+ <span class="caption-text">
+  The Basics
+ </span>
+</p>
+<ul class="nav bd-sidenav">
+ <li class="toctree-l1 has-children">
+  <a class="reference internal" href="3_1_intro.html">
+   3. CompSci 101: Types, control, and numpy arrays
+  </a>
+  <input class="toctree-checkbox" id="toctree-checkbox-2" name="toctree-checkbox-2" type="checkbox"/>
+  <label for="toctree-checkbox-2">
+   <i class="fas fa-chevron-down">
+   </i>
+  </label>
+  <ul>
+   <li class="toctree-l2">
+    <a class="reference internal" href="3_2_comp101.html">
+     3.1. The Basics
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="3_3_numpy.html">
+     3.2. Numpy and arrays
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toctree-l1 has-children">
+  <a class="reference internal" href="4_intro.html">
+   4. Pandas and data
+  </a>
+  <input class="toctree-checkbox" id="toctree-checkbox-3" name="toctree-checkbox-3" type="checkbox"/>
+  <label for="toctree-checkbox-3">
+   <i class="fas fa-chevron-down">
+   </i>
+  </label>
+  <ul>
+   <li class="toctree-l2">
+    <a class="reference internal" href="4_0_dataframes.html">
+     4.1. Data importing
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="4_1_pandas.html">
+     4.2. pandas
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="4_2_cleaning_data.html">
+     4.3. Cleaning our data
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="4_3_eda.html">
+     4.4. Exploratory data analysis (EDA)
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="4_4_merge_shape.html">
+     4.5. Merging and reshaping data
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="4_5_sql.html">
+     4.6. Using SQL in Python
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="4_6_polar.html">
+     4.7. polars: A fast, fancy pandas alternative
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toctree-l1 has-children">
+  <a class="reference internal" href="5_intro.html">
+   5. Data visualization
+  </a>
+  <input class="toctree-checkbox" id="toctree-checkbox-4" name="toctree-checkbox-4" type="checkbox"/>
+  <label for="toctree-checkbox-4">
+   <i class="fas fa-chevron-down">
+   </i>
+  </label>
+  <ul>
+   <li class="toctree-l2">
+    <a class="reference internal" href="5_0_matplotlib.html">
+     5.1. matplotlib
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="5_1_plotly.html">
+     5.2. plotly
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="5_2_seaborn.html">
+     5.3. seaborn
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="6_financial_ts.html">
+   6. Financial time series
+   <a id="financial-time-series">
+   </a>
+  </a>
+ </li>
+</ul>
+<p aria-level="2" class="caption" role="heading">
+ <span class="caption-text">
+  Applications
+ </span>
+</p>
+<ul class="nav bd-sidenav">
+ <li class="toctree-l1">
+  <a class="reference internal" href="7_nasdaq_api.html">
+   7. Using APIs for Data Imports
+   <a id="btc-sim">
+   </a>
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="8_port_math.html">
+   8. Essential portfolio math
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="9_portfolio_opt.html">
+   9. Portfolio optimization
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="10_factor_models.html">
+   10. Factor models
+   <a id="factor_models">
+   </a>
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="11_regression_topics.html">
+   11. Regression topics
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="12_risk_mang.html">
+   12. Risk management
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="13_monte_carlo.html">
+   13. Monte Carlo and portfolios
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="14_options.html">
+   14. Option basics
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="15_logit_credit.html">
+   15. Logit models
+  </a>
+ </li>
+</ul>
+<p aria-level="2" class="caption" role="heading">
+ <span class="caption-text">
+  Labs
+ </span>
+</p>
+<ul class="current nav bd-sidenav">
+ <li class="toctree-l1">
+  <a class="reference internal" href="lab_intro.html">
+   Our labs
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="lab01.html">
+   Lab 01
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="lab02.html">
+   Lab 02
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="lab03.html">
+   Lab 03
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="lab04.html">
+   Lab 04
+  </a>
+ </li>
+ <li class="toctree-l1 current active">
+  <a class="current reference internal" href="#">
+   Lab 05
+  </a>
+ </li>
+</ul>
+<p aria-level="2" class="caption" role="heading">
+ <span class="caption-text">
+  Exams
+ </span>
+</p>
+<ul class="nav bd-sidenav">
+ <li class="toctree-l1">
+  <a class="reference internal" href="exam_intro.html">
+   Our Exams
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="exam01.html">
+   Midterm Exam
+  </a>
+ </li>
+</ul>
+
+    </div>
+</nav></div>
+        <div class="bd-sidebar__bottom">
+             <!-- To handle the deprecated key -->
+            
+            <div class="navbar_extra_footer">
+            Powered by <a href="https://jupyterbook.org">Jupyter Book</a>
+            </div>
+            
+        </div>
+    </div>
+    <div id="rtd-footer-container"></div>
+</div>
+
+
+          
+
+
+          
+<!-- A tiny helper pixel to detect if we've scrolled -->
+<div class="sbt-scroll-pixel-helper"></div>
+<!-- Main content -->
+<div class="col py-0 content-container">
+    
+    <div class="header-article row sticky-top noprint">
+        
+
+
+
+<div class="col py-1 d-flex header-article-main">
+    <div class="header-article__left">
+        
+        <label for="__navigation"
+  class="headerbtn"
+  data-toggle="tooltip"
+data-placement="right"
+title="Toggle navigation"
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-bars"></i>
+  </span>
+
+</label>
+
+        
+    </div>
+    <div class="header-article__right">
+<div class="menu-dropdown menu-dropdown-launch-buttons">
+  <button class="headerbtn menu-dropdown__trigger"
+      aria-label="Launch interactive content">
+      <i class="fas fa-rocket"></i>
+  </button>
+  <div class="menu-dropdown__content">
+    <ul>
+      <li>
+        <a href="https://mybinder.org/v2/gh/executablebooks/jupyter-book/master?urlpath=tree/docs/chapters/lab05.ipynb"
+   class="headerbtn"
+   data-toggle="tooltip"
+data-placement="left"
+title="Launch on Binder"
+>
+  
+
+<span class="headerbtn__icon-container">
+  
+    <img src="../_static/images/logo_binder.svg">
+  </span>
+<span class="headerbtn__text-container">Binder</span>
+</a>
+
+      </li>
+      
+    </ul>
+  </div>
+</div>
+
+<button onclick="toggleFullScreen()"
+  class="headerbtn"
+  data-toggle="tooltip"
+data-placement="bottom"
+title="Fullscreen mode"
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+<a href="https://github.com/executablebooks/jupyter-book"
+   class="headerbtn"
+   data-toggle="tooltip"
+data-placement="bottom"
+title="Source repository"
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fab fa-github"></i>
+  </span>
+
+</a>
+
+<div class="menu-dropdown menu-dropdown-download-buttons">
+  <button class="headerbtn menu-dropdown__trigger"
+      aria-label="Download this page">
+      <i class="fas fa-download"></i>
+  </button>
+  <div class="menu-dropdown__content">
+    <ul>
+      <li>
+        <a href="../_sources/chapters/lab05.ipynb"
+   class="headerbtn"
+   data-toggle="tooltip"
+data-placement="left"
+title="Download source file"
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="headerbtn__text-container">.ipynb</span>
+</a>
+
+      </li>
+      
+      <li>
+        
+<button onclick="printPdf(this)"
+  class="headerbtn"
+  data-toggle="tooltip"
+data-placement="left"
+title="Print to PDF"
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="headerbtn__text-container">.pdf</span>
+</button>
+
+      </li>
+      
+    </ul>
+  </div>
+</div>
+<label for="__page-toc"
+  class="headerbtn headerbtn-page-toc"
+  
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-list"></i>
+  </span>
+
+</label>
+
+    </div>
+</div>
+
+<!-- Table of contents -->
+<div class="col-md-3 bd-toc show noprint">
+    <div class="tocsection onthispage pt-5 pb-3">
+        <i class="fas fa-list"></i> Contents
+    </div>
+    <nav id="bd-toc-nav" aria-label="Page">
+        <ul class="visible nav section-nav flex-column">
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#simulation-and-macroeconomic-data">
+   Simulation and Macroeconomic data
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#part-1">
+   Part 1
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#part-3">
+   Part 3
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#part-4">
+   Part 4
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#part-5">
+   Part 5
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#id1">
+   Part 4
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#id2">
+   Part 5
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#part-6">
+   Part 6
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#part-7">
+   Part 7
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#part-8">
+   Part 8
+  </a>
+ </li>
+</ul>
+
+    </nav>
+</div>
+    </div>
+    <div class="article row">
+        <div class="col pl-md-3 pl-lg-5 content-container">
+            <!-- Table of contents that is only displayed when printing the page -->
+            <div id="jb-print-docs-body" class="onlyprint">
+                <h1>Lab 05</h1>
+                <!-- Table of contents -->
+                <div id="print-main-content">
+                    <div id="jb-print-toc">
+                        
+                        <div>
+                            <h2> Contents </h2>
+                        </div>
+                        <nav aria-label="Page">
+                            <ul class="visible nav section-nav flex-column">
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#simulation-and-macroeconomic-data">
+   Simulation and Macroeconomic data
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#part-1">
+   Part 1
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#part-3">
+   Part 3
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#part-4">
+   Part 4
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#part-5">
+   Part 5
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#id1">
+   Part 4
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#id2">
+   Part 5
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#part-6">
+   Part 6
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#part-7">
+   Part 7
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#part-8">
+   Part 8
+  </a>
+ </li>
+</ul>
+
+                        </nav>
+                    </div>
+                </div>
+            </div>
+            <main id="main-content" role="main">
+                
+              <div>
+                
+  <section class="tex2jax_ignore mathjax_ignore" id="lab-05">
+<h1>Lab 05<a class="headerlink" href="#lab-05" title="Permalink to this headline">#</a></h1>
+<section id="simulation-and-macroeconomic-data">
+<h2>Simulation and Macroeconomic data<a class="headerlink" href="#simulation-and-macroeconomic-data" title="Permalink to this headline">#</a></h2>
+<p>In this lab, we’ll start with a simulation. Then, we are going to use macroeconomic data that you’ll download from Nasdaq Data Link. We’ll review a lot of the <strong>time series</strong> work from our notes and DataCamp assignments. I’ll also show you how to <strong>melt</strong> your data. Yup, that’s right.</p>
+<p>Use our online notes to complete our labs. I have my own commentary and links that will help. You can work through the parts below in order.</p>
+<p>If you are getting errors and are not sure why, my first suggestion is always to <strong>Restart</strong> the Python kernel, to <strong>Clear All Output</strong>, and run each code cell <strong>one-by-one</strong> from the top.</p>
+<aside class="margin sidebar">
+<p class="sidebar-title"></p>
+<p>My instructions will refer to VS Code, but you can use VS Code, Anaconda Jupyter notebook, or Google Colab. The key is have a Jupyter notebook when you’re done that can run from start to finish.</p>
+</aside>
+<p>Let each code cell represent one idea, or output. Take advantage of <strong>Markdown</strong> in your write-up. Use headers and formatting. Here’s a <a class="reference external" href="https://www.markdownguide.org/cheat-sheet/">Markdown cheat sheet</a> that I keep handy. Once you figure out some of the basics, you might not want to go back to Word or Google Docs.</p>
+</section>
+<section id="part-1">
+<h2>Part 1<a class="headerlink" href="#part-1" title="Permalink to this headline">#</a></h2>
+<p>Open up VS Code or Google Colab. Have you set up your class folder yet? I’ve posted a video that will help you figure that part out. Open up that folder under File. If you’re in VS Code, you should see it in the <strong>EXPLORER</strong> window pane on the left.</p>
+<p>Type <strong>Cmd-Shift-P</strong> (Ctrl-Shift-P in Windows) to open up the command palette. Make sure there’s a little <code class="docutils literal notranslate"><span class="pre">&gt;</span></code> in the search bar that pops up (there should be). Search for <code class="docutils literal notranslate"><span class="pre">Jupyter:</span> <span class="pre">Create</span> <span class="pre">New</span> <span class="pre">Jupyter</span> <span class="pre">Notebook</span></code>. This will open up a blank <code class="docutils literal notranslate"><span class="pre">.ipynb</span></code> file. Save this in a new folder in your course folder called <code class="docutils literal notranslate"><span class="pre">lab05</span></code>. Call this file <code class="docutils literal notranslate"><span class="pre">lab05-lastname-firstname</span></code>, where you fill in your name, of course!</p>
+<p>If you’re using Anaconda Jupyter notebooks or Google Colab, you’ll do something very similar. Create a new <code class="docutils literal notranslate"><span class="pre">.ipynb</span></code> file. In Google Colab, this file will be saved to your Google Drive. You can then download it when you’re done. See the online notes for more on using Google Colab.</p>
+</section>
+<section id="part-3">
+<h2>Part 3<a class="headerlink" href="#part-3" title="Permalink to this headline">#</a></h2>
+<p>You’ll see a blank code cell, or <strong>cell</strong>, at the top. By default, this is set to Python. See the lower right-hand corner of the cell? Click there and search and select <strong>Markdown</strong>.</p>
+<p>Create the following in that top Markdown cell.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="c1"># Lab05</span>
+
+<span class="n">Firstname</span> <span class="n">Lastname</span>
+
+<span class="n">Date</span>
+</pre></div>
+</div>
+<p>As you answer the questions below, use new Markdown cells and headers to separate your answers, as appropriate.</p>
+<p>Create your first code cell where you <code class="docutils literal notranslate"><span class="pre">import</span></code> both <code class="docutils literal notranslate"><span class="pre">numpy</span></code> and <code class="docutils literal notranslate"><span class="pre">pandas</span></code> as <code class="docutils literal notranslate"><span class="pre">np</span></code> and <code class="docutils literal notranslate"><span class="pre">pd</span></code>, respectively.</p>
+<p>Also include <code class="docutils literal notranslate"><span class="pre">import</span> <span class="pre">datetime</span> <span class="pre">as</span> <span class="pre">dt</span></code>. The <code class="docutils literal notranslate"><span class="pre">datetime</span></code> library is discussed in the first part of the second DataCamp assignment.</p>
+<p>Include <code class="docutils literal notranslate"><span class="pre">from</span> <span class="pre">datetime</span> <span class="pre">import</span> <span class="pre">timedelta</span></code> and <code class="docutils literal notranslate"><span class="pre">import</span> <span class="pre">seaborn</span> <span class="pre">as</span> <span class="pre">sns</span></code>. Rememebr seaborn? You see it occasionally in the DataCamps too.</p>
+<p>Finally, include <code class="docutils literal notranslate"><span class="pre">import</span> <span class="pre">nasdaqdatalink</span></code>. If you have not installed <code class="docutils literal notranslate"><span class="pre">nasdaq-data-link</span></code>, follow the instructions in our notes.</p>
+<p>You can read more at: <a class="reference external" href="https://data.nasdaq.com">https://data.nasdaq.com</a></p>
+<p>Add a <strong>comment</strong> to that cell calling it <strong>Set-Up</strong>. You can add comments to each code cell to remind yourself what you’re doing. Comments are different from the Markdown that you’re using to write your narrative - they go in the Python cells and use <code class="docutils literal notranslate"><span class="pre">#</span></code>.</p>
+</section>
+<section id="part-4">
+<h2>Part 4<a class="headerlink" href="#part-4" title="Permalink to this headline">#</a></h2>
+<p>We have some notes on <strong>simulating stock prices</strong> using geometric brownian motion. Use these methods to create 100 simulations for 30 days of prices for <em>AAPL</em> and <em>TLT</em>. Use the last price in the data for each as the initial starting price. Make some graphs. How do they compare? Why are they different? What exactly is <em>TLT</em>?</p>
+<p>To do this, you’ll need to go back to Lab 04 and bring in the price and return data from the end. Be sure that you use the adjusted price. <strong>Don’t copy and paste all of the code!</strong> Just use what you need.</p>
+</section>
+<section id="part-5">
+<h2>Part 5<a class="headerlink" href="#part-5" title="Permalink to this headline">#</a></h2>
+<p>Create three code cells to bring in and clean three separate data series: ‘FRED/GDP’, ‘UMICH/SOC1’, and ‘FRED/UNRATE’.</p>
+<p>Here’s some code to get you started:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">gdp</span> <span class="o">=</span> <span class="n">nasdaqdatalink</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;FRED/GDP&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+<p><strong>What are these data series? I’ll bet you guess two of them!</strong></p>
+<p>OK, now we have to pay attention to what we have. We’ll use some of the ideas from the DataCamps.</p>
+<p>Take a look at the GDP data first. It is <strong>quarterly data</strong>. And, do you see how the date is on the first of each quarter? We’re going to want that date to actually be the last day of the previous month (i.e. one day prior). Why? It is customary to use end-of-month (eom) data when dealing with economic indicators, stock data, etc. This will also help us <strong>merge</strong> our data, as you’ll see below.</p>
+<p>When you bring this data in from Nasdaq, the <strong>date is the index</strong>. As we’ve seen, you can access the index by using something like <code class="docutils literal notranslate"><span class="pre">df.index</span></code>, like how you would select a column from a DataFrame.</p>
+<p>Do the following:</p>
+<ul class="simple">
+<li><p>Alter the index so that it is one day prior. We’ll use the method <code class="docutils literal notranslate"><span class="pre">timedelta</span></code> from the <code class="docutils literal notranslate"><span class="pre">datetime</span></code> library. Modify this code:</p></li>
+<li></li>
+</ul>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">______</span> <span class="o">=</span> <span class="n">______</span> <span class="o">-</span> <span class="n">timedelta</span><span class="p">(</span><span class="n">days</span><span class="o">=</span><span class="n">______</span><span class="p">)</span>
+
+</pre></div>
+</div>
+<ul class="simple">
+<li><p>Use <code class="docutils literal notranslate"><span class="pre">.resample</span></code> and a monthly fill to move this data from quarterly to monthly with a forward fill. This will match the other data we’ve downloaded.</p></li>
+<li><p>Use <code class="docutils literal notranslate"><span class="pre">.rename</span></code> to rename the <em>Value</em> column to <em>gdp</em>. Remember to include <code class="docutils literal notranslate"><span class="pre">inplace=True</span></code>. Why?</p></li>
+</ul>
+<p>For the U of Michigan Consumer Confidence data, rename <em>Index</em> to <em>conf</em>. Also resample this data to monthly with a forward fill. We don’t need to alter the date/index here. Do you see why?</p>
+<p>Finally, adjust the date of the unemployment data the same way you did for the GDP data. Resample to monthly with a forward fill. Change <em>Value</em> to <em>unrate</em>.</p>
+<p>I’m resampling all of the data, because some of it starts quarterly and moves to monthly. One of the data sets also has strange quarters to start. Do you see which one?</p>
+<p>This series of steps is another nice example of the work you have to do just to get your data all nice and neat.</p>
+<p>Remember, you can use <code class="docutils literal notranslate"><span class="pre">.info()</span></code>, <code class="docutils literal notranslate"><span class="pre">.head()</span></code>, and <code class="docutils literal notranslate"><span class="pre">tail()</span></code> to check your work. You can also just show the DataFrame. Do things in steps. Do something and check to make sure that it worked. <strong>Don’t get in a hurry.</strong></p>
+</section>
+<section id="id1">
+<h2>Part 4<a class="headerlink" href="#id1" title="Permalink to this headline">#</a></h2>
+<p>Let’s try merging our three separate DataFrames into one DataFrame. We’ll do this two ways, in order to demonstrate different types of data mergers.</p>
+<p>To do this, we’ll use <code class="docutils literal notranslate"><span class="pre">pd.merge</span></code>. You need to tell it which two DataFrames you want to merge. Then, you tell it the <strong>type of merge</strong>. If you’re familiar with SQL, you know about inner joins, outer joins, left joins, and right joins. We’ll going to try an <strong>inner</strong> and an <strong>outer join</strong>. Finally, in our example, you need to specify the <strong>key</strong> to merge on. In other words, which column(s) identify your data and let you merge the two data sets.</p>
+<p>You can read more <a class="reference external" href="https://www.tutorialspoint.com/python_pandas/python_pandas_merging_joining.htm">here</a>.</p>
+<p>Modify this code to do an <strong>inner join</strong> of your gdp and confidence data. Then, merger that data with the unemployment data. In other words, you’ll use two merge statements to join the three DataFrames.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">df_inner</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">merge</span><span class="p">(</span><span class="n">_____</span><span class="p">,</span> <span class="n">_____</span><span class="p">,</span> <span class="n">how</span><span class="o">=</span><span class="s1">&#39;_____&#39;</span><span class="p">,</span> <span class="n">on</span><span class="o">=</span><span class="s1">&#39;_____&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>Call this something like <code class="docutils literal notranslate"><span class="pre">df_inner</span></code>.</p>
+<p>Then, do an <strong>outer join</strong>. Call this <code class="docutils literal notranslate"><span class="pre">df_outer</span></code>. What’s the difference?</p>
+<p>You can even try <strong>left</strong> and <strong>right</strong> joins!</p>
+<p>In finance, we’re often merger on two keys: date and firm ID. But, here, there’s just one key, the date.</p>
+</section>
+<section id="id2">
+<h2>Part 5<a class="headerlink" href="#id2" title="Permalink to this headline">#</a></h2>
+<p>Add three columns for the percent change of each economic indicator. The three variables that you downloaded are <strong>levels</strong>. We sometimes want to look at <strong>changes</strong> and/or <strong>percent changes</strong> as well.</p>
+<p>Then, use <code class="docutils literal notranslate"><span class="pre">.asfreq()</span></code> to go from monthly to quarterly data. Call this new data set something like <code class="docutils literal notranslate"><span class="pre">df_inner_q</span></code>. Remember doing this in the DataCamp exercises?</p>
+<p>Select just the percent change in GDP, the level of consumer confidence, and the unemployment rate from the DataFrame and use <code class="docutils literal notranslate"><span class="pre">pandas</span></code> <code class="docutils literal notranslate"><span class="pre">plot</span></code> to graph each on its own subplot. Add a title called “Economics Indicators”.</p>
+<p>Finally, do the same thing, but use a <code class="docutils literal notranslate"><span class="pre">.loc</span></code> to only include data from 1999-12-31 forward.</p>
+</section>
+<section id="part-6">
+<h2>Part 6<a class="headerlink" href="#part-6" title="Permalink to this headline">#</a></h2>
+<p>Look at our financial time series notes online and calculate the correlations among all six variables in your DataFrame. Use <code class="docutils literal notranslate"><span class="pre">df_inner_q</span></code>. Some of our data only has quarterly observations, so no point in doing correlations at the monthly level.</p>
+<p>Then, use <code class="docutils literal notranslate"><span class="pre">sns.heatmap</span></code> to do the same sort of thing. But, don’t give it the data itself: make a <strong>heat map of the correlations</strong>. Include an annotation and use <code class="docutils literal notranslate"><span class="pre">Greys</span></code> as your color map.</p>
+<p>You can read more at: <a class="reference external" href="https://seaborn.pydata.org/generated/seaborn.heatmap.html">https://seaborn.pydata.org/generated/seaborn.heatmap.html</a></p>
+</section>
+<section id="part-7">
+<h2>Part 7<a class="headerlink" href="#part-7" title="Permalink to this headline">#</a></h2>
+<p>Let’s <strong>melt</strong> our data. What does this mean??? Let’s go from <strong>wide</strong> to <strong>long</strong>. Right now, we have a date index and then a column for each variable, six variables in total. Let’s see if you create a data set with only three columns: <em>date</em>, <em>indicator</em>, and <em>value</em>, where <em>indicator</em> will have values like <em>gdp</em> and <em>unemp</em>. This creates data that is stacked <strong>vertically</strong>, rather than data that is spread <strong>horizontally</strong>.</p>
+<p>To do this, we’ll use <code class="docutils literal notranslate"><span class="pre">pd.melt</span></code> to <strong>melt</strong> df_inner_q. But first, let’s reset the index, so that date is a column. You don’t have to do this, but I kind of like seeing everything as a separate column. Remember to use <code class="docutils literal notranslate"><span class="pre">inplace=True</span></code>. Why?</p>
+<figure class="align-center" id="lab5-melt1-png">
+<img alt="../_images/lab5-melt1.png" class="with-border" src="../_images/lab5-melt1.png" />
+<figcaption>
+<p><span class="caption-number">Fig. 1 </span><span class="caption-text">The basic syntax and picture of what’s going on.</span><a class="headerlink" href="#lab5-melt1-png" title="Permalink to this image">#</a></p>
+</figcaption>
+</figure>
+<p><code class="docutils literal notranslate"><span class="pre">pd.melt</span></code> can take several arguments. <code class="docutils literal notranslate"><span class="pre">id_vars</span></code> is what your new id will be. In our case, we have <strong>time series data</strong>. Therefore, our ID is the date. Let the value column be named <em>indicator</em>. Modify this code:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">df_inner_q_long</span> <span class="o">=</span> <span class="n">df_inner_q</span><span class="o">.</span><span class="n">melt</span><span class="p">(</span><span class="n">id_vars</span> <span class="o">=</span> <span class="s1">&#39;_____&#39;</span><span class="p">,</span> <span class="n">var_name</span><span class="o">=</span><span class="s1">&#39;______&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>Look at the data. Do you see what it did? Do the same thing, but only keep the three level variables using the <code class="docutils literal notranslate"><span class="pre">value_vars</span></code> argument.</p>
+<p>You can read more about <code class="docutils literal notranslate"><span class="pre">pd.melt</span></code> here: <a class="reference external" href="https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.melt.html">https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.melt.html</a></p>
+<p>There is also a <code class="docutils literal notranslate"><span class="pre">pd.wide_to_long</span></code> function: <a class="reference external" href="https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.wide_to_long.html">https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.wide_to_long.html</a></p>
+<figure class="align-center" id="lab5-melt2-png">
+<img alt="../_images/lab5-melt2.png" class="with-border" src="../_images/lab5-melt2.png" />
+<figcaption>
+<p><span class="caption-number">Fig. 2 </span><span class="caption-text">More arguments for the <code class="docutils literal notranslate"><span class="pre">pd.melt</span></code> function.</span><a class="headerlink" href="#lab5-melt2-png" title="Permalink to this image">#</a></p>
+</figcaption>
+</figure>
+<p>This can get a bit complicated in practice. There’s a joke among data folks that no one ever does this correctly without reading the manual first. No matter how many times they’ve reshaped their data before.</p>
+</section>
+<section id="part-8">
+<h2>Part 8<a class="headerlink" href="#part-8" title="Permalink to this headline">#</a></h2>
+<p>Finally, <strong>clear the outputs of all of your cells</strong> using the button at the top of the notebook. Restart your Python kernel. This will clear everything from memory. Then, <strong>Run All</strong>. All of you cells should now run, in order, from top to bottom.</p>
+<p>You are done! <strong>Turn in this .ipynb file via Moodle.</strong></p>
+<p>You’ve now seen most the topics that can get you started with importing, cleaning, describing, plotting, and just generally preparing your data!</p>
+</section>
+</section>
+
+    <script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "binder-examples/jupyter-stacks-datascience",
+            ref: "master",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "python"
+        },
+        kernelOptions: {
+            kernelName: "python3",
+            path: "./chapters"
+        },
+        predefinedOutput: true
+    }
+    </script>
+    <script>kernelName = 'python3'</script>
+
+              </div>
+              
+            </main>
+            <footer class="footer-article noprint">
+                
+    <!-- Previous / next buttons -->
+<div class='prev-next-area'>
+    <a class='left-prev' id="prev-link" href="lab04.html" title="previous page">
+        <i class="fas fa-angle-left"></i>
+        <div class="prev-next-info">
+            <p class="prev-next-subtitle">previous</p>
+            <p class="prev-next-title">Lab 04</p>
+        </div>
+    </a>
+    <a class='right-next' id="next-link" href="exam_intro.html" title="next page">
+    <div class="prev-next-info">
+        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-title">Our Exams</p>
+    </div>
+    <i class="fas fa-angle-right"></i>
+    </a>
+</div>
+            </footer>
+        </div>
+    </div>
+    <div class="footer-content row">
+        <footer class="col footer"><p>
+  
+    By Prof. Adam Aiken<br/>
+  
+</p>
+        </footer>
+    </div>
+    
+</div>
+
+
+      </div>
+    </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="../_static/scripts/pydata-sphinx-theme.js?digest=1999514e3f237ded88cf"></script>
+
+
+  </body>
+</html>
