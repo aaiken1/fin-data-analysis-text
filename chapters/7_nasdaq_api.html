@@ -50,8 +50,6 @@ const thebe_selector_input = "pre"
 const thebe_selector_output = ".output, .cell_output"
 </script>
     <script async="async" src="../_static/sphinx-thebe.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
-    <script src="https://unpkg.com/@jupyter-widgets/html-manager@^0.20.0/dist/embed-amd.js"></script>
     <script>window.MathJax = {"options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
     <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
     <link rel="index" title="Index" href="../genindex.html" />
@@ -576,6 +574,11 @@ title="Print to PDF"
    7.1. Using pandas-datareader
   </a>
  </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#using-gpt-to-write-a-function-for-you">
+   7.2. Using GPT to Write a Function For You
+  </a>
+ </li>
 </ul>
 
     </nav>
@@ -598,6 +601,11 @@ title="Print to PDF"
  <li class="toc-h2 nav-item toc-entry">
   <a class="reference internal nav-link" href="#using-pandas-datareader">
    7.1. Using pandas-datareader
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#using-gpt-to-write-a-function-for-you">
+   7.2. Using GPT to Write a Function For You
   </a>
  </li>
 </ul>
@@ -776,24 +784,24 @@ title="Print to PDF"
   </thead>
   <tbody>
     <tr>
-      <th>2023-03-20</th>
-      <td>28045.84</td>
-    </tr>
-    <tr>
-      <th>2023-03-21</th>
-      <td>27790.89</td>
-    </tr>
-    <tr>
-      <th>2023-03-22</th>
-      <td>28191.53</td>
-    </tr>
-    <tr>
       <th>2023-03-23</th>
       <td>27306.32</td>
     </tr>
     <tr>
       <th>2023-03-24</th>
       <td>28332.42</td>
+    </tr>
+    <tr>
+      <th>2023-03-25</th>
+      <td>27496.20</td>
+    </tr>
+    <tr>
+      <th>2023-03-26</th>
+      <td>27496.06</td>
+    </tr>
+    <tr>
+      <th>2023-03-27</th>
+      <td>27999.84</td>
     </tr>
   </tbody>
 </table>
@@ -918,27 +926,6 @@ title="Print to PDF"
       <td>...</td>
     </tr>
     <tr>
-      <th>2023-03-20</th>
-      <td>28045.84</td>
-      <td>0.039682</td>
-      <td>1.039682</td>
-      <td>87.836997</td>
-    </tr>
-    <tr>
-      <th>2023-03-21</th>
-      <td>27790.89</td>
-      <td>-0.009090</td>
-      <td>0.990910</td>
-      <td>87.029427</td>
-    </tr>
-    <tr>
-      <th>2023-03-22</th>
-      <td>28191.53</td>
-      <td>0.014416</td>
-      <td>1.014416</td>
-      <td>88.298480</td>
-    </tr>
-    <tr>
       <th>2023-03-23</th>
       <td>27306.32</td>
       <td>-0.031400</td>
@@ -952,9 +939,30 @@ title="Print to PDF"
       <td>1.037577</td>
       <td>88.744758</td>
     </tr>
+    <tr>
+      <th>2023-03-25</th>
+      <td>27496.20</td>
+      <td>-0.029515</td>
+      <td>0.970485</td>
+      <td>86.095977</td>
+    </tr>
+    <tr>
+      <th>2023-03-26</th>
+      <td>27496.06</td>
+      <td>-0.000005</td>
+      <td>0.999995</td>
+      <td>86.095534</td>
+    </tr>
+    <tr>
+      <th>2023-03-27</th>
+      <td>27999.84</td>
+      <td>0.018322</td>
+      <td>1.018322</td>
+      <td>87.691289</td>
+    </tr>
   </tbody>
 </table>
-<p>3005 rows × 4 columns</p>
+<p>3008 rows × 4 columns</p>
 </div></div></div>
 </div>
 <p>We can now make a graph using the <strong>fig, axs</strong> method. This is good review! Again, notice that semi-colon at the end. This suppresses some annoying output in the Jupyter notebook.</p>
@@ -1003,16 +1011,16 @@ title="Print to PDF"
 </div>
 </div>
 <p>Let’s put together some ideas, write a function, and run a simulation. We’ll use something called <strong>geometric brownian motion</strong> (GBM). What is GBM? It is a particular <a class="reference external" href="https://arxiv.org/pdf/1504.05309.pdf">stochastic differential equation</a>. But, what’s important for us is the idea, which is fairly simple. Here’s the formula:</p>
-<div class="amsmath math notranslate nohighlight" id="equation-3c20b266-d1b7-4f2d-bd40-56e53b47c0d6">
-<span class="eqno">(7.1)<a class="headerlink" href="#equation-3c20b266-d1b7-4f2d-bd40-56e53b47c0d6" title="Permalink to this equation">#</a></span>\[\begin{align}
+<div class="amsmath math notranslate nohighlight" id="equation-5d38e004-b922-4f0e-a77e-6f6cca08f7a7">
+<span class="eqno">(7.1)<a class="headerlink" href="#equation-5d38e004-b922-4f0e-a77e-6f6cca08f7a7" title="Permalink to this equation">#</a></span>\[\begin{align}
 dS = \mu S dt + \sigma S dW_t
 \end{align}\]</div>
 <p>This says that the change in the stock price has two components - a <strong>drift</strong>, or average increase over time, and a <strong>shock</strong> that it is random at each point in time. The shock is scaled by the standard deviation of returns that you use. So, larger standard deviation, the bigger the shocks can be. This is basically the simplest way that you can model an asset price.</p>
 <p>The shocks are what make the price wiggle around around, or else it would just go up over time, based on the drift value that we use.</p>
 <p>And, I’ll stress - we aren’t predicting here, so to speak. We are trying to capture some basic reality about how an asset moves and then seeing what is possible in the future. We aren’t making a statement about whether we think an asset is overvalued or undervalued, will go up or down, etc.</p>
 <p>You can solve this equation to get the value of the asset at any point in time t. You just need to know the total of all of the shocks at time t.</p>
-<div class="amsmath math notranslate nohighlight" id="equation-dcea2204-0f8e-4325-97cb-357c4b6fc864">
-<span class="eqno">(7.2)<a class="headerlink" href="#equation-dcea2204-0f8e-4325-97cb-357c4b6fc864" title="Permalink to this equation">#</a></span>\[\begin{align}
+<div class="amsmath math notranslate nohighlight" id="equation-b234f03d-5fba-4d02-96a9-de50723cffce">
+<span class="eqno">(7.2)<a class="headerlink" href="#equation-b234f03d-5fba-4d02-96a9-de50723cffce" title="Permalink to this equation">#</a></span>\[\begin{align}
 S(t) = S(0) \exp \left(\left(\mu - \frac{1}{2}\sigma^2\right)t + \sigma W(t)\right)
 \end{align}\]</div>
 <div class="cell docutils container">
@@ -1078,19 +1086,19 @@ S(t) = S(0) \exp \left(\left(\mu - \frac{1}{2}\sigma^2\right)t + \sigma W(t)\rig
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>array([[-1.23317206,  0.3861023 , -1.33360487, ...,  1.78119356,
-         0.55031688, -0.31655664],
-       [ 0.47633278,  0.56690972, -1.22379644, ...,  0.65223728,
-         1.60665728, -1.23035085],
-       [-0.97672456, -1.42578318, -0.55669422, ..., -2.25360864,
-         0.39035023, -0.54407332],
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>array([[-1.81089663,  0.34145632,  0.38070321, ...,  1.09420184,
+        -0.28032842,  2.16917561],
+       [ 0.86172906,  1.9695935 , -0.12374636, ...,  1.30099131,
+         1.53512102, -1.086565  ],
+       [-2.21049184,  0.14936857, -0.29909289, ..., -0.68954571,
+         2.10757886,  0.81629387],
        ...,
-       [-1.77681072, -0.2795098 ,  0.10286946, ..., -1.49175373,
-         0.61622772, -0.20849767],
-       [-0.70991189,  1.08057681,  0.45175342, ...,  0.67858853,
-         0.03658138, -1.36816227],
-       [-0.45326218,  1.27332054,  0.47202181, ...,  1.16346444,
-         0.64802392, -1.43919231]])
+       [ 0.77972514, -0.17906229,  0.06693884, ..., -1.52086963,
+         0.36107504,  0.07942583],
+       [-0.88746423, -0.2951388 , -1.71153785, ...,  2.53055175,
+         1.26356429,  0.71609091],
+       [-0.2888655 , -2.33853471, -1.63488077, ...,  0.83113032,
+        -0.44913301, -0.61460944]])
 </pre></div>
 </div>
 </div>
@@ -1205,6 +1213,250 @@ DATE
 </div>
 </div>
 </div>
+</section>
+<section id="using-gpt-to-write-a-function-for-you">
+<h2><span class="section-number">7.2. </span>Using GPT to Write a Function For You<a class="headerlink" href="#using-gpt-to-write-a-function-for-you" title="Permalink to this headline">#</a></h2>
+<p>I gave GPT4 the following prompt:</p>
+<blockquote>
+<div><p>Write a function in Python that simulates geometric brownian motion for any number of assets. Create the appropriate inputs as arrays. The inputs should be the number of assets, the mean for each asset, the standard deviation for each asset, the number of periods, the initial value of each asset, and the number of simulations. The output should be an array that contains all of the simulations for each asset. These are uncorrelated assets, so don’t worry about covariance.</p>
+</div></blockquote>
+<p>Here’s the code that it gave me:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+
+<span class="k">def</span> <span class="nf">geometric_brownian_motion</span><span class="p">(</span><span class="n">num_assets</span><span class="p">,</span> <span class="n">means</span><span class="p">,</span> <span class="n">std_devs</span><span class="p">,</span> <span class="n">num_periods</span><span class="p">,</span> <span class="n">initial_values</span><span class="p">,</span> <span class="n">num_simulations</span><span class="p">):</span>
+    <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">means</span><span class="p">)</span> <span class="o">!=</span> <span class="n">num_assets</span> <span class="ow">or</span> <span class="nb">len</span><span class="p">(</span><span class="n">std_devs</span><span class="p">)</span> <span class="o">!=</span> <span class="n">num_assets</span> <span class="ow">or</span> <span class="nb">len</span><span class="p">(</span><span class="n">initial_values</span><span class="p">)</span> <span class="o">!=</span> <span class="n">num_assets</span><span class="p">:</span>
+        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;The length of means, std_devs, and initial_values should be equal to the number of assets&quot;</span><span class="p">)</span>
+
+    <span class="c1"># Initialize an array to store the simulations</span>
+    <span class="n">simulations</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">((</span><span class="n">num_simulations</span><span class="p">,</span> <span class="n">num_periods</span> <span class="o">+</span> <span class="mi">1</span><span class="p">,</span> <span class="n">num_assets</span><span class="p">))</span>
+
+    <span class="c1"># Set the initial values for each simulation</span>
+    <span class="n">simulations</span><span class="p">[:,</span> <span class="mi">0</span><span class="p">,</span> <span class="p">:]</span> <span class="o">=</span> <span class="n">initial_values</span>
+
+    <span class="c1"># Time step</span>
+    <span class="n">dt</span> <span class="o">=</span> <span class="mf">1.0</span>
+
+    <span class="c1"># Loop through each simulation</span>
+    <span class="k">for</span> <span class="n">sim</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">num_simulations</span><span class="p">):</span>
+        <span class="c1"># Loop through each time period</span>
+        <span class="k">for</span> <span class="n">t</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="n">num_periods</span> <span class="o">+</span> <span class="mi">1</span><span class="p">):</span>
+            <span class="c1"># Loop through each asset</span>
+            <span class="k">for</span> <span class="n">asset</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">num_assets</span><span class="p">):</span>
+                <span class="c1"># Generate a random normal value (using mean=0 and std_dev=1) for the brownian motion</span>
+                <span class="n">random_normal</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">normal</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
+
+                <span class="c1"># Calculate the change in asset value using geometric brownian motion</span>
+                <span class="n">change</span> <span class="o">=</span> <span class="n">means</span><span class="p">[</span><span class="n">asset</span><span class="p">]</span> <span class="o">*</span> <span class="n">dt</span> <span class="o">+</span> <span class="n">std_devs</span><span class="p">[</span><span class="n">asset</span><span class="p">]</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="n">dt</span><span class="p">)</span> <span class="o">*</span> <span class="n">random_normal</span>
+
+                <span class="c1"># Update the asset value</span>
+                <span class="n">simulations</span><span class="p">[</span><span class="n">sim</span><span class="p">,</span> <span class="n">t</span><span class="p">,</span> <span class="n">asset</span><span class="p">]</span> <span class="o">=</span> <span class="n">simulations</span><span class="p">[</span><span class="n">sim</span><span class="p">,</span> <span class="n">t</span> <span class="o">-</span> <span class="mi">1</span><span class="p">,</span> <span class="n">asset</span><span class="p">]</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">exp</span><span class="p">(</span><span class="n">change</span><span class="p">)</span>
+
+    <span class="k">return</span> <span class="n">simulations</span>
+
+<span class="c1"># Example usage</span>
+<span class="n">num_assets</span> <span class="o">=</span> <span class="mi">3</span>
+<span class="n">means</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mf">0.05</span><span class="p">,</span> <span class="mf">0.06</span><span class="p">,</span> <span class="mf">0.07</span><span class="p">])</span>
+<span class="n">std_devs</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mf">0.1</span><span class="p">,</span> <span class="mf">0.12</span><span class="p">,</span> <span class="mf">0.14</span><span class="p">])</span>
+<span class="n">num_periods</span> <span class="o">=</span> <span class="mi">100</span>
+<span class="n">initial_values</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mi">100</span><span class="p">,</span> <span class="mi">120</span><span class="p">,</span> <span class="mi">140</span><span class="p">])</span>
+<span class="n">num_simulations</span> <span class="o">=</span> <span class="mi">1000</span>
+
+<span class="n">simulations</span> <span class="o">=</span> <span class="n">geometric_brownian_motion</span><span class="p">(</span><span class="n">num_assets</span><span class="p">,</span> <span class="n">means</span><span class="p">,</span> <span class="n">std_devs</span><span class="p">,</span> <span class="n">num_periods</span><span class="p">,</span> <span class="n">initial_values</span><span class="p">,</span> <span class="n">num_simulations</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">simulations</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[[[1.00000000e+02 1.20000000e+02 1.40000000e+02]
+  [1.04486545e+02 1.06205542e+02 1.36764075e+02]
+  [1.05090773e+02 1.33376592e+02 1.63922439e+02]
+  ...
+  [1.07048836e+04 3.70474089e+05 9.70741376e+03]
+  [1.19901693e+04 4.23053231e+05 1.03147059e+04]
+  [1.31136551e+04 4.24880722e+05 1.09710133e+04]]
+
+ [[1.00000000e+02 1.20000000e+02 1.40000000e+02]
+  [9.54188091e+01 1.46732025e+02 1.42123561e+02]
+  [9.87654672e+01 1.59232714e+02 1.72173051e+02]
+  ...
+  [9.19462821e+04 8.38746393e+04 3.74553312e+05]
+  [1.11514977e+05 8.86127627e+04 4.23794675e+05]
+  [1.25653147e+05 1.06002750e+05 3.70877479e+05]]
+
+ [[1.00000000e+02 1.20000000e+02 1.40000000e+02]
+  [1.12376750e+02 1.31890063e+02 1.47306078e+02]
+  [1.23135100e+02 1.36068614e+02 1.73816264e+02]
+  ...
+  [3.76849623e+04 3.78072448e+04 2.79234280e+04]
+  [4.27063712e+04 4.37599176e+04 3.02443455e+04]
+  [4.53881054e+04 4.34406260e+04 3.52950342e+04]]
+
+ ...
+
+ [[1.00000000e+02 1.20000000e+02 1.40000000e+02]
+  [8.68472472e+01 1.09996980e+02 1.67347144e+02]
+  [9.33899883e+01 1.07973287e+02 1.91142307e+02]
+  ...
+  [1.45766583e+04 2.43624914e+05 2.41077223e+06]
+  [1.46634527e+04 2.49877416e+05 2.46815109e+06]
+  [1.60646577e+04 2.77545441e+05 3.29865666e+06]]
+
+ [[1.00000000e+02 1.20000000e+02 1.40000000e+02]
+  [1.11904626e+02 1.26063512e+02 1.49577118e+02]
+  [1.16038917e+02 1.32585204e+02 1.39046898e+02]
+  ...
+  [1.56817588e+04 2.17474026e+04 1.46398873e+05]
+  [1.61613093e+04 2.26787318e+04 1.36886830e+05]
+  [2.00336466e+04 2.48141081e+04 1.59566626e+05]]
+
+ [[1.00000000e+02 1.20000000e+02 1.40000000e+02]
+  [8.86319533e+01 1.12623012e+02 1.19303332e+02]
+  [9.73304379e+01 9.94994831e+01 1.19559201e+02]
+  ...
+  [9.07498355e+03 4.43923811e+04 8.91077445e+03]
+  [9.57801377e+03 4.52314095e+04 6.48963278e+03]
+  [1.02344323e+04 5.55219713e+04 7.20811424e+03]]]
+</pre></div>
+</div>
+</div>
+</div>
+<p>Here’s the GPT explanation of the code.</p>
+<blockquote>
+<div><p>This function accepts the following inputs:</p>
+</div></blockquote>
+<blockquote>
+<div><p>num_assets: the number of assets <br />
+means: a NumPy array containing the mean return for each asset <br />
+std_devs: a NumPy array containing the standard deviation of return for each asset <br />
+num_periods: the number of time periods <br />
+initial_values: a NumPy array containing the initial value for each asset <br />
+num_simulations: the number of simulations to run</p>
+</div></blockquote>
+<blockquote>
+<div><p>The function returns a 3D NumPy array containing the simulations for each asset, with dimensions (num_simulations, num_periods + 1, num_assets).</p>
+</div></blockquote>
+<p>Let’s look a bit more at the output. I’ll get its <code class="docutils literal notranslate"><span class="pre">.shape</span></code> attribute.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="nb">type</span><span class="p">(</span><span class="n">simulations</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>numpy.ndarray
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">simulations</span><span class="o">.</span><span class="n">shape</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>(1000, 101, 3)
+</pre></div>
+</div>
+</div>
+</div>
+<p>The output is a <strong>three-dimensional array</strong>. We can pull out all of the simulations for one asset, as well as a single simulation for one asset. Or anything else.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># All simulations for the first asset.</span>
+<span class="n">simulations</span><span class="p">[:,:,</span><span class="mi">0</span><span class="p">]</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>array([[1.00000000e+02, 1.04486545e+02, 1.05090773e+02, ...,
+        1.07048836e+04, 1.19901693e+04, 1.31136551e+04],
+       [1.00000000e+02, 9.54188091e+01, 9.87654672e+01, ...,
+        9.19462821e+04, 1.11514977e+05, 1.25653147e+05],
+       [1.00000000e+02, 1.12376750e+02, 1.23135100e+02, ...,
+        3.76849623e+04, 4.27063712e+04, 4.53881054e+04],
+       ...,
+       [1.00000000e+02, 8.68472472e+01, 9.33899883e+01, ...,
+        1.45766583e+04, 1.46634527e+04, 1.60646577e+04],
+       [1.00000000e+02, 1.11904626e+02, 1.16038917e+02, ...,
+        1.56817588e+04, 1.61613093e+04, 2.00336466e+04],
+       [1.00000000e+02, 8.86319533e+01, 9.73304379e+01, ...,
+        9.07498355e+03, 9.57801377e+03, 1.02344323e+04]])
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># All simulations for the second asset.</span>
+<span class="n">simulations</span><span class="p">[:,:,</span><span class="mi">1</span><span class="p">]</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>array([[1.20000000e+02, 1.06205542e+02, 1.33376592e+02, ...,
+        3.70474089e+05, 4.23053231e+05, 4.24880722e+05],
+       [1.20000000e+02, 1.46732025e+02, 1.59232714e+02, ...,
+        8.38746393e+04, 8.86127627e+04, 1.06002750e+05],
+       [1.20000000e+02, 1.31890063e+02, 1.36068614e+02, ...,
+        3.78072448e+04, 4.37599176e+04, 4.34406260e+04],
+       ...,
+       [1.20000000e+02, 1.09996980e+02, 1.07973287e+02, ...,
+        2.43624914e+05, 2.49877416e+05, 2.77545441e+05],
+       [1.20000000e+02, 1.26063512e+02, 1.32585204e+02, ...,
+        2.17474026e+04, 2.26787318e+04, 2.48141081e+04],
+       [1.20000000e+02, 1.12623012e+02, 9.94994831e+01, ...,
+        4.43923811e+04, 4.52314095e+04, 5.55219713e+04]])
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># First simulation for the first asset</span>
+
+<span class="n">simulations</span><span class="p">[</span><span class="mi">0</span><span class="p">,:,</span><span class="mi">0</span><span class="p">]</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>array([  100.        ,   104.4865446 ,   105.0907734 ,   106.16774046,
+         119.73458231,   125.40363587,   121.72362445,   124.71633512,
+         115.76630056,   104.2110085 ,   108.67537876,   134.55257123,
+         134.06896814,   143.10474163,   128.73875586,   117.53954469,
+         133.39397623,   143.52195298,   170.94483464,   218.31100252,
+         191.94694201,   195.7352213 ,   254.56755206,   276.05942526,
+         281.85474692,   242.72320492,   298.27424168,   339.39753556,
+         331.19660415,   324.60405686,   408.90540843,   454.03979711,
+         531.1583706 ,   532.7812708 ,   609.60965261,   605.8544461 ,
+         584.04084757,   694.79020185,   692.55035089,   560.04891141,
+         538.20739429,   696.61688329,   692.71201731,   609.21752464,
+         608.87041909,   640.76805435,   602.58208732,   739.26119844,
+         771.58998247,   802.48915646,   756.5121466 ,   746.00790383,
+         936.73796668,  1042.11962136,  1054.06947538,  1247.7654438 ,
+        1543.43169445,  1729.13026912,  1692.21907808,  1896.60791549,
+        2238.32079595,  2469.10707484,  2732.36383623,  3001.19634684,
+        2888.43107748,  3010.54846686,  3098.54725132,  3494.63854281,
+        3739.99178214,  4126.55172769,  4552.93644488,  5273.29818827,
+        5722.52894343,  5954.39664682,  7231.20555352,  7222.45391192,
+        6841.38914517,  6832.36288926,  7878.50289099,  8513.23314858,
+        7355.78893719,  7463.6357062 ,  8052.56667113,  9514.24708395,
+        9530.49171082,  9629.45849402, 10627.95435473, 11165.31570388,
+       11484.96183771, 11168.17784028, 10106.00662145, 10592.36502753,
+       11234.61261893, 10110.70454431, 10022.07460882, 10370.68955749,
+       11974.38099499, 10657.82204085, 10704.88364922, 11990.16929656,
+       13113.65511332])
+</pre></div>
+</div>
+</div>
+</div>
+<p>Compare this code to the one we used above. What’s different? What stands out to you? What assumptions did it make? What’s up with these numbers?</p>
+<p>GPT is quite good at creating code that has been done in a lot of places. It has trained on millions of online tutorials and examples. However, you still want to follow the logic and check for errors. <strong>There will be errors.</strong></p>
+<p><strong>You can have a “dialog” with GPT.</strong> Look at the code. Is it what you want? You can ask it to change it for you.</p>
+<p><strong>What does that leave for us to do?</strong> Use GPT to start sketching your code, do to certain tasks. Figure out what you need. Figure out the questions that you’re trying answer. What’s the problem that you’re trying to solve? Who are you solving it for? What will the answer look like? What will it tell you?</p>
+<p>Using tools like GPT, Github Co-Pilot, etc. is like having a team of junior programmers working for you. They can make the job easier, but it is still up to you to know what’s an interesting question in the first place. <strong>You still need to use your domain expertise and creativity to come up with solutions to problems that aren’t in an online Python tutorials.</strong></p>
 </section>
 </section>
 
