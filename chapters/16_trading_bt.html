@@ -699,65 +699,40 @@ title="Print to PDF"
 <h2><span class="section-number">16.1. </span>Steps in Strategy Development<a class="headerlink" href="#steps-in-strategy-development" title="Permalink to this headline">#</a></h2>
 <p>Here are a typical set of steps for developing a quantitative trading strategy.</p>
 <ol class="simple">
-<li><p><strong>Identify a hypothesis or market inefficiency</strong>: Develop a hypothesis about a market inefficiency that your strategy will exploit. This could be based on trends, patterns, or relationships between financial instruments or market data. <strong>This is the hard part!</strong> If you want to do this for real, I strongly suggest trying to find a niche market, something without a lot of volume, something too small for larger investors to trade in.</p></li>
-</ol>
-<p>You are very unlikely to have any kind of advantage trading U.S. equities. You could try to re-create one of the well-known strategies used by some <a class="reference external" href="https://www.blackrock.com/us/financial-professionals/products/factor-etfs#Minimum-Volatility">factor-based ETFs</a>, but you will be at a trading-cost disadvantage.</p>
-<ol class="simple">
-<li><p><strong>Gather and preprocess data</strong>: Collect relevant historical data for your hypothesis, such as price, volume, and other financial indicators. Preprocess the data to ensure it is clean and consistent, accounting for issues like missing values, outliers, and data errors. This crucial step is why we spent so much time mucking around in <code class="docutils literal notranslate"><span class="pre">pandas</span></code> looking for <strong>NA</strong> values and <a class="reference external" href="https://www.youtube.com/watch?v=0qIMTA4_YdU">bad dates</a>.</p></li>
-</ol>
-<p>What are your data sources? Do you have a data advantage? Everyone has moved to <a class="reference external" href="https://data.nasdaq.com/alternative-data">alternative data</a> the past decade, with varying degrees of success. Data costs get very expensive, very quickly. Even just having a Bloomberg terminal is going to be too much for an individual investor. <strong>Play in markets where you don’t need one.</strong></p>
-<ol class="simple">
-<li><p><strong>Feature engineering and selection</strong>: Create features or variables (features are the machine learning way of saying “variable”) that capture relevant information for your strategy. This could include technical indicators, fundamental analysis, or sentiment analysis. Perform feature selection to identify the most important variables for your strategy.</p></li>
-</ol>
-<p>Steps 2 and 3 are the <strong>data engineering</strong> steps. These jobs often <a class="reference external" href="https://www.efinancialcareers.com/news/2023/03/quant-developers-vs-quant-researchers">pay more</a> than the hypothesis development roles!</p>
-<ol class="simple">
-<li><p><strong>Develop a trading model</strong>: Use your selected features to build a quantitative model. This could involve statistical methods, machine learning techniques, or optimization algorithms. Split your data into training and testing sets to avoid overfitting and to assess your model’s performance.</p></li>
-</ol>
-<p>Most of these models are “off the shelf” these days. In other words, there’s little alpha in fancy math. <strong>Linear regression</strong> and logit are commonly used. Even the fanciest machine learning techniques available have already been coded up in Python (or another language) by our friend’s in the computer science world. Still, different techniques come in and out of fashion, so the quant researcher wants to stay up on what’s going on. Then, we just go back to calculating conditional means in our OLS model.</p>
-<ol class="simple">
-<li><p><strong>Backtesting</strong>: Test your strategy on historical data to evaluate its performance. This step is crucial to determine if the strategy would have been profitable in the past. Assess various performance metrics, such as the Sharpe ratio, maximum drawdown, and annualized returns.</p></li>
-</ol>
-<p><strong>These notes focus on this step</strong>. We are going to use the <a class="reference external" href="https://pypi.org/project/bt/">bt package</a>. There’s obviously much more that goes into it.</p>
-<ol class="simple">
+<li><p><strong>Identify a hypothesis or market inefficiency</strong>: Develop a hypothesis about a market inefficiency that your strategy will exploit. This could be based on trends, patterns, or relationships between financial instruments or market data. <strong>This is the hard part!</strong> If you want to do this for real, I strongly suggest trying to find a niche market, something without a lot of volume, something too small for larger investors to trade in. You are very unlikely to have any kind of advantage trading U.S. equities. You could try to re-create one of the well-known strategies used by some <a class="reference external" href="https://www.blackrock.com/us/financial-professionals/products/factor-etfs#Minimum-Volatility">factor-based ETFs</a>, but you will be at a trading-cost disadvantage.</p></li>
+<li><p><strong>Gather and preprocess data</strong>: Collect relevant historical data for your hypothesis, such as price, volume, and other financial indicators. Preprocess the data to ensure it is clean and consistent, accounting for issues like missing values, outliers, and data errors. This crucial step is why we spent so much time mucking around in <code class="docutils literal notranslate"><span class="pre">pandas</span></code> looking for <strong>NA</strong> values and <a class="reference external" href="https://www.youtube.com/watch?v=0qIMTA4_YdU">bad dates</a>. What are your data sources? Do you have a data advantage? Everyone has moved to <a class="reference external" href="https://data.nasdaq.com/alternative-data">alternative data</a> the past decade, with varying degrees of success. Data costs get very expensive, very quickly. Even just having a Bloomberg terminal is going to be too much for an individual investor. <strong>Play in markets where you don’t need one.</strong></p></li>
+<li><p><strong>Feature engineering and selection</strong>: Create features or variables (features are the machine learning way of saying “variable”) that capture relevant information for your strategy. This could include technical indicators, fundamental analysis, or sentiment analysis. Perform feature selection to identify the most important variables for your strategy. Steps 2 and 3 are the <strong>data engineering</strong> steps. These jobs often <a class="reference external" href="https://www.efinancialcareers.com/news/2023/03/quant-developers-vs-quant-researchers">pay more</a> than the hypothesis development roles!</p></li>
+<li><p><strong>Develop a trading model</strong>: Use your selected features to build a quantitative model. This could involve statistical methods, machine learning techniques, or optimization algorithms. Split your data into training and testing sets to avoid overfitting and to assess your model’s performance. Most of these models are “off the shelf” these days. In other words, there’s little alpha in fancy math. <strong>Linear regression</strong> and logit are commonly used. Even the fanciest machine learning techniques available have already been coded up in Python (or another language) by our friend’s in the computer science world. Still, different techniques come in and out of fashion, so the quant researcher wants to stay up on what’s going on. Then, we just go back to calculating conditional means in our OLS model.</p></li>
+<li><p><strong>Backtesting</strong>: Test your strategy on historical data to evaluate its performance. This step is crucial to determine if the strategy would have been profitable in the past. Assess various performance metrics, such as the Sharpe ratio, maximum drawdown, and annualized returns. <strong>These notes focus on this step</strong>. We are going to use the <a class="reference external" href="https://pypi.org/project/bt/">bt package</a>. There’s obviously much more that goes into it.</p></li>
 <li><p><strong>Risk management</strong>: Incorporate risk management rules to protect your capital and minimize losses. This could include position sizing, stop-loss orders, and diversification techniques.</p></li>
-<li><p><strong>Optimization and sensitivity analysis</strong>: Optimize your strategy’s parameters and perform sensitivity analysis to assess its robustness. Ensure that your strategy is not overly sensitive to small changes in input parameters.</p></li>
+<li><p><strong>Optimization and sensitivity analysis</strong>: Optimize your strategy’s parameters and perform sensitivity analysis to assess its robustness. Ensure that your strategy is not overly sensitive to small changes in input parameters. We’ve seen these last two steps in previous chapters. Your quant model might use an optimizer to form portfolios, while calculating various risk measures in order to understand sources of returns and the possible downside.</p></li>
+<li><p><strong>Walk-forward analysis or out-of-sample testing</strong>: Validate your strategy on new, unseen data to assess its real-world performance. This step helps to mitigate the risk of overfitting and provides a more realistic assessment of the strategy’s potential success. You are going to find strategies that look great in a backtest. That’s pretty easy, especially if you overfit your model. You will quickly find out that your strategy doesn’t work out-of-sample (i.e. in new data).</p></li>
+<li><p><strong>Implementation</strong>: Develop a trading infrastructure to execute your strategy. This can involve creating a trading algorithm, selecting a broker, and ensuring low-latency execution. Monitor the strategy’s performance and make adjustments as necessary. This step is especially important if your strategy trades a lot – trading costs will destroy any alpha that you have. If you trade less frequently (e.g. every quarter), then it’s not as big a deal.</p></li>
+<li><p><strong>Review and refine</strong>: Continuously monitor and evaluate your strategy’s performance. Update your models and data as needed, and be prepared to refine your strategy if market conditions change or if its performance begins to deteriorate. But, also know when to leave things along. All strategies underperform. You have to know when things are going to revert back to normal vs. when your strategy is cooked.</p></li>
 </ol>
-<p>We’ve seen these last two steps in previous chapters. Your quant model might use an optimizer to form portfolios, while calculating various risk measures in order to understand sources of returns and the possible downside.</p>
-<ol class="simple">
-<li><p><strong>Walk-forward analysis or out-of-sample testing</strong>: Validate your strategy on new, unseen data to assess its real-world performance. This step helps to mitigate the risk of overfitting and provides a more realistic assessment of the strategy’s potential success.</p></li>
-</ol>
-<p>You are going to find strategies that look great in a backtest. That’s pretty easy, especially if you overfit your model. You will quickly find out that your strategy doesn’t work out-of-sample (i.e. in new data).</p>
-<ol class="simple">
-<li><p><strong>Implementation</strong>: Develop a trading infrastructure to execute your strategy. This can involve creating a trading algorithm, selecting a broker, and ensuring low-latency execution. Monitor the strategy’s performance and make adjustments as necessary.</p></li>
-</ol>
-<p>This step is especially important if your strategy trades a lot – trading costs will destroy any alpha that you have. If you trade less frequently (e.g. every quarter), then it’s not as big a deal.</p>
-<ol class="simple">
-<li><p><strong>Review and refine</strong>: Continuously monitor and evaluate your strategy’s performance. Update your models and data as needed, and be prepared to refine your strategy if market conditions change or if its performance begins to deteriorate.</p></li>
-</ol>
-<p>But, also know when to leave things along. All strategies underperform. You have to know when things are going to revert back to normal vs. when your strategy is cooked.</p>
 </section>
 <section id="ideas-and-resources">
 <h2><span class="section-number">16.2. </span>Ideas and Resources<a class="headerlink" href="#ideas-and-resources" title="Permalink to this headline">#</a></h2>
 <p>These notes don’t even scratch the surface on what it takes to really run a trading strategy. However, I want to point you towards resources and ideas that may help. In the end, though, most of the learning is done by actually doing this stuff, either tinkering on your own or on a trading desk.</p>
 <p>You can find academic and practitioner papers on <a class="reference external" href="https://www.ssrn.com/index.cfm/en/">SSRN</a>.</p>
-<p>Short guide on <strong>backtesting</strong> trading strategies by <a class="reference external" href="https://www.fuqua.duke.edu/faculty/campbell-harvey">Cam Harvey et al. at Fuqua</a>. https://papers.ssrn.com/sol3/papers.cfm?abstract_id=2345489</p>
-<p>Short guide on <strong>evaluating</strong> trading strategies, again by <a class="reference external" href="https://www.fuqua.duke.edu/faculty/campbell-harvey">Cam Harvey et al.</a>. https://papers.ssrn.com/sol3/papers.cfm?abstract_id=2474755</p>
-<p>Discussion of <strong>151 different trading strategies</strong>. These are all very well-known, but give you a sense of what might have worked in the past. Maybe see if they work in a new market? https://papers.ssrn.com/sol3/papers.cfm?abstract_id=3247865</p>
-<p>Description of <strong>time series momentum strategies</strong> and how to implement them. There are a million flavors of these strategies. Note that momentum and trend following aren’t the same thing. https://papers.ssrn.com/sol3/papers.cfm?abstract_id=1968996</p>
-<p>Quantitative <strong>“deep value” strategy</strong> from the hedge fund <a class="reference external" href="https://www.aqr.com">AQR</a>. They had a rough few years when growth was dramatically outperforming value. https://papers.ssrn.com/sol3/papers.cfm?abstract_id=3076181</p>
-<p>More evidence for <strong>trend following</strong>. Why the focus on that here? It’s one of the easier strategies to mess around with and is the typical example used for quant strategies. https://papers.ssrn.com/sol3/papers.cfm?abstract_id=2993026</p>
-<p>Even more <strong>trend is your friend</strong>, also from AQR and published in the <a class="reference external" href="https://www.cfainstitute.org/en/research/financial-analysts-journal#sort=%40officialz32xdate%20descending">Financial Analysts Journal</a>. https://papers.ssrn.com/sol3/papers.cfm?abstract_id=2603731</p>
-<p>Fun paper that uses machine learning and <strong>actual images of stock price charts</strong> to create trend-following strategies. https://papers.ssrn.com/sol3/papers.cfm?abstract_id=3756587</p>
-<p>Predicting returns using <strong>text data</strong>. Everyone is trying this the past five to ten years. https://papers.ssrn.com/sol3/papers.cfm?abstract_id=3389884</p>
-<p>Example of <strong>momentum combined with other signals</strong> from the commodities market. https://papers.ssrn.com/sol3/papers.cfm?abstract_id=1127213</p>
-<p><strong>Pairs trading with ETFs</strong>. A different type of example! https://papers.ssrn.com/sol3/papers.cfm?abstract_id=1958546</p>
-<p>Once <strong>everyone knows about an anomaly, is it still profitable to trade on it</strong>? https://papers.ssrn.com/sol3/papers.cfm?abstract_id=2816490</p>
-<p>Finally, here are some books that might interest you.</p>
-<p>Free book on <strong>developing quantitative equity strategies</strong>. However, I get nervous whenever I see “econophysics” or “multifractal”. There is a long history of physics people doing strange things in finance and economics, thinking that they have discovered some fundamental insight that everyone else has missed for hundreds of years. https://papers.ssrn.com/sol3/papers.cfm?abstract_id=2543802</p>
-<p>The <strong>2nd edition of Quantitative Portfolio Management</strong> was published in the Fall of 2022. The authors also cover how to use fundamental features based on financial statement items to select equity securities. https://www.amazon.com/Quantitative-Equity-Portfolio-Management-Second-ebook/dp/B09KF52TKD</p>
-<p>Another updated <strong>quantitative trading</strong> text. https://www.amazon.com/Quantitative-Trading-Build-Algorithmic-Business-dp-1119800064/dp/1119800064/</p>
-<p>Another physicist looking at <strong>pairs trading and statistical arbitrage</strong>. https://www.amazon.com/Quantitative-Portfolio-Management-Statistical-Arbitrage-ebook/dp/B09FZVTM64/</p>
-<p>Discussion of some <strong>simple quantitative strategies</strong> that you can automate. https://www.amazon.com/DIY-Financial-Advisor-Solution-Protect/dp/111907150X/</p>
+<p>Short guide on <a class="reference external" href="https://papers.ssrn.com/sol3/papers.cfm?abstract_id=2345489">backtesting trading strategies</a> by <a class="reference external" href="https://www.fuqua.duke.edu/faculty/campbell-harvey">Cam Harvey et al. at Fuqua</a>.</p>
+<p>Short guide on <a class="reference external" href="https://papers.ssrn.com/sol3/papers.cfm?abstract_id=2474755">evaluating</a> trading strategies, again by <a class="reference external" href="https://www.fuqua.duke.edu/faculty/campbell-harvey">Cam Harvey et al.</a>.</p>
+<p>Discussion of <a class="reference external" href="https://papers.ssrn.com/sol3/papers.cfm?abstract_id=3247865">151 different trading strategies</a>. These are all very well-known, but give you a sense of what might have worked in the past. Maybe see if they work in a new market?</p>
+<p>Description of <a class="reference external" href="https://papers.ssrn.com/sol3/papers.cfm?abstract_id=1968996">time series momentum strategies</a> and how to implement them. There are a million flavors of these strategies. Note that momentum and trend following aren’t the same thing.</p>
+<p>Quantitative <a class="reference external" href="https://papers.ssrn.com/sol3/papers.cfm?abstract_id=3076181">“deep value” strategy</a> from the hedge fund <a class="reference external" href="https://www.aqr.com">AQR</a>. They had a rough few years when growth was dramatically outperforming value.</p>
+<p>More evidence for <a class="reference external" href="https://papers.ssrn.com/sol3/papers.cfm?abstract_id=2993026">trend following</a>. Why the focus on that here? It’s one of the easier strategies to mess around with and is the typical example used for quant strategies.</p>
+<p>Even more <a class="reference external" href="https://papers.ssrn.com/sol3/papers.cfm?abstract_id=2603731">trend is your friend</a>, also from AQR and published in the <a class="reference external" href="https://www.cfainstitute.org/en/research/financial-analysts-journal#sort=%40officialz32xdate%20descending">Financial Analysts Journal</a>.</p>
+<p>Fun paper that uses machine learning and <a class="reference external" href="https://papers.ssrn.com/sol3/papers.cfm?abstract_id=3756587">actual images of stock price charts</a> to create trend-following strategies.</p>
+<p>Predicting returns using <a class="reference external" href="https://papers.ssrn.com/sol3/papers.cfm?abstract_id=3389884">text data</a>. Everyone is trying this the past five to ten years.</p>
+<p>Example of <a class="reference external" href="https://papers.ssrn.com/sol3/papers.cfm?abstract_id=1127213">momentum combined with other signals</a> from the commodities market.</p>
+<p><a class="reference external" href="https://papers.ssrn.com/sol3/papers.cfm?abstract_id=1958546">Pairs trading with ETFs</a>. A different type of example!</p>
+<p>Once <a class="reference external" href="https://papers.ssrn.com/sol3/papers.cfm?abstract_id=2816490">everyone knows about an anomaly, is it still profitable to trade on it</a>?</p>
+<p>Finally, here are some <strong>books that might interest you</strong>.</p>
+<p>Free book on <a class="reference external" href="https://papers.ssrn.com/sol3/papers.cfm?abstract_id=2543802">developing quantitative equity strategies</a>. However, I get nervous whenever I see “econophysics” or “multifractal”. There is a long history of physics people doing strange things in finance and economics, thinking that they have discovered some fundamental insight that everyone else has missed for hundreds of years.</p>
+<p>The <a class="reference external" href="https://www.amazon.com/Quantitative-Equity-Portfolio-Management-Second-ebook/dp/B09KF52TKD">2nd edition of Quantitative Portfolio Management</a> was published in the Fall of 2022. The authors also cover how to use fundamental features based on financial statement items to select equity securities.</p>
+<p>Another updated <a class="reference external" href="https://www.amazon.com/Quantitative-Trading-Build-Algorithmic-Business-dp-1119800064/dp/1119800064/">quantitative trading</a> text.</p>
+<p>Another physicist looking at <a class="reference external" href="https://www.amazon.com/Quantitative-Portfolio-Management-Statistical-Arbitrage-ebook/dp/B09FZVTM64/">pairs trading and statistical arbitrage</a>.</p>
+<p>Discussion of some <a class="reference external" href="https://www.amazon.com/DIY-Financial-Advisor-Solution-Protect/dp/111907150X/">simple quantitative strategies</a> that you can automate.</p>
 </section>
 <section id="using-the-bt-package">
 <h2><span class="section-number">16.3. </span>Using the BT Package<a class="headerlink" href="#using-the-bt-package" title="Permalink to this headline">#</a></h2>
@@ -814,11 +789,11 @@ title="Print to PDF"
 </div>
 <div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>                                 spy        agg
 Date                                           
-2010-01-04 00:00:00-05:00  88.117905  73.482315
-2010-01-05 00:00:00-05:00  88.351143  73.816643
-2010-01-06 00:00:00-05:00  88.413353  73.773994
-2010-01-07 00:00:00-05:00  88.786568  73.688606
-2010-01-08 00:00:00-05:00  89.082054  73.731316
+2010-01-04 00:00:00-05:00  88.117889  73.482330
+2010-01-05 00:00:00-05:00  88.351135  73.816650
+2010-01-06 00:00:00-05:00  88.413345  73.773987
+2010-01-07 00:00:00-05:00  88.786568  73.688576
+2010-01-08 00:00:00-05:00  89.082047  73.731308
 </pre></div>
 </div>
 </div>
@@ -1212,7 +1187,7 @@ Start                2010-01-03
 End                  2023-03-31
 Risk-free rate       0.00%
 
-Total Return         60.05%
+Total Return         60.04%
 Daily Sharpe         0.50
 Daily Sortino        0.72
 CAGR                 3.62%
