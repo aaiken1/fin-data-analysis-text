@@ -6,7 +6,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
 
-    <title>Lab 05 &#8212; Data Analysis in Finance</title>
+    <title>Lab 06 &#8212; Data Analysis in Finance</title>
     
   <!-- Loaded before other Sphinx assets -->
   <link href="../_static/styles/theme.css?digest=1999514e3f237ded88cf" rel="stylesheet">
@@ -50,12 +50,12 @@ const thebe_selector_input = "pre"
 const thebe_selector_output = ".output, .cell_output"
 </script>
     <script async="async" src="../_static/sphinx-thebe.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
-    <script src="https://unpkg.com/@jupyter-widgets/html-manager@^0.20.0/dist/embed-amd.js"></script>
+    <script>window.MathJax = {"options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
+    <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
-    <link rel="next" title="Lab 06" href="lab06.html" />
-    <link rel="prev" title="Lab 04" href="lab04.html" />
+    <link rel="next" title="Our Exams" href="exam_intro.html" />
+    <link rel="prev" title="Lab 05" href="lab05.html" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="docsearch:language" content="None">
     
@@ -378,13 +378,13 @@ const thebe_selector_output = ".output, .cell_output"
    Lab 04
   </a>
  </li>
- <li class="toctree-l1 current active">
-  <a class="current reference internal" href="#">
+ <li class="toctree-l1">
+  <a class="reference internal" href="lab05.html">
    Lab 05
   </a>
  </li>
- <li class="toctree-l1">
-  <a class="reference internal" href="lab06.html">
+ <li class="toctree-l1 current active">
+  <a class="current reference internal" href="#">
    Lab 06
   </a>
  </li>
@@ -456,35 +456,6 @@ title="Toggle navigation"
         
     </div>
     <div class="header-article__right">
-<div class="menu-dropdown menu-dropdown-launch-buttons">
-  <button class="headerbtn menu-dropdown__trigger"
-      aria-label="Launch interactive content">
-      <i class="fas fa-rocket"></i>
-  </button>
-  <div class="menu-dropdown__content">
-    <ul>
-      <li>
-        <a href="https://mybinder.org/v2/gh/executablebooks/jupyter-book/master?urlpath=tree/docs/chapters/lab05.ipynb"
-   class="headerbtn"
-   data-toggle="tooltip"
-data-placement="left"
-title="Launch on Binder"
->
-  
-
-<span class="headerbtn__icon-container">
-  
-    <img src="../_static/images/logo_binder.svg">
-  </span>
-<span class="headerbtn__text-container">Binder</span>
-</a>
-
-      </li>
-      
-    </ul>
-  </div>
-</div>
-
 <button onclick="toggleFullScreen()"
   class="headerbtn"
   data-toggle="tooltip"
@@ -520,7 +491,7 @@ title="Source repository"
   <div class="menu-dropdown__content">
     <ul>
       <li>
-        <a href="../_sources/chapters/lab05.ipynb"
+        <a href="../_sources/chapters/lab06.ipynb"
    class="headerbtn"
    data-toggle="tooltip"
 data-placement="left"
@@ -580,13 +551,18 @@ title="Print to PDF"
     <nav id="bd-toc-nav" aria-label="Page">
         <ul class="visible nav section-nav flex-column">
  <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#simulation-and-macroeconomic-data">
-   Simulation and Macroeconomic data
+  <a class="reference internal nav-link" href="#portfolio-optimization">
+   Portfolio Optimization
   </a>
  </li>
  <li class="toc-h2 nav-item toc-entry">
   <a class="reference internal nav-link" href="#part-1">
    Part 1
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#part-2">
+   Part 2
   </a>
  </li>
  <li class="toc-h2 nav-item toc-entry">
@@ -605,16 +581,6 @@ title="Print to PDF"
   </a>
  </li>
  <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#id1">
-   Part 4
-  </a>
- </li>
- <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#id2">
-   Part 5
-  </a>
- </li>
- <li class="toc-h2 nav-item toc-entry">
   <a class="reference internal nav-link" href="#part-6">
    Part 6
   </a>
@@ -627,6 +593,11 @@ title="Print to PDF"
  <li class="toc-h2 nav-item toc-entry">
   <a class="reference internal nav-link" href="#part-8">
    Part 8
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#part-9">
+   Part 9
   </a>
  </li>
 </ul>
@@ -638,7 +609,7 @@ title="Print to PDF"
         <div class="col pl-md-3 pl-lg-5 content-container">
             <!-- Table of contents that is only displayed when printing the page -->
             <div id="jb-print-docs-body" class="onlyprint">
-                <h1>Lab 05</h1>
+                <h1>Lab 06</h1>
                 <!-- Table of contents -->
                 <div id="print-main-content">
                     <div id="jb-print-toc">
@@ -649,13 +620,18 @@ title="Print to PDF"
                         <nav aria-label="Page">
                             <ul class="visible nav section-nav flex-column">
  <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#simulation-and-macroeconomic-data">
-   Simulation and Macroeconomic data
+  <a class="reference internal nav-link" href="#portfolio-optimization">
+   Portfolio Optimization
   </a>
  </li>
  <li class="toc-h2 nav-item toc-entry">
   <a class="reference internal nav-link" href="#part-1">
    Part 1
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#part-2">
+   Part 2
   </a>
  </li>
  <li class="toc-h2 nav-item toc-entry">
@@ -674,16 +650,6 @@ title="Print to PDF"
   </a>
  </li>
  <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#id1">
-   Part 4
-  </a>
- </li>
- <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#id2">
-   Part 5
-  </a>
- </li>
- <li class="toc-h2 nav-item toc-entry">
   <a class="reference internal nav-link" href="#part-6">
    Part 6
   </a>
@@ -696,6 +662,11 @@ title="Print to PDF"
  <li class="toc-h2 nav-item toc-entry">
   <a class="reference internal nav-link" href="#part-8">
    Part 8
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#part-9">
+   Part 9
   </a>
  </li>
 </ul>
@@ -708,11 +679,11 @@ title="Print to PDF"
                 
               <div>
                 
-  <section class="tex2jax_ignore mathjax_ignore" id="lab-05">
-<h1>Lab 05<a class="headerlink" href="#lab-05" title="Permalink to this headline">#</a></h1>
-<section id="simulation-and-macroeconomic-data">
-<h2>Simulation and Macroeconomic data<a class="headerlink" href="#simulation-and-macroeconomic-data" title="Permalink to this headline">#</a></h2>
-<p>In this lab, we’ll start with a simulation. Then, we are going to use macroeconomic data that you’ll download from Nasdaq Data Link. We’ll review a lot of the <strong>time series</strong> work from our notes and DataCamp assignments. I’ll also show you how to <strong>melt</strong> your data. Yup, that’s right.</p>
+  <section class="tex2jax_ignore mathjax_ignore" id="lab-06">
+<h1>Lab 06<a class="headerlink" href="#lab-06" title="Permalink to this headline">#</a></h1>
+<section id="portfolio-optimization">
+<h2>Portfolio Optimization<a class="headerlink" href="#portfolio-optimization" title="Permalink to this headline">#</a></h2>
+<p>In this lab, we are going use some mutual fund returns to try to find some optimal portfolios. I have given you four return series for four different Vanguard index funds.</p>
 <p>Use our online notes to complete our labs. I have my own commentary and links that will help. You can work through the parts below in order.</p>
 <p>If you are getting errors and are not sure why, my first suggestion is always to <strong>Restart</strong> the Python kernel, to <strong>Clear All Output</strong>, and run each code cell <strong>one-by-one</strong> from the top.</p>
 <aside class="margin sidebar">
@@ -724,120 +695,64 @@ title="Print to PDF"
 <section id="part-1">
 <h2>Part 1<a class="headerlink" href="#part-1" title="Permalink to this headline">#</a></h2>
 <p>Open up VS Code or Google Colab. Have you set up your class folder yet? I’ve posted a video that will help you figure that part out. Open up that folder under File. If you’re in VS Code, you should see it in the <strong>EXPLORER</strong> window pane on the left.</p>
-<p>Type <strong>Cmd-Shift-P</strong> (Ctrl-Shift-P in Windows) to open up the command palette. Make sure there’s a little <code class="docutils literal notranslate"><span class="pre">&gt;</span></code> in the search bar that pops up (there should be). Search for <code class="docutils literal notranslate"><span class="pre">Jupyter:</span> <span class="pre">Create</span> <span class="pre">New</span> <span class="pre">Jupyter</span> <span class="pre">Notebook</span></code>. This will open up a blank <code class="docutils literal notranslate"><span class="pre">.ipynb</span></code> file. Save this in a new folder in your course folder called <code class="docutils literal notranslate"><span class="pre">lab05</span></code>. Call this file <code class="docutils literal notranslate"><span class="pre">lab05-lastname-firstname</span></code>, where you fill in your name, of course!</p>
+<p>Type <strong>Cmd-Shift-P</strong> (Ctrl-Shift-P in Windows) to open up the command palette. Make sure there’s a little <code class="docutils literal notranslate"><span class="pre">&gt;</span></code> in the search bar that pops up (there should be). Search for <code class="docutils literal notranslate"><span class="pre">Jupyter:</span> <span class="pre">Create</span> <span class="pre">New</span> <span class="pre">Jupyter</span> <span class="pre">Notebook</span></code>. This will open up a blank <code class="docutils literal notranslate"><span class="pre">.ipynb</span></code> file. Save this in a new folder in your course folder called <code class="docutils literal notranslate"><span class="pre">lab06</span></code>. Call this file <code class="docutils literal notranslate"><span class="pre">lab06-lastname-firstname</span></code>, where you fill in your name, of course!</p>
 <p>If you’re using Anaconda Jupyter notebooks or Google Colab, you’ll do something very similar. Create a new <code class="docutils literal notranslate"><span class="pre">.ipynb</span></code> file. In Google Colab, this file will be saved to your Google Drive. You can then download it when you’re done. See the online notes for more on using Google Colab.</p>
+</section>
+<section id="part-2">
+<h2>Part 2<a class="headerlink" href="#part-2" title="Permalink to this headline">#</a></h2>
+<p>Import the CSV file called “mutual_funds.csv” from our Github page. The link is: <a class="reference external" href="https://raw.githubusercontent.com/aaiken1/fin-data-analysis-python/main/data/mutual_funds.csv">https://raw.githubusercontent.com/aaiken1/fin-data-analysis-python/main/data/mutual_funds.csv</a>.</p>
+<p>Don’t set an index yet. <em>mret</em> are discrete returns for each mutual fund, including all distributions. Just what you want for this exercise.</p>
+<p>Look up each mutual fund and <strong>write a brief, 2-3 sentence description</strong>. In particular, what is <strong>VMVFX</strong>? Is it related to a particular kind of factor-based investing? See our factor model notes and look under <strong>style factors</strong>.</p>
 </section>
 <section id="part-3">
 <h2>Part 3<a class="headerlink" href="#part-3" title="Permalink to this headline">#</a></h2>
-<p>You’ll see a blank code cell, or <strong>cell</strong>, at the top. By default, this is set to Python. See the lower right-hand corner of the cell? Click there and search and select <strong>Markdown</strong>.</p>
-<p>Create the following in that top Markdown cell.</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="c1"># Lab05</span>
-
-<span class="n">Firstname</span> <span class="n">Lastname</span>
-
-<span class="n">Date</span>
+<p>Use <code class="docutils literal notranslate"><span class="pre">.info()</span></code> to see what data types the four columns are. Uh oh. The returns, <em>mret</em>, got brought in as an object. Basically, Python thinks this column is text, not numbers. You can actually open up the data and see why. Two observations have “R” instead of a number. There are also some missing values.</p>
+<p>We can use <code class="docutils literal notranslate"><span class="pre">.to_numeric()</span></code> from <code class="docutils literal notranslate"><span class="pre">pandas</span></code> to turn a string/object column into a numeric column. Fill in this code:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">_______</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">to_numeric</span><span class="p">(</span><span class="n">_______</span><span class="p">,</span> <span class="n">downcast</span><span class="o">=</span><span class="s1">&#39;float&#39;</span><span class="p">,</span> <span class="n">errors</span><span class="o">=</span><span class="s1">&#39;coerce&#39;</span><span class="p">)</span>
 </pre></div>
 </div>
-<p>As you answer the questions below, use new Markdown cells and headers to separate your answers, as appropriate.</p>
-<p>Create your first code cell where you <code class="docutils literal notranslate"><span class="pre">import</span></code> both <code class="docutils literal notranslate"><span class="pre">numpy</span></code> and <code class="docutils literal notranslate"><span class="pre">pandas</span></code> as <code class="docutils literal notranslate"><span class="pre">np</span></code> and <code class="docutils literal notranslate"><span class="pre">pd</span></code>, respectively.</p>
-<p>Also include <code class="docutils literal notranslate"><span class="pre">import</span> <span class="pre">datetime</span> <span class="pre">as</span> <span class="pre">dt</span></code>. The <code class="docutils literal notranslate"><span class="pre">datetime</span></code> library is discussed in the first part of the second DataCamp assignment.</p>
-<p>Include <code class="docutils literal notranslate"><span class="pre">from</span> <span class="pre">datetime</span> <span class="pre">import</span> <span class="pre">timedelta</span></code> and <code class="docutils literal notranslate"><span class="pre">import</span> <span class="pre">seaborn</span> <span class="pre">as</span> <span class="pre">sns</span></code>. Rememebr seaborn? You see it occasionally in the DataCamps too.</p>
-<p>Finally, include <code class="docutils literal notranslate"><span class="pre">import</span> <span class="pre">nasdaqdatalink</span></code>. If you have not installed <code class="docutils literal notranslate"><span class="pre">nasdaq-data-link</span></code>, follow the instructions in our notes.</p>
-<p>You can read more at: <a class="reference external" href="https://data.nasdaq.com">https://data.nasdaq.com</a></p>
-<p>Add a <strong>comment</strong> to that cell calling it <strong>Set-Up</strong>. You can add comments to each code cell to remind yourself what you’re doing. Comments are different from the Markdown that you’re using to write your narrative - they go in the Python cells and use <code class="docutils literal notranslate"><span class="pre">#</span></code>.</p>
+<p><code class="docutils literal notranslate"><span class="pre">downcast='float'</span></code> means that the column will be turned into a float-type. <code class="docutils literal notranslate"><span class="pre">errors='coerce'</span></code> means that any text it finds, like that “R”, will be set to <code class="docutils literal notranslate"><span class="pre">NA</span></code>.</p>
+<p>This is a really useful function!</p>
 </section>
 <section id="part-4">
 <h2>Part 4<a class="headerlink" href="#part-4" title="Permalink to this headline">#</a></h2>
-<p>We have some notes on <strong>simulating stock prices</strong> using geometric brownian motion. Use these methods to create 100 simulations for 30 days of prices for <em>AAPL</em> and <em>TLT</em>. Use the last price in the data for each as the initial starting price. Make some graphs. How do they compare? Why are they different? What exactly is <em>TLT</em>?</p>
-<p>To do this, you’ll need to go back to Lab 04 and bring in the price and return data from the end. Be sure that you use the adjusted price. <strong>Don’t copy and paste all of the code!</strong> Just use what you need.</p>
+<p>What shape is this data? It’s <strong>long</strong>! There’s an ID variable with four different tickers and a return column, rather than four columns of returns, one for each fund. This is not the way our data in our notes or Datacamp is shaped. But, that doesn’t mean that we can’t use it.</p>
+<p>Find and show the mean returns, <strong>grouped by each ticker</strong>.</p>
+<p>Then, <strong>drop</strong> the <em>crsp_fundno</em> column. We don’t need it. We’ll use <em>ticker</em> as our ID.</p>
+<p>Then, <strong>pivot</strong> this data so that it is <strong>wide</strong>. Let <em>caldt</em> be your index. You should now have four return columns, one for each fund, and a date index/column. Make sure that you save the new data to a new DataFrame.</p>
 </section>
 <section id="part-5">
 <h2>Part 5<a class="headerlink" href="#part-5" title="Permalink to this headline">#</a></h2>
-<p>Create three code cells to bring in and clean three separate data series: ‘FRED/GDP’, ‘UMICH/SOC1’, and ‘FRED/UNRATE’.</p>
-<p>Here’s some code to get you started:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">gdp</span> <span class="o">=</span> <span class="n">nasdaqdatalink</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;FRED/GDP&#39;</span><span class="p">)</span>
-</pre></div>
-</div>
-<p><strong>What are these data series? I’ll bet you guess two of them!</strong></p>
-<p>OK, now we have to pay attention to what we have. We’ll use some of the ideas from the DataCamps.</p>
-<p>Take a look at the GDP data first. It is <strong>quarterly data</strong>. And, do you see how the date is on the first of each quarter? We’re going to want that date to actually be the last day of the previous month (i.e. one day prior). Why? It is customary to use end-of-month (eom) data when dealing with economic indicators, stock data, etc. This will also help us <strong>merge</strong> our data, as you’ll see below.</p>
-<p>When you bring this data in from Nasdaq, the <strong>date is the index</strong>. As we’ve seen, you can access the index by using something like <code class="docutils literal notranslate"><span class="pre">df.index</span></code>, like how you would select a column from a DataFrame.</p>
-<p>Do the following:</p>
-<ul class="simple">
-<li><p>Alter the index so that it is one day prior. We’ll use the method <code class="docutils literal notranslate"><span class="pre">timedelta</span></code> from the <code class="docutils literal notranslate"><span class="pre">datetime</span></code> library. Modify this code:</p></li>
-<li></li>
-</ul>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">______</span> <span class="o">=</span> <span class="n">______</span> <span class="o">-</span> <span class="n">timedelta</span><span class="p">(</span><span class="n">days</span><span class="o">=</span><span class="n">______</span><span class="p">)</span>
-
-</pre></div>
-</div>
-<ul class="simple">
-<li><p>Use <code class="docutils literal notranslate"><span class="pre">.resample</span></code> and a monthly fill to move this data from quarterly to monthly with a forward fill. This will match the other data we’ve downloaded.</p></li>
-<li><p>Use <code class="docutils literal notranslate"><span class="pre">.rename</span></code> to rename the <em>Value</em> column to <em>gdp</em>. Remember to include <code class="docutils literal notranslate"><span class="pre">inplace=True</span></code>. Why?</p></li>
-</ul>
-<p>For the U of Michigan Consumer Confidence data, rename <em>Index</em> to <em>conf</em>. Also resample this data to monthly with a forward fill. We don’t need to alter the date/index here. Do you see why?</p>
-<p>Finally, adjust the date of the unemployment data the same way you did for the GDP data. Resample to monthly with a forward fill. Change <em>Value</em> to <em>unrate</em>.</p>
-<p>I’m resampling all of the data, because some of it starts quarterly and moves to monthly. One of the data sets also has strange quarters to start. Do you see which one?</p>
-<p>This series of steps is another nice example of the work you have to do just to get your data all nice and neat.</p>
-<p>Remember, you can use <code class="docutils literal notranslate"><span class="pre">.info()</span></code>, <code class="docutils literal notranslate"><span class="pre">.head()</span></code>, and <code class="docutils literal notranslate"><span class="pre">tail()</span></code> to check your work. You can also just show the DataFrame. Do things in steps. Do something and check to make sure that it worked. <strong>Don’t get in a hurry.</strong></p>
-</section>
-<section id="id1">
-<h2>Part 4<a class="headerlink" href="#id1" title="Permalink to this headline">#</a></h2>
-<p>Let’s try merging our three separate DataFrames into one DataFrame. We’ll do this two ways, in order to demonstrate different types of data mergers.</p>
-<p>To do this, we’ll use <code class="docutils literal notranslate"><span class="pre">pd.merge</span></code>. You need to tell it which two DataFrames you want to merge. Then, you tell it the <strong>type of merge</strong>. If you’re familiar with SQL, you know about inner joins, outer joins, left joins, and right joins. We’ll going to try an <strong>inner</strong> and an <strong>outer join</strong>. Finally, in our example, you need to specify the <strong>key</strong> to merge on. In other words, which column(s) identify your data and let you merge the two data sets.</p>
-<p>You can read more <a class="reference external" href="https://www.tutorialspoint.com/python_pandas/python_pandas_merging_joining.htm">here</a>.</p>
-<p>Modify this code to do an <strong>inner join</strong> of your gdp and confidence data. Then, merger that data with the unemployment data. In other words, you’ll use two merge statements to join the three DataFrames.</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">df_inner</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">merge</span><span class="p">(</span><span class="n">_____</span><span class="p">,</span> <span class="n">_____</span><span class="p">,</span> <span class="n">how</span><span class="o">=</span><span class="s1">&#39;_____&#39;</span><span class="p">,</span> <span class="n">on</span><span class="o">=</span><span class="s1">&#39;_____&#39;</span><span class="p">)</span>
-</pre></div>
-</div>
-<p>Call this something like <code class="docutils literal notranslate"><span class="pre">df_inner</span></code>.</p>
-<p>Then, do an <strong>outer join</strong>. Call this <code class="docutils literal notranslate"><span class="pre">df_outer</span></code>. What’s the difference?</p>
-<p>You can even try <strong>left</strong> and <strong>right</strong> joins!</p>
-<p>In finance, we’re often merger on two keys: date and firm ID. But, here, there’s just one key, the date.</p>
-</section>
-<section id="id2">
-<h2>Part 5<a class="headerlink" href="#id2" title="Permalink to this headline">#</a></h2>
-<p>Add three columns for the percent change of each economic indicator. The three variables that you downloaded are <strong>levels</strong>. We sometimes want to look at <strong>changes</strong> and/or <strong>percent changes</strong> as well.</p>
-<p>Then, use <code class="docutils literal notranslate"><span class="pre">.asfreq()</span></code> to go from monthly to quarterly data. Call this new data set something like <code class="docutils literal notranslate"><span class="pre">df_inner_q</span></code>. Remember doing this in the DataCamp exercises?</p>
-<p>Select just the percent change in GDP, the level of consumer confidence, and the unemployment rate from the DataFrame and use <code class="docutils literal notranslate"><span class="pre">pandas</span></code> <code class="docutils literal notranslate"><span class="pre">plot</span></code> to graph each on its own subplot. Add a title called “Economics Indicators”.</p>
-<p>Finally, do the same thing, but use a <code class="docutils literal notranslate"><span class="pre">.loc</span></code> to only include data from 1999-12-31 forward.</p>
+<p>If you open up this new, wide data, it will be clear that we’re missing data for the <em>VMVFX</em> fund. This fund just hasn’t been around very long. Drop rows where any of the funds have missing returns. We want to compare them over the same time periods.</p>
+<p>And, yeah, we’re doing this using very limited data.</p>
+<p>Find the mean monthly returns for each fund and then annualize them by doing the mean return <span class="math notranslate nohighlight">\(\times\)</span> 12. Do the same for the standard deviation of each, though you annualize these by multiplying by the square root of 12.</p>
+<p>Also find the sample variance-covariance and correlation matrices. Annualize the variance-covariance matrix. You don’t annualize correlations. Try it and see why!</p>
+<p>Why 12? These are monthly returns.</p>
+<p><strong>Do these seem like good funds to try to form a portfolio with, if we accept our estimates for risk and return we just found?</strong></p>
 </section>
 <section id="part-6">
 <h2>Part 6<a class="headerlink" href="#part-6" title="Permalink to this headline">#</a></h2>
-<p>Look at our financial time series notes online and calculate the correlations among all six variables in your DataFrame. Use <code class="docutils literal notranslate"><span class="pre">df_inner_q</span></code>. Some of our data only has quarterly observations, so no point in doing correlations at the monthly level.</p>
-<p>Then, use <code class="docutils literal notranslate"><span class="pre">sns.heatmap</span></code> to do the same sort of thing. But, don’t give it the data itself: make a <strong>heat map of the correlations</strong>. Include an annotation and use <code class="docutils literal notranslate"><span class="pre">Greys</span></code> as your color map.</p>
-<p>You can read more at: <a class="reference external" href="https://seaborn.pydata.org/generated/seaborn.heatmap.html">https://seaborn.pydata.org/generated/seaborn.heatmap.html</a></p>
+<p>Use <code class="docutils literal notranslate"><span class="pre">scipy.optimize</span></code> to find two portfolios. First, find the max Sharpe portfolio. Then, find the portfolio with a return of 9.5% that has the least amount of risk. Don’t allow negative weights, since these are mutual funds. You can’t short those!</p>
+<p>Also, don’t let any fund be more than 50% of your portfolio.</p>
+<p>You’ll need to set up some weights to start, as well as define a few functions. See our notes and textbook.</p>
 </section>
 <section id="part-7">
 <h2>Part 7<a class="headerlink" href="#part-7" title="Permalink to this headline">#</a></h2>
-<p>Let’s <strong>melt</strong> our data. What does this mean??? Let’s go from <strong>wide</strong> to <strong>long</strong>. Right now, we have a date index and then a column for each variable, six variables in total. Let’s see if you create a data set with only three columns: <em>date</em>, <em>indicator</em>, and <em>value</em>, where <em>indicator</em> will have values like <em>gdp</em> and <em>unemp</em>. This creates data that is stacked <strong>vertically</strong>, rather than data that is spread <strong>horizontally</strong>.</p>
-<p>To do this, we’ll use <code class="docutils literal notranslate"><span class="pre">pd.melt</span></code> to <strong>melt</strong> df_inner_q. But first, let’s reset the index, so that date is a column. You don’t have to do this, but I kind of like seeing everything as a separate column. Remember to use <code class="docutils literal notranslate"><span class="pre">inplace=True</span></code>. Why?</p>
-<figure class="align-center" id="lab5-melt1-png">
-<img alt="../_images/lab5-melt1.png" class="with-border" src="../_images/lab5-melt1.png" />
-<figcaption>
-<p><span class="caption-number">Fig. 1 </span><span class="caption-text">The basic syntax and picture of what’s going on.</span><a class="headerlink" href="#lab5-melt1-png" title="Permalink to this image">#</a></p>
-</figcaption>
-</figure>
-<p><code class="docutils literal notranslate"><span class="pre">pd.melt</span></code> can take several arguments. <code class="docutils literal notranslate"><span class="pre">id_vars</span></code> is what your new id will be. In our case, we have <strong>time series data</strong>. Therefore, our ID is the date. Let the value column be named <em>indicator</em>. Modify this code:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">df_inner_q_long</span> <span class="o">=</span> <span class="n">df_inner_q</span><span class="o">.</span><span class="n">melt</span><span class="p">(</span><span class="n">id_vars</span> <span class="o">=</span> <span class="s1">&#39;_____&#39;</span><span class="p">,</span> <span class="n">var_name</span><span class="o">=</span><span class="s1">&#39;______&#39;</span><span class="p">)</span>
-</pre></div>
-</div>
-<p>Look at the data. Do you see what it did? Do the same thing, but only keep the three level variables using the <code class="docutils literal notranslate"><span class="pre">value_vars</span></code> argument.</p>
-<p>You can read more about <code class="docutils literal notranslate"><span class="pre">pd.melt</span></code> here: <a class="reference external" href="https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.melt.html">https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.melt.html</a></p>
-<p>There is also a <code class="docutils literal notranslate"><span class="pre">pd.wide_to_long</span></code> function: <a class="reference external" href="https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.wide_to_long.html">https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.wide_to_long.html</a></p>
-<figure class="align-center" id="lab5-melt2-png">
-<img alt="../_images/lab5-melt2.png" class="with-border" src="../_images/lab5-melt2.png" />
-<figcaption>
-<p><span class="caption-number">Fig. 2 </span><span class="caption-text">More arguments for the <code class="docutils literal notranslate"><span class="pre">pd.melt</span></code> function.</span><a class="headerlink" href="#lab5-melt2-png" title="Permalink to this image">#</a></p>
-</figcaption>
-</figure>
-<p>This can get a bit complicated in practice. There’s a joke among data folks that no one ever does this correctly without reading the manual first. No matter how many times they’ve reshaped their data before.</p>
+<p>Use <code class="docutils literal notranslate"><span class="pre">PyPortfolioOpt</span></code> to do the <strong>exact same thing</strong>! You can use the annualized returns and variance-covariance matrix that you’ve already found.</p>
+<p>You can assume a risk-free rate of 0, since that’s the way we did the Sharpe ratio above. You should also set the same weight bounds. You’ll get the same portfolio weights!</p>
+<p><strong>What does the resulting portfolio look like? Does it make sense? Would you invest this way?</strong></p>
 </section>
 <section id="part-8">
 <h2>Part 8<a class="headerlink" href="#part-8" title="Permalink to this headline">#</a></h2>
+<p>Set-up an <a class="reference external" href="https://chat.openai.com/chat">Open AI chat</a> account if you don’t have one already. No need to pay for GPT4. Use GPT to create a function that takes the standard portfolio characteristics and gives you: the portfolio mean, the portfolio standard deviation, the Sharpe Ratio, and the Sortino Ratio.</p>
+<p>Tinker with this function to make sure that you’re including the relevant items.</p>
+<p>Then, ask it to do Part 6 above. Does the code it generates look like yours?</p>
+</section>
+<section id="part-9">
+<h2>Part 9<a class="headerlink" href="#part-9" title="Permalink to this headline">#</a></h2>
 <p>Finally, <strong>clear the outputs of all of your cells</strong> using the button at the top of the notebook. Restart your Python kernel. This will clear everything from memory. Then, <strong>Run All</strong>. All of you cells should now run, in order, from top to bottom.</p>
 <p>You are done! <strong>Turn in this .ipynb file via Moodle.</strong></p>
-<p>You’ve now seen most the topics that can get you started with importing, cleaning, describing, plotting, and just generally preparing your data!</p>
+<p>This was our first, true, <strong>finance</strong> assignment. A good project topic would be to explore the <code class="docutils literal notranslate"><span class="pre">PyPortfolioOpt</span></code> package in more detail.</p>
 </section>
 </section>
 
@@ -868,17 +783,17 @@ title="Print to PDF"
                 
     <!-- Previous / next buttons -->
 <div class='prev-next-area'>
-    <a class='left-prev' id="prev-link" href="lab04.html" title="previous page">
+    <a class='left-prev' id="prev-link" href="lab05.html" title="previous page">
         <i class="fas fa-angle-left"></i>
         <div class="prev-next-info">
             <p class="prev-next-subtitle">previous</p>
-            <p class="prev-next-title">Lab 04</p>
+            <p class="prev-next-title">Lab 05</p>
         </div>
     </a>
-    <a class='right-next' id="next-link" href="lab06.html" title="next page">
+    <a class='right-next' id="next-link" href="exam_intro.html" title="next page">
     <div class="prev-next-info">
         <p class="prev-next-subtitle">next</p>
-        <p class="prev-next-title">Lab 06</p>
+        <p class="prev-next-title">Our Exams</p>
     </div>
     <i class="fas fa-angle-right"></i>
     </a>
