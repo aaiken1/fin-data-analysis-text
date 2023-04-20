@@ -50,6 +50,8 @@ const thebe_selector_input = "pre"
 const thebe_selector_output = ".output, .cell_output"
 </script>
     <script async="async" src="../_static/sphinx-thebe.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+    <script src="https://unpkg.com/@jupyter-widgets/html-manager@^0.20.0/dist/embed-amd.js"></script>
     <script>window.MathJax = {"options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
     <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
     <link rel="index" title="Index" href="../genindex.html" />
@@ -388,6 +390,11 @@ const thebe_selector_output = ".output, .cell_output"
    Lab 06
   </a>
  </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="lab07.html">
+   Lab 07
+  </a>
+ </li>
 </ul>
 <p aria-level="2" class="caption" role="heading">
  <span class="caption-text">
@@ -694,7 +701,7 @@ title="Print to PDF"
                 
   <section class="tex2jax_ignore mathjax_ignore" id="risk-management">
 <h1><span class="section-number">12. </span>Risk management<a class="headerlink" href="#risk-management" title="Permalink to this headline">#</a></h1>
-<p>Risk management is a crucial part of asset management. We need to think about risk when putting together portfolios of stocks and bonds, options and futures, or even portfolios of managers, such as ETFs, mutual funds, and hedge funds. Financial assets all have their own unique risk profiles. For example the chapter on factor models gives you a sense how we can measure risk in equity portfolios. The focus there, though, is on the economic factors that lead to risk. This chapter will focus more on the statistical properties of asset returns.</p>
+<p>Risk management is a crucial part of asset management. We need to think about risk when putting together portfolios of stocks and bonds, options and futures, or even portfolios of managers, such as ETFs, mutual funds, and hedge funds. Financial assets all have their own unique risk profiles. For example, the chapter on factor models gives you a sense how we can measure risk in equity portfolios. The focus there, though, is on the economic factors that lead to risk. This chapter will focus more on the statistical properties of asset returns.</p>
 <p>To do this, we’ll look at <strong>return distributions</strong> and how to measure them. We sometimes assume that asset returns are <strong>normally distributed</strong>. This is not true in many cases.</p>
 <p>We’ll also learn about other risk measures, like <strong>value-at-risk (VaR)</strong> and <strong>conditional value-at-risk (CVaR)</strong>. All of these topics are covered in our Datacamp assignments, such as <em>Intro to Portfolio Risk Management in Python</em> and <em>Quantitative Risk Management in Python</em>.</p>
 <section id="getting-set-up">
@@ -973,7 +980,7 @@ dtype: float64
 </div>
 </div>
 </div>
-<p>Looks like Amazon (AMZN) has the “fattest tails”. The VIX as the next highest excess kurtosis.</p>
+<p>Looks like Amazon (AMZN) has the “fattest tails”. It doesn’t really make much sense to include <a class="reference external" href="https://www.cboe.com/tradable_products/vix/">the VIX</a> here, so you could exclude it from the summary if you like.</p>
 <p>But, how do you perform a statistical test for normality? In other words, we can measure skewness and kurtosis, but how can know if it is <strong>statistically different</strong> from a normal distribution?</p>
 <p>There are several different statistical tests for this. Let’s start with the <strong>Shapiro-Wilk</strong> test. The null hypothesis of the Shapiro-Wilk test is that the data are normally distributed. For fun, let’s start by creating 100 random numbers from a normal distribution and see what this test tells us. We are using <code class="docutils literal notranslate"><span class="pre">scs.shapiro()</span></code>.</p>
 <p>This gives us a <strong>formal test</strong>, rather than just a graph, for asymmetrical distributions and/or heavy tails.</p>
@@ -1188,7 +1195,7 @@ I can take that mean and standard deviation and create a normal distribution tha
 </section>
 <section id="risk-management-and-tail-risk">
 <h2><span class="section-number">12.4. </span>Risk management and tail risk<a class="headerlink" href="#risk-management-and-tail-risk" title="Permalink to this headline">#</a></h2>
-<p>We can use these ideas of distributions to think about <strong>risk management</strong>. <strong>Tail risk</strong> is the risk of extreme investment outcomes, most notably on the negative side of a distribution. Our various Datacamp lectures cover different measures of tail risk, including historical drawdown, Value-at-Risk (VaR), Conditional Value-at-Risk (also called Expected Shortfall), and some basic Monte Carlo simulations. The text also discusses VaR and Monte Carlo.</p>
+<p>We can use these ideas of distributions to think about <strong>risk management</strong>. <strong>Tail risk</strong> is the risk of extreme investment outcomes, most notably on the negative side of a distribution. Our various Datacamp lectures cover different measures of tail risk, including historical drawdown, Value-at-Risk (VaR), Conditional Value-at-Risk (also called Expected Shortfall), and some basic Monte Carlo simulations.</p>
 <section id="value-at-risk">
 <h3><span class="section-number">12.4.1. </span>Value at Risk<a class="headerlink" href="#value-at-risk" title="Permalink to this headline">#</a></h3>
 <p>Value-at-Risk, or VaR, is a threshold with a given confidence level that losses will not (or more accurately, will not historically) exceed a certain level. VaR is commonly quoted with
@@ -1199,7 +1206,7 @@ quantiles such as 95, 99, and 99.9. Some key points:</p>
 <li><p><span class="math notranslate nohighlight">\(\alpha\)</span>- known as confidence level (e.g. 95%, 99%)</p></li>
 <li><p>Should lose no more than <span class="math notranslate nohighlight">\(\alpha\)</span>–VaR with probability <span class="math notranslate nohighlight">\(\alpha\)</span></p></li>
 </ul>
-<p>In its most general form, VaR measures the potential loss in value of a risky asset or portfolio over a defined period for a given confidence interval. Thus, if the VaR on an asset is <span class="math notranslate nohighlight">\(100 million at a one-week, 95% confidence level, there is a only a 5% chance that the value of the asset will drop more than \)</span>100 million over any given week.</p>
+<p>In its most general form, VaR measures the potential loss in value of a risky asset or portfolio over a defined period for a given confidence interval. Thus, if the VaR on an asset is $100 million at a one-week, 95% confidence level, there is a only a 5% chance that the value of the asset will drop more than $100 million over any given week.</p>
 <p>In 1995, J.P. Morgan provided public access to data on the variances of and covariances across various security and asset classes, that it had used internally for almost a decade to manage risk, and allowed software makers to develop software to measure risk. It titled the service “RiskMetrics” and used the term “Value-at-Risk” to describe the risk measure that emerged from the data. Now, software like Bloomberg lets you easily calculate various VaR-like measures for your portfolio.</p>
 <p>We can put some simple numbers on these ideas. We’ll start with <strong>parametric VaR</strong>. This means making assumptions about the distribution of our returns. Let’s assume that our portfolio returns are normally distributed. If you move 1.65 standard deviations away from the mean, then 5% of your return observations are to your left. This return is your 5% VaR. Given our assumptions, on 5% of days, you lose at least this amount. To find the 99% VaR, you would move 2.326 standard deviations from the mean.</p>
 <p>For example, we can use our 1-<span class="math notranslate nohighlight">\(\alpha\)</span> threshold and the <code class="docutils literal notranslate"><span class="pre">norm.ppf</span></code> function to find how many standard deviations away from the mean in a normal distribution we have to move to have 1-<span class="math notranslate nohighlight">\(\alpha\)</span> observations to the left of that point.</p>
@@ -1275,7 +1282,7 @@ quantiles such as 95, 99, and 99.9. Some key points:</p>
 </div>
 </div>
 <p>We can also calculate something called <strong>non-parametric VaR</strong>. A simple way to estimate VaR is to line up past returns, sort them by magnitude, and find a return that has 5% worse days and 95% better days. This is one way to find the 95% VaR, since, if history repeats itself, you will lose less than this number with 95% certainty. So, we are still using history as our guide, but without a distributional assumption like normality.</p>
-<p>Here’s an example from our textbook that shows this VaR for different confidence levels using just Apple’s historical returns.</p>
+<p>Here’s an example from <a class="reference external" href="https://www.oreilly.com/library/view/python-for-finance/9781492024323/">Python for Finance, 2e</a> that shows this VaR for different confidence levels using just Apple’s historical returns.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">percs</span> <span class="o">=</span> <span class="p">[</span><span class="mf">0.01</span><span class="p">,</span> <span class="mf">0.1</span><span class="p">,</span> <span class="mf">1.</span><span class="p">,</span> <span class="mf">2.5</span><span class="p">,</span> <span class="mf">5.0</span><span class="p">,</span> <span class="mf">10.0</span><span class="p">]</span>
@@ -1366,7 +1373,7 @@ with quantiles such as 95, 99, and 99.9.</p>
 <p>What does this mean? First, the VaR will change as our estimates for Apple’s mean and standard deviation of returns changes! Also, we’ll be taking into account “fatter tails” when finding our VaR.</p>
 <p>This is another <strong>parametric VaR</strong>.</p>
 <p>In the Python itself, there’s some fancier stuff going on. We’ve seen the <code class="docutils literal notranslate"><span class="pre">rolling()</span></code> part. That just looks back 30 periods (a 30 day window in this case) to calculate the value.</p>
-<p>But, what is going on in that <em>rolling_parameters</em> definition? First, this is a <strong>list</strong>. You cans ee that by looking down in the Jupyter variables window. Specifically a list of <strong>tuples</strong>, where each tuple contains three values. The first value of each tuple is 29. The second is the ith value of the rolling means. The second is the sth value of the rolling standard deviations. These will be <code class="docutils literal notranslate"><span class="pre">nan</span></code>, or missing, until we hit the 30th observation in the data (or, the way Python counts, the 29th). The <code class="docutils literal notranslate"><span class="pre">enumerate()</span></code> function keeps track of the number of items in <em>sigma</em>. I would have never come up with that exact code to do this.</p>
+<p>But, what is going on in that <em>rolling_parameters</em> definition? First, this is a <strong>list</strong>. You can see that by looking down in the Jupyter variables window. Specifically a list of <strong>tuples</strong>, where each tuple contains three values. The first value of each tuple is 29. The second is the ith value of the rolling means. The second is the sth value of the rolling standard deviations. These will be <code class="docutils literal notranslate"><span class="pre">nan</span></code>, or missing, until we hit the 30th observation in the data (or, the way Python counts, the 29th). The <code class="docutils literal notranslate"><span class="pre">enumerate()</span></code> function keeps track of the number of items in <em>sigma</em>. I would have never come up with that exact code to do this.</p>
 <p>Why do we need <em>rolling_parameters</em>? These go into the VaR calculation. Every day, we calculate a new VaR using the next set of rolling parameters. What are the parameters for? The <span class="math notranslate nohighlight">\(t\)</span>-distribution. The three values that define a specific the <span class="math notranslate nohighlight">\(t\)</span>-distribution (i.e. that draw the graph) are degrees-of-freedom (df), loc, and scale. From the Datacamp lecture:</p>
 <blockquote>
 <div><p>One special characteristic of the T distribution is its degrees of freedom.
