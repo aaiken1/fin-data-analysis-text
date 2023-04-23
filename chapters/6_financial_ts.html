@@ -348,6 +348,11 @@ const thebe_selector_output = ".output, .cell_output"
    16. Trading Strategies and the BT Package
   </a>
  </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="17_using_chatgpt.html">
+   17. Using ChatGPT
+  </a>
+ </li>
 </ul>
 <p aria-level="2" class="caption" role="heading">
  <span class="caption-text">
@@ -1718,14 +1723,14 @@ memory usage: 217.1 KB
 <p>I’m multiplying by 100 just for the display of the data.</p>
 <p>The percent change is called a <strong>linear return</strong>. Or, <strong>simple return</strong>. This is different from <strong>log returns</strong>, or <strong>compounded returns</strong>. Both types of returns are correct and useful. They are just used for different things.</p>
 <p>The formula for simple returns (R) is:</p>
-<div class="amsmath math notranslate nohighlight" id="equation-e49409c2-214b-4a48-ba84-80fecdaf768d">
-<span class="eqno">(6.1)<a class="headerlink" href="#equation-e49409c2-214b-4a48-ba84-80fecdaf768d" title="Permalink to this equation">#</a></span>\[\begin{align}
+<div class="amsmath math notranslate nohighlight" id="equation-83bc987c-04cb-4c93-91a7-89330ddae5e2">
+<span class="eqno">(6.1)<a class="headerlink" href="#equation-83bc987c-04cb-4c93-91a7-89330ddae5e2" title="Permalink to this equation">#</a></span>\[\begin{align}
 R_{t} = \frac{V_t}{V_{t-1}} - 1
 \end{align}\]</div>
 <p>where R is the simple return based on the percent change and V is the cash flow, including price and dividends (if any).</p>
 <p>The formula for log returns (r) is:</p>
-<div class="amsmath math notranslate nohighlight" id="equation-1319c4d3-3e31-47d5-a230-47b4d0f0e7d6">
-<span class="eqno">(6.2)<a class="headerlink" href="#equation-1319c4d3-3e31-47d5-a230-47b4d0f0e7d6" title="Permalink to this equation">#</a></span>\[\begin{align}
+<div class="amsmath math notranslate nohighlight" id="equation-afe69b4f-2c05-4ab2-866f-c8852ad00211">
+<span class="eqno">(6.2)<a class="headerlink" href="#equation-afe69b4f-2c05-4ab2-866f-c8852ad00211" title="Permalink to this equation">#</a></span>\[\begin{align}
 r_{t} = ln(\frac{V_t}{V_{t-1}}) = ln(1 + R_{t})
 \end{align}\]</div>
 <p>See <a class="reference external" href="https://papers.ssrn.com/sol3/papers.cfm?abstract_id=1586656">this article</a> for more on why this difference is important. In short, we need the mean of simple returns when doing portfolio optimization, as these returns work with a weighted average. Simple returns <strong>aggregate across assets</strong>. Log returns, however, <strong>aggregate across time</strong>. In other words, the cumulative return using log returns is the sum of individual log returns over the time period. You definitely can’t do that with simple returns!</p>
@@ -3112,8 +3117,8 @@ r_{t} = ln(\frac{V_t}{V_{t-1}}) = ln(1 + R_{t})
 </div>
 <p>We can also create return series using <strong>simple returns</strong>. We calculate percent returns, add 1 to each to get (1+R), and then <strong>chain returns together</strong> using <code class="docutils literal notranslate"><span class="pre">.cumprod()</span></code>. We subtract one at the end from the total.</p>
 <p>In other words,</p>
-<div class="amsmath math notranslate nohighlight" id="equation-d5c86053-93d4-4b08-b1a5-17b30389b28f">
-<span class="eqno">(6.3)<a class="headerlink" href="#equation-d5c86053-93d4-4b08-b1a5-17b30389b28f" title="Permalink to this equation">#</a></span>\[\begin{align}
+<div class="amsmath math notranslate nohighlight" id="equation-011d3ef2-a960-4bb1-a9ba-ffe048711f1d">
+<span class="eqno">(6.3)<a class="headerlink" href="#equation-011d3ef2-a960-4bb1-a9ba-ffe048711f1d" title="Permalink to this equation">#</a></span>\[\begin{align}
 Total Return = (1 + R_{1})*(1 + R_{2})*(1 + R_{3})*(1 + R_{4})... - 1
 \end{align}\]</div>
 <div class="cell docutils container">
