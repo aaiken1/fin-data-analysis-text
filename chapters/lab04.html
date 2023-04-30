@@ -400,6 +400,11 @@ const thebe_selector_output = ".output, .cell_output"
    Lab 07
   </a>
  </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="lab08.html">
+   Lab 08
+  </a>
+ </li>
 </ul>
 <p aria-level="2" class="caption" role="heading">
  <span class="caption-text">
@@ -790,8 +795,8 @@ title="Print to PDF"
 <p>The <code class="docutils literal notranslate"><span class="pre">RET</span></code> variable already does all of this for us. These are just the returns, calculated correctly. But, it is good to see all of the careful work that goes into calculating returns!</p>
 </aside>
 <p>OK, we can compare prices across time now. Let’s calculate our own returns <strong>by group</strong>. We’ll use <strong>discrete, or simple, returns</strong> and include any distributions made.</p>
-<div class="amsmath math notranslate nohighlight" id="equation-df623205-1f47-4e73-b489-e80a5e819812">
-<span class="eqno">(1)<a class="headerlink" href="#equation-df623205-1f47-4e73-b489-e80a5e819812" title="Permalink to this equation">#</a></span>\[\begin{align}
+<div class="amsmath math notranslate nohighlight" id="equation-67c14128-a0b7-4243-996d-790ca0e69f0e">
+<span class="eqno">(1)<a class="headerlink" href="#equation-67c14128-a0b7-4243-996d-790ca0e69f0e" title="Permalink to this equation">#</a></span>\[\begin{align}
 R_{t} = \frac{V_t}{V_{t-1}} - 1 =  \frac{P_t + D_t}{P_{t-1}} - 1
 \end{align}\]</div>
 <p>We need to use our adjusted prices to get things right. And, we need a <strong>lagged</strong> price in the calculation. This means using something like <code class="docutils literal notranslate"><span class="pre">.shift()</span></code>. But, how can we do a <code class="docutils literal notranslate"><span class="pre">.shift()</span></code> when we have groups? If we’re not careful, we’ll use another stock’s price in our calculations because there are different security prices all stacked on top of each other! We need think in <strong>groups</strong>.</p>
@@ -807,8 +812,8 @@ R_{t} = \frac{V_t}{V_{t-1}} - 1 =  \frac{P_t + D_t}{P_{t-1}} - 1
 <section id="part-5">
 <h2>Part 5<a class="headerlink" href="#part-5" title="Permalink to this headline">#</a></h2>
 <p>OK, we can use the official CRSP return now. Let’s use the <code class="docutils literal notranslate"><span class="pre">ret</span></code> variable to create cumulative returns <strong>by group</strong>. These are discrete returns, <strong>not</strong> log returns. So, we can’t add them up to get cumulative returns. How do you do this? If the first return is at time i = 1, then the cumulative return at time T is:</p>
-<div class="amsmath math notranslate nohighlight" id="equation-ebba6b19-90b8-48b9-b1d1-62bffe93d358">
-<span class="eqno">(2)<a class="headerlink" href="#equation-ebba6b19-90b8-48b9-b1d1-62bffe93d358" title="Permalink to this equation">#</a></span>\[\begin{align}
+<div class="amsmath math notranslate nohighlight" id="equation-ce4179f7-0da2-45d8-8b2b-383ef4a2737c">
+<span class="eqno">(2)<a class="headerlink" href="#equation-ce4179f7-0da2-45d8-8b2b-383ef4a2737c" title="Permalink to this equation">#</a></span>\[\begin{align}
 \text{Cumulative Return}_{T} = \prod_{i=1}^T (1+r_i) - 1
 \end{align}\]</div>
 <p>We do this in our notes, but it is when the entire DataFrame are returns for individual securities in a wide format. Now, we are in a long format and we want to <strong>create a new variable for cumulative returns by security</strong>.</p>

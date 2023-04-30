@@ -400,6 +400,11 @@ const thebe_selector_output = ".output, .cell_output"
    Lab 07
   </a>
  </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="lab08.html">
+   Lab 08
+  </a>
+ </li>
 </ul>
 <p aria-level="2" class="caption" role="heading">
  <span class="caption-text">
@@ -701,7 +706,7 @@ title="Print to PDF"
   <section class="tex2jax_ignore mathjax_ignore" id="logit-models">
 <h1><span class="section-number">15. </span>Logit models<a class="headerlink" href="#logit-models" title="Permalink to this headline">#</a></h1>
 <p>Linear regressions ((ordinary least squares, or OLS)) tells us about the association between a <strong>dependent</strong>, or Y variable, and a set of <strong>independent</strong>, or X variables. Regression does not tell us anything about one variable causing another or if the correlations we find have any real meaning. It is simply a <a class="reference external" href="https://www.statology.org/linear-regression-assumptions/">statistical technique</a> for finding a linear relationship between two variables. The meaning of that relationship is up to us and the ideas that we are working with. In finance, we usually have an economic model in mind, such as the CAPM, that gives meaning to the relationship that we find.</p>
-<p>A <strong>logit regression</strong> does something similar, except that it was developed for when our dependent variable is <strong>binary</strong>, a Yes or No. Logistic regression is a regression model where the response variable Y is <strong>categorical</strong>, as opposed to <strong>continuous</strong>. These types of models are used for <strong>classification</strong>. Why do we need a new model? We want a model that can give us <strong>probabilities</strong> for an event. Regular regression isn’t set up to do this.</p>
+<p>A <strong>logit regression</strong> does something similar, except that it was developed for when our dependent variable is <strong>binary</strong>, a Yes or No. Logistic regression is a regression model where the response variable Y is <strong>categorical</strong>, as opposed to <strong>continuous</strong>. These types of models are used for <strong>classification</strong>. Why do we need a new model? We want a model that can give us <strong>probabilities</strong> for an event. Regular regression isn’t set up to do this</p>
 <p>We will look at a type of data that is commonly used with logit models in finance: credit card default data. This data set has a <strong>binary outcome</strong>. Did the credit card user default? Yes or No? 1 or 0?</p>
 <p>This data is from the DataCamp module on credit risk analysis.</p>
 <p>We’ll start with some usual set-up, bringing the data in, and taking a peak.</p>
@@ -1094,7 +1099,7 @@ Name: home_ownership, dtype: int64
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;seaborn.axisgrid.PairGrid at 0x17b03eac0&gt;
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;seaborn.axisgrid.PairGrid at 0x176a9e3a0&gt;
 </pre></div>
 </div>
 <img alt="../_images/15_logit_credit_15_1.png" src="../_images/15_logit_credit_15_1.png" />
@@ -1537,8 +1542,8 @@ Name: home_ownership, dtype: int64
 Dep. Variable:            loan_status   R-squared:                       0.003
 Model:                            OLS   Adj. R-squared:                  0.003
 Method:                 Least Squares   F-statistic:                     67.76
-Date:                Sun, 23 Apr 2023   Prob (F-statistic):           1.93e-16
-Time:                        13:14:03   Log-Likelihood:                -6455.7
+Date:                Sun, 30 Apr 2023   Prob (F-statistic):           1.93e-16
+Time:                        12:30:43   Log-Likelihood:                -6455.7
 No. Observations:               25570   AIC:                         1.292e+04
 Df Residuals:                   25568   BIC:                         1.293e+04
 Df Model:                           1                                         
@@ -1627,8 +1632,8 @@ strong multicollinearity or other numerical problems.
 Dep. Variable:            loan_status   R-squared:                       0.003
 Model:                            OLS   Adj. R-squared:                  0.003
 Method:                 Least Squares   F-statistic:                     21.92
-Date:                Sun, 23 Apr 2023   Prob (F-statistic):           4.44e-18
-Time:                        13:14:19   Log-Likelihood:                -6445.8
+Date:                Sun, 30 Apr 2023   Prob (F-statistic):           4.44e-18
+Time:                        12:31:00   Log-Likelihood:                -6445.8
 No. Observations:               25570   AIC:                         1.290e+04
 Df Residuals:                   25565   BIC:                         1.294e+04
 Df Model:                           4                                         
@@ -1709,8 +1714,8 @@ memory usage: 1.7 MB
 Dep. Variable:            loan_status   R-squared:                       0.028
 Model:                            OLS   Adj. R-squared:                  0.028
 Method:                 Least Squares   F-statistic:                     52.76
-Date:                Sun, 23 Apr 2023   Prob (F-statistic):          2.32e-146
-Time:                        13:14:19   Log-Likelihood:                -6125.3
+Date:                Sun, 30 Apr 2023   Prob (F-statistic):          2.32e-146
+Time:                        12:31:00   Log-Likelihood:                -6125.3
 No. Observations:               25570   AIC:                         1.228e+04
 Df Residuals:                   25555   BIC:                         1.240e+04
 Df Model:                          14                                         
@@ -1755,8 +1760,8 @@ strong multicollinearity or other numerical problems.
 <h2><span class="section-number">15.3. </span>Logit models<a class="headerlink" href="#id1" title="Permalink to this headline">#</a></h2>
 <p>OK, so let’s look at a <a class="reference external" href="https://www.andrewvillazon.com/logistic-regression-python-statsmodels/#fitting-a-logistic-regression">logit model</a>. We can look at the signs of the coefficients from the OLS model, but we can’t really interpret much else. Those coefficients are not probabilities.</p>
 <p>The true probability of defaulting must fall between 0 and 1. A <strong>logit function</strong>, show below, will satisfy this requirement.</p>
-<div class="amsmath math notranslate nohighlight" id="equation-392acca7-bf78-4d10-b762-2b2dee8c3824">
-<span class="eqno">(15.1)<a class="headerlink" href="#equation-392acca7-bf78-4d10-b762-2b2dee8c3824" title="Permalink to this equation">#</a></span>\[\begin{align}
+<div class="amsmath math notranslate nohighlight" id="equation-5857a8f8-0922-42d4-b3b3-9d8edd9fdfa0">
+<span class="eqno">(15.1)<a class="headerlink" href="#equation-5857a8f8-0922-42d4-b3b3-9d8edd9fdfa0" title="Permalink to this equation">#</a></span>\[\begin{align}
 {\displaystyle \mathbb{P}(Y=1\mid X) = \frac{1}{1 + e^{-X'\beta}}}
 \end{align}\]</div>
 <p>The left-hand side is the probability that Y = 1, or, in our case, that a loan is in default, <strong>conditional</strong> on the X variables, or the variables that we are using to predict loan status. The right-hand side is the function that <strong>links</strong> our X variables to the probability that Y = 1.</p>
@@ -1780,15 +1785,13 @@ strong multicollinearity or other numerical problems.
 <div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Optimization terminated successfully.
          Current function value: 0.344279
          Iterations 6
-</pre></div>
-</div>
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>                           Logit Regression Results                           
+                           Logit Regression Results                           
 ==============================================================================
 Dep. Variable:            loan_status   No. Observations:                25570
 Model:                          Logit   Df Residuals:                    25568
 Method:                           MLE   Df Model:                            1
-Date:                Sun, 23 Apr 2023   Pseudo R-squ.:                0.001567
-Time:                        13:14:19   Log-Likelihood:                -8803.2
+Date:                Sun, 30 Apr 2023   Pseudo R-squ.:                0.001567
+Time:                        12:31:00   Log-Likelihood:                -8803.2
 converged:                       True   LL-Null:                       -8817.0
 Covariance Type:            nonrobust   LLR p-value:                 1.473e-07
 ==============================================================================
@@ -1805,8 +1808,8 @@ home_RENT      0.2114      0.040      5.243      0.000       0.132       0.290
 <p>Also note that we don’t have <em>t</em>-statistics. With logit, you can <em>z</em>-scores. You can look at the p-values to see how you should interpret the score. The hypothesis is the same as in linear regression: can we reject the null hypothesis that this coefficient is zero?</p>
 <p>The output from the logit regression is still hard to interpret, though. What does the coefficient on home_RENT of 0.2114 mean? This is a <strong>log odds ratio</strong>. Let’s convert this to an <strong>odds ratio</strong>, which is easier to think about.</p>
 <p>An odds ratio is defined as:</p>
-<div class="amsmath math notranslate nohighlight" id="equation-88479746-973d-4666-96df-a7286003f4aa">
-<span class="eqno">(15.2)<a class="headerlink" href="#equation-88479746-973d-4666-96df-a7286003f4aa" title="Permalink to this equation">#</a></span>\[\begin{align}
+<div class="amsmath math notranslate nohighlight" id="equation-3070b79d-d334-436d-86a1-de09f7c46b2b">
+<span class="eqno">(15.2)<a class="headerlink" href="#equation-3070b79d-d334-436d-86a1-de09f7c46b2b" title="Permalink to this equation">#</a></span>\[\begin{align}
 {\displaystyle \text{odds(success)} = \frac{p}{1-p}}
 \end{align}\]</div>
 <p>where p = probability of the event happening. So, an 80% chance of happening = .8/.2 = 4:1 odds. 1:1 odds is a 50/50 chance. The logit model gives us the log of this number. So, we can use the inverse of the log, the natural number e, to “undo” the log and get us the odds.</p>
@@ -1918,8 +1921,8 @@ home_RENT  1.235453  1.141559  1.337070
 Dep. Variable:            loan_status   No. Observations:                25570
 Model:                          Logit   Df Residuals:                    25568
 Method:                           MLE   Df Model:                            1
-Date:                Sun, 23 Apr 2023   Pseudo R-squ.:                0.005569
-Time:                        13:14:19   Log-Likelihood:                -8767.9
+Date:                Sun, 30 Apr 2023   Pseudo R-squ.:                0.005569
+Time:                        12:31:01   Log-Likelihood:                -8767.9
 converged:                       True   LL-Null:                       -8817.0
 Covariance Type:            nonrobust   LLR p-value:                 3.765e-23
 ==============================================================================
@@ -2010,8 +2013,8 @@ annual_inc  0.948297  0.937414  0.959307
 Dep. Variable:            loan_status   No. Observations:                25570
 Model:                          Logit   Df Residuals:                    25555
 Method:                           MLE   Df Model:                           14
-Date:                Sun, 23 Apr 2023   Pseudo R-squ.:                 0.04168
-Time:                        13:14:19   Log-Likelihood:                -8449.5
+Date:                Sun, 30 Apr 2023   Pseudo R-squ.:                 0.04168
+Time:                        12:31:01   Log-Likelihood:                -8449.5
 converged:                       True   LL-Null:                       -8817.0
 Covariance Type:            nonrobust   LLR p-value:                8.432e-148
 =====================================================================================================================
