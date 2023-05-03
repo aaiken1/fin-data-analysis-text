@@ -595,8 +595,8 @@ title="Print to PDF"
     <nav id="bd-toc-nav" aria-label="Page">
         <ul class="visible nav section-nav flex-column">
  <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#using-pandas-datareader">
-   7.1. Using pandas-datareader
+  <a class="reference internal nav-link" href="#using-pandas-datareader-and-yfinance">
+   7.1. Using pandas-datareader and yfinance
   </a>
  </li>
  <li class="toc-h2 nav-item toc-entry">
@@ -641,8 +641,8 @@ title="Print to PDF"
                         <nav aria-label="Page">
                             <ul class="visible nav section-nav flex-column">
  <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#using-pandas-datareader">
-   7.1. Using pandas-datareader
+  <a class="reference internal nav-link" href="#using-pandas-datareader-and-yfinance">
+   7.1. Using pandas-datareader and yfinance
   </a>
  </li>
  <li class="toc-h2 nav-item toc-entry">
@@ -1070,16 +1070,16 @@ title="Print to PDF"
 </div>
 </div>
 <p>Let’s put together some ideas, write a function, and run a simulation. We’ll use something called <strong>geometric brownian motion</strong> (GBM). What is GBM? It is a particular <a class="reference external" href="https://arxiv.org/pdf/1504.05309.pdf">stochastic differential equation</a>. But, what’s important for us is the idea, which is fairly simple. Here’s the formula:</p>
-<div class="amsmath math notranslate nohighlight" id="equation-8d831ee3-f65b-4862-97f1-76edd732d031">
-<span class="eqno">(7.1)<a class="headerlink" href="#equation-8d831ee3-f65b-4862-97f1-76edd732d031" title="Permalink to this equation">#</a></span>\[\begin{align}
+<div class="amsmath math notranslate nohighlight" id="equation-13112be1-fe68-4415-905c-3756f76c8793">
+<span class="eqno">(7.1)<a class="headerlink" href="#equation-13112be1-fe68-4415-905c-3756f76c8793" title="Permalink to this equation">#</a></span>\[\begin{align}
 dS = \mu S dt + \sigma S dW_t
 \end{align}\]</div>
 <p>This says that the change in the stock price has two components - a <strong>drift</strong>, or average increase over time, and a <strong>shock</strong> that it is random at each point in time. The shock is scaled by the standard deviation of returns that you use. So, larger standard deviation, the bigger the shocks can be. This is basically the simplest way that you can model an asset price.</p>
 <p>The shocks are what make the price wiggle around around, or else it would just go up over time, based on the drift value that we use.</p>
 <p>And, I’ll stress - we aren’t predicting here, so to speak. We are trying to capture some basic reality about how an asset moves and then seeing what is possible in the future. We aren’t making a statement about whether we think an asset is overvalued or undervalued, will go up or down, etc.</p>
 <p>You can solve this equation to get the value of the asset at any point in time t. You just need to know the total of all of the shocks at time t.</p>
-<div class="amsmath math notranslate nohighlight" id="equation-cb2649a3-faaa-4e5c-8d62-ce521fdc635f">
-<span class="eqno">(7.2)<a class="headerlink" href="#equation-cb2649a3-faaa-4e5c-8d62-ce521fdc635f" title="Permalink to this equation">#</a></span>\[\begin{align}
+<div class="amsmath math notranslate nohighlight" id="equation-6a82142d-0a32-4da6-aaea-9efb7127e61f">
+<span class="eqno">(7.2)<a class="headerlink" href="#equation-6a82142d-0a32-4da6-aaea-9efb7127e61f" title="Permalink to this equation">#</a></span>\[\begin{align}
 S(t) = S(0) \exp \left(\left(\mu - \frac{1}{2}\sigma^2\right)t + \sigma W(t)\right)
 \end{align}\]</div>
 <div class="cell docutils container">
@@ -1145,19 +1145,19 @@ S(t) = S(0) \exp \left(\left(\mu - \frac{1}{2}\sigma^2\right)t + \sigma W(t)\rig
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>array([[ 1.091547  , -0.83452817,  0.72218411, ..., -0.01600184,
-         0.2939526 ,  0.43052276],
-       [-0.67794887, -0.00351294, -0.71463513, ..., -0.78538108,
-         0.02014779,  0.11266659],
-       [ 0.62723038,  0.21864509,  0.52924266, ..., -1.12212355,
-        -0.31964066, -0.25321955],
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>array([[-2.15423594, -0.14901939, -0.13609023, ...,  0.94505748,
+         0.28795176, -0.42675206],
+       [ 0.30201195,  0.2266631 , -0.66901547, ..., -2.41851443,
+         0.0989702 ,  0.63499558],
+       [ 0.21729456,  0.45097144,  0.65162961, ...,  0.00595279,
+        -0.39766703, -0.77537778],
        ...,
-       [ 0.7552002 , -0.29711793,  0.0580282 , ..., -0.35299678,
-        -0.74182175,  0.52720935],
-       [ 0.57196209,  0.29503363, -0.27644421, ..., -0.38036885,
-         0.52921859, -0.963457  ],
-       [-1.12921899,  2.88552699, -2.15840521, ..., -0.54225006,
-        -0.20472939,  0.16688245]])
+       [-0.67816073,  1.298504  ,  1.18395262, ...,  0.70392793,
+         0.30178438, -0.98119577],
+       [ 0.1552692 , -0.3781147 , -0.50747427, ...,  0.99152327,
+        -0.13595484, -0.23404876],
+       [ 0.92549968, -0.06838084, -0.46581495, ...,  0.30193567,
+        -0.20130753, -1.11469842]])
 </pre></div>
 </div>
 </div>
@@ -1230,8 +1230,8 @@ S(t) = S(0) \exp \left(\left(\mu - \frac{1}{2}\sigma^2\right)t + \sigma W(t)\rig
 </div>
 </div>
 <p>The y-axis has a very wide range, since some extreme values are possible, given this simulation.</p>
-<section id="using-pandas-datareader">
-<h2><span class="section-number">7.1. </span>Using pandas-datareader<a class="headerlink" href="#using-pandas-datareader" title="Permalink to this headline">#</a></h2>
+<section id="using-pandas-datareader-and-yfinance">
+<h2><span class="section-number">7.1. </span>Using pandas-datareader and yfinance<a class="headerlink" href="#using-pandas-datareader-and-yfinance" title="Permalink to this headline">#</a></h2>
 <p>The <a class="reference external" href="https://pydata.github.io/pandas-datareader/">pandas data-reader</a> API lets us access additional data sources, such as <a class="reference external" href="https://fred.stlouisfed.org">FRED</a>.</p>
 <p>There are also API that let you access the same data. For example, Yahoo! Finance has several, like <a class="reference external" href="https://pypi.org/project/yfinance/">yfinance</a>. I think that the Yahoo! Finance access for <code class="docutils literal notranslate"><span class="pre">pandas-datareader</span></code> was <a class="reference external" href="https://stackoverflow.com/questions/74834834/pdr-datareader-typeerror-string-indices-must-be-integers">broken in a recent update</a>. See my comments below.</p>
 <p>Lots of developers have written APIs to access different data sources.</p>
