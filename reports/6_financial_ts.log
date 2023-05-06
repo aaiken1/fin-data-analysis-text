@@ -19,25 +19,53 @@ nbclient.exceptions.CellExecutionError: An error occurred while executing the fo
 ------------------
 # Set-up
 
-import nasdaqdatalink # You could also do something like: import nasdaqdatalink as ndl
-import pandas_datareader as pdr
-
 import numpy as np
 import pandas as pd
-import datetime as dt
 
+# Date functionality
+from datetime import datetime
+from datetime import timedelta
+
+import janitor
+from janitor import clean_names
+
+# all of matplotlib
 import matplotlib as mpl 
 
+# refer to the pyplot part of matplot lib more easily. Just use plt!
 import matplotlib.pyplot as plt
+
+# importing the style package
+from matplotlib import style
+from matplotlib.ticker import StrMethodFormatter
+
+# generating random numbers
+from numpy.random import normal, seed
+from scipy.stats import norm
+
+# seaborn
+import seaborn as sns
+
+# Keeps warnings from cluttering up our notebook. 
+import warnings
+warnings.filterwarnings('ignore')
 
 %matplotlib inline # Include this to have plots show up in your Jupyter notebook.
 
-# nasdaqdatalink.ApiConfig.api_key = 'YOUR_KEY_HERE'
+# Some plot options that will apply to the whole workbook
+plt.style.use('seaborn')
+mpl.rcParams['font.family'] = 'serif'
 
-nasdaqdatalink.read_key()
 
-#nasdaqdatalink.read_key(filepath="/data/.corporatenasdaqdatalinkapikey")
-#print(nasdaqdatalink.ApiConfig.api_key)
+# Read in some eod prices
+stocks = pd.read_csv('https://raw.githubusercontent.com/aaiken1/fin-data-analysis-python/main/data/tr_eikon_eod_data.csv',
+                  index_col=0, parse_dates=True)  
+
+stocks.dropna(inplace=True)  
+
+stocks = clean_names(stocks)
+
+stocks.info()
 ------------------
 
 

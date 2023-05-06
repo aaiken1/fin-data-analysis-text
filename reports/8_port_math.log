@@ -17,27 +17,26 @@ Traceback (most recent call last):
     raise CellExecutionError.from_cell_and_msg(cell, exec_reply_content)
 nbclient.exceptions.CellExecutionError: An error occurred while executing the following cell:
 ------------------
-# Set-up
-
-import nasdaqdatalink # You could also do something like: import nasdaqdatalink as ndl
-import pandas_datareader as pdr
-
 import numpy as np
 import pandas as pd
-import datetime as dt
+import statsmodels.formula.api as smf
+import janitor
+from janitor import clean_names
 
+# This brings in all of matplotlib
 import matplotlib as mpl 
 
+# This lets us refer to the pyplot part of matplot lib more easily. Just use plt!
 import matplotlib.pyplot as plt
 
 %matplotlib inline # Include this to have plots show up in your Jupyter notebook.
 
-# nasdaqdatalink.ApiConfig.api_key = 'YOUR_KEY_HERE'
+hf = pd.read_excel('https://raw.githubusercontent.com/aaiken1/fin-data-analysis-python/main/data/hf_rets.xlsx',
+                  index_col=0, parse_dates=True)  
 
-nasdaqdatalink.read_key()
+hf = hf.clean_names()
 
-#nasdaqdatalink.read_key(filepath="/data/.corporatenasdaqdatalinkapikey")
-#print(nasdaqdatalink.ApiConfig.api_key)
+hf.describe()
 ------------------
 
 

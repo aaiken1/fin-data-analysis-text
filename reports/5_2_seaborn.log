@@ -18,26 +18,29 @@ Traceback (most recent call last):
 nbclient.exceptions.CellExecutionError: An error occurred while executing the following cell:
 ------------------
 # Set-up
-
-import nasdaqdatalink # You could also do something like: import nasdaqdatalink as ndl
-import pandas_datareader as pdr
-
 import numpy as np
 import pandas as pd
-import datetime as dt
-
-import matplotlib as mpl 
-
+import seaborn as sns
 import matplotlib.pyplot as plt
+sns.set_theme(style="white")
 
 %matplotlib inline # Include this to have plots show up in your Jupyter notebook.
 
-# nasdaqdatalink.ApiConfig.api_key = 'YOUR_KEY_HERE'
 
-nasdaqdatalink.read_key()
+# Read in some eod prices
+stocks = pd.read_csv('https://raw.githubusercontent.com/aaiken1/fin-data-analysis-python/main/data/tr_eikon_eod_data.csv',
+                  index_col=0, parse_dates=True)  
 
-#nasdaqdatalink.read_key(filepath="/data/.corporatenasdaqdatalinkapikey")
-#print(nasdaqdatalink.ApiConfig.api_key)
+stocks.dropna(inplace=True)  
+
+from janitor import clean_names
+
+stocks = clean_names(stocks)
+
+stocks['aapl_ret'] = np.log(stocks.aapl_o / stocks.aapl_o.shift(1))  
+stocks['msft_ret'] = np.log(stocks.msft_o / stocks.msft_o.shift(1))  
+
+stocks.info()
 ------------------
 
 

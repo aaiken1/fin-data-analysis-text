@@ -50,8 +50,6 @@ const thebe_selector_input = "pre"
 const thebe_selector_output = ".output, .cell_output"
 </script>
     <script async="async" src="../_static/sphinx-thebe.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
-    <script src="https://unpkg.com/@jupyter-widgets/html-manager@^0.20.0/dist/embed-amd.js"></script>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
     <link rel="next" title="5.2. plotly" href="5_1_plotly.html" />
@@ -711,6 +709,8 @@ title="Print to PDF"
 <span class="kn">import</span> <span class="nn">warnings</span>
 <span class="n">warnings</span><span class="o">.</span><span class="n">filterwarnings</span><span class="p">(</span><span class="s1">&#39;ignore&#39;</span><span class="p">)</span>
 
+<span class="c1"># Include this to have plots show up in your Jupyter notebook.</span>
+<span class="o">%</span><span class="k">matplotlib</span> inline 
 
 <span class="c1"># Read in some eod prices</span>
 <span class="n">stocks</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s1">&#39;https://raw.githubusercontent.com/aaiken1/fin-data-analysis-python/main/data/tr_eikon_eod_data.csv&#39;</span><span class="p">,</span>
@@ -905,6 +905,10 @@ memory usage: 5.0+ KB
 </div>
 <p>Not bad! By default, we made a line graph. We are layering the different elements of our figure on top of each other until we are finished. Notice that we didn’t need to plt.show() in this case.</p>
 <p><strong>The semi-colon at the end just stops Python from printing a message that clutters up our notebook.</strong></p>
+<div class="admonition hint">
+<p class="admonition-title">Hint</p>
+<p>Are your plots not showing up in your Jupyter notebook? Make sure that you include %matplotlib inline as part of your set-up.</p>
+</div>
 <p>Now, what if we wanted those prices on two separate subplots? We can first create a subplot using <code class="docutils literal notranslate"><span class="pre">.subplot</span></code>. That (211) means create a subplot with 2 rows and 1 column. Then, in the first element (row 1, column 1), put the following plot. We then define the second subplot (row 2, column 1) below that.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
