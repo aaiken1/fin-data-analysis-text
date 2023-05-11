@@ -4,7 +4,7 @@ Data visualization and design play important roles in finance. We are often look
 
 Some data work is **exploratory**, where you want to see what you have, look for outliers, mistakes, etc. Other graphics will make it into a final presentation or client report. Python can do all of this.
 
-This section follows Chapter 7 of [Python for Finance, 2e](https://www.oreilly.com/library/view/python-for-finance/9781492024323/) and discusses using [matplotlib](https://matplotlib.org) to create graphics in Python. 
+This section follows Chapter 7 of [Python for Finance, 2e](https://www.oreilly.com/library/view/python-for-finance/9781492024323/) and discusses using [matplotlib](https://matplotlib.org) to create graphics in Python.
 
 However, there are many, more modern plotting libraries available for Python, such as `plotly`, `seaborn`, `bokeh`, and `altair`. Some of these, like [plotly](https://plotly.com) and [bokeh](https://bokeh.org), let you build interactive graphics. We'll look a little bit at [plotly](https://plotly.com/python/) and [seaborn](https://seaborn.pydata.org).
 
