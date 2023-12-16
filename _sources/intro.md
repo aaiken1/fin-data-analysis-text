@@ -17,9 +17,7 @@ Welcome! This online text contains my notes and code examples.
 
 We also have a course [Github repository](https://github.com/aaiken1/fin-data-analysis-python), where I will keep data and code (e.g. Jupyter notebooks) that we use in class.
 
-I have set up a [Discord server](https://discord.com) for class discussion and asking for help. That way, we can have a conversation around issues that come up, rather than just emails asking for help. See our Moodle page for the invite link. Be sure to sign-up with a name that is recognizable!
-
-Finally, we also have a course [YouTube page](https://www.youtube.com/playlist?list=PLo4Q9ijN3eTG6t2-Lwzf7KlOooypFQak8), where I will post the occasional video, as needed. Most of our work will of course be done in class together.
+We also have a course [YouTube page](https://www.youtube.com/playlist?list=PLo4Q9ijN3eTG6t2-Lwzf7KlOooypFQak8), where I will post the occasional video, as needed. Most of our work will of course be done in class together.
 
 The most important part is to make sure that you are up and running with Anaconda, Jupyter Notebooks, and VS Code. We'll discuss how to get started in [Chapter 2](chapters/2_intro.html#python_set-up).
 
@@ -43,7 +41,7 @@ There are also many free resources available. The key is being able to find what
 
 [Python for Data Analysis, 3E](https://wesmckinney.com/book/) is also available for free online. The author has just updated to a third edition.
 
-We are also using [DataCamp](https://www.datacamp.com) throughout the semester. See our Moodle page for the log in instructions - I have already set up our class page on DataCamp. Once you've completed all of the assignments, you'll have earned two different certificates. DataCamp also has lots of mini-tutorials and **cheatsheets** that can help get you started.
+If interested, I have set-up **optional** [DataCamp](https://www.datacamp.com) courses that you can complete throughout the semester. See our Moodle page for the log in instructions - I have already set up our class page on DataCamp. If you completed all of the assignments, you'll have earned two different certificates. DataCamp also has lots of mini-tutorials and **cheatsheets** that can help get you started.
 
 - [Python Basics](https://www.datacamp.com/community/tutorials/python-data-science-cheat-sheet-basics)
 - [Juypter Notebooks - how we will write our code](http://datacamp-community-prod.s3.amazonaws.com/21fdc814-3f08-4aa9-90fa-247eedefd655)
