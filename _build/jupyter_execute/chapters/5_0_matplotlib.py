@@ -3,11 +3,17 @@
 
 # # matplotlib
 # 
-# We will start with Chapter 7 of our textbook and look at how to use [matplotlib](https://matplotlib.org) to create graphics in Python. `matplotlib` plays well with `DataFrames`, so this is a good place to start. 
+# This chapter will look at how to use [matplotlib](https://matplotlib.org) to create graphics in Python. `matplotlib` plays well with `DataFrames`, so this is a good place to start. 
+# 
+# The `matplotlob` team has an [official tutorial](https://matplotlib.org/stable/tutorials/index). Check it out.
+# 
+# ```{margin}
+# Like with everything we're doing, you're going to have to Google around for things. How do I change the color of my scatter plot? That kind of stuff. 
+# ```
 # 
 # There is, of course, a [Datacamp matplotlib cheat sheet](https://www.datacamp.com/blog/matplotlib-cheat-sheet-plotting-in-python).
 # 
-# [Chapter 9](https://wesmckinney.com/book/plotting-and-visualization.html) of *Python fof Data Analysis* is a nice introduction to the syntax of `matplotlib`.
+# [Chapter 9](https://wesmckinney.com/book/plotting-and-visualization.html) of *Python for Data Analysis* is a nice introduction to the syntax of `matplotlib`.
 # 
 # Here is another [Matplotlib tutorial](https://github.com/rougier/matplotlib-tutorial) that goes over how to customize your plots.
 
@@ -15,7 +21,7 @@
 # 
 # Let's bring in that price data again, along with our libraries. We'll include `matplotlib` now. We're now using the three libraries!
 # 
-# We'll pull in the data from my Github page. These are some prices that come with out textbook. I'll set the date as my index and drop any row that has missing values (e.g. weekends and holidays). If you look at the raw data, you'll see that the currencies actually do trade on the weekends.
+# We'll pull in the data from my Github page. I'll bring in some prices that come with [Python for Finance, 2e](https://www.oreilly.com/library/view/python-for-finance/9781492024323/). I'll set the date as my index and drop any row that has missing values (e.g. weekends and holidays). If you look at the raw data, you'll see that the currencies actually do trade on the weekends.
 
 # In[1]:
 
@@ -37,6 +43,8 @@ from matplotlib.ticker import StrMethodFormatter
 import warnings
 warnings.filterwarnings('ignore')
 
+# Include this to have plots show up in your Jupyter notebook.
+get_ipython().run_line_magic('matplotlib', 'inline')
 
 # Read in some eod prices
 stocks = pd.read_csv('https://raw.githubusercontent.com/aaiken1/fin-data-analysis-python/main/data/tr_eikon_eod_data.csv',
@@ -78,7 +86,7 @@ plt.show()
 
 # Well, that wasn't hard! By default, the index (our date) is passed on to the plot as the x-axis. You can change this.
 # 
-# We can customize this figure. A set of options can be found in [Chapter 9](https://wesmckinney.com/book/plotting-and-visualization.html#tbl-table_plot_method) of Python for Data Analysis. The full list can be found in the [pandas documentation](https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.DataFrame.plot.html).
+# We can also customize this figure. A set of options can be found in [Chapter 9](https://wesmckinney.com/book/plotting-and-visualization.html#tbl-table_plot_method) of Python for Data Analysis. The full list can be found in the [pandas documentation](https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.DataFrame.plot.html).
 # 
 # I'll change a bunch of them so that you can see how.
 
@@ -98,7 +106,7 @@ stocks.plot.hist(y = 'aapl_o', bins = 30, alpha = 0.5, title = 'Apple Stock Pric
 plt.show()
 
 
-# Let's bring in some other data. This data has different ratios by [GICS sector](https://www.msci.com/our-solutions/indexes/gics) from 2016. So, things like the median book-to-market ratio for the U.S. auto sector.
+# Let's bring in some other data. This CSV file has different ratios by [GICS sector](https://www.msci.com/our-solutions/indexes/gics) from 2016. So, things like the median book-to-market ratio for the U.S. auto sector.
 
 # In[6]:
 
@@ -148,7 +156,13 @@ plt.title("Stock Prices")
 plt.legend();
 
 
-# Not bad! By default, we made a line graph. We are layering the different elements of our figure on top of each other until we are finished. Notice that we didn't need to plt.show() in this case. The semi-colon at the end just stops Python from printing a message that clutters up our notebook. 
+# Not bad! By default, we made a line graph. We are layering the different elements of our figure on top of each other until we are finished. Notice that we didn't need to plt.show() in this case. 
+# 
+# **The semi-colon at the end just stops Python from printing a message that clutters up our notebook.** 
+# 
+# ```{hint}
+# Are your plots not showing up in your Jupyter notebook? Make sure that you include %matplotlib inline as part of your set-up.
+# ```
 # 
 # Now, what if we wanted those prices on two separate subplots? We can first create a subplot using `.subplot`. That (211) means create a subplot with 2 rows and 1 column. Then, in the first element (row 1, column 1), put the following plot. We then define the second subplot (row 2, column 1) below that. 
 
@@ -191,6 +205,8 @@ plt.title('Distribution of Apple Prices');
 
 
 # Let's make a scatter plot using this same workflow. I'm going to convert the **aapl** and **msft** prices into returns now. I'll save the returns to the **stocks** DataFrame. We'll do more with this when we get to time series functions.
+# 
+# And, notice how I'm referring to the columns -- the names don't have spaces, so I don't have to use the square brackets with quotes method.
 
 # In[11]:
 
@@ -290,22 +306,65 @@ ax.text(datetime(2015, 12, 8), -0.10, 'Random Text!!!!',
 
 
 
+# We can condense the code a bit to create **fig** (the canvas) and **axs** (the plots) on the same line. `plt.subplots()` can do everything for us. With no arguments (i.e. nothing inside of the function), it will create a single canvas and plot.
 # 
-# We can use the same `figure` and `axis` logic to just a 2 x 2 grid of graphs. This is where you can really start to see the power of this. 
+# `plt.subplots` is different from `plt.add_subplot`. It also creates an `array` that I'm calling **ax**, which can can store our plots. 
 # 
-# Let's look at that first line. You can create the **fig** canvas and the **axs** together using `plt.subplot`. This line creates the figure and a 2 x 2 set of **axs**, where each element is a potential plot. `plt.subplots` is different from `plt.add_subplot`. It can take arguments which normally go to `plt.figure`, which is why I can change the figure size inside of it. It also creates an `array` that I'm calling **axs**. That array is 2 x 2 in this case and is going to hold my four plots.
+# ```{margin}
+# ```{note}
+# You'll often start your figure code with the condensed fig, ax line.
+# ``````
 # 
-# I use our usual `array` syntax to create a subplot in each of the four positions. I added some colors so that you can see which plot goes where in the grid. I'm using some random numbers just to demonstrate. I also adjusted the white space around the grid.
-# 
-# Then array syntax is convenient and means that I can avoid defining **ax1**, **ax2**, **ax3**, and **ax4**. I could have done it that way, though!
+# I'll follow this basic example from the [Matplotlib documentation](https://matplotlib.org/stable/plot_types/basic/scatter_plot.html#sphx-glr-plot-types-basic-scatter-plot-py) and make a scatter plot of Apple and Microsoft returns again. There's just one `ax` in this example, so only one graph or plot.
 
 # In[16]:
 
 
+# Plot
+fig, ax = plt.subplots()
+
+ax.scatter(stocks.aapl_ret, stocks.msft_ret)
+
+ax.set(xlim=(-.15, .15), xticks=np.arange(-0.15, 0.18, 0.03),
+       ylim=(-.15, .15), yticks=np.arange(-0.15, 0.18, 0.03),
+       title="Daily Returns",
+       xlabel="AAPL Returns",
+       ylabel="MSFT Returns")
+
+plt.show()
+
+
+# Let's walk through some of those options a bit. We create the **fig** and single **ax** together using `plt.subplots()` from `matplotlib`. We then define our `ax` as a scatter plot. 
+# 
+# Next, we change our settings for the **ax** using `ax.set`. This method lets me put different options together, rather than do a bunch of separate `ax.set_` methods, like in the example above.
+# 
+# These are daily returns, so I'll let both axis have a lower limit of -15% and an upper limit of 15%. We should check this, of course, by looking at minimum and maximum returns. We can also set the tick marks using `np.arange`. Remember, this method lets you create an array of numbers. The first argument is the starting point, the second argument is the stopping point (not inclusive), and the third argument is the step size.
+# 
+# I then add a title and labels. Again, `ax.set` lets me do all of this together.
+# 
+# Finally, notice the `plt.show()`. **You don't need that in a Jupyter Notebook.** But, you do if you're using a basic `.py` Python script. 
+# 
+# ```{margin}
+# ```{note}
+# You'll see `plt.show()` in all of your DataCamp assignments, since they are assuming that you're using a Python script.
+# ``````
+
+# 
+# We can use the same `figure` and `axis` logic to create a 2 x 2 grid of graphs. This is where you can really start to see the power of this. 
+# 
+# Let's look at that first line. We can again create the **fig** canvas and the **axs** together using `plt.subplot`. This line creates the figure and a 2 x 2 set of **axs**, where each element is a potential plot. As mentioned above, `plt.subplots` is different from `plt.add_subplot`. It can take arguments which normally go to `plt.figure`, which is why I can change the figure size inside of it. It also creates an `array` that I'm calling **axs**. That array is 2 x 2 in this case and is going to hold my four plots.
+# 
+# I use our usual `array` syntax to create a subplot in each of the four positions. I added some colors so that you can see which plot goes where in the grid. I'm using some random numbers just to demonstrate. I also adjusted the white space around the grid.
+# 
+# The array syntax is convenient and means that I can avoid defining **ax1**, **ax2**, **ax3**, and **ax4**. I could have done it that way, though!
+
+# In[17]:
+
+
 fig, axs = plt.subplots(2, 2, sharex=True, sharey=True, figsize=(10, 6))
 
-print(type(fig))
-print(type(axs))
+print(type(fig)) # See the output, this is a matplotlib figure object
+print(type(axs)) # See the output, this is an array of axs, or graphs/plots!
 
 axs[0,0].hist(np.random.randn(500), bins=50, color='k', alpha=0.5)
 axs[1,0].hist(np.random.randn(500), bins=50, color='b', alpha=0.5)

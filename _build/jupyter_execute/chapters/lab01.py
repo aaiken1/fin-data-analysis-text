@@ -6,8 +6,7 @@
 # 
 # In this lab, we'll send some time getting comfortable with our work environment. The first Data Camp assignment will introduce you to Python basics. We'll walk through the basic set-up.
 # 
-# I am writing these notes in **Markdown**. You can open up this `.ipynb` file (iPython, or Jupyter, notebook - they changed names) in VS Code and check out the actual code. 
-# 
+# I am writing these notes in **Markdown**. You can open up this `.ipynb` file (iPython, or Jupyter, notebook - they changed names) in VS Code and check out the actual code.
 # 
 # ```{note}
 # You can do this assignment in VS Code, an Anaconda Jupyter notebook, or in Google Colab. You want an .ipynb file when you're done.

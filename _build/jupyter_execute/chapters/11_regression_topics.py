@@ -26,6 +26,9 @@ import seaborn as sns
 import statsmodels.api as sm
 import statsmodels.formula.api as smf
 
+# Include this to have plots show up in your Jupyter notebook.
+get_ipython().run_line_magic('matplotlib', 'inline')
+
 pd.options.display.max_columns = None
 
 

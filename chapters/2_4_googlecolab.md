@@ -31,9 +31,9 @@ The Google Colab Jupyter notebook looks like any other Jupyter notebook.
 
 If you create a new notebook, you'll open a new file in your browser called *Untitled1.ipynb*. You'll see the + buttons to added a code cell or a Markdown text cell. Notice that with the text cell, you'll also get some "point and click" options for formatting. You can still use Markdown, though, as is typical in these notebooks. You'll also see the preview of what the text cell will look like on the right. I discuss Markdown later on in this chapter. 
 
-On the top-left, you'll find four icons. The first is the **Table of Contents**. Jupyter notebooks understand your headers and sub-headers and will create a table of contents for you that you can use to navigate your document. The **magnify glass** lets you search your notebook. The **bracket x** is the variable explorer. You'll be able to see what variables and data types you've created in your code. Finally, the **folder** lets you see files in your Google Drive, including any data that you might have. '
+On the top-left, you'll find four icons. The first is the **Table of Contents**. Jupyter notebooks understand your headers and sub-headers and will create a table of contents for you that you can use to navigate your document. The **magnify glass** lets you search your notebook. The **bracket x** is the variable explorer. You'll be able to see what variables and data types you've created in your code. Finally, the **folder** lets you see files in your Google Drive, including any data that you might have.
 
-Under the **File** menu at the top, you can create a new notebook, save your notebook to Google Drive, and, crucially, **download the .ipynb** file to your local machine, among other actions. 
+Under the **File** menu at the top, you can create a new notebook, save your notebook to Google Drive, and, crucially, **download the .ipynb** file to your local machine, among other actions.
 
 **Edit**, **View**, and **Insert** have the usual set of features.
 

@@ -50,6 +50,8 @@ const thebe_selector_input = "pre"
 const thebe_selector_output = ".output, .cell_output"
 </script>
     <script async="async" src="../_static/sphinx-thebe.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+    <script src="https://unpkg.com/@jupyter-widgets/html-manager@^0.20.0/dist/embed-amd.js"></script>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
     <link rel="next" title="4.4. Exploratory data analysis (EDA)" href="4_3_eda.html" />
@@ -237,6 +239,16 @@ const thebe_selector_output = ".output, .cell_output"
      4.5. Merging and reshaping data
     </a>
    </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="4_5_sql.html">
+     4.6. Using SQL in Python
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="4_6_polar.html">
+     4.7. polars: A fast, fancy pandas alternative
+    </a>
+   </li>
   </ul>
  </li>
  <li class="toctree-l1 has-children">
@@ -251,17 +263,17 @@ const thebe_selector_output = ".output, .cell_output"
   <ul>
    <li class="toctree-l2">
     <a class="reference internal" href="5_0_matplotlib.html">
-     5.2. matplotlib
+     5.1. matplotlib
     </a>
    </li>
    <li class="toctree-l2">
     <a class="reference internal" href="5_1_plotly.html">
-     5.3. plotly
+     5.2. plotly
     </a>
    </li>
    <li class="toctree-l2">
     <a class="reference internal" href="5_2_seaborn.html">
-     5.4. seaborn
+     5.3. seaborn
     </a>
    </li>
   </ul>
@@ -282,7 +294,7 @@ const thebe_selector_output = ".output, .cell_output"
 <ul class="nav bd-sidenav">
  <li class="toctree-l1">
   <a class="reference internal" href="7_nasdaq_api.html">
-   7. Using NASDAQ BTC data
+   7. Using APIs for Data Imports
    <a id="btc-sim">
    </a>
   </a>
@@ -329,6 +341,16 @@ const thebe_selector_output = ".output, .cell_output"
    15. Logit models
   </a>
  </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="16_trading_bt.html">
+   16. Trading Strategies and the BT Package
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="17_using_chatgpt.html">
+   17. Using ChatGPT
+  </a>
+ </li>
 </ul>
 <p aria-level="2" class="caption" role="heading">
  <span class="caption-text">
@@ -351,6 +373,36 @@ const thebe_selector_output = ".output, .cell_output"
    Lab 02
   </a>
  </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="lab03.html">
+   Lab 03
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="lab04.html">
+   Lab 04
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="lab05.html">
+   Lab 05
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="lab06.html">
+   Lab 06
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="lab07.html">
+   Lab 07
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="lab08.html">
+   Lab 08
+  </a>
+ </li>
 </ul>
 <p aria-level="2" class="caption" role="heading">
  <span class="caption-text">
@@ -361,6 +413,16 @@ const thebe_selector_output = ".output, .cell_output"
  <li class="toctree-l1">
   <a class="reference internal" href="exam_intro.html">
    Our Exams
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="exam01.html">
+   Midterm Exam
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="exam02.html">
+   Final Exam
   </a>
  </li>
 </ul>
@@ -1145,7 +1207,7 @@ dtype: int64
 <p>You can read more <a class="reference external" href="https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.DataFrame.dropna.html">here</a>.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">uw</span><span class="o">.</span><span class="n">dropna</span><span class="p">(</span><span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">uw</span><span class="o">.</span><span class="n">dropna</span><span class="p">(</span><span class="n">axis</span> <span class="o">=</span> <span class="mi">0</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
@@ -1465,7 +1527,7 @@ dtype: int64
 <p>Now, I’ll just drop observations if <em>AllHomes_Tier1</em> is missing.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">uw</span><span class="o">.</span><span class="n">dropna</span><span class="p">(</span><span class="n">subset</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;AllHomes_Tier1&#39;</span><span class="p">],</span> <span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">uw</span><span class="o">.</span><span class="n">dropna</span><span class="p">(</span><span class="n">subset</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;AllHomes_Tier1&#39;</span><span class="p">],</span> <span class="n">axis</span> <span class="o">=</span> <span class="mi">0</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
@@ -2492,7 +2554,7 @@ dtype: int64
 <p>You can read more <a class="reference external" href="https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.DataFrame.sort_values.html">here</a>.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">uw</span><span class="o">.</span><span class="n">sort_values</span><span class="p">(</span><span class="n">by</span><span class="o">=</span><span class="s1">&#39;RegionType&#39;</span><span class="p">,</span> <span class="n">ascending</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">uw</span><span class="o">.</span><span class="n">sort_values</span><span class="p">(</span><span class="n">by</span> <span class="o">=</span> <span class="s1">&#39;RegionType&#39;</span><span class="p">,</span> <span class="n">ascending</span> <span class="o">=</span> <span class="kc">True</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
@@ -2810,7 +2872,7 @@ dtype: int64
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">uw</span><span class="o">.</span><span class="n">sort_values</span><span class="p">(</span><span class="n">by</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;RegionType&#39;</span><span class="p">,</span> <span class="s1">&#39;RegionName&#39;</span><span class="p">,</span> <span class="s1">&#39;AllHomes_Tier1&#39;</span><span class="p">],</span> <span class="n">ascending</span><span class="o">=</span><span class="p">[</span><span class="kc">True</span><span class="p">,</span> <span class="kc">True</span><span class="p">,</span> <span class="kc">False</span><span class="p">])</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">uw</span><span class="o">.</span><span class="n">sort_values</span><span class="p">(</span><span class="n">by</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;RegionType&#39;</span><span class="p">,</span> <span class="s1">&#39;RegionName&#39;</span><span class="p">,</span> <span class="s1">&#39;AllHomes_Tier1&#39;</span><span class="p">],</span> <span class="n">ascending</span> <span class="o">=</span> <span class="p">[</span><span class="kc">True</span><span class="p">,</span> <span class="kc">True</span><span class="p">,</span> <span class="kc">False</span><span class="p">])</span>
 </pre></div>
 </div>
 </div>
@@ -3168,7 +3230,7 @@ dtype: int64
 <p>Next, let’s create a DataFrame that that has the percentage of values that are missing for each variable. This is neat one - we are creating a DataFrame of values (total number missing) for the numerator and another DataFrame of values (total number) for the denominator. Then, we are dividing two DataFrames, giving us another DataFrame of the resulting division. We then sort.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">percent</span> <span class="o">=</span> <span class="p">(</span><span class="n">uw</span><span class="o">.</span><span class="n">isnull</span><span class="p">()</span><span class="o">.</span><span class="n">sum</span><span class="p">()</span><span class="o">/</span><span class="n">uw</span><span class="o">.</span><span class="n">isnull</span><span class="p">()</span><span class="o">.</span><span class="n">count</span><span class="p">())</span><span class="o">.</span><span class="n">sort_values</span><span class="p">(</span><span class="n">ascending</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">percent</span> <span class="o">=</span> <span class="p">(</span><span class="n">uw</span><span class="o">.</span><span class="n">isnull</span><span class="p">()</span><span class="o">.</span><span class="n">sum</span><span class="p">()</span><span class="o">/</span><span class="n">uw</span><span class="o">.</span><span class="n">isnull</span><span class="p">()</span><span class="o">.</span><span class="n">count</span><span class="p">())</span><span class="o">.</span><span class="n">sort_values</span><span class="p">(</span><span class="n">ascending</span> <span class="o">=</span> <span class="kc">False</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
@@ -3236,7 +3298,7 @@ dtype: int64
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">prices</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s1">&#39;https://github.com/aaiken1/fin-data-analysis-python/raw/main/data/tr_eikon_eod_data.csv&#39;</span><span class="p">,</span>
-                      <span class="n">index_col</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">parse_dates</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+                      <span class="n">index_col</span> <span class="o">=</span> <span class="mi">0</span><span class="p">,</span> <span class="n">parse_dates</span> <span class="o">=</span> <span class="kc">True</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
@@ -3579,17 +3641,21 @@ dtype: int64
 </section>
 <section id="pyjanitor">
 <h2><span class="section-number">4.3.8. </span>Pyjanitor<a class="headerlink" href="#pyjanitor" title="Permalink to this headline">#</a></h2>
-<p>We are going to look at a fun package that is based on something from the <a class="reference external" href="https://www.r-project.org">R</a> statistical programming language, called <a class="reference external" href="https://pyjanitor-devs.github.io/pyjanitor/">pyjanitor</a>.</p>
-<p>To use this package, you’ll need to type the following in the terminal (Mac) or command prompt (Windows).</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">conda</span> <span class="n">install</span> <span class="o">-</span><span class="n">c</span> <span class="n">conda</span><span class="o">-</span><span class="n">forge</span> <span class="n">pyjanitor</span>
+<p>We are going to look at a fun package that is based on something from the <a class="reference external" href="https://www.r-project.org">R</a> statistical programming language, called <a class="reference external" href="https://pyjanitor-devs.github.io/pyjanitor/#installation">pyjanitor</a>.</p>
+<p>To use this package, you’ll need to type the following in the terminal (Mac) or cmd terminal (Windows).</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">pip</span> <span class="n">install</span> <span class="n">pyjanitor</span>
 </pre></div>
 </div>
-<p>This will install <code class="docutils literal notranslate"><span class="pre">pyjanitor</span></code> using <code class="docutils literal notranslate"><span class="pre">conda</span> <span class="pre">install</span></code>. The <code class="docutils literal notranslate"><span class="pre">-c</span></code> is just an option to tell conda install where to look. So, it should show up when you select the Anaconda distribution of Python. You’ll need to restart VS Code once you’ve installed it.</p>
+<p>This will install <code class="docutils literal notranslate"><span class="pre">pyjanitor</span></code> using <code class="docutils literal notranslate"><span class="pre">pip</span></code>. Again, <strong>if you’re using Windows, make sure that your terminal is cmd and not Powershell</strong>. <code class="docutils literal notranslate"><span class="pre">pip</span></code> works in Powershell, but you have to change a system setting first.You’ll need to restart VS Code once you’ve installed it.</p>
+<p>If you’re using Google Colab, there’s currently a bug in pyjanitor that requires you to install a previous version. You can do this in a Jupyter cell. Note that you need to use <code class="docutils literal notranslate"><span class="pre">!pip</span></code> when using a terminal command inside of a Jupyter notebook.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>!pip install pyjanitor==0.23.1
+</pre></div>
+</div>
 <p>There are even <a class="reference external" href="https://pyjanitor-devs.github.io/pyjanitor/api/finance/">finance specific tools</a>.</p>
+<p>We can bring in <code class="docutils literal notranslate"><span class="pre">janitor</span></code> and treat it as part of <code class="docutils literal notranslate"><span class="pre">pandas</span></code> using the <code class="docutils literal notranslate"><span class="pre">import</span></code> function.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">janitor</span>
-<span class="kn">from</span> <span class="nn">janitor</span> <span class="kn">import</span> <span class="n">clean_names</span>
 </pre></div>
 </div>
 </div>
@@ -3599,7 +3665,7 @@ dtype: int64
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">prices</span> <span class="o">=</span> <span class="p">(</span>
     <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s1">&#39;https://github.com/aaiken1/fin-data-analysis-python/raw/main/data/tr_eikon_eod_data.csv&#39;</span><span class="p">,</span>
-                      <span class="n">index_col</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">parse_dates</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+                      <span class="n">index_col</span> <span class="o">=</span> <span class="mi">0</span><span class="p">,</span> <span class="n">parse_dates</span> <span class="o">=</span> <span class="kc">True</span><span class="p">)</span>
     <span class="o">.</span><span class="n">remove_columns</span><span class="p">([</span><span class="s1">&#39;GLD&#39;</span><span class="p">])</span>
     <span class="o">.</span><span class="n">dropna</span><span class="p">()</span>
     <span class="o">.</span><span class="n">rename_column</span><span class="p">(</span><span class="s1">&#39;AAPL.O&#39;</span><span class="p">,</span> <span class="s1">&#39;AAPL&#39;</span><span class="p">)</span>
@@ -3613,20 +3679,23 @@ dtype: int64
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">prices</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s1">&#39;https://github.com/aaiken1/fin-data-analysis-python/raw/main/data/tr_eikon_eod_data.csv&#39;</span><span class="p">,</span>
-                      <span class="n">index_col</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">parse_dates</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+                      <span class="n">index_col</span> <span class="o">=</span> <span class="mi">0</span><span class="p">,</span> <span class="n">parse_dates</span> <span class="o">=</span> <span class="kc">True</span><span class="p">)</span>
 
 <span class="n">prices</span> <span class="o">=</span> <span class="n">prices</span><span class="o">.</span><span class="n">clean_names</span><span class="p">()</span>
 </pre></div>
 </div>
 </div>
 </div>
-<p>Again, a variety of syntaxes to do the same thing.</p>
+<p>Note the syntax - you start with the DataFrame and then apply the function to it.</p>
+<p>You might see another syntax, though. You can import the functions directly and then include the DataFrame as an argument to that function. Both ways are detailed in the <a class="reference external" href="https://pyjanitor-devs.github.io/pyjanitor/#installation">pyjanitor</a> instructions.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">prices</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s1">&#39;https://github.com/aaiken1/fin-data-analysis-python/raw/main/data/tr_eikon_eod_data.csv&#39;</span><span class="p">,</span>
-                      <span class="n">index_col</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">parse_dates</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">janitor</span> <span class="kn">import</span> <span class="n">clean_names</span><span class="p">,</span> <span class="n">remove_empty</span>
+ 
+<span class="n">prices</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s1">&#39;https://github.com/aaiken1/fin-data-analysis-python/raw/main/data/tr_eikon_eod_data.csv&#39;</span><span class="p">,</span>
+                      <span class="n">index_col</span> <span class="o">=</span> <span class="mi">0</span><span class="p">,</span> <span class="n">parse_dates</span> <span class="o">=</span> <span class="kc">True</span><span class="p">)</span>
 
-<span class="n">prices</span> <span class="o">=</span> <span class="n">clean_names</span><span class="p">(</span><span class="n">prices</span><span class="p">)</span>
+<span class="n">prices</span> <span class="o">=</span> <span class="n">clean_names</span><span class="p">(</span><span class="n">prices</span><span class="p">)</span> <span class="c1"># See the difference?</span>
 </pre></div>
 </div>
 </div>
@@ -3635,17 +3704,9 @@ dtype: int64
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">prices</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s1">&#39;https://github.com/aaiken1/fin-data-analysis-python/raw/main/data/tr_eikon_eod_data.csv&#39;</span><span class="p">,</span>
-                      <span class="n">index_col</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">parse_dates</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+                      <span class="n">index_col</span> <span class="o">=</span> <span class="mi">0</span><span class="p">,</span> <span class="n">parse_dates</span> <span class="o">=</span> <span class="kc">True</span><span class="p">)</span>
 
-<span class="n">prices</span> <span class="o">=</span> <span class="n">prices</span><span class="o">.</span><span class="n">flag_nulls</span><span class="p">()</span>
-</pre></div>
-</div>
-</div>
-</div>
-<p>Finally, simple way to see if we have any rows of duplicate data. This will happen surprisingly (and unfortunately) often when we start merging data together.</p>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">prices</span><span class="o">.</span><span class="n">get_dupes</span><span class="p">()</span>
+<span class="n">prices</span><span class="o">.</span><span class="n">flag_nulls</span><span class="p">()</span>
 </pre></div>
 </div>
 </div>
@@ -3685,6 +3746,243 @@ dtype: int64
     <tr>
       <th>Date</th>
       <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>2010-01-01</th>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>1.4323</td>
+      <td>1096.35</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>1</td>
+    </tr>
+    <tr>
+      <th>2010-01-04</th>
+      <td>30.572827</td>
+      <td>30.950</td>
+      <td>20.88</td>
+      <td>133.90</td>
+      <td>173.08</td>
+      <td>113.33</td>
+      <td>1132.99</td>
+      <td>20.04</td>
+      <td>1.4411</td>
+      <td>1120.00</td>
+      <td>47.71</td>
+      <td>109.80</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <th>2010-01-05</th>
+      <td>30.625684</td>
+      <td>30.960</td>
+      <td>20.87</td>
+      <td>134.69</td>
+      <td>176.14</td>
+      <td>113.63</td>
+      <td>1136.52</td>
+      <td>19.35</td>
+      <td>1.4368</td>
+      <td>1118.65</td>
+      <td>48.17</td>
+      <td>109.70</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <th>2010-01-06</th>
+      <td>30.138541</td>
+      <td>30.770</td>
+      <td>20.80</td>
+      <td>132.25</td>
+      <td>174.26</td>
+      <td>113.71</td>
+      <td>1137.14</td>
+      <td>19.16</td>
+      <td>1.4412</td>
+      <td>1138.50</td>
+      <td>49.34</td>
+      <td>111.51</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <th>2010-01-07</th>
+      <td>30.082827</td>
+      <td>30.452</td>
+      <td>20.60</td>
+      <td>130.00</td>
+      <td>177.67</td>
+      <td>114.19</td>
+      <td>1141.69</td>
+      <td>19.06</td>
+      <td>1.4318</td>
+      <td>1131.90</td>
+      <td>49.10</td>
+      <td>110.82</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <th>...</th>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+    </tr>
+    <tr>
+      <th>2018-06-25</th>
+      <td>182.170000</td>
+      <td>98.390</td>
+      <td>50.71</td>
+      <td>1663.15</td>
+      <td>221.54</td>
+      <td>271.00</td>
+      <td>2717.07</td>
+      <td>17.33</td>
+      <td>1.1702</td>
+      <td>1265.00</td>
+      <td>22.01</td>
+      <td>119.89</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <th>2018-06-26</th>
+      <td>184.430000</td>
+      <td>99.080</td>
+      <td>49.67</td>
+      <td>1691.09</td>
+      <td>221.58</td>
+      <td>271.60</td>
+      <td>2723.06</td>
+      <td>15.92</td>
+      <td>1.1645</td>
+      <td>1258.64</td>
+      <td>21.95</td>
+      <td>119.26</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <th>2018-06-27</th>
+      <td>184.160000</td>
+      <td>97.540</td>
+      <td>48.76</td>
+      <td>1660.51</td>
+      <td>220.18</td>
+      <td>269.35</td>
+      <td>2699.63</td>
+      <td>17.91</td>
+      <td>1.1552</td>
+      <td>1251.62</td>
+      <td>21.81</td>
+      <td>118.58</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <th>2018-06-28</th>
+      <td>185.500000</td>
+      <td>98.630</td>
+      <td>49.25</td>
+      <td>1701.45</td>
+      <td>223.42</td>
+      <td>270.89</td>
+      <td>2716.31</td>
+      <td>16.85</td>
+      <td>1.1567</td>
+      <td>1247.88</td>
+      <td>21.93</td>
+      <td>118.22</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <th>2018-06-29</th>
+      <td>185.110000</td>
+      <td>98.610</td>
+      <td>49.71</td>
+      <td>1699.80</td>
+      <td>220.57</td>
+      <td>271.28</td>
+      <td>2718.37</td>
+      <td>16.09</td>
+      <td>1.1683</td>
+      <td>1252.25</td>
+      <td>22.31</td>
+      <td>118.65</td>
+      <td>0</td>
+    </tr>
+  </tbody>
+</table>
+<p>2216 rows × 13 columns</p>
+</div></div></div>
+</div>
+<p>Finally, simple way to see if we have any rows of duplicate data. This will happen surprisingly (and unfortunately) often when we start merging data together.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">prices</span><span class="o">.</span><span class="n">get_dupes</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>AAPL.O</th>
+      <th>MSFT.O</th>
+      <th>INTC.O</th>
+      <th>AMZN.O</th>
+      <th>GS.N</th>
+      <th>SPY</th>
+      <th>.SPX</th>
+      <th>.VIX</th>
+      <th>EUR=</th>
+      <th>XAU=</th>
+      <th>GDX</th>
+      <th>GLD</th>
+    </tr>
+    <tr>
+      <th>Date</th>
       <th></th>
       <th></th>
       <th></th>

@@ -113,7 +113,7 @@ uw[uw['RegionType'] == 'MSA']['MSAName'].nunique()
 # In[10]:
 
 
-uw.dropna(axis=0)
+uw.dropna(axis = 0)
 
 
 # We now have 1071 rows, since *MSAName* had so many missing values. But - that was OK given how this data are constructed. You'll see another example with stock data below.
@@ -123,7 +123,7 @@ uw.dropna(axis=0)
 # In[11]:
 
 
-uw.dropna(subset=['AllHomes_Tier1'], axis=0)
+uw.dropna(subset = ['AllHomes_Tier1'], axis = 0)
 
 
 # Nothing gets dropped, since there were no missing values. 
@@ -181,13 +181,13 @@ uw.drop_duplicates(subset=['RegionName', 'StateName'], keep='last')
 # In[15]:
 
 
-uw.sort_values(by='RegionType', ascending=True)
+uw.sort_values(by = 'RegionType', ascending = True)
 
 
 # In[16]:
 
 
-uw.sort_values(by=['RegionType', 'RegionName', 'AllHomes_Tier1'], ascending=[True, True, False])
+uw.sort_values(by = ['RegionType', 'RegionName', 'AllHomes_Tier1'], ascending = [True, True, False])
 
 
 # ## Renaming columns
@@ -237,7 +237,7 @@ total = uw.isna().sum().sort_values(ascending=False)
 # In[20]:
 
 
-percent = (uw.isnull().sum()/uw.isnull().count()).sort_values(ascending=False)
+percent = (uw.isnull().sum()/uw.isnull().count()).sort_values(ascending = False)
 
 
 # We can use a new function called `concat` from `pandas` that combines data, either as rows (stacking) or columns (combining). We'll combine columns, with means concatenating along axis=1. We'll name both columns. We can do this because each DataFrame has the same index created by `pandas`, all of our variable names. So, there's a one-to-one correspondence between the two DataFrames.
@@ -273,7 +273,7 @@ missing_data[missing_data['Missing Percent'] > 10]
 
 
 prices = pd.read_csv('https://github.com/aaiken1/fin-data-analysis-python/raw/main/data/tr_eikon_eod_data.csv',
-                      index_col=0, parse_dates=True)
+                      index_col = 0, parse_dates = True)
 
 
 # Why are there missing values? Holidays and weekends, when trading doesn't take place.
@@ -301,22 +301,30 @@ prices.head(15)
 
 # ## Pyjanitor
 # 
-# We are going to look at a fun package that is based on something from the [R](https://www.r-project.org) statistical programming language, called [pyjanitor](https://pyjanitor-devs.github.io/pyjanitor/). 
+# We are going to look at a fun package that is based on something from the [R](https://www.r-project.org) statistical programming language, called [pyjanitor](https://pyjanitor-devs.github.io/pyjanitor/#installation). 
 # 
-# To use this package, you'll need to type the following in the terminal (Mac) or command prompt (Windows).
+# To use this package, you'll need to type the following in the terminal (Mac) or cmd terminal (Windows).
 # 
 # ```
-# conda install -c conda-forge pyjanitor
+# pip install pyjanitor
 # ```
-# This will install `pyjanitor` using `conda install`. The `-c` is just an option to tell conda install where to look. So, it should show up when you select the Anaconda distribution of Python. You'll need to restart VS Code once you've installed it.
+# 
+# This will install `pyjanitor` using `pip`. Again, **if you're using Windows, make sure that your terminal is cmd and not Powershell**. `pip` works in Powershell, but you have to change a system setting first.You'll need to restart VS Code once you've installed it.
+# 
+# If you're using Google Colab, there's currently a bug in pyjanitor that requires you to install a previous version. You can do this in a Jupyter cell. Note that you need to use `!pip` when using a terminal command inside of a Jupyter notebook. 
+# 
+# ```
+# !pip install pyjanitor==0.23.1
+# ```
 # 
 # There are even [finance specific tools](https://pyjanitor-devs.github.io/pyjanitor/api/finance/).
+# 
+# We can bring in `janitor` and treat it as part of `pandas` using the `import` function.
 
 # In[28]:
 
 
 import janitor
-from janitor import clean_names
 
 
 # `pyjanitor` lets us have an interesting workflow. We can read in our data set, remove columns, drop missings, and rename columns, all in one series of steps.
@@ -326,7 +334,7 @@ from janitor import clean_names
 
 prices = (
     pd.read_csv('https://github.com/aaiken1/fin-data-analysis-python/raw/main/data/tr_eikon_eod_data.csv',
-                      index_col=0, parse_dates=True)
+                      index_col = 0, parse_dates = True)
     .remove_columns(['GLD'])
     .dropna()
     .rename_column('AAPL.O', 'AAPL')
@@ -340,20 +348,24 @@ prices = (
 
 
 prices = pd.read_csv('https://github.com/aaiken1/fin-data-analysis-python/raw/main/data/tr_eikon_eod_data.csv',
-                      index_col=0, parse_dates=True)
+                      index_col = 0, parse_dates = True)
 
 prices = prices.clean_names()
 
 
-# Again, a variety of syntaxes to do the same thing.
+# Note the syntax - you start with the DataFrame and then apply the function to it.
+# 
+# You might see another syntax, though. You can import the functions directly and then include the DataFrame as an argument to that function. Both ways are detailed in the [pyjanitor](https://pyjanitor-devs.github.io/pyjanitor/#installation) instructions.
 
 # In[31]:
 
 
+from janitor import clean_names, remove_empty
+ 
 prices = pd.read_csv('https://github.com/aaiken1/fin-data-analysis-python/raw/main/data/tr_eikon_eod_data.csv',
-                      index_col=0, parse_dates=True)
+                      index_col = 0, parse_dates = True)
 
-prices = clean_names(prices)
+prices = clean_names(prices) # See the difference?
 
 
 # The method `flag_nulls` creates a new variable that will have a 1 if any of the variables specified are missing. In this case, I didn't specify anything, so it will look across all of the variables. If any variable is `NaN`, then that row gets a 1. Notice the **any**.
@@ -362,9 +374,9 @@ prices = clean_names(prices)
 
 
 prices = pd.read_csv('https://github.com/aaiken1/fin-data-analysis-python/raw/main/data/tr_eikon_eod_data.csv',
-                      index_col=0, parse_dates=True)
+                      index_col = 0, parse_dates = True)
 
-prices = prices.flag_nulls()
+prices.flag_nulls()
 
 
 # Finally, simple way to see if we have any rows of duplicate data. This will happen surprisingly (and unfortunately) often when we start merging data together. 

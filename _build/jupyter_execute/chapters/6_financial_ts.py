@@ -3,23 +3,13 @@
 
 # # Financial time series <a id='financial-time-series'></a>
 # 
-# Python and, in particular, `pandas` can easily deal with the most common type of financial data - **time series data**. We are going to look at the basics of using price and return data. This section follows Chapter 8 of our textbook and the fourth DataCamp assignment that discusses `pandas` time series.
+# Python and, in particular, `pandas` can easily deal with the most common type of financial data - **time series data**. We are going to look at the basics of using price and return data. This section follows Chapter 8 of [Python for Finance, 2e](https://www.oreilly.com/library/view/python-for-finance/9781492024323/) and the fourth DataCamp assignment that discusses `pandas` time series.
 # 
-# Time series data means handling dates. There is a [DataCamp tutorial on datetime objects](https://www.datacamp.com/community/tutorials/python-datetime). 
+# We'll cover importing time series data and getting some summary statistics, as well as **return calculations**, **resampling**, or changing the periodicity of the data (i.e. going from daily to monthly to annual), and **rolling statistics**, such as finding moving averages and other statistics over rolling windows (e.g. one month of trading days). 
+# 
+# Time series data means handling dates. There is a [DataCamp tutorial on datetime objects](https://www.datacamp.com/community/tutorials/python-datetime).
 # 
 # We'll start with the usual sort of set-up and our familiar stock data. Our data is going to have a particular set-up in this section. Each column is going to represent both a security and something about that security. So, Apple's price. Or, Apple's return. This is a very common way to see financial data, but it is not the only way that this data can be organized.
-# 
-# 
-# 
-# ## Chapter Eight Highlights
-# 
-# | Topic         | Pages  |
-# | :-------------------------------------------------------------------------------------- | :--------- | 
-# | **Importing data and summary statistics**. We've seen most of this before. The new part is the looking at changes over time, which means **return calculations**.      | 205 - 215      | 
-# | **Resampling**. Resampling is changing the periodicity of the data (i.e. going from daily to monthly to annual) | 215 - 217    | 
-# | **Rolling statistics**. We often want to find moving averages and other statistics over rolling windows (e.g. one month of trading days). Our textbook gives us an example of technical analysis using rolling calculations. | 217 - 222     | 
-# | **High-frequency data**. Tick-by-tick trade data. We won't deal too much with this. It's a whole topic by itself. | 228 - 230     | 
-# 
 # 
 
 # ## Set-up and descriptives
@@ -59,6 +49,9 @@ import seaborn as sns
 # Keeps warnings from cluttering up our notebook. 
 import warnings
 warnings.filterwarnings('ignore')
+
+# Include this to have plots show up in your Jupyter notebook.
+get_ipython().run_line_magic('matplotlib', 'inline')
 
 # Some plot options that will apply to the whole workbook
 plt.style.use('seaborn')

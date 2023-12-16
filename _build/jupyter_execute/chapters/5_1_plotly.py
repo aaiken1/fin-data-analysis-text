@@ -6,10 +6,10 @@
 # We've now seen the basics of plotting with `pandas` and `matplotlib`. Let's try another package, called [plotly](https://plotly.com/python/), that let's us create interactive graphics. To install the Plotly package, you'll need to run this your terminal/command window.
 # 
 # ```
-# conda install -c plotly plotly
+# python -m pip install plotly
 # ```
 # 
-# The `-c` is just an option to tell conda install where to look. You should then restart VS Code.
+# You should then restart VS Code. 
 # 
 # I won't do a comprehensive overview, but I can show you a couple of examples. We'll look at [Plotly Express](https://plotly.com/python/line-charts/#line-plots-with-plotlyexpress).
 # 
@@ -41,6 +41,8 @@ import plotly.offline as py
 import warnings
 warnings.filterwarnings('ignore')
 
+# Include this to have plots show up in your Jupyter notebook.
+get_ipython().run_line_magic('matplotlib', 'inline')
 
 # Read in some eod prices
 stocks = pd.read_csv('https://raw.githubusercontent.com/aaiken1/fin-data-analysis-python/main/data/tr_eikon_eod_data.csv',

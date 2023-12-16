@@ -26,6 +26,8 @@ import seaborn as sns
 import matplotlib.pyplot as plt
 sns.set_theme(style="white")
 
+# Include this to have plots show up in your Jupyter notebook.
+get_ipython().run_line_magic('matplotlib', 'inline')
 
 # Read in some eod prices
 stocks = pd.read_csv('https://raw.githubusercontent.com/aaiken1/fin-data-analysis-python/main/data/tr_eikon_eod_data.csv',

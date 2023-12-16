@@ -5,7 +5,7 @@
 # 
 # Linear regressions ((ordinary least squares, or OLS)) tells us about the association between a **dependent**, or Y variable, and a set of **independent**, or X variables. Regression does not tell us anything about one variable causing another or if the correlations we find have any real meaning. It is simply a [statistical technique](https://www.statology.org/linear-regression-assumptions/) for finding a linear relationship between two variables. The meaning of that relationship is up to us and the ideas that we are working with. In finance, we usually have an economic model in mind, such as the CAPM, that gives meaning to the relationship that we find.
 # 
-# A **logit regression** does something similar, except that it was developed for when our dependent variable is **binary**, a Yes or No. Logistic regression is a regression model where the response variable Y is **categorical**, as opposed to **continuous**. These types of models are used for **classification**. Why do we need a new model? We want a model that can give us **probabilities** for an event. Regular regression isn't set up to do this.
+# A **logit regression** does something similar, except that it was developed for when our dependent variable is **binary**, a Yes or No. Logistic regression is a regression model where the response variable Y is **categorical**, as opposed to **continuous**. These types of models are used for **classification**. Why do we need a new model? We want a model that can give us **probabilities** for an event. Regular regression isn't set up to do this
 # 
 # We will look at a type of data that is commonly used with logit models in finance: credit card default data. This data set has a **binary outcome**. Did the credit card user default? Yes or No? 1 or 0?
 # 
@@ -24,6 +24,9 @@ import matplotlib.pyplot as plt
 import seaborn as sns
 import statsmodels.api as sm
 import statsmodels.formula.api as smf
+
+# Include this to have plots show up in your Jupyter notebook.
+get_ipython().run_line_magic('matplotlib', 'inline')
 
 loans = pd.read_csv('https://raw.githubusercontent.com/aaiken1/fin-data-analysis-python/main/data/loan_data.csv', index_col=0)  
 

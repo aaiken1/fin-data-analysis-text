@@ -14,7 +14,7 @@
 # My instructions will refer to VS Code, but you can use VS Code, Anaconda Jupyter notebook, or Google Colab. The key is have a Jupyter notebook when you're done that can run from start to finish. 
 # ```
 # 
-# Let each code cell represent one idea, or output. Take advantage of **Markdown** in your write-up. Use headers and formatting. Here's a [Markdown cheat sheet](https://www.markdownguide.org/cheat-sheet/) that I keep handy. Once you figure out some of the basics, you might not want to go back to Word or Google Docs. 
+# Let each code cell represent one idea, or output. Take advantage of **Markdown** in your write-up. Use headers and formatting. Here's a [Markdown cheat sheet](https://www.markdownguide.org/cheat-sheet/) that I keep handy. Once you figure out some of the basics, you might not want to go back to Word or Google Docs.
 # 
 # And don't forget about our [cheat sheets](http://datacamp-community-prod.s3.amazonaws.com/f04456d7-8e61-482f-9cc9-da6f7f25fc9b). 
 # 
@@ -22,7 +22,7 @@
 
 # ## Part 1
 # 
-# Open up VS Code. Have you set up your class folder yet? I've posted a video that will help you figure that part out. Open up that folder under File. You should see it in the **EXPLORER** window pane on the left. 
+# Open up VS Code or Google Colab. Have you set up your class folder yet? I've posted a video that will help you figure that part out. Open up that folder under File. If you're in VS Code, you should see it in the **EXPLORER** window pane on the left. 
 # 
 # Type **Cmd-Shift-P** (Ctrl-Shift-P in Windows) to open up the command palette. Make sure there's a little `>` in the search bar that pops up (there should be). Search for `Jupyter: Create New Jupyter Notebook`. This will open up a blank `.ipynb` file. Save this in a new folder in your course folder called `lab02`. Call this file `lab02-lastname-firstname`, where you fill in your name, of course! 
 # 

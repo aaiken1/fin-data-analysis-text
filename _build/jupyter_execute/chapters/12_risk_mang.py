@@ -3,25 +3,11 @@
 
 # # Risk management
 # 
-# Risk management is a crucial part of asset management. We need to think about risk when putting together portfolios of stocks and bonds, options and futures, or even portfolios of managers, such as ETFs, mutual funds, and hedge funds. Financial assets all have their own unique risk profiles. For example the chapter on factor models gives you a sense how we can measure risk in equity portfolios. The focus there, though, is on the economic factors that lead to risk. This chapter will focus more on the statistical properties of asset returns.
+# Risk management is a crucial part of asset management. We need to think about risk when putting together portfolios of stocks and bonds, options and futures, or even portfolios of managers, such as ETFs, mutual funds, and hedge funds. Financial assets all have their own unique risk profiles. For example, the chapter on factor models gives you a sense how we can measure risk in equity portfolios. The focus there, though, is on the economic factors that lead to risk. This chapter will focus more on the statistical properties of asset returns.
 # 
 # To do this, we'll look at **return distributions** and how to measure them. We sometimes assume that asset returns are **normally distributed**. This is not true in many cases. 
 # 
 # We'll also learn about other risk measures, like **value-at-risk (VaR)** and **conditional value-at-risk (CVaR)**. All of these topics are covered in our Datacamp assignments, such as *Intro to Portfolio Risk Management in Python* and *Quantitative Risk Management in Python*.
-# 
-# Finally, our textbook covers many of these topics. As our author comments on pg. 397,
-# 
-# > A large number of important financial models, like modern or mean-variance portfolio theory (MPT) and the capital asset pricing model (CAPM), rest on the assumption that returns of securities are normally distributed. Therefore, this
-# > chapter presents approaches to test a given time series for normality of returns.
-# 
-# These topics are covered across a few different chapters. I wish that they covered more.
-# 
-# ## Textbook Highlights
-# 
-# | Topic         | Pages  |
-# | :-------------------------------------------------------------------------------------- | :--------- | 
-# | **Normality Tests**. We do we mean by normally distributed? How do we measure this? Why is it important?      | Chapter 13. 399 - 415      | 
-# | **Value-at-Risk**. A very common way to look at the overall risk of a portfolio. | Chapter 12. 383 - 388    | 
 
 # ## Getting set-up
 # 
@@ -60,6 +46,9 @@ warnings.filterwarnings('ignore')
 # Some plot options that will apply to the whole workbook
 plt.style.use('seaborn')
 mpl.rcParams['font.family'] = 'serif'
+
+# Include this to have plots show up in your Jupyter notebook.
+get_ipython().run_line_magic('matplotlib', 'inline')
 
 
 # Read in some eod prices
@@ -108,7 +97,7 @@ rets_log.kurtosis(axis = 0)
 
 
 # 
-# Looks like Amazon (AMZN) has the "fattest tails". The VIX as the next highest excess kurtosis. 
+# Looks like Amazon (AMZN) has the "fattest tails". It doesn't really make much sense to include [the VIX](https://www.cboe.com/tradable_products/vix/) here, so you could exclude it from the summary if you like. 
 # 
 # But, how do you perform a statistical test for normality? In other words, we can measure skewness and kurtosis, but how can know if it is **statistically different** from a normal distribution?
 # 
@@ -287,7 +276,7 @@ plt.legend();
 
 # ## Risk management and tail risk
 # 
-# We can use these ideas of distributions to think about **risk management**. **Tail risk** is the risk of extreme investment outcomes, most notably on the negative side of a distribution. Our various Datacamp lectures cover different measures of tail risk, including historical drawdown, Value-at-Risk (VaR), Conditional Value-at-Risk (also called Expected Shortfall), and some basic Monte Carlo simulations. The text also discusses VaR and Monte Carlo.
+# We can use these ideas of distributions to think about **risk management**. **Tail risk** is the risk of extreme investment outcomes, most notably on the negative side of a distribution. Our various Datacamp lectures cover different measures of tail risk, including historical drawdown, Value-at-Risk (VaR), Conditional Value-at-Risk (also called Expected Shortfall), and some basic Monte Carlo simulations.
 
 # 
 # 
@@ -301,7 +290,7 @@ plt.legend();
 # - $\alpha$- known as confidence level (e.g. 95%, 99%)
 # - Should lose no more than $\alpha$--VaR with probability $\alpha$
 # 
-# In its most general form, VaR measures the potential loss in value of a risky asset or portfolio over a defined period for a given confidence interval. Thus, if the VaR on an asset is $100 million at a one-week, 95% confidence level, there is a only a 5% chance that the value of the asset will drop more than $100 million over any given week.
+# In its most general form, VaR measures the potential loss in value of a risky asset or portfolio over a defined period for a given confidence interval. Thus, if the VaR on an asset is \$100 million at a one-week, 95% confidence level, there is a only a 5% chance that the value of the asset will drop more than \$100 million over any given week.
 # 
 # In 1995, J.P. Morgan provided public access to data on the variances of and covariances across various security and asset classes, that it had used internally for almost a decade to manage risk, and allowed software makers to develop software to measure risk. It titled the service “RiskMetrics” and used the term “Value-at-Risk” to describe the risk measure that emerged from the data. Now, software like Bloomberg lets you easily calculate various VaR-like measures for your portfolio.
 # 
@@ -364,7 +353,7 @@ plt.legend();
 # 
 # We can also calculate something called **non-parametric VaR**. A simple way to estimate VaR is to line up past returns, sort them by magnitude, and find a return that has 5% worse days and 95% better days. This is one way to find the 95% VaR, since, if history repeats itself, you will lose less than this number with 95% certainty. So, we are still using history as our guide, but without a distributional assumption like normality.
 # 
-# Here's an example from our textbook that shows this VaR for different confidence levels using just Apple's historical returns.
+# Here's an example from [Python for Finance, 2e](https://www.oreilly.com/library/view/python-for-finance/9781492024323/) that shows this VaR for different confidence levels using just Apple's historical returns.
 # 
 
 # In[23]:
@@ -438,7 +427,7 @@ cvar_99 = rets_log['aapl_o'][rets_log['aapl_o'] <= var_99].mean()
 # 
 # In the Python itself, there's some fancier stuff going on. We've seen the `rolling()` part. That just looks back 30 periods (a 30 day window in this case) to calculate the value.
 # 
-# But, what is going on in that *rolling_parameters* definition? First, this is a **list**. You cans ee that by looking down in the Jupyter variables window. Specifically a list of **tuples**, where each tuple contains three values. The first value of each tuple is 29. The second is the ith value of the rolling means. The second is the sth value of the rolling standard deviations. These will be `nan`, or missing, until we hit the 30th observation in the data (or, the way Python counts, the 29th). The `enumerate()` function keeps track of the number of items in *sigma*. I would have never come up with that exact code to do this. 
+# But, what is going on in that *rolling_parameters* definition? First, this is a **list**. You can see that by looking down in the Jupyter variables window. Specifically a list of **tuples**, where each tuple contains three values. The first value of each tuple is 29. The second is the ith value of the rolling means. The second is the sth value of the rolling standard deviations. These will be `nan`, or missing, until we hit the 30th observation in the data (or, the way Python counts, the 29th). The `enumerate()` function keeps track of the number of items in *sigma*. I would have never come up with that exact code to do this. 
 # 
 # Why do we need *rolling_parameters*? These go into the VaR calculation. Every day, we calculate a new VaR using the next set of rolling parameters. What are the parameters for? The $t$-distribution. The three values that define a specific the $t$-distribution (i.e. that draw the graph) are degrees-of-freedom (df), loc, and scale. From the Datacamp lecture:
 # 

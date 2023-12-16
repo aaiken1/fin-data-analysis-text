@@ -7,7 +7,7 @@
 # 
 # We'll start with the example of portfolio optimization using `scipy.optimize`, very similar to the code found in Chapter 13 of our textbook. This is very much like using **Solver in Excel**. You are having Python numerically solve an optimization problem with some set of constraints or limits on the answer. This means that Python will try to guess values until it gets really, really close to the "best" possible solution.
 # 
-# We are also going to see some interesting Python. We'll use **tuples**, a basic (primitive) data type in Python. We have **for** loops. We'll **define our own functions**. We'll even use something called a **lambda function**. 
+# We are also going to see some interesting Python. We'll use **tuples**, a basic (primitive) data type in Python. We have **for** loops. We'll **define our own functions**. We'll even use something called a **lambda function**.
 # 
 # Finally, we'll use the `PyPortfolioOpt` [package](https://pypi.org/project/pyportfolioopt/), which is also discussed in the DataCamp assignments. This lets us avoid some of the more math-like aspects of using `scipy.optimize` and have a library do the work for us using more familiar finance terms. Still, I think it is really important to understand at least a little bit about the optimization process itself. These tools are used in all sorts of applications.
 # 
@@ -25,6 +25,9 @@ import numpy as np
 import pandas as pd
 
 from pylab import mpl, plt
+
+# Include this to have plots show up in your Jupyter notebook.
+get_ipython().run_line_magic('matplotlib', 'inline')
 
 import scipy.optimize as sco
 

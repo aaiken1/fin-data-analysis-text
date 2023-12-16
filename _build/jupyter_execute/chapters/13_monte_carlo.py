@@ -3,22 +3,13 @@
 
 # # Monte Carlo and portfolios
 # 
-# We saw how to simulate the price of an asset back when we looked at the price of [Bitcoin](7_nasdaq_api.html#btc-sim) and using the Nasdaq API. We are going to take a more complete look here at **simulating correlated assets within a portfolio**. These methods can be used for measuring portfolio risk, for simulating client portfolios in a [financial planning setting](https://www.kitces.com/blog/volatility-drag-variance-drain-mean-arithmetic-vs-geometric-average-investment-returns/), or [pricing complex options](https://en.wikipedia.org/wiki/Monte_Carlo_methods_for_option_pricing) like [Asian options](https://en.wikipedia.org/wiki/Asian_option). 
+# We saw how to simulate the price of an asset back when we looked at the price of [Bitcoin](7_nasdaq_api.html#btc-sim) and using the Nasdaq API. We are going to take a more complete look here at **simulating correlated assets within a portfolio**. These methods can be used for measuring portfolio risk, for simulating client portfolios in a [financial planning setting](https://www.kitces.com/blog/volatility-drag-variance-drain-mean-arithmetic-vs-geometric-average-investment-returns/), or [pricing complex options](https://en.wikipedia.org/wiki/Monte_Carlo_methods_for_option_pricing) like [Asian options](https://en.wikipedia.org/wiki/Asian_option).
 # 
-# I am basing a lot of my code and discussion on this [blog post](https://medium.com/codex/simulate-multi-asset-baskets-with-correlated-price-paths-using-python-472cbec4e379). 
+# I am basing a lot of my code and discussion on this [blog post](https://medium.com/codex/simulate-multi-asset-baskets-with-correlated-price-paths-using-python-472cbec4e379).
 # 
-# This material is related to the [Heston model](https://www.codearmo.com/python-tutorial/heston-model-simulation-python) for simulating the prices of correlated assets. The volatility of the assets are linked together. In the Heston model, the volatility of an asset today is also related to past volatility. We'll do more on this when we get to [GARCH models](https://en.wikipedia.org/wiki/Autoregressive_conditional_heteroskedasticity). 
+# This material is related to the [Heston model](https://www.codearmo.com/python-tutorial/heston-model-simulation-python) for simulating the prices of correlated assets. The volatility of the assets are linked together. In the Heston model, the volatility of an asset today is also related to past volatility. We'll do more on this when we get to [GARCH models](https://en.wikipedia.org/wiki/Autoregressive_conditional_heteroskedasticity).
 # 
 # We'll also use **yfinance** to bring in some stock prices from Yahoo! finance. You'll need to run `pip install yfinance` in the terminal. You can read more about it [here](https://pypi.org/project/yfinance/).
-# 
-# The textbook goes into more detail than we need, but this is the type of material that you'd cover in a first-semester mathematical finance course in a Masters program.
-# 
-# ## Chapter 12 Highlights
-# 
-# | Topic         | Pages  |
-# | :-------------------------------------------------------------------------------------- | :--------- | 
-# | **Basic Price Simulation**. Simulations with just a single asset. Our author uses these techniques for basic option pricing later on.     | 352 - 365      | 
-# | **Stochastic Volatility**. Heston volatility model and Cholesky decomposition for correlated assets.    | 365 - 368    | 
 
 # ## How correlation affects our simulations
 # 
@@ -58,6 +49,9 @@ import pandas as pd
 import yfinance as yf
 import numpy as np
 import matplotlib.pyplot as plt
+
+# Include this to have plots show up in your Jupyter notebook.
+get_ipython().run_line_magic('matplotlib', 'inline')
 
 
 # In[2]:
@@ -280,7 +274,7 @@ for t in range(0, N_SIM):
     port_returns_all[:, t] = port_rets
 
 
-# I don't claim that this is elegant code. I'm sure there's a better way to do this via vectorization, without loops. I'll figure it out!
+# I don't claim that this is elegant code. I'm sure there's a better way to do this via vectorization, without loops.
 # 
 # Let's graph these 50 different portfolio paths to see what our future may hold.
 

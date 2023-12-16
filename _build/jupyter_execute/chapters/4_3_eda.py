@@ -16,8 +16,7 @@
 # - How are our variables related to each other?
 # - How can we **summarize** them?
 #   
-# 
-# We'll graphically summarize our data in the [next section](#dataviz). We'll look more at **datetime** variables when we get to our work on [financial time series](#financial-times-series). 
+# We'll graphically summarize our data in the [next section](#dataviz). We'll look more at **datetime** variables when we get to our work on [financial time series](#financial-times-series).
 # 
 # We want to eventually be able to open up a new data, see what questions **can be answered**, and then have the tools to actually **answer the questions**. Sometimes we want to ask questions that data can't answer - we need to recognize when that's the case too.
 # 
@@ -360,7 +359,7 @@ nc[nc['beer_count'] < outliers].sort_values(by='beer_count', ascending=False) # 
 # python -m pip install skimpy
 # ```
 # 
-# This *should* install skimpy in your Anaconda distribution of Python. Remember, you actually have several versions of Python on your computer. This is why you have that choice of Python kernel when you're running code.
+# This should install skimpy in your Anaconda distribution of Python. Remember, you actually have several versions of Python on your computer. This is why you have that choice of Python kernel when you're running code.
 # 
 # I'm going to bring back the Zillow **uw** DataFrame, just because it has more variables to look at. 
 # 
@@ -377,12 +376,12 @@ uw = pd.read_csv('https://github.com/aaiken1/fin-data-analysis-python/raw/main/d
 skim(uw)
 
 
-# ## pandas profiling
+# ## ydata profiling
 # 
-# If you want something more in-depth, try `pandas-profiling`. We can install `pandas-profiling` via Anaconda. To use this package, you'll need to type the following in the terminal (Mac) or command prompt (Windows). You'll need to restart VS Code.
+# If you want something more in-depth, try `ydata-profiling`. We can install `ydata-profiling` using pip. To use this package, you'll need to type the following in the terminal (Mac) or command prompt (Windows). You'll need to restart VS Code.
 # 
 # ```
-# conda install -c conda-forge pandas-profiling
+# python -m pip install ydata_profiling
 # ```
 # 
 # You can [read all about it on their Github page](https://github.com/pandas-profiling/pandas-profiling). It's ridiculous what it can do. 
@@ -392,7 +391,7 @@ skim(uw)
 # In[29]:
 
 
-from pandas_profiling import ProfileReport
+from ydata_profiling import ProfileReport
 
 
 # This will create the report.

@@ -2,14 +2,13 @@
 
 Chapter 4 discusses how to store our data, indexing, column names, converting `numpy` arrays to `pandas` DataFrames, dates, an and summaring our data, especially **by group**. We'll end with merging and reshaping our data.
 
-DataFrames are the main way that we are going to organize our data. They come from the `pandas` package, which along with `numpy`, `matplotlib`, and a few others, form the core of our Python and finance toolbox. 
+DataFrames are the main way that we are going to organize our data. They come from the `pandas` package, which along with `numpy`, `matplotlib`, and a few others, form the core of our Python and finance toolbox.
 
-DataFrames are a `class`. A `class` is like a blueprint. We create a DataFrame `object` from this `class`. The object then comes with certain characteristics and things that we can do to it. We call operations on a object `methods`. 
+DataFrames are a `class`. A `class` is like a blueprint. We create a DataFrame `object` from this `class`. The object then comes with certain characteristics and things that we can do to it. We call operations on a object `methods`.
 
 ```{note}
 Chapter 4 contains perhaps the most important topics we'll cover.
 ```
-
 
 An [excellent and concise guide](https://www.mit.edu/~amidi/teaching/data-science-tools/study-guide/data-manipulation-with-python/#main-concepts) for data manipulation in `pandas`.
 

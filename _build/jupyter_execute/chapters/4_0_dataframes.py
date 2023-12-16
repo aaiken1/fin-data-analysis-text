@@ -11,7 +11,7 @@
 # 
 # The fifth DataCamp assignment, **Importing and Managing Financial Data in Python** covers all of this in great detail.
 # 
-# We'll typically be importing our data from CSV and Excel files. 
+# We'll typically be importing our data from CSV and Excel files.
 
 # There's some price data up on our [course Github page](https://github.com/aaiken1/fin-data-analysis-python). Let's import this both as a downloaded CSV file and then directly from Github. No need to download the file to your computer and deal with folders. 
 # 
@@ -45,7 +45,7 @@ df = pd.DataFrame([75,79,82,60], columns = ['Prices'], index =[1,2,3,4])
 
 
 prices = pd.read_csv('../data/tr_eikon_eod_data.csv',
-                  index_col=0, parse_dates=True)
+                  index_col = 0, parse_dates = True)
 
 
 # First, if you're in Jupyter Notebook in VS Code, click the **Variables** button at the top. Google Colab has a similar button on the left. You'll see the two DataFrames that we now have in memory appear below. Click the pop-out button to view them.
@@ -85,7 +85,7 @@ prices2
 
 
 prices2 = pd.read_csv('https://github.com/aaiken1/fin-data-analysis-python/raw/main/data/tr_eikon_eod_data.csv',
-                      index_col=0, parse_dates=True)
+                      index_col = 0, parse_dates = True)
 
 prices2
 
@@ -121,7 +121,7 @@ prices.columns
 
 
 prices100 = pd.read_csv('https://github.com/aaiken1/fin-data-analysis-python/raw/main/data/tr_eikon_eod_data.csv',
-                      index_col=0, parse_dates=True, nrows=100)
+                      index_col = 0, parse_dates = True, nrows = 100)
 
 
 # You can bring in just certain columns. In `pandas`, we select columns using `['COLUMN']`.
@@ -130,7 +130,7 @@ prices100 = pd.read_csv('https://github.com/aaiken1/fin-data-analysis-python/raw
 
 
 prices_spx= pd.read_csv('https://github.com/aaiken1/fin-data-analysis-python/raw/main/data/tr_eikon_eod_data.csv',
-                      index_col=0, parse_dates=True, usecols=(['.SPX']))
+                      index_col = 0, parse_dates = True, usecols = (['.SPX']))
 
 
 # You can also specify if a particular value should be set to missing. `read_csv()` already looks for common items, like 'NA' or 'n/a'. I'll have it look for '-' as well, though that isn't a missing value in this data.
@@ -139,7 +139,7 @@ prices_spx= pd.read_csv('https://github.com/aaiken1/fin-data-analysis-python/raw
 
 
 prices2 = pd.read_csv('https://github.com/aaiken1/fin-data-analysis-python/raw/main/data/tr_eikon_eod_data.csv',
-                      index_col=0, parse_dates=True, na_values='-')
+                      index_col = 0, parse_dates = True, na_values = '-')
 
 
 # We can also read data in from **Excel files**, using `.read_excel()`. I'll read in some HF return data.
@@ -149,7 +149,7 @@ prices2 = pd.read_csv('https://github.com/aaiken1/fin-data-analysis-python/raw/m
 
 
 hf = pd.read_excel('https://raw.githubusercontent.com/aaiken1/fin-data-analysis-python/main/data/hf_rets.xlsx',
-                  index_col=0, parse_dates=True, sheet_name='rets')  
+                  index_col = 0, parse_dates = True, sheet_name = 'rets')  
 
 
 # We can use the option `sheet_name=` to specific a particular sheet from the Excel file. You can read more about the various options [here](https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.read_excel.html). 

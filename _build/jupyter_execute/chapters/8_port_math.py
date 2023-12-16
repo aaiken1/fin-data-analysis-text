@@ -3,7 +3,7 @@
 
 # # Essential portfolio math
 # 
-# This brief chapter will cover the type of statistics that we often see when looking at **portfolios**. Much of this material is covered in various DataCamp exercises. Parts of the material, such as skewness and kurtosis, are also covered in **Chapter 13 of our textbook**. 
+# This brief chapter will cover the type of statistics that we often see when looking at **portfolios**. Much of this material is covered in various DataCamp exercises. Parts of the material, such as skewness and kurtosis, are also covered in **Chapter 13** of [Python for Finance, 2e](https://www.oreilly.com/library/view/python-for-finance/9781492024323/)
 # 
 # This material will have us thinking about **portfolio construction**.
 # 
@@ -15,7 +15,7 @@
 # 4. Size bets in terms of risk.
 # 5. Correlations matter: For a long position, correlation with other longs is bad, corr. with shorts is good. Powerful to go long/short within each industry, diversify across industries. Can use ETFs and futures to “hedge” out sector and market exposure.
 # 6. Resize positions according to forward-looking risk and conviction.
-# 
+#    
 # We'll start by bringing in some **monthly hedge fund return data**. We'll calculate some portfolio returns, using assumed weights. We'll then move on to portfolio-level **variance and standard deviation**. We'll see how to **annualize returns and volatility**. We'll look at other risk measures, like **skewness** and **kurtosis**. We'll see **Sharpe** and **Sortino** ratios. Finally, we'll make a graph showing the **drawdown**, or worse loss, of our portfolio.
 # 
 # These ideas will get us thinking about portfolios, trading strategies, risk management, and portfolio optimization. We'll go into more detail in later chapters.
@@ -37,6 +37,9 @@ import matplotlib as mpl
 
 # This lets us refer to the pyplot part of matplot lib more easily. Just use plt!
 import matplotlib.pyplot as plt
+
+# Include this to have plots show up in your Jupyter notebook.
+get_ipython().run_line_magic('matplotlib', 'inline')
 
 hf = pd.read_excel('https://raw.githubusercontent.com/aaiken1/fin-data-analysis-python/main/data/hf_rets.xlsx',
                   index_col=0, parse_dates=True)  
@@ -94,6 +97,15 @@ rets
 # ```
 # 
 # Believe it or not, just figuring out how to calculate returns in order to create projections (e.g. for a client portfolio) is a controversial, non-trivial task. Two of the authors of your FIN 4120 investments textbook suggest that you should forecast the value of a portfolio using an average [between the arithmetic and geometric](https://www.tandfonline.com/doi/abs/10.2469/faj.v59.n6.2574?src=recsys).
+# 
+# I like this discussion, too, by Kris Abdelmessih, an options trader who also writes the [Moontower Substack](https://moontower.substack.com/p/well-what-did-you-expect):
+# 
+# > What you expect to happen in the colloquial sense of the term is the geometric mean. The arithmetic average is a measure of centrality when you sum the results and divide by the number of results. (In our examples you are summing results weighted by their probabilities, but you are still summing). The geometric mean corresponds to the median result of a compounding process. Compounding means “multiplying not summing”. The median is the measure that maps to our colloquial use of “expected” because it’s the 50/50 point of the distribution. That’s the number you plan life around.
+# 
+# > The theoretical arithmetic mean result of playing the lotto might be losing 50% of your $2 Powerball ticket (which is another way of saying you are paying 2x what the ticket is mathematically worth). The median result is you lit your cash on fire. You plan your life around the median, especially when it’s far away from the mean. We’ll come back to that.
+# 
+# 
+# Here's [a link](https://www.dropbox.com/s/ph4xmjt5wsobeuv/Well%20What%20Did%20You%20%22Expect%22%3F%20-%20Party%20at%20the%20Moontower.pdf?dl=0) to a PDF of that Substack post. If you're interested in trading, options, math puzzles, etc., check out his work. I don't agree with every conclusion, but I like the way he breaks things down into the step-by-step logic of underlying math.
 
 # ## Portfolio-level returns
 # 

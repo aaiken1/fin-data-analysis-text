@@ -3,9 +3,9 @@
 
 # # Numpy and arrays
 # 
-# It is time for our first Python library! **Chapter 4** of [Python for Finance, 2e](https://www.oreilly.com/library/view/python-for-finance/9781492024323/) covers the [NumPy](https://numpy.org) library and `arrays`. Arrays can hold many different values, which you then reference or perform operations on. For example, a **matrix** is a two-dimensional array of numbers. However, arrays themselves can have any number *n* dimensions. 
+# It is time for our first Python library! **Chapter 4** of [Python for Finance, 2e](https://www.oreilly.com/library/view/python-for-finance/9781492024323/) covers the [NumPy](https://numpy.org) library and `arrays`. Arrays can hold many different values, which you then reference or perform operations on. For example, a **matrix** is a two-dimensional array of numbers. However, arrays themselves can have any number *n* dimensions.
 # 
-# Why do we need arrays? Math stuff. Linear algebra. They allow us to perform mathematical operations on numbers, like stock prices and returns. Arrays are also necessary for machine learning, image recognition, and anything else that requires computation. In short, you really can't do much with arrays and matrices.
+# Why do we need arrays? Math stuff. Linear algebra. They allow us to perform mathematical operations on numbers, like stock prices and returns. Arrays are also necessary for machine learning, image recognition, and anything else that requires computation. In short, you really can't do much without arrays and matrices.
 # 
 # Specifically, we are going to cover `numpy` arrays, basic math with them, how to reshape their n x k dimensions, and **vectorization** and **broadcasting**. These last two are ways of doing loop-like things without the loops. Loops can be slow, so taking advantage of vectorization can speed things up.  
 # 

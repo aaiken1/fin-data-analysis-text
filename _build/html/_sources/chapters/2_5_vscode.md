@@ -76,7 +76,7 @@ class: with-border
 You can see the extensions that I have installed on the left.
 ```
 
-You can access **extensions** in the bar on the left, or under View:Extensions, or with Command-Shift-X. See the figure above for the extensions that I have installed. 
+You can access **extensions** in the bar on the left, or under View:Extensions, or with Command-Shift-X (Mac), or with Ctrl-Shift-X (PC). See the figure above for the extensions that I have installed. 
 
 You definitely need:
 - Python
@@ -93,6 +93,29 @@ I recommend:
 - Rainbow CSV
 - markdownlint
 - Python Indent
+
+```{figure} ../images/02-install-python-windows-vscode.png
+---
+name: 02-install-python-windows-vscode.png
+align: center
+class: with-border
+---
+Inside of the extensions bar on the left, you can search and choose extensions to install. Here's the Microsoft Python extension -- we need this one for VS Code to understand Python.
+```
+
+
+```{note}
+Are you not able to run your code? Make sure that you have a **kernel** selected. You can choose this by clicking the **kernel button** in the upper-right.  You might have several versions of Python to choose from on your machine. You want the Python kernel that came with Anaconda. Are you not able to select any kernels? See my comments about **restricted mode** below -- you can turn this off. 
+```
+
+```{figure} ../images/02-python-vscode-windows.png
+---
+name: 02-python-vscode-windows.png
+align: center
+class: with-border
+---
+You can read more about extensions, as well as uninstall them, inside of VS Code. This is the Microsoft Python extension inside of the Windows VS Code.
+```
 
 
 
@@ -113,3 +136,17 @@ If you want the Linux cheat sheet, then you get to teach the class. Those are th
 ``````
 
 You can also find a [shortcut sheet for Macs](https://code.visualstudio.com/shortcuts/keyboard-shortcuts-macos.pdf) and [one for Windows](https://code.visualstudio.com/shortcuts/keyboard-shortcuts-windows.pdf). 
+
+VS Code also uses something called **restricted mode** as a default. This is to protect you from malicious code. This also means that if you double-click on a file to open it in VS Code, you won't be able to run it by default with clicking on **restricted mode** at the bottom-left of the screen and enabling the file. From the restricted mode window, you can set it so that files in certain folders will always open and run.  
+
+You can also go to **Settings**, search for **trust** and turn off restricted mode completely by unchecking the second button.
+
+```{figure} ../images/02-vs-restricted.png
+---
+name: 02-vs-restricted.png
+align: center
+class: with-border
+---
+Tired of restricted mode when you open up a file? You can turn this off. 
+```
+

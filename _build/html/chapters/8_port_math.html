@@ -57,7 +57,7 @@ const thebe_selector_output = ".output, .cell_output"
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
     <link rel="next" title="9. Portfolio optimization" href="9_portfolio_opt.html" />
-    <link rel="prev" title="7. Using NASDAQ BTC data" href="7_nasdaq_api.html" />
+    <link rel="prev" title="7. Using APIs for Data Imports" href="7_nasdaq_api.html" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="docsearch:language" content="None">
     
@@ -241,6 +241,16 @@ const thebe_selector_output = ".output, .cell_output"
      4.5. Merging and reshaping data
     </a>
    </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="4_5_sql.html">
+     4.6. Using SQL in Python
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="4_6_polar.html">
+     4.7. polars: A fast, fancy pandas alternative
+    </a>
+   </li>
   </ul>
  </li>
  <li class="toctree-l1 has-children">
@@ -255,17 +265,17 @@ const thebe_selector_output = ".output, .cell_output"
   <ul>
    <li class="toctree-l2">
     <a class="reference internal" href="5_0_matplotlib.html">
-     5.2. matplotlib
+     5.1. matplotlib
     </a>
    </li>
    <li class="toctree-l2">
     <a class="reference internal" href="5_1_plotly.html">
-     5.3. plotly
+     5.2. plotly
     </a>
    </li>
    <li class="toctree-l2">
     <a class="reference internal" href="5_2_seaborn.html">
-     5.4. seaborn
+     5.3. seaborn
     </a>
    </li>
   </ul>
@@ -286,7 +296,7 @@ const thebe_selector_output = ".output, .cell_output"
 <ul class="current nav bd-sidenav">
  <li class="toctree-l1">
   <a class="reference internal" href="7_nasdaq_api.html">
-   7. Using NASDAQ BTC data
+   7. Using APIs for Data Imports
    <a id="btc-sim">
    </a>
   </a>
@@ -333,6 +343,16 @@ const thebe_selector_output = ".output, .cell_output"
    15. Logit models
   </a>
  </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="16_trading_bt.html">
+   16. Trading Strategies and the BT Package
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="17_using_chatgpt.html">
+   17. Using ChatGPT
+  </a>
+ </li>
 </ul>
 <p aria-level="2" class="caption" role="heading">
  <span class="caption-text">
@@ -355,6 +375,36 @@ const thebe_selector_output = ".output, .cell_output"
    Lab 02
   </a>
  </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="lab03.html">
+   Lab 03
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="lab04.html">
+   Lab 04
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="lab05.html">
+   Lab 05
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="lab06.html">
+   Lab 06
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="lab07.html">
+   Lab 07
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="lab08.html">
+   Lab 08
+  </a>
+ </li>
 </ul>
 <p aria-level="2" class="caption" role="heading">
  <span class="caption-text">
@@ -365,6 +415,16 @@ const thebe_selector_output = ".output, .cell_output"
  <li class="toctree-l1">
   <a class="reference internal" href="exam_intro.html">
    Our Exams
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="exam01.html">
+   Midterm Exam
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="exam02.html">
+   Final Exam
   </a>
  </li>
 </ul>
@@ -632,7 +692,7 @@ title="Print to PDF"
                 
   <section class="tex2jax_ignore mathjax_ignore" id="essential-portfolio-math">
 <h1><span class="section-number">8. </span>Essential portfolio math<a class="headerlink" href="#essential-portfolio-math" title="Permalink to this headline">#</a></h1>
-<p>This brief chapter will cover the type of statistics that we often see when looking at <strong>portfolios</strong>. Much of this material is covered in various DataCamp exercises. Parts of the material, such as skewness and kurtosis, are also covered in <strong>Chapter 13 of our textbook</strong>.</p>
+<p>This brief chapter will cover the type of statistics that we often see when looking at <strong>portfolios</strong>. Much of this material is covered in various DataCamp exercises. Parts of the material, such as skewness and kurtosis, are also covered in <strong>Chapter 13</strong> of <a class="reference external" href="https://www.oreilly.com/library/view/python-for-finance/9781492024323/">Python for Finance, 2e</a></p>
 <p>This material will have us thinking about <strong>portfolio construction</strong>.</p>
 <p>What is <strong>portfolio construction</strong>? Choosing and sizing the various trades (or, assets, more generally) to achieve a good trade-off between risk and expected return.</p>
 <ol class="simple">
@@ -659,6 +719,9 @@ title="Print to PDF"
 
 <span class="c1"># This lets us refer to the pyplot part of matplot lib more easily. Just use plt!</span>
 <span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
+
+<span class="c1"># Include this to have plots show up in your Jupyter notebook.</span>
+<span class="o">%</span><span class="k">matplotlib</span> inline 
 
 <span class="n">hf</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_excel</span><span class="p">(</span><span class="s1">&#39;https://raw.githubusercontent.com/aaiken1/fin-data-analysis-python/main/data/hf_rets.xlsx&#39;</span><span class="p">,</span>
                   <span class="n">index_col</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">parse_dates</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>  
@@ -1000,8 +1063,8 @@ title="Print to PDF"
 <div><p>However, the variance drain on a sequence of volatile returns still matters when financial advisors use Monte Carlo analysis, which by design actually projects sequences of random volatile returns (based on the probability that they will occur) to determine the outcome of particular retirement strategies. Because the fact that volatility drag is already part of a Monte Carlo analysis means that the return assumption plugged into a Monte Carlo projection should actually be the (higher) arithmetic return, and not the investment’s long-term compound average growth rate. Otherwise, the impact of volatility drag is effectively counted twice, which can understate long-term returns and overstate the actual risk of the prospective retirement plan!</p>
 </div></blockquote>
 <p>We can put that reasoning into a simple, but important formula.</p>
-<div class="amsmath math notranslate nohighlight" id="equation-8a4df0e1-f18d-4b4d-9d0b-b5bab270ca50">
-<span class="eqno">(8.1)<a class="headerlink" href="#equation-8a4df0e1-f18d-4b4d-9d0b-b5bab270ca50" title="Permalink to this equation">#</a></span>\[\begin{align}
+<div class="amsmath math notranslate nohighlight" id="equation-d82d378d-db54-4244-8722-fd8d142450ef">
+<span class="eqno">(8.1)<a class="headerlink" href="#equation-d82d378d-db54-4244-8722-fd8d142450ef" title="Permalink to this equation">#</a></span>\[\begin{align}
 \text{Compound Return}_i = E[R_p] - \frac{1}{2}\sigma^2_p
 \end{align}\]</div>
 <p>where <span class="math notranslate nohighlight">\(E[R_i]\)</span> is the arithmetic mean of the portfolio (i.e. the expected return) and <span class="math notranslate nohighlight">\(\sigma^2_p\)</span> is the variance of the portfolio. Note that this math works for single assets, too. It isn’t portfolio specific.</p>
@@ -1010,6 +1073,14 @@ title="Print to PDF"
 <p>This is yet another formula that appears on the CFA and CFP exams.</p>
 </div>
 <p>Believe it or not, just figuring out how to calculate returns in order to create projections (e.g. for a client portfolio) is a controversial, non-trivial task. Two of the authors of your FIN 4120 investments textbook suggest that you should forecast the value of a portfolio using an average <a class="reference external" href="https://www.tandfonline.com/doi/abs/10.2469/faj.v59.n6.2574?src=recsys">between the arithmetic and geometric</a>.</p>
+<p>I like this discussion, too, by Kris Abdelmessih, an options trader who also writes the <a class="reference external" href="https://moontower.substack.com/p/well-what-did-you-expect">Moontower Substack</a>:</p>
+<blockquote>
+<div><p>What you expect to happen in the colloquial sense of the term is the geometric mean. The arithmetic average is a measure of centrality when you sum the results and divide by the number of results. (In our examples you are summing results weighted by their probabilities, but you are still summing). The geometric mean corresponds to the median result of a compounding process. Compounding means “multiplying not summing”. The median is the measure that maps to our colloquial use of “expected” because it’s the 50/50 point of the distribution. That’s the number you plan life around.</p>
+</div></blockquote>
+<blockquote>
+<div><p>The theoretical arithmetic mean result of playing the lotto might be losing 50% of your $2 Powerball ticket (which is another way of saying you are paying 2x what the ticket is mathematically worth). The median result is you lit your cash on fire. You plan your life around the median, especially when it’s far away from the mean. We’ll come back to that.</p>
+</div></blockquote>
+<p>Here’s <a class="reference external" href="https://www.dropbox.com/s/ph4xmjt5wsobeuv/Well%20What%20Did%20You%20%22Expect%22%3F%20-%20Party%20at%20the%20Moontower.pdf?dl=0">a link</a> to a PDF of that Substack post. If you’re interested in trading, options, math puzzles, etc., check out his work. I don’t agree with every conclusion, but I like the way he breaks things down into the step-by-step logic of underlying math.</p>
 </section>
 <section id="portfolio-level-returns">
 <h2><span class="section-number">8.2. </span>Portfolio-level returns<a class="headerlink" href="#portfolio-level-returns" title="Permalink to this headline">#</a></h2>
@@ -1041,30 +1112,30 @@ title="Print to PDF"
 <div class="cell_output docutils container">
 <div class="output text_html"><style type="text/css">
 </style>
-<table id="T_32485">
+<table id="T_2f95c">
   <caption>Hedge Fund Style Returns</caption>
   <thead>
     <tr>
       <th class="blank level0" >&nbsp;</th>
-      <th id="T_32485_level0_col0" class="col_heading level0 col0" >Monthly Return</th>
+      <th id="T_2f95c_level0_col0" class="col_heading level0 col0" >Monthly Return</th>
     </tr>
   </thead>
   <tbody>
     <tr>
-      <th id="T_32485_level0_row0" class="row_heading level0 row0" >L/S Equity</th>
-      <td id="T_32485_row0_col0" class="data row0 col0" >0.754%</td>
+      <th id="T_2f95c_level0_row0" class="row_heading level0 row0" >L/S Equity</th>
+      <td id="T_2f95c_row0_col0" class="data row0 col0" >0.754%</td>
     </tr>
     <tr>
-      <th id="T_32485_level0_row1" class="row_heading level0 row1" >Equity Market Neutral</th>
-      <td id="T_32485_row1_col0" class="data row1 col0" >0.441%</td>
+      <th id="T_2f95c_level0_row1" class="row_heading level0 row1" >Equity Market Neutral</th>
+      <td id="T_2f95c_row1_col0" class="data row1 col0" >0.441%</td>
     </tr>
     <tr>
-      <th id="T_32485_level0_row2" class="row_heading level0 row2" >Global Macro</th>
-      <td id="T_32485_row2_col0" class="data row2 col0" >0.959%</td>
+      <th id="T_2f95c_level0_row2" class="row_heading level0 row2" >Global Macro</th>
+      <td id="T_2f95c_row2_col0" class="data row2 col0" >0.959%</td>
     </tr>
     <tr>
-      <th id="T_32485_level0_row3" class="row_heading level0 row3" >Managed Futures</th>
-      <td id="T_32485_row3_col0" class="data row3 col0" >0.511%</td>
+      <th id="T_2f95c_level0_row3" class="row_heading level0 row3" >Managed Futures</th>
+      <td id="T_2f95c_row3_col0" class="data row3 col0" >0.511%</td>
     </tr>
   </tbody>
 </table>
@@ -1089,30 +1160,30 @@ title="Print to PDF"
 <div class="cell_output docutils container">
 <div class="output text_html"><style type="text/css">
 </style>
-<table id="T_b5bf8">
+<table id="T_9f943">
   <caption>Hedge Fund Style Returns</caption>
   <thead>
     <tr>
       <th class="blank level0" >&nbsp;</th>
-      <th id="T_b5bf8_level0_col0" class="col_heading level0 col0" >Monthly Return</th>
+      <th id="T_9f943_level0_col0" class="col_heading level0 col0" >Monthly Return</th>
     </tr>
   </thead>
   <tbody>
     <tr>
-      <th id="T_b5bf8_level0_row0" class="row_heading level0 row0" >L/S Equity</th>
-      <td id="T_b5bf8_row0_col0" class="data row0 col0" >0.754%</td>
+      <th id="T_9f943_level0_row0" class="row_heading level0 row0" >L/S Equity</th>
+      <td id="T_9f943_row0_col0" class="data row0 col0" >0.754%</td>
     </tr>
     <tr>
-      <th id="T_b5bf8_level0_row1" class="row_heading level0 row1" >Equity Market Neutral</th>
-      <td id="T_b5bf8_row1_col0" class="data row1 col0" >0.441%</td>
+      <th id="T_9f943_level0_row1" class="row_heading level0 row1" >Equity Market Neutral</th>
+      <td id="T_9f943_row1_col0" class="data row1 col0" >0.441%</td>
     </tr>
     <tr>
-      <th id="T_b5bf8_level0_row2" class="row_heading level0 row2" >Global Macro</th>
-      <td id="T_b5bf8_row2_col0" class="data row2 col0" >0.959%</td>
+      <th id="T_9f943_level0_row2" class="row_heading level0 row2" >Global Macro</th>
+      <td id="T_9f943_row2_col0" class="data row2 col0" >0.959%</td>
     </tr>
     <tr>
-      <th id="T_b5bf8_level0_row3" class="row_heading level0 row3" >Managed Futures</th>
-      <td id="T_b5bf8_row3_col0" class="data row3 col0" >0.511%</td>
+      <th id="T_9f943_level0_row3" class="row_heading level0 row3" >Managed Futures</th>
+      <td id="T_9f943_row3_col0" class="data row3 col0" >0.511%</td>
     </tr>
   </tbody>
 </table>
@@ -1182,14 +1253,14 @@ title="Print to PDF"
 <section id="risk-measures-at-the-portfolio-level">
 <h2><span class="section-number">8.3. </span>Risk measures at the portfolio-level<a class="headerlink" href="#risk-measures-at-the-portfolio-level" title="Permalink to this headline">#</a></h2>
 <p>As you know from your investments class, the variance of a portfolio is <strong>not</strong> the average variance of the assets in the portfolio. We need to take into account the effects of <strong>diversification</strong>. For example, here’s the formula for the variance of a portfolio with two assets. We need weights, variances, and the covariance between the two.</p>
-<div class="amsmath math notranslate nohighlight" id="equation-8a2cd3ba-023e-4c9c-8310-713dea1c4bb4">
-<span class="eqno">(8.2)<a class="headerlink" href="#equation-8a2cd3ba-023e-4c9c-8310-713dea1c4bb4" title="Permalink to this equation">#</a></span>\[\begin{align}
+<div class="amsmath math notranslate nohighlight" id="equation-3ccb4b4a-f506-40de-9c12-86f0796558b7">
+<span class="eqno">(8.2)<a class="headerlink" href="#equation-3ccb4b4a-f506-40de-9c12-86f0796558b7" title="Permalink to this equation">#</a></span>\[\begin{align}
 \sigma^2_p = w^2_1 \sigma^2_1 + w^2_2 \sigma^2_2 + 2 w_1 w_2 \sigma^2_{1,2}
 \end{align}\]</div>
 <p>That last sigma, <span class="math notranslate nohighlight">\(\sigma^2_{1,2}\)</span>, is the <strong>covariance</strong> between the two assets.</p>
 <p>This formula generalizes for <strong>any number of assets</strong>.</p>
-<div class="amsmath math notranslate nohighlight" id="equation-44de0f60-c208-425e-a4be-f5fbc3e4f864">
-<span class="eqno">(8.3)<a class="headerlink" href="#equation-44de0f60-c208-425e-a4be-f5fbc3e4f864" title="Permalink to this equation">#</a></span>\[\begin{align}
+<div class="amsmath math notranslate nohighlight" id="equation-2a59add4-2af3-431f-9ef5-2dac62944da8">
+<span class="eqno">(8.3)<a class="headerlink" href="#equation-2a59add4-2af3-431f-9ef5-2dac62944da8" title="Permalink to this equation">#</a></span>\[\begin{align}
 \sigma^2_p = w^T \Sigma w
 \end{align}\]</div>
 <p>where <span class="math notranslate nohighlight">\(w\)</span> is a <strong>vector</strong> containing all of our portfolio weights and sigma is the variance-covariance matrix for our assets. The “T” means the matrix operation <strong>transpose</strong>. This is necessary for the matrix multiplication.</p>
@@ -1579,7 +1650,7 @@ Name: port_ret, dtype: float64
         <i class="fas fa-angle-left"></i>
         <div class="prev-next-info">
             <p class="prev-next-subtitle">previous</p>
-            <p class="prev-next-title"><span class="section-number">7. </span>Using NASDAQ BTC data <a id='btc-sim'></a></p>
+            <p class="prev-next-title"><span class="section-number">7. </span>Using APIs for Data Imports <a id='btc-sim'></a></p>
         </div>
     </a>
     <a class='right-next' id="next-link" href="9_portfolio_opt.html" title="next page">

@@ -1,0 +1,1048 @@
+
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
+    <title>17. Using ChatGPT &#8212; Data Analysis in Finance</title>
+    
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../_static/styles/theme.css?digest=1999514e3f237ded88cf" rel="stylesheet">
+<link href="../_static/styles/pydata-sphinx-theme.css?digest=1999514e3f237ded88cf" rel="stylesheet">
+
+    
+  <link rel="stylesheet"
+    href="../_static/vendor/fontawesome/5.13.0/css/all.min.css">
+  <link rel="preload" as="font" type="font/woff2" crossorigin
+    href="../_static/vendor/fontawesome/5.13.0/webfonts/fa-solid-900.woff2">
+  <link rel="preload" as="font" type="font/woff2" crossorigin
+    href="../_static/vendor/fontawesome/5.13.0/webfonts/fa-brands-400.woff2">
+
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css" />
+    <link rel="stylesheet" href="../_static/styles/sphinx-book-theme.css?digest=5115cc725059bd94278eecd172e13a965bf8f5a9" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="../_static/togglebutton.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/copybutton.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/mystnb.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/sphinx-thebe.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/design-style.b7bb847fb20b106c3d81b95245e65545.min.css" />
+    
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../_static/scripts/pydata-sphinx-theme.js?digest=1999514e3f237ded88cf">
+
+    <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
+    <script src="../_static/jquery.js"></script>
+    <script src="../_static/underscore.js"></script>
+    <script src="../_static/doctools.js"></script>
+    <script src="../_static/clipboard.min.js"></script>
+    <script src="../_static/copybutton.js"></script>
+    <script src="../_static/scripts/sphinx-book-theme.js?digest=9c920249402e914e316237a7dbc6769907cce411"></script>
+    <script>let toggleHintShow = 'Click to show';</script>
+    <script>let toggleHintHide = 'Click to hide';</script>
+    <script>let toggleOpenOnPrint = 'true';</script>
+    <script src="../_static/togglebutton.js"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown, .tag_hide_input div.cell_input, .tag_hide-input div.cell_input, .tag_hide_output div.cell_output, .tag_hide-output div.cell_output, .tag_hide_cell.cell, .tag_hide-cell.cell';</script>
+    <script src="../_static/design-tabs.js"></script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"
+const thebe_selector = ".thebe,.cell"
+const thebe_selector_input = "pre"
+const thebe_selector_output = ".output, .cell_output"
+</script>
+    <script async="async" src="../_static/sphinx-thebe.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+    <script src="https://unpkg.com/@jupyter-widgets/html-manager@^0.20.0/dist/embed-amd.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="Our labs" href="lab_intro.html" />
+    <link rel="prev" title="16. Trading Strategies and the BT Package" href="16_trading_bt.html" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="docsearch:language" content="None">
+    
+
+    <!-- Google Analytics -->
+    
+  </head>
+  <body data-spy="scroll" data-target="#bd-toc-nav" data-offset="60">
+<!-- Checkboxes to toggle the left sidebar -->
+<input type="checkbox" class="sidebar-toggle" name="__navigation" id="__navigation" aria-label="Toggle navigation sidebar">
+<label class="overlay overlay-navbar" for="__navigation">
+    <div class="visually-hidden">Toggle navigation sidebar</div>
+</label>
+<!-- Checkboxes to toggle the in-page toc -->
+<input type="checkbox" class="sidebar-toggle" name="__page-toc" id="__page-toc" aria-label="Toggle in-page Table of Contents">
+<label class="overlay overlay-pagetoc" for="__page-toc">
+    <div class="visually-hidden">Toggle in-page Table of Contents</div>
+</label>
+<!-- Headers at the top -->
+<div class="announcement header-item noprint"></div>
+<div class="header header-item noprint"></div>
+
+    
+    <div class="container-fluid" id="banner"></div>
+
+    
+
+    <div class="container-xl">
+      <div class="row">
+          
+<!-- Sidebar -->
+<div class="bd-sidebar noprint" id="site-navigation">
+    <div class="bd-sidebar__content">
+        <div class="bd-sidebar__top"><div class="navbar-brand-box">
+    <a class="navbar-brand text-wrap" href="../index.html">
+      
+        <!-- `logo` is deprecated in Sphinx 4.0, so remove this when we stop supporting 3 -->
+        
+      
+      
+      <img src="../_static/cat.png" class="logo" alt="logo">
+      
+      
+      <h1 class="site-logo" id="site-title">Data Analysis in Finance</h1>
+      
+    </a>
+</div><form class="bd-search d-flex align-items-center" action="../search.html" method="get">
+  <i class="icon fas fa-search"></i>
+  <input type="search" class="form-control" name="q" id="search-input" placeholder="Search this book..." aria-label="Search this book..." autocomplete="off" >
+</form><nav class="bd-links" id="bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item active">
+        
+        <ul class="nav bd-sidenav bd-sidenav__home-link">
+            <li class="toctree-l1">
+                <a class="reference internal" href="../intro.html">
+                    Welcome
+                </a>
+            </li>
+        </ul>
+        <p aria-level="2" class="caption" role="heading">
+ <span class="caption-text">
+  Getting Started
+ </span>
+</p>
+<ul class="nav bd-sidenav">
+ <li class="toctree-l1">
+  <a class="reference internal" href="1_finpyth.html">
+   1. Why Python and finance?
+  </a>
+ </li>
+ <li class="toctree-l1 has-children">
+  <a class="reference internal" href="2_1_intro.html">
+   2. Python set-up
+   <a id="python_set-up">
+   </a>
+  </a>
+  <input class="toctree-checkbox" id="toctree-checkbox-1" name="toctree-checkbox-1" type="checkbox"/>
+  <label for="toctree-checkbox-1">
+   <i class="fas fa-chevron-down">
+   </i>
+  </label>
+  <ul>
+   <li class="toctree-l2">
+    <a class="reference internal" href="2_2_install.html">
+     2.2. Installation
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="2_3_jupyter.html">
+     2.3. Jupyter notebooks
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="2_4_googlecolab.html">
+     2.4. Google Colab
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="2_5_vscode.html">
+     2.5. VS Code
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="2_6_markdown.html">
+     2.6. Markdown
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="2_7_packages.html">
+     2.7. Packages
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="2_8_style.html">
+     2.8. Code style, PEP8, and linting
+    </a>
+   </li>
+  </ul>
+ </li>
+</ul>
+<p aria-level="2" class="caption" role="heading">
+ <span class="caption-text">
+  The Basics
+ </span>
+</p>
+<ul class="nav bd-sidenav">
+ <li class="toctree-l1 has-children">
+  <a class="reference internal" href="3_1_intro.html">
+   3. CompSci 101: Types, control, and numpy arrays
+  </a>
+  <input class="toctree-checkbox" id="toctree-checkbox-2" name="toctree-checkbox-2" type="checkbox"/>
+  <label for="toctree-checkbox-2">
+   <i class="fas fa-chevron-down">
+   </i>
+  </label>
+  <ul>
+   <li class="toctree-l2">
+    <a class="reference internal" href="3_2_comp101.html">
+     3.1. The Basics
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="3_3_numpy.html">
+     3.2. Numpy and arrays
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toctree-l1 has-children">
+  <a class="reference internal" href="4_intro.html">
+   4. Pandas and data
+  </a>
+  <input class="toctree-checkbox" id="toctree-checkbox-3" name="toctree-checkbox-3" type="checkbox"/>
+  <label for="toctree-checkbox-3">
+   <i class="fas fa-chevron-down">
+   </i>
+  </label>
+  <ul>
+   <li class="toctree-l2">
+    <a class="reference internal" href="4_0_dataframes.html">
+     4.1. Data importing
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="4_1_pandas.html">
+     4.2. pandas
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="4_2_cleaning_data.html">
+     4.3. Cleaning our data
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="4_3_eda.html">
+     4.4. Exploratory data analysis (EDA)
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="4_4_merge_shape.html">
+     4.5. Merging and reshaping data
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="4_5_sql.html">
+     4.6. Using SQL in Python
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="4_6_polar.html">
+     4.7. polars: A fast, fancy pandas alternative
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toctree-l1 has-children">
+  <a class="reference internal" href="5_intro.html">
+   5. Data visualization
+  </a>
+  <input class="toctree-checkbox" id="toctree-checkbox-4" name="toctree-checkbox-4" type="checkbox"/>
+  <label for="toctree-checkbox-4">
+   <i class="fas fa-chevron-down">
+   </i>
+  </label>
+  <ul>
+   <li class="toctree-l2">
+    <a class="reference internal" href="5_0_matplotlib.html">
+     5.1. matplotlib
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="5_1_plotly.html">
+     5.2. plotly
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="5_2_seaborn.html">
+     5.3. seaborn
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="6_financial_ts.html">
+   6. Financial time series
+   <a id="financial-time-series">
+   </a>
+  </a>
+ </li>
+</ul>
+<p aria-level="2" class="caption" role="heading">
+ <span class="caption-text">
+  Applications
+ </span>
+</p>
+<ul class="current nav bd-sidenav">
+ <li class="toctree-l1">
+  <a class="reference internal" href="7_nasdaq_api.html">
+   7. Using APIs for Data Imports
+   <a id="btc-sim">
+   </a>
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="8_port_math.html">
+   8. Essential portfolio math
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="9_portfolio_opt.html">
+   9. Portfolio optimization
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="10_factor_models.html">
+   10. Factor models
+   <a id="factor_models">
+   </a>
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="11_regression_topics.html">
+   11. Regression topics
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="12_risk_mang.html">
+   12. Risk management
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="13_monte_carlo.html">
+   13. Monte Carlo and portfolios
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="14_options.html">
+   14. Option basics
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="15_logit_credit.html">
+   15. Logit models
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="16_trading_bt.html">
+   16. Trading Strategies and the BT Package
+  </a>
+ </li>
+ <li class="toctree-l1 current active">
+  <a class="current reference internal" href="#">
+   17. Using ChatGPT
+  </a>
+ </li>
+</ul>
+<p aria-level="2" class="caption" role="heading">
+ <span class="caption-text">
+  Labs
+ </span>
+</p>
+<ul class="nav bd-sidenav">
+ <li class="toctree-l1">
+  <a class="reference internal" href="lab_intro.html">
+   Our labs
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="lab01.html">
+   Lab 01
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="lab02.html">
+   Lab 02
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="lab03.html">
+   Lab 03
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="lab04.html">
+   Lab 04
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="lab05.html">
+   Lab 05
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="lab06.html">
+   Lab 06
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="lab07.html">
+   Lab 07
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="lab08.html">
+   Lab 08
+  </a>
+ </li>
+</ul>
+<p aria-level="2" class="caption" role="heading">
+ <span class="caption-text">
+  Exams
+ </span>
+</p>
+<ul class="nav bd-sidenav">
+ <li class="toctree-l1">
+  <a class="reference internal" href="exam_intro.html">
+   Our Exams
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="exam01.html">
+   Midterm Exam
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="exam02.html">
+   Final Exam
+  </a>
+ </li>
+</ul>
+
+    </div>
+</nav></div>
+        <div class="bd-sidebar__bottom">
+             <!-- To handle the deprecated key -->
+            
+            <div class="navbar_extra_footer">
+            Powered by <a href="https://jupyterbook.org">Jupyter Book</a>
+            </div>
+            
+        </div>
+    </div>
+    <div id="rtd-footer-container"></div>
+</div>
+
+
+          
+
+
+          
+<!-- A tiny helper pixel to detect if we've scrolled -->
+<div class="sbt-scroll-pixel-helper"></div>
+<!-- Main content -->
+<div class="col py-0 content-container">
+    
+    <div class="header-article row sticky-top noprint">
+        
+
+
+
+<div class="col py-1 d-flex header-article-main">
+    <div class="header-article__left">
+        
+        <label for="__navigation"
+  class="headerbtn"
+  data-toggle="tooltip"
+data-placement="right"
+title="Toggle navigation"
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-bars"></i>
+  </span>
+
+</label>
+
+        
+    </div>
+    <div class="header-article__right">
+<div class="menu-dropdown menu-dropdown-launch-buttons">
+  <button class="headerbtn menu-dropdown__trigger"
+      aria-label="Launch interactive content">
+      <i class="fas fa-rocket"></i>
+  </button>
+  <div class="menu-dropdown__content">
+    <ul>
+      <li>
+        <a href="https://mybinder.org/v2/gh/executablebooks/jupyter-book/master?urlpath=tree/docs/chapters/17_using_chatgpt.ipynb"
+   class="headerbtn"
+   data-toggle="tooltip"
+data-placement="left"
+title="Launch on Binder"
+>
+  
+
+<span class="headerbtn__icon-container">
+  
+    <img src="../_static/images/logo_binder.svg">
+  </span>
+<span class="headerbtn__text-container">Binder</span>
+</a>
+
+      </li>
+      
+    </ul>
+  </div>
+</div>
+
+<button onclick="toggleFullScreen()"
+  class="headerbtn"
+  data-toggle="tooltip"
+data-placement="bottom"
+title="Fullscreen mode"
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+<a href="https://github.com/executablebooks/jupyter-book"
+   class="headerbtn"
+   data-toggle="tooltip"
+data-placement="bottom"
+title="Source repository"
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fab fa-github"></i>
+  </span>
+
+</a>
+
+<div class="menu-dropdown menu-dropdown-download-buttons">
+  <button class="headerbtn menu-dropdown__trigger"
+      aria-label="Download this page">
+      <i class="fas fa-download"></i>
+  </button>
+  <div class="menu-dropdown__content">
+    <ul>
+      <li>
+        <a href="../_sources/chapters/17_using_chatgpt.ipynb"
+   class="headerbtn"
+   data-toggle="tooltip"
+data-placement="left"
+title="Download source file"
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="headerbtn__text-container">.ipynb</span>
+</a>
+
+      </li>
+      
+      <li>
+        
+<button onclick="printPdf(this)"
+  class="headerbtn"
+  data-toggle="tooltip"
+data-placement="left"
+title="Print to PDF"
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="headerbtn__text-container">.pdf</span>
+</button>
+
+      </li>
+      
+    </ul>
+  </div>
+</div>
+<label for="__page-toc"
+  class="headerbtn headerbtn-page-toc"
+  
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-list"></i>
+  </span>
+
+</label>
+
+    </div>
+</div>
+
+<!-- Table of contents -->
+<div class="col-md-3 bd-toc show noprint">
+    <div class="tocsection onthispage pt-5 pb-3">
+        <i class="fas fa-list"></i> Contents
+    </div>
+    <nav id="bd-toc-nav" aria-label="Page">
+        <ul class="visible nav section-nav flex-column">
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#using-gpt-to-write-a-function-for-you">
+   17.1. Using GPT to Write a Function For You
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#using-chatgpt-to-check-our-code">
+   17.2. Using ChatGPT to Check Our Code
+  </a>
+ </li>
+</ul>
+
+    </nav>
+</div>
+    </div>
+    <div class="article row">
+        <div class="col pl-md-3 pl-lg-5 content-container">
+            <!-- Table of contents that is only displayed when printing the page -->
+            <div id="jb-print-docs-body" class="onlyprint">
+                <h1>Using ChatGPT</h1>
+                <!-- Table of contents -->
+                <div id="print-main-content">
+                    <div id="jb-print-toc">
+                        
+                        <div>
+                            <h2> Contents </h2>
+                        </div>
+                        <nav aria-label="Page">
+                            <ul class="visible nav section-nav flex-column">
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#using-gpt-to-write-a-function-for-you">
+   17.1. Using GPT to Write a Function For You
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#using-chatgpt-to-check-our-code">
+   17.2. Using ChatGPT to Check Our Code
+  </a>
+ </li>
+</ul>
+
+                        </nav>
+                    </div>
+                </div>
+            </div>
+            <main id="main-content" role="main">
+                
+              <div>
+                
+  <section class="tex2jax_ignore mathjax_ignore" id="using-chatgpt">
+<h1><span class="section-number">17. </span>Using ChatGPT<a class="headerlink" href="#using-chatgpt" title="Permalink to this headline">#</a></h1>
+<p>There are now many AI-based tools to help us code. These tools can create code outlines for us, check our own code, write functions, and explain the steps. I’m going to show you a few examples using the free <a class="reference external" href="https://chat.openai.com">OpenAI ChapGPT tools</a>.</p>
+<p>If you use Github and VS Code, you can sign-up for <a class="reference external" href="https://github.com/features/copilot/">CoPilot</a>.</p>
+<p>This paper by <a class="reference external" href="https://papers.ssrn.com/sol3/papers.cfm?abstract_id=4412371">Liu, Miller, and Niu (2023)</a> has some great examples of how to use ChatGPT in a course like this one.</p>
+<section id="using-gpt-to-write-a-function-for-you">
+<h2><span class="section-number">17.1. </span>Using GPT to Write a Function For You<a class="headerlink" href="#using-gpt-to-write-a-function-for-you" title="Permalink to this headline">#</a></h2>
+<p>Let’s go back to Chapter 7, where I showed you how to write a function to generate asset paths using <strong>geometric brownian motion</strong>. We used the Nasdaq API to bring in some bitcoin data in that example. Now, I’m going to use ChatGPT to write the same function. I gave GPT4 the following prompt:</p>
+<blockquote>
+<div><p>Write a function in Python that simulates geometric brownian motion for any number of assets. Create the appropriate inputs as arrays. The inputs should be the number of assets, the mean for each asset, the standard deviation for each asset, the number of periods, the initial value of each asset, and the number of simulations. The output should be an array that contains all of the simulations for each asset. These are uncorrelated assets, so don’t worry about covariance.</p>
+</div></blockquote>
+<p>Here’s the code that it gave me:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+
+<span class="k">def</span> <span class="nf">geometric_brownian_motion</span><span class="p">(</span><span class="n">num_assets</span><span class="p">,</span> <span class="n">means</span><span class="p">,</span> <span class="n">std_devs</span><span class="p">,</span> <span class="n">num_periods</span><span class="p">,</span> <span class="n">initial_values</span><span class="p">,</span> <span class="n">num_simulations</span><span class="p">):</span>
+    <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">means</span><span class="p">)</span> <span class="o">!=</span> <span class="n">num_assets</span> <span class="ow">or</span> <span class="nb">len</span><span class="p">(</span><span class="n">std_devs</span><span class="p">)</span> <span class="o">!=</span> <span class="n">num_assets</span> <span class="ow">or</span> <span class="nb">len</span><span class="p">(</span><span class="n">initial_values</span><span class="p">)</span> <span class="o">!=</span> <span class="n">num_assets</span><span class="p">:</span>
+        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;The length of means, std_devs, and initial_values should be equal to the number of assets&quot;</span><span class="p">)</span>
+
+    <span class="c1"># Initialize an array to store the simulations</span>
+    <span class="n">simulations</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">((</span><span class="n">num_simulations</span><span class="p">,</span> <span class="n">num_periods</span> <span class="o">+</span> <span class="mi">1</span><span class="p">,</span> <span class="n">num_assets</span><span class="p">))</span>
+
+    <span class="c1"># Set the initial values for each simulation</span>
+    <span class="n">simulations</span><span class="p">[:,</span> <span class="mi">0</span><span class="p">,</span> <span class="p">:]</span> <span class="o">=</span> <span class="n">initial_values</span>
+
+    <span class="c1"># Time step</span>
+    <span class="n">dt</span> <span class="o">=</span> <span class="mf">1.0</span>
+
+    <span class="c1"># Loop through each simulation</span>
+    <span class="k">for</span> <span class="n">sim</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">num_simulations</span><span class="p">):</span>
+        <span class="c1"># Loop through each time period</span>
+        <span class="k">for</span> <span class="n">t</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="n">num_periods</span> <span class="o">+</span> <span class="mi">1</span><span class="p">):</span>
+            <span class="c1"># Loop through each asset</span>
+            <span class="k">for</span> <span class="n">asset</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">num_assets</span><span class="p">):</span>
+                <span class="c1"># Generate a random normal value (using mean=0 and std_dev=1) for the brownian motion</span>
+                <span class="n">random_normal</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">normal</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
+
+                <span class="c1"># Calculate the change in asset value using geometric brownian motion</span>
+                <span class="n">change</span> <span class="o">=</span> <span class="n">means</span><span class="p">[</span><span class="n">asset</span><span class="p">]</span> <span class="o">*</span> <span class="n">dt</span> <span class="o">+</span> <span class="n">std_devs</span><span class="p">[</span><span class="n">asset</span><span class="p">]</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="n">dt</span><span class="p">)</span> <span class="o">*</span> <span class="n">random_normal</span>
+
+                <span class="c1"># Update the asset value</span>
+                <span class="n">simulations</span><span class="p">[</span><span class="n">sim</span><span class="p">,</span> <span class="n">t</span><span class="p">,</span> <span class="n">asset</span><span class="p">]</span> <span class="o">=</span> <span class="n">simulations</span><span class="p">[</span><span class="n">sim</span><span class="p">,</span> <span class="n">t</span> <span class="o">-</span> <span class="mi">1</span><span class="p">,</span> <span class="n">asset</span><span class="p">]</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">exp</span><span class="p">(</span><span class="n">change</span><span class="p">)</span>
+
+    <span class="k">return</span> <span class="n">simulations</span>
+
+<span class="c1"># Example usage</span>
+<span class="n">num_assets</span> <span class="o">=</span> <span class="mi">3</span>
+<span class="n">means</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mf">0.05</span><span class="p">,</span> <span class="mf">0.06</span><span class="p">,</span> <span class="mf">0.07</span><span class="p">])</span>
+<span class="n">std_devs</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mf">0.1</span><span class="p">,</span> <span class="mf">0.12</span><span class="p">,</span> <span class="mf">0.14</span><span class="p">])</span>
+<span class="n">num_periods</span> <span class="o">=</span> <span class="mi">100</span>
+<span class="n">initial_values</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mi">100</span><span class="p">,</span> <span class="mi">120</span><span class="p">,</span> <span class="mi">140</span><span class="p">])</span>
+<span class="n">num_simulations</span> <span class="o">=</span> <span class="mi">1000</span>
+
+<span class="n">simulations</span> <span class="o">=</span> <span class="n">geometric_brownian_motion</span><span class="p">(</span><span class="n">num_assets</span><span class="p">,</span> <span class="n">means</span><span class="p">,</span> <span class="n">std_devs</span><span class="p">,</span> <span class="n">num_periods</span><span class="p">,</span> <span class="n">initial_values</span><span class="p">,</span> <span class="n">num_simulations</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">simulations</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[[[1.00000000e+02 1.20000000e+02 1.40000000e+02]
+  [1.11704472e+02 1.13702169e+02 1.40473438e+02]
+  [1.25315875e+02 1.24607329e+02 1.48077974e+02]
+  ...
+  [3.61304352e+04 2.24679501e+04 1.23277522e+06]
+  [3.66277145e+04 2.11584274e+04 1.39238768e+06]
+  [3.84220079e+04 2.26633586e+04 1.57662143e+06]]
+
+ [[1.00000000e+02 1.20000000e+02 1.40000000e+02]
+  [1.01751304e+02 1.23624771e+02 1.67585270e+02]
+  [1.05357823e+02 1.34838273e+02 1.43440133e+02]
+  ...
+  [8.11587867e+03 3.04844011e+04 3.38115605e+05]
+  [9.21463242e+03 4.64035546e+04 4.29355383e+05]
+  [1.00933597e+04 4.94914856e+04 4.78556477e+05]]
+
+ [[1.00000000e+02 1.20000000e+02 1.40000000e+02]
+  [1.01443566e+02 1.17233352e+02 1.76301130e+02]
+  [1.22719534e+02 1.14551822e+02 1.86306910e+02]
+  ...
+  [8.52769982e+03 2.47410101e+04 3.49921929e+04]
+  [8.58299444e+03 2.65518319e+04 4.02416748e+04]
+  [8.01667086e+03 3.20128493e+04 3.25703011e+04]]
+
+ ...
+
+ [[1.00000000e+02 1.20000000e+02 1.40000000e+02]
+  [9.76594675e+01 1.19047853e+02 1.48696477e+02]
+  [9.48091645e+01 1.11830473e+02 1.30321299e+02]
+  ...
+  [2.85540509e+04 6.92943256e+04 3.96907359e+05]
+  [2.91684063e+04 7.11062805e+04 4.46075997e+05]
+  [3.31958996e+04 7.08854786e+04 5.07165680e+05]]
+
+ [[1.00000000e+02 1.20000000e+02 1.40000000e+02]
+  [1.18865674e+02 1.36393433e+02 1.38789253e+02]
+  [1.06924268e+02 1.15957221e+02 1.53783236e+02]
+  ...
+  [8.33121108e+03 5.09597532e+04 3.46684080e+05]
+  [8.46935724e+03 6.00722699e+04 2.98178605e+05]
+  [1.02724756e+04 6.09024734e+04 2.49435026e+05]]
+
+ [[1.00000000e+02 1.20000000e+02 1.40000000e+02]
+  [1.17396848e+02 1.32914679e+02 2.03980717e+02]
+  [1.22953654e+02 1.58655451e+02 2.07797463e+02]
+  ...
+  [1.77499327e+04 1.14025803e+04 9.27898676e+05]
+  [1.61858539e+04 1.25510433e+04 9.56219647e+05]
+  [1.38751938e+04 1.48793233e+04 1.05018761e+06]]]
+</pre></div>
+</div>
+</div>
+</div>
+<p>Here’s the GPT explanation of the code.</p>
+<blockquote>
+<div><p>This function accepts the following inputs:</p>
+</div></blockquote>
+<blockquote>
+<div><p>num_assets: the number of assets <br />
+means: a NumPy array containing the mean return for each asset <br />
+std_devs: a NumPy array containing the standard deviation of return for each asset <br />
+num_periods: the number of time periods <br />
+initial_values: a NumPy array containing the initial value for each asset <br />
+num_simulations: the number of simulations to run</p>
+</div></blockquote>
+<blockquote>
+<div><p>The function returns a 3D NumPy array containing the simulations for each asset, with dimensions (num_simulations, num_periods + 1, num_assets).</p>
+</div></blockquote>
+<p>Let’s look a bit more at the output. I’ll get its <code class="docutils literal notranslate"><span class="pre">.shape</span></code> attribute.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="nb">type</span><span class="p">(</span><span class="n">simulations</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>numpy.ndarray
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">simulations</span><span class="o">.</span><span class="n">shape</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>(1000, 101, 3)
+</pre></div>
+</div>
+</div>
+</div>
+<p>The output is a <strong>three-dimensional array</strong>. We can pull out all of the simulations for one asset, as well as a single simulation for one asset. Or anything else.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># All simulations for the first asset.</span>
+<span class="n">simulations</span><span class="p">[:,:,</span><span class="mi">0</span><span class="p">]</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>array([[  100.        ,   111.70447157,   125.31587493, ...,
+        36130.43522685, 36627.71445715, 38422.00785015],
+       [  100.        ,   101.75130442,   105.3578234 , ...,
+         8115.87866594,  9214.63241549, 10093.35969579],
+       [  100.        ,   101.44356554,   122.71953432, ...,
+         8527.69982467,  8582.99443857,  8016.67085954],
+       ...,
+       [  100.        ,    97.65946747,    94.80916449, ...,
+        28554.05090068, 29168.40633826, 33195.89955805],
+       [  100.        ,   118.86567352,   106.92426841, ...,
+         8331.21107504,  8469.35724206, 10272.47559995],
+       [  100.        ,   117.39684811,   122.95365391, ...,
+        17749.93266274, 16185.85385407, 13875.19380204]])
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># All simulations for the second asset.</span>
+<span class="n">simulations</span><span class="p">[:,:,</span><span class="mi">1</span><span class="p">]</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>array([[  120.        ,   113.7021686 ,   124.60732933, ...,
+        22467.95005422, 21158.42737474, 22663.35863347],
+       [  120.        ,   123.62477059,   134.83827289, ...,
+        30484.40105514, 46403.5545785 , 49491.4856479 ],
+       [  120.        ,   117.23335183,   114.55182241, ...,
+        24741.01006141, 26551.83185877, 32012.84928718],
+       ...,
+       [  120.        ,   119.04785268,   111.83047325, ...,
+        69294.32555117, 71106.28052028, 70885.47857591],
+       [  120.        ,   136.39343319,   115.9572209 , ...,
+        50959.75316857, 60072.26985711, 60902.47341718],
+       [  120.        ,   132.91467901,   158.65545106, ...,
+        11402.58034843, 12551.04332237, 14879.32330181]])
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># First simulation for the first asset</span>
+
+<span class="n">simulations</span><span class="p">[</span><span class="mi">0</span><span class="p">,:,</span><span class="mi">0</span><span class="p">]</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>array([  100.        ,   111.70447157,   125.31587493,   128.4014336 ,
+         134.91613448,   138.29621611,   144.90466756,   174.13274323,
+         201.72479127,   233.93115776,   285.62359256,   270.52047585,
+         257.12598499,   228.24672172,   255.55728778,   305.89728189,
+         349.20070032,   359.54039408,   391.92780469,   437.81700059,
+         468.01045304,   493.91744391,   506.17809039,   579.00357979,
+         619.38012271,   637.36209936,   648.42985832,   802.65697067,
+         948.65605069,   997.53039371,   879.91135163,  1100.91056726,
+        1062.87578295,  1173.16067349,  1295.14685267,  1312.48815767,
+        1324.45662669,  1384.37509243,  1544.6167266 ,  1450.68802149,
+        1490.60965065,  1480.65189293,  1521.20103589,  1745.80299762,
+        2143.72025967,  2083.91224223,  2260.83024673,  2422.44975738,
+        2252.04725532,  2301.44345451,  2804.22801277,  3060.95032556,
+        3180.37400008,  3498.95626135,  4194.57694673,  3963.10673995,
+        4333.37586802,  4208.37028194,  4149.56513223,  3686.60517466,
+        3704.17731692,  3901.95499706,  4255.11349668,  5073.04438816,
+        6166.22519754,  6380.08127593,  6985.2028195 ,  7836.88935755,
+        7981.15021523,  8845.08221965,  7868.86413662,  7705.71791888,
+        7721.30179732,  7295.24186003,  7216.77543507,  7872.2830244 ,
+        8750.64022706, 10512.53336179, 11520.66161444, 12497.75246064,
+       13616.92856677, 16104.97238285, 16357.07233288, 15559.97228468,
+       19189.87926258, 18734.85141257, 17778.96091415, 19675.9794577 ,
+       23365.66844048, 27007.41328571, 30395.83151685, 27022.36456863,
+       27387.88807733, 30167.78334105, 34986.2651077 , 35239.07366568,
+       36876.62750334, 36889.87170887, 36130.43522685, 36627.71445715,
+       38422.00785015])
+</pre></div>
+</div>
+</div>
+</div>
+<p>Compare this code to the one we used above. What’s different? What stands out to you? What assumptions did it make? What’s up with these numbers?</p>
+<p>GPT is quite good at creating code that has been done in a lot of places. It has trained on millions of online tutorials and examples. However, you still want to follow the logic and check for errors. <strong>There will be errors.</strong></p>
+<p><strong>You can have a “dialog” with GPT.</strong> Look at the code. Is it what you want? You can ask it to change it for you.</p>
+<p><strong>What does that leave for us to do?</strong> Use GPT to start sketching your code, do to certain tasks. Figure out what you need. Figure out the questions that you’re trying answer. What’s the problem that you’re trying to solve? Who are you solving it for? What will the answer look like? What will it tell you?</p>
+<p>Using tools like GPT, Github Co-Pilot, etc. is like having a team of junior programmers working for you. They can make the job easier, but it is still up to you to know what’s an interesting question in the first place. <strong>You still need to use your domain expertise and creativity to come up with solutions to problems that aren’t in an online Python tutorials.</strong></p>
+</section>
+<section id="using-chatgpt-to-check-our-code">
+<h2><span class="section-number">17.2. </span>Using ChatGPT to Check Our Code<a class="headerlink" href="#using-chatgpt-to-check-our-code" title="Permalink to this headline">#</a></h2>
+<p>Below, I have borrowed some code from our portfolio optimization code. However, there is one small problem, based on one I encountered in class. One of those small, tiny errors that can be so frustrating! Do you see it?</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Read in some eod prices</span>
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
+
+<span class="kn">from</span> <span class="nn">pylab</span> <span class="kn">import</span> <span class="n">mpl</span><span class="p">,</span> <span class="n">plt</span>
+
+<span class="kn">import</span> <span class="nn">scipy.optimize</span> <span class="k">as</span> <span class="nn">sco</span>
+
+<span class="n">raw</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s1">&#39;https://raw.githubusercontent.com/aaiken1/fin-data-analysis-python/main/data/tr_eikon_eod_data.csv&#39;</span><span class="p">,</span>
+                  <span class="n">index_col</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">parse_dates</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span><span class="o">.</span><span class="n">dropna</span><span class="p">()</span> 
+
+<span class="n">symbols</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;AAPL.O&#39;</span><span class="p">,</span> <span class="s1">&#39;MSFT.O&#39;</span><span class="p">,</span> <span class="s1">&#39;SPY&#39;</span><span class="p">,</span> <span class="s1">&#39;GLD&#39;</span><span class="p">]</span> <span class="c1">#two stocks and two ETFs</span>
+
+<span class="n">noa</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">symbols</span><span class="p">)</span> <span class="c1">#noa = number of assets</span>
+
+<span class="n">data</span> <span class="o">=</span> <span class="n">raw</span><span class="p">[</span><span class="n">symbols</span><span class="p">]</span>
+
+<span class="n">rets</span> <span class="o">=</span> <span class="n">data</span><span class="o">.</span><span class="n">pct_change</span><span class="p">()</span><span class="o">.</span><span class="n">dropna</span><span class="p">()</span>
+
+<span class="n">noa</span> <span class="o">=</span> <span class="mi">4</span>
+
+<span class="n">weights</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">random</span><span class="p">(</span><span class="n">noa</span><span class="p">)</span>
+<span class="n">weights</span> <span class="o">/=</span> <span class="n">np</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">weights</span><span class="p">)</span>
+
+<span class="n">ann_rets</span> <span class="o">=</span> <span class="n">rets</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span> <span class="o">*</span> <span class="mi">252</span>
+
+<span class="k">def</span> <span class="nf">port_ret</span><span class="p">(</span><span class="n">weights</span><span class="p">):</span>
+    <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">ann_rets</span> <span class="o">*</span> <span class="n">weights</span><span class="p">)</span>
+
+<span class="k">def</span> <span class="nf">port_vol</span><span class="p">(</span><span class="n">weights</span><span class="p">):</span>
+    <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">sort</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">dot</span><span class="p">(</span><span class="n">weights</span><span class="o">.</span><span class="n">T</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">dot</span><span class="p">(</span><span class="n">rets</span><span class="o">.</span><span class="n">cov</span><span class="p">()</span> <span class="o">*</span> <span class="mi">252</span><span class="p">,</span> <span class="n">weights</span><span class="p">)))</span>
+
+<span class="k">def</span> <span class="nf">sharpe</span><span class="p">(</span><span class="n">weights</span><span class="p">):</span>  
+    <span class="k">return</span> <span class="n">port_ret</span><span class="p">(</span><span class="n">weights</span><span class="p">)</span> <span class="o">/</span> <span class="n">port_vol</span><span class="p">(</span><span class="n">weights</span><span class="p">)</span>  
+
+<span class="n">sharpe</span><span class="p">(</span><span class="n">weights</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output traceback highlight-ipythontb notranslate"><div class="highlight"><pre><span></span><span class="gt">---------------------------------------------------------------------------</span>
+<span class="ne">AxisError</span><span class="g g-Whitespace">                                 </span>Traceback (most recent call last)
+<span class="nn">Input In [7],</span> in <span class="ni">&lt;cell line: 36&gt;</span><span class="nt">()</span>
+<span class="g g-Whitespace">     </span><span class="mi">33</span> <span class="k">def</span> <span class="nf">sharpe</span><span class="p">(</span><span class="n">weights</span><span class="p">):</span>  
+<span class="g g-Whitespace">     </span><span class="mi">34</span>     <span class="k">return</span> <span class="n">port_ret</span><span class="p">(</span><span class="n">weights</span><span class="p">)</span> <span class="o">/</span> <span class="n">port_vol</span><span class="p">(</span><span class="n">weights</span><span class="p">)</span>  
+<span class="ne">---&gt; </span><span class="mi">36</span> <span class="n">sharpe</span><span class="p">(</span><span class="n">weights</span><span class="p">)</span>
+
+<span class="nn">Input In [7],</span> in <span class="ni">sharpe</span><span class="nt">(weights)</span>
+<span class="g g-Whitespace">     </span><span class="mi">33</span> <span class="k">def</span> <span class="nf">sharpe</span><span class="p">(</span><span class="n">weights</span><span class="p">):</span>  
+<span class="ne">---&gt; </span><span class="mi">34</span>     <span class="k">return</span> <span class="n">port_ret</span><span class="p">(</span><span class="n">weights</span><span class="p">)</span> <span class="o">/</span> <span class="n">port_vol</span><span class="p">(</span><span class="n">weights</span><span class="p">)</span>
+
+<span class="nn">Input In [7],</span> in <span class="ni">port_vol</span><span class="nt">(weights)</span>
+<span class="g g-Whitespace">     </span><span class="mi">30</span> <span class="k">def</span> <span class="nf">port_vol</span><span class="p">(</span><span class="n">weights</span><span class="p">):</span>
+<span class="ne">---&gt; </span><span class="mi">31</span>     <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">sort</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">dot</span><span class="p">(</span><span class="n">weights</span><span class="o">.</span><span class="n">T</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">dot</span><span class="p">(</span><span class="n">rets</span><span class="o">.</span><span class="n">cov</span><span class="p">()</span> <span class="o">*</span> <span class="mi">252</span><span class="p">,</span> <span class="n">weights</span><span class="p">)))</span>
+
+<span class="nn">File &lt;__array_function__ internals&gt;:180,</span> in <span class="ni">sort</span><span class="nt">(*args, **kwargs)</span>
+
+<span class="nn">File /opt/anaconda3/lib/python3.9/site-packages/numpy/core/fromnumeric.py:1004,</span> in <span class="ni">sort</span><span class="nt">(a, axis, kind, order)</span>
+<span class="g g-Whitespace">   </span><span class="mi">1002</span> <span class="k">else</span><span class="p">:</span>
+<span class="g g-Whitespace">   </span><span class="mi">1003</span>     <span class="n">a</span> <span class="o">=</span> <span class="n">asanyarray</span><span class="p">(</span><span class="n">a</span><span class="p">)</span><span class="o">.</span><span class="n">copy</span><span class="p">(</span><span class="n">order</span><span class="o">=</span><span class="s2">&quot;K&quot;</span><span class="p">)</span>
+<span class="ne">-&gt; </span><span class="mi">1004</span> <span class="n">a</span><span class="o">.</span><span class="n">sort</span><span class="p">(</span><span class="n">axis</span><span class="o">=</span><span class="n">axis</span><span class="p">,</span> <span class="n">kind</span><span class="o">=</span><span class="n">kind</span><span class="p">,</span> <span class="n">order</span><span class="o">=</span><span class="n">order</span><span class="p">)</span>
+<span class="g g-Whitespace">   </span><span class="mi">1005</span> <span class="k">return</span> <span class="n">a</span>
+
+<span class="ne">AxisError</span>: axis -1 is out of bounds for array of dimension 0
+</pre></div>
+</div>
+</div>
+</div>
+<p>Huh… Let’s see if ChatGPT can help us out. I’m going to copy and paste the code and ask it to find the mistake. It does!</p>
+<figure class="align-center" id="gpt-find-error-png">
+<img alt="../_images/17-gpt-find-error.png" class="with-border" src="../_images/17-gpt-find-error.png" />
+<figcaption>
+<p><span class="caption-number">Fig. 17.1 </span><span class="caption-text">You can use ChatGPT to find errors in your code.</span><a class="headerlink" href="#gpt-find-error-png" title="Permalink to this image">#</a></p>
+</figcaption>
+</figure>
+</section>
+</section>
+
+    <script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "binder-examples/jupyter-stacks-datascience",
+            ref: "master",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "python"
+        },
+        kernelOptions: {
+            kernelName: "python3",
+            path: "./chapters"
+        },
+        predefinedOutput: true
+    }
+    </script>
+    <script>kernelName = 'python3'</script>
+
+              </div>
+              
+            </main>
+            <footer class="footer-article noprint">
+                
+    <!-- Previous / next buttons -->
+<div class='prev-next-area'>
+    <a class='left-prev' id="prev-link" href="16_trading_bt.html" title="previous page">
+        <i class="fas fa-angle-left"></i>
+        <div class="prev-next-info">
+            <p class="prev-next-subtitle">previous</p>
+            <p class="prev-next-title"><span class="section-number">16. </span>Trading Strategies and the BT Package</p>
+        </div>
+    </a>
+    <a class='right-next' id="next-link" href="lab_intro.html" title="next page">
+    <div class="prev-next-info">
+        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-title">Our labs</p>
+    </div>
+    <i class="fas fa-angle-right"></i>
+    </a>
+</div>
+            </footer>
+        </div>
+    </div>
+    <div class="footer-content row">
+        <footer class="col footer"><p>
+  
+    By Prof. Adam Aiken<br/>
+  
+</p>
+        </footer>
+    </div>
+    
+</div>
+
+
+      </div>
+    </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="../_static/scripts/pydata-sphinx-theme.js?digest=1999514e3f237ded88cf"></script>
+
+
+  </body>
+</html>

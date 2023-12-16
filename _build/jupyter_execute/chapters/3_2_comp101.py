@@ -5,7 +5,7 @@
 # 
 # This section covers some ideas that I call **CompSci 101**. These are the sorts of topics that come up in any Intro to Computer Science class. Let's cover the basics, so that we can have some idea of what's going on with our data. 
 # 
-# I can't let you get out of this course without seeing some of this stuff. I'd feel bad. 
+# I can't let you get out of this course without seeing some of this stuff. I'd feel bad.
 # 
 # 
 # ```{note}

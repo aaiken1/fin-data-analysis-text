@@ -9,7 +9,7 @@
 # 
 # You can find many different Zillow data sets [here](https://www.zillow.com/research/data/). The “uw” here stands for “under water” in a very literal sense. I first thought they were talking about mortgages!
 # 
-# As mentioned, take a look at [Chapter 5](https://wesmckinney.com/book/pandas-basics.html) of *Python for Data Analysis* for an introduction to `pandas`. 
+# As mentioned, take a look at [Chapter 5](https://wesmckinney.com/book/pandas-basics.html) of *Python for Data Analysis* for an introduction to `pandas`.
 
 # In[1]:
 
@@ -37,7 +37,7 @@ uw.info()
 # In[3]:
 
 
-uw = pd.read_csv('https://github.com/aaiken1/fin-data-analysis-python/raw/main/data/zestimatesAndCutoffs_byGeo_uw_2017-10-10_forDataPage.csv', dtype={'UWHomes_Tier2':np.float64})
+uw = pd.read_csv('https://github.com/aaiken1/fin-data-analysis-python/raw/main/data/zestimatesAndCutoffs_byGeo_uw_2017-10-10_forDataPage.csv', dtype = {'UWHomes_Tier2':np.float64})
 uw.info()
 
 
@@ -101,7 +101,7 @@ uw
 # 
 # This means that our work is getting assigned to something in memory. This is kind of like saving our work. In this case, I'm replacing my original DataFrame *df* with another DataFrame, also called *df*. I could have changed the name of the DataFrame.
 # 
-# You'll also see the `inplace=True` argument in some functions. This means that the old DataFrame will get overwritten automatically by whatever you just did.
+# You'll also see the `inplace = True` argument in some functions. This means that the old DataFrame will get overwritten automatically by whatever you just did.
 # 
 # ```{note}
 # If you don't assign your work to a placeholder in memory, then the Jupyter Notebook will show you a result, but it doesn't get reflected in the DataFrame. So, if you try use what you just did, Python won't know about it!
@@ -230,6 +230,11 @@ uw.iloc[0:10,[0, 1, 9]]
 # ### Comparing four selection methods
 # 
 # You can use these methods to select and save columns to a new DataFrame. Each of the following does the same thing.
+# 
+# ```{margin}
+# ```{note}
+# There are many ways to do the same thing in Python and `pandas`!
+# ``````
 
 # In[19]:
 
@@ -244,11 +249,17 @@ print(uw_sub2.equals(uw_sub3))
 print(uw_sub3.equals(uw_sub4))
 
 
+# I can use the `.equals()` to test for the equality of each DataFrame.
+# 
+# Again, each way is correct. We are going to see the first way -- passing the list of variables 0 -- used in the next section where we **filter** our data based on different criteria.
+
 # ### Filtering
 # 
 # Let's try **filtering** our data and keeping just the MSA observations. This is sometimes called **complex selection**. 
 # 
 # Here's some [help on filtering](https://datagy.io/filter-pandas/) data with `pandas`.
+# 
+# Our first example simply selects that rows where the variable/column `'RegionType'` is equal to the string `'MSA'`
 
 # In[20]:
 
@@ -261,6 +272,8 @@ uw[uw['RegionType'] == 'MSA'].head(15)
 # How about just North Carolina MSAs? I'll again use the bigger DataFrame and just show the observations, rather than create a new DataFrame.
 # 
 # And, I'm now using **compound conditions** joined with an `&`. This **boolean operator** means **and** -- both conditions need to be true. 
+# 
+# You can also use `|` for "or". 
 
 # In[21]:
 
@@ -305,12 +318,12 @@ uw.loc[my_filter, my_columns].head(15)
 
 
 prices = pd.read_csv('https://github.com/aaiken1/fin-data-analysis-python/raw/main/data/tr_eikon_eod_data.csv',
-                      index_col=0, parse_dates=True)
+                      index_col = 0, parse_dates = True)
 
 prices.index
 
 
-# Now, let's try `loc`, but using our `dtype=datetime` index. We'll pull in the SPX and VIX for just January 2010. 
+# Now, let's try `loc`, but using our `dtype = datetime` index. We'll pull in the SPX and VIX for just January 2010. 
 
 # In[26]:
 

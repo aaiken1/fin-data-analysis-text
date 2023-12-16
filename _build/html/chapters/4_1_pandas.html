@@ -50,6 +50,8 @@ const thebe_selector_input = "pre"
 const thebe_selector_output = ".output, .cell_output"
 </script>
     <script async="async" src="../_static/sphinx-thebe.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+    <script src="https://unpkg.com/@jupyter-widgets/html-manager@^0.20.0/dist/embed-amd.js"></script>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
     <link rel="next" title="4.3. Cleaning our data" href="4_2_cleaning_data.html" />
@@ -237,6 +239,16 @@ const thebe_selector_output = ".output, .cell_output"
      4.5. Merging and reshaping data
     </a>
    </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="4_5_sql.html">
+     4.6. Using SQL in Python
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="4_6_polar.html">
+     4.7. polars: A fast, fancy pandas alternative
+    </a>
+   </li>
   </ul>
  </li>
  <li class="toctree-l1 has-children">
@@ -251,17 +263,17 @@ const thebe_selector_output = ".output, .cell_output"
   <ul>
    <li class="toctree-l2">
     <a class="reference internal" href="5_0_matplotlib.html">
-     5.2. matplotlib
+     5.1. matplotlib
     </a>
    </li>
    <li class="toctree-l2">
     <a class="reference internal" href="5_1_plotly.html">
-     5.3. plotly
+     5.2. plotly
     </a>
    </li>
    <li class="toctree-l2">
     <a class="reference internal" href="5_2_seaborn.html">
-     5.4. seaborn
+     5.3. seaborn
     </a>
    </li>
   </ul>
@@ -282,7 +294,7 @@ const thebe_selector_output = ".output, .cell_output"
 <ul class="nav bd-sidenav">
  <li class="toctree-l1">
   <a class="reference internal" href="7_nasdaq_api.html">
-   7. Using NASDAQ BTC data
+   7. Using APIs for Data Imports
    <a id="btc-sim">
    </a>
   </a>
@@ -329,6 +341,16 @@ const thebe_selector_output = ".output, .cell_output"
    15. Logit models
   </a>
  </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="16_trading_bt.html">
+   16. Trading Strategies and the BT Package
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="17_using_chatgpt.html">
+   17. Using ChatGPT
+  </a>
+ </li>
 </ul>
 <p aria-level="2" class="caption" role="heading">
  <span class="caption-text">
@@ -351,6 +373,36 @@ const thebe_selector_output = ".output, .cell_output"
    Lab 02
   </a>
  </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="lab03.html">
+   Lab 03
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="lab04.html">
+   Lab 04
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="lab05.html">
+   Lab 05
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="lab06.html">
+   Lab 06
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="lab07.html">
+   Lab 07
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="lab08.html">
+   Lab 08
+  </a>
+ </li>
 </ul>
 <p aria-level="2" class="caption" role="heading">
  <span class="caption-text">
@@ -361,6 +413,16 @@ const thebe_selector_output = ".output, .cell_output"
  <li class="toctree-l1">
   <a class="reference internal" href="exam_intro.html">
    Our Exams
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="exam01.html">
+   Midterm Exam
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="exam02.html">
+   Final Exam
   </a>
  </li>
 </ul>
@@ -715,7 +777,7 @@ memory usage: 489.5+ KB
 <p>Just to show you, I’m going to reimport that data, but force that one variable to also come in as the same variable type. I don’t want anything unexpected to happen, so let’s get all numerics as floats. Notice how I do this – I give the column, or variable name, and the data type I want. I’m using a particular type of float type that comes with the <code class="docutils literal notranslate"><span class="pre">numpy</span></code> package.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">uw</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s1">&#39;https://github.com/aaiken1/fin-data-analysis-python/raw/main/data/zestimatesAndCutoffs_byGeo_uw_2017-10-10_forDataPage.csv&#39;</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="p">{</span><span class="s1">&#39;UWHomes_Tier2&#39;</span><span class="p">:</span><span class="n">np</span><span class="o">.</span><span class="n">float64</span><span class="p">})</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">uw</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s1">&#39;https://github.com/aaiken1/fin-data-analysis-python/raw/main/data/zestimatesAndCutoffs_byGeo_uw_2017-10-10_forDataPage.csv&#39;</span><span class="p">,</span> <span class="n">dtype</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;UWHomes_Tier2&#39;</span><span class="p">:</span><span class="n">np</span><span class="o">.</span><span class="n">float64</span><span class="p">})</span>
 <span class="n">uw</span><span class="o">.</span><span class="n">info</span><span class="p">()</span>
 </pre></div>
 </div>
@@ -1450,7 +1512,7 @@ memory usage: 489.5+ KB
 <p>You’re going to see syntax like:</p>
 <p><code class="docutils literal notranslate"><span class="pre">df</span> <span class="pre">=</span> <span class="pre">df.some_stuff</span></code></p>
 <p>This means that our work is getting assigned to something in memory. This is kind of like saving our work. In this case, I’m replacing my original DataFrame <em>df</em> with another DataFrame, also called <em>df</em>. I could have changed the name of the DataFrame.</p>
-<p>You’ll also see the <code class="docutils literal notranslate"><span class="pre">inplace=True</span></code> argument in some functions. This means that the old DataFrame will get overwritten automatically by whatever you just did.</p>
+<p>You’ll also see the <code class="docutils literal notranslate"><span class="pre">inplace</span> <span class="pre">=</span> <span class="pre">True</span></code> argument in some functions. This means that the old DataFrame will get overwritten automatically by whatever you just did.</p>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
 <p>If you don’t assign your work to a placeholder in memory, then the Jupyter Notebook will show you a result, but it doesn’t get reflected in the DataFrame. So, if you try use what you just did, Python won’t know about it!</p>
@@ -3024,6 +3086,13 @@ Name: 0, dtype: object
 <section id="comparing-four-selection-methods">
 <h3><span class="section-number">4.2.3.3. </span>Comparing four selection methods<a class="headerlink" href="#comparing-four-selection-methods" title="Permalink to this headline">#</a></h3>
 <p>You can use these methods to select and save columns to a new DataFrame. Each of the following does the same thing.</p>
+<aside class="margin sidebar">
+<p class="sidebar-title"></p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>There are many ways to do the same thing in Python and <code class="docutils literal notranslate"><span class="pre">pandas</span></code>!</p>
+</div>
+</aside>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">uw_sub1</span> <span class="o">=</span> <span class="n">uw</span><span class="p">[[</span><span class="s1">&#39;RegionType&#39;</span><span class="p">,</span> <span class="s1">&#39;RegionName&#39;</span><span class="p">,</span> <span class="s1">&#39;UWHomes_Tier2&#39;</span><span class="p">]]</span>
@@ -3045,11 +3114,14 @@ True
 </div>
 </div>
 </div>
+<p>I can use the <code class="docutils literal notranslate"><span class="pre">.equals()</span></code> to test for the equality of each DataFrame.</p>
+<p>Again, each way is correct. We are going to see the first way – passing the list of variables 0 – used in the next section where we <strong>filter</strong> our data based on different criteria.</p>
 </section>
 <section id="filtering">
 <h3><span class="section-number">4.2.3.4. </span>Filtering<a class="headerlink" href="#filtering" title="Permalink to this headline">#</a></h3>
 <p>Let’s try <strong>filtering</strong> our data and keeping just the MSA observations. This is sometimes called <strong>complex selection</strong>.</p>
 <p>Here’s some <a class="reference external" href="https://datagy.io/filter-pandas/">help on filtering</a> data with <code class="docutils literal notranslate"><span class="pre">pandas</span></code>.</p>
+<p>Our first example simply selects that rows where the variable/column <code class="docutils literal notranslate"><span class="pre">'RegionType'</span></code> is equal to the string <code class="docutils literal notranslate"><span class="pre">'MSA'</span></code></p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">uw</span><span class="p">[</span><span class="n">uw</span><span class="p">[</span><span class="s1">&#39;RegionType&#39;</span><span class="p">]</span> <span class="o">==</span> <span class="s1">&#39;MSA&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">head</span><span class="p">(</span><span class="mi">15</span><span class="p">)</span>
@@ -3467,6 +3539,7 @@ True
 <p>Pay attention to the <strong>syntax</strong>. You are selecting a column from the DataFrame and asking to only keep the rows where that column(variable) is equal to ‘MSA’. I’m then displaying just the first 15 rows. And, I’m not saving this filtered data set anywhere – I’m just looking at it.</p>
 <p>How about just North Carolina MSAs? I’ll again use the bigger DataFrame and just show the observations, rather than create a new DataFrame.</p>
 <p>And, I’m now using <strong>compound conditions</strong> joined with an <code class="docutils literal notranslate"><span class="pre">&amp;</span></code>. This <strong>boolean operator</strong> means <strong>and</strong> – both conditions need to be true.</p>
+<p>You can also use <code class="docutils literal notranslate"><span class="pre">|</span></code> for “or”.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">uw</span><span class="p">[(</span><span class="n">uw</span><span class="p">[</span><span class="s1">&#39;RegionType&#39;</span><span class="p">]</span> <span class="o">==</span> <span class="s1">&#39;MSA&#39;</span><span class="p">)</span> <span class="o">&amp;</span> <span class="p">(</span><span class="n">uw</span><span class="p">[</span><span class="s1">&#39;StateName&#39;</span><span class="p">]</span> <span class="o">==</span> <span class="s1">&#39;North Carolina&#39;</span><span class="p">)]</span><span class="o">.</span><span class="n">head</span><span class="p">(</span><span class="mi">15</span><span class="p">)</span>
@@ -4158,7 +4231,7 @@ True
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">prices</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s1">&#39;https://github.com/aaiken1/fin-data-analysis-python/raw/main/data/tr_eikon_eod_data.csv&#39;</span><span class="p">,</span>
-                      <span class="n">index_col</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">parse_dates</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+                      <span class="n">index_col</span> <span class="o">=</span> <span class="mi">0</span><span class="p">,</span> <span class="n">parse_dates</span> <span class="o">=</span> <span class="kc">True</span><span class="p">)</span>
 
 <span class="n">prices</span><span class="o">.</span><span class="n">index</span>
 </pre></div>
@@ -4177,7 +4250,7 @@ True
 </div>
 </div>
 </div>
-<p>Now, let’s try <code class="docutils literal notranslate"><span class="pre">loc</span></code>, but using our <code class="docutils literal notranslate"><span class="pre">dtype=datetime</span></code> index. We’ll pull in the SPX and VIX for just January 2010.</p>
+<p>Now, let’s try <code class="docutils literal notranslate"><span class="pre">loc</span></code>, but using our <code class="docutils literal notranslate"><span class="pre">dtype</span> <span class="pre">=</span> <span class="pre">datetime</span></code> index. We’ll pull in the SPX and VIX for just January 2010.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">prices</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="s1">&#39;2010-01-01&#39;</span><span class="p">:</span><span class="s1">&#39;2010-01-31&#39;</span><span class="p">,[</span><span class="s1">&#39;.SPX&#39;</span><span class="p">,</span> <span class="s1">&#39;.VIX&#39;</span><span class="p">]]</span>
