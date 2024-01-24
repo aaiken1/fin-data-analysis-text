@@ -337,7 +337,7 @@ msft.info
 
 # In VS Code, you can open the rest of that in a text editor (see the message) and look at every variable in there. You can pull specific information out this object.
 
-# In[22]:
+# In[3]:
 
 
 # Get the sector.
@@ -346,7 +346,7 @@ msft.info['sector']
 
 # Here's something a bit more complex. I'll pull the first company officer. Note the indexing, starting at 0, the usual Python way.
 
-# In[23]:
+# In[4]:
 
 
 msft.info['companyOfficers'][0]
@@ -354,7 +354,7 @@ msft.info['companyOfficers'][0]
 
 # You can drill down even more. Honestly, I was guessing a bit at how to access this data. This just seemed like a "Python" or "JSON" way to do it and it worked.
 
-# In[24]:
+# In[5]:
 
 
 msft.info['companyOfficers'][0]['totalPay']
@@ -362,7 +362,7 @@ msft.info['companyOfficers'][0]['totalPay']
 
 # They have recent accounting data, too.
 
-# In[25]:
+# In[6]:
 
 
 msft.info['grossMargins']
@@ -370,7 +370,7 @@ msft.info['grossMargins']
 
 # Here's two years of price, volume, dividend, and split data. Remember when we looked at return calculations? You need the dividends if you're going to accurately calculate returns. You also need the stock splits, or you'll be comparing prices pre- and post- splits, getting funky returns!
 
-# In[26]:
+# In[7]:
 
 
 hist = msft.history(period="2y")
@@ -379,7 +379,7 @@ hist
 
 # As noted on their webpage, you can pull multiple stocks, by ticker, at once.
 
-# In[27]:
+# In[8]:
 
 
 tickers = yf.Tickers('msft aapl goog')
@@ -441,7 +441,7 @@ tickers.tickers['AAPL'].history(period="1mo")
 # 
 # Make sure that you include your API key. You can input it directly, using the code that they provide. I'm using a different way to do the key that doesn't require me to type my API key into this publicly available code.
 
-# In[28]:
+# In[135]:
 
 
 #! pip install quandl
@@ -456,7 +456,7 @@ quandl.read_key()
 # 
 # Let's try pulling in the *indicator_id* ZATT for all regions. 
 
-# In[29]:
+# In[136]:
 
 
 # zillow = quandl.get_table('ZILLOW/DATA', indicator_id = 'ZATT', paginate=True)
@@ -470,13 +470,13 @@ quandl.read_key()
 # 
 # However, you can filter on *region_id*. Let's pull the ZILLOW/REGIONS table to see what we can use.
 
-# In[30]:
+# In[137]:
 
 
 regions = quandl.get_table('ZILLOW/REGIONS', paginate=True)
 
 
-# In[31]:
+# In[138]:
 
 
 regions
@@ -484,14 +484,14 @@ regions
 
 # What if we just want cities?
 
-# In[32]:
+# In[139]:
 
 
 cities = regions[regions.region_type == 'city']
 cities
 
 
-# In[33]:
+# In[140]:
 
 
 cities.info()
@@ -501,7 +501,7 @@ cities.info()
 # 
 # There are 28,131 rows of cities! How about counties?
 
-# In[34]:
+# In[141]:
 
 
 counties = regions[regions.region_type == 'county']
@@ -510,7 +510,7 @@ counties
 
 # Can't find the regions you want? You could export the whole thing to a CSV file and explore it in Excel. This will show up in whatever folder you currently have as your home in VS Code.
 
-# In[35]:
+# In[142]:
 
 
 counties.to_csv('counties.csv', index = True)
@@ -520,14 +520,14 @@ counties.to_csv('counties.csv', index = True)
 # 
 # Finally, you can search the text in a column directly. Let's find counties in NC.
 
-# In[36]:
+# In[143]:
 
 
 nc_counties = counties[counties['region'].str.contains("; NC")]
 nc_counties
 
 
-# In[37]:
+# In[144]:
 
 
 nc_counties.info()
@@ -537,19 +537,19 @@ nc_counties.info()
 # 
 # By exploring the data like this, you can maybe find the *region_id* values that you want and give them as a list. I'm also going to use the `qopts = ` option to name the columns that I want to pull. This isn't necessary here, since I want all of the columns, but I wanted to show you that you could do this.
 
-# In[38]:
+# In[145]:
 
 
 nc_county_list = nc_counties['region_id'].to_list()
 
 
-# In[39]:
+# In[146]:
 
 
 zillow_nc = quandl.get_table('ZILLOW/DATA', indicator_id = 'ZATT', paginate = True, region_id = nc_county_list,  qopts = {'columns': ['indicator_id', 'region_id', 'date', 'value']})
 
 
-# In[40]:
+# In[147]:
 
 
 zillow_nc.head(25)
@@ -557,7 +557,7 @@ zillow_nc.head(25)
 
 # Hey, there's Durham County!
 
-# In[41]:
+# In[148]:
 
 
 zillow_nc.info()
@@ -615,7 +615,7 @@ zillow_nc.info()
 # 
 # For fun, let's pull this simple JSON file on our end. I've copied and pasted the code below. It didn't like the `print` function, so I just dropped it. I am again loading in my API key from an separate file. You'll use your own.
 
-# In[42]:
+# In[149]:
 
 
 import requests
@@ -641,7 +641,7 @@ print(sports_ids.text)
 # 
 # All of the code that follows is also commented out so that it doesn't run every time I edit this online book. The output from the code is still there, however.
 
-# In[43]:
+# In[150]:
 
 
 sports_ids_json = sports_ids.json()
@@ -652,7 +652,7 @@ sports_ids_json
 # 
 # Let's get that into a `pandas` DataFrame now. To do that, we have to know a bit about how JSON files are structured. This one is easy. `pd.json_normalize` is a useful tool here.
 
-# In[44]:
+# In[151]:
 
 
 sports_ids_df = pd.json_normalize(data = sports_ids_json)
@@ -689,7 +689,7 @@ sports_ids_df
 # 
 # I'll copy and paste the code again. 
 
-# In[45]:
+# In[152]:
 
 
 import requests
@@ -712,7 +712,7 @@ print(current.text)
 # 
 # I'll convert that data to JSON below and peak at it.
 
-# In[46]:
+# In[153]:
 
 
 current_json = current.json()
@@ -721,7 +721,7 @@ current_json
 
 # Wow, that's a lot of stuff. OK, now this is the tricky part. How do we get this thing into a `pandas` DataFrame? This is where we really have to think carefully. What do we actually want? Remember, a DataFrame, at its simplest, looks like a spreadsheet, with rows and columns. How could this thing possibly look like that?
 
-# In[47]:
+# In[154]:
 
 
 current_df = pd.json_normalize(data = current_json)
@@ -746,14 +746,14 @@ current_df
 # 
 # Everything is packed into that *events* column. Let's flatten it. This will take every item in it and convert it into a new column. Keys will be combined together to create compound names that combine different levels. 
 
-# In[48]:
+# In[155]:
 
 
 current_df_events = pd.json_normalize(data = current_json, record_path=['events'])
 current_df_events
 
 
-# In[49]:
+# In[156]:
 
 
 list(current_df_events)

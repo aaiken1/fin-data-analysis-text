@@ -1,6 +1,6 @@
 # Welcome
 
-**Spring 2023 with Prof. [Adam Aiken](https://aaiken1.github.io)**
+**Spring 2024 with Prof. [Adam Aiken](https://aaiken1.github.io)**
 
 ```{image} /images/elon-signature.png
 :alt: elon-signature
@@ -10,10 +10,10 @@
 ```
 
 ```{note}
-I first created these notes during the Spring 2022 semester. I will be updating them and making improvements as we go.
+This is a living textbook. I will be updating the notes and making improvements as we go.
 ```
 
-Welcome! This online text contains my notes and code examples.
+Welcome! This online text contains my notes and code examples. There are essentially three parts to this course. First, we'll get set-up and become comfortable with our coding environment.
 
 We also have a course [Github repository](https://github.com/aaiken1/fin-data-analysis-python), where I will keep data and code (e.g. Jupyter notebooks) that we use in class.
 
