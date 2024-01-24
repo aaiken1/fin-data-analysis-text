@@ -1,0 +1,1328 @@
+
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
+    <title>20. Trading Strategies and the BT Package &#8212; Data Analysis in Finance</title>
+    
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../_static/styles/theme.css?digest=1999514e3f237ded88cf" rel="stylesheet">
+<link href="../_static/styles/pydata-sphinx-theme.css?digest=1999514e3f237ded88cf" rel="stylesheet">
+
+    
+  <link rel="stylesheet"
+    href="../_static/vendor/fontawesome/5.13.0/css/all.min.css">
+  <link rel="preload" as="font" type="font/woff2" crossorigin
+    href="../_static/vendor/fontawesome/5.13.0/webfonts/fa-solid-900.woff2">
+  <link rel="preload" as="font" type="font/woff2" crossorigin
+    href="../_static/vendor/fontawesome/5.13.0/webfonts/fa-brands-400.woff2">
+
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css" />
+    <link rel="stylesheet" href="../_static/styles/sphinx-book-theme.css?digest=5115cc725059bd94278eecd172e13a965bf8f5a9" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="../_static/togglebutton.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/copybutton.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/mystnb.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/sphinx-thebe.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/design-style.b7bb847fb20b106c3d81b95245e65545.min.css" />
+    
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../_static/scripts/pydata-sphinx-theme.js?digest=1999514e3f237ded88cf">
+
+    <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
+    <script src="../_static/jquery.js"></script>
+    <script src="../_static/underscore.js"></script>
+    <script src="../_static/doctools.js"></script>
+    <script src="../_static/clipboard.min.js"></script>
+    <script src="../_static/copybutton.js"></script>
+    <script src="../_static/scripts/sphinx-book-theme.js?digest=9c920249402e914e316237a7dbc6769907cce411"></script>
+    <script>let toggleHintShow = 'Click to show';</script>
+    <script>let toggleHintHide = 'Click to hide';</script>
+    <script>let toggleOpenOnPrint = 'true';</script>
+    <script src="../_static/togglebutton.js"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown, .tag_hide_input div.cell_input, .tag_hide-input div.cell_input, .tag_hide_output div.cell_output, .tag_hide-output div.cell_output, .tag_hide_cell.cell, .tag_hide-cell.cell';</script>
+    <script src="../_static/design-tabs.js"></script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"
+const thebe_selector = ".thebe,.cell"
+const thebe_selector_input = "pre"
+const thebe_selector_output = ".output, .cell_output"
+</script>
+    <script async="async" src="../_static/sphinx-thebe.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+    <script src="https://unpkg.com/@jupyter-widgets/html-manager@^0.20.0/dist/embed-amd.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="Our labs" href="lab_intro.html" />
+    <link rel="prev" title="19. Reinforcement Learning" href="19_reinforcement_learning.html" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="docsearch:language" content="None">
+    
+
+    <!-- Google Analytics -->
+    
+  </head>
+  <body data-spy="scroll" data-target="#bd-toc-nav" data-offset="60">
+<!-- Checkboxes to toggle the left sidebar -->
+<input type="checkbox" class="sidebar-toggle" name="__navigation" id="__navigation" aria-label="Toggle navigation sidebar">
+<label class="overlay overlay-navbar" for="__navigation">
+    <div class="visually-hidden">Toggle navigation sidebar</div>
+</label>
+<!-- Checkboxes to toggle the in-page toc -->
+<input type="checkbox" class="sidebar-toggle" name="__page-toc" id="__page-toc" aria-label="Toggle in-page Table of Contents">
+<label class="overlay overlay-pagetoc" for="__page-toc">
+    <div class="visually-hidden">Toggle in-page Table of Contents</div>
+</label>
+<!-- Headers at the top -->
+<div class="announcement header-item noprint"></div>
+<div class="header header-item noprint"></div>
+
+    
+    <div class="container-fluid" id="banner"></div>
+
+    
+
+    <div class="container-xl">
+      <div class="row">
+          
+<!-- Sidebar -->
+<div class="bd-sidebar noprint" id="site-navigation">
+    <div class="bd-sidebar__content">
+        <div class="bd-sidebar__top"><div class="navbar-brand-box">
+    <a class="navbar-brand text-wrap" href="../index.html">
+      
+        <!-- `logo` is deprecated in Sphinx 4.0, so remove this when we stop supporting 3 -->
+        
+      
+      
+      <img src="../_static/cat.png" class="logo" alt="logo">
+      
+      
+      <h1 class="site-logo" id="site-title">Data Analysis in Finance</h1>
+      
+    </a>
+</div><form class="bd-search d-flex align-items-center" action="../search.html" method="get">
+  <i class="icon fas fa-search"></i>
+  <input type="search" class="form-control" name="q" id="search-input" placeholder="Search this book..." aria-label="Search this book..." autocomplete="off" >
+</form><nav class="bd-links" id="bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item active">
+        
+        <ul class="nav bd-sidenav bd-sidenav__home-link">
+            <li class="toctree-l1">
+                <a class="reference internal" href="../intro.html">
+                    Welcome
+                </a>
+            </li>
+        </ul>
+        <p aria-level="2" class="caption" role="heading">
+ <span class="caption-text">
+  Getting Started
+ </span>
+</p>
+<ul class="nav bd-sidenav">
+ <li class="toctree-l1">
+  <a class="reference internal" href="1_finpyth.html">
+   1. Why Python and finance?
+  </a>
+ </li>
+ <li class="toctree-l1 has-children">
+  <a class="reference internal" href="2_1_intro.html">
+   2. Python set-up
+   <a id="python_set-up">
+   </a>
+  </a>
+  <input class="toctree-checkbox" id="toctree-checkbox-1" name="toctree-checkbox-1" type="checkbox"/>
+  <label for="toctree-checkbox-1">
+   <i class="fas fa-chevron-down">
+   </i>
+  </label>
+  <ul>
+   <li class="toctree-l2">
+    <a class="reference internal" href="2_2_git.html">
+     2.2. Using Github
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="2_3_install.html">
+     2.3. Installation
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="2_4_jupyter.html">
+     2.4. Jupyter notebooks
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="2_5_vscode.html">
+     2.5. VS Code
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="2_6_googlecolab.html">
+     2.6. Google Colab
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="2_7_markdown.html">
+     2.7. Markdown
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="2_8_packages.html">
+     2.8. Packages
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="2_9_style.html">
+     2.9. Code style, PEP8, and linting
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="2_10_using_chatgpt.html">
+     2.10. Using ChatGPT
+    </a>
+   </li>
+  </ul>
+ </li>
+</ul>
+<p aria-level="2" class="caption" role="heading">
+ <span class="caption-text">
+  The Basics
+ </span>
+</p>
+<ul class="nav bd-sidenav">
+ <li class="toctree-l1 has-children">
+  <a class="reference internal" href="3_1_intro.html">
+   3. CompSci 101: Types, control, and numpy arrays
+  </a>
+  <input class="toctree-checkbox" id="toctree-checkbox-2" name="toctree-checkbox-2" type="checkbox"/>
+  <label for="toctree-checkbox-2">
+   <i class="fas fa-chevron-down">
+   </i>
+  </label>
+  <ul>
+   <li class="toctree-l2">
+    <a class="reference internal" href="3_2_comp101.html">
+     3.1. The Basics
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="3_3_numpy.html">
+     3.2. Numpy and arrays
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toctree-l1 has-children">
+  <a class="reference internal" href="4_intro.html">
+   4. Pandas and data
+  </a>
+  <input class="toctree-checkbox" id="toctree-checkbox-3" name="toctree-checkbox-3" type="checkbox"/>
+  <label for="toctree-checkbox-3">
+   <i class="fas fa-chevron-down">
+   </i>
+  </label>
+  <ul>
+   <li class="toctree-l2">
+    <a class="reference internal" href="4_0_dataframes.html">
+     4.1. Data importing
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="4_1_pandas.html">
+     4.2. pandas
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="4_2_cleaning_data.html">
+     4.3. Cleaning our data
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="4_3_eda.html">
+     4.4. Exploratory data analysis (EDA)
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="4_4_merge_shape.html">
+     4.5. Merging and reshaping data
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="4_5_sql.html">
+     4.6. Using SQL in Python
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="4_6_polar.html">
+     4.7. polars: A fast, fancy pandas alternative
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toctree-l1 has-children">
+  <a class="reference internal" href="5_intro.html">
+   5. Data visualization
+  </a>
+  <input class="toctree-checkbox" id="toctree-checkbox-4" name="toctree-checkbox-4" type="checkbox"/>
+  <label for="toctree-checkbox-4">
+   <i class="fas fa-chevron-down">
+   </i>
+  </label>
+  <ul>
+   <li class="toctree-l2">
+    <a class="reference internal" href="5_0_seaborn.html">
+     5.1. seaborn
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="5_1_matplotlib.html">
+     5.2. matplotlib
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="5_2_plotly.html">
+     5.3. plotly
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="6_nasdaq_api.html">
+   6. Using APIs for Data Imports
+   <a id="btc-sim">
+   </a>
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="7_financial_ts.html">
+   7. Financial time series
+   <a id="financial-time-series">
+   </a>
+  </a>
+ </li>
+</ul>
+<p aria-level="2" class="caption" role="heading">
+ <span class="caption-text">
+  Applications
+ </span>
+</p>
+<ul class="current nav bd-sidenav">
+ <li class="toctree-l1">
+  <a class="reference internal" href="8_port_math.html">
+   8. Essential portfolio math
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="9_portfolio_opt.html">
+   9. Portfolio optimization
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="10_unsupervised_learning.html">
+   10. Unsupervised Learning
+   <a id="unsupervised_learning">
+   </a>
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="11_factor_models.html">
+   11. Factor models
+   <a id="factor_models">
+   </a>
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="12_regression_topics.html">
+   12. Regression topics
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="13_logit_credit.html">
+   13. Logit models
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="14_decision_trees.html">
+   14. Decision Trees
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="15_svm.html">
+   15. SVM
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="16_risk_mang.html">
+   16. Risk management
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="17_monte_carlo.html">
+   17. Monte Carlo and portfolios
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="18_options.html">
+   18. Option basics
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="19_reinforcement_learning.html">
+   19. Reinforcement Learning
+  </a>
+ </li>
+ <li class="toctree-l1 current active">
+  <a class="current reference internal" href="#">
+   20. Trading Strategies and the BT Package
+  </a>
+ </li>
+</ul>
+<p aria-level="2" class="caption" role="heading">
+ <span class="caption-text">
+  Labs
+ </span>
+</p>
+<ul class="nav bd-sidenav">
+ <li class="toctree-l1">
+  <a class="reference internal" href="lab_intro.html">
+   Our labs
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="lab01.html">
+   Lab 01
+  </a>
+ </li>
+</ul>
+<p aria-level="2" class="caption" role="heading">
+ <span class="caption-text">
+  Exams
+ </span>
+</p>
+<ul class="nav bd-sidenav">
+ <li class="toctree-l1">
+  <a class="reference internal" href="exam_intro.html">
+   Our Exams
+  </a>
+ </li>
+</ul>
+
+    </div>
+</nav></div>
+        <div class="bd-sidebar__bottom">
+             <!-- To handle the deprecated key -->
+            
+            <div class="navbar_extra_footer">
+            Powered by <a href="https://jupyterbook.org">Jupyter Book</a>
+            </div>
+            
+        </div>
+    </div>
+    <div id="rtd-footer-container"></div>
+</div>
+
+
+          
+
+
+          
+<!-- A tiny helper pixel to detect if we've scrolled -->
+<div class="sbt-scroll-pixel-helper"></div>
+<!-- Main content -->
+<div class="col py-0 content-container">
+    
+    <div class="header-article row sticky-top noprint">
+        
+
+
+
+<div class="col py-1 d-flex header-article-main">
+    <div class="header-article__left">
+        
+        <label for="__navigation"
+  class="headerbtn"
+  data-toggle="tooltip"
+data-placement="right"
+title="Toggle navigation"
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-bars"></i>
+  </span>
+
+</label>
+
+        
+    </div>
+    <div class="header-article__right">
+<div class="menu-dropdown menu-dropdown-launch-buttons">
+  <button class="headerbtn menu-dropdown__trigger"
+      aria-label="Launch interactive content">
+      <i class="fas fa-rocket"></i>
+  </button>
+  <div class="menu-dropdown__content">
+    <ul>
+      <li>
+        <a href="https://mybinder.org/v2/gh/executablebooks/jupyter-book/master?urlpath=tree/docs/chapters/20_trading_bt.ipynb"
+   class="headerbtn"
+   data-toggle="tooltip"
+data-placement="left"
+title="Launch on Binder"
+>
+  
+
+<span class="headerbtn__icon-container">
+  
+    <img src="../_static/images/logo_binder.svg">
+  </span>
+<span class="headerbtn__text-container">Binder</span>
+</a>
+
+      </li>
+      
+    </ul>
+  </div>
+</div>
+
+<button onclick="toggleFullScreen()"
+  class="headerbtn"
+  data-toggle="tooltip"
+data-placement="bottom"
+title="Fullscreen mode"
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+<a href="https://github.com/executablebooks/jupyter-book"
+   class="headerbtn"
+   data-toggle="tooltip"
+data-placement="bottom"
+title="Source repository"
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fab fa-github"></i>
+  </span>
+
+</a>
+
+<div class="menu-dropdown menu-dropdown-download-buttons">
+  <button class="headerbtn menu-dropdown__trigger"
+      aria-label="Download this page">
+      <i class="fas fa-download"></i>
+  </button>
+  <div class="menu-dropdown__content">
+    <ul>
+      <li>
+        <a href="../_sources/chapters/20_trading_bt.ipynb"
+   class="headerbtn"
+   data-toggle="tooltip"
+data-placement="left"
+title="Download source file"
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="headerbtn__text-container">.ipynb</span>
+</a>
+
+      </li>
+      
+      <li>
+        
+<button onclick="printPdf(this)"
+  class="headerbtn"
+  data-toggle="tooltip"
+data-placement="left"
+title="Print to PDF"
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="headerbtn__text-container">.pdf</span>
+</button>
+
+      </li>
+      
+    </ul>
+  </div>
+</div>
+<label for="__page-toc"
+  class="headerbtn headerbtn-page-toc"
+  
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-list"></i>
+  </span>
+
+</label>
+
+    </div>
+</div>
+
+<!-- Table of contents -->
+<div class="col-md-3 bd-toc show noprint">
+    <div class="tocsection onthispage pt-5 pb-3">
+        <i class="fas fa-list"></i> Contents
+    </div>
+    <nav id="bd-toc-nav" aria-label="Page">
+        <ul class="visible nav section-nav flex-column">
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#steps-in-strategy-development">
+   20.1. Steps in Strategy Development
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#ideas-and-resources">
+   20.2. Ideas and Resources
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#using-the-bt-package">
+   20.3. Using the BT Package
+  </a>
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#step-1-get-your-data">
+     20.3.1. Step 1 - Get your data
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#step-2-define-your-strategy">
+     20.3.2. Step 2 - Define your strategy
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#step-3-backtest-your-strategy">
+     20.3.3. Step 3 - Backtest your strategy
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#other-tools">
+   20.4. Other tools
+  </a>
+ </li>
+</ul>
+
+    </nav>
+</div>
+    </div>
+    <div class="article row">
+        <div class="col pl-md-3 pl-lg-5 content-container">
+            <!-- Table of contents that is only displayed when printing the page -->
+            <div id="jb-print-docs-body" class="onlyprint">
+                <h1>Trading Strategies and the BT Package</h1>
+                <!-- Table of contents -->
+                <div id="print-main-content">
+                    <div id="jb-print-toc">
+                        
+                        <div>
+                            <h2> Contents </h2>
+                        </div>
+                        <nav aria-label="Page">
+                            <ul class="visible nav section-nav flex-column">
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#steps-in-strategy-development">
+   20.1. Steps in Strategy Development
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#ideas-and-resources">
+   20.2. Ideas and Resources
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#using-the-bt-package">
+   20.3. Using the BT Package
+  </a>
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#step-1-get-your-data">
+     20.3.1. Step 1 - Get your data
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#step-2-define-your-strategy">
+     20.3.2. Step 2 - Define your strategy
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#step-3-backtest-your-strategy">
+     20.3.3. Step 3 - Backtest your strategy
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#other-tools">
+   20.4. Other tools
+  </a>
+ </li>
+</ul>
+
+                        </nav>
+                    </div>
+                </div>
+            </div>
+            <main id="main-content" role="main">
+                
+              <div>
+                
+  <section class="tex2jax_ignore mathjax_ignore" id="trading-strategies-and-the-bt-package">
+<h1><span class="section-number">20. </span>Trading Strategies and the BT Package<a class="headerlink" href="#trading-strategies-and-the-bt-package" title="Permalink to this headline">#</a></h1>
+<blockquote>
+<div><p>I think that good quant investment managers … can really be thought of as financial economists who have codified their beliefs into a repeatable process. They are distinguished by diversification, sticking to their process with discipline, and the ability to engineer portfolio characteristics.
+— Cliff Asness of AQR (2007)</p>
+</div></blockquote>
+<p>These notes are based, in part, of Chapter 3.3 of <a class="reference external" href="https://press.princeton.edu/books/hardcover/9780691166193/efficiently-inefficient">Efficiently Inefficient by Lasse Pedersen</a>. It is a nice introduction to more sophisticated investing strategies, like quantitative equity and fixed income arbitrage strategies. I provide many more resources below.</p>
+<p>Broadly speaking, <strong>quantitative investing</strong> tries to turn a investment thesis into a repeatable process. The thesis is often <strong>model driven</strong>, perhaps related to some economic rationale that repeats itself. For example, maybe stocks with certain characteristics generate positive risk-adjusted returns, on average.</p>
+<p>This process often means using <strong>historical</strong> or <strong>simulated</strong> data to test a hypothesis. This process is called <strong>backtesting</strong> – there’s an entire literature that has developed around the best way to backtest strategies. We’ll discuss the basic idea here.</p>
+<p>Quantitative strategies, regardless of security type, usually have a small amount of alpha per trade. These are not “big swings”, like betting against housing in 2007. The model identifies <strong>entry and exit points across a large number of securities</strong>, leading to significant <strong>diversification</strong>, or at least that’s the hope.</p>
+<p>If you can identify something in the data, then you can trade on it. This might be traditional measures, like value and momentum. Other accounting data gets used to create measures like earnings quality. You can try to quantify management quality. You can look at flow in and out of security, trying to identify who is trading. You can use the limit order book itself. You can use natural language processing (NLP) and text data. I give you some examples below.</p>
+<p>Some quantitative trading strategies are very short-term and high turnover, like those that use the limit order book. Others hold securities for months, if not years, like value.</p>
+<p>Many strategies have a <strong>long and short component</strong>. You buy a basket of securities (e.g. stocks, currencies, crypto, etc.) that have the positive set of characteristics that you’re looking at and short a basic of securities that have the negative set. Going long and short can help mitigate risk, but there’s a lot that goes into it. Exactly how should you weight your positions? Should you try to be market beta neutral in you overall portfolio? What about sector bets? Going long deep value will have you buying lots and lots of bank stocks. How do you feel about that kind of concentration?</p>
+<p>The end-goal: create a portfolio with the risks and characteristics that you want, while eliminating that ones that you don’t want. This, somewhat optimistically, is sometimes called a <strong>market neutral portfolio</strong>. Like an equity market neutral hedge fund – they try to make money no matter what the overall market is doing. Quants try to estimate the relation between the signal value and the expected return and construct the portfolio and the rebalancing strategy that maximizes performance after transaction costs.</p>
+<p>For differences between risk factors and anomalies, see the chapter on factor models. Both could be present in a quantitative trading portfolio. Understand your market to know what the risks and anomalies are. It is often hard (impossible?) to know which is which.</p>
+<section id="steps-in-strategy-development">
+<h2><span class="section-number">20.1. </span>Steps in Strategy Development<a class="headerlink" href="#steps-in-strategy-development" title="Permalink to this headline">#</a></h2>
+<p>Here are a typical set of steps for developing a quantitative trading strategy.</p>
+<ol class="simple">
+<li><p><strong>Identify a hypothesis or market inefficiency</strong>: Develop a hypothesis about a market inefficiency that your strategy will exploit. This could be based on trends, patterns, or relationships between financial instruments or market data. <strong>This is the hard part!</strong> If you want to do this for real, I strongly suggest trying to find a niche market, something without a lot of volume, something too small for larger investors to trade in. You are very unlikely to have any kind of advantage trading U.S. equities. You could try to re-create one of the well-known strategies used by some <a class="reference external" href="https://www.blackrock.com/us/financial-professionals/products/factor-etfs#Minimum-Volatility">factor-based ETFs</a>, but you will be at a trading-cost disadvantage.</p></li>
+<li><p><strong>Gather and preprocess data</strong>: Collect relevant historical data for your hypothesis, such as price, volume, and other financial indicators. Preprocess the data to ensure it is clean and consistent, accounting for issues like missing values, outliers, and data errors. This crucial step is why we spent so much time mucking around in <code class="docutils literal notranslate"><span class="pre">pandas</span></code> looking for <strong>NA</strong> values and <a class="reference external" href="https://www.youtube.com/watch?v=0qIMTA4_YdU">bad dates</a>. What are your data sources? Do you have a data advantage? Everyone has moved to <a class="reference external" href="https://data.nasdaq.com/alternative-data">alternative data</a> the past decade, with varying degrees of success. Data costs get very expensive, very quickly. Even just having a Bloomberg terminal is going to be too much for an individual investor. <strong>Play in markets where you don’t need one.</strong></p></li>
+<li><p><strong>Feature engineering and selection</strong>: Create features or variables (features are the machine learning way of saying “variable”) that capture relevant information for your strategy. This could include technical indicators, fundamental analysis, or sentiment analysis. Perform feature selection to identify the most important variables for your strategy. Steps 2 and 3 are the <strong>data engineering</strong> steps. These jobs often <a class="reference external" href="https://www.efinancialcareers.com/news/2023/03/quant-developers-vs-quant-researchers">pay more</a> than the hypothesis development roles!</p></li>
+<li><p><strong>Develop a trading model</strong>: Use your selected features to build a quantitative model. This could involve statistical methods, machine learning techniques, or optimization algorithms. Split your data into training and testing sets to avoid overfitting and to assess your model’s performance. Most of these models are “off the shelf” these days. In other words, there’s little alpha in fancy math. <strong>Linear regression</strong> and logit are commonly used. Even the fanciest machine learning techniques available have already been coded up in Python (or another language) by our friend’s in the computer science world. Still, different techniques come in and out of fashion, so the quant researcher wants to stay up on what’s going on. Then, we just go back to calculating conditional means in our OLS model.</p></li>
+<li><p><strong>Backtesting</strong>: Test your strategy on historical data to evaluate its performance. This step is crucial to determine if the strategy would have been profitable in the past. Assess various performance metrics, such as the Sharpe ratio, maximum drawdown, and annualized returns. <strong>These notes focus on this step</strong>. We are going to use the <a class="reference external" href="https://pypi.org/project/bt/">bt package</a>. There’s obviously much more that goes into it.</p></li>
+<li><p><strong>Risk management</strong>: Incorporate risk management rules to protect your capital and minimize losses. This could include position sizing, stop-loss orders, and diversification techniques.</p></li>
+<li><p><strong>Optimization and sensitivity analysis</strong>: Optimize your strategy’s parameters and perform sensitivity analysis to assess its robustness. Ensure that your strategy is not overly sensitive to small changes in input parameters. We’ve seen these last two steps in previous chapters. Your quant model might use an optimizer to form portfolios, while calculating various risk measures in order to understand sources of returns and the possible downside.</p></li>
+<li><p><strong>Walk-forward analysis or out-of-sample testing</strong>: Validate your strategy on new, unseen data to assess its real-world performance. This step helps to mitigate the risk of overfitting and provides a more realistic assessment of the strategy’s potential success. You are going to find strategies that look great in a backtest. That’s pretty easy, especially if you overfit your model. You will quickly find out that your strategy doesn’t work out-of-sample (i.e. in new data).</p></li>
+<li><p><strong>Implementation</strong>: Develop a trading infrastructure to execute your strategy. This can involve creating a trading algorithm, selecting a broker, and ensuring low-latency execution. Monitor the strategy’s performance and make adjustments as necessary. This step is especially important if your strategy trades a lot – trading costs will destroy any alpha that you have. If you trade less frequently (e.g. every quarter), then it’s not as big a deal.</p></li>
+<li><p><strong>Review and refine</strong>: Continuously monitor and evaluate your strategy’s performance. Update your models and data as needed, and be prepared to refine your strategy if market conditions change or if its performance begins to deteriorate. But, also know when to leave things along. All strategies underperform. You have to know when things are going to revert back to normal vs. when your strategy is cooked.</p></li>
+</ol>
+</section>
+<section id="ideas-and-resources">
+<h2><span class="section-number">20.2. </span>Ideas and Resources<a class="headerlink" href="#ideas-and-resources" title="Permalink to this headline">#</a></h2>
+<p>These notes don’t even scratch the surface on what it takes to really run a trading strategy. However, I want to point you towards resources and ideas that may help. In the end, though, most of the learning is done by actually doing this stuff, either tinkering on your own or on a trading desk.</p>
+<p>You can find academic and practitioner papers on <a class="reference external" href="https://www.ssrn.com/index.cfm/en/">SSRN</a>.</p>
+<p>Short guide on <a class="reference external" href="https://papers.ssrn.com/sol3/papers.cfm?abstract_id=2345489">backtesting trading strategies</a> by <a class="reference external" href="https://www.fuqua.duke.edu/faculty/campbell-harvey">Cam Harvey et al. at Fuqua</a>.</p>
+<p>Short guide on <a class="reference external" href="https://papers.ssrn.com/sol3/papers.cfm?abstract_id=2474755">evaluating</a> trading strategies, again by <a class="reference external" href="https://www.fuqua.duke.edu/faculty/campbell-harvey">Cam Harvey et al.</a>.</p>
+<p>Discussion of <a class="reference external" href="https://papers.ssrn.com/sol3/papers.cfm?abstract_id=3247865">151 different trading strategies</a>. These are all very well-known, but give you a sense of what might have worked in the past. Maybe see if they work in a new market?</p>
+<p>Description of <a class="reference external" href="https://papers.ssrn.com/sol3/papers.cfm?abstract_id=1968996">time series momentum strategies</a> and how to implement them. There are a million flavors of these strategies. Note that momentum and trend following aren’t the same thing.</p>
+<p>Quantitative <a class="reference external" href="https://papers.ssrn.com/sol3/papers.cfm?abstract_id=3076181">“deep value” strategy</a> from the hedge fund <a class="reference external" href="https://www.aqr.com">AQR</a>. They had a rough few years when growth was dramatically outperforming value.</p>
+<p>More evidence for <a class="reference external" href="https://papers.ssrn.com/sol3/papers.cfm?abstract_id=2993026">trend following</a>. Why the focus on that here? It’s one of the easier strategies to mess around with and is the typical example used for quant strategies.</p>
+<p>Even more <a class="reference external" href="https://papers.ssrn.com/sol3/papers.cfm?abstract_id=2603731">trend is your friend</a>, also from AQR and published in the <a class="reference external" href="https://www.cfainstitute.org/en/research/financial-analysts-journal#sort=%40officialz32xdate%20descending">Financial Analysts Journal</a>.</p>
+<p>Fun paper that uses machine learning and <a class="reference external" href="https://papers.ssrn.com/sol3/papers.cfm?abstract_id=3756587">actual images of stock price charts</a> to create trend-following strategies.</p>
+<p>Predicting returns using <a class="reference external" href="https://papers.ssrn.com/sol3/papers.cfm?abstract_id=3389884">text data</a>. Everyone is trying this the past five to ten years.</p>
+<p>Example of <a class="reference external" href="https://papers.ssrn.com/sol3/papers.cfm?abstract_id=1127213">momentum combined with other signals</a> from the commodities market.</p>
+<p><a class="reference external" href="https://papers.ssrn.com/sol3/papers.cfm?abstract_id=1958546">Pairs trading with ETFs</a>. A different type of example!</p>
+<p>Once <a class="reference external" href="https://papers.ssrn.com/sol3/papers.cfm?abstract_id=2816490">everyone knows about an anomaly, is it still profitable to trade on it</a>?</p>
+<p>Finally, here are some <strong>books that might interest you</strong>.</p>
+<p>Free book on <a class="reference external" href="https://papers.ssrn.com/sol3/papers.cfm?abstract_id=2543802">developing quantitative equity strategies</a>. However, I get nervous whenever I see “econophysics” or “multifractal”. There is a long history of physics people doing strange things in finance and economics, thinking that they have discovered some fundamental insight that everyone else has missed for hundreds of years.</p>
+<p>The <a class="reference external" href="https://www.amazon.com/Quantitative-Equity-Portfolio-Management-Second-ebook/dp/B09KF52TKD">2nd edition of Quantitative Portfolio Management</a> was published in the Fall of 2022. The authors also cover how to use fundamental features based on financial statement items to select equity securities.</p>
+<p>Another updated <a class="reference external" href="https://www.amazon.com/Quantitative-Trading-Build-Algorithmic-Business-dp-1119800064/dp/1119800064/">quantitative trading</a> text.</p>
+<p>Another physicist looking at <a class="reference external" href="https://www.amazon.com/Quantitative-Portfolio-Management-Statistical-Arbitrage-ebook/dp/B09FZVTM64/">pairs trading and statistical arbitrage</a>.</p>
+<p>Discussion of some <a class="reference external" href="https://www.amazon.com/DIY-Financial-Advisor-Solution-Protect/dp/111907150X/">simple quantitative strategies</a> that you can automate.</p>
+</section>
+<section id="using-the-bt-package">
+<h2><span class="section-number">20.3. </span>Using the BT Package<a class="headerlink" href="#using-the-bt-package" title="Permalink to this headline">#</a></h2>
+<p>I am going to walk through the basic example using the <a class="reference external" href="https://pypi.org/project/bt/">BT package</a>. You should check out their support page for more. From their page:</p>
+<blockquote>
+<div><p>bt is a flexible backtesting framework for Python used to test quantitative trading strategies. Backtesting is the process of testing a strategy over a given data set. This framework allows you to easily create strategies that mix and match different Algos. It aims to foster the creation of easily testable, re-usable and flexible blocks of strategy logic to facilitate the rapid development of complex trading strategies. The goal: to save quants from re-inventing the wheel and let them focus on the important part of the job - strategy development</p>
+</div></blockquote>
+<p>You will need to install the BT package using <code class="docutils literal notranslate"><span class="pre">pip</span></code>.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">pip</span> <span class="n">install</span> <span class="n">bt</span>
+</pre></div>
+</div>
+<p>The example comes from <a class="reference external" href="http://pmorissette.github.io/bt/">the author’s github page</a>.</p>
+<p>Note that the <code class="docutils literal notranslate"><span class="pre">bt</span></code> package uses the <code class="docutils literal notranslate"><span class="pre">ffn</span></code> package, which contains a lot of nice finance-helper functions written by the same author. For example, we’re going to use it to get data below. You can also <a class="reference external" href="http://pmorissette.github.io/ffn/">read more about it</a>.</p>
+<p>When we bring in <code class="docutils literal notranslate"><span class="pre">bt</span></code>, we are also bringing in <code class="docutils literal notranslate"><span class="pre">ffn</span></code>.</p>
+<p>There are many, many options that you can include as you develop your strategy. If you want details, check out <a class="reference external" href="https://pmorissette.github.io/bt/bt.html">this page</a>.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># The usual type of set-up.</span>
+<span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">import</span> <span class="nn">bt</span> <span class="k">as</span> <span class="nn">bt</span>
+<span class="kn">import</span> <span class="nn">ffn</span> <span class="k">as</span> <span class="nn">ffn</span>
+
+<span class="c1"># Include this to have plots show up in your Jupyter notebook.</span>
+<span class="o">%</span><span class="k">matplotlib</span> inline 
+
+<span class="c1"># As of Dec 2022, looks like yfinance broke the ffn/bt data import. Add this to get it to work. See https://github.com/pmorissette/ffn/issues/185</span>
+<span class="kn">import</span> <span class="nn">yfinance</span>
+<span class="n">yfinance</span><span class="o">.</span><span class="n">pdr_override</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+</div>
+<section id="step-1-get-your-data">
+<h3><span class="section-number">20.3.1. </span>Step 1 - Get your data<a class="headerlink" href="#step-1-get-your-data" title="Permalink to this headline">#</a></h3>
+<p>The first step is to get the appropriate data. Now, we are going to bring in some basic stock and bond data. This is silly, but instructive. You’ll likely spend a lot of time here dealing with APIs to bring in more unusual data. We’re going to look at a strategy this <strong>just uses prices</strong>. What about fundamental data, like earnings quality? How about text? This is why the data engineering steps are so important.</p>
+<p>Note that <code class="docutils literal notranslate"><span class="pre">ffn.get</span></code> works as well to get data from Yahoo! Finance.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">data</span> <span class="o">=</span> <span class="n">bt</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;spy,agg&#39;</span><span class="p">,</span> <span class="n">start</span><span class="o">=</span><span class="s1">&#39;2010-01-01&#39;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">data</span><span class="o">.</span><span class="n">head</span><span class="p">())</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[*********************100%***********************]  1 of 1 completed
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[*********************100%***********************]  1 of 1 completed
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>                  spy        agg
+Date                            
+2010-01-04  87.129944  71.516113
+2010-01-05  87.360588  71.841454
+2010-01-06  87.422104  71.799950
+2010-01-07  87.791138  71.716873
+2010-01-08  88.083260  71.758461
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="step-2-define-your-strategy">
+<h3><span class="section-number">20.3.2. </span>Step 2 - Define your strategy<a class="headerlink" href="#step-2-define-your-strategy" title="Permalink to this headline">#</a></h3>
+<p>The <code class="docutils literal notranslate"><span class="pre">bt</span></code> package has you create a <strong>strategy object</strong>. This object has a name and contains various characteristics for your strategy, such as how often to run your strategy, the securities to select from your data, your weighting scheme, and your rebalancing frequency.</p>
+<p>The code example below runs monthly, selects all of the securities from the data given to it, weights the securities equally, and then rebalances to get back to those target weights.</p>
+<p>Our strategy is going to be called <strong>ew</strong>, since this strategy is going to end up equally weighting all of the securities each month. Not much of an algo there! It then gets saved as a strategy object also called <strong>ew</strong>.</p>
+<p>Note that this <strong>is not</strong> a “buy-and-hold” strategy, since we are rebalancing back to equally weighted each month. There’s a <code class="docutils literal notranslate"><span class="pre">bt.algos.RunOnce</span></code> for that.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">ew</span> <span class="o">=</span> <span class="n">bt</span><span class="o">.</span><span class="n">Strategy</span><span class="p">(</span><span class="s1">&#39;ew&#39;</span><span class="p">,</span> <span class="p">[</span><span class="n">bt</span><span class="o">.</span><span class="n">algos</span><span class="o">.</span><span class="n">RunMonthly</span><span class="p">(),</span>
+                       <span class="n">bt</span><span class="o">.</span><span class="n">algos</span><span class="o">.</span><span class="n">SelectAll</span><span class="p">(),</span>
+                       <span class="n">bt</span><span class="o">.</span><span class="n">algos</span><span class="o">.</span><span class="n">WeighEqually</span><span class="p">(),</span>
+                       <span class="n">bt</span><span class="o">.</span><span class="n">algos</span><span class="o">.</span><span class="n">Rebalance</span><span class="p">()])</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="nb">type</span><span class="p">(</span><span class="n">ew</span><span class="p">))</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;class &#39;bt.core.Strategy&#39;&gt;
+</pre></div>
+</div>
+</div>
+</div>
+<p>Now, note that there’s no trading strategy yet. <strong>We haven’t included any real trading logic.</strong> What is an algorithm, or <strong>algo</strong>, in quant trading? Basically, it is a series of rules to get you a boolean (1/0) output. Do you include this security in your portfolio? Do you exclude it? Or, you can add a -1 outcome and ask if you short it.</p>
+<p>What do I mean by <strong>rules</strong>? This is the trading strategy! Does the security have positive trend? Momentum? Meet some quality measure? Is it being impacted by retail trading flow and will mean revert in the next hour? Are you predicting that the firm will be a target of a shareholder activist? These are all rules that might lead you to go long or short the security.</p>
+<p>Let’s create some actual, simple trading logic. I’ll follow the <a class="reference external" href="http://pmorissette.github.io/bt/examples.html">moving average example</a> from the author. We can then compare strategies.</p>
+<p>I’ll use a 50-day moving average, like the author. We’ll then compare our two securities to their moving average. If they are above, let’s call that positive trend and buy. If not, we’ll exclude them from the portfolio. So, some simple <strong>boolean logic</strong>.</p>
+<p>Again, this is very dumb strategy to do on a stock and a bond index!</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">sma</span> <span class="o">=</span> <span class="n">data</span><span class="o">.</span><span class="n">rolling</span><span class="p">(</span><span class="mi">50</span><span class="p">)</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>What did I just create? Let’s look.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">sma</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>spy</th>
+      <th>agg</th>
+    </tr>
+    <tr>
+      <th>Date</th>
+      <th></th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>2010-01-04</th>
+      <td>NaN</td>
+      <td>NaN</td>
+    </tr>
+    <tr>
+      <th>2010-01-05</th>
+      <td>NaN</td>
+      <td>NaN</td>
+    </tr>
+    <tr>
+      <th>2010-01-06</th>
+      <td>NaN</td>
+      <td>NaN</td>
+    </tr>
+    <tr>
+      <th>2010-01-07</th>
+      <td>NaN</td>
+      <td>NaN</td>
+    </tr>
+    <tr>
+      <th>2010-01-08</th>
+      <td>NaN</td>
+      <td>NaN</td>
+    </tr>
+    <tr>
+      <th>...</th>
+      <td>...</td>
+      <td>...</td>
+    </tr>
+    <tr>
+      <th>2024-01-18</th>
+      <td>460.770646</td>
+      <td>96.872967</td>
+    </tr>
+    <tr>
+      <th>2024-01-19</th>
+      <td>461.740632</td>
+      <td>96.969857</td>
+    </tr>
+    <tr>
+      <th>2024-01-22</th>
+      <td>462.706320</td>
+      <td>97.060405</td>
+    </tr>
+    <tr>
+      <th>2024-01-23</th>
+      <td>463.693832</td>
+      <td>97.139789</td>
+    </tr>
+    <tr>
+      <th>2024-01-24</th>
+      <td>464.803469</td>
+      <td>97.236182</td>
+    </tr>
+  </tbody>
+</table>
+<p>3538 rows × 2 columns</p>
+</div></div></div>
+</div>
+<p>See how the first rows are missing? This is a 50-day moving average, so you don’t get an average until 50 days have passed.</p>
+<p>The <code class="docutils literal notranslate"><span class="pre">bt</span></code> package has merge and plot methods. The package is pulling them from <code class="docutils literal notranslate"><span class="pre">pandas</span></code> and <code class="docutils literal notranslate"><span class="pre">matplotlib</span></code>. This just makes things easier for us.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">plot</span> <span class="o">=</span> <span class="n">bt</span><span class="o">.</span><span class="n">merge</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">sma</span><span class="p">)</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">15</span><span class="p">,</span> <span class="mi">5</span><span class="p">))</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../_images/20_trading_bt_12_0.png" src="../_images/20_trading_bt_12_0.png" />
+</div>
+</div>
+<p>Now, let’s use that <strong>Boolean logic</strong> to create our <strong>signal</strong>. When do we buy? When the price is above the 50-day moving average. Just compare the two DataFrames and get a new one full of <em>True</em> and <em>False</em> values! We’ll call that DataFrame <strong>signal</strong>.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">signal</span> <span class="o">=</span> <span class="n">data</span> <span class="o">&gt;</span> <span class="n">sma</span>
+<span class="nb">print</span><span class="p">(</span><span class="nb">type</span><span class="p">(</span><span class="n">signal</span><span class="p">))</span>
+
+<span class="n">signal</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;class &#39;pandas.core.frame.DataFrame&#39;&gt;
+</pre></div>
+</div>
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>spy</th>
+      <th>agg</th>
+    </tr>
+    <tr>
+      <th>Date</th>
+      <th></th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>2010-01-04</th>
+      <td>False</td>
+      <td>False</td>
+    </tr>
+    <tr>
+      <th>2010-01-05</th>
+      <td>False</td>
+      <td>False</td>
+    </tr>
+    <tr>
+      <th>2010-01-06</th>
+      <td>False</td>
+      <td>False</td>
+    </tr>
+    <tr>
+      <th>2010-01-07</th>
+      <td>False</td>
+      <td>False</td>
+    </tr>
+    <tr>
+      <th>2010-01-08</th>
+      <td>False</td>
+      <td>False</td>
+    </tr>
+    <tr>
+      <th>...</th>
+      <td>...</td>
+      <td>...</td>
+    </tr>
+    <tr>
+      <th>2024-01-18</th>
+      <td>True</td>
+      <td>True</td>
+    </tr>
+    <tr>
+      <th>2024-01-19</th>
+      <td>True</td>
+      <td>True</td>
+    </tr>
+    <tr>
+      <th>2024-01-22</th>
+      <td>True</td>
+      <td>True</td>
+    </tr>
+    <tr>
+      <th>2024-01-23</th>
+      <td>True</td>
+      <td>True</td>
+    </tr>
+    <tr>
+      <th>2024-01-24</th>
+      <td>True</td>
+      <td>True</td>
+    </tr>
+  </tbody>
+</table>
+<p>3538 rows × 2 columns</p>
+</div></div></div>
+</div>
+<p>We can now create a <strong>new strategy</strong> with that logic. The new strategy is called <strong>above50sma</strong> and is saved in the <strong>sma50</strong> object. Notice the new first line that has the <code class="docutils literal notranslate"><span class="pre">.SelectWhere</span></code> method. This is going to select securities where <code class="docutils literal notranslate"><span class="pre">signal</span> <span class="pre">==</span> <span class="pre">True</span></code>.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">sma50</span> <span class="o">=</span> <span class="n">bt</span><span class="o">.</span><span class="n">Strategy</span><span class="p">(</span><span class="s1">&#39;above50sma&#39;</span><span class="p">,</span> <span class="p">[</span><span class="n">bt</span><span class="o">.</span><span class="n">algos</span><span class="o">.</span><span class="n">SelectWhere</span><span class="p">(</span><span class="n">signal</span><span class="p">),</span>
+                                   <span class="n">bt</span><span class="o">.</span><span class="n">algos</span><span class="o">.</span><span class="n">WeighEqually</span><span class="p">(),</span>
+                                   <span class="n">bt</span><span class="o">.</span><span class="n">algos</span><span class="o">.</span><span class="n">Rebalance</span><span class="p">()])</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>Take a look at this discussion on <a class="reference external" href="http://pmorissette.github.io/bt/tree.html">strategy trees</a> for more on how to use <code class="docutils literal notranslate"><span class="pre">bt</span></code> to combine different algorithms.</p>
+<p>A real strategy might incorporate <strong>hundreds of signals from all types of data sources</strong>.</p>
+</section>
+<section id="step-3-backtest-your-strategy">
+<h3><span class="section-number">20.3.3. </span>Step 3 - Backtest your strategy<a class="headerlink" href="#step-3-backtest-your-strategy" title="Permalink to this headline">#</a></h3>
+<p>Once you have your strategy object, you can backtest on your data on a particular strategy. You feed the function <code class="docutils literal notranslate"><span class="pre">bt.Backtest</span></code> your strategy and your data. This creates a <strong>test</strong> object. Then, you use <code class="docutils literal notranslate"><span class="pre">bt.run</span></code> on that object to get your <strong>results</strong>.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">test_ew</span> <span class="o">=</span> <span class="n">bt</span><span class="o">.</span><span class="n">Backtest</span><span class="p">(</span><span class="n">ew</span><span class="p">,</span> <span class="n">data</span><span class="p">)</span>
+<span class="n">res_ew</span> <span class="o">=</span> <span class="n">bt</span><span class="o">.</span><span class="n">run</span><span class="p">(</span><span class="n">test_ew</span><span class="p">)</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="nb">type</span><span class="p">(</span><span class="n">test_ew</span><span class="p">))</span>
+<span class="nb">print</span><span class="p">(</span><span class="nb">type</span><span class="p">(</span><span class="n">res_ew</span><span class="p">))</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;class &#39;bt.backtest.Backtest&#39;&gt;
+&lt;class &#39;bt.backtest.Result&#39;&gt;
+</pre></div>
+</div>
+</div>
+</div>
+<p>Note the arguments for the backtest function. You give it the strategy <strong>ew</strong> and your <strong>data</strong>. Remember, you data are prices for the securities. The backtest is using these prices to generate returns.</p>
+<p>Let’s run the backtest and results for the moving average strategy as well.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">test_sma50</span> <span class="o">=</span> <span class="n">bt</span><span class="o">.</span><span class="n">Backtest</span><span class="p">(</span><span class="n">sma50</span><span class="p">,</span> <span class="n">data</span><span class="p">)</span>
+<span class="n">res_sma50</span>  <span class="o">=</span> <span class="n">bt</span><span class="o">.</span><span class="n">run</span><span class="p">(</span><span class="n">test_sma50</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>With the results object, we can plot the value of the strategy (starting at 100) and look at some descriptive statistics.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">res_ew</span><span class="o">.</span><span class="n">plot</span><span class="p">();</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../_images/20_trading_bt_23_0.png" src="../_images/20_trading_bt_23_0.png" />
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">res_sma50</span><span class="o">.</span><span class="n">plot</span><span class="p">();</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../_images/20_trading_bt_24_0.png" src="../_images/20_trading_bt_24_0.png" />
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">res_ew</span><span class="o">.</span><span class="n">display</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Stat                 ew
+-------------------  ----------
+Start                2010-01-03
+End                  2024-01-24
+Risk-free rate       0.00%
+
+Total Return         190.24%
+Daily Sharpe         0.90
+Daily Sortino        1.40
+CAGR                 7.88%
+Max Drawdown         -19.87%
+Calmar Ratio         0.40
+
+MTD                  0.67%
+3m                   11.08%
+6m                   5.06%
+YTD                  0.67%
+1Y                   11.88%
+3Y (ann.)            3.18%
+5Y (ann.)            8.07%
+10Y (ann.)           7.26%
+Since Incep. (ann.)  7.88%
+
+Daily Sharpe         0.90
+Daily Sortino        1.40
+Daily Mean (ann.)    7.98%
+Daily Vol (ann.)     8.83%
+Daily Skew           -0.72
+Daily Kurt           14.03
+Best Day             4.77%
+Worst Day            -6.63%
+
+Monthly Sharpe       0.99
+Monthly Sortino      1.81
+Monthly Mean (ann.)  8.11%
+Monthly Vol (ann.)   8.18%
+Monthly Skew         -0.31
+Monthly Kurt         1.07
+Best Month           7.57%
+Worst Month          -6.68%
+
+Yearly Sharpe        0.84
+Yearly Sortino       1.85
+Yearly Mean          7.54%
+Yearly Vol           9.03%
+Yearly Skew          -1.24
+Yearly Kurt          1.95
+Best Year            19.64%
+Worst Year           -15.30%
+
+Avg. Drawdown        -0.85%
+Avg. Drawdown Days   15.32
+Avg. Up Month        1.89%
+Avg. Down Month      -1.96%
+Win Year %           85.71%
+Win 12m %            89.87%
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">res_sma50</span><span class="o">.</span><span class="n">display</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Stat                 above50sma
+-------------------  ------------
+Start                2010-01-03
+End                  2024-01-24
+Risk-free rate       0.00%
+
+Total Return         82.21%
+Daily Sharpe         0.59
+Daily Sortino        0.86
+CAGR                 4.36%
+Max Drawdown         -21.95%
+Calmar Ratio         0.20
+
+MTD                  0.66%
+3m                   8.60%
+6m                   3.27%
+YTD                  0.66%
+1Y                   9.35%
+3Y (ann.)            0.24%
+5Y (ann.)            5.25%
+10Y (ann.)           2.71%
+Since Incep. (ann.)  4.36%
+
+Daily Sharpe         0.59
+Daily Sortino        0.86
+Daily Mean (ann.)    4.57%
+Daily Vol (ann.)     7.73%
+Daily Skew           -1.07
+Daily Kurt           10.58
+Best Day             3.48%
+Worst Day            -4.35%
+
+Monthly Sharpe       0.58
+Monthly Sortino      0.94
+Monthly Mean (ann.)  4.61%
+Monthly Vol (ann.)   8.01%
+Monthly Skew         -0.60
+Monthly Kurt         1.16
+Best Month           6.68%
+Worst Month          -7.97%
+
+Yearly Sharpe        0.40
+Yearly Sortino       0.69
+Yearly Mean          4.02%
+Yearly Vol           10.16%
+Yearly Skew          -1.07
+Yearly Kurt          0.48
+Best Year            16.05%
+Worst Year           -17.78%
+
+Avg. Drawdown        -1.28%
+Avg. Drawdown Days   36.54
+Avg. Up Month        1.86%
+Avg. Down Month      -1.73%
+Win Year %           78.57%
+Win 12m %            72.78%
+</pre></div>
+</div>
+</div>
+</div>
+<p>You’d have been much better off equally weighting the two indices and rebalancing each month!</p>
+<p>Finally, notice what we <strong>did not do</strong>. We were just testing a simple strategy. <strong>We didn’t do anything with in-sample vs. out-of-sample data</strong>. We weren’t training a model using one set of data in a backtest and then testing it on some data that we withheld from the strategy development algorithm. When you’re developing a model and not just stating that you’re using one, like our 50-day moving average, things get more complicated.</p>
+</section>
+</section>
+<section id="other-tools">
+<h2><span class="section-number">20.4. </span>Other tools<a class="headerlink" href="#other-tools" title="Permalink to this headline">#</a></h2>
+<p>This <code class="docutils literal notranslate"><span class="pre">bt</span> <span class="pre">package</span></code> is just one of many out there. I chose it because it seems to be more actively maintained.</p>
+<p>There are also a set of tools from the now defunct <a class="reference external" href="https://www.bloomberg.com/news/articles/2020-12-16/quant-trading-platform-quantopian-closes-down">Quantopian platform</a>. I believe that some former Quantopian engineers are still working on the tools.</p>
+<p>These include <a class="reference external" href="https://zipline.ml4trading.io">zipline</a>, a backtesting tool, <a class="reference external" href="https://alphalens.ml4trading.io">alphalens</a>, for looking at sources of risk and return, and <a class="reference external" href="https://pyfolio.ml4trading.io">pyfolio</a>, which creates performance tear sheets.</p>
+<p>There’s also a package simply called <a class="reference external" href="https://pypi.org/project/Backtesting/">Backtesting</a>.</p>
+<p>Trading firms and hedge funds will have developed most of this in-house. For example, <a class="reference external" href="https://developer.gs.com/docs/gsquant/">Goldman Sachs has their own tools</a>.</p>
+</section>
+</section>
+
+    <script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "binder-examples/jupyter-stacks-datascience",
+            ref: "master",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "python"
+        },
+        kernelOptions: {
+            kernelName: "python3",
+            path: "./chapters"
+        },
+        predefinedOutput: true
+    }
+    </script>
+    <script>kernelName = 'python3'</script>
+
+              </div>
+              
+            </main>
+            <footer class="footer-article noprint">
+                
+    <!-- Previous / next buttons -->
+<div class='prev-next-area'>
+    <a class='left-prev' id="prev-link" href="19_reinforcement_learning.html" title="previous page">
+        <i class="fas fa-angle-left"></i>
+        <div class="prev-next-info">
+            <p class="prev-next-subtitle">previous</p>
+            <p class="prev-next-title"><span class="section-number">19. </span>Reinforcement Learning</p>
+        </div>
+    </a>
+    <a class='right-next' id="next-link" href="lab_intro.html" title="next page">
+    <div class="prev-next-info">
+        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-title">Our labs</p>
+    </div>
+    <i class="fas fa-angle-right"></i>
+    </a>
+</div>
+            </footer>
+        </div>
+    </div>
+    <div class="footer-content row">
+        <footer class="col footer"><p>
+  
+    By Prof. Adam Aiken<br/>
+  
+</p>
+        </footer>
+    </div>
+    
+</div>
+
+
+      </div>
+    </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="../_static/scripts/pydata-sphinx-theme.js?digest=1999514e3f237ded88cf"></script>
+
+
+  </body>
+</html>

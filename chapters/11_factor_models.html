@@ -1,0 +1,1575 @@
+
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
+    <title>11. Factor models &#8212; Data Analysis in Finance</title>
+    
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../_static/styles/theme.css?digest=1999514e3f237ded88cf" rel="stylesheet">
+<link href="../_static/styles/pydata-sphinx-theme.css?digest=1999514e3f237ded88cf" rel="stylesheet">
+
+    
+  <link rel="stylesheet"
+    href="../_static/vendor/fontawesome/5.13.0/css/all.min.css">
+  <link rel="preload" as="font" type="font/woff2" crossorigin
+    href="../_static/vendor/fontawesome/5.13.0/webfonts/fa-solid-900.woff2">
+  <link rel="preload" as="font" type="font/woff2" crossorigin
+    href="../_static/vendor/fontawesome/5.13.0/webfonts/fa-brands-400.woff2">
+
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css" />
+    <link rel="stylesheet" href="../_static/styles/sphinx-book-theme.css?digest=5115cc725059bd94278eecd172e13a965bf8f5a9" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="../_static/togglebutton.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/copybutton.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/mystnb.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/sphinx-thebe.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/design-style.b7bb847fb20b106c3d81b95245e65545.min.css" />
+    
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../_static/scripts/pydata-sphinx-theme.js?digest=1999514e3f237ded88cf">
+
+    <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
+    <script src="../_static/jquery.js"></script>
+    <script src="../_static/underscore.js"></script>
+    <script src="../_static/doctools.js"></script>
+    <script src="../_static/clipboard.min.js"></script>
+    <script src="../_static/copybutton.js"></script>
+    <script src="../_static/scripts/sphinx-book-theme.js?digest=9c920249402e914e316237a7dbc6769907cce411"></script>
+    <script>let toggleHintShow = 'Click to show';</script>
+    <script>let toggleHintHide = 'Click to hide';</script>
+    <script>let toggleOpenOnPrint = 'true';</script>
+    <script src="../_static/togglebutton.js"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown, .tag_hide_input div.cell_input, .tag_hide-input div.cell_input, .tag_hide_output div.cell_output, .tag_hide-output div.cell_output, .tag_hide_cell.cell, .tag_hide-cell.cell';</script>
+    <script src="../_static/design-tabs.js"></script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"
+const thebe_selector = ".thebe,.cell"
+const thebe_selector_input = "pre"
+const thebe_selector_output = ".output, .cell_output"
+</script>
+    <script async="async" src="../_static/sphinx-thebe.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+    <script src="https://unpkg.com/@jupyter-widgets/html-manager@^0.20.0/dist/embed-amd.js"></script>
+    <script>window.MathJax = {"options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
+    <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="12. Regression topics" href="12_regression_topics.html" />
+    <link rel="prev" title="10. Unsupervised Learning" href="10_unsupervised_learning.html" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="docsearch:language" content="None">
+    
+
+    <!-- Google Analytics -->
+    
+  </head>
+  <body data-spy="scroll" data-target="#bd-toc-nav" data-offset="60">
+<!-- Checkboxes to toggle the left sidebar -->
+<input type="checkbox" class="sidebar-toggle" name="__navigation" id="__navigation" aria-label="Toggle navigation sidebar">
+<label class="overlay overlay-navbar" for="__navigation">
+    <div class="visually-hidden">Toggle navigation sidebar</div>
+</label>
+<!-- Checkboxes to toggle the in-page toc -->
+<input type="checkbox" class="sidebar-toggle" name="__page-toc" id="__page-toc" aria-label="Toggle in-page Table of Contents">
+<label class="overlay overlay-pagetoc" for="__page-toc">
+    <div class="visually-hidden">Toggle in-page Table of Contents</div>
+</label>
+<!-- Headers at the top -->
+<div class="announcement header-item noprint"></div>
+<div class="header header-item noprint"></div>
+
+    
+    <div class="container-fluid" id="banner"></div>
+
+    
+
+    <div class="container-xl">
+      <div class="row">
+          
+<!-- Sidebar -->
+<div class="bd-sidebar noprint" id="site-navigation">
+    <div class="bd-sidebar__content">
+        <div class="bd-sidebar__top"><div class="navbar-brand-box">
+    <a class="navbar-brand text-wrap" href="../index.html">
+      
+        <!-- `logo` is deprecated in Sphinx 4.0, so remove this when we stop supporting 3 -->
+        
+      
+      
+      <img src="../_static/cat.png" class="logo" alt="logo">
+      
+      
+      <h1 class="site-logo" id="site-title">Data Analysis in Finance</h1>
+      
+    </a>
+</div><form class="bd-search d-flex align-items-center" action="../search.html" method="get">
+  <i class="icon fas fa-search"></i>
+  <input type="search" class="form-control" name="q" id="search-input" placeholder="Search this book..." aria-label="Search this book..." autocomplete="off" >
+</form><nav class="bd-links" id="bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item active">
+        
+        <ul class="nav bd-sidenav bd-sidenav__home-link">
+            <li class="toctree-l1">
+                <a class="reference internal" href="../intro.html">
+                    Welcome
+                </a>
+            </li>
+        </ul>
+        <p aria-level="2" class="caption" role="heading">
+ <span class="caption-text">
+  Getting Started
+ </span>
+</p>
+<ul class="nav bd-sidenav">
+ <li class="toctree-l1">
+  <a class="reference internal" href="1_finpyth.html">
+   1. Why Python and finance?
+  </a>
+ </li>
+ <li class="toctree-l1 has-children">
+  <a class="reference internal" href="2_1_intro.html">
+   2. Python set-up
+   <a id="python_set-up">
+   </a>
+  </a>
+  <input class="toctree-checkbox" id="toctree-checkbox-1" name="toctree-checkbox-1" type="checkbox"/>
+  <label for="toctree-checkbox-1">
+   <i class="fas fa-chevron-down">
+   </i>
+  </label>
+  <ul>
+   <li class="toctree-l2">
+    <a class="reference internal" href="2_2_git.html">
+     2.2. Using Github
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="2_3_install.html">
+     2.3. Installation
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="2_4_jupyter.html">
+     2.4. Jupyter notebooks
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="2_5_vscode.html">
+     2.5. VS Code
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="2_6_googlecolab.html">
+     2.6. Google Colab
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="2_7_markdown.html">
+     2.7. Markdown
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="2_8_packages.html">
+     2.8. Packages
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="2_9_style.html">
+     2.9. Code style, PEP8, and linting
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="2_10_using_chatgpt.html">
+     2.10. Using ChatGPT
+    </a>
+   </li>
+  </ul>
+ </li>
+</ul>
+<p aria-level="2" class="caption" role="heading">
+ <span class="caption-text">
+  The Basics
+ </span>
+</p>
+<ul class="nav bd-sidenav">
+ <li class="toctree-l1 has-children">
+  <a class="reference internal" href="3_1_intro.html">
+   3. CompSci 101: Types, control, and numpy arrays
+  </a>
+  <input class="toctree-checkbox" id="toctree-checkbox-2" name="toctree-checkbox-2" type="checkbox"/>
+  <label for="toctree-checkbox-2">
+   <i class="fas fa-chevron-down">
+   </i>
+  </label>
+  <ul>
+   <li class="toctree-l2">
+    <a class="reference internal" href="3_2_comp101.html">
+     3.1. The Basics
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="3_3_numpy.html">
+     3.2. Numpy and arrays
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toctree-l1 has-children">
+  <a class="reference internal" href="4_intro.html">
+   4. Pandas and data
+  </a>
+  <input class="toctree-checkbox" id="toctree-checkbox-3" name="toctree-checkbox-3" type="checkbox"/>
+  <label for="toctree-checkbox-3">
+   <i class="fas fa-chevron-down">
+   </i>
+  </label>
+  <ul>
+   <li class="toctree-l2">
+    <a class="reference internal" href="4_0_dataframes.html">
+     4.1. Data importing
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="4_1_pandas.html">
+     4.2. pandas
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="4_2_cleaning_data.html">
+     4.3. Cleaning our data
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="4_3_eda.html">
+     4.4. Exploratory data analysis (EDA)
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="4_4_merge_shape.html">
+     4.5. Merging and reshaping data
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="4_5_sql.html">
+     4.6. Using SQL in Python
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="4_6_polar.html">
+     4.7. polars: A fast, fancy pandas alternative
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toctree-l1 has-children">
+  <a class="reference internal" href="5_intro.html">
+   5. Data visualization
+  </a>
+  <input class="toctree-checkbox" id="toctree-checkbox-4" name="toctree-checkbox-4" type="checkbox"/>
+  <label for="toctree-checkbox-4">
+   <i class="fas fa-chevron-down">
+   </i>
+  </label>
+  <ul>
+   <li class="toctree-l2">
+    <a class="reference internal" href="5_0_seaborn.html">
+     5.1. seaborn
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="5_1_matplotlib.html">
+     5.2. matplotlib
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="5_2_plotly.html">
+     5.3. plotly
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="6_nasdaq_api.html">
+   6. Using APIs for Data Imports
+   <a id="btc-sim">
+   </a>
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="7_financial_ts.html">
+   7. Financial time series
+   <a id="financial-time-series">
+   </a>
+  </a>
+ </li>
+</ul>
+<p aria-level="2" class="caption" role="heading">
+ <span class="caption-text">
+  Applications
+ </span>
+</p>
+<ul class="current nav bd-sidenav">
+ <li class="toctree-l1">
+  <a class="reference internal" href="8_port_math.html">
+   8. Essential portfolio math
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="9_portfolio_opt.html">
+   9. Portfolio optimization
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="10_unsupervised_learning.html">
+   10. Unsupervised Learning
+   <a id="unsupervised_learning">
+   </a>
+  </a>
+ </li>
+ <li class="toctree-l1 current active">
+  <a class="current reference internal" href="#">
+   11. Factor models
+   <a id="factor_models">
+   </a>
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="12_regression_topics.html">
+   12. Regression topics
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="13_logit_credit.html">
+   13. Logit models
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="14_decision_trees.html">
+   14. Decision Trees
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="15_svm.html">
+   15. SVM
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="16_risk_mang.html">
+   16. Risk management
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="17_monte_carlo.html">
+   17. Monte Carlo and portfolios
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="18_options.html">
+   18. Option basics
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="19_reinforcement_learning.html">
+   19. Reinforcement Learning
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="20_trading_bt.html">
+   20. Trading Strategies and the BT Package
+  </a>
+ </li>
+</ul>
+<p aria-level="2" class="caption" role="heading">
+ <span class="caption-text">
+  Labs
+ </span>
+</p>
+<ul class="nav bd-sidenav">
+ <li class="toctree-l1">
+  <a class="reference internal" href="lab_intro.html">
+   Our labs
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="lab01.html">
+   Lab 01
+  </a>
+ </li>
+</ul>
+<p aria-level="2" class="caption" role="heading">
+ <span class="caption-text">
+  Exams
+ </span>
+</p>
+<ul class="nav bd-sidenav">
+ <li class="toctree-l1">
+  <a class="reference internal" href="exam_intro.html">
+   Our Exams
+  </a>
+ </li>
+</ul>
+
+    </div>
+</nav></div>
+        <div class="bd-sidebar__bottom">
+             <!-- To handle the deprecated key -->
+            
+            <div class="navbar_extra_footer">
+            Powered by <a href="https://jupyterbook.org">Jupyter Book</a>
+            </div>
+            
+        </div>
+    </div>
+    <div id="rtd-footer-container"></div>
+</div>
+
+
+          
+
+
+          
+<!-- A tiny helper pixel to detect if we've scrolled -->
+<div class="sbt-scroll-pixel-helper"></div>
+<!-- Main content -->
+<div class="col py-0 content-container">
+    
+    <div class="header-article row sticky-top noprint">
+        
+
+
+
+<div class="col py-1 d-flex header-article-main">
+    <div class="header-article__left">
+        
+        <label for="__navigation"
+  class="headerbtn"
+  data-toggle="tooltip"
+data-placement="right"
+title="Toggle navigation"
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-bars"></i>
+  </span>
+
+</label>
+
+        
+    </div>
+    <div class="header-article__right">
+<div class="menu-dropdown menu-dropdown-launch-buttons">
+  <button class="headerbtn menu-dropdown__trigger"
+      aria-label="Launch interactive content">
+      <i class="fas fa-rocket"></i>
+  </button>
+  <div class="menu-dropdown__content">
+    <ul>
+      <li>
+        <a href="https://mybinder.org/v2/gh/executablebooks/jupyter-book/master?urlpath=tree/docs/chapters/11_factor_models.ipynb"
+   class="headerbtn"
+   data-toggle="tooltip"
+data-placement="left"
+title="Launch on Binder"
+>
+  
+
+<span class="headerbtn__icon-container">
+  
+    <img src="../_static/images/logo_binder.svg">
+  </span>
+<span class="headerbtn__text-container">Binder</span>
+</a>
+
+      </li>
+      
+    </ul>
+  </div>
+</div>
+
+<button onclick="toggleFullScreen()"
+  class="headerbtn"
+  data-toggle="tooltip"
+data-placement="bottom"
+title="Fullscreen mode"
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+<a href="https://github.com/executablebooks/jupyter-book"
+   class="headerbtn"
+   data-toggle="tooltip"
+data-placement="bottom"
+title="Source repository"
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fab fa-github"></i>
+  </span>
+
+</a>
+
+<div class="menu-dropdown menu-dropdown-download-buttons">
+  <button class="headerbtn menu-dropdown__trigger"
+      aria-label="Download this page">
+      <i class="fas fa-download"></i>
+  </button>
+  <div class="menu-dropdown__content">
+    <ul>
+      <li>
+        <a href="../_sources/chapters/11_factor_models.ipynb"
+   class="headerbtn"
+   data-toggle="tooltip"
+data-placement="left"
+title="Download source file"
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="headerbtn__text-container">.ipynb</span>
+</a>
+
+      </li>
+      
+      <li>
+        
+<button onclick="printPdf(this)"
+  class="headerbtn"
+  data-toggle="tooltip"
+data-placement="left"
+title="Print to PDF"
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="headerbtn__text-container">.pdf</span>
+</button>
+
+      </li>
+      
+    </ul>
+  </div>
+</div>
+<label for="__page-toc"
+  class="headerbtn headerbtn-page-toc"
+  
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-list"></i>
+  </span>
+
+</label>
+
+    </div>
+</div>
+
+<!-- Table of contents -->
+<div class="col-md-3 bd-toc show noprint">
+    <div class="tocsection onthispage pt-5 pb-3">
+        <i class="fas fa-list"></i> Contents
+    </div>
+    <nav id="bd-toc-nav" aria-label="Page">
+        <ul class="visible nav section-nav flex-column">
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#where-do-returns-come-from-risks-expected-returns-and-factors">
+   11.1. Where Do Returns Come From? Risks, Expected Returns, and Factors.
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#it-is-tough-to-beat-the-market">
+   11.2. It Is Tough To Beat The Market
+  </a>
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#equilibrium-thinking">
+     11.2.1. Equilibrium Thinking
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#limits-to-arbitrage">
+     11.2.2. Limits to Arbitrage
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#factors-risk-and-return">
+   11.3. Factors, Risk, and Return
+  </a>
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#factor-vs-anomaly">
+     11.3.1. Factor vs. Anomaly
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#capm-our-first-factor-model">
+   11.4. CAPM. Our First Factor Model.
+  </a>
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#what-assumptions-does-the-capm-model-make">
+     11.4.1. What Assumptions Does the CAPM Model Make?
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#expanding-our-world-multifactor-models">
+   11.5. Expanding Our World. Multifactor Models.
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#macroeconomic-risks">
+   11.6. Macroeconomic Risks
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#style-factors">
+   11.7. Style Factors
+  </a>
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#size">
+     11.7.1. Size
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#value">
+     11.7.2. Value
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#momentum">
+     11.7.3. Momentum
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#quality">
+     11.7.4. Quality
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#low-risk">
+     11.7.5. Low Risk
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#using-factor-thinking-to-assess-your-performance">
+   11.8. Using Factor Thinking To Assess Your Performance
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#an-example-factor-based-etfs">
+   11.9. An Example: Factor-Based ETFs
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#an-example-buffett-s-alpha">
+   11.10. An Example: Buffett’s Alpha
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#a-warning-the-factor-zoo">
+   11.11. A Warning: The Factor Zoo
+  </a>
+ </li>
+</ul>
+
+    </nav>
+</div>
+    </div>
+    <div class="article row">
+        <div class="col pl-md-3 pl-lg-5 content-container">
+            <!-- Table of contents that is only displayed when printing the page -->
+            <div id="jb-print-docs-body" class="onlyprint">
+                <h1>Factor models <a id='factor_models'></a></h1>
+                <!-- Table of contents -->
+                <div id="print-main-content">
+                    <div id="jb-print-toc">
+                        
+                        <div>
+                            <h2> Contents </h2>
+                        </div>
+                        <nav aria-label="Page">
+                            <ul class="visible nav section-nav flex-column">
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#where-do-returns-come-from-risks-expected-returns-and-factors">
+   11.1. Where Do Returns Come From? Risks, Expected Returns, and Factors.
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#it-is-tough-to-beat-the-market">
+   11.2. It Is Tough To Beat The Market
+  </a>
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#equilibrium-thinking">
+     11.2.1. Equilibrium Thinking
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#limits-to-arbitrage">
+     11.2.2. Limits to Arbitrage
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#factors-risk-and-return">
+   11.3. Factors, Risk, and Return
+  </a>
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#factor-vs-anomaly">
+     11.3.1. Factor vs. Anomaly
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#capm-our-first-factor-model">
+   11.4. CAPM. Our First Factor Model.
+  </a>
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#what-assumptions-does-the-capm-model-make">
+     11.4.1. What Assumptions Does the CAPM Model Make?
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#expanding-our-world-multifactor-models">
+   11.5. Expanding Our World. Multifactor Models.
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#macroeconomic-risks">
+   11.6. Macroeconomic Risks
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#style-factors">
+   11.7. Style Factors
+  </a>
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#size">
+     11.7.1. Size
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#value">
+     11.7.2. Value
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#momentum">
+     11.7.3. Momentum
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#quality">
+     11.7.4. Quality
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#low-risk">
+     11.7.5. Low Risk
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#using-factor-thinking-to-assess-your-performance">
+   11.8. Using Factor Thinking To Assess Your Performance
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#an-example-factor-based-etfs">
+   11.9. An Example: Factor-Based ETFs
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#an-example-buffett-s-alpha">
+   11.10. An Example: Buffett’s Alpha
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#a-warning-the-factor-zoo">
+   11.11. A Warning: The Factor Zoo
+  </a>
+ </li>
+</ul>
+
+                        </nav>
+                    </div>
+                </div>
+            </div>
+            <main id="main-content" role="main">
+                
+              <div>
+                
+  <section class="tex2jax_ignore mathjax_ignore" id="factor-models-a-id-factor-models-a">
+<h1><span class="section-number">11. </span>Factor models <a id='factor_models'></a><a class="headerlink" href="#factor-models-a-id-factor-models-a" title="Permalink to this headline">#</a></h1>
+<p>We are going to do some financial theory in this chapter. These notes follow largely from those I used in a two-credit <em>Advanced Investments</em> seminar, taught in the Spring of 2021.</p>
+<p>You will see regression more generally in the DataCamp assignments.</p>
+<section id="where-do-returns-come-from-risks-expected-returns-and-factors">
+<h2><span class="section-number">11.1. </span>Where Do Returns Come From? Risks, Expected Returns, and Factors.<a class="headerlink" href="#where-do-returns-come-from-risks-expected-returns-and-factors" title="Permalink to this headline">#</a></h2>
+<p>This is a Python class. Why is there suddenly a bunch of theory? If we are going to import data, run regressions, and think about how to measure sources of returns, we need a theoretical background. Theory doesn’t mean impractical, though. Theory guides us and tells us where to look.</p>
+<p>Theory, combined with common sense, can also help us know who might be <a class="reference external" href="https://noahpinion.substack.com/p/on-bullshit-in-investing?fbclid=IwAR3ZFhi7sWBeLNXy0LmLE7WgiDI5ftzffUEHkY_6immepF7fr911DDXCoqM">full of sh*t</a>, a very useful skill to develop.</p>
+<p>These notes pull from Chapters 6, 7, and 14 of <a class="reference external" href="https://global.oup.com/academic/product/asset-management-9780199959327">a text by Andrew Ang</a>, formerly at Columbia and now at Blackrock, as well as texts by <a class="reference external" href="https://pages.stern.nyu.edu/~adamodar/New_Home_Page/">Aswath Damodaran at NYU</a> and <a class="reference external" href="https://www.lhpedersen.com">Lasse Pedersen at the hedge fund AQR and also at NYU</a>. They are meant to provide an overview of recent thinking about how different risks lead to different sources of returns.</p>
+<p>I start with re-introducing <strong>market efficiency</strong>. I want to make sure that we are clear about what it means, does not mean, and the challenges that face us as investors. This basic idea will guide us as we try to figure out how to approach the investment process. I then introduce two important and related concepts: <strong>equilibrium</strong> and <strong>limits to arbitrage</strong>. We need these ideas if we are going to think about how investors make (or don’t make) money.</p>
+<p>We then get into the heart of this chapter, <strong>risk factors (or premiums)</strong>. These notes guide you through a deceivingly simple idea – you must take risks to earn a return. This idea is at the heart of the entire course. I want us to be about to sort out the sources of returns, which come from taking risk, and which are <strong>anomalies</strong> that may or may not persist. Both require skill to capture.</p>
+<p>We’ll also discuss recent challenges to these ideas. For example, the “value” strategy described below has done very poorly recently. Many quant funds that are investing based on these ideas have struggled. Then again, so have many traditional active managers who meet with CEOs, look at SEC filings on Bloombergs, and have analysts creating DCF models. These managers have likely never thought about the systematic sources of their returns, but have under-performed just the same.</p>
+<p>We’ll end with how to estimate some simple factor models using Python.</p>
+<p>Overall, I hope to show you that investing is both very difficult and kind of simple, depending on how you’re looking at the process.</p>
+</section>
+<section id="it-is-tough-to-beat-the-market">
+<h2><span class="section-number">11.2. </span>It Is Tough To Beat The Market<a class="headerlink" href="#it-is-tough-to-beat-the-market" title="Permalink to this headline">#</a></h2>
+<p>There is a great deal of evidence that markets are reasonably efficient. What do I mean by this? Simply put, making consistent positive, risk-adjusted returns over time is difficult. Market efficiency, however, <strong>does not imply</strong> that current market prices are “right”, that the CAPM is the best theory of risk and return, or that analysts and portfolio managers have no skill.</p>
+<figure class="align-center" id="mf-png">
+<img alt="../_images/10-mf.png" src="../_images/10-mf.png" />
+<figcaption>
+<p><span class="caption-number">Fig. 11.1 </span><span class="caption-text">Persistent, positive, risk-adjusted returns are very difficult to achieve. Source: NY Times.</span><a class="headerlink" href="#mf-png" title="Permalink to this image">#</a></p>
+</figcaption>
+</figure>
+<p>In his <a class="reference external" href="https://pages.stern.nyu.edu/~adamodar/New_Home_Page/dam2ed.htm">text on firm valuation</a>, Aswath Damodaran discusses what market efficiency means:</p>
+<blockquote>
+<div><p>If markets are not efficient, the market price may deviate from the true value, and the process of valuation is directed toward obtaining a reasonable estimate of this value. Those who do valuation well, then, will be able to make higher returns than other investors because of their capacity to spot under- and overvalued firms. To make these higher returns, though, markets have to correct their mistakes (i.e., become efficient) over time.</p>
+</div></blockquote>
+<blockquote>
+<div><p>Market efficiency does not require that the market price be equal to true value at every point in time. All it requires is that errors in the market price be unbiased; prices can be greater than or less than true value, as long as these deviations are random.</p>
+</div></blockquote>
+<blockquote>
+<div><p>The fact that the deviations from true value are random implies, in a rough sense, that there is an equal chance that any stock is under- or overvalued at any point in time, and that these deviations are uncorrelated with any observable variable. For instance, in an efficient market, stocks with lower PE ratios should be no more or no less likely to be undervalued than stocks with high PE ratios. If low PE stocks do have higher returns, this must be due to risk.</p>
+</div></blockquote>
+<p>Market efficiency does not imply many of the things often ascribed to it. Again, from Damodaran:</p>
+<blockquote>
+<div><p>An efficient market <strong>does not</strong> imply that: 1) Stock prices cannot deviate from true value; in fact, there can be large deviations from true value. The only requirement is that the deviations be random. 2) No investor will beat the market in any time period. To the contrary, approximately half of all investors, prior to transaction costs, should beat the market in any period. 3) No group of investors will beat the market in the long term. Given the number of investors in financial markets, the laws of probability would suggest that a fairly large number are going to beat the market consistently over long periods, not because of their investment strategies but because they are lucky. It would not, however, be consistent if a disproportionately large number of these investors used the same investment strategy.</p>
+</div></blockquote>
+<p>In short, market efficiency means that prices generally reflect the available information and that you shouldn’t be able to consistently pick assets that give you positive risk-adjusted returns, though a few may get lucky.</p>
+<p>What is the evidence that most professionals have a difficult time consistently beating their index, after fees? There is a <strong>large</strong> amount of work on this, but <a class="reference internal" href="#spiva-png"><span class="std std-numref">Fig. 11.2</span></a> below from the <a class="reference external" href="https://www.spglobal.com/spdji/en/documents/spiva/spiva-us-year-end-2019.pdf">2019 S&amp;P SPIVA U.S. Scorecard</a> sums things up. Most managers fail to beat their benchmarks after fees. This is true for mutual funds, individual investors, hedge funds, and private equity managers.</p>
+<figure class="align-center" id="spiva-png">
+<img alt="../_images/10-spiva.png" src="../_images/10-spiva.png" />
+<figcaption>
+<p><span class="caption-number">Fig. 11.2 </span><span class="caption-text">Most mutual fund managers, across styles, fail to beat their self-described benchmarks in a given year. Source: <a class="reference external" href="https://www.spglobal.com/spdji/en/documents/spiva/spiva-us-year-end-2019.pdf">2019 S&amp;P SPIVA U.S. Scorecard</a></span><a class="headerlink" href="#spiva-png" title="Permalink to this image">#</a></p>
+</figcaption>
+</figure>
+<p>In the face of evidence like this, we need to think carefully about how to approach the investment process. What should we be focusing on?</p>
+<p>This, from a <a class="reference external" href="https://www.aqr.com/Insights/Research/Interviews/Words-from-the-Wise-Ed-Thorp">2018 interview with Ed Thorp</a>, one of the great investors of the last 100 years, sums up my thinking:</p>
+<blockquote>
+<div><p>The problem is that, even though markets are not strongly efficient in the sense of EMH, it is still difficult to find edges. By “edge,” I mean excess return after adjusting for risk, net of costs. Also, when an edge is discovered, the money that is poured into it makes the edge go away, because it moves prices toward correct pricing. So, I do not think EMH is quite the right mental framework for thinking about markets, but it is a good start for almost everybody.</p>
+</div></blockquote>
+<section id="equilibrium-thinking">
+<h3><span class="section-number">11.2.1. </span>Equilibrium Thinking<a class="headerlink" href="#equilibrium-thinking" title="Permalink to this headline">#</a></h3>
+<p>Market efficiency also <strong>does not</strong> imply that sophisticated investors unskilled. In fact, it is because many investors are smart and work hard that markets are reasonably efficient! I want to briefly discuss two important papers that make this point.</p>
+<p>First, <a class="reference external" href="http://www.dklevine.com/archive/refs41908.pdf">Grossman and Stiglitz (1980)</a> is the classic theoretical work that shows how markets can never be perfectly efficient. Investors must be compensated for spending time researching securities and trading them. If they don’t do this, then market prices won’t reflect all available public information. Therefore, there will always be enough inefficiency left in the market to entice skilled investors to do the work. In other words, market efficiency isn’t some magic thing that happens. Active management, investors and traders with skill, are the ones who make it happen by <strong>putting information into prices</strong>.</p>
+<p>More recent work by <a class="reference external" href="https://www.journals.uchicago.edu/doi/abs/10.1086/424739">Berk and Green (2004)</a> shows how some of this might work in practice. Let’s assume that a set of sophisticated investors have skill – they can identify overvalued and undervalued securities, after taking the effort to do so. These investors generate positive risk-adjusted returns. Someone like me, who doesn’t know what they’re doing, can observe these higher returns and say “Hey, that manager has skill! Let me give them my retirement savings to manage!”. Then, enough people like me do this, which drives down the manager’s returns. Why? Because strategies that earn positive risk-adjusted returns don’t scale. Too much money <strong>arbitrages away</strong> the opportunities. The manager keeps accepting money until there’s no more risk-adjusted return left, though they are still earning fees on the assets that they manage. This theory, then, implies that even highly skilled managers will not consistently earn positive risk-adjusted returns!</p>
+<p>In short, sophisticated, skilled investors who are allocated assets to manage end up making prices reasonably efficient (but not perfectly so) and, on average, do not earn after-fee, risk-adjusted returns for their investors consistently over time. You can make a strong case that this is what we see in the data. &#64;pedersen2015 calls his book “Efficiently Inefficient” and makes it the organizing framework around which to think about hedge fund strategies, like long/short equity, convertible arbitrage, and macro-style investing.</p>
+</section>
+<section id="limits-to-arbitrage">
+<h3><span class="section-number">11.2.2. </span>Limits to Arbitrage<a class="headerlink" href="#limits-to-arbitrage" title="Permalink to this headline">#</a></h3>
+<p>But what about obviously mispriced stocks? Wasn’t Zoom overvalued? And what about tech stocks in 1999? Or SPACs a year ago? Or GME? I mean, there was no way roughly $300 or whatever was the correct intrinsic value of Gamestop, right?</p>
+<p>First, if you think something is obviously overvalued or undervalued, ask yourself: Why am I right and this price wrong? Most of the time, you will reassess your views.</p>
+<p>However, prices can deviate from fair value, a skilled investor like yourself can note this, and you might still find it difficult to profit from your knowledge! There can be frictions in markets that make it difficult to fully arbitrage away mispricings. These frictions allow mispricings to persist, though perhaps not for long. A skilled investor that can overcome these frictions can profit from these mispricings. We call these frictions <strong>limits to arbitrage</strong>, as developed in <a class="reference external" href="http://pages.stern.nyu.edu/~cedmond/phd/Shleifer%20Vishny%20JF%201997.pdf">Shleifer and Vishny (1997)</a>.</p>
+<p>Why aren’t markets perfectly efficient? In other words, why do these profit sources exist? I’ve never seen a trading strategy that was guaranteed to always make money, but there are strategies that have made profits more often than losses over long time periods. Why can certain strategies can make money? One reason, of course, is luck. However, we are interested in strategies that can be expected to continue to make money in the future, a repeatable process that generates alpha. To find such a repeatable alpha process, we need to understand where returns and alpha can come from.</p>
+<figure class="align-center" id="gme-png">
+<img alt="../_images/10-gme.png" src="../_images/10-gme.png" />
+<figcaption>
+<p><span class="caption-number">Fig. 11.3 </span><span class="caption-text">Obviously, stock prices always reflect the discounted value of future expected cash flows.</span><a class="headerlink" href="#gme-png" title="Permalink to this image">#</a></p>
+</figcaption>
+</figure>
+<p>Alpha can come from producing new information (e.g. mosaic theory, or putting pieces together) or from access to better information. A skilled analyst will do this. However, limits to arbitrage are another potential source. Perhaps news and other publicly available information simply does not always get reflected fully in the prices right away. Even though market prices certainly reflect a lot of relevant information, they don’t always perfectly aggregate all information immediately. For example, when a company announces its earnings, prices move up on good news and down on bad news, but on average the price move is too small. Therefore, following good news, the price continues to drift up for several weeks after the announcement, on average, and after bad news the price drifts downward for a while, an effect called the post-earnings-announcement drift (PEAD). This is an example of an <strong>anomaly</strong> and, we might expect it to get weaker overtime if enough investors trade on it. But, it seems to have persisted for decades. Why?</p>
+<p>What are the real-world limits of arbitrage? In his text, Lasse Pedersen gives us several:</p>
+<ol class="simple">
+<li><p>Arbitrage is often subject to <strong>fundamental risk</strong>, meaning that if a hedge fund buys a cheap security, say, an undervalued oil company, there is still a risk that the security will underperform due to a random event. This means that you might still be cautious about a position size, even if you are very confident in your analysis.</p></li>
+<li><p>Arbitrage is subject to <strong>noise trader risk</strong>, meaning that if a hedge fund buys a cheap security, it might become even cheaper before the price approaches the fundamental value. This point is made in a well-known paper by <a class="reference external" href="https://scholar.harvard.edu/shleifer/publications/noise-trader-risk-financial-markets">Delong et al. (1990)</a>. Noise traders moving the price further away from fundamental value then leads to short-term losses for the hedge fund (even if the trade was “right”), which can lead to capital redemptions, and the fund may not live to see the upside. This is the whole “markets can remain irrational longer than you can remain solvent” quote attributed to Keynes (though he might not have said it).</p></li>
+<li><p>Investors may actually rationally try <strong>not</strong> to arbitrage away an mispricing. Go with the flow! A hedge fund may try to “ride” a bubble rather than trading against it – like George Soros during the Internet bubble – especially when the hedge fund thinks that other smart investors will delay trading against the mispricing and “pop” the bubble. Work by <a class="reference external" href="https://scholar.princeton.edu/sites/default/files/hedgefunds_bubble_0.pdf">Brunnermeier and Nagel (2004)</a> finds that hedge funds did this successfully during the late 1990’s.</p></li>
+<li><p>There is <strong>liquidity risk</strong>. Liquidity, roughly speaking, refers to how easy it is to buy or sell a security without impacting the price. Many investors, instead of earning returns from stock selection, are really earning their returns by providing liquidity to markets. This means taking the other sides of trades when another investor wants to buy or sell. Liquidity risk is a limit to arbitrage, as it affects how easily you can take advantage of mispriced securities. <strong>Market liquidity risk</strong> is when transactions costs rise and make it more costly to trade. Highly leveraged strategies also have <strong>funding liquidity risk</strong> and risk running out of cash if a trade goes against them and they get a margin call. The forced selling that can occur creates a <strong>liquidity spiral</strong> and further reduces prices, causing more selling, etc. Hedge funds structure their contracts so that they have stable capital bases that allow them to <a class="reference external" href="https://www.cambridge.org/core/journals/journal-of-financial-and-quantitative-analysis/article/abs/funding-liquidity-risk-and-the-dynamics-of-hedge-fund-lockups/59F9DAC7F5C19B387A0A69B244E39A91">take advantage of mispricings</a>.</p></li>
+<li><p>Finally, I’ll add an additional one: <strong>career risk</strong>. Basically, you can find the mispricing and be willing to deal with other limits to arbitrage, like noise trader risk. You might be willing to wait until the asset is worth its intrinsic value, but your clients might not be so willing.</p></li>
+</ol>
+<p>Since arbitrage is limited by its costs and risks, arbitrage trading does not completely eliminate mispricing. Think about GME again. The hedge fund Melvin Capital thought that GME was overvalued in the $20-$30 range. The stock went to nearly $160 in about three days and they needed a <a class="reference external" href="https://www.bloomberg.com/news/articles/2021-01-25/citadel-point72-to-invest-275-billion-in-melvin-capital">capital infusion from Citadel and Point 72</a> after being down 30% on the year. I think you can make the case that GME actually was undervalued at $20-$30.</p>
+<p>As Pedersen notes, an efficiently inefficient level of mispricing persists and profit opportunities remain for the skilled investor to navigate.</p>
+</section>
+</section>
+<section id="factors-risk-and-return">
+<h2><span class="section-number">11.3. </span>Factors, Risk, and Return<a class="headerlink" href="#factors-risk-and-return" title="Permalink to this headline">#</a></h2>
+<p>Most returns come from taking risk. These are not arbitraged away – they persist and are fair compensation for bearing a certain type of systematic risk. We call these types of risks <strong>factors</strong>.</p>
+<p>Andrew Ang, formerly a professor at Columbia University and now a Managing Director at Blackrock, uses the analogy that factors are to assets (e.g. stocks and bonds) what nutrients are to food. Factors are the building blocks of asset risk and return. They determine how much return that you will get in different future states of the world. Different factor exposures mean different risk and return patterns. &#64;ang2014 notes that there are three important similarities between factors in assets and nutrients in food:</p>
+<ol class="simple">
+<li><p><em>Factors matter, not assets.</em> When making your basic portfolio decisions, such as your allocation to global stock and bond markets, think about the factor exposures that you want to end up with.</p></li>
+<li><p><em>Assets are bundles of factors.</em> If you’re trying to pick stocks and form a portfolio of 10-12 securities, you’ll likely ignore factors and focus on why you think a security is mispriced. However, if you are making asset allocation decisions, you’ll think about equities as having certain risks and bonds have other risks, rather than just as stocks and bonds.</p></li>
+<li><p><em>Different investors will want different factors.</em> Your ability and willingness to take risk will determine the factors that you want in your portfolio.</p></li>
+</ol>
+<p>Factors define <strong>bad times</strong>. They dominate in diversified portfolios and drive the returns that come from your asset allocation decisions. You earn a <strong>premium</strong> by owning assets that do poorly in bad times. This is an important difference between factors and nutrients – factors are “bad” for you, in the sense that they add risk to your portfolio. But, we need to take these risks in order to earn the premium.</p>
+<section id="factor-vs-anomaly">
+<h3><span class="section-number">11.3.1. </span>Factor vs. Anomaly<a class="headerlink" href="#factor-vs-anomaly" title="Permalink to this headline">#</a></h3>
+<p>Factors are about getting paid to take a risk. An <strong>anomaly</strong> is a (temporary) mispricing that is unrelated to risk. Factors are related to “big” risks, systematic risks, macroeconomic risks. They are present in all of our portfolios. Anomalies are different. They might go away if discovered. We’ve already mentioned one very well-known anomaly above (PEAD) that persists because of limits to arbitrage, not because it is related to systematic risk.</p>
+<p>This line can get blurry. Not all risks look the same - some are easier to describe than others. Some trading strategies have more higher moment risks - more skewness or kurtosis (i.e. fatter tails). Some factors, like value and momentum, described below, can have a part of the return that looks like compensation for taking risk and a part of the return that looks like an anomaly caused by investors behaving irrationally.</p>
+<p>Most professional investors follow a particular strategy. In other words, they have a philosophy or framework that guides their portfolio. This portfolio then generates returns. Most, if not all, strategies can be described by their exposure to a few different factors (e.g. long small value stocks or long volatility). A skilled manager might also add value by trading the factor particularly well or by also taking advantage of anomalies. This is the more proprietary aspect of the strategy. When evaluating a manager and a strategy, you want to separate out these different sources of returns in order to differentiate returns from taking risk and returns from skill.</p>
+<p>This is hard. We need a risk model to separate beta(s), or our returns from taking risk, from alpha, our returns from skill.</p>
+</section>
+</section>
+<section id="capm-our-first-factor-model">
+<h2><span class="section-number">11.4. </span>CAPM. Our First Factor Model.<a class="headerlink" href="#capm-our-first-factor-model" title="Permalink to this headline">#</a></h2>
+<p>The Capital Asset Pricing Model (CAPM), developed in the 1960’s, is covered in every finance class. You learn the formula, are forced to rearrange it to solve for the unknown input, and use it as part of the WACC. Here it is yet again:</p>
+<div class="amsmath math notranslate nohighlight" id="equation-68d83696-814f-496a-a0d7-8317eda5e106">
+<span class="eqno">(11.1)<a class="headerlink" href="#equation-68d83696-814f-496a-a0d7-8317eda5e106" title="Permalink to this equation">#</a></span>\[\begin{align}
+E[R_i] = r_f + \beta_i \times ERP
+\end{align}\]</div>
+<p>This simple equation, though, tells us a story about risk and return. All expected returns start with the risk-free rate, <span class="math notranslate nohighlight">\(R_f\)</span>.<a class="footnote-reference brackets" href="#factors-1" id="id1">1</a> We typically use something like the 10-Year Treasury Yield in our context. The expected return on an asset i, <span class="math notranslate nohighlight">\(E[R_i]\)</span>, is proportional to the systematic risk of the asset, <span class="math notranslate nohighlight">\(\beta_i\)</span>. Systematic risk is measured by the equity risk premium, or ERP, which captures market returns. In other words, if an asset is expected to do very well when the market does well, it will have a high expected return. This asset will, however, do poorly when the market does poorly. These types of high beta assets have larger <strong>risk premiums</strong> associated with them, where the risk premium is <span class="math notranslate nohighlight">\(E[R_i] - R_f\)</span>.</p>
+<p>We know have our first building block. If you want to earn higher returns, own assets with higher betas and, therefore, more factor risk. These assets will pay off in good times, but will earn you negative returns in bad times.</p>
+<figure class="align-center" id="cal-png">
+<img alt="../_images/10-cal.png" src="../_images/10-cal.png" />
+<figcaption>
+<p><span class="caption-number">Fig. 11.4 </span><span class="caption-text">The Capital Allocation Line, or CAL. The mean-variance frontier is the highest return you can get for a given level of risk. The CAL is all possible combinations have the highest Sharpe Ratio portfolio (the tangency portfolio) and the risk-free asset. If all investors have the same beliefs about all underlying assets, then they will all hold the same market portfolio, just in different quantities, depending on their risk preferences. Source: Asset Management by Andrew Ang</span><a class="headerlink" href="#cal-png" title="Permalink to this image">#</a></p>
+</figcaption>
+</figure>
+<p>Does this make sense? Let’s look at the 2008 – 2009 Financial Crisis. As shown below, nearly all asset classes lost value during the crisis. This financial crisis was a <strong>bad time</strong> and assets with risk had a negative return. So, higher beta assets had worse returns. Zero beta assets, like cash, did fine. Some investments, like government bonds, turned into negative beta assets. All assets, though, were exposed to the same general, systematic, market-wide risk.</p>
+<figure class="align-center" id="asset-gfc-png">
+<img alt="../_images/10-asset-gfc.png" src="../_images/10-asset-gfc.png" />
+<figcaption>
+<p><span class="caption-number">Fig. 11.5 </span><span class="caption-text">Almost everything went down during the financial crisis. Source: Asset Management by Andrew Ang</span><a class="headerlink" href="#asset-gfc-png" title="Permalink to this image">#</a></p>
+</figcaption>
+</figure>
+<p>We should maybe, then, start the investment process by simply asking: how much of this general, systematic risk do we want in our portfolio? We’re in the CAPM world now.</p>
+<p>But, does the CAPM work out there in the real world? The basic idea worked well in the financial crisis, but if you test the model statistically, it doesn’t hold up. It says that there’s only one risk factor that matters – market risk. <a class="reference internal" href="#beta-return-png"><span class="std std-numref">Fig. 11.6</span></a> shows that betas, as usually estimated by regression, do not explain future returns well. As you’ll see in the next section, we need additional risks in order to explain returns. However, we still use the CAPM in practice, because it is so easy to think about and the general idea has truth to it. For example, CFOs around the world still find their firm’s WACC using the CAPM.<a class="footnote-reference brackets" href="#factors-2" id="id2">2</a></p>
+<figure class="align-center" id="beta-return-png">
+<img alt="../_images/10-beta-return.png" src="../_images/10-beta-return.png" />
+<figcaption>
+<p><span class="caption-number">Fig. 11.6 </span><span class="caption-text">If we estimate firm betas and put the stocks into 10 different portfolios based on their betas (x-axis), it turns out that their betas do not explain future returns (y-axis) very well at all. Higher beta stocks should have higher returns in the future, on average, if beta explains risk. Instead of a positive slope, the relationship is pretty flat. Source: A Random Walk Down Wall Street by Burton Malkiel</span><a class="headerlink" href="#beta-return-png" title="Permalink to this image">#</a></p>
+</figcaption>
+</figure>
+<p>What lessons does the CAPM hold for us as investors, and, especially, investors holding a complete portfolio, like someone saving for retirement or a university endowment? Andrew Ang gives us several:</p>
+<ol class="simple">
+<li><p><em>Don’t hold the individual asset. Hold the factor.</em> Diversify away the idiosyncratic risk (the risk that you don’t get compensated for) and focus on your systematic risk.</p></li>
+<li><p><em>Equilibrium is important.</em> Equilibrium in economics holds when supply equals demand. <strong>The expected return on an asset sets supply equal to demand</strong>. In investing, this means that all stocks, all bonds, all assets are owned by someone. But at what price? Or, equivalently, with what expected return? If no one wants to own a particular stock, then the price is too high and the expected return is too low. Prices will adjust until everything is owned.</p></li>
+</ol>
+<p>This also means that the overall market risk premium is set by investor preferences and beliefs. It is not something that can be arbitraged away, like a mispriced security. It will always be there, even if the premium itself fluctuates as the economy changes.</p>
+<ol class="simple">
+<li><p><em>The average investor owns the market portfolio.</em> How much of the market portfolio you hold depends on your risk preferences. Essentially, you only one one decision to make as an investor!</p></li>
+<li><p><em>Risk premiums have an economic story.</em> Premiums will rise if investors become more risk averse or if market volatility increases. This is what happened in 2008 – 2009. When prices fell, this reflected a shift to a new state of the world where lower prices set supply equal to demand. Expected returns, the risk premium, were higher after the prices fell.<a class="footnote-reference brackets" href="#factors-3" id="id3">3</a></p></li>
+<li><p><em>Risk is factor exposure.</em> We can see this from the definition of beta:</p></li>
+</ol>
+<div class="amsmath math notranslate nohighlight" id="equation-c0cecb61-5521-429a-9224-4f9ed0c75e94">
+<span class="eqno">(11.2)<a class="headerlink" href="#equation-c0cecb61-5521-429a-9224-4f9ed0c75e94" title="Permalink to this equation">#</a></span>\[\begin{align}
+\beta_i = \frac{cov(r_i, r_m)}{var(r_m)}
+\end{align}\]</div>
+<p>If an asset covaries more (i.e. moves more) with the market return, then it has a higher beta and higher risk. This is going to hold true for all of other factors that we talk about too - factor exposure means moving with the factor. Some assets, like an insurance product, will have negative betas. These are very valuable to hold, since they will go up when the market goes down. Instead of receiving a premium for them, you’ll pay a premium.</p>
+<ol class="simple">
+<li><p><em>Assets that pay off in bad times have low premiums.</em> These are the insurance products mentioned above. The premium can even be negative. Remember, bad times are defined as negative market returns in the CAPM.</p></li>
+</ol>
+<section id="what-assumptions-does-the-capm-model-make">
+<h3><span class="section-number">11.4.1. </span>What Assumptions Does the CAPM Model Make?<a class="headerlink" href="#what-assumptions-does-the-capm-model-make" title="Permalink to this headline">#</a></h3>
+<p>The CAPM is a theoretical model about the world. As originally stated back in the 1960’s, it was developed by making some simple assumptions about investors and then seeing where the assumptions lead us mathematically. What are these assumptions and do they mean that the CAPM is hopelessly broken? Remember, we are trying to think clearly about where returns come from. Does more risk mean that we should expect more returns? How can we describe risk?</p>
+<ol class="simple">
+<li><p><em>Investors only have financial wealth.</em> This is clearly false! Your most important asset right now is the future value of your labor income. We can actually <a class="reference external" href="https://www.onlinelibrary.wiley.com/doi/abs/10.1111/j.1540-6261.1996.tb05201.x">include this in the CAPM</a>. When we do that, a stock’s beta does a better job of explaining the stock’s return.</p></li>
+<li><p><em>Investors have mean-variance utility.</em> This simply means that investors care about the mean return and the variance of that return. They don’t care about other measures of risk, such as skewness or tail-risk (i.e. kurtosis). However, this doesn’t seem to be true empirically. For example, stocks with greater downside risk (i.e. left-skewed returns) have <a class="reference external" href="https://onlinelibrary.wiley.com/doi/full/10.1111/j.1540-6261.2006.00836.x">higher expected returns</a>. This is what you would expect if investors did not like downside risk.</p></li>
+<li><p><em>Investment decisions are made for a single period.</em> Well, this is obviously not true. However, it doesn’t matter much for the actual CAPM result that beta explains risk and expected return. It does turn out, though, that it is optimal for investors to rebalance their portfolio to their target weights, instead of a strict “buy and hold” forever strategy.</p></li>
+<li><p><em>All investors believe the same thing.</em> We call this homogeneous expectations. This is one of those simplifying assumptions that is obviously not true, but it turns out doesn’t matter much as long as expected returns reflect the average of all investor beliefs.</p></li>
+<li><p><em>No taxes or transactions costs.</em> In other words, no frictions for trading. If you break this assumption and add varying (heterogeneous) investor beliefs, than things do change. For example, suppose that large groups of investors are not allowed to short stocks. The price of these stocks won’t reflect the negative beliefs of these investors. Stocks are then priced by the optimists.</p></li>
+<li><p><em>Most investors are price takers.</em> Our trades don’t affect prices. A certain sub-Reddit would like a word with this assumption.</p></li>
+<li><p><em>Information is costless and available to investors.</em> This assumption is more true now than when the CAPM was first developed. However, as discussed above, someone has to get paid to collect the information and get that information reflected into prices. In markets where information is costly or more difficult to process, we might expect to find higher premiums and more anomalies to take advantage of. It turns out that the CAPM explains the returns of large, liquid stocks better than small, illiquid stocks.</p></li>
+</ol>
+</section>
+</section>
+<section id="expanding-our-world-multifactor-models">
+<h2><span class="section-number">11.5. </span>Expanding Our World. Multifactor Models.<a class="headerlink" href="#expanding-our-world-multifactor-models" title="Permalink to this headline">#</a></h2>
+<p>You’ve already seen a multifactor model in your investments class. Remember Arbitrage Pricing Theory, or APT? This was the first attempt to generalize the CAPM. The theory simply says that there might be a lot of different types of risk that matter, as long as those risks can not be arbitraged away.</p>
+<p>What risk can’t be arbitraged away? Answering this question is difficult and involves decades of empirical and theoretical research by both academics and practitioners. In essence, we are asking ourselves: What risks can we get paid for taking?</p>
+<p>The following notes are based largely on Chapter 7 of &#64;ang2014.</p>
+<p>We will discuss two big groups of factors: <strong>macroeconomic</strong> and <strong>investment-style</strong>. They are related – what we are going to call style factors tell us something about the underlying economics of the firms. Style factors are <strong>tradeable</strong>, in that we can form portfolios based on them. Factors can be <strong>rational</strong> and simply say that we are getting paid to take more risk. They can be <strong>behavioral</strong> and related to persistent errors by market participants that are not arbitraged away. They can be a mix. They can be partially arbitraged away. They can have time-varying expected returns.</p>
+<p>This is complicated! Keep this one thing in mind – we are describing the building blocks for returns. Our sources of returns for common strategies. We’ll usually talk about equity markets, but risk factors drive returns in fixed income, options, forex… everything.</p>
+</section>
+<section id="macroeconomic-risks">
+<h2><span class="section-number">11.6. </span>Macroeconomic Risks<a class="headerlink" href="#macroeconomic-risks" title="Permalink to this headline">#</a></h2>
+<p>These are intuitive. If a stock does well when economic growth is high, then it does well it good times and poorly in bad times. The CAPM might label this a high beta stock and you’ll want to earn a premium for holding it. Why? Because the stock does well exactly when you don’t “need” the return and does poorly when you’d like a higher return.</p>
+<p>Beyond economic growth, you can think about other macroeconomic risks, such as inflation and volatility. All assets have varying degrees of exposures to these systematic risks.</p>
+<p>It is also crucial to distinguish levels and expected changes vs. unexpected shocks. This risk is really about <strong>unexpected changes</strong> in economic growth or inflation. Expected changes should be priced into the security. For example, we have been in a low inflation environment for decades right now. This is priced in when we look at the yield curve. If inflation stays low, you won’t have any unexpected gains or losses in your bond portfolio. If yields go negative, though, you would have an unexpected gain. If inflation comes back, you’ll have a loss. Same thing with economic growth. If everyone expects positive economic growth and we get that growth, you shouldn’t expect asset prices to react much.</p>
+<figure class="align-center" id="macro-risk-png">
+<img alt="../_images/10-macro-risk.png" src="../_images/10-macro-risk.png" />
+<figcaption>
+<p><span class="caption-number">Fig. 11.7 </span><span class="caption-text">Different returns and risk (volatility) across different macroeconomic environments. Source: Andrew Ang</span><a class="headerlink" href="#macro-risk-png" title="Permalink to this image">#</a></p>
+</figcaption>
+</figure>
+<p><a class="reference internal" href="#macro-risk-png"><span class="std std-numref">Fig. 11.7</span></a> shows the performance of different equity portfolios, based on firm size, and fixed income portfolios do during different macroeconomic environments. First, note that small stocks beat large stocks over the full sample – more on this below. Overall, stocks do better in economic expansions than bonds, as you probably expected.</p>
+<p>Equity volatility is also higher during economic downturns, so investors demand a higher premium (higher returns) to hold these assets. There are two reasons for this. First, when equity values drop, the leverage of a firm increases, which increases their risk and drops the price. Second, investors will demand higher returns for holding higher risk stocks, independent of the increase in leverage, which also drops the price. This second channel is called the <strong>time-varying risk premium</strong>. As macroeconomic conditions worsen, investors demand higher returns, and asset prices drop. The opposite is true during good times.</p>
+<figure class="align-center" id="vix-png">
+<img alt="../_images/10-vix.png" src="../_images/10-vix.png" />
+<figcaption>
+<p><span class="caption-number">Fig. 11.8 </span><span class="caption-text">Implied volatility increases during bad times, like 2008 – 2009 and 2020.</span><a class="headerlink" href="#vix-png" title="Permalink to this image">#</a></p>
+</figcaption>
+</figure>
+<p><a class="reference internal" href="#vix-png"><span class="std std-numref">Fig. 11.8</span></a> shows how implied volatility, as measured from option prices, increases during times of market stress. Stocks do badly in these periods, but so do many other strategies, such as certain strategies in currency markets. More generally, you can think of some strategies as being “long volatility” and doing well in volatile periods, while many strategies are “short volatility”. The latter do well most of the time, but can experience sudden, large losses.</p>
+<p>Many hedge fund strategies are short volatility. On average, investors are willing to pay a premium for protection during volatile times. This means that some strategies act like they are selling insurance to investors. These strategies collect these premiums. However, disasters happen and sometimes you have to pay out very large sums.</p>
+<figure class="align-center" id="sell-vol-png">
+<img alt="../_images/10-sell-vol.png" src="../_images/10-sell-vol.png" />
+<figcaption>
+<p><span class="caption-number">Fig. 11.9 </span><span class="caption-text">Selling insurance (selling volatility) is a good business until it is not. Source: Andrew Ang</span><a class="headerlink" href="#sell-vol-png" title="Permalink to this image">#</a></p>
+</figcaption>
+</figure>
+<p>Andrew Ang summarizes some other macroeconomic risks, such as political risk, which can also affect asset returns. You can probably see how it becomes difficult to disentangle some of these things. For example, political risk could lead to more uncertainty about economic growth and increase volatility. It takes a skilled investor with a good mental model for macroeconomic events and their web of dependencies to navigate these.</p>
+<p>One of the mistakes some investors have made since the financial crisis is actually thinking that there was too much risk out there, that the next crisis was about to happen, or that inflation was about to show up again after decades of low rates. There will always be another crisis, but being too fearful (i.e. thinking that equities are overvalued) means missing out on a decade plus of equity gains. That’s tough to recover from.</p>
+</section>
+<section id="style-factors">
+<h2><span class="section-number">11.7. </span>Style Factors<a class="headerlink" href="#style-factors" title="Permalink to this headline">#</a></h2>
+<p>You can’t directly trade economic growth or inflation.<a class="footnote-reference brackets" href="#factors-4" id="id4">4</a> These factors are embedded in our securities, but it is hard to separate them out. Investors usually, then, use <strong>style factors</strong> when decomposing strategies into their component sources of returns. These tradeable factors are also, we think, related to macroeconomic risks. We essentially define a style factor as a particular portfolio where the securities all share a certain set of characteristics that have had positive returns over time. We infer that these positive returns must be related to some kind of risk.<a class="footnote-reference brackets" href="#factors-5" id="id5">5</a></p>
+<p><a class="reference external" href="https://www.sciencedirect.com/science/article/abs/pii/0304405X93900235">Fama and French (1993)</a>, along some other earlier papers by other authors, lead the way here. There model simply extends the CAPM to include two additional factor, size and value:</p>
+<div class="amsmath math notranslate nohighlight" id="equation-bf898df9-ab6d-487a-9f30-8b7dec8e4c6b">
+<span class="eqno">(11.3)<a class="headerlink" href="#equation-bf898df9-ab6d-487a-9f30-8b7dec8e4c6b" title="Permalink to this equation">#</a></span>\[\begin{align}
+E[R_i] = r_f + \beta_{i,mkt} \times (E[R_m] - r_f) + \beta_{i,smb} \times E[SMB] + \beta_{i,hml} \times E[HML]
+\end{align}\]</div>
+<p>The E means “expected” – this formula links expected asset returns to expected factor returns. The first beta is the usual CAPM beta. But, now there are two other betas, or risks, that are captured by this model. SMB, or small minus big, is the return on a portfolio of small stocks less the return on a portfolio of large stocks. Small and large are based on the market capitalization of the firm. This return will be positive if small stocks beat large stocks in a given period (e.g. month). HML, or high minus low, is a portfolio that is long high book-to-market (B/M) stocks and short low B/M stocks. High B/M is a traditional way to define a “value” stock. So, HML will be positive if value stocks beat growth stocks in that period.<a class="footnote-reference brackets" href="#factors-6" id="id6">6</a></p>
+<p>SMB and HML are suppose to capture the small and value premiums. In other words, Fama and French say that the CAPM is incomplete. Market betas do not fully explain the returns of small stocks or value stocks. At least historically, small stocks and value stocks have outperformed, even when you take into account their betas.</p>
+<figure class="align-center" id="factor-perf-png">
+<img alt="../_images/10-factor-perf.png" src="../_images/10-factor-perf.png" />
+<figcaption>
+<p><span class="caption-number">Fig. 11.10 </span><span class="caption-text">Factor performance over time. Value has had a tough time this past decade, though that might depend on how you define value. Source: <a class="reference external" href="https://papers.ssrn.com/sol3/papers.cfm?abstract_id=3488748">Arnott et al. (2020)</a></span><a class="headerlink" href="#factor-perf-png" title="Permalink to this image">#</a></p>
+</figcaption>
+</figure>
+<p><a class="reference internal" href="#factor-perf-png"><span class="std std-numref">Fig. 11.10</span></a> gives you the performance and risk characteristics of several of the factors that we are going to discuss. Value is highlighted in blue. Historically, you could buy value stocks and short growth stocks and earn a positive risk-adjusted return, compared to the CAPM. This lead many people to think – maybe the CAPM isn’t the correct benchmark? So, in step Fama and French with their model that includes additional risk factors that explain returns.</p>
+<p>I have also included a line graph, below, of various Fama and French-style factor cumulative returns since July of 1963. The market return (MKTRF) has done very well, which makes sense. This is a long-only portfolio of market risk. The other factors are all long-short portfolios, so you are giving up some returns if markets go up over time by being short stocks. You can see how HML had done well historically, but suffered lately. Same with SMB. But what about momentum, or MOM? That’s the pink lone on top. This one is weird. We’ll discuss all of them below.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
+
+<span class="n">ff</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s1">&#39;https://raw.githubusercontent.com/aaiken1/fin-data-analysis-python/main/data/ff_data.csv&#39;</span><span class="p">,</span>
+                  <span class="n">index_col</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">parse_dates</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>  
+
+<span class="n">fig</span> <span class="o">=</span> <span class="n">ff</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span> <span class="mi">6</span><span class="p">))</span>
+<span class="n">fig</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s1">&#39;Total Returns (Base = 100)&#39;</span><span class="p">)</span>
+<span class="n">fig</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s1">&#39;Total Returns for Six Factor-Based Portfolios + The Market Portfolio&#39;</span><span class="p">);</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../_images/11_factor_models_1_0.png" src="../_images/11_factor_models_1_0.png" />
+</div>
+</div>
+<p>As a Python aside, I’m using <code class="docutils literal notranslate"><span class="pre">.plot()</span></code> from <code class="docutils literal notranslate"><span class="pre">pandas</span></code> and saving the basic figure as <em>fig</em>. I’m then styling it using <code class="docutils literal notranslate"><span class="pre">matplotlib</span></code> methods. I can, of course, do all of this inside of the <code class="docutils literal notranslate"><span class="pre">.plot()</span></code> function as well.</p>
+<p>These are <strong>long/short portfolios</strong> that you can form with very simple, mechanical rules. But, what if you can’t short? Can you just buy value stocks, buy momentum stocks? Academic factors are long-short portfolios, while the ETFs that try to capture these styles are often long-only. You might see some versions of these factors referred to as “smart beta”, but we need to be careful with that term, as we’ll see. It often is more about marketing than the underlying economics. And, long-only factor investing can have a <strong>very different</strong> experience than if you invested in the actual style portfolios graphed above. Also, none of the returns that I have shown you include transactions costs. In practice, actually owning the exact factor style portfolios can be very difficult.</p>
+<p>Style factors can also explain how most active managers generate their returns. What do I mean by “explain”? Suppose you are a hedge fund manager with 40 stocks in your portfolio. You trade, buying things you like, shorting what you don’t. You are up 28% in a year where the market was up 17%. You charge your clients 20% of those profits, along with your 2% management fee, and head off to a Greek island for some downtime. Then, some jerk academic comes a long and says “Well, actually, your 28% return is because you bought high market beta stocks with a lot of momentum in a market where those factors did really well. You were also short value stocks, which did terribly. Once you account for those risks, you actually underperformed.” We’ll look at the basic regressions for this later. Even though the style factors are simple, they seem to capture a lot of what professional investors are doing when creating strategies.</p>
+<p>The notes below go through some of the most commonly discussed style factors. I will discuss each in terms of equities, though they usually have corresponding definitions in other asset classes, like fixed income or currencies.</p>
+<section id="size">
+<h3><span class="section-number">11.7.1. </span>Size<a class="headerlink" href="#size" title="Permalink to this headline">#</a></h3>
+<p>Let’s look a little closer at size and then value. FIrst, size. This was perhaps the <a class="reference external" href="http://business.unr.edu/faculty/liuc/files/BADM742/Banz_sizeeffect_1980.pdf">first factor discovered</a>, as problems with the CAPM were discovered basically as soon as it was published. The idea made sense – risk and return should be linked. But, everyone quickly realized that risk, as proxied for by the market return, couldn’t be the only thing out there. Small stocks did better than you would expect, given their market betas.</p>
+<p>However, is this still true? It kind of depends. Since the mid-1980’s, the SMB factor, as constructed by Fama and French, hasn’t really outperformed, as you can see in <a class="reference internal" href="#ang-size-png"><span class="std std-numref">Fig. 11.11</span></a>. There is also a <a class="reference external" href="https://www.sciencedirect.com/science/article/abs/pii/S0304405X12000931">lack of a size premium</a> in international data.</p>
+<figure class="align-center" id="ang-size-png">
+<img alt="../_images/10-ang-size.png" src="../_images/10-ang-size.png" />
+<figcaption>
+<p><span class="caption-number">Fig. 11.11 </span><span class="caption-text">The small stock factor (SMB) has disappointed after the outperformance was discovered. Is it still a factor? Source: Andrew Ang</span><a class="headerlink" href="#ang-size-png" title="Permalink to this image">#</a></p>
+</figcaption>
+</figure>
+<p>It could be that the premium was never real and the result of data mining. See the end of this chapter for a warning about the factor “zoo”. It could also be that the small stock premium was an anomaly that rational investors saw and got rid of by bidding up the prices. Markets have also changed – 50 years ago, you couldn’t just download filings for and read Reddit boards on any stock traded anywhere in the world.</p>
+<p>Some researchers and investors are trying to <a class="reference external" href="https://www.aqr.com/Insights/Perspectives/There-is-No-Size-Effect-Daily-Edition">resurrect a portion of the premium</a>, but only if you get rid of the low quality firms that tend to make up the small cap universe.</p>
+<p>Overall, it seems like investors no longer receive a risk premium just for buying small stocks, though many other risk premiums and anomalies often have higher returns within the small cap universe, since arbitrage is more difficult among these less liquid stocks.</p>
+</section>
+<section id="value">
+<h3><span class="section-number">11.7.2. </span>Value<a class="headerlink" href="#value" title="Permalink to this headline">#</a></h3>
+<p>Value investing has worked historically even for very simple measures of value, such as a stock’s book value of equity to market value of equity ratio (B/M). Across most of market history and across many different countries and markets, value stocks are likely to be those with high expected returns. But why? These returns could be driven by rational compensation for risk, by institutional frictions, or by behavioral reasons.</p>
+<p>Why might value stocks be riskier? These are often cyclical firms with more macroeconomic exposure. They might do quite poorly in a recession, in bad times, when their market betas actually increase. For example, <a class="reference internal" href="#qval-png"><span class="std std-numref">Fig. 11.12</span></a> has the top holdings for the actively managed ETF, QVAL, which roughly equally-weights the value stocks that make it through their screening process. These are firms that are cheap, at least in part, for a reason! They are often not very flexible and stuck with older technology and business models that make it difficult to change with economic conditions. But, if you can handle the periods of poor performance, a strategy of buying these types of stocks has earned a positive risk premium over time. The drawdowns are painful, though.</p>
+<figure class="align-center" id="qval-png">
+<img alt="../_images/10-qval.png" src="../_images/10-qval.png" />
+<figcaption>
+<p><span class="caption-number">Fig. 11.12 </span><span class="caption-text">QVAL Top Holdings as of 1/27/21. Source: Alphaarchitect.</span><a class="headerlink" href="#qval-png" title="Permalink to this image">#</a></p>
+</figcaption>
+</figure>
+<p>We can also tell behavioral, or irrational, stories about the value factor. In this case, the returns come from mistakes investors are making, not from additional risk. It could be that <a class="reference external" href="https://onlinelibrary.wiley.com/doi/abs/10.1111/j.1540-6261.1994.tb04772.x">investors extrapolate too much from the past</a> – they think that value stocks will stay cheap forever and that growth stocks will keep growing. When this doesn’t turn out to be the case, value stocks rise and growth stocks fall, giving us the value premium. It could also be that investors are <a class="reference external" href="https://onlinelibrary.wiley.com/doi/abs/10.1111/0022-1082.00367">too wary of value stocks</a>, since they have seen the bad performance and don’t want to go through that again.</p>
+<p>The behavioral explanations leave us with a question, though. If value stocks are not truly riskier, then why don’t more people buy them, raising prices, and lowering future returns? Maybe investors need a really long time horizon to capture the value premium.</p>
+<p>There is also a debate on how exactly to measure value. Remember, these are simple measures that are suppose to capture the “essence” of what an actual analyst might do. We want a mechanical way to sort stocks into portfolios without actually thinking about the firm. <a class="reference external" href="https://papers.ssrn.com/sol3/papers.cfm?abstract_id=3488748">Arnott et al. (2020)</a> argue that if we ditch the traditional book value in B/M and include intangibles, then their value measure performs much better recently. Intangible assets, such as the knowledge of your workers, are arguably more important now than they were 50 years ago.</p>
+<figure class="align-center" id="value-tangibles-png">
+<img alt="../_images/10-value-tangibles.png" src="../_images/10-value-tangibles.png" />
+<figcaption>
+<p><span class="caption-number">Fig. 11.13 </span><span class="caption-text">Changing our simple definition of value to include intangible assets seems to improve recent performance of the value factor. Source: <a class="reference external" href="https://papers.ssrn.com/sol3/papers.cfm?abstract_id=3488748">Arnott et al. (2020)</a></span><a class="headerlink" href="#value-tangibles-png" title="Permalink to this image">#</a></p>
+</figcaption>
+</figure>
+<p>I also want to be clear: <strong>Valuation is not value investing</strong>. We teach you how to value stocks using methods like DCF models. A DCF model can be used to value a low B/M, old-school industrial firm. You can value Apple. You can value Uber. You can value private firms. You can value public firms. You can value “value” stocks. You can value “growth” stocks. Anyone actively managing a portfolio is hoping to buy something that is undervalued, in the sense that the price will rise. That’s the whole point! Even growth investors are value investors, in this tautological sense.</p>
+<p>When we are discussing the value factor, we strictly mean the returns on a portfolio of stocks that are “cheap” on a certain measure, like B/M or EV/EBITDA. This happens to match up pretty well with what many self-described value investors actually do. But - just because buying the stocks in cheapest quintile of the value factor has performed poorly lately does not imply that valuation techniques are useless! True valuation, as in Damodaran’s text, means understanding the firm, the industry, and how the underlying economics drive free cash flows and risk. We’re just having the computer sort stocks by a ratio here.</p>
+</section>
+<section id="momentum">
+<h3><span class="section-number">11.7.3. </span>Momentum<a class="headerlink" href="#momentum" title="Permalink to this headline">#</a></h3>
+<p>OK, so, who looks at 10Ks anymore? Or B/M? Or any ratio? Aren’t prices just the reflection of what someone is willing to pay, regardless of any kind of reality? All you need is a moving average and some breakouts to trade, right?</p>
+<figure class="align-center" id="sneaky-png">
+<img alt="../_images/10-sneaky.png" src="../_images/10-sneaky.png" />
+<figcaption>
+<p><span class="caption-number">Fig. 11.14 </span><span class="caption-text">Seems about right.</span><a class="headerlink" href="#sneaky-png" title="Permalink to this image">#</a></p>
+</figcaption>
+</figure>
+<p>If you’re into that line of thinking, then the momentum family of factors is for you. Just look at past price moves! Assets that have been going up, keep going up. At least for a while. The MOM factor, shown in line graph above and in Figure <a class="reference internal" href="#factor-perf-png"><span class="std std-numref">Fig. 11.10</span></a>, is a portfolio where you buy stocks that have been going up for the past year (excluding the most recent month) and short stocks that have been going down. You then rebalance the portfolio each month. That’s it. Historically, returns have been very good. Too good. Look again at the chart above. The trend is your friend with this positive feedback strategy.</p>
+<figure class="align-center" id="momentum-jpg">
+<img alt="../_images/10-momentum.jpg" src="../_images/10-momentum.jpg" />
+<figcaption>
+<p><span class="caption-number">Fig. 11.15 </span><span class="caption-text">Momentum can be very short-term or longer term. This is basically the “respectable” kind of technical analysis. Source: Matt Levine (Bloomberg)</span><a class="headerlink" href="#momentum-jpg" title="Permalink to this image">#</a></p>
+</figcaption>
+</figure>
+<p>One of the first papers to document this phenomenon was <a class="reference external" href="http://www.business.unr.edu/faculty/liuc/files/BADM742/Jegadeesh_Titman_1993.pdf">Jegadeesh and Titman (1993)</a>, though trend following like this was probably done by Ancient Egyptians trading grain futures. <a class="reference external" href="https://doi.org/10.1111%2Fj.1540-6261.1997.tb03808.x">Carhart (1997)</a> showed how persistence in mutual fund returns (i.e. mutual funds that performed well last year performed well this year) could be explained by the momentum factor.</p>
+<p>There are a couple of things that could be going on. First, people might overreact to news. Stocks with good news see prices pushed up too far. Stocks with bad news see prices pushed down too far. However, the opposite can also create momentum! If information slowly enters prices, then the change today is too small and is instead spread out over time. So, there are two behavioral stories: initial underreaction as people are slow to react to news, and a delayed overreaction, as people jump on the bandwagon.</p>
+<p>There are <a class="reference external" href="https://breakingdownfinance.com/finance-topics/alternative-investments/time-series-momentum/">two types of momentum trades</a>. This first is called <strong>cross-sectional</strong> momentum. This is when you rank all securities based on their past performance and buy (sell) the ones with the best (worst) performance. For this to work, recent winners must outperform recent losers. There is also <strong>time-series</strong> momentum, where you just look at previous returns and don’t rank winners and losers.</p>
+<figure class="align-center" id="eif-mom-png">
+<img alt="../_images/10-eif-mom.png" src="../_images/10-eif-mom.png" />
+<figcaption>
+<p><span class="caption-number">Fig. 11.16 </span><span class="caption-text">Momentum and reversals are capturing well-known dynamics in financial markets even if the language academics and quant investors use sounds a bit… different.</span><a class="headerlink" href="#eif-mom-png" title="Permalink to this image">#</a></p>
+</figcaption>
+</figure>
+<p>These trades are risky, though. Look back at <a class="reference internal" href="#factor-perf-png"><span class="std std-numref">Fig. 11.10</span></a>. <a class="reference external" href="https://www.aqr.com/Insights/Research/Journal-Article/Momentum-Crashes">Momentum can crash</a>. Hard. But, is this related to any kind of macroeconomic risk, like the small and value factors? It seems like it - momentum crashes happened during the Great Depression, in 2001, and during the financial crisis. Momentum also did very poorly during parts of last year, as the types of winning stocks kept switching around. Trend followers had whiplash.</p>
+<figure class="align-center" id="everywhere-png">
+<img alt="../_images/10-everywhere.png" src="../_images/10-everywhere.png" />
+<figcaption>
+<p><span class="caption-number">Fig. 11.17 </span><span class="caption-text">Momentum and reversals are capturing well-known dynamics in financial markets even if the language academics and quant investors use sounds a bit… different.</span><a class="headerlink" href="#everywhere-png" title="Permalink to this image">#</a></p>
+</figcaption>
+</figure>
+<p>Crucially, momentum isn’t the opposite of value investing. It isn’t just growth investing. Any kind of asset can have momentum, even value stocks! If you are using the long-short factors, value and momentum have a negative correlation, documented across countries and asset classes by <a class="reference external" href="http://pages.stern.nyu.edu/~lpederse/papers/ValMomEverywhere.pdf">Asness et al. (2013)</a>. However, this is not true for the long-only portfolios. Two long-only portfolios of stocks, even if one portfolio is value stocks and the other momentum stocks, are still going to both have a lot of market risk, which will dominate their returns and create a positive correlation. So, be careful with long-only factor ETFs. We’ll discuss this more below.</p>
+<p>I should also mention <strong>reversals</strong>. These are the opposite of momentum. If you form a portfolio of winners over the past year and short the losers, you get the momentum factor. But what about over longer time frames? It turns out, that if buy long-term losers and short long-term winners (excluding the last 12 months in each), then you can also create a <a class="reference external" href="http://mba.tuck.dartmouth.edu/pages/faculty/ken.french/Data_Library/det_lt_rev_factor.html">long-short style factor portfolio</a> with positive returns over time. This is the REV portfolio in the line graph above. So, basically, markets exhibit medium term momentum and long-term reversals.</p>
+<p>If you end up on a trading desk or at a quant firm, just note that these things all play out on much shorter time frames too. For example, <a class="reference external" href="https://files.fisher.osu.edu/department-finance/public/liquidity_and_return_reversals.pdf">here’s a paper about reversals</a> over the course of just a day or two. A firm like Renaissance<a class="reference external" href="https://en.wikipedia.org/wiki/Renaissance_Technologies"> Technologies</a> is doing this at these levels (along with longer time frames). They are the perhaps the most successful investment firm in the last century and they don’t even hire people with finance backgrounds.</p>
+<p>Finally, the British economist J. M. Keynes seemed to have a pretty good grasp of momentum and, perhaps even, what we are seeing with GME and other “meme” stocks.</p>
+<blockquote>
+<div><p>…day-to-day fluctuations in profits of existing investments, which are obviously of an ephemeral and non-significant character, tend to have an altogether excessive, and even absurd, influence on the market.</p>
+</div></blockquote>
+</section>
+<section id="quality">
+<h3><span class="section-number">11.7.4. </span>Quality<a class="headerlink" href="#quality" title="Permalink to this headline">#</a></h3>
+<p>Quality investing is the strategy of buying “good” stocks. High-quality stocks can be defined as stocks that are profitable, growing, stable, and well-managed. To capture this factor, you buy the best quality stocks and short the worst. I mean, this is basically what most investment managers are trying to do!</p>
+<p><a class="reference external" href="https://www.aqr.com/Insights/Research/Working-Paper/Quality-Minus-Junk">Asness, Frazzini, and Pedersen (2013)</a> find that quality factors have delivered positive excess returns on average for both U.S. and global stocks and for both small and large stocks. Quality strategies buy the “good” stocks that deserve a higher-than-normal price (or valuation) and short the “bad” stocks that deserve to be cheap. This is in contrast to value factors that short the expensive assets and buy the cheap ones, regardless of whether they “deserve” their price or not.</p>
+<p>Quality investing then complements simple value investing. Value and quality factors are negatively correlated in the data. Combining value and quality factors leads us to GARP-like investing, or “growth (quality) at a reasonable price” and has, historically, had higher risk-adjusted returns than either component by itself Combining quality, value, and momentum gives you an even stronger strategy that buys upward-trending stocks that are cheap relative to their quality and shorts falling stocks that are expensive.</p>
+<p>Do you see how these “simple”, mechanical strategies, when combined, start to look a lot like what a professional investor is trying to do?</p>
+<p><a class="reference external" href="https://www.sciencedirect.com/science/article/abs/pii/S0304405X14002323">Fama and French (2015)</a> have their own version of quality with their five-factor model. You can see their two additional factors in the line graph above: RMW, or robust profitability minus weak profitability and CMA, or conservative investment firms minus aggressive investment firms. The first long/short portfolio captures the fact that high profitability firms outperform low profitability firms in the data. The second captures that low investment firms outperform high investment firms. Since the returns of these portfolios are not well-explained by the three-factor model, meaning that market, small stock, and value stock risk don’t explain the out-performance, we call them new risk factors and throw them into the pile. In fact, adding these two new factors actually makes the value stock result a lot weaker.</p>
+<p>So, what is this? A true risk factor? An anomaly? The returns are strong enough that I’ve included quality as a risk premium, rather than an anomaly that gets arbitraged away over time. You can also derive these relationships from a dividend discount model. This isn’t necessarily a mispricing or the fact that the market is “missing” something. Important work by <a class="reference external" href="https://seekingalpha.com/article/4368960-economic-intuitions-behind-q-factors">Lu Zhang</a> shows how higher expected profitability means higher discount rates, which means higher expected returns. Remember, a discount rate is the same thing as an expected return!</p>
+</section>
+<section id="low-risk">
+<h3><span class="section-number">11.7.5. </span>Low Risk<a class="headerlink" href="#low-risk" title="Permalink to this headline">#</a></h3>
+<p>The CAPM says that a security’s expected excess return should be proportional to its market beta. But, it turns out safe stocks (i.e. low beta and/or low idiosyncratic volatility) do better than you would expect if the CAPM were the right risk model – they have positive alpha. Remember, alpha is relative to a risk model, in this case the CAPM.</p>
+<p>For example, suppose you wanted to form a market-neutral (i.e. zero beta) portfolio. You might need to buy about $ 1.4 worth of safe (i.e., low-beta) stocks and short-sell $ 0.7 worth of risky (high-beta) stocks in order to get the betas to offset. Historically, this portfolio has made money because it exploits the fact that, while safe and risky stocks have similar average returns, the safe stocks have significantly higher Sharpe ratios. This is called the <a class="reference external" href="https://www.aqr.com/Insights/Research/Journal-Article/Betting-Against-Beta">“betting-against-beta” portfolio (BAB)</a>.</p>
+<p>One reason that low-risk investing has worked is that many investors face leverage constraints or are simply afraid of the risks that comes with leverage. So, instead of using leverage, they buy high beta stocks. This makes these stocks “too expensive”. There are similar results for <a class="reference external" href="https://onlinelibrary.wiley.com/doi/full/10.1111/j.1540-6261.2006.00836.x">low idiosyncratic risk stocks (standard deviation)</a>, so this isn’t just a beta story.</p>
+<p>Do you think that leverage constraints as important in today’s markets? If not, you might see investors buying low risk stocks on leverage to have a portfolio with an overall risk level that better matches their preferences. AQR <a class="reference external" href="https://www.aqr.com/Insights/Datasets/Betting-Against-Beta-Equity-Factors-Monthly">updates the data</a> for this factor monthly on their website.</p>
+</section>
+</section>
+<section id="using-factor-thinking-to-assess-your-performance">
+<h2><span class="section-number">11.8. </span>Using Factor Thinking To Assess Your Performance<a class="headerlink" href="#using-factor-thinking-to-assess-your-performance" title="Permalink to this headline">#</a></h2>
+<p>But what about all of the investors that don’t use factors? For example, Warren Buffett never mentions the quality factor in his annual letter? It turns out that much of what active managers, fund managers who are trying to select undervalued assets to buy (and, perhaps, overvalued assets to short), can be explained using factors. We’ll do a simple regression to see this.</p>
+<p>I have posted Excel file called <em>hf_rets</em> on our Github page. I am going to run a regression where I try to explain a long/short equity hedge fund return index using the Carhart (1997) four-factor model, which is just the Fama-French model plus momentum. The returns are from 1994 through mid-2012. L/S equity hedge funds try to earn positive risk-adjusted returns by both going long stocks, as well as shorting stocks that they think are overvalued. So, there overall beta to the market is generally less than one, since they have a short equity component to their strategy. We want to see if their returns are explained by the standard risk factors that we’ve been talking about. All of the factor data can be found on <a class="reference external" href="https://mba.tuck.dartmouth.edu/pages/faculty/ken.french/data_library.html">Ken French’s website</a>.</p>
+<p>This factor data has <em>umd</em>, or “Up Minus Down”, which is similar to the momentum factor.</p>
+<p>I will follow one of the DataCamps and use the <a class="reference external" href="https://www.statsmodels.org/stable/examples/index.html"><code class="docutils literal notranslate"><span class="pre">statsmodels</span></code> library</a> to run the regression. I also clean up the column headers. Finally, note that I’m using <code class="docutils literal notranslate"><span class="pre">.read_excel()</span></code>.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
+<span class="kn">import</span> <span class="nn">statsmodels.formula.api</span> <span class="k">as</span> <span class="nn">smf</span>
+<span class="kn">import</span> <span class="nn">janitor</span>
+<span class="kn">from</span> <span class="nn">janitor</span> <span class="kn">import</span> <span class="n">clean_names</span>
+
+<span class="n">hf</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_excel</span><span class="p">(</span><span class="s1">&#39;https://raw.githubusercontent.com/aaiken1/fin-data-analysis-python/main/data/hf_rets.xlsx&#39;</span><span class="p">,</span>
+                  <span class="n">index_col</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">parse_dates</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>  
+
+<span class="n">hf</span> <span class="o">=</span> <span class="n">hf</span><span class="o">.</span><span class="n">clean_names</span><span class="p">()</span>
+
+<span class="n">hf</span><span class="o">.</span><span class="n">describe</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>rf</th>
+      <th>mkt_rf</th>
+      <th>smb</th>
+      <th>hml</th>
+      <th>umd</th>
+      <th>ln_sh_eq_hedge_fund_usd</th>
+      <th>eq_mkt_ntr_hedge_fund_usd</th>
+      <th>ded_sh_bs_hedge_fund_usd</th>
+      <th>global_mac_hedge_fund_usd</th>
+      <th>mngd_fut_hedge_fund_usd</th>
+      <th>emg_mkts_hedge_fund_usd</th>
+      <th>evnt_drvn_hedge_fund_usd</th>
+      <th>_cnvrt_arb_hedge_fund_usd</th>
+      <th>fx_inc_arb_hedge_fund_usd</th>
+      <th>djcs_hedge_fund_usd</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>count</th>
+      <td>222.000000</td>
+      <td>222.000000</td>
+      <td>222.000000</td>
+      <td>222.000000</td>
+      <td>222.000000</td>
+      <td>222.000000</td>
+      <td>222.000000</td>
+      <td>222.000000</td>
+      <td>222.000000</td>
+      <td>222.000000</td>
+      <td>222.000000</td>
+      <td>222.000000</td>
+      <td>222.000000</td>
+      <td>222.000000</td>
+      <td>222.000000</td>
+    </tr>
+    <tr>
+      <th>mean</th>
+      <td>0.002536</td>
+      <td>0.005089</td>
+      <td>0.002121</td>
+      <td>0.002133</td>
+      <td>0.004886</td>
+      <td>0.007535</td>
+      <td>0.004410</td>
+      <td>-0.002217</td>
+      <td>0.009594</td>
+      <td>0.005108</td>
+      <td>0.006656</td>
+      <td>0.007360</td>
+      <td>0.006129</td>
+      <td>0.004366</td>
+      <td>0.007011</td>
+    </tr>
+    <tr>
+      <th>std</th>
+      <td>0.001742</td>
+      <td>0.047007</td>
+      <td>0.035581</td>
+      <td>0.033738</td>
+      <td>0.054827</td>
+      <td>0.028745</td>
+      <td>0.029770</td>
+      <td>0.049144</td>
+      <td>0.028000</td>
+      <td>0.033738</td>
+      <td>0.042929</td>
+      <td>0.018291</td>
+      <td>0.019981</td>
+      <td>0.016485</td>
+      <td>0.021820</td>
+    </tr>
+    <tr>
+      <th>min</th>
+      <td>0.000000</td>
+      <td>-0.185500</td>
+      <td>-0.166200</td>
+      <td>-0.128700</td>
+      <td>-0.347500</td>
+      <td>-0.114806</td>
+      <td>-0.404590</td>
+      <td>-0.112825</td>
+      <td>-0.115652</td>
+      <td>-0.093702</td>
+      <td>-0.230716</td>
+      <td>-0.118201</td>
+      <td>-0.126007</td>
+      <td>-0.140442</td>
+      <td>-0.075948</td>
+    </tr>
+    <tr>
+      <th>25%</th>
+      <td>0.000900</td>
+      <td>-0.023225</td>
+      <td>-0.019750</td>
+      <td>-0.015275</td>
+      <td>-0.011225</td>
+      <td>-0.008805</td>
+      <td>0.001250</td>
+      <td>-0.033677</td>
+      <td>-0.001949</td>
+      <td>-0.018947</td>
+      <td>-0.012924</td>
+      <td>0.000110</td>
+      <td>-0.000482</td>
+      <td>0.001716</td>
+      <td>-0.002376</td>
+    </tr>
+    <tr>
+      <th>50%</th>
+      <td>0.003000</td>
+      <td>0.011550</td>
+      <td>-0.001450</td>
+      <td>0.002150</td>
+      <td>0.006300</td>
+      <td>0.007663</td>
+      <td>0.006715</td>
+      <td>-0.007478</td>
+      <td>0.010404</td>
+      <td>0.003235</td>
+      <td>0.012111</td>
+      <td>0.009848</td>
+      <td>0.009817</td>
+      <td>0.007131</td>
+      <td>0.007447</td>
+    </tr>
+    <tr>
+      <th>75%</th>
+      <td>0.004100</td>
+      <td>0.035600</td>
+      <td>0.023025</td>
+      <td>0.017750</td>
+      <td>0.030425</td>
+      <td>0.023168</td>
+      <td>0.012581</td>
+      <td>0.029215</td>
+      <td>0.021420</td>
+      <td>0.028790</td>
+      <td>0.028144</td>
+      <td>0.018590</td>
+      <td>0.014712</td>
+      <td>0.011529</td>
+      <td>0.018074</td>
+    </tr>
+    <tr>
+      <th>max</th>
+      <td>0.005600</td>
+      <td>0.115300</td>
+      <td>0.220600</td>
+      <td>0.138800</td>
+      <td>0.184000</td>
+      <td>0.129913</td>
+      <td>0.036573</td>
+      <td>0.226661</td>
+      <td>0.105808</td>
+      <td>0.099063</td>
+      <td>0.164018</td>
+      <td>0.042168</td>
+      <td>0.058055</td>
+      <td>0.043331</td>
+      <td>0.085117</td>
+    </tr>
+  </tbody>
+</table>
+</div></div></div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">model</span> <span class="o">=</span> <span class="n">smf</span><span class="o">.</span><span class="n">ols</span><span class="p">(</span><span class="n">formula</span><span class="o">=</span><span class="s1">&#39;ln_sh_eq_hedge_fund_usd ~ mkt_rf + smb + hml + umd&#39;</span><span class="p">,</span> <span class="n">data</span><span class="o">=</span><span class="n">hf</span><span class="p">)</span>
+<span class="n">results</span> <span class="o">=</span> <span class="n">model</span><span class="o">.</span><span class="n">fit</span><span class="p">()</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">results</span><span class="o">.</span><span class="n">summary</span><span class="p">())</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>                               OLS Regression Results                              
+===================================================================================
+Dep. Variable:     ln_sh_eq_hedge_fund_usd   R-squared:                       0.760
+Model:                                 OLS   Adj. R-squared:                  0.756
+Method:                      Least Squares   F-statistic:                     172.1
+Date:                     Wed, 24 Jan 2024   Prob (F-statistic):           4.09e-66
+Time:                             10:35:12   Log-Likelihood:                 631.99
+No. Observations:                      222   AIC:                            -1254.
+Df Residuals:                          217   BIC:                            -1237.
+Df Model:                                4                                         
+Covariance Type:                 nonrobust                                         
+==============================================================================
+                 coef    std err          t      P&gt;|t|      [0.025      0.975]
+------------------------------------------------------------------------------
+Intercept      0.0041      0.001      4.218      0.000       0.002       0.006
+mkt_rf         0.4710      0.023     20.825      0.000       0.426       0.516
+smb            0.1712      0.029      5.813      0.000       0.113       0.229
+hml           -0.0797      0.031     -2.543      0.012      -0.141      -0.018
+umd            0.1710      0.019      9.105      0.000       0.134       0.208
+==============================================================================
+Omnibus:                        0.779   Durbin-Watson:                   1.567
+Prob(Omnibus):                  0.677   Jarque-Bera (JB):                0.588
+Skew:                           0.120   Prob(JB):                        0.745
+Kurtosis:                       3.077   Cond. No.                         36.5
+==============================================================================
+
+Notes:
+[1] Standard Errors assume that the covariance matrix of the errors is correctly specified.
+</pre></div>
+</div>
+</div>
+</div>
+<p>To understand this regression, you just need to remember a few things from your statistic course. We have four coefficients, or <strong>betas</strong>, for each of the four factors. All are statistically significant at the 1% level. We know this from looking at the <em>t</em>-statistics and p-values. If the absolute value of a <em>t</em>-statistic is greater than 1.96, then we say that we can reject the null hypothesis that the coefficient is zero.</p>
+<p>The market beta for the hedge fund index is about 0.47 – let’s call that 0.50. So, if the market was up 1%, you would expect the average long-short equity hedge fund to be up 0.5%, all else equal. This tells us something right away – the market is not a great benchmark for the typical hedge fund, since they don’t have as much risk as the market.</p>
+<p>Looking at the other coefficients, we see that <em>smb</em> is positive, <em>hml</em> is negative, and <em>umd</em> is positive. This means that the average fund in the index does better when small stocks beat large stocks, when value stocks do worse than growth stocks, and when winning stocks beat losing stocks. The average hedge fund in this sample likes small, growth stocks with momentum.</p>
+<p>How well does the overall model do? The Adjusted R-Square is 0.756, or about 76%. 76% of the variation in returns is explained by the four-factor model.</p>
+<p>What about <strong>alpha</strong>? The intercept is positive and statistically significant. This suggests that the average fund has positive risk-adjusted performance once you accounted for these four risk premiums.</p>
+<p>In short, when you pay an active manager to run a fund for you, you are paying them to manage factor risks. You might also be paying them to exploit different anomalies, if possible. The average fund might have alpha after fees, though. But – most of the variation in their returns is explained by the risks that they take, not any kind of magic ability to pick stocks.</p>
+<figure class="align-center" id="sources-of-returns-png">
+<img alt="../_images/10-sources-of-returns.png" src="../_images/10-sources-of-returns.png" />
+<figcaption>
+<p><span class="caption-number">Fig. 11.18 </span><span class="caption-text">Most investment strategies can be matched up with one or more sources of return. Source: Lasse Pedersen</span><a class="headerlink" href="#sources-of-returns-png" title="Permalink to this image">#</a></p>
+</figcaption>
+</figure>
+<p>If you’re running your own actively managed portfolio with a lot of different positions, you should keep track of your factor exposures. Just because you own 20 different stocks, some options, maybe a few ETFs, etc., doesn’t mean that you’re well-diversified across factors. And, we’ve seen that your factor exposures will determine a large portion of your returns. Understanding your factor exposures is an important part of <strong>risk management</strong>.</p>
+</section>
+<section id="an-example-factor-based-etfs">
+<h2><span class="section-number">11.9. </span>An Example: Factor-Based ETFs<a class="headerlink" href="#an-example-factor-based-etfs" title="Permalink to this headline">#</a></h2>
+<p>Factor theory, which really started with the CAPM, is about trying to explain where returns for assets come from. Why do some stocks have higher returns than others? What risks are associated with these assets that investors are willing to bear for a certain price? These are economic theories about risk and return that we explore with data. They may be right, they may be wrong, but they, we think, help to explain what we see around us in markets.</p>
+<p>This thinking, lends itself to a certain type of <strong>quantitative, or quant, investing</strong>. These strategies simply seek to hold stocks that have factor exposures associated with higher expected returns and, perhaps, to short stocks that have exposures to the “bad” side of the factor. These strategies can be more complex, like some of the <a class="reference external" href="https://www.aqr.com">funds run by AQR</a>. Or, they can be for the retail investor, like <a class="reference external" href="https://investor.vanguard.com/etf/factor-funds">Vanguard factor-based ETFs</a>. You’ll sometimes hear these products referred to as “smart beta”.</p>
+<p>All of these factor ETFs are using the same basic ideas discussed above. They are trying to <strong>replicate what active managers do</strong>, but without the active manager and for a lower fee (sometimes much lower). This isn’t about artificial intelligence or anything fancy. It’s just about noting that most returns come from a few factor premiums, so why not invest in those premiums and call it a day. You can read about a <a class="reference external" href="https://www.ishares.com/us/products/272824/ishares-msci-usa-multi-factor-etf">Blackrock multifactor fund here</a>.</p>
+<figure class="align-center" id="msci-png">
+<img alt="../_images/10-msci.png" src="../_images/10-msci.png" />
+<figcaption>
+<p><span class="caption-number">Fig. 11.19 </span><span class="caption-text">A multifactor ETF from Blackrock.</span><a class="headerlink" href="#msci-png" title="Permalink to this image">#</a></p>
+</figcaption>
+</figure>
+<p>How well have these strategies done? Like most quantitative strategies, they look <a class="reference external" href="https://papers.ssrn.com/sol3/papers.cfm?abstract_id=3622753">better in the backtest than in practice</a>. A <strong>backtest</strong> is when you take your mechanical strategy and see how well it would have done in the past. As they say, no one has ever seen a bad backtest, since you’ll never show your clients one!</p>
+<p>Why might this be the case? <strong>Portfolio construction matters</strong>. How do you weight your securities? What types of risk controls do you use? Are you sector-neutral, or did your B/M value factor end up putting nothing but small cap banks into your portfolio? Do you include small cap stocks that might have higher trading costs? How did you construct your measures? Are they too simple and fail to capture how the underlying economy changed? Or did you fine tune your quality factor to look great in the backtest, but not in reality?</p>
+<p>That said, it isn’t like active managers who don’t think about factors (but end up investing in them, since they are present in all of our securities) have dramatically outperformed over the same period. It has been very difficult to beat a simple, market-cap weighted index, no matter your stated strategy.</p>
+<p>You can actually <a class="reference external" href="https://www.bloomberg.com/professional/blog/create-a-smart-beta-strategy-with-your-own-factors/">create your own factor ETF on our Bloomberg terminals</a>.</p>
+</section>
+<section id="an-example-buffett-s-alpha">
+<h2><span class="section-number">11.10. </span>An Example: Buffett’s Alpha<a class="headerlink" href="#an-example-buffett-s-alpha" title="Permalink to this headline">#</a></h2>
+<p>Forget quant-based factor investing. There are some ETFs that use the theory we’ve discussed, but the vast majority of actively managed assets are not invested this way.<a class="footnote-reference brackets" href="#factors-7" id="id7">7</a> We have already, though, seen that you can explain a manager’s performance using factor theory. But, how about one manager? The most famous stock picker in history? Can we explain Warren Buffett’s performance?</p>
+<p>Since I’m asking the question, you might guess that the <a class="reference external" href="https://www.aqr.com/Insights/Research/Journal-Article/Buffetts-Alpha">answer is yes</a>.</p>
+<figure class="align-center" id="buffett-info-png">
+<img alt="../_images/10-buffett-info.png" src="../_images/10-buffett-info.png" />
+<figcaption>
+<p><span class="caption-number">Fig. 11.20 </span><span class="caption-text">Among fund managers with at least 40 years of history, Buffett has arguably the best risk-adjusted return. Source: <a class="reference external" href="https://www.tandfonline.com/doi/full/10.2469/faj.v74.n4.3">Frazzini et al. (2018)</a></span><a class="headerlink" href="#buffett-info-png" title="Permalink to this image">#</a></p>
+</figcaption>
+</figure>
+<p><a class="reference external" href="https://www.tandfonline.com/doi/full/10.2469/faj.v74.n4.3">Frazzini et al. (2018)</a> find that Buffett has alpha if you just use traditional risk measures, such as SMB and HML. But, once you include their measures for quality and low risk investing, then you can explain away the positive risk-adjusted performance. Being one of the first to capture these premiums, even “unintentionally”, along with his use of leverage, basically explains Buffett’s returns.</p>
+<figure class="align-center" id="buffett-alpha-png">
+<img alt="../_images/10-buffett-alpha.png" src="../_images/10-buffett-alpha.png" />
+<figcaption>
+<p><span class="caption-number">Fig. 11.21 </span><span class="caption-text">With the full set of factors included in the regression, Buffett no longer has positive and significant alpha. UMD is momentum, BAB is “Betting Against Beta”, and QMJ is Quality Minus Junk. Source: <a class="reference external" href="https://www.tandfonline.com/doi/full/10.2469/faj.v74.n4.3">Frazzini et al. (2018)</a></span><a class="headerlink" href="#buffett-alpha-png" title="Permalink to this image">#</a></p>
+</figcaption>
+</figure>
+</section>
+<section id="a-warning-the-factor-zoo">
+<h2><span class="section-number">11.11. </span>A Warning: The Factor Zoo<a class="headerlink" href="#a-warning-the-factor-zoo" title="Permalink to this headline">#</a></h2>
+<p>How do we know about factors and anomalies? Practitioners and academics are both looking through data, trying to find sources of returns. Maybe these sources are related to risk. Or, maybe they are true mispricings that can be exploited. But, just because we find something in the data, does that make it real? Profs. Harvey and Liu have written several papers about the <a class="reference external" href="https://papers.ssrn.com/sol3/papers.cfm?abstract_id=3341728">factor zoo</a>, or the fact that there are over 400 documented factors and anomalies in the academic literature that, presumably, investors are trying to trade on. Most of these sources of returns look like what active managers are trying to do. Can they all be real? Do they continue to work after they are discovered?</p>
+<p>The past does not guarantee the future. If a factor is truly related to risk, we would expect to earn a premium over time. But, that premium could be lower if investors are more risk tolerant, or if there is just less macroeconomic risk in the future. If a factor is really both a premium and an anomaly, then more investors trying to take advantage of it should lower its future return. Harvey and Liu caution us to be very skeptical. There are probably only a few big risk drivers. The rest are anomalies that get traded away or, perhaps, were never really there in the first place.</p>
+<p>You can actually see evidence of the Zoo on our Bloombergs. There is a function FTW, or Factors to Watch, which will show you the returns for a very large number of supposed sources of performance. Many are grouped under categories like value, quality, momentum. For example, there is a gross profit anomaly/factor that is a lot like the <a class="reference external" href="http://rnm.simon.rochester.edu/research/QDoVI.pdf">overall quality factor</a>.</p>
+<figure class="align-center" id="bloom-png">
+<img alt="../_images/10-bloom.png" src="../_images/10-bloom.png" />
+<figcaption>
+<p><span class="caption-number">Fig. 11.22 </span><span class="caption-text">You can <a class="reference external" href="https://www.bloomberg.com/professional/blog/here-are-some-key-tools-for-exploring-an-investment-idea/">evaluate trade ideas and entire portfolios</a> using a wide range of factors and anomalies on your Bloomberg.</span><a class="headerlink" href="#bloom-png" title="Permalink to this image">#</a></p>
+</figcaption>
+</figure>
+<p>Looking through these measures, you see again how we are breaking down how many active managers invest. What sorts of stocks might you buy because you think they are undervalued? Maybe a firm with a higher EBITDA/EV multiple than its peers that has expanding gross margins (evidence of a moat), positive earnings momentum, and that is above its 30-day moving average (the market is starting recognize the mispricing). Will this work in the future if everyone is reading from the same playbook and using the same Bloomberg screens?</p>
+<p>And the speed that you can trade at matters. Here’s an interesting Twitter thread on what it means to <a class="reference external" href="https://twitter.com/macrocephalopod/status/1357377428390371328">trade a signal to capacity</a>. In other words, if one investor is so fast that they can trade a short-term anomaly quickly, then it will look like that anomaly has disappeared, even if that one trader is still able to exploit it.</p>
+<p>Finally, well-known quant <a class="reference external" href="http://emanuelderman.com">Emanuel Derman</a> points out that these factors and parameters (e.g. volatility) may not be so easy to slice, dice, and trade. We probably know less than we think, even about basic stuff like risk and return. After all, finance is not physics. There are no unifying laws to discover, just people and behaviors to observe. Then, we do the best we can.</p>
+<figure class="align-center" id="derman-png">
+<img alt="../_images/10-derman.png" src="../_images/10-derman.png" />
+<figcaption>
+<p><span class="caption-number">Fig. 11.23 </span><span class="caption-text">How does this transition from asset classes and securities to factors and parameters affect markets? Source: Emanuel Derman</span><a class="headerlink" href="#derman-png" title="Permalink to this image">#</a></p>
+</figcaption>
+</figure>
+<hr class="footnotes docutils" />
+<dl class="footnote brackets">
+<dt class="label" id="factors-1"><span class="brackets"><a class="fn-backref" href="#id1">1</a></span></dt>
+<dd><p>We’ll put aside complexities for now, such what to do outside of the U.S.</p>
+</dd>
+<dt class="label" id="factors-2"><span class="brackets"><a class="fn-backref" href="#id2">2</a></span></dt>
+<dd><p>I also want to note that it is very difficult, if not impossible, to actually test both the idea of market efficiency and the CAPM together. In order to see if markets are efficient, you need a risk model, like the CAPM, to see if investors are earning positive risk-adjusted returns on average. However, suppose that you observe, based on the CAPM, that investors are earning positive risk-adjusted returns. Are markets inefficient and not reflecting all information? Or, is your risk model wrong? Or both? This is called the <strong>Joint Hypothesis Problem and is what makes all of this so difficult.</strong></p>
+</dd>
+<dt class="label" id="factors-3"><span class="brackets"><a class="fn-backref" href="#id3">3</a></span></dt>
+<dd><p>I know, this seems weird when you first start thinking about it!</p>
+</dd>
+<dt class="label" id="factors-4"><span class="brackets"><a class="fn-backref" href="#id4">4</a></span></dt>
+<dd><p>Well, inflation is easier.</p>
+</dd>
+<dt class="label" id="factors-5"><span class="brackets"><a class="fn-backref" href="#id5">5</a></span></dt>
+<dd><p>Style factors were first discovered statistically. In other words, we basically defined something that had positive returns that the CAPM couldn’t explain as another source of risk. A lot of economists are not happy with this definition, since it doesn’t tell us anything about the underlying source of risk and why it exists. Work by academics like <a class="reference external" href="http://theinvestmentcapm.com/uploads/1/2/2/6/122679606/zhang2017efm.pdf">Lu Zhang at Ohio State</a> is trying to build economic models that explain why these risk premiums are out there. This is important work - in order to trade these factors, it would help to know why they are in the data and if they might go away!</p>
+</dd>
+<dt class="label" id="factors-6"><span class="brackets"><a class="fn-backref" href="#id6">6</a></span></dt>
+<dd><p>The Fama-French portfolios go long on the 30% stocks with the “best” measure (e.g. highest B/M scores, or cheapest stocks) and short the 30% of stocks with the “worst” measure (e.g. lowest B/M, or most expensive stocks).</p>
+</dd>
+<dt class="label" id="factors-7"><span class="brackets"><a class="fn-backref" href="#id7">7</a></span></dt>
+<dd><p>I might argue that basic index funds, like the Vanguard Total Stock Market fund, is a factor fund, if only for the tautological reason that it has a beta of one and no alpha, by design. It is a market factor fund and costs basically nothing.</p>
+</dd>
+</dl>
+</section>
+</section>
+
+    <script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "binder-examples/jupyter-stacks-datascience",
+            ref: "master",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "python"
+        },
+        kernelOptions: {
+            kernelName: "python3",
+            path: "./chapters"
+        },
+        predefinedOutput: true
+    }
+    </script>
+    <script>kernelName = 'python3'</script>
+
+              </div>
+              
+            </main>
+            <footer class="footer-article noprint">
+                
+    <!-- Previous / next buttons -->
+<div class='prev-next-area'>
+    <a class='left-prev' id="prev-link" href="10_unsupervised_learning.html" title="previous page">
+        <i class="fas fa-angle-left"></i>
+        <div class="prev-next-info">
+            <p class="prev-next-subtitle">previous</p>
+            <p class="prev-next-title"><span class="section-number">10. </span>Unsupervised Learning <a id='unsupervised_learning'></a></p>
+        </div>
+    </a>
+    <a class='right-next' id="next-link" href="12_regression_topics.html" title="next page">
+    <div class="prev-next-info">
+        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-title"><span class="section-number">12. </span>Regression topics</p>
+    </div>
+    <i class="fas fa-angle-right"></i>
+    </a>
+</div>
+            </footer>
+        </div>
+    </div>
+    <div class="footer-content row">
+        <footer class="col footer"><p>
+  
+    By Prof. Adam Aiken<br/>
+  
+</p>
+        </footer>
+    </div>
+    
+</div>
+
+
+      </div>
+    </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="../_static/scripts/pydata-sphinx-theme.js?digest=1999514e3f237ded88cf"></script>
+
+
+  </body>
+</html>
