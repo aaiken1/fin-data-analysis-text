@@ -1,6 +1,6 @@
-# Installation
+# Local Installation
 
-Let's go through our two installs: [Anaconda](https://www.anaconda.com/products/individual) and [VS Code](https://code.visualstudio.com).
+The previous section got us up and running in Github. We can also work locally, on our own machine. Let's go through our two installs: [Anaconda](https://www.anaconda.com/products/individual) and [VS Code](https://code.visualstudio.com).
 
 ## Anaconda
 
