@@ -1,12 +1,14 @@
 # Python set-up <a id='python_set-up'></a>
 
-This chapter is going to get you set-up with the Anaconda distribution of Python, Jupyter notebooks, and VS Code. From VS Code, we can also use Jupyter notebooks. I would encourage you to get very comfortable with the Jupyter notebook format and VS Code. We'll go over everything in class as well.
+We are going to start by getting you set-up in [Github](https://github.com) and Codespaces. I'll go through how our assignments are going to work in Github Classroom. These tools mean that you can do all of your coding **in your browser** using what are called [Jupyter notebooks](https://jupyter.org), but in an environment that acts like the common VS Code desktop setup, including [version control](https://ourcodingclub.github.io/tutorials/git/) with git and Github.
+
+Then, I'll discuss how to do a **local install** of our tools. I'll get you set-up with the Anaconda distribution of Python, Jupyter notebooks, and VS Code. From VS Code, we can also use Jupyter notebooks. I would encourage you to get very comfortable with the Jupyter notebook format and VS Code. We'll go over everything in class as well.
 
 I will also show you other ways to use Jupyter notebooks, including [Google Colab](https://colab.research.google.com).
 
-In the end, we'll be using Jupyter notebooks. Whether you use the Jupyter in Anaconda, Google Colab, or VS Code is up to you. I'll tend to use VS Code in class. It is a full feature developed environment. Jupyter notebooks in Anaconda and Google Colab are **browser-based**. That will still work for this course, though.
+In the end, we'll be using Jupyter notebooks. Whether you use the Jupyter in Codespaces, Google Colab, or VS Code is up to you. I'll tend to use VS Code in class, whether that is my local install or in Github Codespaces. Both are full feature developed environment. Jupyter notebooks in Anaconda and Google Colab are more limited.
 
-You can start with this video of me discussing [how to download Anaconda and VS Code](https://youtu.be/-3TjSYaYuQY).
+For the local install, you can start with this video of me discussing [how to download Anaconda and VS Code](https://youtu.be/-3TjSYaYuQY).
 
 You can read more about Python and its history in [Chapter 1 of Python for Data Analysis, 3E](https://wesmckinney.com/book/preliminaries.html). [Chapter 2 discusses Python basics](https://wesmckinney.com/book/python-basics.html), like Jupyter notebooks, in detail.
 

@@ -7,7 +7,7 @@
 # 
 # I think of finance career paths as having two stages. First, you get paid for what you know, helping your team, and how fast you can do it. Then, you get paid for convincing other people that your ideas make sense, that your firm's product is the best, that you can make money. Now is the time to work on Stage One and learn as much as we can.
 # 
-# Want to work at a [bank](https://www.efinancialcareers.co.uk/news/2019/11/python-replaced-excel-banking)? [Coding is a key skill](https://www.ft.com/content/4c17d6ce-c8b2-11e8-ba8f-ee390057b8c9) 
+# Want to work at a [bank](https://www.efinancialcareers.co.uk/news/2019/11/python-replaced-excel-banking)? [Coding is a key skill](https://www.ft.com/content/4c17d6ce-c8b2-11e8-ba8f-ee390057b8c9). 
 # 
 # Want to trade? [There are basically no traders left who can't code](https://www.citadel.com/investment-strategies/). Algorithms are even coming for the [bond markets](https://www.ft.com/content/12888496-2c3d-4ad9-a9cd-bd418e03cb44).
 # 
@@ -24,11 +24,15 @@
 # Might as well learn now!
 # ```
 # 
+# Most of the largest hedge funds are quant driven, whether that be more [algorithmic](https://www.citadel.com/careers/) or [systematic-based strategies](https://www.aqr.com). And, if you think that you might be allocating assets to hedge fund strategies, then you'll want to better understand what they are doing.
+# 
 # Wealth management? Roboadvisors (and traditional firms) are using [model portfolios that are rebalanced automatically](https://www.wealthfront.com/careers). Some wealth management firms have [data scientists](https://ofdollarsanddata.com/how-to-invest-your-money-when-inflation-is-high/). 
 # 
 # Even the traditional firms, like [Vanguard](https://www.vanguardjobs.com/job-search-results/?category=Data%20%26%20Analytics) are hiring for data analysts. And they have their own [digital advisor too](https://investor.vanguard.com/advice/digital-advisor/). 
 # 
 # And, of course, most firms now have their own analytics teams. And CFO and CIO roles can get blended together as firms use more advanced data capabilities to forecast and plan. You can even get some [pretty unique cases in the finance industry](https://www.wsj.com/articles/anthem-looks-to-fuel-ai-efforts-with-petabytes-of-synthetic-data-11652781602).
+# 
+# ## What are we going to do?
 # 
 # We are going to learn Python because it is [ubiquitous in finance](https://bootcamp.cvn.columbia.edu/blog/best-programming-languages-finance-fintech/). It's not the fastest language, or the latest. But, it is the one everyone kind of assumes that you will know if you look for a more technical role. 
 # 
@@ -42,7 +46,7 @@
 # 
 # > Source: <https://www.efinancialcareers.co.uk/news/2022/01/investment-bank-internship>
 # 
-# So, **what are we going to do**? Our textbook and these notes cover the basics of Python, enough to be dangerous. We'll learn how to get our data into Python, how to clean it, how to visualize it, how to explore it, and how to use it. We'll learn how to integrate our code with our finance knowledge, creating Markdown reports that combine code, output, and text. We'll do all of this with a goal of creating a simple trading algorithm in mind. The trading algo isn't really the end-product, though. I want you to get a foundation that will then let you explore on your own.
+# [Our textbook](https://www.rotman.utoronto.ca/FacultyAndResearch/Research/NewThinking/Hull-Machine-Learning) and these notes cover the basics of Python, enough to be dangerous. We'll learn how to get our data into Python, how to clean it, how to visualize it, how to explore it, and how to use it. We'll learn how to integrate our code with our finance knowledge, creating Markdown reports that combine code, output, and text. We'll cover a variety of statistical techniques, such as linear regression, logit models, and monte carlo simulation. Some of what we do will fall under the umbrella of **machine learning**. We'll learn about different aspects of finance as we go, such as factor models, risk management, and options. We might even get to some trading models. 
 # 
 # ```{figure} ../images/01-compliance.png
 # ---
@@ -53,8 +57,9 @@
 # Even jobs that don't seem like tech, have some coding these days.
 # ```
 # 
-# This [DataCamp tutorial on algorithmic trading in finance](https://www.datacamp.com/community/tutorials/finance-python-trading) will give you an idea of where we are going. 
+# For example, this [DataCamp tutorial on algorithmic trading in finance](https://www.datacamp.com/community/tutorials/finance-python-trading) has a simple example of how to combine coding with a basic trading strategy.
 # 
+# Finally, I'll also cover some of the basic tools of coding. We'll discuss [git and Github](https://github.com), IDEs such as [Codespaces](https://github.com/features/codespaces) and [VS Code](https://code.visualstudio.com), and AI tools, like [Github Copilot](https://github.com/features/copilot/). These skills will be used in any coding environment.
 
 # ## A first look at Python
 # 

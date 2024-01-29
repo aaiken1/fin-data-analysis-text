@@ -9,6 +9,10 @@
 # 
 # [Chapter 7](https://wesmckinney.com/book/data-cleaning.html) of *Python for Data Analysis* for more data cleaning tips.
 # 
+# ## Data Integrity
+# 
+# [know how your data were created](https://kieranhealy.org/blog/archives/2018/08/01/i-cant-believe-its-not-butter/).
+# 
 # ## Underwater exploration
 # 
 # We'll start by bringing in our Zillow data again.

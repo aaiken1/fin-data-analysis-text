@@ -19,11 +19,33 @@ We also have a course [Github repository](https://github.com/aaiken1/fin-data-an
 
 We also have a course [YouTube page](https://www.youtube.com/playlist?list=PLo4Q9ijN3eTG6t2-Lwzf7KlOooypFQak8), where I will post the occasional video, as needed. Most of our work will of course be done in class together.
 
-The most important part is to make sure that you are up and running with Anaconda, Jupyter Notebooks, and VS Code. We'll discuss how to get started in [Chapter 2](chapters/2_intro.html#python_set-up).
+Our labs and exams are posted using Github Classroom. You'll find links to these on Moodle.
+
+The most important part is to make sure that you are up and running with Github, Jupyter Notebooks, and Github Codespaces/VS Code. We'll discuss how to get started in [Chapter 2](chapters/2_intro.html#python_set-up). Your coding environment can be entirely **browser-based**, if you choose to do so.
 
 ```{hint}
 Bookmark important links so that you don't have to go searching for them.
 ```
+
+We also have a textbook on [machine learning in finance](https://www-2.rotman.utoronto.ca/~hull/MLThirdEditionFiles/index3rdEd.html). If you've taken a derivatives class, you might have seen the author's other textbook - every derivatives trader in the world has read Hull. We'll get to these topics more in the second-half of the course.
+
+## Getting help
+
+```{note}
+No programming background is required for this class. For both students and instructor.
+```
+
+Learning to code means learning how to get help. No one has all of this stuff in their head at all times. That means using our textbook, the online books above, cheatsheets, and other resources. The links posted above will help a lot.
+
+You can find help on [Stackoverflow](https://stackoverflow.com), though "copy and paste" isn't really the best way to learn to code. Go slowly, line-by-line, and try to think like a computer. They do exactly what you tell them to do. No more, no less.
+
+Even better, you can use tools such as [ChatGPT](https://openai.com/chatgpt) and [Github Copilot](https://github.com/features/copilot/) to help you code. We'll look at [some examples](https://www.datacamp.com/tutorial/chatgpt-data-science-projects) as we go, but you should have one of these tools open whenever you are coding. The basic version of ChatGPT is free. Github Copilot is free for [verified students](https://github.com/features/copilot/plans), so sign-up! You'll be able to link it to your Codespaces and VS code installs, as I'll show you.
+
+Some more suggestions for using ChatGPT in data projects:
+
+- [Datacamp - suggested prompts](https://www.datacamp.com/cheat-sheet/chatgpt-cheat-sheet-data-science)
+- [MIT Sloan Tech Review - ChatGPT 4 and Data Analysis](https://mitsloanedtech.mit.edu/ai/tools/data-analysis/how-to-use-chatgpts-advanced-data-analysis-feature/)
+- [AI prompts for economists](https://sites.google.com/view/lastunen/ai-for-economists?authuser=0)
 
 ## Sources
 
@@ -41,7 +63,7 @@ There are also many free resources available. The key is being able to find what
 
 [Python for Data Analysis, 3E](https://wesmckinney.com/book/) is also available for free online. The author has just updated to a third edition.
 
-If interested, I have set-up **optional** [DataCamp](https://www.datacamp.com) courses that you can complete throughout the semester. See our Moodle page for the log in instructions - I have already set up our class page on DataCamp. If you completed all of the assignments, you'll have earned two different certificates. DataCamp also has lots of mini-tutorials and **cheatsheets** that can help get you started.
+[DataCamp](https://www.datacamp.com/) also has lots of mini-tutorials and **cheatsheets** that can help get you started.
 
 - [Python Basics](https://www.datacamp.com/community/tutorials/python-data-science-cheat-sheet-basics)
 - [Juypter Notebooks - how we will write our code](http://datacamp-community-prod.s3.amazonaws.com/21fdc814-3f08-4aa9-90fa-247eedefd655)
@@ -54,20 +76,10 @@ If interested, I have set-up **optional** [DataCamp](https://www.datacamp.com) c
 - [Scikit Lean - basic machine learning in Python](http://datacamp-community-prod.s3.amazonaws.com/eb807da5-dce5-4b97-a54d-74e89f14266b)
 - [SciPy - linear algebra in Python because everything is linear algebra](http://datacamp-community-prod.s3.amazonaws.com/dfdb6d58-e044-4b38-bab3-5de0b825909b)
 
-I also have a collection of non-DataCamp cheat sheets. 
+I also have a collection of non-DataCamp cheat sheets.
 
 - [Comprehensive Python Cheatsheet](https://gto76.github.io/python-cheatsheet/)
 
 I have also found the [The Self-Taught Programmer](https://www.theselftaughtprogrammer.io) a useful book, especially for someone like me, who does write code for research, but has only had a few formal computer science courses.
 
-## Getting help
-
-```{note}
-No programming background is required for this class. For both students and instructor.
-```
-
-Learning to code means learning how to get help. No one has all of this stuff in their head at all times. That means using our textbook, the online books above, cheatsheets, and other resources. The links posted above will help a lot.
-
-You can find help on [Stackoverflow](https://stackoverflow.com), though "copy and paste" isn't really the best way to learn to code. Go slowly, line-by-line, and try to think like a computer. They do exactly what you tell them to do. No more, no less.
-
-I want to use the Discord server to discuss our weekly labs and projects. If you have a question, I'm sure others do as well! Ask your classmates for help there and I can follow along and add my two-cents. Just don't post all of your code - the only way to learn is **by doing**.
+If you've used R in the past, here's a [guide to setting up Python to be more like R](https://www.emilyriederer.com/post/py-rgo/).
