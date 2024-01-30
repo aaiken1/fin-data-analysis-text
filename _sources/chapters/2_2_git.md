@@ -4,7 +4,7 @@ We will go through how to get set-up in class. This means signing-up for a Githu
 
 Here are the basic steps.
 
-- Sign-up for a Github Account: <https://github.com/signup>. Use your **Elon email address**. 
+Sign-up for a Github Account: <https://github.com/signup>. Use your **Elon email address**. 
 
 ```{figure} ../images/22-github-page.png
 ---
@@ -14,7 +14,7 @@ align: center
 Your main Github page with your repositories.
 ```
 
-- Go to **Moodle** and find the **link for Lab00**. This is the lab to help us get started. You'll be asked to find your name from the class roster and then link your Github account to our Github Classroom. Github Classroom is how you will access and submit assignments and is called ** elon-fin-data**. 
+Go to **Moodle** and find the **link for Lab00**. This is the lab to help us get started. You'll be asked to find your name from the class roster and then link your Github account to our Github Classroom. Github Classroom is how you will access and submit assignments and is called ** elon-fin-data**. 
    
 When you **accept** an assignment, you'll **fork** (copy) the **repository** (folder) with that assignment. You'll then work in this new repository, which will be linked to your Github account. For example, you'll see a new repository named something like **lab00-getting-started-git-aaiken1student**, where you're Github username will replace my name. 
 
@@ -87,5 +87,17 @@ I have also created a video that shows you a bit about using Codespaces: <https:
 name: 22-after-edits.png
 align: center
 ---
-After you've done some work and followed the git steps to **synch (or **push**) your files, you'll see them appear in your repository.
+After you've done some work and followed the git steps to **synch** (or **push**) your files, you'll see them appear in your repository.
+```
+
+Once you have your working Jupyter notebook (.ipynb) file created, you can proceed like you would with a local install of VS Code. Load your data, do you analysis. You work will be saved in the Codespace instance associated with that repository. As you go, you can add/commit/push your files to your repository to move them from the Codespace instance to your Github repository for that assignment. This will make them more "permanent". As you do more work, you add/commit/push again to update.
+
+I'll be able to see you committing and pushing files to your repositories, since the assignment repositories live in the elon-fin-data Git Classroom.
+
+```{figure} ../images/22-what-i-see.png
+---
+name: 22-what-i-see.png
+align: center
+---
+This is what I see on my end for each student and each assignment. I can see your number of commits and your latest work. 
 ```
