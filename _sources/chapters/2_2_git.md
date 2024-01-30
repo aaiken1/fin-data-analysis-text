@@ -63,7 +63,11 @@ align: center
 Ready to go after a browser refresh. You see the URL for the new repository that you've created using the assignment. 
 ```
 
-- Now that you've accepted the assignment, it is time to get to work! **Browse to your assignment repo.** You can **synch fork** to make sure that you have latest assignment. There will be a message at the top of the repo if you are out of synch. 
+- Now that you've accepted the assignment, it is time to get to work! **Browse to your assignment repo.** 
+
+I have created a Youtube video that shows you some of the basics of how a repo works: <https://www.youtube.com/watch?v=MOevORafn-g>.
+  
+This assignment repo is your own, personal copy of the assignment. All of your work for that particular assignment is going to be stored in that folder on Github. But, I might go and update the assignment! What happens to your copy? You can **synch fork** to make sure that you have latest assignment. There will be a message at the top of the repo if you are out of synch. 
   
 
 ```{figure} ../images/22-assignment-repo.png
@@ -74,8 +78,9 @@ align: center
 You can open up a Github Codespace from the assignment repo.
 ```
 
-Now, you can open up a **Github Codespace**.
+Now, you can open up a **Github Codespace**. Codespace is essentially VS Code, but in the cloud, running on Github (i.e. Microsoft) servers. You get a certain number of hours of runtime for free each month. It should be more than enough for the work that we're doing in this class.
 
+I have also created a video that shows you a bit about using Codespaces: <https://www.youtube.com/watch?v=VUHuEXTne6Q>
 
 ```{figure} ../images/22-after-edits.png
 ---

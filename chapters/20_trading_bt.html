@@ -793,11 +793,11 @@ title="Print to PDF"
 </div>
 <div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>                  spy        agg
 Date                            
-2010-01-04  87.129951  71.516113
-2010-01-05  87.360580  71.841507
-2010-01-06  87.422066  71.799988
-2010-01-07  87.791122  71.716911
-2010-01-08  88.083275  71.758430
+2010-01-04  87.129951  71.516136
+2010-01-05  87.360596  71.841515
+2010-01-06  87.422089  71.799934
+2010-01-07  87.791092  71.716858
+2010-01-08  88.083260  71.758423
 </pre></div>
 </div>
 </div>
@@ -905,11 +905,6 @@ Date
       <td>...</td>
     </tr>
     <tr>
-      <th>2024-01-23</th>
-      <td>463.693832</td>
-      <td>97.139788</td>
-    </tr>
-    <tr>
       <th>2024-01-24</th>
       <td>464.759869</td>
       <td>97.230482</td>
@@ -922,16 +917,21 @@ Date
     <tr>
       <th>2024-01-26</th>
       <td>466.723804</td>
-      <td>97.418718</td>
+      <td>97.418719</td>
     </tr>
     <tr>
       <th>2024-01-29</th>
-      <td>467.548443</td>
-      <td>97.493607</td>
+      <td>467.610843</td>
+      <td>97.496171</td>
+    </tr>
+    <tr>
+      <th>2024-01-30</th>
+      <td>468.464360</td>
+      <td>97.582554</td>
     </tr>
   </tbody>
 </table>
-<p>3541 rows × 2 columns</p>
+<p>3542 rows × 2 columns</p>
 </div></div></div>
 </div>
 <p>See how the first rows are missing? This is a 50-day moving average, so you don’t get an average until 50 days have passed.</p>
@@ -1019,11 +1019,6 @@ Date
       <td>...</td>
     </tr>
     <tr>
-      <th>2024-01-23</th>
-      <td>True</td>
-      <td>True</td>
-    </tr>
-    <tr>
       <th>2024-01-24</th>
       <td>True</td>
       <td>True</td>
@@ -1043,9 +1038,14 @@ Date
       <td>True</td>
       <td>True</td>
     </tr>
+    <tr>
+      <th>2024-01-30</th>
+      <td>True</td>
+      <td>True</td>
+    </tr>
   </tbody>
 </table>
-<p>3541 rows × 2 columns</p>
+<p>3542 rows × 2 columns</p>
 </div></div></div>
 </div>
 <p>We can now create a <strong>new strategy</strong> with that logic. The new strategy is called <strong>above50sma</strong> and is saved in the <strong>sma50</strong> object. Notice the new first line that has the <code class="docutils literal notranslate"><span class="pre">.SelectWhere</span></code> method. This is going to select securities where <code class="docutils literal notranslate"><span class="pre">signal</span> <span class="pre">==</span> <span class="pre">True</span></code>.</p>
@@ -1122,56 +1122,56 @@ Date
 <div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Stat                 ew
 -------------------  ----------
 Start                2010-01-03
-End                  2024-01-29
+End                  2024-01-30
 Risk-free rate       0.00%
 
-Total Return         190.86%
+Total Return         191.57%
 Daily Sharpe         0.91
 Daily Sortino        1.40
-CAGR                 7.88%
+CAGR                 7.90%
 Max Drawdown         -19.87%
 Calmar Ratio         0.40
 
-MTD                  0.89%
-3m                   13.10%
-6m                   5.10%
-YTD                  0.89%
-1Y                   11.45%
-3Y (ann.)            3.95%
-5Y (ann.)            8.10%
-10Y (ann.)           7.31%
-Since Incep. (ann.)  7.88%
+MTD                  1.13%
+3m                   12.85%
+6m                   5.35%
+YTD                  1.13%
+1Y                   12.59%
+3Y (ann.)            3.74%
+5Y (ann.)            7.96%
+10Y (ann.)           7.28%
+Since Incep. (ann.)  7.90%
 
 Daily Sharpe         0.91
 Daily Sortino        1.40
-Daily Mean (ann.)    7.99%
+Daily Mean (ann.)    8.01%
 Daily Vol (ann.)     8.83%
 Daily Skew           -0.72
-Daily Kurt           14.04
+Daily Kurt           14.03
 Best Day             4.77%
 Worst Day            -6.63%
 
 Monthly Sharpe       0.99
-Monthly Sortino      1.81
-Monthly Mean (ann.)  8.13%
-Monthly Vol (ann.)   8.18%
+Monthly Sortino      1.82
+Monthly Mean (ann.)  8.14%
+Monthly Vol (ann.)   8.19%
 Monthly Skew         -0.31
 Monthly Kurt         1.07
 Best Month           7.57%
 Worst Month          -6.68%
 
 Yearly Sharpe        0.84
-Yearly Sortino       1.85
-Yearly Mean          7.55%
-Yearly Vol           9.01%
-Yearly Skew          -1.25
-Yearly Kurt          1.99
+Yearly Sortino       1.86
+Yearly Mean          7.57%
+Yearly Vol           9.00%
+Yearly Skew          -1.26
+Yearly Kurt          2.03
 Best Year            19.64%
 Worst Year           -15.30%
 
 Avg. Drawdown        -0.85%
 Avg. Drawdown Days   15.34
-Avg. Up Month        1.89%
+Avg. Up Month        1.90%
 Avg. Down Month      -1.96%
 Win Year %           85.71%
 Win 12m %            89.87%
@@ -1189,29 +1189,29 @@ Win 12m %            89.87%
 <div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Stat                 above50sma
 -------------------  ------------
 Start                2010-01-03
-End                  2024-01-29
+End                  2024-01-30
 Risk-free rate       0.00%
 
-Total Return         82.60%
-Daily Sharpe         0.59
+Total Return         83.04%
+Daily Sharpe         0.60
 Daily Sortino        0.87
-CAGR                 4.37%
+CAGR                 4.39%
 Max Drawdown         -21.95%
 Calmar Ratio         0.20
 
-MTD                  0.88%
-3m                   8.84%
-6m                   2.97%
-YTD                  0.88%
-1Y                   8.95%
-3Y (ann.)            1.59%
-5Y (ann.)            5.28%
-10Y (ann.)           2.70%
-Since Incep. (ann.)  4.37%
+MTD                  1.12%
+3m                   9.10%
+6m                   3.22%
+YTD                  1.12%
+1Y                   10.05%
+3Y (ann.)            1.68%
+5Y (ann.)            5.14%
+10Y (ann.)           2.72%
+Since Incep. (ann.)  4.39%
 
-Daily Sharpe         0.59
+Daily Sharpe         0.60
 Daily Sortino        0.87
-Daily Mean (ann.)    4.59%
+Daily Mean (ann.)    4.60%
 Daily Vol (ann.)     7.73%
 Daily Skew           -1.07
 Daily Kurt           10.58
@@ -1219,25 +1219,25 @@ Best Day             3.48%
 Worst Day            -4.35%
 
 Monthly Sharpe       0.58
-Monthly Sortino      0.94
-Monthly Mean (ann.)  4.63%
+Monthly Sortino      0.95
+Monthly Mean (ann.)  4.65%
 Monthly Vol (ann.)   8.01%
 Monthly Skew         -0.60
 Monthly Kurt         1.16
-Best Month           6.68%
+Best Month           6.69%
 Worst Month          -7.97%
 
 Yearly Sharpe        0.40
 Yearly Sortino       0.70
-Yearly Mean          4.04%
+Yearly Mean          4.06%
 Yearly Vol           10.15%
-Yearly Skew          -1.08
-Yearly Kurt          0.50
+Yearly Skew          -1.09
+Yearly Kurt          0.52
 Best Year            16.05%
 Worst Year           -17.78%
 
 Avg. Drawdown        -1.28%
-Avg. Drawdown Days   36.58
+Avg. Drawdown Days   36.59
 Avg. Up Month        1.86%
 Avg. Down Month      -1.73%
 Win Year %           78.57%
