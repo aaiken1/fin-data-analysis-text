@@ -2,6 +2,9 @@
 
 We will go through how to get set-up in class. This means signing-up for a Github account, accessing assignments (i.e. forking repositories) via Github Classroom, working on these assignments in **Github Codespaces**, and then, finally, submitting your assignments back to Github Classroom using **git commands**. 
 
+
+## Accepting assignments in Github Classroom
+
 Here are the basic steps.
 
 Sign-up for a Github Account: <https://github.com/signup>. Use your **Elon email address**. 
@@ -78,6 +81,9 @@ align: center
 You can open up a Github Codespace from the assignment repo.
 ```
 
+## Using Github Codespaces
+
+
 Now, you can open up a **Github Codespace**. Codespace is essentially VS Code, but in the cloud, running on Github (i.e. Microsoft) servers. You get a certain number of hours of runtime for free each month. It should be more than enough for the work that we're doing in this class.
 
 I have also created a video that shows you a bit about using Codespaces: <https://www.youtube.com/watch?v=VUHuEXTne6Q>
@@ -90,8 +96,6 @@ align: center
 After you've done some work and followed the git steps to **synch** (or **push**) your files, you'll see them appear in your repository.
 ```
 
-Once you have your working Jupyter notebook (.ipynb) file created, you can proceed like you would with a local install of VS Code. Load your data, do you analysis. You work will be saved in the Codespace instance associated with that repository. As you go, you can add/commit/push your files to your repository to move them from the Codespace instance to your Github repository for that assignment. This will make them more "permanent". As you do more work, you add/commit/push again to update.
-
 I'll be able to see you committing and pushing files to your repositories, since the assignment repositories live in the elon-fin-data Git Classroom.
 
 ```{figure} ../images/22-what-i-see.png
@@ -101,3 +105,39 @@ align: center
 ---
 This is what I see on my end for each student and each assignment. I can see your number of commits and your latest work. 
 ```
+
+You can create new Codespaces, as well as see all of you recent ones by going to the main Codespace page: <https://github.com/codespaces/>.
+
+Notice that Codespaces can be associated with repositories. You can also just create new ones and start working on something. Github provides some ready-made templates, like the Jupyter Notebook one.
+
+Back to our assignment repository. Once you have your working Jupyter notebook (.ipynb) file created, you can proceed like you would with a local install of VS Code. Load your data, do you analysis. You work will be saved in the Codespace instance associated with that repository. As you go, you can add/commit/push your files to your repository to move them from the Codespace instance to your Github repository for that assignment. This will make them more "permanent". As you do more work, you add/commit/push again to update.
+
+```{figure} ../images/22-codespaces.png
+---
+name: 22-codespaces.png
+align: center
+---
+The main page for Github Codespaces. You can create a new codespace, as well as see recent ones that you've worked in.
+```
+
+I found this video to be helpful in explaining how to navigate Codespaces: <https://www.youtube.com/watch?v=kvJf8s18Vr4>. Don't worry about all of the coding, yet. We just want to get a sense of how this environment works.
+
+
+## Using git to submit your work
+
+In our class videos, I mention add/commit/push. These are examples of [git commands](https://code.visualstudio.com/docs/sourcecontrol/intro-to-git). Git is a framework for doing **version control**. In other words, keeping track of files and file changes. This is actually a tough problem! Most software development of any kind is being done by multiple people in different places. Someone might want to add a new feature, but you don't want to break the entire project. How do you keep track of everything? Git lets us do that.
+
+[Github](https://code.visualstudio.com/docs/sourcecontrol/github) is a particular "flavor" of git and is owned by Microsoft. You can use git at the command line of your computer, typing in different commands. You can also "point and click". In my videos, I show you some point and click methods.
+
+There are a million git and Github tutorials around. We just need to know the basics to keep track of our files and to work together. It's kind of like using Google Docs (kind of!), but going to the next level.
+
+Here's an intro video discussing what Github is: <https://www.youtube.com/watch?v=pBy1zgt0XPc>. This is a nice overview, geared towards Masters-level data science/economics students: <https://github.com/tyleransom/DScourseS24/blob/master/LectureNotes/03-CLI-Git/git_tutorial.pdf>
+
+This playlist has some good videos describing git and Github. They are part of their educator training series: <https://www.youtube.com/watch?v=uWsXEmaM3PA&list=PLIRjfNq867be7VngMuXsjTvzBM26nBINg&index=2>. 
+
+Here are two videos on using git and Github with a local VS Code install: <https://www.youtube.com/watch?v=i_23KUAEtUM> and <https://www.youtube.com/watch?v=CvUiKWv2-C0>. We are going to mainly be doing things in Github Codespaces, but many of the ideas are going to carryover. 
+
+You'll see how they are using **bash** commands in the **terminal** on a Mac. Windows has a similar command line. If you want to create your own repositories and get to work, watch these videos. By using Github Codespaces, with a repository created from each assignment, you can use the Codespace interface to do a lot of the same things. Codespaces does have a terminal interface, though, so you can also use the bash commands.
+
+The important thing, though, are the **git ideas**. Version control. Repositories. Snapshots. Git add, commit, push. Readme files. These are the backbone of modern computing!
+
