@@ -696,269 +696,80 @@ title="Print to PDF"
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output traceback highlight-ipythontb notranslate"><div class="highlight"><pre><span></span><span class="gt">---------------------------------------------------------------------------</span>
-<span class="ne">TimeoutError</span><span class="g g-Whitespace">                              </span>Traceback (most recent call last)
-<span class="nn">File /opt/anaconda3/lib/python3.9/site-packages/urllib3/connectionpool.py:699,</span> in <span class="ni">HTTPConnectionPool.urlopen</span><span class="nt">(self, method, url, body, headers, retries, redirect, assert_same_host, timeout, pool_timeout, release_conn, chunked, body_pos, **response_kw)</span>
-<span class="g g-Whitespace">    </span><span class="mi">698</span> <span class="c1"># Make the request on the httplib connection object.</span>
-<span class="ne">--&gt; </span><span class="mi">699</span> <span class="n">httplib_response</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_make_request</span><span class="p">(</span>
-<span class="g g-Whitespace">    </span><span class="mi">700</span>     <span class="n">conn</span><span class="p">,</span>
-<span class="g g-Whitespace">    </span><span class="mi">701</span>     <span class="n">method</span><span class="p">,</span>
-<span class="g g-Whitespace">    </span><span class="mi">702</span>     <span class="n">url</span><span class="p">,</span>
-<span class="g g-Whitespace">    </span><span class="mi">703</span>     <span class="n">timeout</span><span class="o">=</span><span class="n">timeout_obj</span><span class="p">,</span>
-<span class="g g-Whitespace">    </span><span class="mi">704</span>     <span class="n">body</span><span class="o">=</span><span class="n">body</span><span class="p">,</span>
-<span class="g g-Whitespace">    </span><span class="mi">705</span>     <span class="n">headers</span><span class="o">=</span><span class="n">headers</span><span class="p">,</span>
-<span class="g g-Whitespace">    </span><span class="mi">706</span>     <span class="n">chunked</span><span class="o">=</span><span class="n">chunked</span><span class="p">,</span>
-<span class="g g-Whitespace">    </span><span class="mi">707</span> <span class="p">)</span>
-<span class="g g-Whitespace">    </span><span class="mi">709</span> <span class="c1"># If we&#39;re going to release the connection in ``finally:``, then</span>
-<span class="g g-Whitespace">    </span><span class="mi">710</span> <span class="c1"># the response doesn&#39;t need to know about the connection. Otherwise</span>
-<span class="g g-Whitespace">    </span><span class="mi">711</span> <span class="c1"># it will also try to release it and we&#39;ll have a double-release</span>
-<span class="g g-Whitespace">    </span><span class="mi">712</span> <span class="c1"># mess.</span>
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
 
-<span class="nn">File /opt/anaconda3/lib/python3.9/site-packages/urllib3/connectionpool.py:382,</span> in <span class="ni">HTTPConnectionPool._make_request</span><span class="nt">(self, conn, method, url, timeout, chunked, **httplib_request_kw)</span>
-<span class="g g-Whitespace">    </span><span class="mi">381</span> <span class="k">try</span><span class="p">:</span>
-<span class="ne">--&gt; </span><span class="mi">382</span>     <span class="bp">self</span><span class="o">.</span><span class="n">_validate_conn</span><span class="p">(</span><span class="n">conn</span><span class="p">)</span>
-<span class="g g-Whitespace">    </span><span class="mi">383</span> <span class="k">except</span> <span class="p">(</span><span class="n">SocketTimeout</span><span class="p">,</span> <span class="n">BaseSSLError</span><span class="p">)</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
-<span class="g g-Whitespace">    </span><span class="mi">384</span>     <span class="c1"># Py2 raises this as a BaseSSLError, Py3 raises it as socket timeout.</span>
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
 
-<span class="nn">File /opt/anaconda3/lib/python3.9/site-packages/urllib3/connectionpool.py:1010,</span> in <span class="ni">HTTPSConnectionPool._validate_conn</span><span class="nt">(self, conn)</span>
-<span class="g g-Whitespace">   </span><span class="mi">1009</span> <span class="k">if</span> <span class="ow">not</span> <span class="nb">getattr</span><span class="p">(</span><span class="n">conn</span><span class="p">,</span> <span class="s2">&quot;sock&quot;</span><span class="p">,</span> <span class="kc">None</span><span class="p">):</span>  <span class="c1"># AppEngine might not have  `.sock`</span>
-<span class="ne">-&gt; </span><span class="mi">1010</span>     <span class="n">conn</span><span class="o">.</span><span class="n">connect</span><span class="p">()</span>
-<span class="g g-Whitespace">   </span><span class="mi">1012</span> <span class="k">if</span> <span class="ow">not</span> <span class="n">conn</span><span class="o">.</span><span class="n">is_verified</span><span class="p">:</span>
-
-<span class="nn">File /opt/anaconda3/lib/python3.9/site-packages/urllib3/connection.py:411,</span> in <span class="ni">HTTPSConnection.connect</span><span class="nt">(self)</span>
-<span class="g g-Whitespace">    </span><span class="mi">409</span>     <span class="n">context</span><span class="o">.</span><span class="n">load_default_certs</span><span class="p">()</span>
-<span class="ne">--&gt; </span><span class="mi">411</span> <span class="bp">self</span><span class="o">.</span><span class="n">sock</span> <span class="o">=</span> <span class="n">ssl_wrap_socket</span><span class="p">(</span>
-<span class="g g-Whitespace">    </span><span class="mi">412</span>     <span class="n">sock</span><span class="o">=</span><span class="n">conn</span><span class="p">,</span>
-<span class="g g-Whitespace">    </span><span class="mi">413</span>     <span class="n">keyfile</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">key_file</span><span class="p">,</span>
-<span class="g g-Whitespace">    </span><span class="mi">414</span>     <span class="n">certfile</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">cert_file</span><span class="p">,</span>
-<span class="g g-Whitespace">    </span><span class="mi">415</span>     <span class="n">key_password</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">key_password</span><span class="p">,</span>
-<span class="g g-Whitespace">    </span><span class="mi">416</span>     <span class="n">ca_certs</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">ca_certs</span><span class="p">,</span>
-<span class="g g-Whitespace">    </span><span class="mi">417</span>     <span class="n">ca_cert_dir</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">ca_cert_dir</span><span class="p">,</span>
-<span class="g g-Whitespace">    </span><span class="mi">418</span>     <span class="n">ca_cert_data</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">ca_cert_data</span><span class="p">,</span>
-<span class="g g-Whitespace">    </span><span class="mi">419</span>     <span class="n">server_hostname</span><span class="o">=</span><span class="n">server_hostname</span><span class="p">,</span>
-<span class="g g-Whitespace">    </span><span class="mi">420</span>     <span class="n">ssl_context</span><span class="o">=</span><span class="n">context</span><span class="p">,</span>
-<span class="g g-Whitespace">    </span><span class="mi">421</span>     <span class="n">tls_in_tls</span><span class="o">=</span><span class="n">tls_in_tls</span><span class="p">,</span>
-<span class="g g-Whitespace">    </span><span class="mi">422</span> <span class="p">)</span>
-<span class="g g-Whitespace">    </span><span class="mi">424</span> <span class="c1"># If we&#39;re using all defaults and the connection</span>
-<span class="g g-Whitespace">    </span><span class="mi">425</span> <span class="c1"># is TLSv1 or TLSv1.1 we throw a DeprecationWarning</span>
-<span class="g g-Whitespace">    </span><span class="mi">426</span> <span class="c1"># for the host.</span>
-
-<span class="nn">File /opt/anaconda3/lib/python3.9/site-packages/urllib3/util/ssl_.py:428,</span> in <span class="ni">ssl_wrap_socket</span><span class="nt">(sock, keyfile, certfile, cert_reqs, ca_certs, server_hostname, ssl_version, ciphers, ssl_context, ca_cert_dir, key_password, ca_cert_data, tls_in_tls)</span>
-<span class="g g-Whitespace">    </span><span class="mi">427</span> <span class="k">if</span> <span class="n">send_sni</span><span class="p">:</span>
-<span class="ne">--&gt; </span><span class="mi">428</span>     <span class="n">ssl_sock</span> <span class="o">=</span> <span class="n">_ssl_wrap_socket_impl</span><span class="p">(</span>
-<span class="g g-Whitespace">    </span><span class="mi">429</span>         <span class="n">sock</span><span class="p">,</span> <span class="n">context</span><span class="p">,</span> <span class="n">tls_in_tls</span><span class="p">,</span> <span class="n">server_hostname</span><span class="o">=</span><span class="n">server_hostname</span>
-<span class="g g-Whitespace">    </span><span class="mi">430</span>     <span class="p">)</span>
-<span class="g g-Whitespace">    </span><span class="mi">431</span> <span class="k">else</span><span class="p">:</span>
-
-<span class="nn">File /opt/anaconda3/lib/python3.9/site-packages/urllib3/util/ssl_.py:472,</span> in <span class="ni">_ssl_wrap_socket_impl</span><span class="nt">(sock, ssl_context, tls_in_tls, server_hostname)</span>
-<span class="g g-Whitespace">    </span><span class="mi">471</span> <span class="k">if</span> <span class="n">server_hostname</span><span class="p">:</span>
-<span class="ne">--&gt; </span><span class="mi">472</span>     <span class="k">return</span> <span class="n">ssl_context</span><span class="o">.</span><span class="n">wrap_socket</span><span class="p">(</span><span class="n">sock</span><span class="p">,</span> <span class="n">server_hostname</span><span class="o">=</span><span class="n">server_hostname</span><span class="p">)</span>
-<span class="g g-Whitespace">    </span><span class="mi">473</span> <span class="k">else</span><span class="p">:</span>
-
-<span class="nn">File /opt/anaconda3/lib/python3.9/ssl.py:501,</span> in <span class="ni">SSLContext.wrap_socket</span><span class="nt">(self, sock, server_side, do_handshake_on_connect, suppress_ragged_eofs, server_hostname, session)</span>
-<span class="g g-Whitespace">    </span><span class="mi">495</span> <span class="k">def</span> <span class="nf">wrap_socket</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">sock</span><span class="p">,</span> <span class="n">server_side</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
-<span class="g g-Whitespace">    </span><span class="mi">496</span>                 <span class="n">do_handshake_on_connect</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
-<span class="g g-Whitespace">    </span><span class="mi">497</span>                 <span class="n">suppress_ragged_eofs</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
-<span class="g g-Whitespace">    </span><span class="mi">498</span>                 <span class="n">server_hostname</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">session</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
-<span class="g g-Whitespace">    </span><span class="mi">499</span>     <span class="c1"># SSLSocket class handles server_hostname encoding before it calls</span>
-<span class="g g-Whitespace">    </span><span class="mi">500</span>     <span class="c1"># ctx._wrap_socket()</span>
-<span class="ne">--&gt; </span><span class="mi">501</span>     <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">sslsocket_class</span><span class="o">.</span><span class="n">_create</span><span class="p">(</span>
-<span class="g g-Whitespace">    </span><span class="mi">502</span>         <span class="n">sock</span><span class="o">=</span><span class="n">sock</span><span class="p">,</span>
-<span class="g g-Whitespace">    </span><span class="mi">503</span>         <span class="n">server_side</span><span class="o">=</span><span class="n">server_side</span><span class="p">,</span>
-<span class="g g-Whitespace">    </span><span class="mi">504</span>         <span class="n">do_handshake_on_connect</span><span class="o">=</span><span class="n">do_handshake_on_connect</span><span class="p">,</span>
-<span class="g g-Whitespace">    </span><span class="mi">505</span>         <span class="n">suppress_ragged_eofs</span><span class="o">=</span><span class="n">suppress_ragged_eofs</span><span class="p">,</span>
-<span class="g g-Whitespace">    </span><span class="mi">506</span>         <span class="n">server_hostname</span><span class="o">=</span><span class="n">server_hostname</span><span class="p">,</span>
-<span class="g g-Whitespace">    </span><span class="mi">507</span>         <span class="n">context</span><span class="o">=</span><span class="bp">self</span><span class="p">,</span>
-<span class="g g-Whitespace">    </span><span class="mi">508</span>         <span class="n">session</span><span class="o">=</span><span class="n">session</span>
-<span class="g g-Whitespace">    </span><span class="mi">509</span>     <span class="p">)</span>
-
-<span class="nn">File /opt/anaconda3/lib/python3.9/ssl.py:1041,</span> in <span class="ni">SSLSocket._create</span><span class="nt">(cls, sock, server_side, do_handshake_on_connect, suppress_ragged_eofs, server_hostname, context, session)</span>
-<span class="g g-Whitespace">   </span><span class="mi">1040</span>             <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;do_handshake_on_connect should not be specified for non-blocking sockets&quot;</span><span class="p">)</span>
-<span class="ne">-&gt; </span><span class="mi">1041</span>         <span class="bp">self</span><span class="o">.</span><span class="n">do_handshake</span><span class="p">()</span>
-<span class="g g-Whitespace">   </span><span class="mi">1042</span> <span class="k">except</span> <span class="p">(</span><span class="ne">OSError</span><span class="p">,</span> <span class="ne">ValueError</span><span class="p">):</span>
-
-<span class="nn">File /opt/anaconda3/lib/python3.9/ssl.py:1310,</span> in <span class="ni">SSLSocket.do_handshake</span><span class="nt">(self, block)</span>
-<span class="g g-Whitespace">   </span><span class="mi">1309</span>         <span class="bp">self</span><span class="o">.</span><span class="n">settimeout</span><span class="p">(</span><span class="kc">None</span><span class="p">)</span>
-<span class="ne">-&gt; </span><span class="mi">1310</span>     <span class="bp">self</span><span class="o">.</span><span class="n">_sslobj</span><span class="o">.</span><span class="n">do_handshake</span><span class="p">()</span>
-<span class="g g-Whitespace">   </span><span class="mi">1311</span> <span class="k">finally</span><span class="p">:</span>
-
-<span class="ne">TimeoutError</span>: [Errno 60] Operation timed out
-
-<span class="n">During</span> <span class="n">handling</span> <span class="n">of</span> <span class="n">the</span> <span class="n">above</span> <span class="n">exception</span><span class="p">,</span> <span class="n">another</span> <span class="n">exception</span> <span class="n">occurred</span><span class="p">:</span>
-
-<span class="ne">KeyboardInterrupt</span><span class="g g-Whitespace">                         </span>Traceback (most recent call last)
-<span class="nn">Input In [2],</span> in <span class="ni">&lt;cell line: 1&gt;</span><span class="nt">()</span>
-<span class="ne">----&gt; </span><span class="mi">1</span> <span class="n">gdp</span> <span class="o">=</span> <span class="n">nasdaqdatalink</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;FRED/GDP&#39;</span><span class="p">)</span>
-<span class="g g-Whitespace">      </span><span class="mi">2</span> <span class="n">gdp</span>
-
-<span class="nn">File /opt/anaconda3/lib/python3.9/site-packages/nasdaqdatalink/get.py:48,</span> in <span class="ni">get</span><span class="nt">(dataset, **kwargs)</span>
-<span class="g g-Whitespace">     </span><span class="mi">46</span>     <span class="k">if</span> <span class="n">dataset_args</span><span class="p">[</span><span class="s1">&#39;column_index&#39;</span><span class="p">]</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
-<span class="g g-Whitespace">     </span><span class="mi">47</span>         <span class="n">kwargs</span><span class="o">.</span><span class="n">update</span><span class="p">({</span><span class="s1">&#39;column_index&#39;</span><span class="p">:</span> <span class="n">dataset_args</span><span class="p">[</span><span class="s1">&#39;column_index&#39;</span><span class="p">]})</span>
-<span class="ne">---&gt; </span><span class="mi">48</span>     <span class="n">data</span> <span class="o">=</span> <span class="n">Dataset</span><span class="p">(</span><span class="n">dataset_args</span><span class="p">[</span><span class="s1">&#39;code&#39;</span><span class="p">])</span><span class="o">.</span><span class="n">data</span><span class="p">(</span><span class="n">params</span><span class="o">=</span><span class="n">kwargs</span><span class="p">,</span> <span class="n">handle_column_not_found</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
-<span class="g g-Whitespace">     </span><span class="mi">49</span> <span class="c1"># Array</span>
-<span class="g g-Whitespace">     </span><span class="mi">50</span> <span class="k">elif</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">dataset</span><span class="p">,</span> <span class="nb">list</span><span class="p">):</span>
-
-<span class="nn">File /opt/anaconda3/lib/python3.9/site-packages/nasdaqdatalink/model/dataset.py:47,</span> in <span class="ni">Dataset.data</span><span class="nt">(self, **options)</span>
-<span class="g g-Whitespace">     </span><span class="mi">45</span> <span class="n">updated_options</span> <span class="o">=</span> <span class="n">Util</span><span class="o">.</span><span class="n">merge_options</span><span class="p">(</span><span class="s1">&#39;params&#39;</span><span class="p">,</span> <span class="n">params</span><span class="p">,</span> <span class="o">**</span><span class="n">options</span><span class="p">)</span>
-<span class="g g-Whitespace">     </span><span class="mi">46</span> <span class="k">try</span><span class="p">:</span>
-<span class="ne">---&gt; </span><span class="mi">47</span>     <span class="k">return</span> <span class="n">Data</span><span class="o">.</span><span class="n">all</span><span class="p">(</span><span class="o">**</span><span class="n">updated_options</span><span class="p">)</span>
-<span class="g g-Whitespace">     </span><span class="mi">48</span> <span class="k">except</span> <span class="n">NotFoundError</span><span class="p">:</span>
-<span class="g g-Whitespace">     </span><span class="mi">49</span>     <span class="k">if</span> <span class="n">handle_not_found_error</span><span class="p">:</span>
-
-<span class="nn">File /opt/anaconda3/lib/python3.9/site-packages/nasdaqdatalink/operations/list.py:15,</span> in <span class="ni">ListOperation.all</span><span class="nt">(cls, **options)</span>
-<span class="g g-Whitespace">     </span><span class="mi">13</span>     <span class="n">options</span><span class="p">[</span><span class="s1">&#39;params&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="p">{}</span>
-<span class="g g-Whitespace">     </span><span class="mi">14</span> <span class="n">path</span> <span class="o">=</span> <span class="n">Util</span><span class="o">.</span><span class="n">constructed_path</span><span class="p">(</span><span class="bp">cls</span><span class="o">.</span><span class="n">list_path</span><span class="p">(),</span> <span class="n">options</span><span class="p">[</span><span class="s1">&#39;params&#39;</span><span class="p">])</span>
-<span class="ne">---&gt; </span><span class="mi">15</span> <span class="n">r</span> <span class="o">=</span> <span class="n">Connection</span><span class="o">.</span><span class="n">request</span><span class="p">(</span><span class="s1">&#39;get&#39;</span><span class="p">,</span> <span class="n">path</span><span class="p">,</span> <span class="o">**</span><span class="n">options</span><span class="p">)</span>
-<span class="g g-Whitespace">     </span><span class="mi">16</span> <span class="n">response_data</span> <span class="o">=</span> <span class="n">r</span><span class="o">.</span><span class="n">json</span><span class="p">()</span>
-<span class="g g-Whitespace">     </span><span class="mi">17</span> <span class="n">Util</span><span class="o">.</span><span class="n">convert_to_dates</span><span class="p">(</span><span class="n">response_data</span><span class="p">)</span>
-
-<span class="nn">File /opt/anaconda3/lib/python3.9/site-packages/nasdaqdatalink/connection.py:40,</span> in <span class="ni">Connection.request</span><span class="nt">(cls, http_verb, url, **options)</span>
-<span class="g g-Whitespace">     </span><span class="mi">36</span> <span class="n">options</span><span class="p">[</span><span class="s1">&#39;headers&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">headers</span>
-<span class="g g-Whitespace">     </span><span class="mi">38</span> <span class="n">abs_url</span> <span class="o">=</span> <span class="s1">&#39;</span><span class="si">%s</span><span class="s1">/</span><span class="si">%s</span><span class="s1">&#39;</span> <span class="o">%</span> <span class="p">(</span><span class="n">ApiConfig</span><span class="o">.</span><span class="n">api_base</span><span class="p">,</span> <span class="n">url</span><span class="p">)</span>
-<span class="ne">---&gt; </span><span class="mi">40</span> <span class="k">return</span> <span class="bp">cls</span><span class="o">.</span><span class="n">execute_request</span><span class="p">(</span><span class="n">http_verb</span><span class="p">,</span> <span class="n">abs_url</span><span class="p">,</span> <span class="o">**</span><span class="n">options</span><span class="p">)</span>
-
-<span class="nn">File /opt/anaconda3/lib/python3.9/site-packages/nasdaqdatalink/connection.py:47,</span> in <span class="ni">Connection.execute_request</span><span class="nt">(cls, http_verb, url, **options)</span>
-<span class="g g-Whitespace">     </span><span class="mi">44</span> <span class="n">session</span> <span class="o">=</span> <span class="bp">cls</span><span class="o">.</span><span class="n">get_session</span><span class="p">()</span>
-<span class="g g-Whitespace">     </span><span class="mi">46</span> <span class="k">try</span><span class="p">:</span>
-<span class="ne">---&gt; </span><span class="mi">47</span>     <span class="n">response</span> <span class="o">=</span> <span class="n">session</span><span class="o">.</span><span class="n">request</span><span class="p">(</span><span class="n">method</span><span class="o">=</span><span class="n">http_verb</span><span class="p">,</span>
-<span class="g g-Whitespace">     </span><span class="mi">48</span>                                <span class="n">url</span><span class="o">=</span><span class="n">url</span><span class="p">,</span>
-<span class="g g-Whitespace">     </span><span class="mi">49</span>                                <span class="n">verify</span><span class="o">=</span><span class="n">ApiConfig</span><span class="o">.</span><span class="n">verify_ssl</span><span class="p">,</span>
-<span class="g g-Whitespace">     </span><span class="mi">50</span>                                <span class="o">**</span><span class="n">options</span><span class="p">)</span>
-<span class="g g-Whitespace">     </span><span class="mi">51</span>     <span class="k">if</span> <span class="n">response</span><span class="o">.</span><span class="n">status_code</span> <span class="o">&lt;</span> <span class="mi">200</span> <span class="ow">or</span> <span class="n">response</span><span class="o">.</span><span class="n">status_code</span> <span class="o">&gt;=</span> <span class="mi">300</span><span class="p">:</span>
-<span class="g g-Whitespace">     </span><span class="mi">52</span>         <span class="bp">cls</span><span class="o">.</span><span class="n">handle_api_error</span><span class="p">(</span><span class="n">response</span><span class="p">)</span>
-
-<span class="nn">File /opt/anaconda3/lib/python3.9/site-packages/requests/sessions.py:587,</span> in <span class="ni">Session.request</span><span class="nt">(self, method, url, params, data, headers, cookies, files, auth, timeout, allow_redirects, proxies, hooks, stream, verify, cert, json)</span>
-<span class="g g-Whitespace">    </span><span class="mi">582</span> <span class="n">send_kwargs</span> <span class="o">=</span> <span class="p">{</span>
-<span class="g g-Whitespace">    </span><span class="mi">583</span>     <span class="s2">&quot;timeout&quot;</span><span class="p">:</span> <span class="n">timeout</span><span class="p">,</span>
-<span class="g g-Whitespace">    </span><span class="mi">584</span>     <span class="s2">&quot;allow_redirects&quot;</span><span class="p">:</span> <span class="n">allow_redirects</span><span class="p">,</span>
-<span class="g g-Whitespace">    </span><span class="mi">585</span> <span class="p">}</span>
-<span class="g g-Whitespace">    </span><span class="mi">586</span> <span class="n">send_kwargs</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="n">settings</span><span class="p">)</span>
-<span class="ne">--&gt; </span><span class="mi">587</span> <span class="n">resp</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">send</span><span class="p">(</span><span class="n">prep</span><span class="p">,</span> <span class="o">**</span><span class="n">send_kwargs</span><span class="p">)</span>
-<span class="g g-Whitespace">    </span><span class="mi">589</span> <span class="k">return</span> <span class="n">resp</span>
-
-<span class="nn">File /opt/anaconda3/lib/python3.9/site-packages/requests/sessions.py:701,</span> in <span class="ni">Session.send</span><span class="nt">(self, request, **kwargs)</span>
-<span class="g g-Whitespace">    </span><span class="mi">698</span> <span class="n">start</span> <span class="o">=</span> <span class="n">preferred_clock</span><span class="p">()</span>
-<span class="g g-Whitespace">    </span><span class="mi">700</span> <span class="c1"># Send the request</span>
-<span class="ne">--&gt; </span><span class="mi">701</span> <span class="n">r</span> <span class="o">=</span> <span class="n">adapter</span><span class="o">.</span><span class="n">send</span><span class="p">(</span><span class="n">request</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
-<span class="g g-Whitespace">    </span><span class="mi">703</span> <span class="c1"># Total elapsed time of the request (approximately)</span>
-<span class="g g-Whitespace">    </span><span class="mi">704</span> <span class="n">elapsed</span> <span class="o">=</span> <span class="n">preferred_clock</span><span class="p">()</span> <span class="o">-</span> <span class="n">start</span>
-
-<span class="nn">File /opt/anaconda3/lib/python3.9/site-packages/requests/adapters.py:489,</span> in <span class="ni">HTTPAdapter.send</span><span class="nt">(self, request, stream, timeout, verify, cert, proxies)</span>
-<span class="g g-Whitespace">    </span><span class="mi">487</span> <span class="k">try</span><span class="p">:</span>
-<span class="g g-Whitespace">    </span><span class="mi">488</span>     <span class="k">if</span> <span class="ow">not</span> <span class="n">chunked</span><span class="p">:</span>
-<span class="ne">--&gt; </span><span class="mi">489</span>         <span class="n">resp</span> <span class="o">=</span> <span class="n">conn</span><span class="o">.</span><span class="n">urlopen</span><span class="p">(</span>
-<span class="g g-Whitespace">    </span><span class="mi">490</span>             <span class="n">method</span><span class="o">=</span><span class="n">request</span><span class="o">.</span><span class="n">method</span><span class="p">,</span>
-<span class="g g-Whitespace">    </span><span class="mi">491</span>             <span class="n">url</span><span class="o">=</span><span class="n">url</span><span class="p">,</span>
-<span class="g g-Whitespace">    </span><span class="mi">492</span>             <span class="n">body</span><span class="o">=</span><span class="n">request</span><span class="o">.</span><span class="n">body</span><span class="p">,</span>
-<span class="g g-Whitespace">    </span><span class="mi">493</span>             <span class="n">headers</span><span class="o">=</span><span class="n">request</span><span class="o">.</span><span class="n">headers</span><span class="p">,</span>
-<span class="g g-Whitespace">    </span><span class="mi">494</span>             <span class="n">redirect</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
-<span class="g g-Whitespace">    </span><span class="mi">495</span>             <span class="n">assert_same_host</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
-<span class="g g-Whitespace">    </span><span class="mi">496</span>             <span class="n">preload_content</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
-<span class="g g-Whitespace">    </span><span class="mi">497</span>             <span class="n">decode_content</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
-<span class="g g-Whitespace">    </span><span class="mi">498</span>             <span class="n">retries</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">max_retries</span><span class="p">,</span>
-<span class="g g-Whitespace">    </span><span class="mi">499</span>             <span class="n">timeout</span><span class="o">=</span><span class="n">timeout</span><span class="p">,</span>
-<span class="g g-Whitespace">    </span><span class="mi">500</span>         <span class="p">)</span>
-<span class="g g-Whitespace">    </span><span class="mi">502</span>     <span class="c1"># Send the request.</span>
-<span class="g g-Whitespace">    </span><span class="mi">503</span>     <span class="k">else</span><span class="p">:</span>
-<span class="g g-Whitespace">    </span><span class="mi">504</span>         <span class="k">if</span> <span class="nb">hasattr</span><span class="p">(</span><span class="n">conn</span><span class="p">,</span> <span class="s2">&quot;proxy_pool&quot;</span><span class="p">):</span>
-
-<span class="nn">File /opt/anaconda3/lib/python3.9/site-packages/urllib3/connectionpool.py:783,</span> in <span class="ni">HTTPConnectionPool.urlopen</span><span class="nt">(self, method, url, body, headers, retries, redirect, assert_same_host, timeout, pool_timeout, release_conn, chunked, body_pos, **response_kw)</span>
-<span class="g g-Whitespace">    </span><span class="mi">778</span> <span class="k">if</span> <span class="ow">not</span> <span class="n">conn</span><span class="p">:</span>
-<span class="g g-Whitespace">    </span><span class="mi">779</span>     <span class="c1"># Try again</span>
-<span class="g g-Whitespace">    </span><span class="mi">780</span>     <span class="n">log</span><span class="o">.</span><span class="n">warning</span><span class="p">(</span>
-<span class="g g-Whitespace">    </span><span class="mi">781</span>         <span class="s2">&quot;Retrying (</span><span class="si">%r</span><span class="s2">) after connection broken by &#39;</span><span class="si">%r</span><span class="s2">&#39;: </span><span class="si">%s</span><span class="s2">&quot;</span><span class="p">,</span> <span class="n">retries</span><span class="p">,</span> <span class="n">err</span><span class="p">,</span> <span class="n">url</span>
-<span class="g g-Whitespace">    </span><span class="mi">782</span>     <span class="p">)</span>
-<span class="ne">--&gt; </span><span class="mi">783</span>     <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">urlopen</span><span class="p">(</span>
-<span class="g g-Whitespace">    </span><span class="mi">784</span>         <span class="n">method</span><span class="p">,</span>
-<span class="g g-Whitespace">    </span><span class="mi">785</span>         <span class="n">url</span><span class="p">,</span>
-<span class="g g-Whitespace">    </span><span class="mi">786</span>         <span class="n">body</span><span class="p">,</span>
-<span class="g g-Whitespace">    </span><span class="mi">787</span>         <span class="n">headers</span><span class="p">,</span>
-<span class="g g-Whitespace">    </span><span class="mi">788</span>         <span class="n">retries</span><span class="p">,</span>
-<span class="g g-Whitespace">    </span><span class="mi">789</span>         <span class="n">redirect</span><span class="p">,</span>
-<span class="g g-Whitespace">    </span><span class="mi">790</span>         <span class="n">assert_same_host</span><span class="p">,</span>
-<span class="g g-Whitespace">    </span><span class="mi">791</span>         <span class="n">timeout</span><span class="o">=</span><span class="n">timeout</span><span class="p">,</span>
-<span class="g g-Whitespace">    </span><span class="mi">792</span>         <span class="n">pool_timeout</span><span class="o">=</span><span class="n">pool_timeout</span><span class="p">,</span>
-<span class="g g-Whitespace">    </span><span class="mi">793</span>         <span class="n">release_conn</span><span class="o">=</span><span class="n">release_conn</span><span class="p">,</span>
-<span class="g g-Whitespace">    </span><span class="mi">794</span>         <span class="n">chunked</span><span class="o">=</span><span class="n">chunked</span><span class="p">,</span>
-<span class="g g-Whitespace">    </span><span class="mi">795</span>         <span class="n">body_pos</span><span class="o">=</span><span class="n">body_pos</span><span class="p">,</span>
-<span class="g g-Whitespace">    </span><span class="mi">796</span>         <span class="o">**</span><span class="n">response_kw</span>
-<span class="g g-Whitespace">    </span><span class="mi">797</span>     <span class="p">)</span>
-<span class="g g-Whitespace">    </span><span class="mi">799</span> <span class="c1"># Handle redirect?</span>
-<span class="g g-Whitespace">    </span><span class="mi">800</span> <span class="n">redirect_location</span> <span class="o">=</span> <span class="n">redirect</span> <span class="ow">and</span> <span class="n">response</span><span class="o">.</span><span class="n">get_redirect_location</span><span class="p">()</span>
-
-<span class="nn">File /opt/anaconda3/lib/python3.9/site-packages/urllib3/connectionpool.py:783,</span> in <span class="ni">HTTPConnectionPool.urlopen</span><span class="nt">(self, method, url, body, headers, retries, redirect, assert_same_host, timeout, pool_timeout, release_conn, chunked, body_pos, **response_kw)</span>
-<span class="g g-Whitespace">    </span><span class="mi">778</span> <span class="k">if</span> <span class="ow">not</span> <span class="n">conn</span><span class="p">:</span>
-<span class="g g-Whitespace">    </span><span class="mi">779</span>     <span class="c1"># Try again</span>
-<span class="g g-Whitespace">    </span><span class="mi">780</span>     <span class="n">log</span><span class="o">.</span><span class="n">warning</span><span class="p">(</span>
-<span class="g g-Whitespace">    </span><span class="mi">781</span>         <span class="s2">&quot;Retrying (</span><span class="si">%r</span><span class="s2">) after connection broken by &#39;</span><span class="si">%r</span><span class="s2">&#39;: </span><span class="si">%s</span><span class="s2">&quot;</span><span class="p">,</span> <span class="n">retries</span><span class="p">,</span> <span class="n">err</span><span class="p">,</span> <span class="n">url</span>
-<span class="g g-Whitespace">    </span><span class="mi">782</span>     <span class="p">)</span>
-<span class="ne">--&gt; </span><span class="mi">783</span>     <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">urlopen</span><span class="p">(</span>
-<span class="g g-Whitespace">    </span><span class="mi">784</span>         <span class="n">method</span><span class="p">,</span>
-<span class="g g-Whitespace">    </span><span class="mi">785</span>         <span class="n">url</span><span class="p">,</span>
-<span class="g g-Whitespace">    </span><span class="mi">786</span>         <span class="n">body</span><span class="p">,</span>
-<span class="g g-Whitespace">    </span><span class="mi">787</span>         <span class="n">headers</span><span class="p">,</span>
-<span class="g g-Whitespace">    </span><span class="mi">788</span>         <span class="n">retries</span><span class="p">,</span>
-<span class="g g-Whitespace">    </span><span class="mi">789</span>         <span class="n">redirect</span><span class="p">,</span>
-<span class="g g-Whitespace">    </span><span class="mi">790</span>         <span class="n">assert_same_host</span><span class="p">,</span>
-<span class="g g-Whitespace">    </span><span class="mi">791</span>         <span class="n">timeout</span><span class="o">=</span><span class="n">timeout</span><span class="p">,</span>
-<span class="g g-Whitespace">    </span><span class="mi">792</span>         <span class="n">pool_timeout</span><span class="o">=</span><span class="n">pool_timeout</span><span class="p">,</span>
-<span class="g g-Whitespace">    </span><span class="mi">793</span>         <span class="n">release_conn</span><span class="o">=</span><span class="n">release_conn</span><span class="p">,</span>
-<span class="g g-Whitespace">    </span><span class="mi">794</span>         <span class="n">chunked</span><span class="o">=</span><span class="n">chunked</span><span class="p">,</span>
-<span class="g g-Whitespace">    </span><span class="mi">795</span>         <span class="n">body_pos</span><span class="o">=</span><span class="n">body_pos</span><span class="p">,</span>
-<span class="g g-Whitespace">    </span><span class="mi">796</span>         <span class="o">**</span><span class="n">response_kw</span>
-<span class="g g-Whitespace">    </span><span class="mi">797</span>     <span class="p">)</span>
-<span class="g g-Whitespace">    </span><span class="mi">799</span> <span class="c1"># Handle redirect?</span>
-<span class="g g-Whitespace">    </span><span class="mi">800</span> <span class="n">redirect_location</span> <span class="o">=</span> <span class="n">redirect</span> <span class="ow">and</span> <span class="n">response</span><span class="o">.</span><span class="n">get_redirect_location</span><span class="p">()</span>
-
-    <span class="p">[</span><span class="o">...</span> <span class="n">skipping</span> <span class="n">similar</span> <span class="n">frames</span><span class="p">:</span> <span class="n">HTTPConnectionPool</span><span class="o">.</span><span class="n">urlopen</span> <span class="n">at</span> <span class="n">line</span> <span class="mi">783</span> <span class="p">(</span><span class="mi">1</span> <span class="n">times</span><span class="p">)]</span>
-
-<span class="nn">File /opt/anaconda3/lib/python3.9/site-packages/urllib3/connectionpool.py:783,</span> in <span class="ni">HTTPConnectionPool.urlopen</span><span class="nt">(self, method, url, body, headers, retries, redirect, assert_same_host, timeout, pool_timeout, release_conn, chunked, body_pos, **response_kw)</span>
-<span class="g g-Whitespace">    </span><span class="mi">778</span> <span class="k">if</span> <span class="ow">not</span> <span class="n">conn</span><span class="p">:</span>
-<span class="g g-Whitespace">    </span><span class="mi">779</span>     <span class="c1"># Try again</span>
-<span class="g g-Whitespace">    </span><span class="mi">780</span>     <span class="n">log</span><span class="o">.</span><span class="n">warning</span><span class="p">(</span>
-<span class="g g-Whitespace">    </span><span class="mi">781</span>         <span class="s2">&quot;Retrying (</span><span class="si">%r</span><span class="s2">) after connection broken by &#39;</span><span class="si">%r</span><span class="s2">&#39;: </span><span class="si">%s</span><span class="s2">&quot;</span><span class="p">,</span> <span class="n">retries</span><span class="p">,</span> <span class="n">err</span><span class="p">,</span> <span class="n">url</span>
-<span class="g g-Whitespace">    </span><span class="mi">782</span>     <span class="p">)</span>
-<span class="ne">--&gt; </span><span class="mi">783</span>     <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">urlopen</span><span class="p">(</span>
-<span class="g g-Whitespace">    </span><span class="mi">784</span>         <span class="n">method</span><span class="p">,</span>
-<span class="g g-Whitespace">    </span><span class="mi">785</span>         <span class="n">url</span><span class="p">,</span>
-<span class="g g-Whitespace">    </span><span class="mi">786</span>         <span class="n">body</span><span class="p">,</span>
-<span class="g g-Whitespace">    </span><span class="mi">787</span>         <span class="n">headers</span><span class="p">,</span>
-<span class="g g-Whitespace">    </span><span class="mi">788</span>         <span class="n">retries</span><span class="p">,</span>
-<span class="g g-Whitespace">    </span><span class="mi">789</span>         <span class="n">redirect</span><span class="p">,</span>
-<span class="g g-Whitespace">    </span><span class="mi">790</span>         <span class="n">assert_same_host</span><span class="p">,</span>
-<span class="g g-Whitespace">    </span><span class="mi">791</span>         <span class="n">timeout</span><span class="o">=</span><span class="n">timeout</span><span class="p">,</span>
-<span class="g g-Whitespace">    </span><span class="mi">792</span>         <span class="n">pool_timeout</span><span class="o">=</span><span class="n">pool_timeout</span><span class="p">,</span>
-<span class="g g-Whitespace">    </span><span class="mi">793</span>         <span class="n">release_conn</span><span class="o">=</span><span class="n">release_conn</span><span class="p">,</span>
-<span class="g g-Whitespace">    </span><span class="mi">794</span>         <span class="n">chunked</span><span class="o">=</span><span class="n">chunked</span><span class="p">,</span>
-<span class="g g-Whitespace">    </span><span class="mi">795</span>         <span class="n">body_pos</span><span class="o">=</span><span class="n">body_pos</span><span class="p">,</span>
-<span class="g g-Whitespace">    </span><span class="mi">796</span>         <span class="o">**</span><span class="n">response_kw</span>
-<span class="g g-Whitespace">    </span><span class="mi">797</span>     <span class="p">)</span>
-<span class="g g-Whitespace">    </span><span class="mi">799</span> <span class="c1"># Handle redirect?</span>
-<span class="g g-Whitespace">    </span><span class="mi">800</span> <span class="n">redirect_location</span> <span class="o">=</span> <span class="n">redirect</span> <span class="ow">and</span> <span class="n">response</span><span class="o">.</span><span class="n">get_redirect_location</span><span class="p">()</span>
-
-<span class="nn">File /opt/anaconda3/lib/python3.9/site-packages/urllib3/connectionpool.py:758,</span> in <span class="ni">HTTPConnectionPool.urlopen</span><span class="nt">(self, method, url, body, headers, retries, redirect, assert_same_host, timeout, pool_timeout, release_conn, chunked, body_pos, **response_kw)</span>
-<span class="g g-Whitespace">    </span><span class="mi">753</span>     <span class="n">e</span> <span class="o">=</span> <span class="n">ProtocolError</span><span class="p">(</span><span class="s2">&quot;Connection aborted.&quot;</span><span class="p">,</span> <span class="n">e</span><span class="p">)</span>
-<span class="g g-Whitespace">    </span><span class="mi">755</span> <span class="n">retries</span> <span class="o">=</span> <span class="n">retries</span><span class="o">.</span><span class="n">increment</span><span class="p">(</span>
-<span class="g g-Whitespace">    </span><span class="mi">756</span>     <span class="n">method</span><span class="p">,</span> <span class="n">url</span><span class="p">,</span> <span class="n">error</span><span class="o">=</span><span class="n">e</span><span class="p">,</span> <span class="n">_pool</span><span class="o">=</span><span class="bp">self</span><span class="p">,</span> <span class="n">_stacktrace</span><span class="o">=</span><span class="n">sys</span><span class="o">.</span><span class="n">exc_info</span><span class="p">()[</span><span class="mi">2</span><span class="p">]</span>
-<span class="g g-Whitespace">    </span><span class="mi">757</span> <span class="p">)</span>
-<span class="ne">--&gt; </span><span class="mi">758</span> <span class="n">retries</span><span class="o">.</span><span class="n">sleep</span><span class="p">()</span>
-<span class="g g-Whitespace">    </span><span class="mi">760</span> <span class="c1"># Keep track of the error for the retry warning.</span>
-<span class="g g-Whitespace">    </span><span class="mi">761</span> <span class="n">err</span> <span class="o">=</span> <span class="n">e</span>
-
-<span class="nn">File /opt/anaconda3/lib/python3.9/site-packages/urllib3/util/retry.py:414,</span> in <span class="ni">Retry.sleep</span><span class="nt">(self, response)</span>
-<span class="g g-Whitespace">    </span><span class="mi">411</span>     <span class="k">if</span> <span class="n">slept</span><span class="p">:</span>
-<span class="g g-Whitespace">    </span><span class="mi">412</span>         <span class="k">return</span>
-<span class="ne">--&gt; </span><span class="mi">414</span> <span class="bp">self</span><span class="o">.</span><span class="n">_sleep_backoff</span><span class="p">()</span>
-
-<span class="nn">File /opt/anaconda3/lib/python3.9/site-packages/urllib3/util/retry.py:398,</span> in <span class="ni">Retry._sleep_backoff</span><span class="nt">(self)</span>
-<span class="g g-Whitespace">    </span><span class="mi">396</span> <span class="k">if</span> <span class="n">backoff</span> <span class="o">&lt;=</span> <span class="mi">0</span><span class="p">:</span>
-<span class="g g-Whitespace">    </span><span class="mi">397</span>     <span class="k">return</span>
-<span class="ne">--&gt; </span><span class="mi">398</span> <span class="n">time</span><span class="o">.</span><span class="n">sleep</span><span class="p">(</span><span class="n">backoff</span><span class="p">)</span>
-
-<span class="ne">KeyboardInterrupt</span>: 
-</pre></div>
-</div>
-</div>
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>Value</th>
+    </tr>
+    <tr>
+      <th>Date</th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>1947-01-01</th>
+      <td>243.164</td>
+    </tr>
+    <tr>
+      <th>1947-04-01</th>
+      <td>245.968</td>
+    </tr>
+    <tr>
+      <th>1947-07-01</th>
+      <td>249.585</td>
+    </tr>
+    <tr>
+      <th>1947-10-01</th>
+      <td>259.745</td>
+    </tr>
+    <tr>
+      <th>1948-01-01</th>
+      <td>265.742</td>
+    </tr>
+    <tr>
+      <th>...</th>
+      <td>...</td>
+    </tr>
+    <tr>
+      <th>2020-10-01</th>
+      <td>21477.597</td>
+    </tr>
+    <tr>
+      <th>2021-01-01</th>
+      <td>22038.226</td>
+    </tr>
+    <tr>
+      <th>2021-04-01</th>
+      <td>22740.959</td>
+    </tr>
+    <tr>
+      <th>2021-07-01</th>
+      <td>23202.344</td>
+    </tr>
+    <tr>
+      <th>2021-10-01</th>
+      <td>23992.355</td>
+    </tr>
+  </tbody>
+</table>
+<p>300 rows × 1 columns</p>
+</div></div></div>
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -995,24 +806,24 @@ title="Print to PDF"
   </thead>
   <tbody>
     <tr>
-      <th>2023-04-11</th>
-      <td>29656.24</td>
+      <th>2024-01-04</th>
+      <td>42854.95</td>
     </tr>
     <tr>
-      <th>2023-04-12</th>
-      <td>30234.98</td>
+      <th>2024-01-05</th>
+      <td>44190.10</td>
     </tr>
     <tr>
-      <th>2023-04-13</th>
-      <td>29899.24</td>
+      <th>2024-01-06</th>
+      <td>44181.10</td>
     </tr>
     <tr>
-      <th>2023-04-14</th>
-      <td>30407.60</td>
+      <th>2024-01-07</th>
+      <td>43975.63</td>
     </tr>
     <tr>
-      <th>2023-04-15</th>
-      <td>30486.05</td>
+      <th>2024-01-08</th>
+      <td>43928.07</td>
     </tr>
   </tbody>
 </table>
@@ -1047,7 +858,7 @@ title="Print to PDF"
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Average return: 0.23%
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Average return: 0.22%
 </pre></div>
 </div>
 </div>
@@ -1137,43 +948,43 @@ title="Print to PDF"
       <td>...</td>
     </tr>
     <tr>
-      <th>2023-04-11</th>
-      <td>29656.24</td>
-      <td>0.046586</td>
-      <td>1.046586</td>
-      <td>92.938042</td>
+      <th>2024-01-04</th>
+      <td>42854.95</td>
+      <td>-0.046799</td>
+      <td>0.953201</td>
+      <td>134.745803</td>
     </tr>
     <tr>
-      <th>2023-04-12</th>
-      <td>30234.98</td>
-      <td>0.019515</td>
-      <td>1.019515</td>
-      <td>94.771239</td>
+      <th>2024-01-05</th>
+      <td>44190.10</td>
+      <td>0.031155</td>
+      <td>1.031155</td>
+      <td>138.974976</td>
     </tr>
     <tr>
-      <th>2023-04-13</th>
-      <td>29899.24</td>
-      <td>-0.011104</td>
-      <td>0.988896</td>
-      <td>93.707761</td>
+      <th>2024-01-06</th>
+      <td>44181.10</td>
+      <td>-0.000204</td>
+      <td>0.999796</td>
+      <td>138.946468</td>
     </tr>
     <tr>
-      <th>2023-04-14</th>
-      <td>30407.60</td>
-      <td>0.017002</td>
-      <td>1.017002</td>
-      <td>95.318023</td>
+      <th>2024-01-07</th>
+      <td>43975.63</td>
+      <td>-0.004651</td>
+      <td>0.995349</td>
+      <td>138.295629</td>
     </tr>
     <tr>
-      <th>2023-04-15</th>
-      <td>30486.05</td>
-      <td>0.002580</td>
-      <td>1.002580</td>
-      <td>95.566519</td>
+      <th>2024-01-08</th>
+      <td>43928.07</td>
+      <td>-0.001082</td>
+      <td>0.998918</td>
+      <td>138.144979</td>
     </tr>
   </tbody>
 </table>
-<p>3027 rows × 4 columns</p>
+<p>3295 rows × 4 columns</p>
 </div></div></div>
 </div>
 <p>We can now make a graph using the <strong>fig, axs</strong> method. This is good review! Again, notice that semi-colon at the end. This suppresses some annoying output in the Jupyter notebook.</p>
@@ -1222,16 +1033,16 @@ title="Print to PDF"
 </div>
 </div>
 <p>Let’s put together some ideas, write a function, and run a simulation. We’ll use something called <strong>geometric brownian motion</strong> (GBM). What is GBM? It is a particular <a class="reference external" href="https://arxiv.org/pdf/1504.05309.pdf">stochastic differential equation</a>. But, what’s important for us is the idea, which is fairly simple. Here’s the formula:</p>
-<div class="amsmath math notranslate nohighlight" id="equation-93e0d1f7-3957-4a9a-a088-52aadab12455">
-<span class="eqno">(6.1)<a class="headerlink" href="#equation-93e0d1f7-3957-4a9a-a088-52aadab12455" title="Permalink to this equation">#</a></span>\[\begin{align}
+<div class="amsmath math notranslate nohighlight" id="equation-0d6a8245-2f44-4104-ab86-8b3601eff888">
+<span class="eqno">(6.1)<a class="headerlink" href="#equation-0d6a8245-2f44-4104-ab86-8b3601eff888" title="Permalink to this equation">#</a></span>\[\begin{align}
 dS = \mu S dt + \sigma S dW_t
 \end{align}\]</div>
 <p>This says that the change in the stock price has two components - a <strong>drift</strong>, or average increase over time, and a <strong>shock</strong> that it is random at each point in time. The shock is scaled by the standard deviation of returns that you use. So, larger standard deviation, the bigger the shocks can be. This is basically the simplest way that you can model an asset price.</p>
 <p>The shocks are what make the price wiggle around around, or else it would just go up over time, based on the drift value that we use.</p>
 <p>And, I’ll stress - we aren’t predicting here, so to speak. We are trying to capture some basic reality about how an asset moves and then seeing what is possible in the future. We aren’t making a statement about whether we think an asset is overvalued or undervalued, will go up or down, etc.</p>
 <p>You can solve this equation to get the value of the asset at any point in time t. You just need to know the total of all of the shocks at time t.</p>
-<div class="amsmath math notranslate nohighlight" id="equation-2fc6d37d-58fc-41c9-9272-fdfa3ae68f5a">
-<span class="eqno">(6.2)<a class="headerlink" href="#equation-2fc6d37d-58fc-41c9-9272-fdfa3ae68f5a" title="Permalink to this equation">#</a></span>\[\begin{align}
+<div class="amsmath math notranslate nohighlight" id="equation-c959a9e7-a275-4c00-808c-d8a8ddd753aa">
+<span class="eqno">(6.2)<a class="headerlink" href="#equation-c959a9e7-a275-4c00-808c-d8a8ddd753aa" title="Permalink to this equation">#</a></span>\[\begin{align}
 S(t) = S(0) \exp \left(\left(\mu - \frac{1}{2}\sigma^2\right)t + \sigma W(t)\right)
 \end{align}\]</div>
 <div class="cell docutils container">
@@ -1297,19 +1108,19 @@ S(t) = S(0) \exp \left(\left(\mu - \frac{1}{2}\sigma^2\right)t + \sigma W(t)\rig
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>array([[-0.22764375,  0.66616125,  0.2690296 , ...,  1.23724302,
-        -1.7193544 , -0.31297741],
-       [-0.37475192, -0.576506  ,  2.83087209, ..., -0.39934126,
-        -0.67269187,  0.80478657],
-       [-0.34028403,  0.36534647, -0.42024997, ..., -1.23703819,
-        -1.86703547,  1.67135591],
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>array([[ 1.68952258,  0.27535775, -0.02970159, ...,  0.36052732,
+        -1.91346019, -0.14028389],
+       [ 2.33754691,  0.36934657,  0.0932756 , ...,  1.13896956,
+        -1.1405256 ,  0.33549333],
+       [ 1.39931843, -3.19592499,  0.48338957, ..., -1.53489312,
+        -1.13986786,  0.13391653],
        ...,
-       [-1.06306433, -0.05604163, -1.82729248, ...,  0.11109672,
-        -0.54515618,  1.74339067],
-       [-0.96750323,  0.17279   , -1.78542644, ..., -0.47524907,
-        -0.13458806, -0.13247772],
-       [ 0.06363717, -0.54343608,  1.01651732, ..., -0.12964301,
-        -0.76946645, -0.86638566]])
+       [ 0.37164192, -0.50181508, -1.10646484, ...,  0.71735313,
+        -1.42457767, -0.70249733],
+       [-1.54867718,  0.06842573,  0.42692855, ...,  0.3055734 ,
+         1.2878388 , -0.6184904 ],
+       [-1.13595697,  1.57454877, -0.46833188, ...,  2.02521622,
+        -0.09577491,  1.23761947]])
 </pre></div>
 </div>
 </div>
@@ -1407,19 +1218,19 @@ S(t) = S(0) \exp \left(\left(\mu - \frac{1}{2}\sigma^2\right)t + \sigma W(t)\rig
 <div class="cell_output docutils container">
 <div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;bound method NDFrame.head of                   GDP
 DATE                 
-2010-01-01  14764.611
+2010-01-01  14764.610
 2010-04-01  14980.193
-2010-07-01  15141.605
-2010-10-01  15309.471
-2011-01-01  15351.444
-2011-04-01  15557.535
-2011-07-01  15647.681
-2011-10-01  15842.267
-2012-01-01  16068.824
-2012-04-01  16207.130
-2012-07-01  16319.540
-2012-10-01  16420.386
-2013-01-01  16629.050&gt;
+2010-07-01  15141.607
+2010-10-01  15309.474
+2011-01-01  15351.448
+2011-04-01  15557.539
+2011-07-01  15647.680
+2011-10-01  15842.259
+2012-01-01  16068.805
+2012-04-01  16207.115
+2012-07-01  16319.541
+2012-10-01  16420.419
+2013-01-01  16648.189&gt;
 </pre></div>
 </div>
 </div>
@@ -1455,208 +1266,60 @@ DATE
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>{&#39;address1&#39;: &#39;One Microsoft Way&#39;,
- &#39;city&#39;: &#39;Redmond&#39;,
- &#39;state&#39;: &#39;WA&#39;,
- &#39;zip&#39;: &#39;98052-6399&#39;,
- &#39;country&#39;: &#39;United States&#39;,
- &#39;phone&#39;: &#39;425 882 8080&#39;,
- &#39;fax&#39;: &#39;425 706 7329&#39;,
- &#39;website&#39;: &#39;https://www.microsoft.com&#39;,
- &#39;industry&#39;: &#39;Software—Infrastructure&#39;,
- &#39;sector&#39;: &#39;Technology&#39;,
- &#39;longBusinessSummary&#39;: &#39;Microsoft Corporation develops, licenses, and supports software, services, devices, and solutions worldwide. The company operates in three segments: Productivity and Business Processes, Intelligent Cloud, and More Personal Computing. The Productivity and Business Processes segment offers Office, Exchange, SharePoint, Microsoft Teams, Office 365 Security and Compliance, Microsoft Viva, and Skype for Business; Skype, Outlook.com, OneDrive, and LinkedIn; and Dynamics 365, a set of cloud-based and on-premises business solutions for organizations and enterprise divisions. The Intelligent Cloud segment licenses SQL, Windows Servers, Visual Studio, System Center, and related Client Access Licenses; GitHub that provides a collaboration platform and code hosting service for developers; Nuance provides healthcare and enterprise AI solutions; and Azure, a cloud platform. It also offers enterprise support, Microsoft consulting, and nuance professional services to assist customers in developing, deploying, and managing Microsoft server and desktop solutions; and training and certification on Microsoft products. The More Personal Computing segment provides Windows original equipment manufacturer (OEM) licensing and other non-volume licensing of the Windows operating system; Windows Commercial, such as volume licensing of the Windows operating system, Windows cloud services, and other Windows commercial offerings; patent licensing; and Windows Internet of Things. It also offers Surface, PC accessories, PCs, tablets, gaming and entertainment consoles, and other devices; Gaming, including Xbox hardware, and Xbox content and services; video games and third-party video game royalties; and Search, including Bing and Microsoft advertising. The company sells its products through OEMs, distributors, and resellers; and directly through digital marketplaces, online stores, and retail stores. Microsoft Corporation was founded in 1975 and is headquartered in Redmond, Washington.&#39;,
- &#39;fullTimeEmployees&#39;: 221000,
- &#39;companyOfficers&#39;: [{&#39;maxAge&#39;: 1,
-   &#39;name&#39;: &#39;Mr. Satya  Nadella&#39;,
-   &#39;age&#39;: 55,
-   &#39;title&#39;: &#39;Chairman &amp; CEO&#39;,
-   &#39;yearBorn&#39;: 1967,
-   &#39;fiscalYear&#39;: 2022,
-   &#39;totalPay&#39;: 12676750,
-   &#39;exercisedValue&#39;: 0,
-   &#39;unexercisedValue&#39;: 0},
-  {&#39;maxAge&#39;: 1,
-   &#39;name&#39;: &#39;Mr. Bradford L. Smith LCA&#39;,
-   &#39;age&#39;: 63,
-   &#39;title&#39;: &#39;Pres &amp; Vice Chairman&#39;,
-   &#39;yearBorn&#39;: 1959,
-   &#39;fiscalYear&#39;: 2022,
-   &#39;totalPay&#39;: 4655274,
-   &#39;exercisedValue&#39;: 0,
-   &#39;unexercisedValue&#39;: 0},
-  {&#39;maxAge&#39;: 1,
-   &#39;name&#39;: &#39;Ms. Amy E. Hood&#39;,
-   &#39;age&#39;: 50,
-   &#39;title&#39;: &#39;Exec. VP &amp; CFO&#39;,
-   &#39;yearBorn&#39;: 1972,
-   &#39;fiscalYear&#39;: 2022,
-   &#39;totalPay&#39;: 4637915,
-   &#39;exercisedValue&#39;: 0,
-   &#39;unexercisedValue&#39;: 0},
-  {&#39;maxAge&#39;: 1,
-   &#39;name&#39;: &#39;Mr. Judson  Althoff&#39;,
-   &#39;age&#39;: 49,
-   &#39;title&#39;: &#39;Exec. VP &amp; Chief Commercial Officer&#39;,
-   &#39;yearBorn&#39;: 1973,
-   &#39;fiscalYear&#39;: 2022,
-   &#39;totalPay&#39;: 4428268,
-   &#39;exercisedValue&#39;: 0,
-   &#39;unexercisedValue&#39;: 0},
-  {&#39;maxAge&#39;: 1,
-   &#39;name&#39;: &#39;Mr. Christopher David Young&#39;,
-   &#39;age&#39;: 50,
-   &#39;title&#39;: &#39;Exec. VP of Bus. Devel., Strategy &amp; Ventures&#39;,
-   &#39;yearBorn&#39;: 1972,
-   &#39;fiscalYear&#39;: 2022,
-   &#39;totalPay&#39;: 4588876,
-   &#39;exercisedValue&#39;: 0,
-   &#39;unexercisedValue&#39;: 0},
-  {&#39;maxAge&#39;: 1,
-   &#39;name&#39;: &#39;Ms. Alice L. Jolla&#39;,
-   &#39;age&#39;: 55,
-   &#39;title&#39;: &#39;Corp. VP &amp; Chief Accounting Officer&#39;,
-   &#39;yearBorn&#39;: 1967,
-   &#39;exercisedValue&#39;: 0,
-   &#39;unexercisedValue&#39;: 0},
-  {&#39;maxAge&#39;: 1,
-   &#39;name&#39;: &#39;Brett  Iversen&#39;,
-   &#39;title&#39;: &#39;Gen. Mang. of Investor Relations&#39;,
-   &#39;exercisedValue&#39;: 0,
-   &#39;unexercisedValue&#39;: 0},
-  {&#39;maxAge&#39;: 1,
-   &#39;name&#39;: &#39;Mr. Frank X. Shaw&#39;,
-   &#39;title&#39;: &#39;Corp. VP for Corp. Communications&#39;,
-   &#39;exercisedValue&#39;: 0,
-   &#39;unexercisedValue&#39;: 0},
-  {&#39;maxAge&#39;: 1,
-   &#39;name&#39;: &#39;Mr. Christopher C. Capossela&#39;,
-   &#39;age&#39;: 52,
-   &#39;title&#39;: &#39;Exec. VP &amp; Chief Marketing Officer&#39;,
-   &#39;yearBorn&#39;: 1970,
-   &#39;exercisedValue&#39;: 0,
-   &#39;unexercisedValue&#39;: 0},
-  {&#39;maxAge&#39;: 1,
-   &#39;name&#39;: &#39;Mr. Keith Ranger Dolliver Esq.&#39;,
-   &#39;title&#39;: &#39;VP, Deputy Gen. Counsel of Corp., External &amp; Legal Affairs and Assistant Sec.&#39;,
-   &#39;exercisedValue&#39;: 0,
-   &#39;unexercisedValue&#39;: 0}],
- &#39;auditRisk&#39;: 6,
- &#39;boardRisk&#39;: 5,
- &#39;compensationRisk&#39;: 2,
- &#39;shareHolderRightsRisk&#39;: 2,
- &#39;overallRisk&#39;: 2,
- &#39;governanceEpochDate&#39;: 1682899200,
- &#39;compensationAsOfEpochDate&#39;: 1672444800,
- &#39;maxAge&#39;: 86400,
- &#39;priceHint&#39;: 2,
- &#39;previousClose&#39;: 305.56,
- &#39;open&#39;: 307.76,
- &#39;dayLow&#39;: 303.91,
- &#39;dayHigh&#39;: 309.165,
- &#39;regularMarketPreviousClose&#39;: 305.56,
- &#39;regularMarketOpen&#39;: 307.76,
- &#39;regularMarketDayLow&#39;: 303.91,
- &#39;regularMarketDayHigh&#39;: 309.165,
- &#39;dividendRate&#39;: 2.72,
- &#39;dividendYield&#39;: 0.0089,
- &#39;exDividendDate&#39;: 1684281600,
- &#39;payoutRatio&#39;: 0.28170002,
- &#39;fiveYearAvgDividendYield&#39;: 1.1,
- &#39;beta&#39;: 0.929757,
- &#39;trailingPE&#39;: 33.088844,
- &#39;forwardPE&#39;: 27.865875,
- &#39;volume&#39;: 26404431,
- &#39;regularMarketVolume&#39;: 26404431,
- &#39;averageVolume&#39;: 31077618,
- &#39;averageVolume10days&#39;: 32338860,
- &#39;averageDailyVolume10Day&#39;: 32338860,
- &#39;bid&#39;: 305.95,
- &#39;ask&#39;: 306.26,
- &#39;bidSize&#39;: 800,
- &#39;askSize&#39;: 900,
- &#39;marketCap&#39;: 2270872993792,
- &#39;fiftyTwoWeekLow&#39;: 213.43,
- &#39;fiftyTwoWeekHigh&#39;: 309.165,
- &#39;priceToSalesTrailing12Months&#39;: 10.939169,
- &#39;fiftyDayAverage&#39;: 273.8126,
- &#39;twoHundredDayAverage&#39;: 256.3663,
- &#39;trailingAnnualDividendRate&#39;: 2.66,
- &#39;trailingAnnualDividendYield&#39;: 0.008705328,
- &#39;currency&#39;: &#39;USD&#39;,
- &#39;enterpriseValue&#39;: 2245765365760,
- &#39;profitMargins&#39;: 0.33248,
- &#39;floatShares&#39;: 7428646926,
- &#39;sharesOutstanding&#39;: 7435489792,
- &#39;sharesShort&#39;: 40038879,
- &#39;sharesShortPriorMonth&#39;: 35907039,
- &#39;sharesShortPreviousMonthDate&#39;: 1678838400,
- &#39;dateShortInterest&#39;: 1681430400,
- &#39;sharesPercentSharesOut&#39;: 0.0054,
- &#39;heldPercentInsiders&#39;: 0.00052,
- &#39;heldPercentInstitutions&#39;: 0.73767,
- &#39;shortRatio&#39;: 1.25,
- &#39;shortPercentOfFloat&#39;: 0.0054,
- &#39;impliedSharesOutstanding&#39;: 0,
- &#39;bookValue&#39;: 26.178,
- &#39;priceToBook&#39;: 11.666667,
- &#39;lastFiscalYearEnd&#39;: 1656547200,
- &#39;nextFiscalYearEnd&#39;: 1688083200,
- &#39;mostRecentQuarter&#39;: 1680220800,
- &#39;earningsQuarterlyGrowth&#39;: 0.094,
- &#39;netIncomeToCommon&#39;: 69020000256,
- &#39;trailingEps&#39;: 9.23,
- &#39;forwardEps&#39;: 10.96,
- &#39;pegRatio&#39;: 2.61,
- &#39;lastSplitFactor&#39;: &#39;2:1&#39;,
- &#39;lastSplitDate&#39;: 1045526400,
- &#39;enterpriseToRevenue&#39;: 10.818,
- &#39;enterpriseToEbitda&#39;: 22.44,
- &#39;52WeekChange&#39;: 0.08439207,
- &#39;SandP52WeekChange&#39;: -0.0018225312,
- &#39;lastDividendValue&#39;: 0.68,
- &#39;lastDividendDate&#39;: 1676419200,
- &#39;exchange&#39;: &#39;NMS&#39;,
- &#39;quoteType&#39;: &#39;EQUITY&#39;,
- &#39;symbol&#39;: &#39;MSFT&#39;,
- &#39;underlyingSymbol&#39;: &#39;MSFT&#39;,
- &#39;shortName&#39;: &#39;Microsoft Corporation&#39;,
- &#39;longName&#39;: &#39;Microsoft Corporation&#39;,
- &#39;firstTradeDateEpochUtc&#39;: 511108200,
- &#39;timeZoneFullName&#39;: &#39;America/New_York&#39;,
- &#39;timeZoneShortName&#39;: &#39;EDT&#39;,
- &#39;uuid&#39;: &#39;b004b3ec-de24-385e-b2c1-923f10d3fb62&#39;,
- &#39;messageBoardId&#39;: &#39;finmb_21835&#39;,
- &#39;gmtOffSetMilliseconds&#39;: -14400000,
- &#39;currentPrice&#39;: 305.41,
- &#39;targetHighPrice&#39;: 400.0,
- &#39;targetLowPrice&#39;: 232.0,
- &#39;targetMeanPrice&#39;: 327.6,
- &#39;targetMedianPrice&#39;: 333.0,
- &#39;recommendationMean&#39;: 1.8,
- &#39;recommendationKey&#39;: &#39;buy&#39;,
- &#39;numberOfAnalystOpinions&#39;: 45,
- &#39;totalCash&#39;: 104419000320,
- &#39;totalCashPerShare&#39;: 14.043,
- &#39;ebitda&#39;: 100080001024,
- &#39;totalDebt&#39;: 79312003072,
- &#39;quickRatio&#39;: 1.655,
- &#39;currentRatio&#39;: 1.913,
- &#39;totalRevenue&#39;: 207590998016,
- &#39;debtToEquity&#39;: 40.739,
- &#39;revenuePerShare&#39;: 27.844,
- &#39;returnOnAssets&#39;: 0.14829001,
- &#39;returnOnEquity&#39;: 0.38601002,
- &#39;grossProfits&#39;: 135620000000,
- &#39;freeCashflow&#39;: 42964873216,
- &#39;operatingCashflow&#39;: 83441000448,
- &#39;earningsGrowth&#39;: 0.104,
- &#39;revenueGrowth&#39;: 0.071,
- &#39;grossMargins&#39;: 0.68522,
- &#39;ebitdaMargins&#39;: 0.48209998,
- &#39;operatingMargins&#39;: 0.41415,
- &#39;financialCurrency&#39;: &#39;USD&#39;,
- &#39;trailingPegRatio&#39;: 2.0698}
+<div class="output traceback highlight-ipythontb notranslate"><div class="highlight"><pre><span></span><span class="gt">---------------------------------------------------------------------------</span>
+<span class="ne">HTTPError</span><span class="g g-Whitespace">                                 </span>Traceback (most recent call last)
+<span class="nn">Input In [21],</span> in <span class="ni">&lt;cell line: 4&gt;</span><span class="nt">()</span>
+<span class="g g-Whitespace">      </span><span class="mi">1</span> <span class="n">msft</span> <span class="o">=</span> <span class="n">yf</span><span class="o">.</span><span class="n">Ticker</span><span class="p">(</span><span class="s2">&quot;MSFT&quot;</span><span class="p">)</span>
+<span class="g g-Whitespace">      </span><span class="mi">3</span> <span class="c1"># get all stock info</span>
+<span class="ne">----&gt; </span><span class="mi">4</span> <span class="n">msft</span><span class="o">.</span><span class="n">info</span>
+
+<span class="nn">File /opt/anaconda3/lib/python3.9/site-packages/yfinance/ticker.py:138,</span> in <span class="ni">Ticker.info</span><span class="nt">(self)</span>
+<span class="g g-Whitespace">    </span><span class="mi">136</span> <span class="nd">@property</span>
+<span class="g g-Whitespace">    </span><span class="mi">137</span> <span class="k">def</span> <span class="nf">info</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">dict</span><span class="p">:</span>
+<span class="ne">--&gt; </span><span class="mi">138</span>     <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_info</span><span class="p">()</span>
+
+<span class="nn">File /opt/anaconda3/lib/python3.9/site-packages/yfinance/base.py:1020,</span> in <span class="ni">TickerBase.get_info</span><span class="nt">(self, proxy)</span>
+<span class="g g-Whitespace">   </span><span class="mi">1018</span> <span class="k">def</span> <span class="nf">get_info</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">proxy</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">dict</span><span class="p">:</span>
+<span class="g g-Whitespace">   </span><span class="mi">1019</span>     <span class="bp">self</span><span class="o">.</span><span class="n">_quote</span><span class="o">.</span><span class="n">proxy</span> <span class="o">=</span> <span class="n">proxy</span>
+<span class="ne">-&gt; </span><span class="mi">1020</span>     <span class="n">data</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_quote</span><span class="o">.</span><span class="n">info</span>
+<span class="g g-Whitespace">   </span><span class="mi">1021</span>     <span class="k">return</span> <span class="n">data</span>
+
+<span class="nn">File /opt/anaconda3/lib/python3.9/site-packages/yfinance/scrapers/quote.py:555,</span> in <span class="ni">Quote.info</span><span class="nt">(self)</span>
+<span class="g g-Whitespace">    </span><span class="mi">551</span> <span class="nd">@property</span>
+<span class="g g-Whitespace">    </span><span class="mi">552</span> <span class="k">def</span> <span class="nf">info</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">dict</span><span class="p">:</span>
+<span class="g g-Whitespace">    </span><span class="mi">553</span>     <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_info</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+<span class="g g-Whitespace">    </span><span class="mi">554</span>         <span class="c1"># self._scrape(self.proxy)  # decrypt broken</span>
+<span class="ne">--&gt; </span><span class="mi">555</span>         <span class="bp">self</span><span class="o">.</span><span class="n">_fetch</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">proxy</span><span class="p">)</span>
+<span class="g g-Whitespace">    </span><span class="mi">557</span>         <span class="bp">self</span><span class="o">.</span><span class="n">_fetch_complementary</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">proxy</span><span class="p">)</span>
+<span class="g g-Whitespace">    </span><span class="mi">559</span>     <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_info</span>
+
+<span class="nn">File /opt/anaconda3/lib/python3.9/site-packages/yfinance/scrapers/quote.py:706,</span> in <span class="ni">Quote._fetch</span><span class="nt">(self, proxy)</span>
+<span class="g g-Whitespace">    </span><span class="mi">703</span> <span class="bp">self</span><span class="o">.</span><span class="n">_already_fetched</span> <span class="o">=</span> <span class="kc">True</span>
+<span class="g g-Whitespace">    </span><span class="mi">704</span> <span class="n">modules</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;summaryProfile&#39;</span><span class="p">,</span> <span class="s1">&#39;financialData&#39;</span><span class="p">,</span> <span class="s1">&#39;quoteType&#39;</span><span class="p">,</span>
+<span class="g g-Whitespace">    </span><span class="mi">705</span>              <span class="s1">&#39;defaultKeyStatistics&#39;</span><span class="p">,</span> <span class="s1">&#39;assetProfile&#39;</span><span class="p">,</span> <span class="s1">&#39;summaryDetail&#39;</span><span class="p">]</span>
+<span class="ne">--&gt; </span><span class="mi">706</span> <span class="n">result</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_data</span><span class="o">.</span><span class="n">get_raw_json</span><span class="p">(</span>
+<span class="g g-Whitespace">    </span><span class="mi">707</span>     <span class="n">_BASIC_URL_</span> <span class="o">+</span> <span class="sa">f</span><span class="s2">&quot;/</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">_data</span><span class="o">.</span><span class="n">ticker</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">,</span> <span class="n">params</span><span class="o">=</span><span class="p">{</span><span class="s2">&quot;modules&quot;</span><span class="p">:</span> <span class="s2">&quot;,&quot;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">modules</span><span class="p">),</span> <span class="s2">&quot;ssl&quot;</span><span class="p">:</span> <span class="s2">&quot;true&quot;</span><span class="p">},</span> <span class="n">proxy</span><span class="o">=</span><span class="n">proxy</span>
+<span class="g g-Whitespace">    </span><span class="mi">708</span> <span class="p">)</span>
+<span class="g g-Whitespace">    </span><span class="mi">709</span> <span class="n">result</span><span class="p">[</span><span class="s2">&quot;quoteSummary&quot;</span><span class="p">][</span><span class="s2">&quot;result&quot;</span><span class="p">][</span><span class="mi">0</span><span class="p">][</span><span class="s2">&quot;symbol&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_data</span><span class="o">.</span><span class="n">ticker</span>
+<span class="g g-Whitespace">    </span><span class="mi">710</span> <span class="n">query1_info</span> <span class="o">=</span> <span class="nb">next</span><span class="p">(</span>
+<span class="g g-Whitespace">    </span><span class="mi">711</span>     <span class="p">(</span><span class="n">info</span> <span class="k">for</span> <span class="n">info</span> <span class="ow">in</span> <span class="n">result</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;quoteSummary&quot;</span><span class="p">,</span> <span class="p">{})</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;result&quot;</span><span class="p">,</span> <span class="p">[])</span> <span class="k">if</span> <span class="n">info</span><span class="p">[</span><span class="s2">&quot;symbol&quot;</span><span class="p">]</span> <span class="o">==</span> <span class="bp">self</span><span class="o">.</span><span class="n">_data</span><span class="o">.</span><span class="n">ticker</span><span class="p">),</span>
+<span class="g g-Whitespace">    </span><span class="mi">712</span>     <span class="kc">None</span><span class="p">,</span>
+<span class="g g-Whitespace">    </span><span class="mi">713</span> <span class="p">)</span>
+
+<span class="nn">File /opt/anaconda3/lib/python3.9/site-packages/yfinance/data.py:209,</span> in <span class="ni">TickerData.get_raw_json</span><span class="nt">(self, url, user_agent_headers, params, proxy, timeout)</span>
+<span class="g g-Whitespace">    </span><span class="mi">207</span> <span class="k">def</span> <span class="nf">get_raw_json</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">url</span><span class="p">,</span> <span class="n">user_agent_headers</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">params</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">proxy</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">timeout</span><span class="o">=</span><span class="mi">30</span><span class="p">):</span>
+<span class="g g-Whitespace">    </span><span class="mi">208</span>     <span class="n">response</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">url</span><span class="p">,</span> <span class="n">user_agent_headers</span><span class="o">=</span><span class="n">user_agent_headers</span><span class="p">,</span> <span class="n">params</span><span class="o">=</span><span class="n">params</span><span class="p">,</span> <span class="n">proxy</span><span class="o">=</span><span class="n">proxy</span><span class="p">,</span> <span class="n">timeout</span><span class="o">=</span><span class="n">timeout</span><span class="p">)</span>
+<span class="ne">--&gt; </span><span class="mi">209</span>     <span class="n">response</span><span class="o">.</span><span class="n">raise_for_status</span><span class="p">()</span>
+<span class="g g-Whitespace">    </span><span class="mi">210</span>     <span class="k">return</span> <span class="n">response</span><span class="o">.</span><span class="n">json</span><span class="p">()</span>
+
+<span class="nn">File /opt/anaconda3/lib/python3.9/site-packages/requests/models.py:1021,</span> in <span class="ni">Response.raise_for_status</span><span class="nt">(self)</span>
+<span class="g g-Whitespace">   </span><span class="mi">1016</span>     <span class="n">http_error_msg</span> <span class="o">=</span> <span class="p">(</span>
+<span class="g g-Whitespace">   </span><span class="mi">1017</span>         <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">status_code</span><span class="si">}</span><span class="s2"> Server Error: </span><span class="si">{</span><span class="n">reason</span><span class="si">}</span><span class="s2"> for url: </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">url</span><span class="si">}</span><span class="s2">&quot;</span>
+<span class="g g-Whitespace">   </span><span class="mi">1018</span>     <span class="p">)</span>
+<span class="g g-Whitespace">   </span><span class="mi">1020</span> <span class="k">if</span> <span class="n">http_error_msg</span><span class="p">:</span>
+<span class="ne">-&gt; </span><span class="mi">1021</span>     <span class="k">raise</span> <span class="n">HTTPError</span><span class="p">(</span><span class="n">http_error_msg</span><span class="p">,</span> <span class="n">response</span><span class="o">=</span><span class="bp">self</span><span class="p">)</span>
+
+<span class="ne">HTTPError</span>: 401 Client Error: Unauthorized for url: https://query2.finance.yahoo.com/v10/finance/quoteSummary/MSFT?modules=summaryProfile%2CfinancialData%2CquoteType%2CdefaultKeyStatistics%2CassetProfile%2CsummaryDetail&amp;ssl=true
 </pre></div>
 </div>
 </div>

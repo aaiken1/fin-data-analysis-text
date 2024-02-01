@@ -670,8 +670,8 @@ title="Print to PDF"
 <p>For example, suppose that K = 100 and the stock ends up at 101 at the call options maturity. You will exercise the option, with a payoff of 1 and a profit of 1 - C. But, if the stock ends up at 99, you just lose C. If you buy a stock at 100 and it ends up at 99, you still have 99 worth of stock.</p>
 <p><strong>European options</strong> can only be exercised on the maturity date of the option. <strong>American options</strong> can be exercised early. The terms don’t have anything to do with where the options are traded.</p>
 <p>Finally, there is an important relationship between the call price, the put price, the current stock price, and the borrowing needed to form the portfolio called <a class="reference external" href="https://en.wikipedia.org/wiki/Put%E2%80%93call_parity">put-call parity</a>.</p>
-<div class="amsmath math notranslate nohighlight" id="equation-32c2ec47-725d-4164-8c1d-0443c3191dbb">
-<span class="eqno">(18.1)<a class="headerlink" href="#equation-32c2ec47-725d-4164-8c1d-0443c3191dbb" title="Permalink to this equation">#</a></span>\[\begin{align}
+<div class="amsmath math notranslate nohighlight" id="equation-b9f4ecba-9138-4391-9811-35c2d0dedfe7">
+<span class="eqno">(18.1)<a class="headerlink" href="#equation-b9f4ecba-9138-4391-9811-35c2d0dedfe7" title="Permalink to this equation">#</a></span>\[\begin{align}
 C - P = S - Ke^{-rt}
 \end{align}\]</div>
 <p>This is an <strong>arbitrage relationship</strong>, as there is free money to be had if it doesn’t hold. If you think you observe a situation where it isn’t true, it is likely because <strong>transactions costs</strong> (i.e. the costs associated with trading) are preventing market participants from exploiting the difference.</p>
@@ -747,8 +747,8 @@ C - P = S - Ke^{-rt}
 <p>Let’s write a <strong>function</strong> that takes the inputs into the BSM model and values a <strong>call option</strong>. You would do something very similar for a <strong>put option</strong>. Again, we are trying to find the <strong>price</strong> that you would pay for the right to buy or sell a stock at a certain price in the future. This price is going to depend on the option contract parameters and, crucially, an assumption about the <strong>volatility</strong> of the asset.</p>
 <p>Notice what <strong>does not</strong> appear in the BSM formula - the expected return on the stock! This is the magic. We don’t need to have any expectations for Apple’s return in order to price their options.</p>
 <p>The BSM formula for a call option price at time 0 (today) is:</p>
-<div class="amsmath math notranslate nohighlight" id="equation-50926481-acda-495a-abf6-f1b3e141372b">
-<span class="eqno">(18.2)<a class="headerlink" href="#equation-50926481-acda-495a-abf6-f1b3e141372b" title="Permalink to this equation">#</a></span>\[\begin{align}
+<div class="amsmath math notranslate nohighlight" id="equation-9e3453cb-eabc-4b65-980b-02094ad31d39">
+<span class="eqno">(18.2)<a class="headerlink" href="#equation-9e3453cb-eabc-4b65-980b-02094ad31d39" title="Permalink to this equation">#</a></span>\[\begin{align}
 C_0 = S_0N(d_1) - e^{-rT}KN(d_2)
 \end{align}\]</div>
 <p>where <span class="math notranslate nohighlight">\(C_0\)</span> is the call price, <span class="math notranslate nohighlight">\(S_0\)</span> is the stock price today, <span class="math notranslate nohighlight">\(K\)</span> is the strike price, <span class="math notranslate nohighlight">\(r\)</span> is the risk-free rate, and <span class="math notranslate nohighlight">\(T\)</span> is the time-to-maturity. You’ll also see <span class="math notranslate nohighlight">\(T-t\)</span>, where <span class="math notranslate nohighlight">\(T\)</span> is the maturity date and <span class="math notranslate nohighlight">\(t\)</span> is today’s date. We’re using <span class="math notranslate nohighlight">\(T\)</span> as the number of years (fractional) until the maturity date.</p>
@@ -756,18 +756,18 @@ C_0 = S_0N(d_1) - e^{-rT}KN(d_2)
 <p>One of the <strong>key ideas</strong> with option pricing is the idea of <strong>risk neutral pricing</strong>. This comes from the idea of the arbitrage relationship and allows us to discount payoffs at a known risk-free rate, rather than something more difficult to calculate, like the required return on equity for a stock based on the CAPM.</p>
 <p>Now, what is <span class="math notranslate nohighlight">\(N()\)</span>? This is the <strong>cumulative density function (CDF)</strong> for the standard normal distribution with a mean of 0 and a standard deviation of 1. What is a <strong>CDF</strong>? Put a number into this function. The CDF gives the probability that a random draw from that distribution will be less than or equal to that number (i.e. the area under the curve of the distribution up to that number on the x-axis). So, N(0) = 0.5, since half of the distribution is to the left of the mean.</p>
 <p>Finally, what are <span class="math notranslate nohighlight">\(d_1\)</span> and <span class="math notranslate nohighlight">\(d_2\)</span>? They are defined as:</p>
-<div class="amsmath math notranslate nohighlight" id="equation-6a85194a-34a7-45b1-9847-1b73c60ed64f">
-<span class="eqno">(18.3)<a class="headerlink" href="#equation-6a85194a-34a7-45b1-9847-1b73c60ed64f" title="Permalink to this equation">#</a></span>\[\begin{align}
+<div class="amsmath math notranslate nohighlight" id="equation-ecec7e9a-d0a8-4c35-847f-18ab9390ad86">
+<span class="eqno">(18.3)<a class="headerlink" href="#equation-ecec7e9a-d0a8-4c35-847f-18ab9390ad86" title="Permalink to this equation">#</a></span>\[\begin{align}
 d_1 = \frac{log\frac{S_0}{K} + (r + \frac{1}{2} \sigma^2)T}{\sigma\sqrt(T)}
 \end{align}\]</div>
-<div class="amsmath math notranslate nohighlight" id="equation-280b37a3-5931-4346-919e-f38f7786e235">
-<span class="eqno">(18.4)<a class="headerlink" href="#equation-280b37a3-5931-4346-919e-f38f7786e235" title="Permalink to this equation">#</a></span>\[\begin{align}
+<div class="amsmath math notranslate nohighlight" id="equation-7eac49a3-97ca-4ea5-8976-36f8de806983">
+<span class="eqno">(18.4)<a class="headerlink" href="#equation-7eac49a3-97ca-4ea5-8976-36f8de806983" title="Permalink to this equation">#</a></span>\[\begin{align}
 d_2 = d_1 - \sigma\sqrt(T) = \frac{log\frac{S_0}{K} + (r - \frac{1}{2} \sigma^2)T}{\sigma\sqrt(T)}
 \end{align}\]</div>
 <p>You see how there’s some more <span class="math notranslate nohighlight">\(\frac{1}{2}\sigma^2\)</span>, logs, <span class="math notranslate nohighlight">\(T\)</span>, and <span class="math notranslate nohighlight">\(\sqrt(T)\)</span>, like with our simulations? The underlying math (Brownian motion) is the same. <span class="math notranslate nohighlight">\(\sigma^2\)</span> is the variance of the continuously compounded rate of return (log returns) for the asset. Note that we do need to calculate this using data, or some other set of assumptions.</p>
 <p>How can we interpret these formulas? Let’s re-write the BSM formula:</p>
-<div class="amsmath math notranslate nohighlight" id="equation-203213f7-6637-4b9e-924a-684c96726c74">
-<span class="eqno">(18.5)<a class="headerlink" href="#equation-203213f7-6637-4b9e-924a-684c96726c74" title="Permalink to this equation">#</a></span>\[\begin{align}
+<div class="amsmath math notranslate nohighlight" id="equation-bbd96109-0a14-41b4-8dfd-78b7b38fe7dc">
+<span class="eqno">(18.5)<a class="headerlink" href="#equation-bbd96109-0a14-41b4-8dfd-78b7b38fe7dc" title="Permalink to this equation">#</a></span>\[\begin{align}
 C_0 = e^{-rT}(S_0e^{rT}N(d_1) - KN(d_2))
 \end{align}\]</div>
 <p>The BSM formula has two pieces. The pieces represent this idea of an <strong>arbitrage</strong> relationship. In other words, we can create an option from other securities. For a call option, we can <strong>replicate the option</strong> by purchasing the stock and then financing that purchase by borrowing the money needed. Like we say with put-call parity, the option is a combination of the stock and borrowing.</p>
