@@ -2,6 +2,8 @@
 
 We are going to start by getting you set-up in [Github](https://github.com) and Codespaces. I'll go through how our assignments are going to work in Github Classroom. These tools mean that you can do all of your coding **in your browser** using what are called [Jupyter notebooks](https://jupyter.org), but in an environment that acts like the common VS Code desktop setup, including [version control](https://ourcodingclub.github.io/tutorials/git/) with git and Github.
 
+The [Writing Code section from Coding for Economists](https://aeturrell.github.io/coding-for-economists/code-where.html) is a great place to start. His [Code Preliminaries](https://aeturrell.github.io/coding-for-economists/code-preliminaries.html) section also introduces some important ideas, like IDEs, packages, and VS Code.
+
 Then, I'll discuss how to do a **local install** of our tools. I'll get you set-up with the Anaconda distribution of Python, Jupyter notebooks, and VS Code. From VS Code, we can also use Jupyter notebooks. I would encourage you to get very comfortable with the Jupyter notebook format and VS Code. We'll go over everything in class as well.
 
 I will also show you other ways to use Jupyter notebooks, including [Google Colab](https://colab.research.google.com).

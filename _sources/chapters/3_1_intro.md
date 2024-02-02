@@ -10,5 +10,5 @@ I also mention **functional programming** (something we'll come back to) and **c
 
 These notes follow along with Chapters 3 and 4 of [Python for Finance, 2e](https://www.oreilly.com/library/view/python-for-finance/9781492024323/).
 
-Finally, you'll see this material again in your first Datacamp assignment, **Introduction to Python for Finance**. Control structures will appear in your second assignment, **Intermediate Python for Finance**.
+Finally, you'll find a lot of this material in the [Coding Basics section of Coding for Economists](https://aeturrell.github.io/coding-for-economists/code-basics.html)
 

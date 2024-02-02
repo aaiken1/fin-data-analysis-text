@@ -8,6 +8,8 @@ Markdown was created in 2004 by John Gruber of [Apple blogging fame](https://dar
 
 Here's a Markdown [cheatsheet](https://www.markdownguide.org/cheat-sheet/). You'll get the hang of it very quickly.
 
-I suggest starting at [Datacamp](https://www.datacamp.com/community/tutorials/markdown-in-jupyter-notebook) for some examples of how to use Markdown in a Jupyter notebook. We'll go through our own examples in class. 
+I suggest starting at [Datacamp](https://www.datacamp.com/community/tutorials/markdown-in-jupyter-notebook) for some examples of how to use Markdown in a Jupyter notebook. We'll go through our own examples in class.
+
+The [Markdown Section from Coding for Economists](https://aeturrell.github.io/coding-for-economists/wrkflow-markdown.html) is also great.
 
 You can read more about how to use [VS Code and Markdown](https://code.visualstudio.com/docs/languages/markdown).
