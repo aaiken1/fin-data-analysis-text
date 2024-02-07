@@ -161,3 +161,46 @@ You'll see how they are using **bash** commands in the **terminal** on a Mac. Wi
 
 The important thing, though, are the **git ideas**. Version control. Repositories. Snapshots. Git add, commit, push. Readme files. These are the backbone of modern computing!
 
+## Create a Github repository for our class
+
+You can accept assignments from Github Classroom, which creates a personal repository for that assignment. You can work on that assignment in Github Codespace. You can use git to push your work in the Codespace back to the repository, where I can see it.
+
+```{figure} ../images/22-create-new-codespace.png
+---
+name: 22-create-new-codespace.png
+align: center
+---
+Every codespace needs to live in a repository.
+```
+
+But, what if you just want to code? Maybe we're just coding together in class. When you try to create a new Codespace that is **not related** to one of our Github Classroom assignments, you're asked to create the Codespace within a repository. Which repository?
+
+```{figure} ../images/22-my-repositories.png
+---
+name: 22-my-repositories.png
+align: center
+---
+Click the green, New button in the upper-right to create a new repository.
+```
+
+Let's create a general repository (i.e. directory to store files), just for this class. You can name this repository something general and make it private so that others don't see it on your Github page. Then, this can be your **home repository** for general coding. Later on, you can even more files into this repository, if you want to save them.
+
+```{figure} ../images/22-creating-repository.png
+---
+name: 22-creating-repository.png
+align: center
+---
+Repositories are essentially directories where you can store files. In this case, you'll be storing Jupyter notebooks, Python scripts, and data on Github's servers. You can make local copies of repositories as well.
+```
+
+Once you've created the new repository, it will appear on your Github page. If it is public, everyone can see your files. If it's private, just you can.
+
+Once you're done with our course, I recommend creating a public repository to demonstrate some of your work. You can add the link to your LinkedIn profile. 
+
+```{figure} ../images/22-my-class-repository.png
+---
+name: 22-my-class-repository.png
+align: center
+---
+When you create a new Codespace, you'll get your new repository as an option.
+```
