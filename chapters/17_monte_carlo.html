@@ -218,7 +218,7 @@ const thebe_selector_output = ".output, .cell_output"
  </li>
  <li class="toctree-l1 has-children">
   <a class="reference internal" href="4_intro.html">
-   4. Pandas and data
+   4. Working with data
   </a>
   <input class="toctree-checkbox" id="toctree-checkbox-3" name="toctree-checkbox-3" type="checkbox"/>
   <label for="toctree-checkbox-3">
@@ -228,37 +228,37 @@ const thebe_selector_output = ".output, .cell_output"
   <ul>
    <li class="toctree-l2">
     <a class="reference internal" href="4_0_dataframes.html">
-     4.1. Data importing
+     4.2. Importing data
     </a>
    </li>
    <li class="toctree-l2">
     <a class="reference internal" href="4_1_pandas.html">
-     4.2. pandas
+     4.3. pandas
     </a>
    </li>
    <li class="toctree-l2">
     <a class="reference internal" href="4_2_cleaning_data.html">
-     4.3. Cleaning our data
+     4.4. Cleaning our data
     </a>
    </li>
    <li class="toctree-l2">
     <a class="reference internal" href="4_3_eda.html">
-     4.4. Exploratory data analysis (EDA)
+     4.5. Exploratory data analysis (EDA)
     </a>
    </li>
    <li class="toctree-l2">
     <a class="reference internal" href="4_4_merge_shape.html">
-     4.5. Merging and reshaping data
+     4.6. Merging and reshaping data
     </a>
    </li>
    <li class="toctree-l2">
     <a class="reference internal" href="4_5_sql.html">
-     4.6. Using SQL in Python
+     4.7. Using SQL in Python
     </a>
    </li>
    <li class="toctree-l2">
     <a class="reference internal" href="4_6_polar.html">
-     4.7. polars: A fast, fancy pandas alternative
+     4.8. polars: A fast, fancy pandas alternative
     </a>
    </li>
   </ul>
@@ -604,15 +604,15 @@ title="Print to PDF"
 <p>However, when we start to form portfolios, we are going to care about the correlations across assets. We’ve already seen this when looking at portfolio math. When simulating the Bitcoin prices, we took random numbers from the standard normal distribution and then scaled them by our estimate for the volatility of BTC. This allowed us to capture the randomness of the returns.</p>
 <p>However, when dealing with more than one asset, we can’t do that, since the assets are <strong>not independent</strong> from one another. If Apple goes up, Google is more likely to have gone up as well. The two stocks are <strong>correlated</strong>. How can we account for this in our simulation? We will create <strong>correlated random shocks</strong> (<span class="math notranslate nohighlight">\(W\)</span>), where the random movement of one asset depends on another assets movement.</p>
 <p>Let’s try a simulation to see what’s going on. I’ll draw two random variables from the standard normal distribution, N(0,1). The random part of the return for Asset 1, <span class="math notranslate nohighlight">\(W_1\)</span>, is simply the random draw, <span class="math notranslate nohighlight">\(x_1\)</span>. However, the random part of the return for Asset 2, <span class="math notranslate nohighlight">\(W_2\)</span>, is correlated with whatever <span class="math notranslate nohighlight">\(x_1\)</span> ends up being. Mathematically, this dependent random movement is given as:</p>
-<div class="amsmath math notranslate nohighlight" id="equation-086855be-cd7c-48cc-8b03-d3983690d1c7">
-<span class="eqno">(17.1)<a class="headerlink" href="#equation-086855be-cd7c-48cc-8b03-d3983690d1c7" title="Permalink to this equation">#</a></span>\[\begin{align}
+<div class="amsmath math notranslate nohighlight" id="equation-bdd1ccd9-9413-49ef-bc35-619ee314f895">
+<span class="eqno">(17.1)<a class="headerlink" href="#equation-bdd1ccd9-9413-49ef-bc35-619ee314f895" title="Permalink to this equation">#</a></span>\[\begin{align}
 W_2 = \rho x_1 + (1 - \sqrt{\rho^2}) x_2
 \end{align}\]</div>
 <p>I’ll set the correlation, <span class="math notranslate nohighlight">\(\rho\)</span>, to be -0.80. These two assets are negatively correlated, so they should move in opposite directions. We’ll set each asset to have the same mean return and same volatility. I’ll set the starting price of each of these assets to 1.</p>
 <p>We’ll bring in our usual packages and try this out. This code should look a lot like the Bitcoin code, except that I now have two assets. I am only doing one simulation for each asset, so two total simulations.</p>
 <p>How do we simulative prices? Let me remind you of a formula:</p>
-<div class="amsmath math notranslate nohighlight" id="equation-2602f65d-602b-470a-b67c-57a761828915">
-<span class="eqno">(17.2)<a class="headerlink" href="#equation-2602f65d-602b-470a-b67c-57a761828915" title="Permalink to this equation">#</a></span>\[\begin{align}
+<div class="amsmath math notranslate nohighlight" id="equation-c8f185e3-f6f2-4b36-8241-16f94747036e">
+<span class="eqno">(17.2)<a class="headerlink" href="#equation-c8f185e3-f6f2-4b36-8241-16f94747036e" title="Permalink to this equation">#</a></span>\[\begin{align}
 S(t) = S(0) \exp \left(\left(\mu - \frac{1}{2}\sigma^2\right)t + \sigma W(t)\right)
 \end{align}\]</div>
 <p>Take a starting price <span class="math notranslate nohighlight">\(S_0\)</span>. We use <code class="docutils literal notranslate"><span class="pre">exp</span></code> for continuous compounding. Then, the price today, <span class="math notranslate nohighlight">\(S_t\)</span> is a function of two return sources. The first source is called <strong>drift</strong>: <span class="math notranslate nohighlight">\(\mu - \frac{1}{2}\sigma^2\)</span>. This is what an asset returns on average over some period, like a day. This is the <strong>deterministic</strong> piece of the return and would be related to risk. <span class="math notranslate nohighlight">\(\mu\)</span> is the <strong>arithmetic average</strong> and <span class="math notranslate nohighlight">\(\sigma\)</span> is the volatility (standard deviation). They should be in the same units (e.g. daily).</p>
@@ -714,8 +714,10 @@ S(t) = S(0) \exp \left(\left(\mu - \frac{1}{2}\sigma^2\right)t + \sigma W(t)\rig
 <div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[**********************60%****                   ]  3 of 5 completed
 </pre></div>
 </div>
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[**********************80%*************          ]  4 of 5 completed
-[*********************100%***********************]  5 of 5 completed
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[**********************60%****                   ]  3 of 5 completed
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[*********************100%***********************]  5 of 5 completed
 </pre></div>
 </div>
 <div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>
@@ -810,11 +812,11 @@ S(t) = S(0) \exp \left(\left(\mu - \frac{1}{2}\sigma^2\right)t + \sigma W(t)\rig
   <tbody>
     <tr>
       <th>2019-01-02</th>
-      <td>37.893333</td>
+      <td>37.845039</td>
       <td>76.956497</td>
       <td>17.785395</td>
       <td>6.351992</td>
-      <td>53.962505</td>
+      <td>53.465622</td>
       <td>39.480000</td>
       <td>76.956497</td>
       <td>21.330000</td>
@@ -834,11 +836,11 @@ S(t) = S(0) \exp \left(\left(\mu - \frac{1}{2}\sigma^2\right)t + \sigma W(t)\rig
     </tr>
     <tr>
       <th>2019-01-03</th>
-      <td>34.118885</td>
+      <td>34.075397</td>
       <td>75.014000</td>
-      <td>17.977177</td>
-      <td>6.255506</td>
-      <td>53.133976</td>
+      <td>17.977175</td>
+      <td>6.255507</td>
+      <td>52.644714</td>
       <td>35.547501</td>
       <td>75.014000</td>
       <td>21.559999</td>
@@ -858,11 +860,11 @@ S(t) = S(0) \exp \left(\left(\mu - \frac{1}{2}\sigma^2\right)t + \sigma W(t)\rig
     </tr>
     <tr>
       <th>2019-01-04</th>
-      <td>35.575382</td>
+      <td>35.530048</td>
       <td>78.769501</td>
-      <td>18.227325</td>
+      <td>18.227327</td>
       <td>6.496720</td>
-      <td>55.093014</td>
+      <td>54.585716</td>
       <td>37.064999</td>
       <td>78.769501</td>
       <td>21.860001</td>
@@ -882,11 +884,11 @@ S(t) = S(0) \exp \left(\left(\mu - \frac{1}{2}\sigma^2\right)t + \sigma W(t)\rig
     </tr>
     <tr>
       <th>2019-01-07</th>
-      <td>35.496204</td>
+      <td>35.450974</td>
       <td>81.475502</td>
-      <td>18.602543</td>
+      <td>18.602541</td>
       <td>6.665571</td>
-      <td>55.379513</td>
+      <td>54.869568</td>
       <td>36.982498</td>
       <td>81.475502</td>
       <td>22.309999</td>
@@ -906,11 +908,11 @@ S(t) = S(0) \exp \left(\left(\mu - \frac{1}{2}\sigma^2\right)t + \sigma W(t)\rig
     </tr>
     <tr>
       <th>2019-01-08</th>
-      <td>36.172867</td>
+      <td>36.126766</td>
       <td>82.829002</td>
-      <td>17.877117</td>
-      <td>6.729897</td>
-      <td>55.782169</td>
+      <td>17.877119</td>
+      <td>6.729896</td>
+      <td>55.268513</td>
       <td>37.687500</td>
       <td>82.829002</td>
       <td>21.440001</td>
@@ -954,11 +956,11 @@ S(t) = S(0) \exp \left(\left(\mu - \frac{1}{2}\sigma^2\right)t + \sigma W(t)\rig
     </tr>
     <tr>
       <th>2019-12-24</th>
-      <td>69.236221</td>
+      <td>69.147987</td>
       <td>89.460503</td>
-      <td>29.314165</td>
-      <td>8.119876</td>
-      <td>56.814789</td>
+      <td>29.314152</td>
+      <td>8.119877</td>
+      <td>56.291626</td>
       <td>71.067497</td>
       <td>89.460503</td>
       <td>34.049999</td>
@@ -978,11 +980,11 @@ S(t) = S(0) \exp \left(\left(\mu - \frac{1}{2}\sigma^2\right)t + \sigma W(t)\rig
     </tr>
     <tr>
       <th>2019-12-26</th>
-      <td>70.609901</td>
+      <td>70.519928</td>
       <td>93.438499</td>
       <td>29.004230</td>
       <td>8.102728</td>
-      <td>56.904049</td>
+      <td>56.380066</td>
       <td>72.477501</td>
       <td>93.438499</td>
       <td>33.689999</td>
@@ -1002,11 +1004,11 @@ S(t) = S(0) \exp \left(\left(\mu - \frac{1}{2}\sigma^2\right)t + \sigma W(t)\rig
     </tr>
     <tr>
       <th>2019-12-27</th>
-      <td>70.583099</td>
+      <td>70.493156</td>
       <td>93.489998</td>
-      <td>29.426083</td>
-      <td>8.025558</td>
-      <td>56.709312</td>
+      <td>29.426085</td>
+      <td>8.025559</td>
+      <td>56.187119</td>
       <td>72.449997</td>
       <td>93.489998</td>
       <td>34.180000</td>
@@ -1026,11 +1028,11 @@ S(t) = S(0) \exp \left(\left(\mu - \frac{1}{2}\sigma^2\right)t + \sigma W(t)\rig
     </tr>
     <tr>
       <th>2019-12-30</th>
-      <td>71.002045</td>
+      <td>70.911552</td>
       <td>92.344498</td>
       <td>29.305552</td>
       <td>7.931242</td>
-      <td>56.376633</td>
+      <td>55.857513</td>
       <td>72.879997</td>
       <td>92.344498</td>
       <td>34.040001</td>
@@ -1050,11 +1052,11 @@ S(t) = S(0) \exp \left(\left(\mu - \frac{1}{2}\sigma^2\right)t + \sigma W(t)\rig
     </tr>
     <tr>
       <th>2019-12-31</th>
-      <td>71.520813</td>
+      <td>71.429665</td>
       <td>92.391998</td>
-      <td>29.477737</td>
-      <td>7.974113</td>
-      <td>56.620045</td>
+      <td>29.477745</td>
+      <td>7.974114</td>
+      <td>56.098690</td>
       <td>73.412498</td>
       <td>92.391998</td>
       <td>34.240002</td>
@@ -1154,7 +1156,7 @@ S(t) = S(0) \exp \left(\left(\mu - \frac{1}{2}\sigma^2\right)t + \sigma W(t)\rig
       <th>2019-01-09</th>
       <td>0.016982</td>
       <td>0.001714</td>
-      <td>-0.002798</td>
+      <td>-0.002799</td>
       <td>0.041816</td>
       <td>0.005275</td>
     </tr>
@@ -1176,9 +1178,9 @@ S(t) = S(0) \exp \left(\left(\mu - \frac{1}{2}\sigma^2\right)t + \sigma W(t)\rig
     </tr>
     <tr>
       <th>2019-12-26</th>
-      <td>0.019840</td>
+      <td>0.019841</td>
       <td>0.044467</td>
-      <td>-0.010573</td>
+      <td>-0.010572</td>
       <td>-0.002112</td>
       <td>0.001571</td>
     </tr>
@@ -1266,7 +1268,7 @@ S(t) = S(0) \exp \left(\left(\mu - \frac{1}{2}\sigma^2\right)t + \sigma W(t)\rig
       <td>0.014382</td>
       <td>0.022887</td>
       <td>0.017158</td>
-      <td>0.011499</td>
+      <td>0.011500</td>
     </tr>
     <tr>
       <th>min</th>
@@ -1290,15 +1292,15 @@ S(t) = S(0) \exp \left(\left(\mu - \frac{1}{2}\sigma^2\right)t + \sigma W(t)\rig
       <td>0.001163</td>
       <td>0.002338</td>
       <td>0.000964</td>
-      <td>0.000694</td>
+      <td>0.000693</td>
     </tr>
     <tr>
       <th>75%</th>
       <td>0.011560</td>
       <td>0.008535</td>
       <td>0.013240</td>
-      <td>0.010033</td>
-      <td>0.007803</td>
+      <td>0.010034</td>
+      <td>0.007802</td>
     </tr>
     <tr>
       <th>max</th>
@@ -1377,31 +1379,31 @@ S(t) = S(0) \exp \left(\left(\mu - \frac{1}{2}\sigma^2\right)t + \sigma W(t)\rig
     <tr>
       <th>AAPL</th>
       <td>1.000000</td>
-      <td>0.592889</td>
-      <td>0.152909</td>
+      <td>0.592888</td>
+      <td>0.152910</td>
       <td>0.305896</td>
       <td>0.416557</td>
     </tr>
     <tr>
       <th>AMZN</th>
-      <td>0.592889</td>
+      <td>0.592888</td>
       <td>1.000000</td>
       <td>0.116090</td>
-      <td>0.364217</td>
+      <td>0.364216</td>
       <td>0.370257</td>
     </tr>
     <tr>
       <th>CAG</th>
-      <td>0.152909</td>
+      <td>0.152910</td>
       <td>0.116090</td>
       <td>1.000000</td>
       <td>0.066561</td>
-      <td>0.160014</td>
+      <td>0.160015</td>
     </tr>
     <tr>
       <th>F</th>
       <td>0.305896</td>
-      <td>0.364217</td>
+      <td>0.364216</td>
       <td>0.066561</td>
       <td>1.000000</td>
       <td>0.375397</td>
@@ -1410,7 +1412,7 @@ S(t) = S(0) \exp \left(\left(\mu - \frac{1}{2}\sigma^2\right)t + \sigma W(t)\rig
       <th>XOM</th>
       <td>0.416557</td>
       <td>0.370257</td>
-      <td>0.160014</td>
+      <td>0.160015</td>
       <td>0.375397</td>
       <td>1.000000</td>
     </tr>
@@ -1494,7 +1496,7 @@ S(t) = S(0) \exp \left(\left(\mu - \frac{1}{2}\sigma^2\right)t + \sigma W(t)\rig
       <td>1.000000</td>
       <td>0.595471</td>
       <td>0.266348</td>
-      <td>0.304453</td>
+      <td>0.304452</td>
       <td>0.501392</td>
     </tr>
     <tr>
@@ -1502,30 +1504,30 @@ S(t) = S(0) \exp \left(\left(\mu - \frac{1}{2}\sigma^2\right)t + \sigma W(t)\rig
       <td>0.595471</td>
       <td>1.000000</td>
       <td>0.213023</td>
-      <td>0.387221</td>
-      <td>0.443720</td>
+      <td>0.387220</td>
+      <td>0.443719</td>
     </tr>
     <tr>
       <th>2</th>
       <td>0.266348</td>
       <td>0.213023</td>
       <td>1.000000</td>
-      <td>0.156466</td>
-      <td>0.257571</td>
+      <td>0.156465</td>
+      <td>0.257572</td>
     </tr>
     <tr>
       <th>3</th>
-      <td>0.304453</td>
-      <td>0.387221</td>
-      <td>0.156466</td>
+      <td>0.304452</td>
+      <td>0.387220</td>
+      <td>0.156465</td>
       <td>1.000000</td>
       <td>0.349659</td>
     </tr>
     <tr>
       <th>4</th>
       <td>0.501392</td>
-      <td>0.443720</td>
-      <td>0.257571</td>
+      <td>0.443719</td>
+      <td>0.257572</td>
       <td>0.349659</td>
       <td>1.000000</td>
     </tr>
