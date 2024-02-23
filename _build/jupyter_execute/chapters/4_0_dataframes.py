@@ -1,17 +1,13 @@
 #!/usr/bin/env python
 # coding: utf-8
 
-# # Data importing
+# # Importing data
 # 
 # Let's start by getting some data into Python. This will usually be the first step in our code, right after we import any of the libraries, like `numpy` and `pandas` that we need.
 # 
 # There is a [DataCamp tutorial on Excel files and Python](https://www.datacamp.com/community/tutorials/python-excel-tutorial) that you might find helpful. You can read also more about [reading in CSV files at DataCamp](https://www.datacamp.com/community/tutorials/pandas-read-csv). 
 # 
-# The second DataCamp assignment, **Intermediate Python for Finance**, covers how to create `DataFrames` from `dictionaries` and `lists`. 
-# 
-# The fifth DataCamp assignment, **Importing and Managing Financial Data in Python** covers all of this in great detail.
-# 
-# We'll typically be importing our data from CSV and Excel files.
+# We'll typically be either **importing** our data from CSV and Excel files or using **data APIs** (Application Programming Interfaces) to pull in data from external sources. We'll do more of the latter in a separate section of the notes.
 
 # There's some price data up on our [course Github page](https://github.com/aaiken1/fin-data-analysis-python). Let's import this both as a downloaded CSV file and then directly from Github. No need to download the file to your computer and deal with folders. 
 # 
@@ -60,7 +56,7 @@ prices = pd.read_csv('../data/tr_eikon_eod_data.csv',
 # 
 # You can read about the `pd.read_csv` method on the [`pandas` web page](https://pandas.pydata.org/docs/reference/api/pandas.read_csv.html).
 # 
-# You can also write Python data to a .csv or Excel file. Our DataCamp assignments will go over all of this.
+# You can also write Python data to a .csv or Excel file.
 # 
 # Let's now read in this file directly from our class Github page. When reading data in from Github, you won't have to download it first. I'll call the resulting DataFrame `prices2`, just so that we can see that we actually have the same thing twice.
 # 

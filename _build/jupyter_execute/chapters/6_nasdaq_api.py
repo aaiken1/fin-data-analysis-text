@@ -75,20 +75,20 @@ gdp = nasdaqdatalink.get('FRED/GDP')
 gdp
 
 
-# In[3]:
+# In[112]:
 
 
 btc = nasdaqdatalink.get('BCHAIN/MKPRU')
 btc.tail()
 
 
-# In[4]:
+# In[113]:
 
 
 btc['ret'] = btc.pct_change().dropna()
 
 
-# In[5]:
+# In[114]:
 
 
 btc = btc.loc['2015-01-01':,['Value', 'ret']]
@@ -97,7 +97,7 @@ btc.plot()
 
 # Well, that's not a very good graph. The returns and price levels are in different units. Let's use an `f print` to show and format the average BTC return.
 
-# In[6]:
+# In[115]:
 
 
 print(f'Average return: {100 * btc.ret.mean():.2f}%')
@@ -105,7 +105,7 @@ print(f'Average return: {100 * btc.ret.mean():.2f}%')
 
 # Let's make a cumulative return chart and daily return chart. We can then stack these on top of each other. I'll use the `.sub(1)` method to subtract 1 from the cumulative product. You see this a lot in the DataCamps.
 
-# In[7]:
+# In[116]:
 
 
 btc['ret_g'] = btc.ret.add(1) # gross return
@@ -115,7 +115,7 @@ btc
 
 # We can now make a graph using the **fig, axs** method. This is good review! Again, notice that semi-colon at the end. This suppresses some annoying output in the Jupyter notebook. 
 
-# In[8]:
+# In[117]:
 
 
 fig, axs = plt.subplots(2, 1, sharex=True, sharey=False, figsize=(10, 6))
@@ -133,7 +133,7 @@ axs[1].legend();
 
 # I can make the same graph using the `.add_subplot()` syntax. The method above gives you some more flexibility, since you can give both plots the same x-axis.
 
-# In[9]:
+# In[118]:
 
 
 fig = plt.figure(figsize=(10, 6))
@@ -171,7 +171,7 @@ plt.subplots_adjust(wspace=0.5, hspace=0.5);
 # S(t) = S(0) \exp \left(\left(\mu - \frac{1}{2}\sigma^2\right)t + \sigma W(t)\right)
 # \end{align}
 
-# In[10]:
+# In[119]:
 
 
 T = 30 # How long is our simulation? Let's do 31 days (0 to 30 the way Python counts)
@@ -184,7 +184,7 @@ sigma = btc.ret.std()
 
 # This is the basic syntax for writing a function in Python. We saw this earlier, back when doing "Comp 101". Remember, in Python, **indentation matters**!
 
-# In[11]:
+# In[120]:
 
 
 def simulate_gbm(s_0, mu, sigma, n_sims, T, N):
@@ -203,7 +203,7 @@ def simulate_gbm(s_0, mu, sigma, n_sims, T, N):
 # 
 # We can look at each piece of the function code, with some numbers hard-coded, to get a sense of what's going on. This gets tricky - keep track of the dimensions. I think that's the hardest part. How many numbers are we creating in each array? What do they mean?
 
-# In[12]:
+# In[121]:
 
 
 # Creates 100 rows of 30 random numbers from the standard normal distribution.
@@ -228,25 +228,25 @@ S_t = np.insert(S_t, 0, S_0, axis=1)
 
 # We can look at these individually, too.
 
-# In[13]:
+# In[122]:
 
 
 dW
 
 
-# In[14]:
+# In[123]:
 
 
 time_steps
 
 
-# In[15]:
+# In[124]:
 
 
 len(time_steps)
 
 
-# In[16]:
+# In[125]:
 
 
 np.shape(time_steps)
@@ -256,7 +256,7 @@ np.shape(time_steps)
 # 
 # We can then use our function. This returns an `narray`. 
 
-# In[17]:
+# In[126]:
 
 
 gbm_simulations = simulate_gbm(S_0, mu, sigma, N_SIM, T, N)
@@ -264,7 +264,7 @@ gbm_simulations = simulate_gbm(S_0, mu, sigma, N_SIM, T, N)
 
 # And, we can plot all of the simulations. I'm going to use `pandas` to plot, save to `ax`, and the style the `ax`.
 
-# In[18]:
+# In[127]:
 
 
 gbm_simulations_df = pd.DataFrame(np.transpose(gbm_simulations))
@@ -291,7 +291,7 @@ ax.set_title('BTC Simulations', fontsize=16);
 # 
 # Here's another FRED example, but using `pandas-datareader`.
 
-# In[19]:
+# In[128]:
 
 
 start = dt.datetime(2010, 1, 1)
@@ -307,7 +307,7 @@ gdp.head
 # 
 # Here's some basic set-up that gets [yfinance](https://pypi.org/project/yfinance/) working.
 
-# In[20]:
+# In[1]:
 
 
 # The usual type of set-up.
@@ -326,7 +326,7 @@ yf.pdr_override()
 
 # I'll do the example from the [yfinance](https://pypi.org/project/yfinance/) webpage. This brings in information on MSFT as a `yfinance` ticker object. It looks like a JSON file to me. See below for more on JSON as a storage type.
 
-# In[21]:
+# In[2]:
 
 
 msft = yf.Ticker("MSFT")

@@ -9,10 +9,8 @@
 # 
 # 
 # ```{note}
-# I am borrowing heavily from [Chapter 1 of Python for Data Science](https://www.tomasbeuzen.com/python-programming-for-data-science/chapters/chapter1-basics.html) and [Chapter 3 of Python for Finance, 2e](https://www.oreilly.com/library/view/python-for-finance/9781492024323/).
+# I am borrowing heavily from [Chapter 1 of Python for Data Science](https://www.tomasbeuzen.com/python-programming-for-data-science/chapters/chapter1-basics.html) and [Chapter 3 of Python for Finance, 2e](https://www.oreilly.com/library/view/python-for-finance/9781492024323/). You'll also find this in [Coding Basics from Coding for Economists](https://aeturrell.github.io/coding-for-economists/code-basics.html).
 # ```
-# 
-# The table below highlights important items that you should look for as you read our text. Also, the author quickly starts to use basic control structures, like `if`, `then`, and `while`. We'll discuss these in more detail, but he does a good job of going line-by-line and demonstrating the logic. Follow along with the examples.
 # 
 # There are additional resources on Datacamp, as well. Here is a [DataCamp tutorial on Python data structures](https://www.datacamp.com/community/tutorials/data-structures-python) and here is a [DataCamp tutorial on Python strings](https://www.datacamp.com/community/tutorials/python-string-tutorial), or dealing with text. 
 # 
@@ -231,7 +229,7 @@ print(X)
 
 # ### Strings
 # 
-# Strings are **text**. We could spend half this semester or more just dealing with text, [regular expressions](https://www.datacamp.com/community/tutorials/python-regular-expression-tutorial), [natural language programming](https://www.datacamp.com/tracks/natural-language-processing-in-python) (NLP). To start, though, we need to know that strings are a basic and essential data type across all programming languages.
+# Strings are **text**. We could spend half this semester or more just dealing with text, [regular expressions](https://www.datacamp.com/community/tutorials/python-regular-expression-tutorial), [natural language programming](https://www.datacamp.com/tracks/natural-language-processing-in-python) (NLP). Our Hull textbook has a chapter on dealing with text. To start, though, we need to know that strings are a basic and essential data type across all programming languages.
 # 
 # You can use either `'` or `"` around text. This is helpful when the string has a `'` in it.
 
@@ -276,7 +274,7 @@ txt.replace(' ', '******')
 
 # ## Data structures
 # 
-# Our book differentiates between data types and data structures. Of the basic data structures, I think we'll deal with **lists** the most. We'll see arrays and data frames in the next few chapters. We'll use those two and their associated methods all of the time.
+# We just saw data types. There are also **data structures**. Of the basic data structures, I think we'll deal with **lists** the most. We'll see arrays and data frames in the next few chapters. We'll use those two and their associated methods all of the time.
 
 # ### Lists 
 # Lists allow us to store multiple things ("elements") in a single object. The elements are **ordered**. We'll start with lists. Lists are defined with square brackets `[]`.

@@ -85,7 +85,7 @@ uw.tail()
 # 
 # Let’s think about the other variable definitions a bit. Zillow places homes into three tiers based on the home’s estimated market value, with Tier3 being the highest value. `AllHomes` refers to all homes in that tier or across all tiers. `UWHomes` refers to homes that are at risk for flooding. Note that there are some variables that are counts, some that are dollar values, and others that are percentages.
 # 
-# Finally, when using a Jupyter notebook, you can just put the name of the DataFrame in a cell and run the cell. You'll get a peak at the DataFrame too. In the DataCamp assignments, you're using a Python **script**, not a Jupyter notebook, which is why they have to do things like use `print()` to get the data to display. The Jupyter notebook does this automatically for us.
+# Finally, when using a Jupyter notebook, you can just put the name of the DataFrame in a cell and run the cell. You'll get a peak at the DataFrame too. If you're using a Python **script**, not a Jupyter notebook, then you have to do things like use `print()` to get the data to display. The Jupyter notebook does this automatically for us.
 
 # In[6]:
 
@@ -281,7 +281,7 @@ uw[uw['RegionType'] == 'MSA'].head(15)
 uw[(uw['RegionType'] == 'MSA') & (uw['StateName'] == 'North Carolina')].head(15)
 
 
-# Notice how I needed to put `()` around each condition. Python is testing to see if each of these are `True` or `False` and then filtering our data accordingly. You'll also see **masking** in the DataCamp assignments. Here's an example.
+# Notice how I needed to put `()` around each condition. Python is testing to see if each of these are `True` or `False` and then filtering our data accordingly. This is also called **masking**. Here's an example.
 
 # In[22]:
 

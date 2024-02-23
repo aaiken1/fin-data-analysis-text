@@ -17,7 +17,7 @@
 # 
 # Check out this [DataCamp tutorial on arrays in Python](https://www.datacamp.com/community/tutorials/python-arrays) for more. 
 # 
-# ```{margin} [Python for Finance, 2e](https://www.oreilly.com/library/view/python-for-finance/9781492024323/)calls this numerical computing.
+# ```{margin} [Python for Finance, 2e](https://www.oreilly.com/library/view/python-for-finance/9781492024323/) calls this numerical computing.
 # Numerical computing and numerical methods are an entire field of computer science and mathematics. And the whole world is basically linear algebra.
 # ```
 # 

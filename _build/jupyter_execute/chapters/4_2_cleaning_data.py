@@ -5,13 +5,24 @@
 # 
 # Cleaning your data and dealing with dates. That's the life of anyone who deals with data, especially in finance. Most data sets are messy. This is especially true if you or your firm is the one collecting the data and not just purchasing something.
 # 
+# Then, once your data is (reasonably) clean and error free, you start **creating the variables** that will go into your statistical/machine learning models. This is called **feature engineering**. 
+# 
 # DataCamp has an article on [cleaning data in `pandas`](https://www.datacamp.com/community/tutorials/data-preparation-with-pandas).
 # 
 # [Chapter 7](https://wesmckinney.com/book/data-cleaning.html) of *Python for Data Analysis* for more data cleaning tips.
 # 
+# And, as always, I like the [Coding for Economists](https://aeturrell.github.io/coding-for-economists/intro.html) text.
+# - [Working with Data](https://aeturrell.github.io/coding-for-economists/data-intro.html) has `pandas` examples. Note the discussion of ***tidy data**. 
+# - [Data Transformation](https://aeturrell.github.io/coding-for-economists/data-transformation.html) has data aggregation and summary examples.
+# - [Missing Values](https://aeturrell.github.io/coding-for-economists/data-missing-values.html) covers what to do with missing values in your data.
+# 
 # ## Data Integrity
 # 
-# [know how your data were created](https://kieranhealy.org/blog/archives/2018/08/01/i-cant-believe-its-not-butter/).
+# Before you even start to clean your data, you have to [know how your data were created](https://kieranhealy.org/blog/archives/2018/08/01/i-cant-believe-its-not-butter/).
+# 
+# What does this mean in practice? Read the data manual if you are using data constructed by someone else! Did you pull data from [FRED](https://fred.stlouisfed.org)? How did the BLS construct that time series? Did anything change? Can you really compare a number from 2023 to 2019, or did a definition change?
+# 
+# Can you [compare Super Bowl viewership over time?](https://www.sportsmediawatch.com/super-bowl-ratings-historical-viewership-chart-cbs-nbc-fox-abc/)
 # 
 # ## Underwater exploration
 # 

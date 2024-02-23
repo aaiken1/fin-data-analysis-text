@@ -218,7 +218,7 @@ const thebe_selector_output = ".output, .cell_output"
  </li>
  <li class="toctree-l1 has-children">
   <a class="reference internal" href="4_intro.html">
-   4. Pandas and data
+   4. Working with data
   </a>
   <input class="toctree-checkbox" id="toctree-checkbox-3" name="toctree-checkbox-3" type="checkbox"/>
   <label for="toctree-checkbox-3">
@@ -228,37 +228,37 @@ const thebe_selector_output = ".output, .cell_output"
   <ul>
    <li class="toctree-l2">
     <a class="reference internal" href="4_0_dataframes.html">
-     4.1. Data importing
+     4.2. Importing data
     </a>
    </li>
    <li class="toctree-l2">
     <a class="reference internal" href="4_1_pandas.html">
-     4.2. pandas
+     4.3. pandas
     </a>
    </li>
    <li class="toctree-l2">
     <a class="reference internal" href="4_2_cleaning_data.html">
-     4.3. Cleaning our data
+     4.4. Cleaning our data
     </a>
    </li>
    <li class="toctree-l2">
     <a class="reference internal" href="4_3_eda.html">
-     4.4. Exploratory data analysis (EDA)
+     4.5. Exploratory data analysis (EDA)
     </a>
    </li>
    <li class="toctree-l2">
     <a class="reference internal" href="4_4_merge_shape.html">
-     4.5. Merging and reshaping data
+     4.6. Merging and reshaping data
     </a>
    </li>
    <li class="toctree-l2">
     <a class="reference internal" href="4_5_sql.html">
-     4.6. Using SQL in Python
+     4.7. Using SQL in Python
     </a>
    </li>
    <li class="toctree-l2">
     <a class="reference internal" href="4_6_polar.html">
-     4.7. polars: A fast, fancy pandas alternative
+     4.8. polars: A fast, fancy pandas alternative
     </a>
    </li>
   </ul>
@@ -378,35 +378,6 @@ const thebe_selector_output = ".output, .cell_output"
  <li class="toctree-l1">
   <a class="reference internal" href="20_trading_bt.html">
    20. Trading Strategies and the BT Package
-  </a>
- </li>
-</ul>
-<p aria-level="2" class="caption" role="heading">
- <span class="caption-text">
-  Labs
- </span>
-</p>
-<ul class="nav bd-sidenav">
- <li class="toctree-l1">
-  <a class="reference internal" href="lab_intro.html">
-   Our labs
-  </a>
- </li>
- <li class="toctree-l1">
-  <a class="reference internal" href="lab01.html">
-   Lab 01
-  </a>
- </li>
-</ul>
-<p aria-level="2" class="caption" role="heading">
- <span class="caption-text">
-  Exams
- </span>
-</p>
-<ul class="nav bd-sidenav">
- <li class="toctree-l1">
-  <a class="reference internal" href="exam_intro.html">
-   Our Exams
   </a>
  </li>
 </ul>
@@ -699,8 +670,8 @@ title="Print to PDF"
 <p>For example, suppose that K = 100 and the stock ends up at 101 at the call options maturity. You will exercise the option, with a payoff of 1 and a profit of 1 - C. But, if the stock ends up at 99, you just lose C. If you buy a stock at 100 and it ends up at 99, you still have 99 worth of stock.</p>
 <p><strong>European options</strong> can only be exercised on the maturity date of the option. <strong>American options</strong> can be exercised early. The terms don’t have anything to do with where the options are traded.</p>
 <p>Finally, there is an important relationship between the call price, the put price, the current stock price, and the borrowing needed to form the portfolio called <a class="reference external" href="https://en.wikipedia.org/wiki/Put%E2%80%93call_parity">put-call parity</a>.</p>
-<div class="amsmath math notranslate nohighlight" id="equation-70a1510f-6bbe-4280-93f4-26895b45ff5d">
-<span class="eqno">(18.1)<a class="headerlink" href="#equation-70a1510f-6bbe-4280-93f4-26895b45ff5d" title="Permalink to this equation">#</a></span>\[\begin{align}
+<div class="amsmath math notranslate nohighlight" id="equation-2f7d2737-0f3a-44ab-9182-a1abd5714742">
+<span class="eqno">(18.1)<a class="headerlink" href="#equation-2f7d2737-0f3a-44ab-9182-a1abd5714742" title="Permalink to this equation">#</a></span>\[\begin{align}
 C - P = S - Ke^{-rt}
 \end{align}\]</div>
 <p>This is an <strong>arbitrage relationship</strong>, as there is free money to be had if it doesn’t hold. If you think you observe a situation where it isn’t true, it is likely because <strong>transactions costs</strong> (i.e. the costs associated with trading) are preventing market participants from exploiting the difference.</p>
@@ -776,8 +747,8 @@ C - P = S - Ke^{-rt}
 <p>Let’s write a <strong>function</strong> that takes the inputs into the BSM model and values a <strong>call option</strong>. You would do something very similar for a <strong>put option</strong>. Again, we are trying to find the <strong>price</strong> that you would pay for the right to buy or sell a stock at a certain price in the future. This price is going to depend on the option contract parameters and, crucially, an assumption about the <strong>volatility</strong> of the asset.</p>
 <p>Notice what <strong>does not</strong> appear in the BSM formula - the expected return on the stock! This is the magic. We don’t need to have any expectations for Apple’s return in order to price their options.</p>
 <p>The BSM formula for a call option price at time 0 (today) is:</p>
-<div class="amsmath math notranslate nohighlight" id="equation-2aa269ea-1d16-4a05-ae9c-2db68dfbec15">
-<span class="eqno">(18.2)<a class="headerlink" href="#equation-2aa269ea-1d16-4a05-ae9c-2db68dfbec15" title="Permalink to this equation">#</a></span>\[\begin{align}
+<div class="amsmath math notranslate nohighlight" id="equation-7c4f9647-4aaa-44b6-aa8a-792e8c8d65f8">
+<span class="eqno">(18.2)<a class="headerlink" href="#equation-7c4f9647-4aaa-44b6-aa8a-792e8c8d65f8" title="Permalink to this equation">#</a></span>\[\begin{align}
 C_0 = S_0N(d_1) - e^{-rT}KN(d_2)
 \end{align}\]</div>
 <p>where <span class="math notranslate nohighlight">\(C_0\)</span> is the call price, <span class="math notranslate nohighlight">\(S_0\)</span> is the stock price today, <span class="math notranslate nohighlight">\(K\)</span> is the strike price, <span class="math notranslate nohighlight">\(r\)</span> is the risk-free rate, and <span class="math notranslate nohighlight">\(T\)</span> is the time-to-maturity. You’ll also see <span class="math notranslate nohighlight">\(T-t\)</span>, where <span class="math notranslate nohighlight">\(T\)</span> is the maturity date and <span class="math notranslate nohighlight">\(t\)</span> is today’s date. We’re using <span class="math notranslate nohighlight">\(T\)</span> as the number of years (fractional) until the maturity date.</p>
@@ -785,18 +756,18 @@ C_0 = S_0N(d_1) - e^{-rT}KN(d_2)
 <p>One of the <strong>key ideas</strong> with option pricing is the idea of <strong>risk neutral pricing</strong>. This comes from the idea of the arbitrage relationship and allows us to discount payoffs at a known risk-free rate, rather than something more difficult to calculate, like the required return on equity for a stock based on the CAPM.</p>
 <p>Now, what is <span class="math notranslate nohighlight">\(N()\)</span>? This is the <strong>cumulative density function (CDF)</strong> for the standard normal distribution with a mean of 0 and a standard deviation of 1. What is a <strong>CDF</strong>? Put a number into this function. The CDF gives the probability that a random draw from that distribution will be less than or equal to that number (i.e. the area under the curve of the distribution up to that number on the x-axis). So, N(0) = 0.5, since half of the distribution is to the left of the mean.</p>
 <p>Finally, what are <span class="math notranslate nohighlight">\(d_1\)</span> and <span class="math notranslate nohighlight">\(d_2\)</span>? They are defined as:</p>
-<div class="amsmath math notranslate nohighlight" id="equation-f2469cfe-2838-4d39-b22e-2e6b7abd942e">
-<span class="eqno">(18.3)<a class="headerlink" href="#equation-f2469cfe-2838-4d39-b22e-2e6b7abd942e" title="Permalink to this equation">#</a></span>\[\begin{align}
+<div class="amsmath math notranslate nohighlight" id="equation-b3ae95c6-3659-441b-9b60-47b3a7f7678e">
+<span class="eqno">(18.3)<a class="headerlink" href="#equation-b3ae95c6-3659-441b-9b60-47b3a7f7678e" title="Permalink to this equation">#</a></span>\[\begin{align}
 d_1 = \frac{log\frac{S_0}{K} + (r + \frac{1}{2} \sigma^2)T}{\sigma\sqrt(T)}
 \end{align}\]</div>
-<div class="amsmath math notranslate nohighlight" id="equation-4d7a8f9d-4f4b-449f-a4fd-c3bdea8ffd80">
-<span class="eqno">(18.4)<a class="headerlink" href="#equation-4d7a8f9d-4f4b-449f-a4fd-c3bdea8ffd80" title="Permalink to this equation">#</a></span>\[\begin{align}
+<div class="amsmath math notranslate nohighlight" id="equation-03f4f8cb-3e9a-4da9-a078-e0a12d94e6b3">
+<span class="eqno">(18.4)<a class="headerlink" href="#equation-03f4f8cb-3e9a-4da9-a078-e0a12d94e6b3" title="Permalink to this equation">#</a></span>\[\begin{align}
 d_2 = d_1 - \sigma\sqrt(T) = \frac{log\frac{S_0}{K} + (r - \frac{1}{2} \sigma^2)T}{\sigma\sqrt(T)}
 \end{align}\]</div>
 <p>You see how there’s some more <span class="math notranslate nohighlight">\(\frac{1}{2}\sigma^2\)</span>, logs, <span class="math notranslate nohighlight">\(T\)</span>, and <span class="math notranslate nohighlight">\(\sqrt(T)\)</span>, like with our simulations? The underlying math (Brownian motion) is the same. <span class="math notranslate nohighlight">\(\sigma^2\)</span> is the variance of the continuously compounded rate of return (log returns) for the asset. Note that we do need to calculate this using data, or some other set of assumptions.</p>
 <p>How can we interpret these formulas? Let’s re-write the BSM formula:</p>
-<div class="amsmath math notranslate nohighlight" id="equation-e642c655-973e-42e9-a888-a6eb765a854e">
-<span class="eqno">(18.5)<a class="headerlink" href="#equation-e642c655-973e-42e9-a888-a6eb765a854e" title="Permalink to this equation">#</a></span>\[\begin{align}
+<div class="amsmath math notranslate nohighlight" id="equation-adcc7a99-2e56-49a6-b222-0c9c9df7289c">
+<span class="eqno">(18.5)<a class="headerlink" href="#equation-adcc7a99-2e56-49a6-b222-0c9c9df7289c" title="Permalink to this equation">#</a></span>\[\begin{align}
 C_0 = e^{-rT}(S_0e^{rT}N(d_1) - KN(d_2))
 \end{align}\]</div>
 <p>The BSM formula has two pieces. The pieces represent this idea of an <strong>arbitrage</strong> relationship. In other words, we can create an option from other securities. For a call option, we can <strong>replicate the option</strong> by purchasing the stock and then financing that purchase by borrowing the money needed. Like we say with put-call parity, the option is a combination of the stock and borrowing.</p>
