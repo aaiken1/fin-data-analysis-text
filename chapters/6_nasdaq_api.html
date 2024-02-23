@@ -643,11 +643,11 @@ title="Print to PDF"
 <p>This is also our first time using an <strong>API</strong>. Their API, or Application Programming Interface, let’s us talk to a remote data storage system and pull in what we need. APIs are more general, though, and are used whenever you need one application to talk to another.</p>
 <p>We’ll use the <a class="reference external" href="https://data.nasdaq.com/tools/api">NASDAQ Data Link</a>. They also have <a class="reference external" href="https://data.nasdaq.com/tools/python">Python specific instructions</a>.</p>
 <p>You can read about the install <a class="reference external" href="https://pypi.org/project/Nasdaq-Data-Link/">on their package page</a>.</p>
-<p>We can again use <code class="docutils literal notranslate"><span class="pre">pip</span></code> to install packages via the command line or in your Jupyter notebook.</p>
+<p>We can again use <code class="docutils literal notranslate"><span class="pre">pip</span></code> to install packages via the command line or in your Jupyter notebook. You can type this directly into a code cell in a notebook in Githib Codespaces. Run that cell.</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">pip</span> <span class="n">install</span> <span class="n">nasdaq</span><span class="o">-</span><span class="n">data</span><span class="o">-</span><span class="n">link</span>
 </pre></div>
 </div>
-<p>To install a package directly in your notebook (e.g. in Google Colabs), use the <code class="docutils literal notranslate"><span class="pre">!</span> <span class="pre">pip</span></code> convention.</p>
+<p>You can also use the <code class="docutils literal notranslate"><span class="pre">!</span> <span class="pre">pip</span></code> convention. The ! tells the Jupyter notebook that you want to run a terminal command in that cell. Older notebook environments had to have the !, but Github Codespaces does not.</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span>! pip install nasdaq-data-link
 </pre></div>
 </div>
@@ -657,8 +657,7 @@ title="Print to PDF"
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">pip</span> <span class="n">install</span> <span class="n">pandas</span><span class="o">-</span><span class="n">datareader</span>
 </pre></div>
 </div>
-<p>Again, add the <code class="docutils literal notranslate"><span class="pre">!</span> <span class="pre">pip</span></code> if you’re in Google Colab.</p>
-<p>Finally, for a large set of APIs for access data, check out <a class="reference external" href="https://rapidapi.com/hub">Rapid API</a>. Some are free, others you have to pay for. You’ll need to get an access API key for each one. <strong>This is a great way to get data for projects!</strong>. More on this at the end of these notes.</p>
+<p>Finally, for a large set of APIs for access data, check out <a class="reference external" href="https://rapidapi.com/hub">Rapid API</a>. Some are free, others you have to pay for. You’ll need to get an access API key for each one. More on this at the end of these notes.</p>
 <p>Let’s do our usual sort of set-up code.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -696,62 +695,80 @@ title="Print to PDF"
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output traceback highlight-ipythontb notranslate"><div class="highlight"><pre><span></span><span class="gt">---------------------------------------------------------------------------</span>
-<span class="ne">LimitExceededError</span><span class="g g-Whitespace">                        </span>Traceback (most recent call last)
-<span class="nn">Input In [2],</span> in <span class="ni">&lt;cell line: 1&gt;</span><span class="nt">()</span>
-<span class="ne">----&gt; </span><span class="mi">1</span> <span class="n">gdp</span> <span class="o">=</span> <span class="n">nasdaqdatalink</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;FRED/GDP&#39;</span><span class="p">)</span>
-<span class="g g-Whitespace">      </span><span class="mi">2</span> <span class="n">gdp</span>
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
 
-<span class="nn">File /opt/anaconda3/lib/python3.9/site-packages/nasdaqdatalink/get.py:48,</span> in <span class="ni">get</span><span class="nt">(dataset, **kwargs)</span>
-<span class="g g-Whitespace">     </span><span class="mi">46</span>     <span class="k">if</span> <span class="n">dataset_args</span><span class="p">[</span><span class="s1">&#39;column_index&#39;</span><span class="p">]</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
-<span class="g g-Whitespace">     </span><span class="mi">47</span>         <span class="n">kwargs</span><span class="o">.</span><span class="n">update</span><span class="p">({</span><span class="s1">&#39;column_index&#39;</span><span class="p">:</span> <span class="n">dataset_args</span><span class="p">[</span><span class="s1">&#39;column_index&#39;</span><span class="p">]})</span>
-<span class="ne">---&gt; </span><span class="mi">48</span>     <span class="n">data</span> <span class="o">=</span> <span class="n">Dataset</span><span class="p">(</span><span class="n">dataset_args</span><span class="p">[</span><span class="s1">&#39;code&#39;</span><span class="p">])</span><span class="o">.</span><span class="n">data</span><span class="p">(</span><span class="n">params</span><span class="o">=</span><span class="n">kwargs</span><span class="p">,</span> <span class="n">handle_column_not_found</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
-<span class="g g-Whitespace">     </span><span class="mi">49</span> <span class="c1"># Array</span>
-<span class="g g-Whitespace">     </span><span class="mi">50</span> <span class="k">elif</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">dataset</span><span class="p">,</span> <span class="nb">list</span><span class="p">):</span>
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
 
-<span class="nn">File /opt/anaconda3/lib/python3.9/site-packages/nasdaqdatalink/model/dataset.py:47,</span> in <span class="ni">Dataset.data</span><span class="nt">(self, **options)</span>
-<span class="g g-Whitespace">     </span><span class="mi">45</span> <span class="n">updated_options</span> <span class="o">=</span> <span class="n">Util</span><span class="o">.</span><span class="n">merge_options</span><span class="p">(</span><span class="s1">&#39;params&#39;</span><span class="p">,</span> <span class="n">params</span><span class="p">,</span> <span class="o">**</span><span class="n">options</span><span class="p">)</span>
-<span class="g g-Whitespace">     </span><span class="mi">46</span> <span class="k">try</span><span class="p">:</span>
-<span class="ne">---&gt; </span><span class="mi">47</span>     <span class="k">return</span> <span class="n">Data</span><span class="o">.</span><span class="n">all</span><span class="p">(</span><span class="o">**</span><span class="n">updated_options</span><span class="p">)</span>
-<span class="g g-Whitespace">     </span><span class="mi">48</span> <span class="k">except</span> <span class="n">NotFoundError</span><span class="p">:</span>
-<span class="g g-Whitespace">     </span><span class="mi">49</span>     <span class="k">if</span> <span class="n">handle_not_found_error</span><span class="p">:</span>
-
-<span class="nn">File /opt/anaconda3/lib/python3.9/site-packages/nasdaqdatalink/operations/list.py:15,</span> in <span class="ni">ListOperation.all</span><span class="nt">(cls, **options)</span>
-<span class="g g-Whitespace">     </span><span class="mi">13</span>     <span class="n">options</span><span class="p">[</span><span class="s1">&#39;params&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="p">{}</span>
-<span class="g g-Whitespace">     </span><span class="mi">14</span> <span class="n">path</span> <span class="o">=</span> <span class="n">Util</span><span class="o">.</span><span class="n">constructed_path</span><span class="p">(</span><span class="bp">cls</span><span class="o">.</span><span class="n">list_path</span><span class="p">(),</span> <span class="n">options</span><span class="p">[</span><span class="s1">&#39;params&#39;</span><span class="p">])</span>
-<span class="ne">---&gt; </span><span class="mi">15</span> <span class="n">r</span> <span class="o">=</span> <span class="n">Connection</span><span class="o">.</span><span class="n">request</span><span class="p">(</span><span class="s1">&#39;get&#39;</span><span class="p">,</span> <span class="n">path</span><span class="p">,</span> <span class="o">**</span><span class="n">options</span><span class="p">)</span>
-<span class="g g-Whitespace">     </span><span class="mi">16</span> <span class="n">response_data</span> <span class="o">=</span> <span class="n">r</span><span class="o">.</span><span class="n">json</span><span class="p">()</span>
-<span class="g g-Whitespace">     </span><span class="mi">17</span> <span class="n">Util</span><span class="o">.</span><span class="n">convert_to_dates</span><span class="p">(</span><span class="n">response_data</span><span class="p">)</span>
-
-<span class="nn">File /opt/anaconda3/lib/python3.9/site-packages/nasdaqdatalink/connection.py:40,</span> in <span class="ni">Connection.request</span><span class="nt">(cls, http_verb, url, **options)</span>
-<span class="g g-Whitespace">     </span><span class="mi">36</span> <span class="n">options</span><span class="p">[</span><span class="s1">&#39;headers&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">headers</span>
-<span class="g g-Whitespace">     </span><span class="mi">38</span> <span class="n">abs_url</span> <span class="o">=</span> <span class="s1">&#39;</span><span class="si">%s</span><span class="s1">/</span><span class="si">%s</span><span class="s1">&#39;</span> <span class="o">%</span> <span class="p">(</span><span class="n">ApiConfig</span><span class="o">.</span><span class="n">api_base</span><span class="p">,</span> <span class="n">url</span><span class="p">)</span>
-<span class="ne">---&gt; </span><span class="mi">40</span> <span class="k">return</span> <span class="bp">cls</span><span class="o">.</span><span class="n">execute_request</span><span class="p">(</span><span class="n">http_verb</span><span class="p">,</span> <span class="n">abs_url</span><span class="p">,</span> <span class="o">**</span><span class="n">options</span><span class="p">)</span>
-
-<span class="nn">File /opt/anaconda3/lib/python3.9/site-packages/nasdaqdatalink/connection.py:52,</span> in <span class="ni">Connection.execute_request</span><span class="nt">(cls, http_verb, url, **options)</span>
-<span class="g g-Whitespace">     </span><span class="mi">47</span> <span class="n">response</span> <span class="o">=</span> <span class="n">session</span><span class="o">.</span><span class="n">request</span><span class="p">(</span><span class="n">method</span><span class="o">=</span><span class="n">http_verb</span><span class="p">,</span>
-<span class="g g-Whitespace">     </span><span class="mi">48</span>                            <span class="n">url</span><span class="o">=</span><span class="n">url</span><span class="p">,</span>
-<span class="g g-Whitespace">     </span><span class="mi">49</span>                            <span class="n">verify</span><span class="o">=</span><span class="n">ApiConfig</span><span class="o">.</span><span class="n">verify_ssl</span><span class="p">,</span>
-<span class="g g-Whitespace">     </span><span class="mi">50</span>                            <span class="o">**</span><span class="n">options</span><span class="p">)</span>
-<span class="g g-Whitespace">     </span><span class="mi">51</span> <span class="k">if</span> <span class="n">response</span><span class="o">.</span><span class="n">status_code</span> <span class="o">&lt;</span> <span class="mi">200</span> <span class="ow">or</span> <span class="n">response</span><span class="o">.</span><span class="n">status_code</span> <span class="o">&gt;=</span> <span class="mi">300</span><span class="p">:</span>
-<span class="ne">---&gt; </span><span class="mi">52</span>     <span class="bp">cls</span><span class="o">.</span><span class="n">handle_api_error</span><span class="p">(</span><span class="n">response</span><span class="p">)</span>
-<span class="g g-Whitespace">     </span><span class="mi">53</span> <span class="k">else</span><span class="p">:</span>
-<span class="g g-Whitespace">     </span><span class="mi">54</span>     <span class="k">return</span> <span class="n">response</span>
-
-<span class="nn">File /opt/anaconda3/lib/python3.9/site-packages/nasdaqdatalink/connection.py:120,</span> in <span class="ni">Connection.handle_api_error</span><span class="nt">(cls, resp)</span>
-<span class="g g-Whitespace">    </span><span class="mi">109</span> <span class="n">d_klass</span> <span class="o">=</span> <span class="p">{</span>
-<span class="g g-Whitespace">    </span><span class="mi">110</span>     <span class="s1">&#39;L&#39;</span><span class="p">:</span> <span class="n">LimitExceededError</span><span class="p">,</span>
-<span class="g g-Whitespace">    </span><span class="mi">111</span>     <span class="s1">&#39;M&#39;</span><span class="p">:</span> <span class="n">InternalServerError</span><span class="p">,</span>
-   <span class="p">(</span><span class="o">...</span><span class="p">)</span>
-<span class="g g-Whitespace">    </span><span class="mi">116</span>     <span class="s1">&#39;X&#39;</span><span class="p">:</span> <span class="n">ServiceUnavailableError</span>
-<span class="g g-Whitespace">    </span><span class="mi">117</span> <span class="p">}</span>
-<span class="g g-Whitespace">    </span><span class="mi">118</span> <span class="n">klass</span> <span class="o">=</span> <span class="n">d_klass</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">code_letter</span><span class="p">,</span> <span class="n">DataLinkError</span><span class="p">)</span>
-<span class="ne">--&gt; </span><span class="mi">120</span> <span class="k">raise</span> <span class="n">klass</span><span class="p">(</span><span class="n">message</span><span class="p">,</span> <span class="n">resp</span><span class="o">.</span><span class="n">status_code</span><span class="p">,</span> <span class="n">resp</span><span class="o">.</span><span class="n">text</span><span class="p">,</span> <span class="n">resp</span><span class="o">.</span><span class="n">headers</span><span class="p">,</span> <span class="n">code</span><span class="p">)</span>
-
-<span class="ne">LimitExceededError</span>: (Status 429) (Nasdaq Data Link Error QELx01) You have exceeded the anonymous user limit of 50 calls per day. To make more calls today, please register for a free Nasdaq Data Link account and then include your API key with your requests.
-</pre></div>
-</div>
-</div>
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>Value</th>
+    </tr>
+    <tr>
+      <th>Date</th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>1947-01-01</th>
+      <td>243.164</td>
+    </tr>
+    <tr>
+      <th>1947-04-01</th>
+      <td>245.968</td>
+    </tr>
+    <tr>
+      <th>1947-07-01</th>
+      <td>249.585</td>
+    </tr>
+    <tr>
+      <th>1947-10-01</th>
+      <td>259.745</td>
+    </tr>
+    <tr>
+      <th>1948-01-01</th>
+      <td>265.742</td>
+    </tr>
+    <tr>
+      <th>...</th>
+      <td>...</td>
+    </tr>
+    <tr>
+      <th>2020-10-01</th>
+      <td>21477.597</td>
+    </tr>
+    <tr>
+      <th>2021-01-01</th>
+      <td>22038.226</td>
+    </tr>
+    <tr>
+      <th>2021-04-01</th>
+      <td>22740.959</td>
+    </tr>
+    <tr>
+      <th>2021-07-01</th>
+      <td>23202.344</td>
+    </tr>
+    <tr>
+      <th>2021-10-01</th>
+      <td>23992.355</td>
+    </tr>
+  </tbody>
+</table>
+<p>300 rows × 1 columns</p>
+</div></div></div>
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -788,24 +805,24 @@ title="Print to PDF"
   </thead>
   <tbody>
     <tr>
-      <th>2023-04-11</th>
-      <td>29656.24</td>
+      <th>2024-01-04</th>
+      <td>42854.95</td>
     </tr>
     <tr>
-      <th>2023-04-12</th>
-      <td>30234.98</td>
+      <th>2024-01-05</th>
+      <td>44190.10</td>
     </tr>
     <tr>
-      <th>2023-04-13</th>
-      <td>29899.24</td>
+      <th>2024-01-06</th>
+      <td>44181.10</td>
     </tr>
     <tr>
-      <th>2023-04-14</th>
-      <td>30407.60</td>
+      <th>2024-01-07</th>
+      <td>43975.63</td>
     </tr>
     <tr>
-      <th>2023-04-15</th>
-      <td>30486.05</td>
+      <th>2024-01-08</th>
+      <td>43928.07</td>
     </tr>
   </tbody>
 </table>
@@ -840,7 +857,7 @@ title="Print to PDF"
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Average return: 0.23%
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Average return: 0.22%
 </pre></div>
 </div>
 </div>
@@ -930,43 +947,43 @@ title="Print to PDF"
       <td>...</td>
     </tr>
     <tr>
-      <th>2023-04-11</th>
-      <td>29656.24</td>
-      <td>0.046586</td>
-      <td>1.046586</td>
-      <td>92.938042</td>
+      <th>2024-01-04</th>
+      <td>42854.95</td>
+      <td>-0.046799</td>
+      <td>0.953201</td>
+      <td>134.745803</td>
     </tr>
     <tr>
-      <th>2023-04-12</th>
-      <td>30234.98</td>
-      <td>0.019515</td>
-      <td>1.019515</td>
-      <td>94.771239</td>
+      <th>2024-01-05</th>
+      <td>44190.10</td>
+      <td>0.031155</td>
+      <td>1.031155</td>
+      <td>138.974976</td>
     </tr>
     <tr>
-      <th>2023-04-13</th>
-      <td>29899.24</td>
-      <td>-0.011104</td>
-      <td>0.988896</td>
-      <td>93.707761</td>
+      <th>2024-01-06</th>
+      <td>44181.10</td>
+      <td>-0.000204</td>
+      <td>0.999796</td>
+      <td>138.946468</td>
     </tr>
     <tr>
-      <th>2023-04-14</th>
-      <td>30407.60</td>
-      <td>0.017002</td>
-      <td>1.017002</td>
-      <td>95.318023</td>
+      <th>2024-01-07</th>
+      <td>43975.63</td>
+      <td>-0.004651</td>
+      <td>0.995349</td>
+      <td>138.295629</td>
     </tr>
     <tr>
-      <th>2023-04-15</th>
-      <td>30486.05</td>
-      <td>0.002580</td>
-      <td>1.002580</td>
-      <td>95.566519</td>
+      <th>2024-01-08</th>
+      <td>43928.07</td>
+      <td>-0.001082</td>
+      <td>0.998918</td>
+      <td>138.144979</td>
     </tr>
   </tbody>
 </table>
-<p>3027 rows × 4 columns</p>
+<p>3295 rows × 4 columns</p>
 </div></div></div>
 </div>
 <p>We can now make a graph using the <strong>fig, axs</strong> method. This is good review! Again, notice that semi-colon at the end. This suppresses some annoying output in the Jupyter notebook.</p>
@@ -1015,16 +1032,16 @@ title="Print to PDF"
 </div>
 </div>
 <p>Let’s put together some ideas, write a function, and run a simulation. We’ll use something called <strong>geometric brownian motion</strong> (GBM). What is GBM? It is a particular <a class="reference external" href="https://arxiv.org/pdf/1504.05309.pdf">stochastic differential equation</a>. But, what’s important for us is the idea, which is fairly simple. Here’s the formula:</p>
-<div class="amsmath math notranslate nohighlight" id="equation-bddae1ff-9505-451e-9755-702c5a917bd6">
-<span class="eqno">(6.1)<a class="headerlink" href="#equation-bddae1ff-9505-451e-9755-702c5a917bd6" title="Permalink to this equation">#</a></span>\[\begin{align}
+<div class="amsmath math notranslate nohighlight" id="equation-2926c745-e5cb-442c-830a-b81865e2523b">
+<span class="eqno">(6.1)<a class="headerlink" href="#equation-2926c745-e5cb-442c-830a-b81865e2523b" title="Permalink to this equation">#</a></span>\[\begin{align}
 dS = \mu S dt + \sigma S dW_t
 \end{align}\]</div>
 <p>This says that the change in the stock price has two components - a <strong>drift</strong>, or average increase over time, and a <strong>shock</strong> that it is random at each point in time. The shock is scaled by the standard deviation of returns that you use. So, larger standard deviation, the bigger the shocks can be. This is basically the simplest way that you can model an asset price.</p>
 <p>The shocks are what make the price wiggle around around, or else it would just go up over time, based on the drift value that we use.</p>
 <p>And, I’ll stress - we aren’t predicting here, so to speak. We are trying to capture some basic reality about how an asset moves and then seeing what is possible in the future. We aren’t making a statement about whether we think an asset is overvalued or undervalued, will go up or down, etc.</p>
 <p>You can solve this equation to get the value of the asset at any point in time t. You just need to know the total of all of the shocks at time t.</p>
-<div class="amsmath math notranslate nohighlight" id="equation-05de1f2b-0b49-4c61-8ece-6f10bdc9be77">
-<span class="eqno">(6.2)<a class="headerlink" href="#equation-05de1f2b-0b49-4c61-8ece-6f10bdc9be77" title="Permalink to this equation">#</a></span>\[\begin{align}
+<div class="amsmath math notranslate nohighlight" id="equation-7af1c669-7bc4-4446-bc17-b273a8f1e041">
+<span class="eqno">(6.2)<a class="headerlink" href="#equation-7af1c669-7bc4-4446-bc17-b273a8f1e041" title="Permalink to this equation">#</a></span>\[\begin{align}
 S(t) = S(0) \exp \left(\left(\mu - \frac{1}{2}\sigma^2\right)t + \sigma W(t)\right)
 \end{align}\]</div>
 <div class="cell docutils container">
@@ -1090,19 +1107,19 @@ S(t) = S(0) \exp \left(\left(\mu - \frac{1}{2}\sigma^2\right)t + \sigma W(t)\rig
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>array([[-0.22764375,  0.66616125,  0.2690296 , ...,  1.23724302,
-        -1.7193544 , -0.31297741],
-       [-0.37475192, -0.576506  ,  2.83087209, ..., -0.39934126,
-        -0.67269187,  0.80478657],
-       [-0.34028403,  0.36534647, -0.42024997, ..., -1.23703819,
-        -1.86703547,  1.67135591],
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>array([[-0.22194094, -2.12572809, -1.0586728 , ..., -0.67958392,
+        -0.91761814, -0.06768129],
+       [ 1.92138967,  1.44101869,  1.59900665, ...,  0.69766063,
+        -2.62712436,  0.3629715 ],
+       [ 1.44611745,  3.09842922, -0.30418523, ...,  1.54706615,
+        -0.43116961, -0.52301659],
        ...,
-       [-1.06306433, -0.05604163, -1.82729248, ...,  0.11109672,
-        -0.54515618,  1.74339067],
-       [-0.96750323,  0.17279   , -1.78542644, ..., -0.47524907,
-        -0.13458806, -0.13247772],
-       [ 0.06363717, -0.54343608,  1.01651732, ..., -0.12964301,
-        -0.76946645, -0.86638566]])
+       [-0.73331267, -0.60038189,  0.58692475, ...,  0.26034643,
+         1.66381967,  0.71703508],
+       [-0.4977363 ,  0.2912116 ,  0.06116272, ..., -0.44049192,
+        -0.44888044,  0.02247179],
+       [-0.98513805,  1.70079095, -0.7026045 , ..., -0.69170553,
+        -1.00291565,  0.188855  ]])
 </pre></div>
 </div>
 </div>
@@ -1200,19 +1217,19 @@ S(t) = S(0) \exp \left(\left(\mu - \frac{1}{2}\sigma^2\right)t + \sigma W(t)\rig
 <div class="cell_output docutils container">
 <div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;bound method NDFrame.head of                   GDP
 DATE                 
-2010-01-01  14764.611
+2010-01-01  14764.610
 2010-04-01  14980.193
-2010-07-01  15141.605
-2010-10-01  15309.471
-2011-01-01  15351.444
-2011-04-01  15557.535
-2011-07-01  15647.681
-2011-10-01  15842.267
-2012-01-01  16068.824
-2012-04-01  16207.130
-2012-07-01  16319.540
-2012-10-01  16420.386
-2013-01-01  16629.050&gt;
+2010-07-01  15141.607
+2010-10-01  15309.474
+2011-01-01  15351.448
+2011-04-01  15557.539
+2011-07-01  15647.680
+2011-10-01  15842.259
+2012-01-01  16068.805
+2012-04-01  16207.115
+2012-07-01  16319.541
+2012-10-01  16420.419
+2013-01-01  16648.189&gt;
 </pre></div>
 </div>
 </div>
@@ -1248,208 +1265,60 @@ DATE
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>{&#39;address1&#39;: &#39;One Microsoft Way&#39;,
- &#39;city&#39;: &#39;Redmond&#39;,
- &#39;state&#39;: &#39;WA&#39;,
- &#39;zip&#39;: &#39;98052-6399&#39;,
- &#39;country&#39;: &#39;United States&#39;,
- &#39;phone&#39;: &#39;425 882 8080&#39;,
- &#39;fax&#39;: &#39;425 706 7329&#39;,
- &#39;website&#39;: &#39;https://www.microsoft.com&#39;,
- &#39;industry&#39;: &#39;Software—Infrastructure&#39;,
- &#39;sector&#39;: &#39;Technology&#39;,
- &#39;longBusinessSummary&#39;: &#39;Microsoft Corporation develops, licenses, and supports software, services, devices, and solutions worldwide. The company operates in three segments: Productivity and Business Processes, Intelligent Cloud, and More Personal Computing. The Productivity and Business Processes segment offers Office, Exchange, SharePoint, Microsoft Teams, Office 365 Security and Compliance, Microsoft Viva, and Skype for Business; Skype, Outlook.com, OneDrive, and LinkedIn; and Dynamics 365, a set of cloud-based and on-premises business solutions for organizations and enterprise divisions. The Intelligent Cloud segment licenses SQL, Windows Servers, Visual Studio, System Center, and related Client Access Licenses; GitHub that provides a collaboration platform and code hosting service for developers; Nuance provides healthcare and enterprise AI solutions; and Azure, a cloud platform. It also offers enterprise support, Microsoft consulting, and nuance professional services to assist customers in developing, deploying, and managing Microsoft server and desktop solutions; and training and certification on Microsoft products. The More Personal Computing segment provides Windows original equipment manufacturer (OEM) licensing and other non-volume licensing of the Windows operating system; Windows Commercial, such as volume licensing of the Windows operating system, Windows cloud services, and other Windows commercial offerings; patent licensing; and Windows Internet of Things. It also offers Surface, PC accessories, PCs, tablets, gaming and entertainment consoles, and other devices; Gaming, including Xbox hardware, and Xbox content and services; video games and third-party video game royalties; and Search, including Bing and Microsoft advertising. The company sells its products through OEMs, distributors, and resellers; and directly through digital marketplaces, online stores, and retail stores. Microsoft Corporation was founded in 1975 and is headquartered in Redmond, Washington.&#39;,
- &#39;fullTimeEmployees&#39;: 221000,
- &#39;companyOfficers&#39;: [{&#39;maxAge&#39;: 1,
-   &#39;name&#39;: &#39;Mr. Satya  Nadella&#39;,
-   &#39;age&#39;: 55,
-   &#39;title&#39;: &#39;Chairman &amp; CEO&#39;,
-   &#39;yearBorn&#39;: 1967,
-   &#39;fiscalYear&#39;: 2022,
-   &#39;totalPay&#39;: 12676750,
-   &#39;exercisedValue&#39;: 0,
-   &#39;unexercisedValue&#39;: 0},
-  {&#39;maxAge&#39;: 1,
-   &#39;name&#39;: &#39;Mr. Bradford L. Smith LCA&#39;,
-   &#39;age&#39;: 63,
-   &#39;title&#39;: &#39;Pres &amp; Vice Chairman&#39;,
-   &#39;yearBorn&#39;: 1959,
-   &#39;fiscalYear&#39;: 2022,
-   &#39;totalPay&#39;: 4655274,
-   &#39;exercisedValue&#39;: 0,
-   &#39;unexercisedValue&#39;: 0},
-  {&#39;maxAge&#39;: 1,
-   &#39;name&#39;: &#39;Ms. Amy E. Hood&#39;,
-   &#39;age&#39;: 50,
-   &#39;title&#39;: &#39;Exec. VP &amp; CFO&#39;,
-   &#39;yearBorn&#39;: 1972,
-   &#39;fiscalYear&#39;: 2022,
-   &#39;totalPay&#39;: 4637915,
-   &#39;exercisedValue&#39;: 0,
-   &#39;unexercisedValue&#39;: 0},
-  {&#39;maxAge&#39;: 1,
-   &#39;name&#39;: &#39;Mr. Judson  Althoff&#39;,
-   &#39;age&#39;: 49,
-   &#39;title&#39;: &#39;Exec. VP &amp; Chief Commercial Officer&#39;,
-   &#39;yearBorn&#39;: 1973,
-   &#39;fiscalYear&#39;: 2022,
-   &#39;totalPay&#39;: 4428268,
-   &#39;exercisedValue&#39;: 0,
-   &#39;unexercisedValue&#39;: 0},
-  {&#39;maxAge&#39;: 1,
-   &#39;name&#39;: &#39;Mr. Christopher David Young&#39;,
-   &#39;age&#39;: 50,
-   &#39;title&#39;: &#39;Exec. VP of Bus. Devel., Strategy &amp; Ventures&#39;,
-   &#39;yearBorn&#39;: 1972,
-   &#39;fiscalYear&#39;: 2022,
-   &#39;totalPay&#39;: 4588876,
-   &#39;exercisedValue&#39;: 0,
-   &#39;unexercisedValue&#39;: 0},
-  {&#39;maxAge&#39;: 1,
-   &#39;name&#39;: &#39;Ms. Alice L. Jolla&#39;,
-   &#39;age&#39;: 55,
-   &#39;title&#39;: &#39;Corp. VP &amp; Chief Accounting Officer&#39;,
-   &#39;yearBorn&#39;: 1967,
-   &#39;exercisedValue&#39;: 0,
-   &#39;unexercisedValue&#39;: 0},
-  {&#39;maxAge&#39;: 1,
-   &#39;name&#39;: &#39;Brett  Iversen&#39;,
-   &#39;title&#39;: &#39;Gen. Mang. of Investor Relations&#39;,
-   &#39;exercisedValue&#39;: 0,
-   &#39;unexercisedValue&#39;: 0},
-  {&#39;maxAge&#39;: 1,
-   &#39;name&#39;: &#39;Mr. Frank X. Shaw&#39;,
-   &#39;title&#39;: &#39;Corp. VP for Corp. Communications&#39;,
-   &#39;exercisedValue&#39;: 0,
-   &#39;unexercisedValue&#39;: 0},
-  {&#39;maxAge&#39;: 1,
-   &#39;name&#39;: &#39;Mr. Christopher C. Capossela&#39;,
-   &#39;age&#39;: 52,
-   &#39;title&#39;: &#39;Exec. VP &amp; Chief Marketing Officer&#39;,
-   &#39;yearBorn&#39;: 1970,
-   &#39;exercisedValue&#39;: 0,
-   &#39;unexercisedValue&#39;: 0},
-  {&#39;maxAge&#39;: 1,
-   &#39;name&#39;: &#39;Mr. Keith Ranger Dolliver Esq.&#39;,
-   &#39;title&#39;: &#39;VP, Deputy Gen. Counsel of Corp., External &amp; Legal Affairs and Assistant Sec.&#39;,
-   &#39;exercisedValue&#39;: 0,
-   &#39;unexercisedValue&#39;: 0}],
- &#39;auditRisk&#39;: 6,
- &#39;boardRisk&#39;: 5,
- &#39;compensationRisk&#39;: 2,
- &#39;shareHolderRightsRisk&#39;: 2,
- &#39;overallRisk&#39;: 2,
- &#39;governanceEpochDate&#39;: 1682899200,
- &#39;compensationAsOfEpochDate&#39;: 1672444800,
- &#39;maxAge&#39;: 86400,
- &#39;priceHint&#39;: 2,
- &#39;previousClose&#39;: 305.56,
- &#39;open&#39;: 307.76,
- &#39;dayLow&#39;: 303.91,
- &#39;dayHigh&#39;: 309.165,
- &#39;regularMarketPreviousClose&#39;: 305.56,
- &#39;regularMarketOpen&#39;: 307.76,
- &#39;regularMarketDayLow&#39;: 303.91,
- &#39;regularMarketDayHigh&#39;: 309.165,
- &#39;dividendRate&#39;: 2.72,
- &#39;dividendYield&#39;: 0.0089,
- &#39;exDividendDate&#39;: 1684281600,
- &#39;payoutRatio&#39;: 0.28170002,
- &#39;fiveYearAvgDividendYield&#39;: 1.1,
- &#39;beta&#39;: 0.929757,
- &#39;trailingPE&#39;: 33.088844,
- &#39;forwardPE&#39;: 27.865875,
- &#39;volume&#39;: 26404431,
- &#39;regularMarketVolume&#39;: 26404431,
- &#39;averageVolume&#39;: 31077618,
- &#39;averageVolume10days&#39;: 32338860,
- &#39;averageDailyVolume10Day&#39;: 32338860,
- &#39;bid&#39;: 305.95,
- &#39;ask&#39;: 306.26,
- &#39;bidSize&#39;: 800,
- &#39;askSize&#39;: 900,
- &#39;marketCap&#39;: 2270872993792,
- &#39;fiftyTwoWeekLow&#39;: 213.43,
- &#39;fiftyTwoWeekHigh&#39;: 309.165,
- &#39;priceToSalesTrailing12Months&#39;: 10.939169,
- &#39;fiftyDayAverage&#39;: 273.8126,
- &#39;twoHundredDayAverage&#39;: 256.3663,
- &#39;trailingAnnualDividendRate&#39;: 2.66,
- &#39;trailingAnnualDividendYield&#39;: 0.008705328,
- &#39;currency&#39;: &#39;USD&#39;,
- &#39;enterpriseValue&#39;: 2245765365760,
- &#39;profitMargins&#39;: 0.33248,
- &#39;floatShares&#39;: 7428646926,
- &#39;sharesOutstanding&#39;: 7435489792,
- &#39;sharesShort&#39;: 40038879,
- &#39;sharesShortPriorMonth&#39;: 35907039,
- &#39;sharesShortPreviousMonthDate&#39;: 1678838400,
- &#39;dateShortInterest&#39;: 1681430400,
- &#39;sharesPercentSharesOut&#39;: 0.0054,
- &#39;heldPercentInsiders&#39;: 0.00052,
- &#39;heldPercentInstitutions&#39;: 0.73767,
- &#39;shortRatio&#39;: 1.25,
- &#39;shortPercentOfFloat&#39;: 0.0054,
- &#39;impliedSharesOutstanding&#39;: 0,
- &#39;bookValue&#39;: 26.178,
- &#39;priceToBook&#39;: 11.666667,
- &#39;lastFiscalYearEnd&#39;: 1656547200,
- &#39;nextFiscalYearEnd&#39;: 1688083200,
- &#39;mostRecentQuarter&#39;: 1680220800,
- &#39;earningsQuarterlyGrowth&#39;: 0.094,
- &#39;netIncomeToCommon&#39;: 69020000256,
- &#39;trailingEps&#39;: 9.23,
- &#39;forwardEps&#39;: 10.96,
- &#39;pegRatio&#39;: 2.61,
- &#39;lastSplitFactor&#39;: &#39;2:1&#39;,
- &#39;lastSplitDate&#39;: 1045526400,
- &#39;enterpriseToRevenue&#39;: 10.818,
- &#39;enterpriseToEbitda&#39;: 22.44,
- &#39;52WeekChange&#39;: 0.08439207,
- &#39;SandP52WeekChange&#39;: -0.0018225312,
- &#39;lastDividendValue&#39;: 0.68,
- &#39;lastDividendDate&#39;: 1676419200,
- &#39;exchange&#39;: &#39;NMS&#39;,
- &#39;quoteType&#39;: &#39;EQUITY&#39;,
- &#39;symbol&#39;: &#39;MSFT&#39;,
- &#39;underlyingSymbol&#39;: &#39;MSFT&#39;,
- &#39;shortName&#39;: &#39;Microsoft Corporation&#39;,
- &#39;longName&#39;: &#39;Microsoft Corporation&#39;,
- &#39;firstTradeDateEpochUtc&#39;: 511108200,
- &#39;timeZoneFullName&#39;: &#39;America/New_York&#39;,
- &#39;timeZoneShortName&#39;: &#39;EDT&#39;,
- &#39;uuid&#39;: &#39;b004b3ec-de24-385e-b2c1-923f10d3fb62&#39;,
- &#39;messageBoardId&#39;: &#39;finmb_21835&#39;,
- &#39;gmtOffSetMilliseconds&#39;: -14400000,
- &#39;currentPrice&#39;: 305.41,
- &#39;targetHighPrice&#39;: 400.0,
- &#39;targetLowPrice&#39;: 232.0,
- &#39;targetMeanPrice&#39;: 327.6,
- &#39;targetMedianPrice&#39;: 333.0,
- &#39;recommendationMean&#39;: 1.8,
- &#39;recommendationKey&#39;: &#39;buy&#39;,
- &#39;numberOfAnalystOpinions&#39;: 45,
- &#39;totalCash&#39;: 104419000320,
- &#39;totalCashPerShare&#39;: 14.043,
- &#39;ebitda&#39;: 100080001024,
- &#39;totalDebt&#39;: 79312003072,
- &#39;quickRatio&#39;: 1.655,
- &#39;currentRatio&#39;: 1.913,
- &#39;totalRevenue&#39;: 207590998016,
- &#39;debtToEquity&#39;: 40.739,
- &#39;revenuePerShare&#39;: 27.844,
- &#39;returnOnAssets&#39;: 0.14829001,
- &#39;returnOnEquity&#39;: 0.38601002,
- &#39;grossProfits&#39;: 135620000000,
- &#39;freeCashflow&#39;: 42964873216,
- &#39;operatingCashflow&#39;: 83441000448,
- &#39;earningsGrowth&#39;: 0.104,
- &#39;revenueGrowth&#39;: 0.071,
- &#39;grossMargins&#39;: 0.68522,
- &#39;ebitdaMargins&#39;: 0.48209998,
- &#39;operatingMargins&#39;: 0.41415,
- &#39;financialCurrency&#39;: &#39;USD&#39;,
- &#39;trailingPegRatio&#39;: 2.0698}
+<div class="output traceback highlight-ipythontb notranslate"><div class="highlight"><pre><span></span><span class="gt">---------------------------------------------------------------------------</span>
+<span class="ne">HTTPError</span><span class="g g-Whitespace">                                 </span>Traceback (most recent call last)
+<span class="nn">Input In [21],</span> in <span class="ni">&lt;cell line: 4&gt;</span><span class="nt">()</span>
+<span class="g g-Whitespace">      </span><span class="mi">1</span> <span class="n">msft</span> <span class="o">=</span> <span class="n">yf</span><span class="o">.</span><span class="n">Ticker</span><span class="p">(</span><span class="s2">&quot;MSFT&quot;</span><span class="p">)</span>
+<span class="g g-Whitespace">      </span><span class="mi">3</span> <span class="c1"># get all stock info</span>
+<span class="ne">----&gt; </span><span class="mi">4</span> <span class="n">msft</span><span class="o">.</span><span class="n">info</span>
+
+<span class="nn">File /opt/anaconda3/lib/python3.9/site-packages/yfinance/ticker.py:138,</span> in <span class="ni">Ticker.info</span><span class="nt">(self)</span>
+<span class="g g-Whitespace">    </span><span class="mi">136</span> <span class="nd">@property</span>
+<span class="g g-Whitespace">    </span><span class="mi">137</span> <span class="k">def</span> <span class="nf">info</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">dict</span><span class="p">:</span>
+<span class="ne">--&gt; </span><span class="mi">138</span>     <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_info</span><span class="p">()</span>
+
+<span class="nn">File /opt/anaconda3/lib/python3.9/site-packages/yfinance/base.py:1020,</span> in <span class="ni">TickerBase.get_info</span><span class="nt">(self, proxy)</span>
+<span class="g g-Whitespace">   </span><span class="mi">1018</span> <span class="k">def</span> <span class="nf">get_info</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">proxy</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">dict</span><span class="p">:</span>
+<span class="g g-Whitespace">   </span><span class="mi">1019</span>     <span class="bp">self</span><span class="o">.</span><span class="n">_quote</span><span class="o">.</span><span class="n">proxy</span> <span class="o">=</span> <span class="n">proxy</span>
+<span class="ne">-&gt; </span><span class="mi">1020</span>     <span class="n">data</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_quote</span><span class="o">.</span><span class="n">info</span>
+<span class="g g-Whitespace">   </span><span class="mi">1021</span>     <span class="k">return</span> <span class="n">data</span>
+
+<span class="nn">File /opt/anaconda3/lib/python3.9/site-packages/yfinance/scrapers/quote.py:555,</span> in <span class="ni">Quote.info</span><span class="nt">(self)</span>
+<span class="g g-Whitespace">    </span><span class="mi">551</span> <span class="nd">@property</span>
+<span class="g g-Whitespace">    </span><span class="mi">552</span> <span class="k">def</span> <span class="nf">info</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">dict</span><span class="p">:</span>
+<span class="g g-Whitespace">    </span><span class="mi">553</span>     <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_info</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+<span class="g g-Whitespace">    </span><span class="mi">554</span>         <span class="c1"># self._scrape(self.proxy)  # decrypt broken</span>
+<span class="ne">--&gt; </span><span class="mi">555</span>         <span class="bp">self</span><span class="o">.</span><span class="n">_fetch</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">proxy</span><span class="p">)</span>
+<span class="g g-Whitespace">    </span><span class="mi">557</span>         <span class="bp">self</span><span class="o">.</span><span class="n">_fetch_complementary</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">proxy</span><span class="p">)</span>
+<span class="g g-Whitespace">    </span><span class="mi">559</span>     <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_info</span>
+
+<span class="nn">File /opt/anaconda3/lib/python3.9/site-packages/yfinance/scrapers/quote.py:706,</span> in <span class="ni">Quote._fetch</span><span class="nt">(self, proxy)</span>
+<span class="g g-Whitespace">    </span><span class="mi">703</span> <span class="bp">self</span><span class="o">.</span><span class="n">_already_fetched</span> <span class="o">=</span> <span class="kc">True</span>
+<span class="g g-Whitespace">    </span><span class="mi">704</span> <span class="n">modules</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;summaryProfile&#39;</span><span class="p">,</span> <span class="s1">&#39;financialData&#39;</span><span class="p">,</span> <span class="s1">&#39;quoteType&#39;</span><span class="p">,</span>
+<span class="g g-Whitespace">    </span><span class="mi">705</span>              <span class="s1">&#39;defaultKeyStatistics&#39;</span><span class="p">,</span> <span class="s1">&#39;assetProfile&#39;</span><span class="p">,</span> <span class="s1">&#39;summaryDetail&#39;</span><span class="p">]</span>
+<span class="ne">--&gt; </span><span class="mi">706</span> <span class="n">result</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_data</span><span class="o">.</span><span class="n">get_raw_json</span><span class="p">(</span>
+<span class="g g-Whitespace">    </span><span class="mi">707</span>     <span class="n">_BASIC_URL_</span> <span class="o">+</span> <span class="sa">f</span><span class="s2">&quot;/</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">_data</span><span class="o">.</span><span class="n">ticker</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">,</span> <span class="n">params</span><span class="o">=</span><span class="p">{</span><span class="s2">&quot;modules&quot;</span><span class="p">:</span> <span class="s2">&quot;,&quot;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">modules</span><span class="p">),</span> <span class="s2">&quot;ssl&quot;</span><span class="p">:</span> <span class="s2">&quot;true&quot;</span><span class="p">},</span> <span class="n">proxy</span><span class="o">=</span><span class="n">proxy</span>
+<span class="g g-Whitespace">    </span><span class="mi">708</span> <span class="p">)</span>
+<span class="g g-Whitespace">    </span><span class="mi">709</span> <span class="n">result</span><span class="p">[</span><span class="s2">&quot;quoteSummary&quot;</span><span class="p">][</span><span class="s2">&quot;result&quot;</span><span class="p">][</span><span class="mi">0</span><span class="p">][</span><span class="s2">&quot;symbol&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_data</span><span class="o">.</span><span class="n">ticker</span>
+<span class="g g-Whitespace">    </span><span class="mi">710</span> <span class="n">query1_info</span> <span class="o">=</span> <span class="nb">next</span><span class="p">(</span>
+<span class="g g-Whitespace">    </span><span class="mi">711</span>     <span class="p">(</span><span class="n">info</span> <span class="k">for</span> <span class="n">info</span> <span class="ow">in</span> <span class="n">result</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;quoteSummary&quot;</span><span class="p">,</span> <span class="p">{})</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;result&quot;</span><span class="p">,</span> <span class="p">[])</span> <span class="k">if</span> <span class="n">info</span><span class="p">[</span><span class="s2">&quot;symbol&quot;</span><span class="p">]</span> <span class="o">==</span> <span class="bp">self</span><span class="o">.</span><span class="n">_data</span><span class="o">.</span><span class="n">ticker</span><span class="p">),</span>
+<span class="g g-Whitespace">    </span><span class="mi">712</span>     <span class="kc">None</span><span class="p">,</span>
+<span class="g g-Whitespace">    </span><span class="mi">713</span> <span class="p">)</span>
+
+<span class="nn">File /opt/anaconda3/lib/python3.9/site-packages/yfinance/data.py:209,</span> in <span class="ni">TickerData.get_raw_json</span><span class="nt">(self, url, user_agent_headers, params, proxy, timeout)</span>
+<span class="g g-Whitespace">    </span><span class="mi">207</span> <span class="k">def</span> <span class="nf">get_raw_json</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">url</span><span class="p">,</span> <span class="n">user_agent_headers</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">params</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">proxy</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">timeout</span><span class="o">=</span><span class="mi">30</span><span class="p">):</span>
+<span class="g g-Whitespace">    </span><span class="mi">208</span>     <span class="n">response</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">url</span><span class="p">,</span> <span class="n">user_agent_headers</span><span class="o">=</span><span class="n">user_agent_headers</span><span class="p">,</span> <span class="n">params</span><span class="o">=</span><span class="n">params</span><span class="p">,</span> <span class="n">proxy</span><span class="o">=</span><span class="n">proxy</span><span class="p">,</span> <span class="n">timeout</span><span class="o">=</span><span class="n">timeout</span><span class="p">)</span>
+<span class="ne">--&gt; </span><span class="mi">209</span>     <span class="n">response</span><span class="o">.</span><span class="n">raise_for_status</span><span class="p">()</span>
+<span class="g g-Whitespace">    </span><span class="mi">210</span>     <span class="k">return</span> <span class="n">response</span><span class="o">.</span><span class="n">json</span><span class="p">()</span>
+
+<span class="nn">File /opt/anaconda3/lib/python3.9/site-packages/requests/models.py:1021,</span> in <span class="ni">Response.raise_for_status</span><span class="nt">(self)</span>
+<span class="g g-Whitespace">   </span><span class="mi">1016</span>     <span class="n">http_error_msg</span> <span class="o">=</span> <span class="p">(</span>
+<span class="g g-Whitespace">   </span><span class="mi">1017</span>         <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">status_code</span><span class="si">}</span><span class="s2"> Server Error: </span><span class="si">{</span><span class="n">reason</span><span class="si">}</span><span class="s2"> for url: </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">url</span><span class="si">}</span><span class="s2">&quot;</span>
+<span class="g g-Whitespace">   </span><span class="mi">1018</span>     <span class="p">)</span>
+<span class="g g-Whitespace">   </span><span class="mi">1020</span> <span class="k">if</span> <span class="n">http_error_msg</span><span class="p">:</span>
+<span class="ne">-&gt; </span><span class="mi">1021</span>     <span class="k">raise</span> <span class="n">HTTPError</span><span class="p">(</span><span class="n">http_error_msg</span><span class="p">,</span> <span class="n">response</span><span class="o">=</span><span class="bp">self</span><span class="p">)</span>
+
+<span class="ne">HTTPError</span>: 401 Client Error: Unauthorized for url: https://query2.finance.yahoo.com/v10/finance/quoteSummary/MSFT?modules=summaryProfile%2CfinancialData%2CquoteType%2CdefaultKeyStatistics%2CassetProfile%2CsummaryDetail&amp;ssl=true
 </pre></div>
 </div>
 </div>

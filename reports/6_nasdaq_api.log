@@ -17,62 +17,65 @@ Traceback (most recent call last):
     raise CellExecutionError.from_cell_and_msg(cell, exec_reply_content)
 nbclient.exceptions.CellExecutionError: An error occurred while executing the following cell:
 ------------------
-gdp = nasdaqdatalink.get('FRED/GDP')
-gdp
+msft = yf.Ticker("MSFT")
+
+# get all stock info
+msft.info
 ------------------
 
 [0;31m---------------------------------------------------------------------------[0m
-[0;31mLimitExceededError[0m                        Traceback (most recent call last)
-Input [0;32mIn [2][0m, in [0;36m<cell line: 1>[0;34m()[0m
-[0;32m----> 1[0m gdp [38;5;241m=[39m [43mnasdaqdatalink[49m[38;5;241;43m.[39;49m[43mget[49m[43m([49m[38;5;124;43m'[39;49m[38;5;124;43mFRED/GDP[39;49m[38;5;124;43m'[39;49m[43m)[49m
-[1;32m      2[0m gdp
+[0;31mHTTPError[0m                                 Traceback (most recent call last)
+Input [0;32mIn [21][0m, in [0;36m<cell line: 4>[0;34m()[0m
+[1;32m      1[0m msft [38;5;241m=[39m yf[38;5;241m.[39mTicker([38;5;124m"[39m[38;5;124mMSFT[39m[38;5;124m"[39m)
+[1;32m      3[0m [38;5;66;03m# get all stock info[39;00m
+[0;32m----> 4[0m [43mmsft[49m[38;5;241;43m.[39;49m[43minfo[49m
 
-File [0;32m/opt/anaconda3/lib/python3.9/site-packages/nasdaqdatalink/get.py:48[0m, in [0;36mget[0;34m(dataset, **kwargs)[0m
-[1;32m     46[0m     [38;5;28;01mif[39;00m dataset_args[[38;5;124m'[39m[38;5;124mcolumn_index[39m[38;5;124m'[39m] [38;5;129;01mis[39;00m [38;5;129;01mnot[39;00m [38;5;28;01mNone[39;00m:
-[1;32m     47[0m         kwargs[38;5;241m.[39mupdate({[38;5;124m'[39m[38;5;124mcolumn_index[39m[38;5;124m'[39m: dataset_args[[38;5;124m'[39m[38;5;124mcolumn_index[39m[38;5;124m'[39m]})
-[0;32m---> 48[0m     data [38;5;241m=[39m [43mDataset[49m[43m([49m[43mdataset_args[49m[43m[[49m[38;5;124;43m'[39;49m[38;5;124;43mcode[39;49m[38;5;124;43m'[39;49m[43m][49m[43m)[49m[38;5;241;43m.[39;49m[43mdata[49m[43m([49m[43mparams[49m[38;5;241;43m=[39;49m[43mkwargs[49m[43m,[49m[43m [49m[43mhandle_column_not_found[49m[38;5;241;43m=[39;49m[38;5;28;43;01mTrue[39;49;00m[43m)[49m
-[1;32m     49[0m [38;5;66;03m# Array[39;00m
-[1;32m     50[0m [38;5;28;01melif[39;00m [38;5;28misinstance[39m(dataset, [38;5;28mlist[39m):
+File [0;32m/opt/anaconda3/lib/python3.9/site-packages/yfinance/ticker.py:138[0m, in [0;36mTicker.info[0;34m(self)[0m
+[1;32m    136[0m [38;5;129m@property[39m
+[1;32m    137[0m [38;5;28;01mdef[39;00m [38;5;21minfo[39m([38;5;28mself[39m) [38;5;241m-[39m[38;5;241m>[39m [38;5;28mdict[39m:
+[0;32m--> 138[0m     [38;5;28;01mreturn[39;00m [38;5;28;43mself[39;49m[38;5;241;43m.[39;49m[43mget_info[49m[43m([49m[43m)[49m
 
-File [0;32m/opt/anaconda3/lib/python3.9/site-packages/nasdaqdatalink/model/dataset.py:47[0m, in [0;36mDataset.data[0;34m(self, **options)[0m
-[1;32m     45[0m updated_options [38;5;241m=[39m Util[38;5;241m.[39mmerge_options([38;5;124m'[39m[38;5;124mparams[39m[38;5;124m'[39m, params, [38;5;241m*[39m[38;5;241m*[39moptions)
-[1;32m     46[0m [38;5;28;01mtry[39;00m:
-[0;32m---> 47[0m     [38;5;28;01mreturn[39;00m [43mData[49m[38;5;241;43m.[39;49m[43mall[49m[43m([49m[38;5;241;43m*[39;49m[38;5;241;43m*[39;49m[43mupdated_options[49m[43m)[49m
-[1;32m     48[0m [38;5;28;01mexcept[39;00m NotFoundError:
-[1;32m     49[0m     [38;5;28;01mif[39;00m handle_not_found_error:
+File [0;32m/opt/anaconda3/lib/python3.9/site-packages/yfinance/base.py:1020[0m, in [0;36mTickerBase.get_info[0;34m(self, proxy)[0m
+[1;32m   1018[0m [38;5;28;01mdef[39;00m [38;5;21mget_info[39m([38;5;28mself[39m, proxy[38;5;241m=[39m[38;5;28;01mNone[39;00m) [38;5;241m-[39m[38;5;241m>[39m [38;5;28mdict[39m:
+[1;32m   1019[0m     [38;5;28mself[39m[38;5;241m.[39m_quote[38;5;241m.[39mproxy [38;5;241m=[39m proxy
+[0;32m-> 1020[0m     data [38;5;241m=[39m [38;5;28;43mself[39;49m[38;5;241;43m.[39;49m[43m_quote[49m[38;5;241;43m.[39;49m[43minfo[49m
+[1;32m   1021[0m     [38;5;28;01mreturn[39;00m data
 
-File [0;32m/opt/anaconda3/lib/python3.9/site-packages/nasdaqdatalink/operations/list.py:15[0m, in [0;36mListOperation.all[0;34m(cls, **options)[0m
-[1;32m     13[0m     options[[38;5;124m'[39m[38;5;124mparams[39m[38;5;124m'[39m] [38;5;241m=[39m {}
-[1;32m     14[0m path [38;5;241m=[39m Util[38;5;241m.[39mconstructed_path([38;5;28mcls[39m[38;5;241m.[39mlist_path(), options[[38;5;124m'[39m[38;5;124mparams[39m[38;5;124m'[39m])
-[0;32m---> 15[0m r [38;5;241m=[39m [43mConnection[49m[38;5;241;43m.[39;49m[43mrequest[49m[43m([49m[38;5;124;43m'[39;49m[38;5;124;43mget[39;49m[38;5;124;43m'[39;49m[43m,[49m[43m [49m[43mpath[49m[43m,[49m[43m [49m[38;5;241;43m*[39;49m[38;5;241;43m*[39;49m[43moptions[49m[43m)[49m
-[1;32m     16[0m response_data [38;5;241m=[39m r[38;5;241m.[39mjson()
-[1;32m     17[0m Util[38;5;241m.[39mconvert_to_dates(response_data)
+File [0;32m/opt/anaconda3/lib/python3.9/site-packages/yfinance/scrapers/quote.py:555[0m, in [0;36mQuote.info[0;34m(self)[0m
+[1;32m    551[0m [38;5;129m@property[39m
+[1;32m    552[0m [38;5;28;01mdef[39;00m [38;5;21minfo[39m([38;5;28mself[39m) [38;5;241m-[39m[38;5;241m>[39m [38;5;28mdict[39m:
+[1;32m    553[0m     [38;5;28;01mif[39;00m [38;5;28mself[39m[38;5;241m.[39m_info [38;5;129;01mis[39;00m [38;5;28;01mNone[39;00m:
+[1;32m    554[0m         [38;5;66;03m# self._scrape(self.proxy)  # decrypt broken[39;00m
+[0;32m--> 555[0m         [38;5;28;43mself[39;49m[38;5;241;43m.[39;49m[43m_fetch[49m[43m([49m[38;5;28;43mself[39;49m[38;5;241;43m.[39;49m[43mproxy[49m[43m)[49m
+[1;32m    557[0m         [38;5;28mself[39m[38;5;241m.[39m_fetch_complementary([38;5;28mself[39m[38;5;241m.[39mproxy)
+[1;32m    559[0m     [38;5;28;01mreturn[39;00m [38;5;28mself[39m[38;5;241m.[39m_info
 
-File [0;32m/opt/anaconda3/lib/python3.9/site-packages/nasdaqdatalink/connection.py:40[0m, in [0;36mConnection.request[0;34m(cls, http_verb, url, **options)[0m
-[1;32m     36[0m options[[38;5;124m'[39m[38;5;124mheaders[39m[38;5;124m'[39m] [38;5;241m=[39m headers
-[1;32m     38[0m abs_url [38;5;241m=[39m [38;5;124m'[39m[38;5;132;01m%s[39;00m[38;5;124m/[39m[38;5;132;01m%s[39;00m[38;5;124m'[39m [38;5;241m%[39m (ApiConfig[38;5;241m.[39mapi_base, url)
-[0;32m---> 40[0m [38;5;28;01mreturn[39;00m [38;5;28;43mcls[39;49m[38;5;241;43m.[39;49m[43mexecute_request[49m[43m([49m[43mhttp_verb[49m[43m,[49m[43m [49m[43mabs_url[49m[43m,[49m[43m [49m[38;5;241;43m*[39;49m[38;5;241;43m*[39;49m[43moptions[49m[43m)[49m
+File [0;32m/opt/anaconda3/lib/python3.9/site-packages/yfinance/scrapers/quote.py:706[0m, in [0;36mQuote._fetch[0;34m(self, proxy)[0m
+[1;32m    703[0m [38;5;28mself[39m[38;5;241m.[39m_already_fetched [38;5;241m=[39m [38;5;28;01mTrue[39;00m
+[1;32m    704[0m modules [38;5;241m=[39m [[38;5;124m'[39m[38;5;124msummaryProfile[39m[38;5;124m'[39m, [38;5;124m'[39m[38;5;124mfinancialData[39m[38;5;124m'[39m, [38;5;124m'[39m[38;5;124mquoteType[39m[38;5;124m'[39m,
+[1;32m    705[0m              [38;5;124m'[39m[38;5;124mdefaultKeyStatistics[39m[38;5;124m'[39m, [38;5;124m'[39m[38;5;124massetProfile[39m[38;5;124m'[39m, [38;5;124m'[39m[38;5;124msummaryDetail[39m[38;5;124m'[39m]
+[0;32m--> 706[0m result [38;5;241m=[39m [38;5;28;43mself[39;49m[38;5;241;43m.[39;49m[43m_data[49m[38;5;241;43m.[39;49m[43mget_raw_json[49m[43m([49m
+[1;32m    707[0m [43m    [49m[43m_BASIC_URL_[49m[43m [49m[38;5;241;43m+[39;49m[43m [49m[38;5;124;43mf[39;49m[38;5;124;43m"[39;49m[38;5;124;43m/[39;49m[38;5;132;43;01m{[39;49;00m[38;5;28;43mself[39;49m[38;5;241;43m.[39;49m[43m_data[49m[38;5;241;43m.[39;49m[43mticker[49m[38;5;132;43;01m}[39;49;00m[38;5;124;43m"[39;49m[43m,[49m[43m [49m[43mparams[49m[38;5;241;43m=[39;49m[43m{[49m[38;5;124;43m"[39;49m[38;5;124;43mmodules[39;49m[38;5;124;43m"[39;49m[43m:[49m[43m [49m[38;5;124;43m"[39;49m[38;5;124;43m,[39;49m[38;5;124;43m"[39;49m[38;5;241;43m.[39;49m[43mjoin[49m[43m([49m[43mmodules[49m[43m)[49m[43m,[49m[43m [49m[38;5;124;43m"[39;49m[38;5;124;43mssl[39;49m[38;5;124;43m"[39;49m[43m:[49m[43m [49m[38;5;124;43m"[39;49m[38;5;124;43mtrue[39;49m[38;5;124;43m"[39;49m[43m}[49m[43m,[49m[43m [49m[43mproxy[49m[38;5;241;43m=[39;49m[43mproxy[49m
+[1;32m    708[0m [43m[49m[43m)[49m
+[1;32m    709[0m result[[38;5;124m"[39m[38;5;124mquoteSummary[39m[38;5;124m"[39m][[38;5;124m"[39m[38;5;124mresult[39m[38;5;124m"[39m][[38;5;241m0[39m][[38;5;124m"[39m[38;5;124msymbol[39m[38;5;124m"[39m] [38;5;241m=[39m [38;5;28mself[39m[38;5;241m.[39m_data[38;5;241m.[39mticker
+[1;32m    710[0m query1_info [38;5;241m=[39m [38;5;28mnext[39m(
+[1;32m    711[0m     (info [38;5;28;01mfor[39;00m info [38;5;129;01min[39;00m result[38;5;241m.[39mget([38;5;124m"[39m[38;5;124mquoteSummary[39m[38;5;124m"[39m, {})[38;5;241m.[39mget([38;5;124m"[39m[38;5;124mresult[39m[38;5;124m"[39m, []) [38;5;28;01mif[39;00m info[[38;5;124m"[39m[38;5;124msymbol[39m[38;5;124m"[39m] [38;5;241m==[39m [38;5;28mself[39m[38;5;241m.[39m_data[38;5;241m.[39mticker),
+[1;32m    712[0m     [38;5;28;01mNone[39;00m,
+[1;32m    713[0m )
 
-File [0;32m/opt/anaconda3/lib/python3.9/site-packages/nasdaqdatalink/connection.py:52[0m, in [0;36mConnection.execute_request[0;34m(cls, http_verb, url, **options)[0m
-[1;32m     47[0m response [38;5;241m=[39m session[38;5;241m.[39mrequest(method[38;5;241m=[39mhttp_verb,
-[1;32m     48[0m                            url[38;5;241m=[39murl,
-[1;32m     49[0m                            verify[38;5;241m=[39mApiConfig[38;5;241m.[39mverify_ssl,
-[1;32m     50[0m                            [38;5;241m*[39m[38;5;241m*[39moptions)
-[1;32m     51[0m [38;5;28;01mif[39;00m response[38;5;241m.[39mstatus_code [38;5;241m<[39m [38;5;241m200[39m [38;5;129;01mor[39;00m response[38;5;241m.[39mstatus_code [38;5;241m>[39m[38;5;241m=[39m [38;5;241m300[39m:
-[0;32m---> 52[0m     [38;5;28;43mcls[39;49m[38;5;241;43m.[39;49m[43mhandle_api_error[49m[43m([49m[43mresponse[49m[43m)[49m
-[1;32m     53[0m [38;5;28;01melse[39;00m:
-[1;32m     54[0m     [38;5;28;01mreturn[39;00m response
+File [0;32m/opt/anaconda3/lib/python3.9/site-packages/yfinance/data.py:209[0m, in [0;36mTickerData.get_raw_json[0;34m(self, url, user_agent_headers, params, proxy, timeout)[0m
+[1;32m    207[0m [38;5;28;01mdef[39;00m [38;5;21mget_raw_json[39m([38;5;28mself[39m, url, user_agent_headers[38;5;241m=[39m[38;5;28;01mNone[39;00m, params[38;5;241m=[39m[38;5;28;01mNone[39;00m, proxy[38;5;241m=[39m[38;5;28;01mNone[39;00m, timeout[38;5;241m=[39m[38;5;241m30[39m):
+[1;32m    208[0m     response [38;5;241m=[39m [38;5;28mself[39m[38;5;241m.[39mget(url, user_agent_headers[38;5;241m=[39muser_agent_headers, params[38;5;241m=[39mparams, proxy[38;5;241m=[39mproxy, timeout[38;5;241m=[39mtimeout)
+[0;32m--> 209[0m     [43mresponse[49m[38;5;241;43m.[39;49m[43mraise_for_status[49m[43m([49m[43m)[49m
+[1;32m    210[0m     [38;5;28;01mreturn[39;00m response[38;5;241m.[39mjson()
 
-File [0;32m/opt/anaconda3/lib/python3.9/site-packages/nasdaqdatalink/connection.py:120[0m, in [0;36mConnection.handle_api_error[0;34m(cls, resp)[0m
-[1;32m    109[0m d_klass [38;5;241m=[39m {
-[1;32m    110[0m     [38;5;124m'[39m[38;5;124mL[39m[38;5;124m'[39m: LimitExceededError,
-[1;32m    111[0m     [38;5;124m'[39m[38;5;124mM[39m[38;5;124m'[39m: InternalServerError,
-[0;32m   (...)[0m
-[1;32m    116[0m     [38;5;124m'[39m[38;5;124mX[39m[38;5;124m'[39m: ServiceUnavailableError
-[1;32m    117[0m }
-[1;32m    118[0m klass [38;5;241m=[39m d_klass[38;5;241m.[39mget(code_letter, DataLinkError)
-[0;32m--> 120[0m [38;5;28;01mraise[39;00m klass(message, resp[38;5;241m.[39mstatus_code, resp[38;5;241m.[39mtext, resp[38;5;241m.[39mheaders, code)
+File [0;32m/opt/anaconda3/lib/python3.9/site-packages/requests/models.py:1021[0m, in [0;36mResponse.raise_for_status[0;34m(self)[0m
+[1;32m   1016[0m     http_error_msg [38;5;241m=[39m (
+[1;32m   1017[0m         [38;5;124mf[39m[38;5;124m"[39m[38;5;132;01m{[39;00m[38;5;28mself[39m[38;5;241m.[39mstatus_code[38;5;132;01m}[39;00m[38;5;124m Server Error: [39m[38;5;132;01m{[39;00mreason[38;5;132;01m}[39;00m[38;5;124m for url: [39m[38;5;132;01m{[39;00m[38;5;28mself[39m[38;5;241m.[39murl[38;5;132;01m}[39;00m[38;5;124m"[39m
+[1;32m   1018[0m     )
+[1;32m   1020[0m [38;5;28;01mif[39;00m http_error_msg:
+[0;32m-> 1021[0m     [38;5;28;01mraise[39;00m HTTPError(http_error_msg, response[38;5;241m=[39m[38;5;28mself[39m)
 
-[0;31mLimitExceededError[0m: (Status 429) (Nasdaq Data Link Error QELx01) You have exceeded the anonymous user limit of 50 calls per day. To make more calls today, please register for a free Nasdaq Data Link account and then include your API key with your requests.
-LimitExceededError: (Status 429) (Nasdaq Data Link Error QELx01) You have exceeded the anonymous user limit of 50 calls per day. To make more calls today, please register for a free Nasdaq Data Link account and then include your API key with your requests.
+[0;31mHTTPError[0m: 401 Client Error: Unauthorized for url: https://query2.finance.yahoo.com/v10/finance/quoteSummary/MSFT?modules=summaryProfile%2CfinancialData%2CquoteType%2CdefaultKeyStatistics%2CassetProfile%2CsummaryDetail&ssl=true
+HTTPError: 401 Client Error: Unauthorized for url: https://query2.finance.yahoo.com/v10/finance/quoteSummary/MSFT?modules=summaryProfile%2CfinancialData%2CquoteType%2CdefaultKeyStatistics%2CassetProfile%2CsummaryDetail&ssl=true
 

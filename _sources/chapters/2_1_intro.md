@@ -16,6 +16,8 @@ You can read more about Python and its history in [Chapter 1 of Python for Data 
 
 Getting started in Python isn't easy. Even if you're coming from another programming background, like Java, or a statistical language, like R. Data scientist (and [good Twitter follow](https://twitter.com/vboykis)) Vicki Boykis has written about why [getting started in Python can be hard](https://vickiboykis.com/2018/03/12/its-still-hard-for-beginners-to-get-started-with-python/).
 
+This is a [nice article on a modern Python data "stack"](https://www.emilyriederer.com/post/py-rgo/), especially if you're coming from R. Note how she suggests using `seaborn` and `polars`, two newer packages, in place of `matplotlib` and `pandas`.
+
 Don't get discouraged!
 
 ## Other tools

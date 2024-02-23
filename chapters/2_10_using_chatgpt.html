@@ -606,9 +606,13 @@ title="Print to PDF"
 <p>There are now many AI-based tools to help us code. These tools can create code outlines for us, check our own code, write functions, and explain the steps. I’m going to show you a few examples using the free <a class="reference external" href="https://chat.openai.com">OpenAI ChapGPT tools</a>.</p>
 <p>If you use Github and VS Code, you can sign-up for <a class="reference external" href="https://github.com/features/copilot/">CoPilot</a>.</p>
 <p>This paper by <a class="reference external" href="https://papers.ssrn.com/sol3/papers.cfm?abstract_id=4412371">Liu, Miller, and Niu (2023)</a> has some great examples of how to use ChatGPT in a course like this one.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>There’s a trade-off when using AI code assists. They will make you faster and check your syntax. They work well for simple tasks in a introductory course like this. But, at some point, you want to understand the code. You’ll need to tweak it to get it to work. And, if you’re doing more interesting coding, they may be of limited use. So - use them, but with these caveats in mind!</p>
+</div>
 <section id="using-gpt-to-write-a-function-for-you">
 <h2><span class="section-number">2.10.1. </span>Using GPT to Write a Function For You<a class="headerlink" href="#using-gpt-to-write-a-function-for-you" title="Permalink to this headline">#</a></h2>
-<p>Let’s go back to Chapter 7, where I showed you how to write a function to generate asset paths using <strong>geometric brownian motion</strong>. We used the Nasdaq API to bring in some bitcoin data in that example. Now, I’m going to use ChatGPT to write the same function. I gave GPT4 the following prompt:</p>
+<p>Let’s go to Chapter 7, where I show you how to write a function to generate asset paths using <strong>geometric brownian motion</strong>. We use the Nasdaq API to bring in some bitcoin data in that example. Now, I’m going to use ChatGPT to write the same function. I gave GPT4 the following prompt:</p>
 <blockquote>
 <div><p>Write a function in Python that simulates geometric brownian motion for any number of assets. Create the appropriate inputs as arrays. The inputs should be the number of assets, the mean for each asset, the standard deviation for each asset, the number of periods, the initial value of each asset, and the number of simulations. The output should be an array that contains all of the simulations for each asset. These are uncorrelated assets, so don’t worry about covariance.</p>
 </div></blockquote>
@@ -662,54 +666,54 @@ title="Print to PDF"
 </div>
 <div class="cell_output docutils container">
 <div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[[[1.00000000e+02 1.20000000e+02 1.40000000e+02]
-  [1.05662499e+02 1.23761348e+02 1.69366045e+02]
-  [1.02871689e+02 1.08443456e+02 1.89037408e+02]
+  [1.17448628e+02 1.64355338e+02 1.45376000e+02]
+  [1.40220334e+02 1.92625060e+02 1.58169295e+02]
   ...
-  [2.88845673e+04 3.50492115e+04 1.09112724e+05]
-  [3.57924342e+04 3.41791281e+04 1.10354102e+05]
-  [3.35932280e+04 3.30616765e+04 1.10540119e+05]]
+  [4.29556350e+03 1.16808193e+05 3.17452948e+04]
+  [4.76525699e+03 1.15389673e+05 2.90166026e+04]
+  [5.91918415e+03 1.19774789e+05 3.14597068e+04]]
 
  [[1.00000000e+02 1.20000000e+02 1.40000000e+02]
-  [1.14600147e+02 1.31820731e+02 1.70962169e+02]
-  [1.14249580e+02 1.29979326e+02 1.65625803e+02]
+  [9.46611672e+01 1.35094013e+02 1.54532729e+02]
+  [1.01280908e+02 1.57519042e+02 1.55121316e+02]
   ...
-  [3.95188804e+04 5.19956657e+05 5.57680699e+05]
-  [4.22488039e+04 5.98112793e+05 8.44660746e+05]
-  [4.62788447e+04 7.58477427e+05 1.01806051e+06]]
+  [8.21642481e+03 2.17197895e+04 5.32684084e+05]
+  [8.00924067e+03 2.24026295e+04 5.73141702e+05]
+  [7.00204848e+03 2.09536151e+04 7.24883215e+05]]
 
  [[1.00000000e+02 1.20000000e+02 1.40000000e+02]
-  [1.05024589e+02 1.08216952e+02 1.30654552e+02]
-  [1.22713261e+02 9.25749268e+01 1.37005178e+02]
+  [1.28865169e+02 1.39015766e+02 1.83096133e+02]
+  [1.32468953e+02 1.58610070e+02 1.97313387e+02]
   ...
-  [1.47788228e+04 1.55655347e+03 1.46272554e+04]
-  [1.51252406e+04 1.90336360e+03 1.75998287e+04]
-  [1.58925123e+04 2.45720822e+03 1.94499664e+04]]
+  [1.77574398e+04 6.25949239e+04 1.24910882e+04]
+  [1.76564932e+04 5.93958074e+04 1.22363898e+04]
+  [2.00907651e+04 7.70816866e+04 1.30034613e+04]]
 
  ...
 
  [[1.00000000e+02 1.20000000e+02 1.40000000e+02]
-  [1.14918275e+02 1.31891077e+02 1.39912764e+02]
-  [1.13196226e+02 1.27331794e+02 1.45493361e+02]
+  [8.96424301e+01 1.06256805e+02 1.38219180e+02]
+  [9.23418486e+01 1.19849144e+02 1.43552797e+02]
   ...
-  [3.35354986e+03 4.44439966e+04 2.87531745e+05]
-  [3.54661853e+03 5.13682286e+04 2.64284799e+05]
-  [3.67664746e+03 6.08506333e+04 2.81910123e+05]]
+  [2.55769028e+04 6.46706137e+04 7.42458091e+04]
+  [2.34958896e+04 7.23906728e+04 9.32310546e+04]
+  [2.34709119e+04 6.31782019e+04 9.33988060e+04]]
 
  [[1.00000000e+02 1.20000000e+02 1.40000000e+02]
-  [8.98037970e+01 1.46035369e+02 1.51708253e+02]
-  [9.38297746e+01 1.36188202e+02 2.09219512e+02]
+  [1.08849461e+02 1.23448903e+02 1.63853006e+02]
+  [1.17168933e+02 1.21490470e+02 1.89231254e+02]
   ...
-  [2.07918811e+03 1.06588724e+05 2.35312083e+04]
-  [2.09442033e+03 1.00028516e+05 1.94913344e+04]
-  [2.30695622e+03 1.09955964e+05 1.71843954e+04]]
+  [6.21774805e+04 2.75860222e+04 6.67731575e+05]
+  [5.98399697e+04 3.49031998e+04 5.51249084e+05]
+  [5.97703417e+04 3.17769888e+04 5.52678493e+05]]
 
  [[1.00000000e+02 1.20000000e+02 1.40000000e+02]
-  [9.72487818e+01 1.22625288e+02 1.69875091e+02]
-  [1.01916245e+02 1.25891752e+02 1.49566588e+02]
+  [9.31875638e+01 1.35958153e+02 1.40722403e+02]
+  [1.03660128e+02 1.52442421e+02 1.49837868e+02]
   ...
-  [4.17510224e+03 2.34537250e+04 1.71407325e+04]
-  [4.26133192e+03 2.51935653e+04 1.75766257e+04]
-  [4.52729617e+03 2.82978966e+04 1.96594261e+04]]]
+  [5.18995359e+03 1.97207346e+05 4.77772188e+04]
+  [5.14103393e+03 2.37488317e+05 5.03122553e+04]
+  [4.89840341e+03 2.16408553e+05 5.03030545e+04]]]
 </pre></div>
 </div>
 </div>
@@ -763,19 +767,19 @@ num_simulations: the number of simulations to run</p>
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>array([[  100.        ,   105.66249892,   102.87168892, ...,
-        28884.56727124, 35792.43421945, 33593.22801097],
-       [  100.        ,   114.60014718,   114.24958037, ...,
-        39518.88038275, 42248.80386935, 46278.84469203],
-       [  100.        ,   105.02458902,   122.71326106, ...,
-        14778.82283859, 15125.24061347, 15892.51232435],
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>array([[  100.        ,   117.44862763,   140.22033387, ...,
+         4295.5635035 ,  4765.25699005,  5919.18414669],
+       [  100.        ,    94.66116716,   101.28090815, ...,
+         8216.42480714,  8009.24066568,  7002.04848308],
+       [  100.        ,   128.86516926,   132.46895281, ...,
+        17757.4398032 , 17656.49324046, 20090.76506713],
        ...,
-       [  100.        ,   114.91827541,   113.19622614, ...,
-         3353.54985824,  3546.61853165,  3676.64746108],
-       [  100.        ,    89.80379702,    93.82977462, ...,
-         2079.18810674,  2094.42033077,  2306.95621854],
-       [  100.        ,    97.24878175,   101.91624499, ...,
-         4175.10224207,  4261.33192415,  4527.29616907]])
+       [  100.        ,    89.64243007,    92.34184857, ...,
+        25576.9028267 , 23495.88956886, 23470.91193073],
+       [  100.        ,   108.84946133,   117.16893335, ...,
+        62177.48054176, 59839.96970751, 59770.34173062],
+       [  100.        ,    93.18756382,   103.66012809, ...,
+         5189.95358847,  5141.03393048,  4898.40341094]])
 </pre></div>
 </div>
 </div>
@@ -788,19 +792,19 @@ num_simulations: the number of simulations to run</p>
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>array([[1.20000000e+02, 1.23761348e+02, 1.08443456e+02, ...,
-        3.50492115e+04, 3.41791281e+04, 3.30616765e+04],
-       [1.20000000e+02, 1.31820731e+02, 1.29979326e+02, ...,
-        5.19956657e+05, 5.98112793e+05, 7.58477427e+05],
-       [1.20000000e+02, 1.08216952e+02, 9.25749268e+01, ...,
-        1.55655347e+03, 1.90336360e+03, 2.45720822e+03],
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>array([[1.20000000e+02, 1.64355338e+02, 1.92625060e+02, ...,
+        1.16808193e+05, 1.15389673e+05, 1.19774789e+05],
+       [1.20000000e+02, 1.35094013e+02, 1.57519042e+02, ...,
+        2.17197895e+04, 2.24026295e+04, 2.09536151e+04],
+       [1.20000000e+02, 1.39015766e+02, 1.58610070e+02, ...,
+        6.25949239e+04, 5.93958074e+04, 7.70816866e+04],
        ...,
-       [1.20000000e+02, 1.31891077e+02, 1.27331794e+02, ...,
-        4.44439966e+04, 5.13682286e+04, 6.08506333e+04],
-       [1.20000000e+02, 1.46035369e+02, 1.36188202e+02, ...,
-        1.06588724e+05, 1.00028516e+05, 1.09955964e+05],
-       [1.20000000e+02, 1.22625288e+02, 1.25891752e+02, ...,
-        2.34537250e+04, 2.51935653e+04, 2.82978966e+04]])
+       [1.20000000e+02, 1.06256805e+02, 1.19849144e+02, ...,
+        6.46706137e+04, 7.23906728e+04, 6.31782019e+04],
+       [1.20000000e+02, 1.23448903e+02, 1.21490470e+02, ...,
+        2.75860222e+04, 3.49031998e+04, 3.17769888e+04],
+       [1.20000000e+02, 1.35958153e+02, 1.52442421e+02, ...,
+        1.97207346e+05, 2.37488317e+05, 2.16408553e+05]])
 </pre></div>
 </div>
 </div>
@@ -814,32 +818,32 @@ num_simulations: the number of simulations to run</p>
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>array([  100.        ,   105.66249892,   102.87168892,   129.59461102,
-         162.35220595,   162.7052684 ,   168.79052112,   195.25846403,
-         161.42198727,   164.34524873,   174.12324492,   184.88641577,
-         217.76262948,   284.22806097,   299.46682264,   328.45753247,
-         346.94639841,   384.56576469,   404.35963525,   442.78004947,
-         432.26427064,   409.8947543 ,   428.51628751,   400.47296477,
-         359.43173219,   348.64784339,   339.31820637,   368.00591672,
-         444.06094996,   430.81186605,   429.72932605,   423.46265837,
-         468.19864751,   438.85130455,   431.06413032,   403.40652413,
-         468.89336262,   427.49677062,   482.88548654,   519.89567281,
-         564.37135058,   619.91260049,   878.69864988,  1085.42298155,
-        1067.57154475,  1008.96536058,   951.97453602,  1025.70114176,
-        1117.73990927,  1248.43591774,  1173.27489552,  1125.44878045,
-        1193.80856208,  1137.86755678,  1171.54759729,  1150.29505209,
-        1265.65468265,  1389.97753195,  1398.77179888,  1555.15233022,
-        1554.59617114,  1613.30772923,  1754.94256045,  1685.11929847,
-        2143.81621219,  2132.17618025,  2382.24509465,  2714.67895266,
-        2405.71627216,  2793.0019557 ,  3288.15564094,  3264.15099067,
-        3527.22377789,  3529.84694026,  3771.45351382,  4684.29332595,
-        5660.72567986,  6153.38114662,  6290.01912195,  7527.26169872,
-        9749.09941386, 11364.29478953, 13353.80153064, 15256.91766051,
-       16220.32490817, 16437.20271853, 17520.31344948, 18770.60040537,
-       18039.99954704, 22454.41518818, 27490.49187032, 27582.49453545,
-       29403.00648388, 32845.26250013, 30194.28954435, 31366.68194577,
-       29822.81634102, 32364.46860419, 28884.56727124, 35792.43421945,
-       33593.22801097])
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>array([ 100.        ,  117.44862763,  140.22033387,  180.30603616,
+        198.11443793,  236.61966127,  254.68335742,  248.03683736,
+        263.48886277,  250.35962786,  267.70052583,  271.49071886,
+        293.25511673,  297.29318064,  324.04437633,  333.75968168,
+        340.17794232,  337.62701989,  314.70492569,  309.75416418,
+        304.65337122,  304.94675919,  341.705924  ,  322.45405348,
+        330.06339609,  330.00096605,  391.69860047,  433.79561612,
+        462.78743673,  463.71479211,  466.34870828,  415.49123546,
+        429.58973573,  446.07102808,  449.38628617,  477.43575548,
+        520.7764379 ,  536.54080685,  535.69559539,  551.2167013 ,
+        529.4795208 ,  592.06879572,  646.52804885,  604.89484631,
+        784.81686961,  858.06767731,  901.37819505, 1061.15808826,
+       1118.24549864, 1292.11139519, 1156.24917085, 1115.27234316,
+       1037.88519648, 1189.34031713, 1217.54234545, 1316.56199756,
+       1498.77001486, 1646.08577202, 1574.26321251, 1806.50015472,
+       2066.09180293, 2458.47199721, 3188.52166291, 3073.96243831,
+       2957.43421462, 3559.3191941 , 3843.85425599, 3189.54610526,
+       3341.09003289, 3412.01820613, 3344.76908223, 3329.45762982,
+       3550.08619958, 3892.99845023, 4773.74511568, 5132.28167346,
+       4745.21619581, 5335.83163577, 5725.68317476, 6696.03856339,
+       7149.66756445, 7359.27063212, 7112.15180546, 7845.99438365,
+       6892.24203028, 7057.75611538, 6239.9975149 , 5795.91100425,
+       5121.23652858, 4538.98545231, 4068.28219802, 4210.83452747,
+       4270.88767858, 3909.74052597, 3688.87792547, 4180.98448172,
+       4540.58666404, 5316.81074199, 4295.5635035 , 4765.25699005,
+       5919.18414669])
 </pre></div>
 </div>
 </div>
@@ -847,7 +851,7 @@ num_simulations: the number of simulations to run</p>
 <p>Compare this code to the one we used above. What’s different? What stands out to you? What assumptions did it make? What’s up with these numbers?</p>
 <p>GPT is quite good at creating code that has been done in a lot of places. It has trained on millions of online tutorials and examples. However, you still want to follow the logic and check for errors. <strong>There will be errors.</strong></p>
 <p><strong>You can have a “dialog” with GPT.</strong> Look at the code. Is it what you want? You can ask it to change it for you.</p>
-<p><strong>What does that leave for us to do?</strong> Use GPT to start sketching your code, do to certain tasks. Figure out what you need. Figure out the questions that you’re trying answer. What’s the problem that you’re trying to solve? Who are you solving it for? What will the answer look like? What will it tell you?</p>
+<p><strong>What does that leave for us to do?</strong> Use GPT to start sketching your code. Figure out the questions that you’re trying answer. What’s the problem that you’re trying to solve? Who are you solving it for? What will the answer look like? What will it tell you?</p>
 <p>Using tools like GPT, Github Co-Pilot, etc. is like having a team of junior programmers working for you. They can make the job easier, but it is still up to you to know what’s an interesting question in the first place. <strong>You still need to use your domain expertise and creativity to come up with solutions to problems that aren’t in an online Python tutorials.</strong></p>
 </section>
 <section id="using-chatgpt-to-check-our-code">

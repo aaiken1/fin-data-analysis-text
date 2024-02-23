@@ -23,6 +23,10 @@ But, no matter what, we need to understand how to **collect and organize our dat
 For now, focus on Section 1.5 of Hull on **data cleaning**. Data cleaning will lead to a discussion of **feature engineering**, which is about constructing the variables that will go into our models.
 
 
+```{note}
+Sketch your data! What do you have? What do you want it to look like? Then, go look for the syntax you need to get that done.
+```
+
 ## Other important sources
 
 As always, my notes are not comprehensive - that's an impossible task.
