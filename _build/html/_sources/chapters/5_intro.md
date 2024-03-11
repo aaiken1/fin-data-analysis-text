@@ -10,9 +10,11 @@ However, there are many, more modern plotting libraries available for Python, su
 
 We'll focus on financial data and the basic building blocks of creating plots, but just be aware that these packages can do a lot more.
 
-The [Intro to Data Visualisation](https://aeturrell.github.io/coding-for-economists/vis-intro.html) for *Coding for Economists* covers some basic design principles. His section [Narrative Data Visualisation](https://aeturrell.github.io/coding-for-economists/vis-narrative.html) expands on these ideas. He discusses the "anatomy" of figures and how to choose the best plot for your data.
+The [Intro to Data Visualisation](https://aeturrell.github.io/coding-for-economists/vis-intro.html) for **Coding for Economists** covers some basic design principles. His section [Narrative Data Visualisation](https://aeturrell.github.io/coding-for-economists/vis-narrative.html) expands on these ideas. He discusses the "anatomy" of figures and how to choose the best plot for your data.
 
-Another [concise guide](https://www.mit.edu/~amidi/teaching/data-science-tools/study-guide/data-visualization-with-python/), this time for data viz. Note the use of `seaborn`.
+Another [concise guide](https://www.mit.edu/~amidi/teaching/data-science-tools/study-guide/data-visualization-with-python/). Note the use of `seaborn`.
+
+If you really want to make nice charts and graphs, **read those guides**. Like with our data work, **sketch what you want to show**. Why are you making certain choices? Be deliberate.
 
 
 ```{figure} ../images/05-softbank.jpeg

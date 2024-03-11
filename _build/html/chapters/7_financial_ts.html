@@ -745,6 +745,12 @@ title="Print to PDF"
 </div>
 </div>
 <div class="cell_output docutils container">
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>/opt/anaconda3/lib/python3.9/site-packages/seaborn/rcmod.py:82: DeprecationWarning: distutils Version classes are deprecated. Use packaging.version instead.
+  if LooseVersion(mpl.__version__) &gt;= &quot;3.0&quot;:
+/opt/anaconda3/lib/python3.9/site-packages/setuptools/_distutils/version.py:346: DeprecationWarning: distutils Version classes are deprecated. Use packaging.version instead.
+  other = LooseVersion(other)
+</pre></div>
+</div>
 <div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;class &#39;pandas.core.frame.DataFrame&#39;&gt;
 DatetimeIndex: 2138 entries, 2010-01-04 to 2018-06-29
 Data columns (total 12 columns):
@@ -764,12 +770,6 @@ Data columns (total 12 columns):
  11  gld     2138 non-null   float64
 dtypes: float64(12)
 memory usage: 217.1 KB
-</pre></div>
-</div>
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>/opt/anaconda3/lib/python3.9/site-packages/seaborn/rcmod.py:82: DeprecationWarning: distutils Version classes are deprecated. Use packaging.version instead.
-  if LooseVersion(mpl.__version__) &gt;= &quot;3.0&quot;:
-/opt/anaconda3/lib/python3.9/site-packages/setuptools/_distutils/version.py:346: DeprecationWarning: distutils Version classes are deprecated. Use packaging.version instead.
-  other = LooseVersion(other)
 </pre></div>
 </div>
 </div>
@@ -1689,14 +1689,14 @@ memory usage: 217.1 KB
 <p>I’m multiplying by 100 just for the display of the data.</p>
 <p>The percent change is called a <strong>linear return</strong>. Or, <strong>simple return</strong>. This is different from <strong>log returns</strong>, or <strong>compounded returns</strong>. Both types of returns are correct and useful. They are just used for different things.</p>
 <p>The formula for simple returns (R) is:</p>
-<div class="amsmath math notranslate nohighlight" id="equation-8208ff6d-11b0-44e0-a6d3-af7a79f17168">
-<span class="eqno">(7.1)<a class="headerlink" href="#equation-8208ff6d-11b0-44e0-a6d3-af7a79f17168" title="Permalink to this equation">#</a></span>\[\begin{align}
+<div class="amsmath math notranslate nohighlight" id="equation-0061b9dd-2d74-4d18-80a4-f1ce1a28c6f3">
+<span class="eqno">(7.1)<a class="headerlink" href="#equation-0061b9dd-2d74-4d18-80a4-f1ce1a28c6f3" title="Permalink to this equation">#</a></span>\[\begin{align}
 R_{t} = \frac{V_t}{V_{t-1}} - 1
 \end{align}\]</div>
 <p>where R is the simple return based on the percent change and V is the cash flow, including price and dividends (if any).</p>
 <p>The formula for log returns (r) is:</p>
-<div class="amsmath math notranslate nohighlight" id="equation-2d1657ff-6d9b-4bbc-8ef0-81d49c3c5973">
-<span class="eqno">(7.2)<a class="headerlink" href="#equation-2d1657ff-6d9b-4bbc-8ef0-81d49c3c5973" title="Permalink to this equation">#</a></span>\[\begin{align}
+<div class="amsmath math notranslate nohighlight" id="equation-45820696-cb98-46a3-a4e8-06dc749a38c0">
+<span class="eqno">(7.2)<a class="headerlink" href="#equation-45820696-cb98-46a3-a4e8-06dc749a38c0" title="Permalink to this equation">#</a></span>\[\begin{align}
 r_{t} = ln(\frac{V_t}{V_{t-1}}) = ln(1 + R_{t})
 \end{align}\]</div>
 <p>See <a class="reference external" href="https://papers.ssrn.com/sol3/papers.cfm?abstract_id=1586656">this article</a> for more on why this difference is important. In short, we need the mean of simple returns when doing portfolio optimization, as these returns work with a weighted average. Simple returns <strong>aggregate across assets</strong>. Log returns, however, <strong>aggregate across time</strong>. In other words, the cumulative return using log returns is the sum of individual log returns over the time period. You definitely can’t do that with simple returns!</p>
@@ -3083,8 +3083,8 @@ r_{t} = ln(\frac{V_t}{V_{t-1}}) = ln(1 + R_{t})
 </div>
 <p>We can also create return series using <strong>simple returns</strong>. We calculate percent returns, add 1 to each to get (1+R), and then <strong>chain returns together</strong> using <code class="docutils literal notranslate"><span class="pre">.cumprod()</span></code>. We subtract one at the end from the total.</p>
 <p>In other words,</p>
-<div class="amsmath math notranslate nohighlight" id="equation-56a59951-e002-4612-b208-218a5f7e68b3">
-<span class="eqno">(7.3)<a class="headerlink" href="#equation-56a59951-e002-4612-b208-218a5f7e68b3" title="Permalink to this equation">#</a></span>\[\begin{align}
+<div class="amsmath math notranslate nohighlight" id="equation-22b82a58-2bc6-4226-bebe-f0c262bdc839">
+<span class="eqno">(7.3)<a class="headerlink" href="#equation-22b82a58-2bc6-4226-bebe-f0c262bdc839" title="Permalink to this equation">#</a></span>\[\begin{align}
 Total Return = (1 + R_{1})*(1 + R_{2})*(1 + R_{3})*(1 + R_{4})... - 1
 \end{align}\]</div>
 <div class="cell docutils container">
@@ -4365,6 +4365,102 @@ or the last edge (i.e. the last date). The option <em>right</em> means the last 
 <img alt="../_images/7_financial_ts_81_0.png" src="../_images/7_financial_ts_81_0.png" />
 </div>
 </div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">rets2</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>.SPX</th>
+      <th>AAPL.O</th>
+    </tr>
+    <tr>
+      <th>Date</th>
+      <th></th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>2010-01-05</th>
+      <td>0.003111</td>
+      <td>0.001727</td>
+    </tr>
+    <tr>
+      <th>2010-01-06</th>
+      <td>0.000545</td>
+      <td>-0.016034</td>
+    </tr>
+    <tr>
+      <th>2010-01-07</th>
+      <td>0.003993</td>
+      <td>-0.001850</td>
+    </tr>
+    <tr>
+      <th>2010-01-08</th>
+      <td>0.002878</td>
+      <td>0.006626</td>
+    </tr>
+    <tr>
+      <th>2010-01-11</th>
+      <td>0.001745</td>
+      <td>-0.008861</td>
+    </tr>
+    <tr>
+      <th>...</th>
+      <td>...</td>
+      <td>...</td>
+    </tr>
+    <tr>
+      <th>2018-06-25</th>
+      <td>-0.013820</td>
+      <td>-0.014983</td>
+    </tr>
+    <tr>
+      <th>2018-06-26</th>
+      <td>0.002202</td>
+      <td>0.012330</td>
+    </tr>
+    <tr>
+      <th>2018-06-27</th>
+      <td>-0.008642</td>
+      <td>-0.001465</td>
+    </tr>
+    <tr>
+      <th>2018-06-28</th>
+      <td>0.006160</td>
+      <td>0.007250</td>
+    </tr>
+    <tr>
+      <th>2018-06-29</th>
+      <td>0.000758</td>
+      <td>-0.002105</td>
+    </tr>
+  </tbody>
+</table>
+<p>2137 rows × 2 columns</p>
+</div></div></div>
+</div>
+<p>Yikes! Not sure about those y-axis labels. That’s some floating-point nonsense.</p>
 <p>We can run a simple linear regression using <code class="docutils literal notranslate"><span class="pre">np.polyfit</span></code> from the <code class="docutils literal notranslate"><span class="pre">numpy</span></code> library. Other libraries have more sophisticated tools. We’ll set <code class="docutils literal notranslate"><span class="pre">deg=1</span></code> since this is a linear regression (i.e. degree of 1).</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -4441,7 +4537,7 @@ or the last edge (i.e. the last date). The option <em>right</em> means the last 
 <div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;AxesSubplot:&gt;
 </pre></div>
 </div>
-<img alt="../_images/7_financial_ts_87_1.png" src="../_images/7_financial_ts_87_1.png" />
+<img alt="../_images/7_financial_ts_89_1.png" src="../_images/7_financial_ts_89_1.png" />
 </div>
 </div>
 <p>Looks like a bell curve to me. Let’s take that set of 1000 random numbers and turn them into a <code class="docutils literal notranslate"><span class="pre">pd.Series</span></code>. We can then treat them like actual returns and create a cumulative return series, like above.</p>
@@ -4454,7 +4550,7 @@ or the last edge (i.e. the last date). The option <em>right</em> means the last 
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../_images/7_financial_ts_89_0.png" src="../_images/7_financial_ts_89_0.png" />
+<img alt="../_images/7_financial_ts_91_0.png" src="../_images/7_financial_ts_91_0.png" />
 </div>
 </div>
 <p>And there you go! Some fake returns. Stocks returns aren’t actually normally distributed like this, at least over short windows. Simulations and Monte Carlo methods are used a lot in wealth management to figure out the probability that a client will meet their retirement goals.</p>

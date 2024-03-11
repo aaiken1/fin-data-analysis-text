@@ -15,13 +15,20 @@
 # 
 # ## conda, pip and installing packages in VS Code
 # 
-# Within VS Code, we are going to see two basic ways to install packages. Both involve typing commands **in the terminal**. You can access your terminal via VSCode, or directly on your computer. On a Mac, search for [Terminal](https://support.apple.com/guide/terminal/open-or-quit-terminal-apd5265185d-f365-44cb-8b09-71a064a42125/mac). On a Windows machine, look for the [Windows Command Line Shell](https://docs.microsoft.com/en-us/windows-server/administration/windows-commands/windows-commands). Both let you do things in a text-based way. This can be very powerful.
+# If you are in VS Code in **Github Codespaces**, things are pretty straight forward. Inside of a Python code cell, you can type:
+# 
+# ```
+# pip install package-name
+# ```
+# where you fill in `package-name`. Run that cell and your Python interpreter will go out and find that package. You can also use the **terminal** window in you Codespace. More on `pip` in a second.
 # 
 # ```{note}
 # By importing a package, you get access to all of the **classes** and **methods** that come with that package. This are important concepts from **software engineering** and make your code much easier to read and use. Essentially, you get built-in **modularity** -- you don't have to reinvent the wheel and define, say, an array every time you use them. We'll talk a bit more about this when we get to **object oriented programming** and related concepts.
 # ```
 # 
-# First, if a package is [available via Anaconda](https://docs.anaconda.com/anaconda/user-guide/tasks/install-packages/), you can install it at least two ways. In the terminal, you will type:
+# If you're working **locally**, you can access your terminal via VSCode, or directly on your computer. On a Mac, search for [Terminal](https://support.apple.com/guide/terminal/open-or-quit-terminal-apd5265185d-f365-44cb-8b09-71a064a42125/mac). On a Windows machine, look for the [Windows Command Line Shell](https://docs.microsoft.com/en-us/windows-server/administration/windows-commands/windows-commands). Both let you do things in a text-based way. This can be very powerful.
+# 
+# If a package is [available via Anaconda](https://docs.anaconda.com/anaconda/user-guide/tasks/install-packages/), you can install it at least two ways. In the terminal, you will type:
 # 
 # ```
 # conda install package-name
@@ -38,7 +45,8 @@
 # You can use the Anaconda Navigator GUI to check and see which packages Anaconda has installed, including ones that you install yourself to Anaconda via `pip`. 
 # ```
 # 
-# In the notes, you'll see that I install several packages this way. You'll need to close VS Code and open it back up when you're done.
+# 
+# ### pip
 # 
 # You will also see many packages that say to use `pip` to install them. This is where it can get tricky -- packages have **dependencies**, or other packages that the package that we want is using. `pip` may or may not be able to install every package dependency, though it will try. 
 # 
@@ -50,7 +58,7 @@
 # 
 # But, where is it installing the packages? Which version of Python will it be associated with? This is the tricky part and one of the frustrating aspects of Python.
 # 
-# In the Mac terminal, either in VS Code or just in the terminal app, can use the following to see which `pip` and which Python your computer is currently looking at. 
+# In the Mac terminal, either in VS Code or just in the terminal app, you can use the following to see which `pip` and which Python your computer is currently looking at. 
 # 
 # ```
 # which -a pip
@@ -120,7 +128,9 @@
 # pip install nasdaq-data-link
 # ```
 # 
-# This way should work on the Mac VS Code install or Google Colab. However, we need to be a bit careful on a **Windows VS Code install**. If you open up a Powershell terminal inside of VS Code and try to run `pip` you'll get an error. Powershell doesn't know where `pip` lives. Or Python, for that matter. 
+# This way should work in Github Classroom, on the Mac VS Code install or Google Colab. 
+# 
+# However, we need to be a bit careful on a **Windows VS Code install**. If you open up a Powershell terminal inside of VS Code and try to run `pip` you'll get an error. Powershell doesn't know where `pip` lives. Or Python, for that matter. 
 # 
 # ```{figure} ../images/02-vscode-error-ps-pip.png
 # ---
@@ -174,14 +184,14 @@
 # However, if you're trying to run `pip` in Windows using CMD and it doesn't work try [these steps](https://stackoverflow.com/questions/36835341/pip-is-not-recognized). [This video](https://www.youtube.com/watch?v=Jw_MuM2BOuI) does similar steps.
 # 
 # ```{note}
-# If you want to avoid all of this, just use Google Colab.
+# If you want to avoid all of this, just use Github Classroom.
 # ```
 # 
-# ## Installing packages in Google Colab with pip
+# ## Installing packages in Github Classroom and Google Colab with pip
 # 
 # The instructions above are general, but have VS Code and a local install of Python and all of its dependencies in mind. This is the **customizable** way to install and work in Python. 
 # 
-# But, Google Colab and other browser-based, remote environments also let you install other packages. For example, Google Colab comes with `numpy` and `pandas` **already installed**. In other words, it already knows about these, so you can go ahead and use `import`.
+# But, Githib Codespaces and Google Colab are browser-based, remote environments that also let you install other packages. For example, both come with `numpy` and `pandas` **already installed**. In other words, it already knows about these, so you can go ahead and use `import`.
 # 
 # But, what about other packages? You can still use `pip` and install the package in your remote instance of Python.
 # 
@@ -191,6 +201,7 @@
 # 
 # Note the exclamation point. This lets use run a **shell command** (i.e. something that would run in the terminal) directly from a Python notebook. Since we don't have a terminal window in Google Colab, we need to do that. 
 # 
+# **You don't need it in Github Codespaces.
 # 
 # You can use the `!pip` method in any Jupyter notebook, including in VS Code. But - every time you run that code cell, `pip` is going to try to install the package, unless you comment it out. This is why I like using the terminal or command line to install packages when needed. This is not an option when using Google Colab.
 # 

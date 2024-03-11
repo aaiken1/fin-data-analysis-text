@@ -3,19 +3,21 @@
 
 # # matplotlib
 # 
-# This chapter will look at how to use [matplotlib](https://matplotlib.org) to create graphics in Python. `matplotlib` plays well with `DataFrames`, so this is a good place to start. 
+# This chapter will look at how to use [matplotlib](https://matplotlib.org) to create graphics in Python. `matplotlib` plays well with `DataFrames` and is the most popular way to do data visualization in Python. 
 # 
 # The `matplotlob` team has an [official tutorial](https://matplotlib.org/stable/tutorials/index). Check it out.
 # 
 # ```{margin}
-# Like with everything we're doing, you're going to have to Google around for things. How do I change the color of my scatter plot? That kind of stuff. 
+# Like with everything we're doing, you're going to have to Google around for things or ask ChatGPT. How do I change the color of my scatter plot? That kind of stuff - syntax.
 # ```
 # 
 # There is, of course, a [Datacamp matplotlib cheat sheet](https://www.datacamp.com/blog/matplotlib-cheat-sheet-plotting-in-python).
 # 
-# [Chapter 9](https://wesmckinney.com/book/plotting-and-visualization.html) of *Python for Data Analysis* is a nice introduction to the syntax of `matplotlib`.
+# [Chapter 9](https://wesmckinney.com/book/plotting-and-visualization.html) of **Python for Data Analysis** is a nice introduction to the syntax of `matplotlib`.
 # 
-# Here is another [Matplotlib tutorial](https://github.com/rougier/matplotlib-tutorial) that goes over how to customize your plots.
+# [Coding for Economists](https://aeturrell.github.io/coding-for-economists/vis-matplotlib.html) also has a `matplotlib` guide.
+# 
+# Here is yet another [Matplotlib tutorial](https://github.com/rougier/matplotlib-tutorial) that goes over how to customize your plots.
 
 # ## Set-up
 # 
@@ -67,7 +69,15 @@ stocks = clean_names(stocks)
 stocks.info()
 
 
-# That's a little better. You could do more with some string functions, like getting rid of the "_o", "_", and "=". 
+# That's a little better. You could do more with some string functions, like getting rid of the "_o", "_", and "=".
+# 
+# If you don't have `janitor` installed, you'll need to run in a code cell above your set-up code. You should only have to install a package once per code space.
+# 
+# ```
+# pip install pyjanitor
+# ```
+# 
+# You can read more about `janitor` [here](https://pyjanitor-devs.github.io/pyjanitor/#installation).
 # 
 # ## Basic plotting with pandas
 # 

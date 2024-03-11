@@ -21,6 +21,8 @@
 # 
 # I found this [page helpful for some syntax](https://towardsdatascience.com/pandasql-interesting-way-to-run-sql-queries-in-python-18a4fc36406a). 
 # 
+# [Coding for Economists](https://aeturrell.github.io/coding-for-economists/data-advanced.html) discusses alternatives to `pandas`.
+# 
 # ## Pandas SQL
 # 
 # We are going to use [pandassql](https://pypi.org/project/pandasql/) to use SQL in Python. Using this method will let use use **standard SQL queries** with our `pandas` DataFrames. If you already know SQL, you might like this better!

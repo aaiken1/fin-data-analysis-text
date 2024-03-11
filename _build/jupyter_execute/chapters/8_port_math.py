@@ -3,18 +3,20 @@
 
 # # Essential portfolio math
 # 
-# This brief chapter will cover the type of statistics that we often see when looking at **portfolios**. Much of this material is covered in various DataCamp exercises. Parts of the material, such as skewness and kurtosis, are also covered in **Chapter 13** of [Python for Finance, 2e](https://www.oreilly.com/library/view/python-for-finance/9781492024323/)
+# This brief chapter will cover the type of statistics that we often see when looking at **portfolios**. Parts of the material, such as skewness and kurtosis, are also covered in **Chapter 13** of [Python for Finance, 2e](https://www.oreilly.com/library/view/python-for-finance/9781492024323/)
 # 
-# This material will have us thinking about **portfolio construction**.
+# This material will have us thinking about **portfolio construction**. This type of portfolio construction is, typically, most helpful in a quantitative, or "quant", strategy. If you're picking 20 stocks to buy, you aren't going to run an optimizer. You'll probably just 1/n, or equally-weight, the positions. 
 # 
-# What is **portfolio construction**? Choosing and sizing the various trades (or, assets, more generally) to achieve a good trade-off between risk and expected return.
+# But, what if you have a lot of positions, probably chosen by some kind of quant or algorithmic strategy? You will be choosing and sizing the various trades (or, assets, more generally) to achieve a good trade-off between risk and expected return. What should you consider?
 # 
-# 1. Diversification!
+# 1. Diversification! Quant strategies might have 1000's of positions.
 # 2. Position limits and risk limits: At the level of securities, asset classes, and overall portfolio. 
-# 3. Larger bets on higher conviction trade.
+# 3. Larger bets on higher conviction trade. You can weight a position based on the strength of your signal.
 # 4. Size bets in terms of risk.
 # 5. Correlations matter: For a long position, correlation with other longs is bad, corr. with shorts is good. Powerful to go long/short within each industry, diversify across industries. Can use ETFs and futures to “hedge” out sector and market exposure.
 # 6. Resize positions according to forward-looking risk and conviction.
+# 
+# We won't start with full-on quantitative-based strategies though. Let's look at a few, basic return series. 
 #    
 # We'll start by bringing in some **monthly hedge fund return data**. We'll calculate some portfolio returns, using assumed weights. We'll then move on to portfolio-level **variance and standard deviation**. We'll see how to **annualize returns and volatility**. We'll look at other risk measures, like **skewness** and **kurtosis**. We'll see **Sharpe** and **Sortino** ratios. Finally, we'll make a graph showing the **drawdown**, or worse loss, of our portfolio.
 # 
@@ -317,7 +319,7 @@ rets_with_port.kurt()
 # 
 # Let's use the monthly portfolio returns that I created above to find our measures of risk/return trade-off. I will first annualize my monthly return. I will then annualize my monthly standard deviation, or volatility as we say in finance. I am "cheating" a bit on my volatility annualization. These are discrete returns. Multiplying by the square root of the number of your time periods in a year (12, because we have montly returns) really only works if you have log returns.
 # 
-# See the DataCamp assignment and your Principles of Finance notes for more on these calculations.
+# See your Principles of Finance notes for more on these calculations.
 
 # In[18]:
 

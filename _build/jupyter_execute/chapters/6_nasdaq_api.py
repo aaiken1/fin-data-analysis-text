@@ -13,13 +13,13 @@
 # You can read about the install [on their package page](https://pypi.org/project/Nasdaq-Data-Link/).
 # 
 # 
-# We can again use `pip` to install packages via the command line or in your Jupyter notebook. 
+# We can again use `pip` to install packages via the command line or in your Jupyter notebook. You can type this directly into a code cell in a notebook in Githib Codespaces. Run that cell.
 # 
 # ```
 # pip install nasdaq-data-link
 # ```
 # 
-# To install a package directly in your notebook (e.g. in Google Colabs), use the `! pip` convention.
+# You can also use the `! pip` convention. The ! tells the Jupyter notebook that you want to run a terminal command in that cell. Older notebook environments had to have the !, but Github Codespaces does not.
 # 
 # ```
 # ! pip install nasdaq-data-link
@@ -35,9 +35,7 @@
 # pip install pandas-datareader
 # ```
 # 
-# Again, add the `! pip` if you're in Google Colab.
-# 
-# Finally, for a large set of APIs for access data, check out [Rapid API](https://rapidapi.com/hub). Some are free, others you have to pay for. You'll need to get an access API key for each one. **This is a great way to get data for projects!**. More on this at the end of these notes.
+# Finally, for a large set of APIs for access data, check out [Rapid API](https://rapidapi.com/hub). Some are free, others you have to pay for. You'll need to get an access API key for each one. More on this at the end of these notes.
 
 # Let's do our usual sort of set-up code.
 
@@ -75,20 +73,20 @@ gdp = nasdaqdatalink.get('FRED/GDP')
 gdp
 
 
-# In[112]:
+# In[3]:
 
 
 btc = nasdaqdatalink.get('BCHAIN/MKPRU')
 btc.tail()
 
 
-# In[113]:
+# In[4]:
 
 
 btc['ret'] = btc.pct_change().dropna()
 
 
-# In[114]:
+# In[5]:
 
 
 btc = btc.loc['2015-01-01':,['Value', 'ret']]
@@ -97,7 +95,7 @@ btc.plot()
 
 # Well, that's not a very good graph. The returns and price levels are in different units. Let's use an `f print` to show and format the average BTC return.
 
-# In[115]:
+# In[6]:
 
 
 print(f'Average return: {100 * btc.ret.mean():.2f}%')
@@ -105,7 +103,7 @@ print(f'Average return: {100 * btc.ret.mean():.2f}%')
 
 # Let's make a cumulative return chart and daily return chart. We can then stack these on top of each other. I'll use the `.sub(1)` method to subtract 1 from the cumulative product. You see this a lot in the DataCamps.
 
-# In[116]:
+# In[7]:
 
 
 btc['ret_g'] = btc.ret.add(1) # gross return
@@ -115,7 +113,7 @@ btc
 
 # We can now make a graph using the **fig, axs** method. This is good review! Again, notice that semi-colon at the end. This suppresses some annoying output in the Jupyter notebook. 
 
-# In[117]:
+# In[8]:
 
 
 fig, axs = plt.subplots(2, 1, sharex=True, sharey=False, figsize=(10, 6))
@@ -133,7 +131,7 @@ axs[1].legend();
 
 # I can make the same graph using the `.add_subplot()` syntax. The method above gives you some more flexibility, since you can give both plots the same x-axis.
 
-# In[118]:
+# In[9]:
 
 
 fig = plt.figure(figsize=(10, 6))
@@ -171,7 +169,7 @@ plt.subplots_adjust(wspace=0.5, hspace=0.5);
 # S(t) = S(0) \exp \left(\left(\mu - \frac{1}{2}\sigma^2\right)t + \sigma W(t)\right)
 # \end{align}
 
-# In[119]:
+# In[10]:
 
 
 T = 30 # How long is our simulation? Let's do 31 days (0 to 30 the way Python counts)
@@ -184,7 +182,7 @@ sigma = btc.ret.std()
 
 # This is the basic syntax for writing a function in Python. We saw this earlier, back when doing "Comp 101". Remember, in Python, **indentation matters**!
 
-# In[120]:
+# In[11]:
 
 
 def simulate_gbm(s_0, mu, sigma, n_sims, T, N):
@@ -203,7 +201,7 @@ def simulate_gbm(s_0, mu, sigma, n_sims, T, N):
 # 
 # We can look at each piece of the function code, with some numbers hard-coded, to get a sense of what's going on. This gets tricky - keep track of the dimensions. I think that's the hardest part. How many numbers are we creating in each array? What do they mean?
 
-# In[121]:
+# In[12]:
 
 
 # Creates 100 rows of 30 random numbers from the standard normal distribution.
@@ -228,25 +226,25 @@ S_t = np.insert(S_t, 0, S_0, axis=1)
 
 # We can look at these individually, too.
 
-# In[122]:
+# In[13]:
 
 
 dW
 
 
-# In[123]:
+# In[14]:
 
 
 time_steps
 
 
-# In[124]:
+# In[15]:
 
 
 len(time_steps)
 
 
-# In[125]:
+# In[16]:
 
 
 np.shape(time_steps)
@@ -256,7 +254,7 @@ np.shape(time_steps)
 # 
 # We can then use our function. This returns an `narray`. 
 
-# In[126]:
+# In[17]:
 
 
 gbm_simulations = simulate_gbm(S_0, mu, sigma, N_SIM, T, N)
@@ -264,7 +262,7 @@ gbm_simulations = simulate_gbm(S_0, mu, sigma, N_SIM, T, N)
 
 # And, we can plot all of the simulations. I'm going to use `pandas` to plot, save to `ax`, and the style the `ax`.
 
-# In[127]:
+# In[18]:
 
 
 gbm_simulations_df = pd.DataFrame(np.transpose(gbm_simulations))
@@ -277,11 +275,11 @@ ax.set_title('BTC Simulations', fontsize=16);
 
 # The y-axis has a very wide range, since some extreme values are possible, given this simulation.
 
-# ## Using pandas-datareader and yfinance
+# ## Using pandas-datareader
 # 
 # The [pandas data-reader](https://pydata.github.io/pandas-datareader/) API lets us access additional data sources, such as [FRED](https://fred.stlouisfed.org). 
 # 
-# There are also API that let you access the same data. For example, Yahoo! Finance has several, like [yfinance](https://pypi.org/project/yfinance/). I think that the Yahoo! Finance access for `pandas-datareader` was [broken in a recent update](https://stackoverflow.com/questions/74834834/pdr-datareader-typeerror-string-indices-must-be-integers). See my comments below.
+# There are also API that let you access the same data. For example, Yahoo! Finance has several, like [yfinance](https://pypi.org/project/yfinance/). I find accessing Yahoo! Finance via an API to be very buggy - Yahoo! actively tries to stop it. So, you can try those instructions, but they may or may not work.
 # 
 # Lots of developers have written APIs to access different data sources. 
 # 
@@ -291,7 +289,7 @@ ax.set_title('BTC Simulations', fontsize=16);
 # 
 # Here's another FRED example, but using `pandas-datareader`.
 
-# In[128]:
+# In[19]:
 
 
 start = dt.datetime(2010, 1, 1)
@@ -302,92 +300,6 @@ gdp = pdr.DataReader('GDP', 'fred', start, end)
 
 gdp.head
 
-
-# As mentioned, the [pandas data-reader](https://pydata.github.io/pandas-datareader/) and [yfinance](https://pypi.org/project/yfinance/) APIs let you pull stock data from Yahoo! Finance. However, Yahoo! Finance keeps breaking what you need to scrape the data, so these packages can sometimes be unreliable. However, we can get aspects of them to work.
-# 
-# Here's some basic set-up that gets [yfinance](https://pypi.org/project/yfinance/) working.
-
-# In[1]:
-
-
-# The usual type of set-up.
-import pandas as pd
-import numpy as np
-import bt as bt
-import ffn as ffn
-
-# This will get our plots to automatically show up.
-get_ipython().run_line_magic('matplotlib', 'inline')
-
-# As of Dec 2022, looks like yfinance broke the ffn/bt data import. Add this to get it to work. See https://github.com/pmorissette/ffn/issues/185
-import yfinance as yf
-yf.pdr_override()
-
-
-# I'll do the example from the [yfinance](https://pypi.org/project/yfinance/) webpage. This brings in information on MSFT as a `yfinance` ticker object. It looks like a JSON file to me. See below for more on JSON as a storage type.
-
-# In[2]:
-
-
-msft = yf.Ticker("MSFT")
-
-# get all stock info
-msft.info
-
-
-# In VS Code, you can open the rest of that in a text editor (see the message) and look at every variable in there. You can pull specific information out this object.
-
-# In[3]:
-
-
-# Get the sector.
-msft.info['sector']
-
-
-# Here's something a bit more complex. I'll pull the first company officer. Note the indexing, starting at 0, the usual Python way.
-
-# In[4]:
-
-
-msft.info['companyOfficers'][0]
-
-
-# You can drill down even more. Honestly, I was guessing a bit at how to access this data. This just seemed like a "Python" or "JSON" way to do it and it worked.
-
-# In[5]:
-
-
-msft.info['companyOfficers'][0]['totalPay']
-
-
-# They have recent accounting data, too.
-
-# In[6]:
-
-
-msft.info['grossMargins']
-
-
-# Here's two years of price, volume, dividend, and split data. Remember when we looked at return calculations? You need the dividends if you're going to accurately calculate returns. You also need the stock splits, or you'll be comparing prices pre- and post- splits, getting funky returns!
-
-# In[7]:
-
-
-hist = msft.history(period="2y")
-hist
-
-
-# As noted on their webpage, you can pull multiple stocks, by ticker, at once.
-
-# In[8]:
-
-
-tickers = yf.Tickers('msft aapl goog')
-
-tickers.tickers['AAPL'].history(period="1mo")
-
-
-# I wasn't able to figure out how to get historical financial statement data out of `yfinance`. I would suggest using our Bloomberg terminals or Factset to do that. Easy enough to just pull historical data, by ticker, into Excel or a CSV file from those data sources. You can then import that into Python to use as part of a trading signal or just to do some basic comparisons and graphs.
 
 # ## Data Details - Using APIs
 # 
@@ -441,7 +353,7 @@ tickers.tickers['AAPL'].history(period="1mo")
 # 
 # Make sure that you include your API key. You can input it directly, using the code that they provide. I'm using a different way to do the key that doesn't require me to type my API key into this publicly available code.
 
-# In[135]:
+# In[20]:
 
 
 #! pip install quandl
@@ -456,7 +368,7 @@ quandl.read_key()
 # 
 # Let's try pulling in the *indicator_id* ZATT for all regions. 
 
-# In[136]:
+# In[21]:
 
 
 # zillow = quandl.get_table('ZILLOW/DATA', indicator_id = 'ZATT', paginate=True)
@@ -470,13 +382,13 @@ quandl.read_key()
 # 
 # However, you can filter on *region_id*. Let's pull the ZILLOW/REGIONS table to see what we can use.
 
-# In[137]:
+# In[22]:
 
 
 regions = quandl.get_table('ZILLOW/REGIONS', paginate=True)
 
 
-# In[138]:
+# In[23]:
 
 
 regions
@@ -484,14 +396,14 @@ regions
 
 # What if we just want cities?
 
-# In[139]:
+# In[24]:
 
 
 cities = regions[regions.region_type == 'city']
 cities
 
 
-# In[140]:
+# In[25]:
 
 
 cities.info()
@@ -499,9 +411,9 @@ cities.info()
 
 # I like to look and see what things are stored as, too. Remember, the `object` type is very generic. 
 # 
-# There are 28,131 rows of cities! How about counties?
+# There are 28,125 rows of cities! How about counties?
 
-# In[141]:
+# In[26]:
 
 
 counties = regions[regions.region_type == 'county']
@@ -510,24 +422,24 @@ counties
 
 # Can't find the regions you want? You could export the whole thing to a CSV file and explore it in Excel. This will show up in whatever folder you currently have as your home in VS Code.
 
-# In[142]:
+# In[27]:
 
 
 counties.to_csv('counties.csv', index = True)
 
 
-# You can also open up the **Variables** window at the top of VS Code (or the equivalent in Google Colab) and scroll through the file, looking for the *region_id* values that you want. 
+# You can also open up the **Variables** window in VS Code VS Code (or the equivalent in Google Colab) and scroll through the file, looking for the *region_id* values that you want. 
 # 
 # Finally, you can search the text in a column directly. Let's find counties in NC.
 
-# In[143]:
+# In[28]:
 
 
-nc_counties = counties[counties['region'].str.contains("; NC")]
+nc_counties = counties[counties['region'].str.contains(";NC")]
 nc_counties
 
 
-# In[144]:
+# In[29]:
 
 
 nc_counties.info()
@@ -537,30 +449,32 @@ nc_counties.info()
 # 
 # By exploring the data like this, you can maybe find the *region_id* values that you want and give them as a list. I'm also going to use the `qopts = ` option to name the columns that I want to pull. This isn't necessary here, since I want all of the columns, but I wanted to show you that you could do this.
 
-# In[145]:
+# In[30]:
 
 
 nc_county_list = nc_counties['region_id'].to_list()
 
 
-# In[146]:
+# I'm going to pull down just the NC counties. I'll comment out my code, though, so that I don't download from the API every time I update my notes. This can cause a time-out error.
+
+# In[31]:
 
 
-zillow_nc = quandl.get_table('ZILLOW/DATA', indicator_id = 'ZATT', paginate = True, region_id = nc_county_list,  qopts = {'columns': ['indicator_id', 'region_id', 'date', 'value']})
+#zillow_nc = quandl.get_table('ZILLOW/DATA', indicator_id = 'ZATT', paginate = True, region_id = nc_county_list,  qopts = {'columns': ['indicator_id', 'region_id', 'date', 'value']})
 
 
-# In[147]:
+# In[32]:
 
 
-zillow_nc.head(25)
+#zillow_nc.head(25)
 
 
 # Hey, there's Durham County!
 
-# In[148]:
+# In[33]:
 
 
-zillow_nc.info()
+#zillow_nc.info()
 
 
 # Now you can filter by *date* if you like. And, you could pull down multiple states this way, change the variable type, etc. You could also merge in the region names using *region_id* as your key.
@@ -614,49 +528,51 @@ zillow_nc.info()
 # This is very helpful! We need to know these id values if we want to pull particular sports.
 # 
 # For fun, let's pull this simple JSON file on our end. I've copied and pasted the code below. It didn't like the `print` function, so I just dropped it. I am again loading in my API key from an separate file. You'll use your own.
+# 
+# I am commenting out my code so that it doesn't run and use my API key everytime I update my book.
 
-# In[149]:
+# In[34]:
 
 
-import requests
-from dotenv import load_dotenv # For my .env file which contains my API keys locally
-import os # For my .env file which contains my API keys locally
+# import requests
+# from dotenv import load_dotenv # For my .env file which contains my API keys locally
+# import os # For my .env file which contains my API keys locally
 
-load_dotenv() # For my .env file which contains my API keys locally
-RAPID_API_KEY = os.getenv('RAPID_API_KEY')
+# load_dotenv() # For my .env file which contains my API keys locally
+# RAPID_API_KEY = os.getenv('RAPID_API_KEY')
 
-url = "https://pinnacle-odds.p.rapidapi.com/kit/v1/sports"
+# url = "https://pinnacle-odds.p.rapidapi.com/kit/v1/sports"
 
-headers = {
-	"X-RapidAPI-Key": RAPID_API_KEY,
-	"X-RapidAPI-Host": "pinnacle-odds.p.rapidapi.com"
-}
+# headers = {
+# 	"X-RapidAPI-Key": RAPID_API_KEY,
+# 	"X-RapidAPI-Host": "pinnacle-odds.p.rapidapi.com"
+# }
 
-sports_ids = requests.request("GET", url, headers=headers)
+# sports_ids = requests.request("GET", url, headers=headers)
 
-print(sports_ids.text)
+# print(sports_ids.text)
 
 
 # We can turn that response file into a JSON file. This is what it wants to be!
 # 
-# All of the code that follows is also commented out so that it doesn't run every time I edit this online book. The output from the code is still there, however.
+# Again, all of the code that follows is also commented out so that it doesn't run every time I edit this online book. The output from the code is still there, however.
 
-# In[150]:
+# In[35]:
 
 
-sports_ids_json = sports_ids.json()
-sports_ids_json
+#sports_ids_json = sports_ids.json()
+#sports_ids_json
 
 
 # That's JSON. I was able to show the whole thing in the notebook.
 # 
 # Let's get that into a `pandas` DataFrame now. To do that, we have to know a bit about how JSON files are structured. This one is easy. `pd.json_normalize` is a useful tool here.
 
-# In[151]:
+# In[36]:
 
 
-sports_ids_df = pd.json_normalize(data = sports_ids_json)
-sports_ids_df
+#sports_ids_df = pd.json_normalize(data = sports_ids_json)
+#sports_ids_df
 
 
 # What do all of those columns mean? I don't know! You'd want to read the documentation for your API.
@@ -689,43 +605,43 @@ sports_ids_df
 # 
 # I'll copy and paste the code again. 
 
-# In[152]:
+# In[37]:
 
 
-import requests
+# import requests
 
-url = "https://pinnacle-odds.p.rapidapi.com/kit/v1/markets"
+# url = "https://pinnacle-odds.p.rapidapi.com/kit/v1/markets"
 
-querystring = {"sport_id":"3","league_ids":"487","is_have_odds":"true"}
+# querystring = {"sport_id":"3","league_ids":"487","is_have_odds":"true"}
 
-headers = {
-	"X-RapidAPI-Key": RAPID_API_KEY,
-	"X-RapidAPI-Host": "pinnacle-odds.p.rapidapi.com"
-}
+# headers = {
+# 	"X-RapidAPI-Key": RAPID_API_KEY,
+# 	"X-RapidAPI-Host": "pinnacle-odds.p.rapidapi.com"
+# }
 
-current = requests.request("GET", url, headers=headers, params=querystring)
+# current = requests.request("GET", url, headers=headers, params=querystring)
 
-print(current.text)
+# print(current.text)
 
 
 # Does that query string above make sense now?
 # 
 # I'll convert that data to JSON below and peak at it.
 
-# In[153]:
+# In[38]:
 
 
-current_json = current.json()
-current_json
+#current_json = current.json()
+#current_json
 
 
 # Wow, that's a lot of stuff. OK, now this is the tricky part. How do we get this thing into a `pandas` DataFrame? This is where we really have to think carefully. What do we actually want? Remember, a DataFrame, at its simplest, looks like a spreadsheet, with rows and columns. How could this thing possibly look like that?
 
-# In[154]:
+# In[39]:
 
 
-current_df = pd.json_normalize(data = current_json)
-current_df
+#current_df = pd.json_normalize(data = current_json)
+#current_df
 
 
 # We need to **flatten** this file. JSON files are nested. That's what all those brackets are doing. Let's think a little more about that.
@@ -746,17 +662,17 @@ current_df
 # 
 # Everything is packed into that *events* column. Let's flatten it. This will take every item in it and convert it into a new column. Keys will be combined together to create compound names that combine different levels. 
 
-# In[155]:
+# In[40]:
 
 
-current_df_events = pd.json_normalize(data = current_json, record_path=['events'])
-current_df_events
+#current_df_events = pd.json_normalize(data = current_json, record_path=['events'])
+#current_df_events
 
 
-# In[156]:
+# In[41]:
 
 
-list(current_df_events)
+#list(current_df_events)
 
 
 # That's a lot of columns! Do you see what it did? When I flattened the file, it worked its way through the dictionary and key values. So, periods to num_0 to totals to the various over/under values, etc. It then combined those permutations to create new columns, where each value is separated by a period. Then value at the end of the chain is what goes into the DataFrame. 

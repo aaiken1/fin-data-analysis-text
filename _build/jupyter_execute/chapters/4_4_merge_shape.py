@@ -107,7 +107,11 @@ wide
 # 
 # There are then four variables for each security: price (*PRC*), return (*RET*), the price at the open (*OPENPRC*), and the number of trades on the NASDAQ exchange (*NUMTRD*) Exxon doesn't trade on the NASDAQ, so that variable is missing, or NaN. 
 # 
-# We can use `pd.melt` to take this wide data and make it long. Long data will have a firm identifier (or several), a date, a column that contains the **names** of the different variables (e.g. PRC, RET), and a column for the **values** of the variables. I will keep *PERMNO* as my ID, keep *PRC* and *RET*, name my variable column *vars* and my value column *values*. I'll save this to a new DataFrame called *long*.
+# We can use `pd.melt` to take this wide-like data and make it long. Why do I say "wide-like"? This data is kind of a in-between class wide and classic long data. Classic wide data would have each column as a ticker or firm ID, with a single date column. Then, underneath each ticker, you might have that stock's return on that day. What if you have both prices and returns? Well, each column might be something like *AAPL_ret* and *AAPL_prc*. This is not really ideal. But - note how many shapes the same type of data can have!
+# 
+# I'm sure that there is a more technical term than "wide-like". You can find examples of multi-index data frames below, which start to explore some of the complexities with how we structure our data.
+# 
+# Let's make this data even longer. Long data will have a firm identifier (or several), a date, a column that contains the **names** of the different variables (e.g. PRC, RET), and a column for the **values** of the variables. I will keep *PERMNO* as my ID, keep *PRC* and *RET*, name my variable column *vars* and my value column *values*. I'll save this to a new DataFrame called *long*.
 
 # In[7]:
 
@@ -303,7 +307,7 @@ crsp3_agg
 crsp3['RETX'].unstack()
 
 
-# ```{margin}
+# 
 # ```{note}
 # The *PERMNO*s are now the column headers, so we're treating each stock like a variable. You'll see a lot of finance data like this, with tickers or another ID as columns. But, you can no longer merge on the stock if you wanted to bring in additional variables! This is why the organization of your data is so important. Long data is easier to deal with when combining data sets.
 # ``````

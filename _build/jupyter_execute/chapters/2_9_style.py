@@ -51,7 +51,7 @@ print("Hello World!")
 
 # ## Files, file paths, and the names of things
 # 
-# We'll go over absolute and relative file paths in class. You can see the notebook `1-file-paths.ipynb` on our Github page for some examples.
+# We're using Github classroom for assignments, so we are worried about **repo locations**. But, there can be multiple files and folders in a repo and then again on our computers. 
 # 
 # ```{margin} Know where your stuff is!
 # It is very important that you use a consistent organization and structure. Files, folders, and paths are very important. **If you are using the lab computers, bring your own USB Drive**.

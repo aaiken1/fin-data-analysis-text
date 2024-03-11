@@ -1334,7 +1334,9 @@ memory usage: 88.6+ KB
 </div>
 <p>This data has four firms, all on a single date. There are actually three IDs here: PERMNO, COMNAM, and CUSIP. PERMNO is the permanent security ID assigned by <a class="reference external" href="https://crsp.org">CRSP</a>. COMNAM is obviously the firm name. <a class="reference external" href="https://www.cusip.com/index.html">CUSIP</a> is a security-level ID, so multiple securities (e.g. bonds) from the same firm will have different CUSIPs, though the first six digits of the CUSIP will ID the firm. When you look up fund holdings with the SEC, you’ll get a CUSIP for each security held by the mutual fund, hedge fund, etc.</p>
 <p>There are then four variables for each security: price (<em>PRC</em>), return (<em>RET</em>), the price at the open (<em>OPENPRC</em>), and the number of trades on the NASDAQ exchange (<em>NUMTRD</em>) Exxon doesn’t trade on the NASDAQ, so that variable is missing, or NaN.</p>
-<p>We can use <code class="docutils literal notranslate"><span class="pre">pd.melt</span></code> to take this wide data and make it long. Long data will have a firm identifier (or several), a date, a column that contains the <strong>names</strong> of the different variables (e.g. PRC, RET), and a column for the <strong>values</strong> of the variables. I will keep <em>PERMNO</em> as my ID, keep <em>PRC</em> and <em>RET</em>, name my variable column <em>vars</em> and my value column <em>values</em>. I’ll save this to a new DataFrame called <em>long</em>.</p>
+<p>We can use <code class="docutils literal notranslate"><span class="pre">pd.melt</span></code> to take this wide-like data and make it long. Why do I say “wide-like”? This data is kind of a in-between class wide and classic long data. Classic wide data would have each column as a ticker or firm ID, with a single date column. Then, underneath each ticker, you might have that stock’s return on that day. What if you have both prices and returns? Well, each column might be something like <em>AAPL_ret</em> and <em>AAPL_prc</em>. This is not really ideal. But - note how many shapes the same type of data can have!</p>
+<p>I’m sure that there is a more technical term than “wide-like”. You can find examples of multi-index data frames below, which start to explore some of the complexities with how we structure our data.</p>
+<p>Let’s make this data even longer. Long data will have a firm identifier (or several), a date, a column that contains the <strong>names</strong> of the different variables (e.g. PRC, RET), and a column for the <strong>values</strong> of the variables. I will keep <em>PERMNO</em> as my ID, keep <em>PRC</em> and <em>RET</em>, name my variable column <em>vars</em> and my value column <em>values</em>. I’ll save this to a new DataFrame called <em>long</em>.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">long</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">melt</span><span class="p">(</span><span class="n">wide</span><span class="p">,</span> <span class="n">id_vars</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;PERMNO&#39;</span><span class="p">],</span> <span class="n">value_vars</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;PRC&#39;</span><span class="p">,</span> <span class="s1">&#39;RET&#39;</span><span class="p">],</span> <span class="n">var_name</span> <span class="o">=</span> <span class="s1">&#39;vars&#39;</span><span class="p">,</span> <span class="n">value_name</span> <span class="o">=</span> <span class="s1">&#39;values&#39;</span><span class="p">)</span>
@@ -3370,13 +3372,10 @@ Name: RETX, Length: 757, dtype: float64
 <p>757 rows × 3 columns</p>
 </div></div></div>
 </div>
-<aside class="margin sidebar">
-<p class="sidebar-title"></p>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
 <p>The <em>PERMNO</em>s are now the column headers, so we’re treating each stock like a variable. You’ll see a lot of finance data like this, with tickers or another ID as columns. But, you can no longer merge on the stock if you wanted to bring in additional variables! This is why the organization of your data is so important. Long data is easier to deal with when combining data sets.</p>
 </div>
-</aside>
 <p>If I had defined the <em>PERMNO</em> as the Level 0 index and <em>date</em> as the Level 1 index, then I would have unstacked my data with dates as the columns and the stocks as the rows. That’s not what I wanted, though.</p>
 <section id="columns-and-levels">
 <h3><span class="section-number">4.6.4.1. </span>Columns and levels<a class="headerlink" href="#columns-and-levels" title="Permalink to this headline">#</a></h3>

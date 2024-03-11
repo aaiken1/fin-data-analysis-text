@@ -3,13 +3,11 @@
 
 # # plotly
 # 
-# We've now seen the basics of plotting with `pandas` and `matplotlib`. Let's try another package, called [plotly](https://plotly.com/python/), that let's us create interactive graphics. To install the Plotly package, you'll need to run this your terminal/command window.
+# We've now seen the basics of plotting with `pandas` and `matplotlib`. We saw `seaborn`. Let's try another package, called [plotly](https://plotly.com/python/), that let's us create interactive graphics. To install the Plotly package, you'll need to use `pip`. As before, you can do this inside of a cell in your notebook, or in the terminal.
 # 
 # ```
-# python -m pip install plotly
+# pip install plotly
 # ```
-# 
-# You should then restart VS Code. 
 # 
 # I won't do a comprehensive overview, but I can show you a couple of examples. We'll look at [Plotly Express](https://plotly.com/python/line-charts/#line-plots-with-plotlyexpress).
 # 

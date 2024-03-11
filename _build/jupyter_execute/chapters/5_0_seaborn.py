@@ -3,9 +3,13 @@
 
 # # seaborn
 # 
-# We will end our very broad discussion of data visualization with [seaborn](https://seaborn.pydata.org). `seaborn` is based on `matplotlib`, but us "higher-level" (i.e. easier to use) and makes what many consider nicer looking graphs (i.e. many = me). So, why didn't we start with `seaborn`? I think it is good to see `matplotlib`, since it is the most popular way to create figures in Python. But, you should take a look at `seaborn` as well.
+# We will start our very broad discussion of data visualization with [seaborn](https://seaborn.pydata.org). `seaborn` is based on `matplotlib`, but is "higher-level" (i.e. easier to use) and makes what many consider nicer looking graphs (i.e. many = me). 
 # 
-# `seaborn` comes with Anaconda, so there's nothing to install here. Just add `import seaborn as sns` to your set-up and you're ready to go. In my set-up, I'll set a theme, so that the same theme is used across all of my graphs. I'll create my returns directly in the **stocks** DataFrame.
+# So, why do we still look at `matplotlib`? I think it is good to see `matplotlib`, since it is the most popular way to create figures in Python. But, you should take a look at `seaborn` as well.
+# 
+# [Some people](https://www.emilyriederer.com/post/py-rgo/), especially those coming to Python from other languages, are suggesting that you just start with `seaborn` instead.
+# 
+# `seaborn` comes with Anaconda and Github Codespaces, so there's nothing to install. Just add `import seaborn as sns` to your set-up and you're ready to go. In my set-up, I'll set a theme, so that the same theme is used across all of my graphs. I'll create my returns directly in the **stocks** DataFrame.
 # 
 # DataCamp has a [seaborn tutorial](https://www.datacamp.com/community/tutorials/seaborn-python-tutorial) as well.
 # 
@@ -45,7 +49,15 @@ stocks['msft_ret'] = np.log(stocks.msft_o / stocks.msft_o.shift(1))
 stocks.info()
 
 
-# Let's start with our line plot again. We'll plot just AAPL to start.
+# If you don't have `janitor` installed, you'll need to run in a code cell above your set-up code. You should only have to install a package once per code space.
+# 
+# ```
+# pip install pyjanitor
+# ```
+# 
+# You can read more about `janitor` [here](https://pyjanitor-devs.github.io/pyjanitor/#installation).
+
+# Let's start with a line plot. We'll plot just AAPL to start.
 
 # In[2]:
 

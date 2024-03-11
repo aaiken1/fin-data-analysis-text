@@ -539,9 +539,17 @@ pd.plotting.scatter_matrix(rets2,
                            figsize=(10, 6));
 
 
+# In[44]:
+
+
+rets2
+
+
+# Yikes! Not sure about those y-axis labels. That's some floating-point nonsense. 
+
 # We can run a simple linear regression using `np.polyfit` from the `numpy` library. Other libraries have more sophisticated tools. We'll set `deg=1` since this is a linear regression (i.e. degree of 1). 
 
-# In[44]:
+# In[45]:
 
 
 reg = np.polyfit(rets2['.SPX'], rets2['AAPL.O'], deg=1)  
@@ -550,7 +558,7 @@ reg
 
 # Apple has a beta of 0.957 (note the scientific notation in the output). The intercept (or alpha) is the next number and is based on daily returns. 
 
-# In[45]:
+# In[46]:
 
 
 rets2.corr()  
@@ -562,7 +570,7 @@ rets2.corr()
 # 
 # Let's create 1000 random numbers from a normal distribution with a mean of 0 and a standard deviation of 0.01 (1%). This means that we "pull" these numbers out of that distribution. We can then plot them (using `seaborn`, for fun) and include a normal distribution that fits the distribution of random numbers. 
 
-# In[46]:
+# In[47]:
 
 
 seed(1986)
@@ -572,7 +580,7 @@ sns.distplot(random_returns, fit=norm, kde=False)
 
 # Looks like a bell curve to me. Let's take that set of 1000 random numbers and turn them into a `pd.Series`. We can then treat them like actual returns and create a cumulative return series, like above.
 
-# In[47]:
+# In[48]:
 
 
 return_series = pd.Series(random_returns)

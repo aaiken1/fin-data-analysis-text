@@ -645,17 +645,18 @@ title="Print to PDF"
                 
   <section class="tex2jax_ignore mathjax_ignore" id="essential-portfolio-math">
 <h1><span class="section-number">8. </span>Essential portfolio math<a class="headerlink" href="#essential-portfolio-math" title="Permalink to this headline">#</a></h1>
-<p>This brief chapter will cover the type of statistics that we often see when looking at <strong>portfolios</strong>. Much of this material is covered in various DataCamp exercises. Parts of the material, such as skewness and kurtosis, are also covered in <strong>Chapter 13</strong> of <a class="reference external" href="https://www.oreilly.com/library/view/python-for-finance/9781492024323/">Python for Finance, 2e</a></p>
-<p>This material will have us thinking about <strong>portfolio construction</strong>.</p>
-<p>What is <strong>portfolio construction</strong>? Choosing and sizing the various trades (or, assets, more generally) to achieve a good trade-off between risk and expected return.</p>
+<p>This brief chapter will cover the type of statistics that we often see when looking at <strong>portfolios</strong>. Parts of the material, such as skewness and kurtosis, are also covered in <strong>Chapter 13</strong> of <a class="reference external" href="https://www.oreilly.com/library/view/python-for-finance/9781492024323/">Python for Finance, 2e</a></p>
+<p>This material will have us thinking about <strong>portfolio construction</strong>. This type of portfolio construction is, typically, most helpful in a quantitative, or “quant”, strategy. If you’re picking 20 stocks to buy, you aren’t going to run an optimizer. You’ll probably just 1/n, or equally-weight, the positions.</p>
+<p>But, what if you have a lot of positions, probably chosen by some kind of quant or algorithmic strategy? You will be choosing and sizing the various trades (or, assets, more generally) to achieve a good trade-off between risk and expected return. What should you consider?</p>
 <ol class="simple">
-<li><p>Diversification!</p></li>
+<li><p>Diversification! Quant strategies might have 1000’s of positions.</p></li>
 <li><p>Position limits and risk limits: At the level of securities, asset classes, and overall portfolio.</p></li>
-<li><p>Larger bets on higher conviction trade.</p></li>
+<li><p>Larger bets on higher conviction trade. You can weight a position based on the strength of your signal.</p></li>
 <li><p>Size bets in terms of risk.</p></li>
 <li><p>Correlations matter: For a long position, correlation with other longs is bad, corr. with shorts is good. Powerful to go long/short within each industry, diversify across industries. Can use ETFs and futures to “hedge” out sector and market exposure.</p></li>
 <li><p>Resize positions according to forward-looking risk and conviction.</p></li>
 </ol>
+<p>We won’t start with full-on quantitative-based strategies though. Let’s look at a few, basic return series.</p>
 <p>We’ll start by bringing in some <strong>monthly hedge fund return data</strong>. We’ll calculate some portfolio returns, using assumed weights. We’ll then move on to portfolio-level <strong>variance and standard deviation</strong>. We’ll see how to <strong>annualize returns and volatility</strong>. We’ll look at other risk measures, like <strong>skewness</strong> and <strong>kurtosis</strong>. We’ll see <strong>Sharpe</strong> and <strong>Sortino</strong> ratios. Finally, we’ll make a graph showing the <strong>drawdown</strong>, or worse loss, of our portfolio.</p>
 <p>These ideas will get us thinking about portfolios, trading strategies, risk management, and portfolio optimization. We’ll go into more detail in later chapters.</p>
 <p>The formulas are <strong>must knows</strong> for finance folks! For example, you need these on CFA Level 1.</p>
@@ -1016,8 +1017,8 @@ title="Print to PDF"
 <div><p>However, the variance drain on a sequence of volatile returns still matters when financial advisors use Monte Carlo analysis, which by design actually projects sequences of random volatile returns (based on the probability that they will occur) to determine the outcome of particular retirement strategies. Because the fact that volatility drag is already part of a Monte Carlo analysis means that the return assumption plugged into a Monte Carlo projection should actually be the (higher) arithmetic return, and not the investment’s long-term compound average growth rate. Otherwise, the impact of volatility drag is effectively counted twice, which can understate long-term returns and overstate the actual risk of the prospective retirement plan!</p>
 </div></blockquote>
 <p>We can put that reasoning into a simple, but important formula.</p>
-<div class="amsmath math notranslate nohighlight" id="equation-a90ffc53-bd22-418b-a1ae-385223955e8c">
-<span class="eqno">(8.1)<a class="headerlink" href="#equation-a90ffc53-bd22-418b-a1ae-385223955e8c" title="Permalink to this equation">#</a></span>\[\begin{align}
+<div class="amsmath math notranslate nohighlight" id="equation-09a44d58-342f-458d-9dd4-80ef16c8fee0">
+<span class="eqno">(8.1)<a class="headerlink" href="#equation-09a44d58-342f-458d-9dd4-80ef16c8fee0" title="Permalink to this equation">#</a></span>\[\begin{align}
 \text{Compound Return}_i = E[R_p] - \frac{1}{2}\sigma^2_p
 \end{align}\]</div>
 <p>where <span class="math notranslate nohighlight">\(E[R_i]\)</span> is the arithmetic mean of the portfolio (i.e. the expected return) and <span class="math notranslate nohighlight">\(\sigma^2_p\)</span> is the variance of the portfolio. Note that this math works for single assets, too. It isn’t portfolio specific.</p>
@@ -1065,30 +1066,30 @@ title="Print to PDF"
 <div class="cell_output docutils container">
 <div class="output text_html"><style type="text/css">
 </style>
-<table id="T_505a1">
+<table id="T_33a2d">
   <caption>Hedge Fund Style Returns</caption>
   <thead>
     <tr>
       <th class="blank level0" >&nbsp;</th>
-      <th id="T_505a1_level0_col0" class="col_heading level0 col0" >Monthly Return</th>
+      <th id="T_33a2d_level0_col0" class="col_heading level0 col0" >Monthly Return</th>
     </tr>
   </thead>
   <tbody>
     <tr>
-      <th id="T_505a1_level0_row0" class="row_heading level0 row0" >L/S Equity</th>
-      <td id="T_505a1_row0_col0" class="data row0 col0" >0.754%</td>
+      <th id="T_33a2d_level0_row0" class="row_heading level0 row0" >L/S Equity</th>
+      <td id="T_33a2d_row0_col0" class="data row0 col0" >0.754%</td>
     </tr>
     <tr>
-      <th id="T_505a1_level0_row1" class="row_heading level0 row1" >Equity Market Neutral</th>
-      <td id="T_505a1_row1_col0" class="data row1 col0" >0.441%</td>
+      <th id="T_33a2d_level0_row1" class="row_heading level0 row1" >Equity Market Neutral</th>
+      <td id="T_33a2d_row1_col0" class="data row1 col0" >0.441%</td>
     </tr>
     <tr>
-      <th id="T_505a1_level0_row2" class="row_heading level0 row2" >Global Macro</th>
-      <td id="T_505a1_row2_col0" class="data row2 col0" >0.959%</td>
+      <th id="T_33a2d_level0_row2" class="row_heading level0 row2" >Global Macro</th>
+      <td id="T_33a2d_row2_col0" class="data row2 col0" >0.959%</td>
     </tr>
     <tr>
-      <th id="T_505a1_level0_row3" class="row_heading level0 row3" >Managed Futures</th>
-      <td id="T_505a1_row3_col0" class="data row3 col0" >0.511%</td>
+      <th id="T_33a2d_level0_row3" class="row_heading level0 row3" >Managed Futures</th>
+      <td id="T_33a2d_row3_col0" class="data row3 col0" >0.511%</td>
     </tr>
   </tbody>
 </table>
@@ -1113,30 +1114,30 @@ title="Print to PDF"
 <div class="cell_output docutils container">
 <div class="output text_html"><style type="text/css">
 </style>
-<table id="T_5461e">
+<table id="T_73b9f">
   <caption>Hedge Fund Style Returns</caption>
   <thead>
     <tr>
       <th class="blank level0" >&nbsp;</th>
-      <th id="T_5461e_level0_col0" class="col_heading level0 col0" >Monthly Return</th>
+      <th id="T_73b9f_level0_col0" class="col_heading level0 col0" >Monthly Return</th>
     </tr>
   </thead>
   <tbody>
     <tr>
-      <th id="T_5461e_level0_row0" class="row_heading level0 row0" >L/S Equity</th>
-      <td id="T_5461e_row0_col0" class="data row0 col0" >0.754%</td>
+      <th id="T_73b9f_level0_row0" class="row_heading level0 row0" >L/S Equity</th>
+      <td id="T_73b9f_row0_col0" class="data row0 col0" >0.754%</td>
     </tr>
     <tr>
-      <th id="T_5461e_level0_row1" class="row_heading level0 row1" >Equity Market Neutral</th>
-      <td id="T_5461e_row1_col0" class="data row1 col0" >0.441%</td>
+      <th id="T_73b9f_level0_row1" class="row_heading level0 row1" >Equity Market Neutral</th>
+      <td id="T_73b9f_row1_col0" class="data row1 col0" >0.441%</td>
     </tr>
     <tr>
-      <th id="T_5461e_level0_row2" class="row_heading level0 row2" >Global Macro</th>
-      <td id="T_5461e_row2_col0" class="data row2 col0" >0.959%</td>
+      <th id="T_73b9f_level0_row2" class="row_heading level0 row2" >Global Macro</th>
+      <td id="T_73b9f_row2_col0" class="data row2 col0" >0.959%</td>
     </tr>
     <tr>
-      <th id="T_5461e_level0_row3" class="row_heading level0 row3" >Managed Futures</th>
-      <td id="T_5461e_row3_col0" class="data row3 col0" >0.511%</td>
+      <th id="T_73b9f_level0_row3" class="row_heading level0 row3" >Managed Futures</th>
+      <td id="T_73b9f_row3_col0" class="data row3 col0" >0.511%</td>
     </tr>
   </tbody>
 </table>
@@ -1206,14 +1207,14 @@ title="Print to PDF"
 <section id="risk-measures-at-the-portfolio-level">
 <h2><span class="section-number">8.3. </span>Risk measures at the portfolio-level<a class="headerlink" href="#risk-measures-at-the-portfolio-level" title="Permalink to this headline">#</a></h2>
 <p>As you know from your investments class, the variance of a portfolio is <strong>not</strong> the average variance of the assets in the portfolio. We need to take into account the effects of <strong>diversification</strong>. For example, here’s the formula for the variance of a portfolio with two assets. We need weights, variances, and the covariance between the two.</p>
-<div class="amsmath math notranslate nohighlight" id="equation-a0f9aced-2adb-436b-b963-03c8745665cc">
-<span class="eqno">(8.2)<a class="headerlink" href="#equation-a0f9aced-2adb-436b-b963-03c8745665cc" title="Permalink to this equation">#</a></span>\[\begin{align}
+<div class="amsmath math notranslate nohighlight" id="equation-fed97e48-e493-4b16-9add-70c2a4e7f220">
+<span class="eqno">(8.2)<a class="headerlink" href="#equation-fed97e48-e493-4b16-9add-70c2a4e7f220" title="Permalink to this equation">#</a></span>\[\begin{align}
 \sigma^2_p = w^2_1 \sigma^2_1 + w^2_2 \sigma^2_2 + 2 w_1 w_2 \sigma^2_{1,2}
 \end{align}\]</div>
 <p>That last sigma, <span class="math notranslate nohighlight">\(\sigma^2_{1,2}\)</span>, is the <strong>covariance</strong> between the two assets.</p>
 <p>This formula generalizes for <strong>any number of assets</strong>.</p>
-<div class="amsmath math notranslate nohighlight" id="equation-ddf13e5a-c17a-458b-9ae8-1ac7589d99e6">
-<span class="eqno">(8.3)<a class="headerlink" href="#equation-ddf13e5a-c17a-458b-9ae8-1ac7589d99e6" title="Permalink to this equation">#</a></span>\[\begin{align}
+<div class="amsmath math notranslate nohighlight" id="equation-38a51194-5bb8-4ae1-a3da-2921170e36b8">
+<span class="eqno">(8.3)<a class="headerlink" href="#equation-38a51194-5bb8-4ae1-a3da-2921170e36b8" title="Permalink to this equation">#</a></span>\[\begin{align}
 \sigma^2_p = w^T \Sigma w
 \end{align}\]</div>
 <p>where <span class="math notranslate nohighlight">\(w\)</span> is a <strong>vector</strong> containing all of our portfolio weights and sigma is the variance-covariance matrix for our assets. The “T” means the matrix operation <strong>transpose</strong>. This is necessary for the matrix multiplication.</p>
@@ -1442,7 +1443,7 @@ dtype: float64
 <p>Let’s combine these two ideas, getting our return and risk measures in the same time units and taking risk into account, to calculate to basic risk-adjustment measures: the <strong>Sharpe Ratio</strong> and the <strong>Sortino Ratio</strong>.</p>
 <p>We’ll look at <strong>factor models</strong> in another chapter. This is a more comprehensive way to adjust our returns for the risks that we’re taking in order to see if we have skill.</p>
 <p>Let’s use the monthly portfolio returns that I created above to find our measures of risk/return trade-off. I will first annualize my monthly return. I will then annualize my monthly standard deviation, or volatility as we say in finance. I am “cheating” a bit on my volatility annualization. These are discrete returns. Multiplying by the square root of the number of your time periods in a year (12, because we have montly returns) really only works if you have log returns.</p>
-<p>See the DataCamp assignment and your Principles of Finance notes for more on these calculations.</p>
+<p>See your Principles of Finance notes for more on these calculations.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">risk_free</span> <span class="o">=</span> <span class="mf">0.02</span>
