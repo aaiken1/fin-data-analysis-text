@@ -50,8 +50,6 @@ const thebe_selector_input = "pre"
 const thebe_selector_output = ".output, .cell_output"
 </script>
     <script async="async" src="../_static/sphinx-thebe.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
-    <script src="https://unpkg.com/@jupyter-widgets/html-manager@^0.20.0/dist/embed-amd.js"></script>
     <script>window.MathJax = {"options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
     <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
     <link rel="index" title="Index" href="../genindex.html" />
@@ -651,8 +649,8 @@ title="Print to PDF"
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span>! pip install nasdaq-data-link
 </pre></div>
 </div>
-<p>When you sign-up for NASDAQ Data Link, you’ll get an API Key. You will need to add this key to the set-up to access the NASDAQ data using Quandl.</p>
-<p>I have saved my key locally and am bringing it in with <code class="docutils literal notranslate"><span class="pre">quandl.read_key</span></code>, so that it isn’t publicly available. You don’t need that bit of code.</p>
+<p>When you sign-up for NASDAQ Data Link, you’ll get an API Key. You will need to add this key to the set-up to access the NASDAQ data using <code class="docutils literal notranslate"><span class="pre">nasdaqdatalink</span></code>.</p>
+<p>I have saved my key locally and am bringing it in with <code class="docutils literal notranslate"><span class="pre">nasdaqdatalink.read_key</span></code>, so that it isn’t publicly available. You don’t need that bit of code.</p>
 <p>You can also install <code class="docutils literal notranslate"><span class="pre">pandas-datareader</span></code> using <code class="docutils literal notranslate"><span class="pre">pip</span></code>.</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">pip</span> <span class="n">install</span> <span class="n">pandas</span><span class="o">-</span><span class="n">datareader</span>
 </pre></div>
@@ -1054,16 +1052,16 @@ title="Print to PDF"
 </div>
 </div>
 <p>Let’s put together some ideas, write a function, and run a simulation. We’ll use something called <strong>geometric brownian motion</strong> (GBM). What is GBM? It is a particular <a class="reference external" href="https://arxiv.org/pdf/1504.05309.pdf">stochastic differential equation</a>. But, what’s important for us is the idea, which is fairly simple. Here’s the formula:</p>
-<div class="amsmath math notranslate nohighlight" id="equation-1b4e728c-ca00-477f-8fcf-7fdd605ccb43">
-<span class="eqno">(6.1)<a class="headerlink" href="#equation-1b4e728c-ca00-477f-8fcf-7fdd605ccb43" title="Permalink to this equation">#</a></span>\[\begin{align}
+<div class="amsmath math notranslate nohighlight" id="equation-196fd8df-5c1c-4811-941e-c1dd2ec319e5">
+<span class="eqno">(6.1)<a class="headerlink" href="#equation-196fd8df-5c1c-4811-941e-c1dd2ec319e5" title="Permalink to this equation">#</a></span>\[\begin{align}
 dS = \mu S dt + \sigma S dW_t
 \end{align}\]</div>
 <p>This says that the change in the stock price has two components - a <strong>drift</strong>, or average increase over time, and a <strong>shock</strong> that it is random at each point in time. The shock is scaled by the standard deviation of returns that you use. So, larger standard deviation, the bigger the shocks can be. This is basically the simplest way that you can model an asset price.</p>
 <p>The shocks are what make the price wiggle around around, or else it would just go up over time, based on the drift value that we use.</p>
 <p>And, I’ll stress - we aren’t predicting here, so to speak. We are trying to capture some basic reality about how an asset moves and then seeing what is possible in the future. We aren’t making a statement about whether we think an asset is overvalued or undervalued, will go up or down, etc.</p>
 <p>You can solve this equation to get the value of the asset at any point in time t. You just need to know the total of all of the shocks at time t.</p>
-<div class="amsmath math notranslate nohighlight" id="equation-9da8cf39-a64b-4dee-bfb9-203b11f5cab8">
-<span class="eqno">(6.2)<a class="headerlink" href="#equation-9da8cf39-a64b-4dee-bfb9-203b11f5cab8" title="Permalink to this equation">#</a></span>\[\begin{align}
+<div class="amsmath math notranslate nohighlight" id="equation-810b2f4c-8723-49f4-a258-ac33315e4df7">
+<span class="eqno">(6.2)<a class="headerlink" href="#equation-810b2f4c-8723-49f4-a258-ac33315e4df7" title="Permalink to this equation">#</a></span>\[\begin{align}
 S(t) = S(0) \exp \left(\left(\mu - \frac{1}{2}\sigma^2\right)t + \sigma W(t)\right)
 \end{align}\]</div>
 <div class="cell docutils container">
@@ -1129,19 +1127,19 @@ S(t) = S(0) \exp \left(\left(\mu - \frac{1}{2}\sigma^2\right)t + \sigma W(t)\rig
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>array([[-0.14415067, -0.59161409, -1.37419183, ..., -0.33460883,
-        -0.48702965,  1.47783955],
-       [-0.08046951, -0.04017361,  0.57644906, ..., -1.19307337,
-         1.52067198, -1.116532  ],
-       [-1.2718866 ,  1.59551999, -0.03211331, ..., -1.07633875,
-         0.90808396, -0.01238779],
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>array([[-1.76600382, -0.03120816, -1.35882793, ..., -2.29384049,
+         1.39556189,  0.55333506],
+       [ 0.37074093, -0.46965387,  1.65434869, ...,  0.79569978,
+        -1.67387719, -0.68067374],
+       [ 0.12695402, -1.0583568 , -0.59489089, ...,  0.47425776,
+         0.01874066, -0.39910091],
        ...,
-       [ 1.69215867, -1.45412423, -0.67107126, ...,  0.43721254,
-        -0.72643284,  1.44640838],
-       [-0.54159264,  1.05900571,  0.73866333, ..., -0.41465147,
-        -0.08682701, -0.27913591],
-       [ 0.25360663, -0.73944047, -1.17320406, ..., -0.8535681 ,
-         0.27623999, -0.04542727]])
+       [-0.11653809,  0.02347498, -1.23380209, ...,  0.81845938,
+        -0.86206506,  0.64065442],
+       [-1.16116284, -1.28858148, -1.18731732, ..., -0.53758891,
+         0.42041012, -0.97423469],
+       [ 0.83928419, -0.24308887,  0.74351665, ...,  1.56004433,
+         0.39146738,  0.44866956]])
 </pre></div>
 </div>
 </div>
@@ -1289,8 +1287,11 @@ DATE
 <p>This data structure makes it clear that we can download value data and then merge in ID and region descriptions if needed. But, how do we do that? See the tab in the upper-left, with <strong>DATA</strong> highlighted? You can click on <strong>DOCUMENTATION</strong> and <strong>USAGE</strong> to learn more. We’ll look at a quick example here.</p>
 <p>Click <strong>USAGE</strong> and then the <strong>Python</strong> icon. You’ll seen an example that lets you filter by a single <em>indicator_id</em> and <em>region</em>. It has your API key and the <code class="docutils literal notranslate"><span class="pre">.get_table</span></code> method.</p>
 <p>However, note the <code class="docutils literal notranslate"><span class="pre">quandl</span></code> stuff. They haven’t transitioned this code yet. You’ll need to do a <code class="docutils literal notranslate"><span class="pre">pip</span></code> install for quandl.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">pip</span> <span class="n">install</span> <span class="n">quandl</span>
+</pre></div>
+</div>
 <p>Also, we didn’t use <code class="docutils literal notranslate"><span class="pre">.get_table</span></code> above for BTC. The Zillow data is stored differently.</p>
-<p>Make sure that you include your API key. You can input it directly, using the code that they provide. I’m using a different way to do the key that doesn’t require me to type my API key into this publicly available code.</p>
+<p>Make sure that you include your API key. You can input it directly, using the code that they provide, but this isn’t the preferred method. Instead, use a Github Secret, like we did above.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="ch">#! pip install quandl</span>
