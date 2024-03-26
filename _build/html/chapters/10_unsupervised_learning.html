@@ -772,14 +772,14 @@ title="Print to PDF"
 <p>Instead, you need to change your variables. Scale or normalize them. Create categories. Take logs. All to help with interpretation and create better models.</p>
 <p>The purpose of feature scaling is to ensure that the features are given equal importance in a model. You’re trying to capture how different a variable is from its typical value and whether or not this relates to some other value, the one that you’re trying to predict.</p>
 <p>The text discusses <strong>normalization</strong>. You’ve probably seen this calculation in your stats class.</p>
-<div class="amsmath math notranslate nohighlight" id="equation-c4f5acea-600d-4d63-ad52-d51a0935ca31">
-<span class="eqno">(10.1)<a class="headerlink" href="#equation-c4f5acea-600d-4d63-ad52-d51a0935ca31" title="Permalink to this equation">#</a></span>\[\begin{align}
+<div class="amsmath math notranslate nohighlight" id="equation-7916a35c-5520-4a66-9a5f-170286de69de">
+<span class="eqno">(10.1)<a class="headerlink" href="#equation-7916a35c-5520-4a66-9a5f-170286de69de" title="Permalink to this equation">#</a></span>\[\begin{align}
 \text{Scaled Feature Value} = \frac{V - \mu}{\sigma}
 \end{align}\]</div>
 <p>where V is the value of an observation, <span class="math notranslate nohighlight">\(\mu\)</span> is the mean of all of the observations, and <span class="math notranslate nohighlight">\(\sigma\)</span> is the standard deviation of the values. This is called a <strong>Z-score normalization</strong>.</p>
 <p>You can also do <strong>min-max scaling</strong>.</p>
-<div class="amsmath math notranslate nohighlight" id="equation-4aafdd4b-ac7a-4426-8f69-4195c22c4c90">
-<span class="eqno">(10.2)<a class="headerlink" href="#equation-4aafdd4b-ac7a-4426-8f69-4195c22c4c90" title="Permalink to this equation">#</a></span>\[\begin{align}
+<div class="amsmath math notranslate nohighlight" id="equation-a9c3530e-1902-4528-9ea9-7d5392a7db05">
+<span class="eqno">(10.2)<a class="headerlink" href="#equation-a9c3530e-1902-4528-9ea9-7d5392a7db05" title="Permalink to this equation">#</a></span>\[\begin{align}
 \text{Scaled Feature Value} = \frac{V - min(V)}{max(V) - min(V)}
 \end{align}\]</div>
 <p>Finally, note that use of <strong>training set</strong> and <strong>validation set</strong>. We are going to start splitting our data up as we use <strong>machine learning</strong> techniques to make predictions.</p>
@@ -787,6 +787,7 @@ title="Print to PDF"
 <h3><span class="section-number">10.1.1. </span>Additional materials on feature engineering<a class="headerlink" href="#additional-materials-on-feature-engineering" title="Permalink to this headline">#</a></h3>
 <p>Here are some examples from Datacamp on <a class="reference external" href="https://www.datacamp.com/tutorial/feature-engineering-kaggle">feature engineering for a Kaggle competition</a>. Again, this is all about variable transformation and, more generally, <strong>data engineering</strong>. For example, see the example on <strong>binning data</strong>? This is like when we created some categories for house sizes in our problem sets.</p>
 <p>Here’s an <a class="reference external" href="https://feaz-book.com">entire book on feature engineering</a>. It is a work in progress, but gives you a sense for the types of transformations that you can make and why you might want to make them.</p>
+<p>The Feature Engineering book has a section on <a class="reference external" href="https://feaz-book.com/numeric-normalization">normalization</a>.</p>
 </section>
 </section>
 <section id="k-means-algorithm">
@@ -796,14 +797,14 @@ title="Print to PDF"
 <p>Our text discusses <strong>Euclidean distance</strong> on pgs. 25 and 26. This is like measuring the length of a line, except that you can do this in any number of dimensions.</p>
 <p>There is also the concept of a <strong>center</strong> of a cluster. Suppose that a certain set of observations is regarded as a cluster. The center is calculated by averaging the values of each of the features for the observations in the cluster.</p>
 <figure class="align-center" id="kmeansalg-png">
-<img alt="images/10-kmeansalgo.png" src="images/10-kmeansalgo.png" />
+<img alt="../_images/10-kmeansalgo.png" src="../_images/10-kmeansalgo.png" />
 <figcaption>
 <p><span class="caption-number">Fig. 10.1 </span><span class="caption-text">How the algo works. From Hull, Chapter 2.</span><a class="headerlink" href="#kmeansalg-png" title="Permalink to this image">#</a></p>
 </figcaption>
 </figure>
 <p>How do you know if your clustering method is any good? A measure of the performance of a clustering algorithm is the within-cluster sum of squares, also known as the <strong>inertia</strong>. Define <span class="math notranslate nohighlight">\(d_i\)</span> as the  distance of the ith observation from the center of the cluster to which it belongs.</p>
-<div class="amsmath math notranslate nohighlight" id="equation-95e1390c-a7a6-4a4e-a3fe-ca93640905e7">
-<span class="eqno">(10.3)<a class="headerlink" href="#equation-95e1390c-a7a6-4a4e-a3fe-ca93640905e7" title="Permalink to this equation">#</a></span>\[\begin{align}
+<div class="amsmath math notranslate nohighlight" id="equation-662ad320-5514-4973-b043-e7ea75655eaf">
+<span class="eqno">(10.3)<a class="headerlink" href="#equation-662ad320-5514-4973-b043-e7ea75655eaf" title="Permalink to this equation">#</a></span>\[\begin{align}
 \text{Inertia} = \sum_{i=1}^{N} d_i
 \end{align}\]</div>
 <p>The larger the inertia value, the worse the fit. Now, you can always get smaller inertia by adding more clusters. In fact, each observation could be its own cluster! But, that defeats the purpose. At some point, there’s an “optimal” number of clusters to try and divide your data into.</p>
@@ -1391,7 +1392,7 @@ For n_clusters= 10 The average silhouette_score is : 0.31726760014278527
 <div><p>PCA works best on normalized data. The first factor accounts for as  much of the variability in the data as possible. Each succeeding factor  then accounts for as much of the remaining variability in the data subject to the condition that it is uncorrelated to preceding factors. The  quantity of a particular factor in a particular observation is the factor score.</p>
 </div></blockquote>
 <p>You can read more about how to do this with <a class="reference external" href="https://scikit-learn.org/stable/modules/generated/sklearn.decomposition.PCA.html">Scikit-learn PCA</a>.</p>
-<p>What is PCA really doing? Well, you need some <a class="reference external" href="https://brilliant.org/wiki/principal-component-analysis/">matrix algebra for that</a>.</p>
+<p>What is PCA really doing? Well, you need some <a class="reference external" href="https://brilliant.org/wiki/principal-component-analysis/">matrix algebra for that</a>. Here’s <a class="reference external" href="https://www.avenga.com/magazine/pca-in-finance/">another explainer</a>, with the bare-minimum of math.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">sklearn.decomposition</span> <span class="kn">import</span> <span class="n">PCA</span>
@@ -1907,6 +1908,11 @@ div.sk-label-container:hover .sk-estimator-doc-link.fitted:hover,
 <p>Hull notes when PCA is used. In particular, we can use it to shrink the number of features in our models. It can combine features together.</p>
 <blockquote>
 <div><p>PCA is sometimes used in supervised learning as well as unsupervised learning. We can use it to replace a long list of features by a much smaller list of manufactured features derived from a PCA. The manufactured features are chosen so that they account for most of the variability in the data we are using for prediction and have the nice property that they are uncorrelated.</p>
+</div></blockquote>
+<p>In other words, PCA can be used to take thousands or millions of columns (variables or features) and reduce them to just a few that contain the <strong>important</strong> variation in our data.</p>
+<p>One example, often cited, is using PCA to <strong>shrink</strong> the number of factors in a <a class="reference external" href="https://www.ocean.washington.edu/courses/ess522/lectures/14_covarianceandPCA.pdf">variance-covariance matrix</a>. From the linked lecture note from the University of Washington:</p>
+<blockquote>
+<div><p>Principal component analysis is a tool that is commonly used in exploratory data analysis and predictive analysis, which seeks to explain the bulk of the variation in demeaned data in terms of a smaller number of uncorrelated derived variables (principal components).</p>
 </div></blockquote>
 </section>
 </section>

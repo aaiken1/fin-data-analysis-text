@@ -204,3 +204,24 @@ align: center
 ---
 When you create a new Codespace, you'll get your new repository as an option.
 ```
+
+
+## How to update an assignment
+
+I will sometimes (often?) update an assignment after you have accepted it. You won't know this, though, just working in your Codespace.
+
+First, **do a git add/commit/push** on the files that you are working on. Get them into your repo for the assignment.
+
+Next, go to your Github page for a lab - the repo that has your name at the end. You'll see a message at the top that you are "Y commits ahead, X commits behind" if I've updated the Readme.md file with the lab instructions.
+
+Click on **behind** to see the changes to the assignment, side-by-side with original assignment.
+
+You'll want the Readme instructions in your **forked copy** of my main repo to reflect what is **now** in the main repo. You want to **Synch Fork**. Click that button at the top, under the "X commits behind" message.
+
+**Click the green Update Branch button**.
+
+The file list in the repo should now reflect this update. For example, the commit message next to the Readme.md file should say "Merge branch 'elon-fin-data:main' into main".
+
+**Go back to your Codespace** for this assignment and repo. **Click on the Source Control button** on the right. Do you see the **blue Synch Changes button** with a down arrow now? Click that to bring the update files down into your Codespace. 
+
+

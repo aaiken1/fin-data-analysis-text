@@ -39,6 +39,8 @@
 # 
 # Here's an [entire book on feature engineering](https://feaz-book.com). It is a work in progress, but gives you a sense for the types of transformations that you can make and why you might want to make them.
 # 
+# The Feature Engineering book has a section on [normalization](https://feaz-book.com/numeric-normalization).
+# 
 # 
 
 # ## K-means Algorithm
@@ -363,7 +365,7 @@ for n_clusters in range_n_clusters:
 # 
 # You can read more about how to do this with [Scikit-learn PCA](https://scikit-learn.org/stable/modules/generated/sklearn.decomposition.PCA.html).
 # 
-# What is PCA really doing? Well, you need some [matrix algebra for that](https://brilliant.org/wiki/principal-component-analysis/). 
+# What is PCA really doing? Well, you need some [matrix algebra for that](https://brilliant.org/wiki/principal-component-analysis/). Here's [another explainer](https://www.avenga.com/magazine/pca-in-finance/), with the bare-minimum of math.
 # 
 
 # In[16]:
@@ -401,4 +403,10 @@ print(pca.components_)
 # Hull notes when PCA is used. In particular, we can use it to shrink the number of features in our models. It can combine features together. 
 # 
 # > PCA is sometimes used in supervised learning as well as unsupervised learning. We can use it to replace a long list of features by a much smaller list of manufactured features derived from a PCA. The manufactured features are chosen so that they account for most of the variability in the data we are using for prediction and have the nice property that they are uncorrelated. 
+# 
+# In other words, PCA can be used to take thousands or millions of columns (variables or features) and reduce them to just a few that contain the **important** variation in our data.
+# 
+# One example, often cited, is using PCA to **shrink** the number of factors in a [variance-covariance matrix](https://www.ocean.washington.edu/courses/ess522/lectures/14_covarianceandPCA.pdf). From the linked lecture note from the University of Washington:
+# 
+# > Principal component analysis is a tool that is commonly used in exploratory data analysis and predictive analysis, which seeks to explain the bulk of the variation in demeaned data in terms of a smaller number of uncorrelated derived variables (principal components). 
 # 

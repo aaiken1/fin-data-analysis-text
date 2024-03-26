@@ -25,9 +25,9 @@
 # ! pip install nasdaq-data-link
 # ```
 # 
-# When you sign-up for NASDAQ Data Link, you'll get an API Key. You will need to add this key to the set-up to access the NASDAQ data using Quandl. 
+# When you sign-up for NASDAQ Data Link, you'll get an API Key. You will need to add this key to the set-up to access the NASDAQ data using `nasdaqdatalink`. 
 # 
-# I have saved my key locally and am bringing it in with `quandl.read_key`, so that it isn't publicly available. You don't need that bit of code.
+# I have saved my key locally and am bringing it in with `nasdaqdatalink.read_key`, so that it isn't publicly available. You don't need that bit of code.
 # 
 # You can also install `pandas-datareader` using `pip`.
 # 
@@ -58,13 +58,53 @@ import matplotlib.pyplot as plt
 # Include this to have plots show up in your Jupyter notebook.
 get_ipython().run_line_magic('matplotlib', 'inline')
 
-# nasdaqdatalink.ApiConfig.api_key = 'YOUR_KEY_HERE'
 
+import os # to get access to environment variables
+
+NASDAQ_DATA_LINK_API_KEY = os.environ.get('NASDAQ')
+nasdaqdatalink.ApiConfig.api_key = NASDAQ_DATA_LINK_API_KEY
 nasdaqdatalink.read_key()
 
 #nasdaqdatalink.read_key(filepath="/data/.corporatenasdaqdatalinkapikey")
-#print(nasdaqdatalink.ApiConfig.api_key)
 
+
+# In order for you to use `nasdaqdatalink`, you'll need to find you API key on their web page. To do this, log in, go to the upper-right corner, and click on the little person icon. You'll find your key under **Account Settings**.
+# 
+# Here's one way. The not-very-safe way. Copy and paste that key into:
+# 
+# ```
+# nasdaqdatalink.ApiConfig.api_key = 'YOUR_KEY_HERE'
+# nasdaqdatalink.read_key()
+# ```
+# 
+# That will work. But, copying and pasting your API keys like this is, in general, a very bad idea! After all, if someone has you API key, they can charge things to your account. Github and Codespaces [has a way around this](https://docs.github.com/en/codespaces/managing-your-codespaces/managing-your-account-specific-secrets-for-github-codespaces), though.
+# 
+# Let's use **Github Secrets** to create an **enviroment variable** that you can associate with any of your repositories. Then, within a repo, you can access that "secret" variable, without actually typing it into your code.
+# 
+# Go to your **main Github page at Github.com**. Click on your image in the upper-right. Go to **Settings**. Click on **Codespaces** under **Code, planning, and automation**. 
+# 
+# ```{figure} ../images/07-secrets1.png
+# ---
+# name: 07-secrets1.png
+# align: center
+# ---
+# ```
+# 
+# Click on **Update** under **Codespaces Secrets**. You can now name your secret (e.g. NASDAQ) and copy your API key in the box below. **Select** the repo(s) that you want to associate with this secret. **Add** your secret.
+# 
+# ```{figure} ../images/07-secrets2.png
+# ---
+# name: 07-secrets2.png
+# align: center
+# ---
+# ```
+# 
+# You'll now see that secret in the main Codespace settings page. You can refer to the name of that secret in your Codespace now, like I do above. Note that you need to import the `os` package to access this **environment** variable. An environment variable is a variable defined for all of the work in this particular repo. My secret is named `NASDAQ`, so I can refer to that.
+# 
+# You'll need to reload your Codespace if you had it running in another tab in order to access that secret. 
+# 
+# With my API key read, I can now start downloading data.
+# 
 
 # In[2]:
 
@@ -72,6 +112,8 @@ nasdaqdatalink.read_key()
 gdp = nasdaqdatalink.get('FRED/GDP')
 gdp
 
+
+# You can explore more FRED data [here](https://data.nasdaq.com/data/FRED-federal-reserve-economic-data/documentation). Always read the documentation to know what you're pulling.
 
 # In[3]:
 
@@ -349,9 +391,13 @@ gdp.head
 # 
 # However, note the `quandl` stuff. They haven't transitioned this code yet. You'll need to do a `pip` install for quandl.
 # 
+# ```
+# pip install quandl
+# ```
+# 
 # Also, we didn't use `.get_table` above for BTC. The Zillow data is stored differently. 
 # 
-# Make sure that you include your API key. You can input it directly, using the code that they provide. I'm using a different way to do the key that doesn't require me to type my API key into this publicly available code.
+# Make sure that you include your API key. You can input it directly, using the code that they provide, but this isn't the preferred method. Instead, use a Github Secret, like we did above.
 
 # In[20]:
 
