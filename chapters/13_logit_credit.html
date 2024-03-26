@@ -593,6 +593,11 @@ title="Print to PDF"
    </li>
   </ul>
  </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#hull-chapters-3-and-10-logit">
+   13.4. Hull, Chapters 3 and 10. Logit.
+  </a>
+ </li>
 </ul>
 
     </nav>
@@ -651,6 +656,11 @@ title="Print to PDF"
    </li>
   </ul>
  </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#hull-chapters-3-and-10-logit">
+   13.4. Hull, Chapters 3 and 10. Logit.
+  </a>
+ </li>
 </ul>
 
                         </nav>
@@ -666,11 +676,16 @@ title="Print to PDF"
 <p>Linear regressions ((ordinary least squares, or OLS)) tells us about the association between a <strong>dependent</strong>, or Y variable, and a set of <strong>independent</strong>, or X variables. Regression does not tell us anything about one variable causing another or if the correlations we find have any real meaning. It is simply a <a class="reference external" href="https://www.statology.org/linear-regression-assumptions/">statistical technique</a> for finding a linear relationship between two variables. The meaning of that relationship is up to us and the ideas that we are working with. In finance, we usually have an economic model in mind, such as the CAPM, that gives meaning to the relationship that we find.</p>
 <p>A <strong>logit regression</strong> does something similar, except that it was developed for when our dependent variable is <strong>binary</strong>, a Yes or No. Logistic regression is a regression model where the response variable Y is <strong>categorical</strong>, as opposed to <strong>continuous</strong>. These types of models are used for <strong>classification</strong>. Why do we need a new model? We want a model that can give us <strong>probabilities</strong> for an event. Regular regression isn’t set up to do this</p>
 <p>We will look at a type of data that is commonly used with logit models in finance: credit card default data. This data set has a <strong>binary outcome</strong>. Did the credit card user default? Yes or No? 1 or 0?</p>
-<p>This data is from the DataCamp module on credit risk analysis.</p>
+<p>I start with some data from a DataCamp module on credit risk analysis. I then work the examples from the <strong>Hull textbook, Chapters 3 and 10</strong>.</p>
+<p>My notes are focused on interpreting coefficients in the model. The Hull text is focused on the predictive outcome.</p>
 <p>We’ll start with some usual set-up, bringing the data in, and taking a peak.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># import packages</span>
+<span class="kn">import</span> <span class="nn">warnings</span>
+<span class="n">warnings</span><span class="o">.</span><span class="n">filterwarnings</span><span class="p">(</span><span class="s1">&#39;ignore&#39;</span><span class="p">)</span>
+
+<span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
 <span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
 <span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
 <span class="kn">import</span> <span class="nn">seaborn</span> <span class="k">as</span> <span class="nn">sns</span>
@@ -680,7 +695,20 @@ title="Print to PDF"
 <span class="c1"># Include this to have plots show up in your Jupyter notebook.</span>
 <span class="o">%</span><span class="k">matplotlib</span> inline 
 
-<span class="n">loans</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s1">&#39;https://raw.githubusercontent.com/aaiken1/fin-data-analysis-python/main/data/loan_data.csv&#39;</span><span class="p">,</span> <span class="n">index_col</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>  
+<span class="c1"># For the Hull logit</span>
+<span class="kn">from</span> <span class="nn">sklearn.linear_model</span> <span class="kn">import</span> <span class="n">LogisticRegression</span>
+
+<span class="kn">from</span> <span class="nn">sklearn.metrics</span> <span class="kn">import</span> <span class="n">accuracy_score</span><span class="p">,</span> <span class="n">recall_score</span><span class="p">,</span> <span class="n">precision_score</span><span class="p">,</span> <span class="n">f1_score</span>
+<span class="kn">from</span> <span class="nn">sklearn.metrics</span> <span class="kn">import</span> <span class="n">confusion_matrix</span><span class="p">,</span> <span class="n">classification_report</span><span class="p">,</span> <span class="n">roc_curve</span><span class="p">,</span> <span class="n">roc_auc_score</span>
+<span class="kn">from</span> <span class="nn">sklearn.metrics</span> <span class="kn">import</span> <span class="n">precision_recall_curve</span><span class="p">,</span> <span class="n">auc</span><span class="p">,</span> <span class="n">average_precision_score</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>Let’s bring in the credit card default data first.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">loans</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s1">&#39;https://raw.githubusercontent.com/aaiken1/fin-data-analysis-python/main/data/loan_data.csv&#39;</span><span class="p">,</span> <span class="n">index_col</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>  
 </pre></div>
 </div>
 </div>
@@ -826,7 +854,7 @@ memory usage: 2.0+ MB
 </table>
 </div></div></div>
 </div>
-<p>Note the units. Loan amount appears to be in dollars. The max of $35,000 reflects the general limit on credit card borrowing - these aren’t mortgages. Interest rate is in percents. The median credit card rate in this sample is 10.99%. Employment length is in years, as is age. Annual income is in dollars. Note the max values for <em>annual_inc</em> and <em>age</em>!</p>
+<p>Note the units. Loan amount appears to be in dollars. The max of $35,000 reflects the general limit on credit card borrowing - these aren’t mortgages. Interest rate is in percents. The median credit card rate in this sample is 10.99%. Employment length is in years, as is age. Annual income is in dollars. Note the max values for <em>annual_inc</em> and <em>age</em>. Seems odd.</p>
 <p>Home ownership and grade do not appear, since they are text variables, not numeric. Grade is some kind of overall measure of loan quality.</p>
 <p>Let’s convert the two object variables to <a class="reference external" href="https://www.tutorialspoint.com/python_pandas/python_pandas_categorical_data.htm">categorical variables</a> so that we can deal with them. This code puts all of the <strong>object</strong> columns into a list and then loops through that list to change those columsn to type <strong>category</strong>.</p>
 <div class="cell docutils container">
@@ -1055,18 +1083,15 @@ Name: home_ownership, dtype: int64
 <p>Orange means that the person has defaulted.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">sns</span><span class="o">.</span><span class="n">pairplot</span><span class="p">(</span><span class="n">loans</span><span class="p">,</span> <span class="n">hue</span><span class="o">=</span><span class="s1">&#39;loan_status&#39;</span><span class="p">)</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">sns</span><span class="o">.</span><span class="n">pairplot</span><span class="p">(</span><span class="n">loans</span><span class="p">,</span> <span class="n">hue</span><span class="o">=</span><span class="s1">&#39;loan_status&#39;</span><span class="p">);</span>
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;seaborn.axisgrid.PairGrid at 0x156dd6370&gt;
-</pre></div>
-</div>
-<img alt="../_images/13_logit_credit_15_1.png" src="../_images/13_logit_credit_15_1.png" />
+<img alt="../_images/13_logit_credit_17_0.png" src="../_images/13_logit_credit_17_0.png" />
 </div>
 </div>
-<p>What jumps out to you? First I see some outliers in age. Someone is over 140 years old in the data! We should drop that observation.</p>
+<p>What jumps out to you? First, I see some outliers in age. Someone is over 140 years old in the data! We should drop that observation.</p>
 <p>There’s also one individual with a really large annual income. We could also drop that one observation. Outlier observations can overly influence our regression results, though there are techniques for dealing with that.</p>
 <p>We can also visually see some of the relationships. Look up and down the <em>int_rate</em> column. Generally, there are more orange dots when the interest rate is higher. Look at the second row, second column. The mean of the smaller density is to the right of the larger one. The smaller one has an orange border and shows the distribution of interest rates on the loans that defaulted.</p>
 <p>Look at the third row, second column. There are more orange dots in the higher interest rate, shorter employment length part of the distribution. Look at the fifth row, second column. Loans that defaulted tended to be younger and with higher interest rates.</p>
@@ -1489,7 +1514,7 @@ Name: home_ownership, dtype: int64
 </section>
 <section id="linear-regression-with-a-binary-outcome">
 <h2><span class="section-number">13.2. </span>Linear regression with a binary outcome<a class="headerlink" href="#linear-regression-with-a-binary-outcome" title="Permalink to this headline">#</a></h2>
-<p>Now, let’s run a regular linear regression to see what the relationship between loan status (default = 1) and annual income is.</p>
+<p>Now, let’s run a regular linear regression to see what the relationship between loan status (default = 1) and annual income is. We are going to use the <code class="docutils literal notranslate"><span class="pre">statsmodel</span></code> library.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">results_ols</span> <span class="o">=</span> <span class="n">smf</span><span class="o">.</span><span class="n">ols</span><span class="p">(</span><span class="s2">&quot;loan_status ~ annual_inc&quot;</span><span class="p">,</span> <span class="n">data</span><span class="o">=</span><span class="n">loans</span><span class="p">)</span><span class="o">.</span><span class="n">fit</span><span class="p">()</span>
@@ -1503,8 +1528,8 @@ Name: home_ownership, dtype: int64
 Dep. Variable:            loan_status   R-squared:                       0.003
 Model:                            OLS   Adj. R-squared:                  0.003
 Method:                 Least Squares   F-statistic:                     67.76
-Date:                Tue, 19 Mar 2024   Prob (F-statistic):           1.93e-16
-Time:                        10:15:59   Log-Likelihood:                -6455.7
+Date:                Tue, 26 Mar 2024   Prob (F-statistic):           1.93e-16
+Time:                        16:23:30   Log-Likelihood:                -6455.7
 No. Observations:               25570   AIC:                         1.292e+04
 Df Residuals:                   25568   BIC:                         1.293e+04
 Df Model:                           1                                         
@@ -1543,7 +1568,7 @@ strong multicollinearity or other numerical problems.
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../_images/13_logit_credit_30_0.png" src="../_images/13_logit_credit_30_0.png" />
+<img alt="../_images/13_logit_credit_32_0.png" src="../_images/13_logit_credit_32_0.png" />
 </div>
 </div>
 <p>Well, that sure looks strange! Linear regression shows loan status going negative!</p>
@@ -1555,7 +1580,7 @@ strong multicollinearity or other numerical problems.
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../_images/13_logit_credit_32_0.png" src="../_images/13_logit_credit_32_0.png" />
+<img alt="../_images/13_logit_credit_34_0.png" src="../_images/13_logit_credit_34_0.png" />
 </div>
 </div>
 <p>Yeah, that really doesn’t make sense. <code class="docutils literal notranslate"><span class="pre">seaborn</span></code> lets us also add the fit from a logistic regression, though.</p>
@@ -1567,13 +1592,13 @@ strong multicollinearity or other numerical problems.
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../_images/13_logit_credit_34_0.png" src="../_images/13_logit_credit_34_0.png" />
+<img alt="../_images/13_logit_credit_36_0.png" src="../_images/13_logit_credit_36_0.png" />
 </div>
 </div>
 <p>OK, that still looks a bit strange, but at least loan status is never below 0!</p>
 <section id="categorical-variables-again">
 <h3><span class="section-number">13.2.1. </span>Categorical variables, again<a class="headerlink" href="#categorical-variables-again" title="Permalink to this headline">#</a></h3>
-<p>We’ll add the other variables to the regression, for completeness. To do this, though, I’m going to take my categorical variables and create new <strong>dummy/indicator variables</strong>. This will take the categories and create new columns. These new columns will take the value of 1 or 0, depending on whether or not that observation is in that category.</p>
+<p>We’ll add the other variables to the regression, for completeness. To do this, though, I’m going to take my categorical variables and create new <strong>dummy or indicator variables</strong>. This will take the categories and create new columns. These new columns will take the value of 1 or 0, depending on whether or not that observation is in that category.</p>
 <p>I’ll use <a class="reference external" href="https://www.sharpsightlabs.com/blog/pandas-get-dummies/">pd.get_dummies</a> to do this. I then concatenate, or combine, this new set of indicator variables to my original data. The <code class="docutils literal notranslate"><span class="pre">prefix=</span></code> helps me name the new variables.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -1583,7 +1608,7 @@ strong multicollinearity or other numerical problems.
 </div>
 </div>
 </div>
-<p>You don’t have to create the numeric indicator variables for the regression models. However, when dealing with indicators, you need to drop one of them from the model. For example, for home ownership, you can’t include <em>home_mortgage</em>, <em>home_rent</em>, <em>home_own</em>, and <em>home_other</em>. You always have to drop one category, or the regression won’t work. This is because the four variables together are <a class="reference external" href="https://www.dummies.com/article/business-careers-money/business/economics/perfect-multicollinearity-and-your-econometric-model-156469/">perfectly multicollinear</a>.</p>
+<p>You don’t have to create the numeric indicator variables for the regression models. However, when dealing with indicators, you need to drop one of them from the model. For example, for home ownership, you can’t include <em>home_mortgage</em>, <em>home_rent</em>, <em>home_own</em>, and <em>home_other</em>. You always have to drop one category, or the regression won’t work. This is because the four variables together are <a class="reference external" href="https://www.dummies.com/article/business-careers-money/business/economics/perfect-multicollinearity-and-your-econometric-model-156469/">perfectly multicollinear</a>. See Chapter 3 of the Hull text for more.</p>
 <p>I find it easier sometimes to manipulate the model when I have a distinct indicator variable for my categorical variables. You can also use the <code class="docutils literal notranslate"><span class="pre">treatment=</span></code> option when specifying a variable as categorical directly in the model.</p>
 <p>For example, let me run the OLS model with <em>home_ownership</em> included as a categorical variable.</p>
 <div class="cell docutils container">
@@ -1599,8 +1624,8 @@ strong multicollinearity or other numerical problems.
 Dep. Variable:            loan_status   R-squared:                       0.003
 Model:                            OLS   Adj. R-squared:                  0.003
 Method:                 Least Squares   F-statistic:                     21.92
-Date:                Tue, 19 Mar 2024   Prob (F-statistic):           4.44e-18
-Time:                        10:16:16   Log-Likelihood:                -6445.8
+Date:                Tue, 26 Mar 2024   Prob (F-statistic):           4.44e-18
+Time:                        16:23:48   Log-Likelihood:                -6445.8
 No. Observations:               25570   AIC:                         1.290e+04
 Df Residuals:                   25565   BIC:                         1.294e+04
 Df Model:                           4                                         
@@ -1681,8 +1706,8 @@ memory usage: 1.7 MB
 Dep. Variable:            loan_status   R-squared:                       0.028
 Model:                            OLS   Adj. R-squared:                  0.028
 Method:                 Least Squares   F-statistic:                     52.76
-Date:                Tue, 19 Mar 2024   Prob (F-statistic):          2.32e-146
-Time:                        10:16:16   Log-Likelihood:                -6125.3
+Date:                Tue, 26 Mar 2024   Prob (F-statistic):          2.32e-146
+Time:                        16:23:48   Log-Likelihood:                -6125.3
 No. Observations:               25570   AIC:                         1.228e+04
 Df Residuals:                   25555   BIC:                         1.240e+04
 Df Model:                          14                                         
@@ -1727,8 +1752,8 @@ strong multicollinearity or other numerical problems.
 <h2><span class="section-number">13.3. </span>Logit models<a class="headerlink" href="#id1" title="Permalink to this headline">#</a></h2>
 <p>OK, so let’s look at a <a class="reference external" href="https://www.andrewvillazon.com/logistic-regression-python-statsmodels/#fitting-a-logistic-regression">logit model</a>. We can look at the signs of the coefficients from the OLS model, but we can’t really interpret much else. Those coefficients are not probabilities.</p>
 <p>The true probability of defaulting must fall between 0 and 1. A <strong>logit function</strong>, show below, will satisfy this requirement.</p>
-<div class="amsmath math notranslate nohighlight" id="equation-5d796d39-8a4a-4ba9-94c2-fa61e1dbec3e">
-<span class="eqno">(13.1)<a class="headerlink" href="#equation-5d796d39-8a4a-4ba9-94c2-fa61e1dbec3e" title="Permalink to this equation">#</a></span>\[\begin{align}
+<div class="amsmath math notranslate nohighlight" id="equation-93a455ad-0808-4ae1-bb51-7cc8918a9f17">
+<span class="eqno">(13.1)<a class="headerlink" href="#equation-93a455ad-0808-4ae1-bb51-7cc8918a9f17" title="Permalink to this equation">#</a></span>\[\begin{align}
 {\displaystyle \mathbb{P}(Y=1\mid X) = \frac{1}{1 + e^{-X'\beta}}}
 \end{align}\]</div>
 <p>The left-hand side is the probability that Y = 1, or, in our case, that a loan is in default, <strong>conditional</strong> on the X variables, or the variables that we are using to predict loan status. The right-hand side is the function that <strong>links</strong> our X variables to the probability that Y = 1.</p>
@@ -1757,8 +1782,8 @@ strong multicollinearity or other numerical problems.
 Dep. Variable:            loan_status   No. Observations:                25570
 Model:                          Logit   Df Residuals:                    25568
 Method:                           MLE   Df Model:                            1
-Date:                Tue, 19 Mar 2024   Pseudo R-squ.:                0.001567
-Time:                        10:16:16   Log-Likelihood:                -8803.2
+Date:                Tue, 26 Mar 2024   Pseudo R-squ.:                0.001567
+Time:                        16:23:48   Log-Likelihood:                -8803.2
 converged:                       True   LL-Null:                       -8817.0
 Covariance Type:            nonrobust   LLR p-value:                 1.473e-07
 ==============================================================================
@@ -1775,8 +1800,8 @@ home_RENT      0.2114      0.040      5.243      0.000       0.132       0.290
 <p>Also note that we don’t have <em>t</em>-statistics. With logit, you can <em>z</em>-scores. You can look at the p-values to see how you should interpret the score. The hypothesis is the same as in linear regression: can we reject the null hypothesis that this coefficient is zero?</p>
 <p>The output from the logit regression is still hard to interpret, though. What does the coefficient on home_RENT of 0.2114 mean? This is a <strong>log odds ratio</strong>. Let’s convert this to an <strong>odds ratio</strong>, which is easier to think about.</p>
 <p>An odds ratio is defined as:</p>
-<div class="amsmath math notranslate nohighlight" id="equation-81b56807-53d0-4832-8271-1c57e98d0016">
-<span class="eqno">(13.2)<a class="headerlink" href="#equation-81b56807-53d0-4832-8271-1c57e98d0016" title="Permalink to this equation">#</a></span>\[\begin{align}
+<div class="amsmath math notranslate nohighlight" id="equation-63341dc5-42b8-44f0-a4c8-179b016472a2">
+<span class="eqno">(13.2)<a class="headerlink" href="#equation-63341dc5-42b8-44f0-a4c8-179b016472a2" title="Permalink to this equation">#</a></span>\[\begin{align}
 {\displaystyle \text{odds(success)} = \frac{p}{1-p}}
 \end{align}\]</div>
 <p>where p = probability of the event happening. So, an 80% chance of happening = .8/.2 = 4:1 odds. 1:1 odds is a 50/50 chance. The logit model gives us the log of this number. So, we can use the inverse of the log, the natural number e, to “undo” the log and get us the odds.</p>
@@ -1888,8 +1913,8 @@ home_RENT  1.235453  1.141559  1.337070
 Dep. Variable:            loan_status   No. Observations:                25570
 Model:                          Logit   Df Residuals:                    25568
 Method:                           MLE   Df Model:                            1
-Date:                Tue, 19 Mar 2024   Pseudo R-squ.:                0.005569
-Time:                        10:16:16   Log-Likelihood:                -8767.9
+Date:                Tue, 26 Mar 2024   Pseudo R-squ.:                0.005569
+Time:                        16:23:48   Log-Likelihood:                -8767.9
 converged:                       True   LL-Null:                       -8817.0
 Covariance Type:            nonrobust   LLR p-value:                 3.765e-23
 ==============================================================================
@@ -1980,8 +2005,8 @@ annual_inc  0.948297  0.937414  0.959307
 Dep. Variable:            loan_status   No. Observations:                25570
 Model:                          Logit   Df Residuals:                    25555
 Method:                           MLE   Df Model:                           14
-Date:                Tue, 19 Mar 2024   Pseudo R-squ.:                 0.04168
-Time:                        10:16:17   Log-Likelihood:                -8449.5
+Date:                Tue, 26 Mar 2024   Pseudo R-squ.:                 0.04168
+Time:                        16:23:49   Log-Likelihood:                -8449.5
 converged:                       True   LL-Null:                       -8817.0
 Covariance Type:            nonrobust   LLR p-value:                8.432e-148
 =====================================================================================================================
@@ -2077,6 +2102,832 @@ age                                                  -0.0060      0.003     -1.7
 </table></div></div>
 </div>
 </section>
+</section>
+<section id="hull-chapters-3-and-10-logit">
+<h2><span class="section-number">13.4. </span>Hull, Chapters 3 and 10. Logit.<a class="headerlink" href="#hull-chapters-3-and-10-logit" title="Permalink to this headline">#</a></h2>
+<p>As we’ve seen, logit models are examples of <strong>classification models</strong>. Chapter 3.9 starts with the logit sigmoid function and how the model works. This is similar to the discussion above. He also notes that you can use our ideas from Ridge and Lasso models with a logit.</p>
+<p>Chapter 3.10 talks about <strong>class imbalance</strong>. This comes up when the even that we are trying to predict is rare. This is often the case - many diseases are rare, credit default is rare. Your <strong>unconditional probability</strong> is going to be something like 99.9% of the time you don’t have the disease or that the credit card holder doesn’t default. We’re trying to use machine learning tools to see if we can improve on that.</p>
+<p>Let’s bring in the data that Hull uses in the text. We’ll give them each some actual column names look at each data set.</p>
+<p>The data has four features. We are trying to predict <em>loan_status</em>.</p>
+<p>The data has already been split into training set, validation set, and test set. There are 7000 instances of the training set, 3000 instances of the validation set and 2290 instances of the test set. The four features have been labeled as: home ownership, income, dti and fico.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">train</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_excel</span><span class="p">(</span><span class="s1">&#39;https://raw.githubusercontent.com/aaiken1/fin-data-analysis-python/main/data/lendingclub_traindata.xlsx&#39;</span><span class="p">)</span>
+<span class="n">validation</span><span class="o">=</span><span class="n">pd</span><span class="o">.</span><span class="n">read_excel</span><span class="p">(</span><span class="s1">&#39;https://raw.githubusercontent.com/aaiken1/fin-data-analysis-python/main/data/lendingclub_valdata.xlsx&#39;</span><span class="p">)</span>
+<span class="n">test</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_excel</span><span class="p">(</span><span class="s1">&#39;https://raw.githubusercontent.com/aaiken1/fin-data-analysis-python/main/data/lendingclub_testdata.xlsx&#39;</span><span class="p">)</span>
+
+<span class="c1"># 1 = good, 0 = default</span>
+
+<span class="c1">#give column names</span>
+<span class="n">cols</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;home_ownership&#39;</span><span class="p">,</span> <span class="s1">&#39;income&#39;</span><span class="p">,</span> <span class="s1">&#39;dti&#39;</span><span class="p">,</span> <span class="s1">&#39;fico&#39;</span><span class="p">,</span> <span class="s1">&#39;loan_status&#39;</span><span class="p">]</span>
+
+<span class="n">train</span><span class="o">.</span><span class="n">columns</span> <span class="o">=</span> <span class="n">validation</span><span class="o">.</span><span class="n">columns</span> <span class="o">=</span> <span class="n">test</span><span class="o">.</span><span class="n">columns</span> <span class="o">=</span> <span class="n">cols</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">train</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>home_ownership</th>
+      <th>income</th>
+      <th>dti</th>
+      <th>fico</th>
+      <th>loan_status</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>1</td>
+      <td>44304.0</td>
+      <td>18.47</td>
+      <td>690</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>0</td>
+      <td>50000.0</td>
+      <td>29.62</td>
+      <td>735</td>
+      <td>1</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>0</td>
+      <td>64400.0</td>
+      <td>16.68</td>
+      <td>675</td>
+      <td>1</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>0</td>
+      <td>38500.0</td>
+      <td>33.73</td>
+      <td>660</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>1</td>
+      <td>118000.0</td>
+      <td>26.66</td>
+      <td>665</td>
+      <td>1</td>
+    </tr>
+  </tbody>
+</table>
+</div></div></div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">validation</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>home_ownership</th>
+      <th>income</th>
+      <th>dti</th>
+      <th>fico</th>
+      <th>loan_status</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>0</td>
+      <td>25000.0</td>
+      <td>27.60</td>
+      <td>660</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>0</td>
+      <td>50000.0</td>
+      <td>21.51</td>
+      <td>715</td>
+      <td>1</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>1</td>
+      <td>100000.0</td>
+      <td>8.14</td>
+      <td>770</td>
+      <td>1</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>0</td>
+      <td>75000.0</td>
+      <td>1.76</td>
+      <td>685</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>1</td>
+      <td>78000.0</td>
+      <td>16.11</td>
+      <td>680</td>
+      <td>1</td>
+    </tr>
+  </tbody>
+</table>
+</div></div></div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">test</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>home_ownership</th>
+      <th>income</th>
+      <th>dti</th>
+      <th>fico</th>
+      <th>loan_status</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>1</td>
+      <td>52400.0</td>
+      <td>24.64</td>
+      <td>665</td>
+      <td>1</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>1</td>
+      <td>150000.0</td>
+      <td>17.04</td>
+      <td>785</td>
+      <td>1</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>1</td>
+      <td>100000.0</td>
+      <td>20.92</td>
+      <td>710</td>
+      <td>1</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>0</td>
+      <td>97000.0</td>
+      <td>13.11</td>
+      <td>705</td>
+      <td>1</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>1</td>
+      <td>100000.0</td>
+      <td>24.08</td>
+      <td>685</td>
+      <td>0</td>
+    </tr>
+  </tbody>
+</table>
+</div></div></div>
+</div>
+<p>The <strong>target</strong> is the value we are trying to predict. These <code class="docutils literal notranslate"><span class="pre">sklearn</span></code> methods like to store the X and y variables separately.</p>
+<p>We are also going to <strong>scale</strong> our X variables. Note that we don’t scale the 1/0 y variables here.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># remove target column to create feature only dataset</span>
+<span class="n">X_train</span> <span class="o">=</span> <span class="n">train</span><span class="o">.</span><span class="n">drop</span><span class="p">(</span><span class="s1">&#39;loan_status&#39;</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
+<span class="n">X_val</span><span class="o">=</span><span class="n">validation</span><span class="o">.</span><span class="n">drop</span><span class="p">(</span><span class="s1">&#39;loan_status&#39;</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
+<span class="n">X_test</span> <span class="o">=</span> <span class="n">test</span><span class="o">.</span><span class="n">drop</span><span class="p">(</span><span class="s1">&#39;loan_status&#39;</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
+
+<span class="c1"># Scale data using the mean and standard deviation of the training set. </span>
+<span class="c1"># This is not necessary for the simple logistic regression we will do here </span>
+<span class="c1"># but should be done if L1 or L2 regrularization is carried out</span>
+<span class="n">X_test</span><span class="o">=</span><span class="p">(</span><span class="n">X_test</span><span class="o">-</span><span class="n">X_train</span><span class="o">.</span><span class="n">mean</span><span class="p">())</span><span class="o">/</span><span class="n">X_train</span><span class="o">.</span><span class="n">std</span><span class="p">()</span>
+<span class="n">X_val</span><span class="o">=</span><span class="p">(</span><span class="n">X_val</span><span class="o">-</span><span class="n">X_train</span><span class="o">.</span><span class="n">mean</span><span class="p">())</span><span class="o">/</span><span class="n">X_train</span><span class="o">.</span><span class="n">std</span><span class="p">()</span>
+<span class="n">X_train</span><span class="o">=</span><span class="p">(</span><span class="n">X_train</span><span class="o">-</span><span class="n">X_train</span><span class="o">.</span><span class="n">mean</span><span class="p">())</span><span class="o">/</span><span class="n">X_train</span><span class="o">.</span><span class="n">std</span><span class="p">()</span>
+
+<span class="c1"># store target column as y-variables </span>
+<span class="n">y_train</span> <span class="o">=</span> <span class="n">train</span><span class="p">[</span><span class="s1">&#39;loan_status&#39;</span><span class="p">]</span>
+<span class="n">y_val</span><span class="o">=</span><span class="n">validation</span><span class="p">[</span><span class="s1">&#39;loan_status&#39;</span><span class="p">]</span>
+<span class="n">y_test</span> <span class="o">=</span> <span class="n">test</span><span class="p">[</span><span class="s1">&#39;loan_status&#39;</span><span class="p">]</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">X_train</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>home_ownership</th>
+      <th>income</th>
+      <th>dti</th>
+      <th>fico</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>0.809651</td>
+      <td>-0.556232</td>
+      <td>0.053102</td>
+      <td>-0.163701</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>-1.234923</td>
+      <td>-0.451393</td>
+      <td>1.307386</td>
+      <td>1.262539</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>-1.234923</td>
+      <td>-0.186349</td>
+      <td>-0.148259</td>
+      <td>-0.639114</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>-1.234923</td>
+      <td>-0.663060</td>
+      <td>1.769728</td>
+      <td>-1.114527</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>0.809651</td>
+      <td>0.800204</td>
+      <td>0.974410</td>
+      <td>-0.956056</td>
+    </tr>
+  </tbody>
+</table>
+</div></div></div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">X_val</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>home_ownership</th>
+      <th>income</th>
+      <th>dti</th>
+      <th>fico</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>-1.234923</td>
+      <td>-0.911538</td>
+      <td>1.080153</td>
+      <td>-1.114527</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>-1.234923</td>
+      <td>-0.451393</td>
+      <td>0.395077</td>
+      <td>0.628655</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>0.809651</td>
+      <td>0.468899</td>
+      <td>-1.108940</td>
+      <td>2.371837</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>-1.234923</td>
+      <td>0.008753</td>
+      <td>-1.826638</td>
+      <td>-0.322172</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>0.809651</td>
+      <td>0.063971</td>
+      <td>-0.212379</td>
+      <td>-0.480643</td>
+    </tr>
+  </tbody>
+</table>
+</div></div></div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">X_test</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>home_ownership</th>
+      <th>income</th>
+      <th>dti</th>
+      <th>fico</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>0.809651</td>
+      <td>-0.407219</td>
+      <td>0.747177</td>
+      <td>-0.956056</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>0.809651</td>
+      <td>1.389190</td>
+      <td>-0.107762</td>
+      <td>2.847250</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>0.809651</td>
+      <td>0.468899</td>
+      <td>0.328707</td>
+      <td>0.470184</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>-1.234923</td>
+      <td>0.413681</td>
+      <td>-0.549855</td>
+      <td>0.311713</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>0.809651</td>
+      <td>0.468899</td>
+      <td>0.684181</td>
+      <td>-0.322172</td>
+    </tr>
+  </tbody>
+</table>
+</div></div></div>
+</div>
+<p>Let’s do some simple counts and percentages first. What percent of our training data have a “good” loan status? What percent are in default? I used some fancier methods above to do these percentages.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">freq</span> <span class="o">=</span> <span class="n">y_train</span><span class="o">.</span><span class="n">value_counts</span><span class="p">()</span>           <span class="c1"># count frequency of different classes in training swet</span>
+<span class="n">freq</span><span class="o">/</span><span class="nb">sum</span><span class="p">(</span><span class="n">freq</span><span class="p">)</span><span class="o">*</span><span class="mi">100</span>                      <span class="c1"># get percentage of above</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>1    79.171429
+0    20.828571
+Name: loan_status, dtype: float64
+</pre></div>
+</div>
+</div>
+</div>
+<p>Let’s run the logit. We’ll create the logit object and then fit the model. The logit model object has a variety of options that we could choose for it.
+We’ll print the intercept and the coefficients from the fitted model.</p>
+<p>The <code class="docutils literal notranslate"><span class="pre">penalty</span></code> option lets you choose regular logit, Ridge, Lasso, or Elasticnet by setting the type of L1 or L2 penalty used. See the <a class="reference external" href="https://scikit-learn.org/stable/modules/generated/sklearn.linear_model.LogisticRegression.html">sklearn manual</a> for more.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1">#Create an ionstance of logisticregression named lgstc_reg </span>
+
+<span class="n">lgstc_reg</span> <span class="o">=</span>  <span class="n">LogisticRegression</span><span class="p">(</span><span class="n">penalty</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="n">solver</span><span class="o">=</span><span class="s2">&quot;newton-cg&quot;</span><span class="p">)</span>     
+
+<span class="c1"># Fit logististic regression to training set</span>
+
+<span class="n">lgstc_reg</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">X_train</span><span class="p">,</span> <span class="n">y_train</span><span class="p">)</span>                                        <span class="c1"># fit training data on logistic regression </span>
+
+<span class="nb">print</span><span class="p">(</span><span class="n">lgstc_reg</span><span class="o">.</span><span class="n">intercept_</span><span class="p">,</span> <span class="n">lgstc_reg</span><span class="o">.</span><span class="n">coef_</span><span class="p">)</span>  
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[1.41622043] [[ 0.14529381  0.03361951 -0.32404237  0.363174  ]]
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># y_train_pred, y_val_pred, and y_test_pred are the predicted probabilities for the training set</span>
+<span class="c1"># validation set and test set using the fitted logistic regression model</span>
+
+<span class="n">y_train_pred</span> <span class="o">=</span> <span class="n">lgstc_reg</span><span class="o">.</span><span class="n">predict_proba</span><span class="p">(</span><span class="n">X_train</span><span class="p">)</span>
+<span class="n">y_val_pred</span> <span class="o">=</span> <span class="n">lgstc_reg</span><span class="o">.</span><span class="n">predict_proba</span><span class="p">(</span><span class="n">X_val</span><span class="p">)</span>
+<span class="n">y_test_pred</span> <span class="o">=</span> <span class="n">lgstc_reg</span><span class="o">.</span><span class="n">predict_proba</span><span class="p">(</span><span class="n">X_test</span><span class="p">)</span>
+
+<span class="c1"># Calculate maximum likelihood for training set, validation set, and test set</span>
+
+<span class="n">mle_vector_train</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">log</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">where</span><span class="p">(</span><span class="n">y_train</span> <span class="o">==</span> <span class="mi">1</span><span class="p">,</span> <span class="n">y_train_pred</span><span class="p">[:,</span><span class="mi">1</span><span class="p">],</span> <span class="n">y_train_pred</span><span class="p">[:,</span><span class="mi">0</span><span class="p">]))</span>
+<span class="n">mle_vector_val</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">log</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">where</span><span class="p">(</span><span class="n">y_val</span> <span class="o">==</span> <span class="mi">1</span><span class="p">,</span> <span class="n">y_val_pred</span><span class="p">[:,</span><span class="mi">1</span><span class="p">],</span> <span class="n">y_val_pred</span><span class="p">[:,</span><span class="mi">0</span><span class="p">]))</span>
+<span class="n">mle_vector_test</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">log</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">where</span><span class="p">(</span><span class="n">y_test</span> <span class="o">==</span> <span class="mi">1</span><span class="p">,</span> <span class="n">y_test_pred</span><span class="p">[:,</span><span class="mi">1</span><span class="p">],</span> <span class="n">y_test_pred</span><span class="p">[:,</span><span class="mi">0</span><span class="p">]))</span>
+
+<span class="c1"># Calculate cost functions from maximum likelihoods</span>
+
+<span class="n">cost_function_training</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">negative</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">mle_vector_train</span><span class="p">)</span><span class="o">/</span><span class="nb">len</span><span class="p">(</span><span class="n">y_train</span><span class="p">))</span>
+<span class="n">cost_function_val</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">negative</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">mle_vector_val</span><span class="p">)</span><span class="o">/</span><span class="nb">len</span><span class="p">(</span><span class="n">y_val</span><span class="p">))</span>
+<span class="n">cost_function_test</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">negative</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">mle_vector_test</span><span class="p">)</span><span class="o">/</span><span class="nb">len</span><span class="p">(</span><span class="n">y_test</span><span class="p">))</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;cost function training set =&#39;</span><span class="p">,</span> <span class="n">cost_function_training</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;cost function validation set =&#39;</span><span class="p">,</span> <span class="n">cost_function_val</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;cost function test set =&#39;</span><span class="p">,</span> <span class="n">cost_function_test</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>cost function training set = 0.4911114356066864
+cost function validation set = 0.48607087962794676
+cost function test set = 0.4846698447947508
+</pre></div>
+</div>
+</div>
+</div>
+<p>What is <code class="docutils literal notranslate"><span class="pre">lgstc_reg.predict_proba</span></code> returning? Let’s ask Claude GPT:</p>
+<blockquote>
+<div><p>In scikit-learn, when you call lgstc_reg.predict_proba() on a trained logistic regression model (lgstc_reg), it returns the predicted probabilities of the target classes for the input samples.</p>
+</div></blockquote>
+<blockquote>
+<div><p>Specifically, if you have a binary logistic regression model, lgstc_reg.predict_proba(X) will return an array of shape (n_samples, 2), where n_samples is the number of input samples in X. The two columns represent the probability of the negative class (column 0) and the probability of the positive class (column 1) for each input sample.</p>
+</div></blockquote>
+<blockquote>
+<div><p>For example, if you have a binary logistic regression model for predicting whether an email is spam or not, and you call <code class="docutils literal notranslate"><span class="pre">probabilities</span> <span class="pre">=</span> <span class="pre">lgstc_reg.predict_proba(X_test)</span></code>, the probabilities array will have two columns, where the first column represents the probability of the email being non-spam (class 0), and the second column represents the probability of the email being spam (class 1).</p>
+</div></blockquote>
+<p>We can see that below. The numbers in each row sum to 1.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">y_test_pred</span><span class="p">[:</span><span class="mi">5</span><span class="p">]</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>array([[0.28275519, 0.71724481],
+       [0.0660181 , 0.9339819 ],
+       [0.16605263, 0.83394737],
+       [0.17623257, 0.82376743],
+       [0.22953939, 0.77046061]])
+</pre></div>
+</div>
+</div>
+</div>
+<p>I’m going through this because we need to know the shape of this data and what’s in it in order to use it. Let’s keep just the probability that a loan is in default. That’s the second column.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">y_test_pred</span> <span class="o">=</span> <span class="n">y_test_pred</span><span class="p">[:,</span><span class="mi">1</span><span class="p">]</span>
+<span class="n">y_test_pred</span><span class="p">[:</span><span class="mi">5</span><span class="p">]</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>array([0.71724481, 0.9339819 , 0.83394737, 0.82376743, 0.77046061])
+</pre></div>
+</div>
+</div>
+</div>
+<p>Compare this to the data structure for our actual y test values.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">y_test</span><span class="p">[:</span><span class="mi">5</span><span class="p">]</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>0    1
+1    1
+2    1
+3    1
+4    0
+Name: loan_status, dtype: int64
+</pre></div>
+</div>
+</div>
+</div>
+<p>Let’s create a <strong>confusion matrix</strong>. These help us determine how good a job our model did. From the Hull text:</p>
+<blockquote>
+<div><p>The confusion matrix itself is not confusing but the terminology that accompanies it can be. The four elements of the confusion matrix are defined as follows:</p>
+</div></blockquote>
+<blockquote>
+<div><p>True Positive (TP): Both prediction and outcome are positive
+False Negative (FN): Prediction is negative, but outcome is positive
+False Positive (FP): Prediction is positive and outcome is negative
+True Negative (TN): Prediction is negative and outcome is negative</p>
+</div></blockquote>
+<p>To do this, we need to pick a <strong>threshold</strong> value. This is the value where, if the predicted probability is greater, then we say we are predicting a 1, or that the outcome is true.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Set a threshold to binarize the predicted probabilities</span>
+<span class="n">threshold</span> <span class="o">=</span> <span class="mf">0.7</span>
+<span class="n">y_pred_binary</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">where</span><span class="p">(</span><span class="n">y_test_pred</span> <span class="o">&gt;=</span> <span class="n">threshold</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>
+<span class="n">y_pred_binary</span><span class="p">[:</span><span class="mi">5</span><span class="p">]</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>array([1, 1, 1, 1, 1])
+</pre></div>
+</div>
+</div>
+</div>
+<p>The <a class="reference external" href="https://scikit-learn.org/stable/modules/generated/sklearn.metrics.confusion_matrix.html">confusion matrix method</a> comes from <code class="docutils literal notranslate"><span class="pre">sklearn</span></code>. The ravel() method is useful when you need to convert a multi-dimensional array into a 1D array, for example, when passing the array to a function or algorithm that expects a 1D array as input.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Calculate the confusion matrix</span>
+<span class="n">tn</span><span class="p">,</span> <span class="n">fp</span><span class="p">,</span> <span class="n">fn</span><span class="p">,</span> <span class="n">tp</span> <span class="o">=</span> <span class="n">confusion_matrix</span><span class="p">(</span><span class="n">y_test</span><span class="p">,</span> <span class="n">y_pred_binary</span><span class="p">)</span><span class="o">.</span><span class="n">ravel</span><span class="p">()</span>
+
+<span class="c1"># Print the confusion matrix</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Confusion Matrix:&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;True Negatives: </span><span class="si">{</span><span class="n">tn</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;False Positives: </span><span class="si">{</span><span class="n">fp</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;False Negatives: </span><span class="si">{</span><span class="n">fn</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;True Positives: </span><span class="si">{</span><span class="n">tp</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Confusion Matrix:
+True Negatives: 116
+False Positives: 361
+False Negatives: 176
+True Positives: 1637
+</pre></div>
+</div>
+</div>
+</div>
+<p>We can <strong>normalize</strong> the counts using rows, columns, or all the data, like we did above. This turns the output into fractions.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Calculate the confusion matrix</span>
+<span class="n">tn</span><span class="p">,</span> <span class="n">fp</span><span class="p">,</span> <span class="n">fn</span><span class="p">,</span> <span class="n">tp</span> <span class="o">=</span> <span class="n">confusion_matrix</span><span class="p">(</span><span class="n">y_test</span><span class="p">,</span> <span class="n">y_pred_binary</span><span class="p">,</span> <span class="n">normalize</span><span class="o">=</span><span class="s2">&quot;all&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">ravel</span><span class="p">()</span>
+
+<span class="c1"># Print the confusion matrix</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Confusion Matrix:&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;True Negatives: </span><span class="si">{</span><span class="n">tn</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;False Positives: </span><span class="si">{</span><span class="n">fp</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;False Negatives: </span><span class="si">{</span><span class="n">fn</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;True Positives: </span><span class="si">{</span><span class="n">tp</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Confusion Matrix:
+True Negatives: 0.050655021834061134
+False Positives: 0.15764192139737992
+False Negatives: 0.07685589519650655
+True Positives: 0.7148471615720524
+</pre></div>
+</div>
+</div>
+</div>
+<p>By using “all”, this normalizes across all of the data. So, 72.48% of our data gets correctly categorized as true positives. 5.06% are true negatives. The rest are misclassified as either false positives or false negatives.</p>
+<p>Where do you set the threshold? An analyst must decide on a criterion for predicting whether loan will be good or default. This involves specifying a threshold By default this threshold is set to 0.5, i.e., loans are separated into good and bad categories according to whether the probability of no default is greater or less than 0.5. However this does not work well for an imbalanced data set such as this. It would predict that all loans are good!</p>
+<p>Here’s some code from the text that iterates over different thresholds. I was using 0.70, or 70%, above.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">THRESHOLD</span> <span class="o">=</span> <span class="p">[</span><span class="mf">.70</span><span class="p">,</span> <span class="mf">.75</span><span class="p">,</span> <span class="mf">.80</span><span class="p">,</span> <span class="mf">.85</span><span class="p">]</span>
+<span class="c1"># Create dataframe to store resultd</span>
+<span class="n">results</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">columns</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;THRESHOLD&quot;</span><span class="p">,</span> <span class="s2">&quot;accuracy&quot;</span><span class="p">,</span> <span class="s2">&quot;true pos rate&quot;</span><span class="p">,</span> <span class="s2">&quot;true neg rate&quot;</span><span class="p">,</span> <span class="s2">&quot;false pos rate&quot;</span><span class="p">,</span> <span class="s2">&quot;precision&quot;</span><span class="p">,</span> <span class="s2">&quot;f-score&quot;</span><span class="p">])</span> <span class="c1"># df to store results</span>
+
+<span class="c1"># Create threshold row</span>
+<span class="n">results</span><span class="p">[</span><span class="s1">&#39;THRESHOLD&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">THRESHOLD</span>                                                                         
+             
+<span class="n">j</span> <span class="o">=</span> <span class="mi">0</span>                                                                                                      
+
+<span class="c1"># Iterate over the 3 thresholds</span>
+
+<span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">THRESHOLD</span><span class="p">:</span>                                                                                       
+    
+    
+    <span class="c1">#lgstc_reg.fit(X_train, y_train)                                                                    </span>
+    
+    
+    <span class="c1"># If prob for test set &gt; threshold predict 1</span>
+    <span class="n">preds</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">where</span><span class="p">(</span><span class="n">lgstc_reg</span><span class="o">.</span><span class="n">predict_proba</span><span class="p">(</span><span class="n">X_test</span><span class="p">)[:,</span><span class="mi">1</span><span class="p">]</span> <span class="o">&gt;</span> <span class="n">i</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>                                      
+    
+    
+    <span class="c1"># create confusion matrix </span>
+    <span class="n">cm</span> <span class="o">=</span> <span class="p">(</span><span class="n">confusion_matrix</span><span class="p">(</span><span class="n">y_test</span><span class="p">,</span> <span class="n">preds</span><span class="p">,</span><span class="n">labels</span><span class="o">=</span><span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">],</span> <span class="n">sample_weight</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span> <span class="o">/</span> <span class="nb">len</span><span class="p">(</span><span class="n">y_test</span><span class="p">))</span><span class="o">*</span><span class="mi">100</span>                   <span class="c1"># confusion matrix (in percentage)</span>
+    
+    <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Confusion matrix for threshold =&#39;</span><span class="p">,</span><span class="n">i</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="n">cm</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s1">&#39; &#39;</span><span class="p">)</span>      
+    
+    <span class="n">TP</span> <span class="o">=</span> <span class="n">cm</span><span class="p">[</span><span class="mi">0</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span>                                                                                          <span class="c1"># True Positives</span>
+    <span class="n">FN</span> <span class="o">=</span> <span class="n">cm</span><span class="p">[</span><span class="mi">0</span><span class="p">][</span><span class="mi">1</span><span class="p">]</span>                                                                                          <span class="c1"># False Positives</span>
+    <span class="n">FP</span> <span class="o">=</span> <span class="n">cm</span><span class="p">[</span><span class="mi">1</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span>                                                                                          <span class="c1"># True Negatives</span>
+    <span class="n">TN</span> <span class="o">=</span> <span class="n">cm</span><span class="p">[</span><span class="mi">1</span><span class="p">][</span><span class="mi">1</span><span class="p">]</span>                                                                                          <span class="c1"># False Negatives</span>
+        
+    <span class="n">results</span><span class="o">.</span><span class="n">iloc</span><span class="p">[</span><span class="n">j</span><span class="p">,</span><span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="n">accuracy_score</span><span class="p">(</span><span class="n">y_test</span><span class="p">,</span> <span class="n">preds</span><span class="p">)</span> 
+    <span class="n">results</span><span class="o">.</span><span class="n">iloc</span><span class="p">[</span><span class="n">j</span><span class="p">,</span><span class="mi">2</span><span class="p">]</span> <span class="o">=</span> <span class="n">recall_score</span><span class="p">(</span><span class="n">y_test</span><span class="p">,</span> <span class="n">preds</span><span class="p">)</span>
+    <span class="n">results</span><span class="o">.</span><span class="n">iloc</span><span class="p">[</span><span class="n">j</span><span class="p">,</span><span class="mi">3</span><span class="p">]</span> <span class="o">=</span> <span class="n">TN</span><span class="o">/</span><span class="p">(</span><span class="n">FP</span><span class="o">+</span><span class="n">TN</span><span class="p">)</span>                                                                         <span class="c1"># True negative rate</span>
+    <span class="n">results</span><span class="o">.</span><span class="n">iloc</span><span class="p">[</span><span class="n">j</span><span class="p">,</span><span class="mi">4</span><span class="p">]</span> <span class="o">=</span> <span class="n">FP</span><span class="o">/</span><span class="p">(</span><span class="n">FP</span><span class="o">+</span><span class="n">TN</span><span class="p">)</span>                                                                         <span class="c1"># False positive rate</span>
+    <span class="n">results</span><span class="o">.</span><span class="n">iloc</span><span class="p">[</span><span class="n">j</span><span class="p">,</span><span class="mi">5</span><span class="p">]</span> <span class="o">=</span> <span class="n">precision_score</span><span class="p">(</span><span class="n">y_test</span><span class="p">,</span> <span class="n">preds</span><span class="p">)</span>
+    <span class="n">results</span><span class="o">.</span><span class="n">iloc</span><span class="p">[</span><span class="n">j</span><span class="p">,</span><span class="mi">6</span><span class="p">]</span> <span class="o">=</span> <span class="n">f1_score</span><span class="p">(</span><span class="n">y_test</span><span class="p">,</span> <span class="n">preds</span><span class="p">)</span>
+    
+    <span class="n">j</span> <span class="o">+=</span> <span class="mi">1</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;ALL METRICS&#39;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span> <span class="n">results</span><span class="o">.</span><span class="n">T</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Confusion matrix for threshold = 0.7
+[[71.48471616  7.68558952]
+ [15.76419214  5.06550218]]
+ 
+Confusion matrix for threshold = 0.75
+[[60.82969432 18.34061135]
+ [11.70305677  9.12663755]]
+ 
+Confusion matrix for threshold = 0.8
+[[42.70742358 36.4628821 ]
+ [ 6.4628821  14.36681223]]
+ 
+Confusion matrix for threshold = 0.85
+[[22.7510917  56.41921397]
+ [ 3.01310044 17.81659389]]
+ 
+ALL METRICS
+                       0         1         2         3
+THRESHOLD            0.7      0.75       0.8      0.85
+accuracy        0.765502  0.699563  0.570742  0.405677
+true pos rate   0.902923   0.76834  0.539437  0.287369
+true neg rate   0.243187  0.438155  0.689727  0.855346
+false pos rate  0.756813  0.561845  0.310273  0.144654
+precision       0.819319  0.838651  0.868561  0.883051
+f-score         0.859092  0.801957  0.665532  0.433625
+</pre></div>
+</div>
+</div>
+</div>
+<p>Check out the confusion matrix for 0.70. See how it matches my work above?</p>
+<p>The ALL METRICS table shows the trade-off between true positive and true negative rates. My 0.70 threshold captures 90.29% of the true positives, but only 24.32% of the true negatives. The definition for these rates are in the code:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">results</span><span class="o">.</span><span class="n">iloc</span><span class="p">[</span><span class="n">j</span><span class="p">,</span><span class="mi">3</span><span class="p">]</span> <span class="o">=</span> <span class="n">TN</span><span class="o">/</span><span class="p">(</span><span class="n">FP</span><span class="o">+</span><span class="n">TN</span><span class="p">)</span>                                                                         
+<span class="n">results</span><span class="o">.</span><span class="n">iloc</span><span class="p">[</span><span class="n">j</span><span class="p">,</span><span class="mi">4</span><span class="p">]</span> <span class="o">=</span> <span class="n">FP</span><span class="o">/</span><span class="p">(</span><span class="n">FP</span><span class="o">+</span><span class="n">TN</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>The denominator for both rates is False Positives + True Negatives. This sum is total number of actual negative outcomes in the data.</p>
+<p>The <em>F-Score</em> focuses on how well positives have been identified. See the text for more.</p>
+<p>In particular, pg. 78 has all of these definitions and a discussion of how they are used.</p>
+<p>Finally, let’s look at an <strong>ROC curve</strong>. The ROC curve plots True Positive Rate (y-axis) against the False Positive Rate (x-axis).</p>
+<p>The <strong>AUC measure</strong>, or area under the curve, summarizes the predictive ability of the model. An AUC of 0.5 means that the model is no better than random guessing. This is represented by the dashed line on the graph.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Calculate the receiver operating curve and the AUC measure</span>
+
+<span class="n">lr_prob</span><span class="o">=</span><span class="n">lgstc_reg</span><span class="o">.</span><span class="n">predict_proba</span><span class="p">(</span><span class="n">X_test</span><span class="p">)</span>
+<span class="n">lr_prob</span><span class="o">=</span><span class="n">lr_prob</span><span class="p">[:,</span> <span class="mi">1</span><span class="p">]</span>
+<span class="n">ns_prob</span><span class="o">=</span><span class="p">[</span><span class="mi">0</span> <span class="k">for</span> <span class="n">_</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">y_test</span><span class="p">))]</span>
+<span class="n">ns_auc</span><span class="o">=</span><span class="n">roc_auc_score</span><span class="p">(</span><span class="n">y_test</span><span class="p">,</span> <span class="n">ns_prob</span><span class="p">)</span>
+<span class="n">lr_auc</span><span class="o">=</span><span class="n">roc_auc_score</span><span class="p">(</span><span class="n">y_test</span><span class="p">,</span><span class="n">lr_prob</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;AUC random predictions =&quot;</span><span class="p">,</span> <span class="n">ns_auc</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;AUC predictions from logistic regression model =&quot;</span><span class="p">,</span> <span class="n">lr_auc</span><span class="p">)</span>
+<span class="n">ns_fpr</span><span class="p">,</span><span class="n">ns_tpr</span><span class="p">,</span><span class="n">_</span><span class="o">=</span><span class="n">roc_curve</span><span class="p">(</span><span class="n">y_test</span><span class="p">,</span><span class="n">ns_prob</span><span class="p">)</span>
+<span class="n">lr_fpr</span><span class="p">,</span><span class="n">lr_tpr</span><span class="p">,</span><span class="n">_</span><span class="o">=</span><span class="n">roc_curve</span><span class="p">(</span><span class="n">y_test</span><span class="p">,</span><span class="n">lr_prob</span><span class="p">)</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">ns_fpr</span><span class="p">,</span><span class="n">ns_tpr</span><span class="p">,</span><span class="n">linestyle</span><span class="o">=</span><span class="s1">&#39;--&#39;</span><span class="p">,</span><span class="n">label</span><span class="o">=</span><span class="s1">&#39;Random Predction&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">lr_fpr</span><span class="p">,</span><span class="n">lr_tpr</span><span class="p">,</span><span class="n">marker</span><span class="o">=</span><span class="s1">&#39;.&#39;</span><span class="p">,</span><span class="n">label</span><span class="o">=</span><span class="s1">&#39;Logistic Regression&#39;</span><span class="p">)</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s1">&#39;False Positive Rate&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s1">&#39;True Positive Rate&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">legend</span><span class="p">()</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>AUC random predictions = 0.5
+AUC predictions from logistic regression model = 0.6577663531841429
+</pre></div>
+</div>
+<img alt="../_images/13_logit_credit_99_1.png" src="../_images/13_logit_credit_99_1.png" />
+</div>
+</div>
 </section>
 </section>
 

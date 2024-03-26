@@ -661,6 +661,13 @@ title="Print to PDF"
   <a class="reference internal nav-link" href="#a-warning-the-factor-zoo">
    11.11. A Warning: The Factor Zoo
   </a>
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#latest-research-taming-the-zoo">
+     11.11.1. Latest Research: Taming the Zoo
+    </a>
+   </li>
+  </ul>
  </li>
 </ul>
 
@@ -788,6 +795,13 @@ title="Print to PDF"
   <a class="reference internal nav-link" href="#a-warning-the-factor-zoo">
    11.11. A Warning: The Factor Zoo
   </a>
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#latest-research-taming-the-zoo">
+     11.11.1. Latest Research: Taming the Zoo
+    </a>
+   </li>
+  </ul>
  </li>
 </ul>
 
@@ -801,8 +815,7 @@ title="Print to PDF"
                 
   <section class="tex2jax_ignore mathjax_ignore" id="factor-models-a-id-factor-models-a">
 <h1><span class="section-number">11. </span>Factor models <a id='factor_models'></a><a class="headerlink" href="#factor-models-a-id-factor-models-a" title="Permalink to this headline">#</a></h1>
-<p>We are going to do some financial theory in this chapter. These notes follow largely from those I used in a two-credit <em>Advanced Investments</em> seminar, taught in the Spring of 2021.</p>
-<p>You will see regression more generally in the DataCamp assignments.</p>
+<p>We are going to do some financial theory in this chapter. These notes follow largely from those I used in a two-credit <em>Advanced Investments</em> seminar, taught in the Spring of 2021. I’ve updated them since, with some new results and ideas.</p>
 <section id="where-do-returns-come-from-risks-expected-returns-and-factors">
 <h2><span class="section-number">11.1. </span>Where Do Returns Come From? Risks, Expected Returns, and Factors.<a class="headerlink" href="#where-do-returns-come-from-risks-expected-returns-and-factors" title="Permalink to this headline">#</a></h2>
 <p>This is a Python class. Why is there suddenly a bunch of theory? If we are going to import data, run regressions, and think about how to measure sources of returns, we need a theoretical background. Theory doesn’t mean impractical, though. Theory guides us and tells us where to look.</p>
@@ -903,8 +916,8 @@ title="Print to PDF"
 <section id="capm-our-first-factor-model">
 <h2><span class="section-number">11.4. </span>CAPM. Our First Factor Model.<a class="headerlink" href="#capm-our-first-factor-model" title="Permalink to this headline">#</a></h2>
 <p>The Capital Asset Pricing Model (CAPM), developed in the 1960’s, is covered in every finance class. You learn the formula, are forced to rearrange it to solve for the unknown input, and use it as part of the WACC. Here it is yet again:</p>
-<div class="amsmath math notranslate nohighlight" id="equation-83cb45dc-8f9a-42a9-837b-1b188a1f1e4e">
-<span class="eqno">(11.1)<a class="headerlink" href="#equation-83cb45dc-8f9a-42a9-837b-1b188a1f1e4e" title="Permalink to this equation">#</a></span>\[\begin{align}
+<div class="amsmath math notranslate nohighlight" id="equation-83199d95-cc17-4a5a-8525-ab07db04d253">
+<span class="eqno">(11.1)<a class="headerlink" href="#equation-83199d95-cc17-4a5a-8525-ab07db04d253" title="Permalink to this equation">#</a></span>\[\begin{align}
 E[R_i] = r_f + \beta_i \times ERP
 \end{align}\]</div>
 <p>This simple equation, though, tells us a story about risk and return. All expected returns start with the risk-free rate, <span class="math notranslate nohighlight">\(R_f\)</span>.<a class="footnote-reference brackets" href="#factors-1" id="id1">1</a> We typically use something like the 10-Year Treasury Yield in our context. The expected return on an asset i, <span class="math notranslate nohighlight">\(E[R_i]\)</span>, is proportional to the systematic risk of the asset, <span class="math notranslate nohighlight">\(\beta_i\)</span>. Systematic risk is measured by the equity risk premium, or ERP, which captures market returns. In other words, if an asset is expected to do very well when the market does well, it will have a high expected return. This asset will, however, do poorly when the market does poorly. These types of high beta assets have larger <strong>risk premiums</strong> associated with them, where the risk premium is <span class="math notranslate nohighlight">\(E[R_i] - R_f\)</span>.</p>
@@ -941,8 +954,8 @@ E[R_i] = r_f + \beta_i \times ERP
 <li><p><em>Risk premiums have an economic story.</em> Premiums will rise if investors become more risk averse or if market volatility increases. This is what happened in 2008 – 2009. When prices fell, this reflected a shift to a new state of the world where lower prices set supply equal to demand. Expected returns, the risk premium, were higher after the prices fell.<a class="footnote-reference brackets" href="#factors-3" id="id3">3</a></p></li>
 <li><p><em>Risk is factor exposure.</em> We can see this from the definition of beta:</p></li>
 </ol>
-<div class="amsmath math notranslate nohighlight" id="equation-e8d6c33b-4962-4f15-ab06-7030aeb69257">
-<span class="eqno">(11.2)<a class="headerlink" href="#equation-e8d6c33b-4962-4f15-ab06-7030aeb69257" title="Permalink to this equation">#</a></span>\[\begin{align}
+<div class="amsmath math notranslate nohighlight" id="equation-923da5eb-5006-4b62-97c0-ed46de73a7e2">
+<span class="eqno">(11.2)<a class="headerlink" href="#equation-923da5eb-5006-4b62-97c0-ed46de73a7e2" title="Permalink to this equation">#</a></span>\[\begin{align}
 \beta_i = \frac{cov(r_i, r_m)}{var(r_m)}
 \end{align}\]</div>
 <p>If an asset covaries more (i.e. moves more) with the market return, then it has a higher beta and higher risk. This is going to hold true for all of other factors that we talk about too - factor exposure means moving with the factor. Some assets, like an insurance product, will have negative betas. These are very valuable to hold, since they will go up when the market goes down. Instead of receiving a premium for them, you’ll pay a premium.</p>
@@ -1005,8 +1018,8 @@ E[R_i] = r_f + \beta_i \times ERP
 <h2><span class="section-number">11.7. </span>Style Factors<a class="headerlink" href="#style-factors" title="Permalink to this headline">#</a></h2>
 <p>You can’t directly trade economic growth or inflation.<a class="footnote-reference brackets" href="#factors-4" id="id4">4</a> These factors are embedded in our securities, but it is hard to separate them out. Investors usually, then, use <strong>style factors</strong> when decomposing strategies into their component sources of returns. These tradeable factors are also, we think, related to macroeconomic risks. We essentially define a style factor as a particular portfolio where the securities all share a certain set of characteristics that have had positive returns over time. We infer that these positive returns must be related to some kind of risk.<a class="footnote-reference brackets" href="#factors-5" id="id5">5</a></p>
 <p><a class="reference external" href="https://www.sciencedirect.com/science/article/abs/pii/0304405X93900235">Fama and French (1993)</a>, along some other earlier papers by other authors, lead the way here. There model simply extends the CAPM to include two additional factor, size and value:</p>
-<div class="amsmath math notranslate nohighlight" id="equation-2db24755-bcbc-4748-82a0-3140b3568cfb">
-<span class="eqno">(11.3)<a class="headerlink" href="#equation-2db24755-bcbc-4748-82a0-3140b3568cfb" title="Permalink to this equation">#</a></span>\[\begin{align}
+<div class="amsmath math notranslate nohighlight" id="equation-ec33dfa6-ad44-4fea-b071-b91820c35133">
+<span class="eqno">(11.3)<a class="headerlink" href="#equation-ec33dfa6-ad44-4fea-b071-b91820c35133" title="Permalink to this equation">#</a></span>\[\begin{align}
 E[R_i] = r_f + \beta_{i,mkt} \times (E[R_m] - r_f) + \beta_{i,smb} \times E[SMB] + \beta_{i,hml} \times E[HML]
 \end{align}\]</div>
 <p>The E means “expected” – this formula links expected asset returns to expected factor returns. The first beta is the usual CAPM beta. But, now there are two other betas, or risks, that are captured by this model. SMB, or small minus big, is the return on a portfolio of small stocks less the return on a portfolio of large stocks. Small and large are based on the market capitalization of the firm. This return will be positive if small stocks beat large stocks in a given period (e.g. month). HML, or high minus low, is a portfolio that is long high book-to-market (B/M) stocks and short low B/M stocks. High B/M is a traditional way to define a “value” stock. So, HML will be positive if value stocks beat growth stocks in that period.<a class="footnote-reference brackets" href="#factors-6" id="id6">6</a></p>
@@ -1356,8 +1369,8 @@ E[R_i] = r_f + \beta_{i,mkt} \times (E[R_m] - r_f) + \beta_{i,smb} \times E[SMB]
 Dep. Variable:     ln_sh_eq_hedge_fund_usd   R-squared:                       0.760
 Model:                                 OLS   Adj. R-squared:                  0.756
 Method:                      Least Squares   F-statistic:                     172.1
-Date:                     Tue, 19 Mar 2024   Prob (F-statistic):           4.09e-66
-Time:                             10:15:36   Log-Likelihood:                 631.99
+Date:                     Tue, 26 Mar 2024   Prob (F-statistic):           4.09e-66
+Time:                             16:23:02   Log-Likelihood:                 631.99
 No. Observations:                      222   AIC:                            -1254.
 Df Residuals:                          217   BIC:                            -1237.
 Df Model:                                4                                         
@@ -1444,13 +1457,22 @@ Notes:
 </figure>
 <p>Looking through these measures, you see again how we are breaking down how many active managers invest. What sorts of stocks might you buy because you think they are undervalued? Maybe a firm with a higher EBITDA/EV multiple than its peers that has expanding gross margins (evidence of a moat), positive earnings momentum, and that is above its 30-day moving average (the market is starting recognize the mispricing). Will this work in the future if everyone is reading from the same playbook and using the same Bloomberg screens?</p>
 <p>And the speed that you can trade at matters. Here’s an interesting Twitter thread on what it means to <a class="reference external" href="https://twitter.com/macrocephalopod/status/1357377428390371328">trade a signal to capacity</a>. In other words, if one investor is so fast that they can trade a short-term anomaly quickly, then it will look like that anomaly has disappeared, even if that one trader is still able to exploit it.</p>
-<p>Finally, well-known quant <a class="reference external" href="http://emanuelderman.com">Emanuel Derman</a> points out that these factors and parameters (e.g. volatility) may not be so easy to slice, dice, and trade. We probably know less than we think, even about basic stuff like risk and return. After all, finance is not physics. There are no unifying laws to discover, just people and behaviors to observe. Then, we do the best we can.</p>
+<p>Well-known quant <a class="reference external" href="http://emanuelderman.com">Emanuel Derman</a> points out that these factors and parameters (e.g. volatility) may not be so easy to slice, dice, and trade. We probably know less than we think, even about basic stuff like risk and return. After all, finance is not physics. There are no unifying laws to discover, just people and behaviors to observe. Then, we do the best we can.</p>
 <figure class="align-center" id="derman-png">
 <img alt="../_images/10-derman.png" src="../_images/10-derman.png" />
 <figcaption>
 <p><span class="caption-number">Fig. 11.23 </span><span class="caption-text">How does this transition from asset classes and securities to factors and parameters affect markets? Source: Emanuel Derman</span><a class="headerlink" href="#derman-png" title="Permalink to this image">#</a></p>
 </figcaption>
 </figure>
+<section id="latest-research-taming-the-zoo">
+<h3><span class="section-number">11.11.1. </span>Latest Research: Taming the Zoo<a class="headerlink" href="#latest-research-taming-the-zoo" title="Permalink to this headline">#</a></h3>
+<p>Here’s one <a class="reference external" href="https://www.nber.org/system/files/working_papers/w32261/w32261.pdf">recent example of using dimension reduction</a> to reduce the number of factors that explain asset returns. From the paper:</p>
+<blockquote>
+<div><p>Factor models have been a central framework for modeling stock returns. Many asset pricing theories, such as the CAPM and Intertemporal-CAPM, imply factor structures for returns. The arbitrage pricing theory (APT) of Ross (1976) implies that risk premia are linked to common factors via no-arbitrage conditions, leading to statistical representations of approximate factor models (Huberman (1982), Chamberlain and Rothschild (1983)). Following these theoretical insights, Connor and Korajczyk (1986, 1988) proposed to estimate latent factors by Principal Component Analysis (PCA).</p>
+</div></blockquote>
+<blockquote>
+<div><p>Recently, latent factor models have been used to address the “factor zoo” conundrum in asset pricing (Subrahmanyam (2010), Cochrane (2011)). This literature aims to condense the large number of characteristics associated with return spreads into a small number of pricing factors. While some recent papers use machine learning tools, e.g., elastic nets (Kozak et al. (2020)), regression trees (Bryzgalova et al. (2023)), and neural nets (Chen et al. (2023)), the majority of estimation methods for latent factor models are based on PCA.</p>
+</div></blockquote>
 <hr class="footnotes docutils" />
 <dl class="footnote brackets">
 <dt class="label" id="factors-1"><span class="brackets"><a class="fn-backref" href="#id1">1</a></span></dt>
@@ -1475,6 +1497,7 @@ Notes:
 <dd><p>I might argue that basic index funds, like the Vanguard Total Stock Market fund, is a factor fund, if only for the tautological reason that it has a beta of one and no alpha, by design. It is a market factor fund and costs basically nothing.</p>
 </dd>
 </dl>
+</section>
 </section>
 </section>
 
