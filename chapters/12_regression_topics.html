@@ -654,13 +654,13 @@ title="Print to PDF"
   </a>
   <ul class="nav section-nav flex-column">
    <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#standardizing-your-data">
-     12.7.1. Standardizing your data
+    <a class="reference internal nav-link" href="#splitting-your-data">
+     12.7.1. Splitting your data
     </a>
    </li>
    <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#splitting-your-data">
-     12.7.2. Splitting your data
+    <a class="reference internal nav-link" href="#standardizing-your-data">
+     12.7.2. Standardizing your data
     </a>
    </li>
    <li class="toc-h3 nav-item toc-entry">
@@ -668,24 +668,26 @@ title="Print to PDF"
      12.7.3. Cross-validation and hyperparamters
     </a>
    </li>
-   <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#pipelines">
-     12.7.4. Pipelines
-    </a>
-   </li>
+  </ul>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#pipelines">
+   12.8. Pipelines
+  </a>
+  <ul class="nav section-nav flex-column">
    <li class="toc-h3 nav-item toc-entry">
     <a class="reference internal nav-link" href="#hyperparamters-and-model-overfit">
-     12.7.5. Hyperparamters and model overfit
+     12.8.1. Hyperparamters and model overfit
     </a>
    </li>
    <li class="toc-h3 nav-item toc-entry">
     <a class="reference internal nav-link" href="#interpreting-linear-regression-models">
-     12.7.6. Interpreting linear regression models
+     12.8.2. Interpreting linear regression models
     </a>
    </li>
    <li class="toc-h3 nav-item toc-entry">
     <a class="reference internal nav-link" href="#some-worked-examples">
-     12.7.7. Some worked examples
+     12.8.3. Some worked examples
     </a>
    </li>
   </ul>
@@ -809,13 +811,13 @@ title="Print to PDF"
   </a>
   <ul class="nav section-nav flex-column">
    <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#standardizing-your-data">
-     12.7.1. Standardizing your data
+    <a class="reference internal nav-link" href="#splitting-your-data">
+     12.7.1. Splitting your data
     </a>
    </li>
    <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#splitting-your-data">
-     12.7.2. Splitting your data
+    <a class="reference internal nav-link" href="#standardizing-your-data">
+     12.7.2. Standardizing your data
     </a>
    </li>
    <li class="toc-h3 nav-item toc-entry">
@@ -823,24 +825,26 @@ title="Print to PDF"
      12.7.3. Cross-validation and hyperparamters
     </a>
    </li>
-   <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#pipelines">
-     12.7.4. Pipelines
-    </a>
-   </li>
+  </ul>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#pipelines">
+   12.8. Pipelines
+  </a>
+  <ul class="nav section-nav flex-column">
    <li class="toc-h3 nav-item toc-entry">
     <a class="reference internal nav-link" href="#hyperparamters-and-model-overfit">
-     12.7.5. Hyperparamters and model overfit
+     12.8.1. Hyperparamters and model overfit
     </a>
    </li>
    <li class="toc-h3 nav-item toc-entry">
     <a class="reference internal nav-link" href="#interpreting-linear-regression-models">
-     12.7.6. Interpreting linear regression models
+     12.8.2. Interpreting linear regression models
     </a>
    </li>
    <li class="toc-h3 nav-item toc-entry">
     <a class="reference internal nav-link" href="#some-worked-examples">
-     12.7.7. Some worked examples
+     12.8.3. Some worked examples
     </a>
    </li>
   </ul>
@@ -899,9 +903,9 @@ title="Print to PDF"
 <li><p><strong>Split your data.</strong> Once your data is clean, you can split it into <strong>training</strong> and <strong>testing</strong> samples. Hull will also sometimes split things into an intermediate <strong>validation</strong> sample. Most of your data will be in the training sample. You’ll hold out maybe 20% of your data for testing.</p></li>
 <li><p><strong>Standardize your data.</strong> Turn the actual numerical values for your targets and features into z-scores. A general recommendation is to standardize your training data and then use the means and standard deviations from your training data to standardize your testing data. More on this below.</p></li>
 </ul>
-<p>Hull often provides data that is already cleaned, split, and standardized. But, we need to know how to do this.</p>
+<p>Hull often provides data that is already cleaned, split, and standardized. But, we need to know how to do this. He mentions in the text that he standardizes the testing data using the means and standard deviations from the training data. But, we don’t see this when using data that is already cleaned up.</p>
 <ul class="simple">
-<li><p><strong>Train your model.</strong> Use your training data to fit your model. Use a validation data set or something like cross-fold validation to look for optimal hyperparameter(s), if needed.</p></li>
+<li><p><strong>Train your model.</strong> Use your training data to fit your model. Use a validation data set or something like cross-fold validation to look for the optimal hyperparameter(s), if needed.</p></li>
 <li><p><strong>Predict your target.</strong> Take the fitted model that uses the optimal hyperparamter(s) and use it to fit your testing data. Get predicted values and compare to the actual y targets in your testing sample.</p></li>
 <li><p><strong>Evaluate your model.</strong> How good a job did it do? See Hull for more on the numbers you might use to evaluate a model. I like to make a scatter plot of actual vs. predicted values.</p></li>
 </ul>
@@ -968,7 +972,7 @@ title="Print to PDF"
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>/var/folders/kx/y8vj3n6n5kq_d74vj24jsnh40000gn/T/ipykernel_37159/4278326240.py:1: DtypeWarning: Columns (49) have mixed types. Specify dtype option on import or set low_memory=False.
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>/var/folders/kx/y8vj3n6n5kq_d74vj24jsnh40000gn/T/ipykernel_38330/4278326240.py:1: DtypeWarning: Columns (49) have mixed types. Specify dtype option on import or set low_memory=False.
   housing = pd.read_csv(&#39;https://raw.githubusercontent.com/aaiken1/fin-data-analysis-python/main/data/properties_2016_sample10_1.csv&#39;)
 </pre></div>
 </div>
@@ -1551,8 +1555,8 @@ title="Print to PDF"
 Dep. Variable:               logerror   R-squared:                       0.001
 Model:                            OLS   Adj. R-squared:                  0.001
 Method:                 Least Squares   F-statistic:                     13.30
-Date:                Fri, 19 Apr 2024   Prob (F-statistic):           0.000267
-Time:                        16:29:21   Log-Likelihood:                 3831.8
+Date:                Sat, 20 Apr 2024   Prob (F-statistic):           0.000267
+Time:                        14:29:33   Log-Likelihood:                 3831.8
 No. Observations:                9001   AIC:                            -7660.
 Df Residuals:                    8999   BIC:                            -7645.
 Df Model:                           1                                         
@@ -1611,8 +1615,8 @@ Notes:
 Dep. Variable:               logerror   R-squared:                       0.002
 Model:                            OLS   Adj. R-squared:                  0.002
 Method:                 Least Squares   F-statistic:                     6.718
-Date:                Fri, 19 Apr 2024   Prob (F-statistic):           0.000159
-Time:                        16:29:21   Log-Likelihood:                 3835.2
+Date:                Sat, 20 Apr 2024   Prob (F-statistic):           0.000159
+Time:                        14:29:33   Log-Likelihood:                 3835.2
 No. Observations:                9001   AIC:                            -7662.
 Df Residuals:                    8997   BIC:                            -7634.
 Df Model:                           3                                         
@@ -1653,8 +1657,8 @@ Notes:
 Dep. Variable:               logerror   R-squared:                       0.002
 Model:                            OLS   Adj. R-squared:                  0.002
 Method:                 Least Squares   F-statistic:                     21.69
-Date:                Fri, 19 Apr 2024   Prob (F-statistic):           3.24e-06
-Time:                        16:29:21   Log-Likelihood:                 3856.7
+Date:                Sat, 20 Apr 2024   Prob (F-statistic):           3.24e-06
+Time:                        14:29:33   Log-Likelihood:                 3856.7
 No. Observations:                9071   AIC:                            -7709.
 Df Residuals:                    9069   BIC:                            -7695.
 Df Model:                           1                                         
@@ -1739,8 +1743,8 @@ Name: pool_d, dtype: float64
 Dep. Variable:               logerror   R-squared:                       0.001
 Model:                            OLS   Adj. R-squared:                  0.001
 Method:                 Least Squares   F-statistic:                     6.684
-Date:                Fri, 19 Apr 2024   Prob (F-statistic):            0.00126
-Time:                        16:29:21   Log-Likelihood:                 3831.8
+Date:                Sat, 20 Apr 2024   Prob (F-statistic):            0.00126
+Time:                        14:29:33   Log-Likelihood:                 3831.8
 No. Observations:                9001   AIC:                            -7658.
 Df Residuals:                    8998   BIC:                            -7636.
 Df Model:                           2                                         
@@ -1781,8 +1785,8 @@ Notes:
 Dep. Variable:               logerror   R-squared:                       0.004
 Model:                            OLS   Adj. R-squared:                  0.003
 Method:                 Least Squares   F-statistic:                     3.118
-Date:                Fri, 19 Apr 2024   Prob (F-statistic):           0.000196
-Time:                        16:29:21   Log-Likelihood:                 3843.8
+Date:                Sat, 20 Apr 2024   Prob (F-statistic):           0.000196
+Time:                        14:29:33   Log-Likelihood:                 3843.8
 No. Observations:                9001   AIC:                            -7662.
 Df Residuals:                    8988   BIC:                            -7569.
 Df Model:                          12                                         
@@ -1830,8 +1834,8 @@ Notes:
 Dep. Variable:               logerror   R-squared:                       0.054
 Model:                            OLS   Adj. R-squared:                  0.012
 Method:                 Least Squares   F-statistic:                     1.300
-Date:                Fri, 19 Apr 2024   Prob (F-statistic):           0.000104
-Time:                        16:29:21   Log-Likelihood:                 4075.3
+Date:                Sat, 20 Apr 2024   Prob (F-statistic):           0.000104
+Time:                        14:29:33   Log-Likelihood:                 4075.3
 No. Observations:                9001   AIC:                            -7391.
 Df Residuals:                    8621   BIC:                            -4691.
 Df Model:                         379                                         
@@ -3259,18 +3263,18 @@ strong multicollinearity or other numerical problems.
 <p>The <strong>y</strong> is the <strong>target</strong> variable. The thing that you are trying to predict. You’ll also standardize this, typically.</p>
 <p>And, crucially, the <strong>X</strong> data frame <strong>only</strong> contains the features we want. No extra columns. Nothing that we used earlier to create a new variable. If it is in <strong>X</strong>, then it is going into the model. This is different from using other packages or languages, where you might write out your regression model. In fact, I do that above when using <code class="docutils literal notranslate"><span class="pre">statsmodel</span></code>.</p>
 <p><strong>Why don’t people write out their models in machine learning? Too many variables and the algo is picking your model for you!</strong></p>
-<p>The also textbook introduces the idea of <strong>three different types of data sets: training, validation, and testing</strong>. Let’s ask Claude the differences:</p>
+<p>The also textbook introduces the idea of <strong>three different types of data sets: training, validation, and testing</strong>. Let’s ask Claude about the differences:</p>
 <p>In machine learning, data is typically split into three subsets: training data, validation data, and test data. Each subset serves a different purpose in the model development and evaluation process.</p>
 <p><strong>Training Data</strong>: The training data is the largest portion of the dataset, and it is used to train the machine learning model. During the training process, the model learns patterns and relationships from the training data. The model’s parameters are adjusted to minimize the error or loss function on this data.</p>
 <p><strong>Validation Data</strong>: The validation data is a subset of the data held out from the training process. It is used to evaluate the performance of the model during the training phase. The validation data provides an unbiased estimate of the model’s performance on unseen data. It helps tune the <strong>hyperparameters</strong> of the model, such as the learning rate, regularization strength, or the number of iterations. The validation data is used to prevent <strong>overfitting</strong>, which occurs when the model performs well on the training data but fails to generalize to new, unseen data. By monitoring the performance on the validation data, early stopping or regularization techniques can be applied to improve the model’s generalization capability.</p>
 <p><strong>Test Data</strong>: The test data is a separate subset of the data that is completely isolated from the training and validation processes. It is used to evaluate the final performance of the trained model on unseen data, providing an unbiased estimate of the model’s real-world performance. The test data should be representative of the data the model will encounter in production or real-world scenarios. The performance metrics calculated on the test data, such as accuracy, precision, recall, or F1-score, are considered the final, reliable indicators of the model’s effectiveness.</p>
 <p>It is crucial to keep the test data separate and untouched during the training and validation phases to avoid any data leakage or overfitting to the test data. The test data should only be used once, after the model has been fully trained and tuned, to obtain an unbiased estimate of its performance.</p>
 <p>By splitting the data into these three subsets, machine learning practitioners can train models effectively, tune hyperparameters, and evaluate the final performance objectively, ensuring that the model will generalize well to new, unseen data.</p>
-<p>As you’ll see, sometimes we only use a training and test data. We’ll validate the model within the training data.</p>
+<p>As you’ll see, sometimes we only use two separate data sets, training and test data. We’ll validate the model within the training data.</p>
 <p><code class="docutils literal notranslate"><span class="pre">sklearn</span></code> has many built-in features to help, like ways to automatically split your data, though the textbook tends to do things manually.</p>
 <p>Chapter 3.2 introduces <strong>multiple features</strong>. Again, this just means multiple explanatory X variables. Eq. 3.1 gives us the general form of a linear regression model:</p>
-<div class="amsmath math notranslate nohighlight" id="equation-c345276c-cf44-459e-87f5-07da1c52a9f2">
-<span class="eqno">(12.1)<a class="headerlink" href="#equation-c345276c-cf44-459e-87f5-07da1c52a9f2" title="Permalink to this equation">#</a></span>\[\begin{align}
+<div class="amsmath math notranslate nohighlight" id="equation-58b206e9-a5d1-4502-8528-d40e9fafa75e">
+<span class="eqno">(12.1)<a class="headerlink" href="#equation-58b206e9-a5d1-4502-8528-d40e9fafa75e" title="Permalink to this equation">#</a></span>\[\begin{align}
 Y = a + b_1 X_1 + b_2 X_2 + \cdots + b_m X_m + \varepsilon
 \end{align}\]</div>
 <p>The <a class="reference external" href="https://www.statsmodels.org/dev/examples/notebooks/generated/ols.html">statsmodel</a> page for linear regression has helpful code examples, including how to generate dummy variables (see below).</p>
@@ -3281,13 +3285,13 @@ Y = a + b_1 X_1 + b_2 X_2 + \cdots + b_m X_m + \varepsilon
 <p>In short, the linear regression algorithm selects values for <span class="math notranslate nohighlight">\(a\)</span> and each <span class="math notranslate nohighlight">\(b\)</span> above that minimize the sum of the squared differences between each Y and its predicted value (i.e. the right-hand side of the equation). This is shown in Eq. 3.2. Why do we square the differences? The direction of the error doesn’t matter - we want predicted values to be close to the actual value.</p>
 <p>The text notes that <span class="math notranslate nohighlight">\(a\)</span> is called the model <strong>bias</strong> and the <span class="math notranslate nohighlight">\(b\)</span> values are called the model <strong>weights</strong>. In econometrics, we call <span class="math notranslate nohighlight">\(a\)</span> the <strong>intercept</strong> and the <span class="math notranslate nohighlight">\(b\)</span> values <strong>coefficients</strong>.</p>
 <p>Machine learning techniques are all about <strong>prediction</strong>. How well does the model predict or fit the data? To measure this, we can use the <strong>R-Squared</strong> value for the model.</p>
-<div class="amsmath math notranslate nohighlight" id="equation-fea24690-4dcb-453d-b9ec-93c6a844362d">
-<span class="eqno">(12.2)<a class="headerlink" href="#equation-fea24690-4dcb-453d-b9ec-93c6a844362d" title="Permalink to this equation">#</a></span>\[\begin{align}
+<div class="amsmath math notranslate nohighlight" id="equation-4b902b5a-c11a-44c2-bee2-00f5b770e94a">
+<span class="eqno">(12.2)<a class="headerlink" href="#equation-4b902b5a-c11a-44c2-bee2-00f5b770e94a" title="Permalink to this equation">#</a></span>\[\begin{align}
 R^2 = 1 - \frac{\sum_{i=1}^{n} (y_i - \hat{y}_i)^2}{\sum_{i=1}^{n} (y_i - \bar{y})^2}
 \end{align}\]</div>
 <p>We can also put this into words:</p>
-<div class="amsmath math notranslate nohighlight" id="equation-262f3e60-847a-4b57-93be-bdad7085f09e">
-<span class="eqno">(12.3)<a class="headerlink" href="#equation-262f3e60-847a-4b57-93be-bdad7085f09e" title="Permalink to this equation">#</a></span>\[\begin{align}
+<div class="amsmath math notranslate nohighlight" id="equation-07b54000-a691-4c26-90bd-0a02e9ec6311">
+<span class="eqno">(12.3)<a class="headerlink" href="#equation-07b54000-a691-4c26-90bd-0a02e9ec6311" title="Permalink to this equation">#</a></span>\[\begin{align}
 R^2 = 1 - \frac{\text{Variance of the errors } \epsilon}{\text{Variation of the observations on the target Y}}
 \end{align}\]</div>
 <p>As noted by the text:</p>
@@ -3329,8 +3333,8 @@ R^2 = 1 - \frac{\text{Variance of the errors } \epsilon}{\text{Variation of the 
 <div><p>Feature scaling through standardization, also called Z-score normalization, is an important preprocessing step for many machine learning algorithms. It involves rescaling each feature such that it has a standard deviation of 1 and a mean of 0.</p>
 </div></blockquote>
 <p>One way to regularize our model is to use a <strong>Ridge regression</strong>. This algorithm chooses <span class="math notranslate nohighlight">\(a\)</span> and <span class="math notranslate nohighlight">\(b\)</span> parameters to minimize this function:</p>
-<div class="amsmath math notranslate nohighlight" id="equation-b254e032-5d3a-44bc-b508-edde44566484">
-<span class="eqno">(12.4)<a class="headerlink" href="#equation-b254e032-5d3a-44bc-b508-edde44566484" title="Permalink to this equation">#</a></span>\[\begin{align}
+<div class="amsmath math notranslate nohighlight" id="equation-e81dd261-22f2-432c-a1e1-793559898b3a">
+<span class="eqno">(12.4)<a class="headerlink" href="#equation-e81dd261-22f2-432c-a1e1-793559898b3a" title="Permalink to this equation">#</a></span>\[\begin{align}
 \frac{1}{n}\sum_{i=1}^{n}(Y_i - a - b_1X_{i1} - b_2X_{i2} - \cdots - b_mX_{im})^2 + \lambda\sum_{j=1}^{m}b_j^2
 \end{align}\]</div>
 <p>Note that this looks a lot like a normal regression, except that we now have the last term with <span class="math notranslate nohighlight">\(\lambda\)</span> and <span class="math notranslate nohighlight">\(b^2\)</span>. From the text:</p>
@@ -3355,8 +3359,8 @@ R^2 = 1 - \frac{\text{Variance of the errors } \epsilon}{\text{Variation of the 
 <div><p>In Ridge, we added a constant times the sum of the squared weights to the objective function. In LASSO, we add a constant times the sum of the <strong>absolute weights</strong>.</p>
 </div></blockquote>
 <p>LASSO is also called <strong>L1 regularization</strong>. This changes the last term in the equation that we are trying to minimize:</p>
-<div class="amsmath math notranslate nohighlight" id="equation-8b27425c-78e2-4ae6-854d-c3921a9d89aa">
-<span class="eqno">(12.5)<a class="headerlink" href="#equation-8b27425c-78e2-4ae6-854d-c3921a9d89aa" title="Permalink to this equation">#</a></span>\[\begin{align}
+<div class="amsmath math notranslate nohighlight" id="equation-8cc9ee86-b3e3-40b7-ae89-de509df51cdb">
+<span class="eqno">(12.5)<a class="headerlink" href="#equation-8cc9ee86-b3e3-40b7-ae89-de509df51cdb" title="Permalink to this equation">#</a></span>\[\begin{align}
 \frac{1}{n}\sum_{i=1}^{n}(Y_i - a - b_1X_{i1} - b_2X_{i2} - \cdots - b_mX_{im})^2 + \lambda\sum_{j=1}^{m}|b_j|
 \end{align}\]</div>
 <p>I asked the Claude GPT to explain this equation:</p>
@@ -3368,8 +3372,8 @@ R^2 = 1 - \frac{\text{Variance of the errors } \epsilon}{\text{Variation of the 
 <section id="elastic-net-regression">
 <h3><span class="section-number">12.6.6. </span>Elastic net regression<a class="headerlink" href="#elastic-net-regression" title="Permalink to this headline">#</a></h3>
 <p>Elastic Net regression is a <strong>mixture of Ridge and LASSO</strong>. The function to be minimized includes both a constant times the sum of the squared weights and a different constant times the sum of the absolute values of the weights.</p>
-<div class="amsmath math notranslate nohighlight" id="equation-bd61ba70-7b6d-434f-8308-76ad01968b05">
-<span class="eqno">(12.6)<a class="headerlink" href="#equation-bd61ba70-7b6d-434f-8308-76ad01968b05" title="Permalink to this equation">#</a></span>\[\begin{align}
+<div class="amsmath math notranslate nohighlight" id="equation-5db67c19-6f1d-41ca-b02c-d2ee487bcb2c">
+<span class="eqno">(12.6)<a class="headerlink" href="#equation-5db67c19-6f1d-41ca-b02c-d2ee487bcb2c" title="Permalink to this equation">#</a></span>\[\begin{align}
 \frac{1}{n}\sum_{i=1}^{n}(Y_i - a - b_1X_{i1} - b_2X_{i2} - \cdots - b_mX_{im})^2 + \lambda_1\sum_{j=1}^{m}b_j^2 + \lambda_2\sum_{j=1}^{m}|b_j|
 \end{align}\]</div>
 <p>From the text:</p>
@@ -3384,9 +3388,9 @@ R^2 = 1 - \frac{\text{Variance of the errors } \epsilon}{\text{Variation of the 
 </section>
 <section id="using-our-tools-to-predict-housing-prices">
 <h3><span class="section-number">12.6.7. </span>Using our tools to predict housing prices<a class="headerlink" href="#using-our-tools-to-predict-housing-prices" title="Permalink to this headline">#</a></h3>
-<p>I’m going to replicate the Hull textbook results below. This data has housing sale prices and features about each house. The houses are in Iowa and represent sales over a four year period. The data has already been scaled so that each feature has a mean of 0 and a standard deviation of 1.</p>
+<p>I’m going to replicate the Hull textbook results below. This data has housing sale prices and features about each house. The houses are in Iowa and represent sales over a four year period. The data has already been scaled, so that each feature has a mean of 0 and a standard deviation of 1. As noted above, you should use the means and standard deviations from the training data to scale the testing data.</p>
 <p>The text describes the data and its structure. We are going to create training, validation, and testing data sets. Note that the data are already cleaned up for you. If you were doing this on your own, you’d need to do the steps described on pg. 65.</p>
-<p>You do this in one of our lab assignments.</p>
+<p>You do this in our lab assignments.</p>
 <p>Notice how this is a different question from the Zillow data. We’re directly predicting housing prices here, not Zillow’s pricing errors. Zillow was trying to identify the types of houses that were difficult to price using their Zestimate model.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -3407,7 +3411,7 @@ R^2 = 1 - \frac{\text{Variance of the errors } \epsilon}{\text{Variation of the 
 </div>
 </div>
 <p>When we split the data like this, we’re assuming that the data are already randomly shuffled. In practice, this probably isn’t a great assumption. <code class="docutils literal notranslate"><span class="pre">sklearn</span></code> has built-in tools to do this.</p>
-<p>We then separate the X and Y variables into do different data sets. This is just the way the <code class="docutils literal notranslate"><span class="pre">sklearn</span></code> package wants things.</p>
+<p>We then separate the X and Y variables into do different data sets. This is the way the <code class="docutils literal notranslate"><span class="pre">sklearn</span></code> package wants things.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Creating the &quot;X&quot; and &quot;y&quot; variables. We drop sale price from &quot;X&quot;</span>
@@ -4507,7 +4511,7 @@ div.sk-label-container:hover .sk-estimator-doc-link.fitted:hover,
 </div></div></div>
 </div>
 <p>These results match what’s on pg. 66 of the Hull text. Note that there are 25 neighborhood dummy variables. Basement quality (<span class="math notranslate nohighlight">\(BsmtQual\)</span>) is also a categorical variable with ordered values.</p>
-<p>We can get the <span class="math notranslate nohighlight">\(R-Squared\)</span> value from this model. This also matches what’s in the book.</p>
+<p>We can get the <strong>R Squared value from this model</strong>. This also matches what’s in the book.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">lr</span><span class="o">.</span><span class="n">score</span><span class="p">(</span><span class="n">X_train</span><span class="p">,</span><span class="n">y_train</span><span class="p">)</span>
@@ -4540,8 +4544,8 @@ div.sk-label-container:hover .sk-estimator-doc-link.fitted:hover,
 Dep. Variable:             Sale Price   R-squared:                       0.886
 Model:                            OLS   Adj. R-squared:                  0.883
 Method:                 Least Squares   F-statistic:                     295.9
-Date:                Fri, 19 Apr 2024   Prob (F-statistic):               0.00
-Time:                        16:29:22   Log-Likelihood:                -599.81
+Date:                Sat, 20 Apr 2024   Prob (F-statistic):               0.00
+Time:                        14:29:34   Log-Likelihood:                -599.81
 No. Observations:                1800   AIC:                             1294.
 Df Residuals:                    1753   BIC:                             1552.
 Df Model:                          46                                         
@@ -4742,7 +4746,7 @@ Coefficient of determination: 0.90
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[&lt;matplotlib.lines.Line2D at 0x363c8d4f0&gt;]
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[&lt;matplotlib.lines.Line2D at 0x3276632b0&gt;]
 </pre></div>
 </div>
 <img alt="../_images/12_regression_topics_63_1.png" src="../_images/12_regression_topics_63_1.png" />
@@ -5428,10 +5432,10 @@ div.sk-label-container:hover .sk-estimator-doc-link.fitted:hover,
 </div>
 <div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>0.11803348353132033
 0.12012836764958999
-0.12301536903084047
 </pre></div>
 </div>
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>0.13178576395045638
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>0.12301536903084047
+0.13178576395045638
 0.1401719458448378
 </pre></div>
 </div>
@@ -5444,7 +5448,7 @@ div.sk-label-container:hover .sk-estimator-doc-link.fitted:hover,
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[&lt;matplotlib.lines.Line2D at 0x35d3a79d0&gt;]
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[&lt;matplotlib.lines.Line2D at 0x17fc39b20&gt;]
 </pre></div>
 </div>
 <img alt="../_images/12_regression_topics_71_1.png" src="../_images/12_regression_topics_71_1.png" />
@@ -6770,9 +6774,44 @@ div.sk-label-container:hover .sk-estimator-doc-link.fitted:hover,
 <p>The Hull textbook often does things “by hand”. For example, he splits the data into training, validation, and test samples by using <code class="docutils literal notranslate"><span class="pre">.iloc</span></code> and manually slicing the data frame. This is problem if the data aren’t sorted randomly! He standardizes the variables by using he z-score formula. He searches for optimal hyperparameters by making a graph.</p>
 <p>It turns out the <code class="docutils literal notranslate"><span class="pre">sklearn</span></code> can do a lot of this for us. In fact, <strong>if you use tools like Copilot or ChatGPT</strong> you’re likely to get code that uses the <code class="docutils literal notranslate"><span class="pre">sklearn</span></code> workflow. So, we should understand how to use these tools. The fact that ChatGPT wants to use them means that they are extremely common.</p>
 <p>This chapter starts off with a discussion of the general workflow, so I’m assuming that you’ve already done your basic data cleaning.</p>
+<section id="splitting-your-data">
+<h3><span class="section-number">12.7.1. </span>Splitting your data<a class="headerlink" href="#splitting-your-data" title="Permalink to this headline">#</a></h3>
+<p>Let’s use <code class="docutils literal notranslate"><span class="pre">sklearn</span></code> and our Zillow data from above to <strong>split the data into training and testing samples</strong>. From Claude:</p>
+<p>train_test_split is a function in the sklearn.model_selection module of the scikit-learn library in Python. It is used to split a dataset into two subsets: a training set and a test set. The training set is used to train a machine learning model, while the test set is used to evaluate its performance on unseen data.</p>
+<p>The train_test_split function takes the following arguments:</p>
+<ul class="simple">
+<li><p>X: The feature matrix or data frame containing the input variables.</p></li>
+<li><p>y: The target vector or data frame containing the output variable(s).</p></li>
+<li><p>test_size (optional): The proportion of the dataset to include in the test split. It should be a float between 0.0 and 1.0. The default value is 0.25, which means 25% of the data will be used for testing.</p></li>
+<li><p>random_state (optional): An integer value used to seed the random number generator, which ensures reproducibility of the split.</p></li>
+</ul>
+<p>The function returns four objects:</p>
+<ul class="simple">
+<li><p>X_train: The training data for the input features.</p></li>
+<li><p>X_test: The testing data for the input features.</p></li>
+<li><p>y_train: The training data for the target variable(s).</p></li>
+<li><p>y_test: The testing data for the target variable(s).</p></li>
+</ul>
+<p>Notice that it doesn’t do the train, validation, and test split from the Hull book. We can do training and validation within the training data set. I’ll take my data frame <em>zillow_data</em> and split into target and features. Remember, <em>logerror</em> was the variable that we were trying to predict.</p>
+<p>I added <em>z</em> to all of the names, just so I don’t overwrite my data frames from above.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">zillow_sample</span> <span class="o">=</span> <span class="n">zillow_data</span><span class="p">[[</span><span class="s1">&#39;logerror&#39;</span><span class="p">,</span> <span class="s1">&#39;calculatedfinishedsquarefeet&#39;</span><span class="p">,</span> <span class="s1">&#39;lotsizesquarefeet&#39;</span><span class="p">,</span> <span class="s1">&#39;yearbuilt&#39;</span><span class="p">]]</span>
+
+<span class="n">yz</span> <span class="o">=</span> <span class="n">zillow_sample</span><span class="p">[</span><span class="s1">&#39;logerror&#39;</span><span class="p">]</span>
+<span class="n">Xz</span> <span class="o">=</span> <span class="n">zillow_sample</span><span class="o">.</span><span class="n">drop</span><span class="p">(</span><span class="s1">&#39;logerror&#39;</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+
+<span class="n">Xz_train</span><span class="p">,</span> <span class="n">Xz_test</span><span class="p">,</span> <span class="n">yz_train</span><span class="p">,</span> <span class="n">yz_test</span> <span class="o">=</span> <span class="n">train_test_split</span><span class="p">(</span><span class="n">Xz</span><span class="p">,</span> <span class="n">yz</span><span class="p">,</span> <span class="n">test_size</span><span class="o">=</span><span class="mf">0.2</span><span class="p">,</span> <span class="n">random_state</span><span class="o">=</span><span class="mi">42</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>That will create four new data frames for you. I would make sure that you’ve cleaned and standardized everything before you split your data.</p>
+<p>AI always chooses 42 to seed its random number generated. The answer to everything.</p>
+</section>
 <section id="standardizing-your-data">
-<h3><span class="section-number">12.7.1. </span>Standardizing your data<a class="headerlink" href="#standardizing-your-data" title="Permalink to this headline">#</a></h3>
-<p>Let’s use <code class="docutils literal notranslate"><span class="pre">sklearn</span></code> and our Zillow data from above to <strong>standardize our data</strong>. From Claude:</p>
+<h3><span class="section-number">12.7.2. </span>Standardizing your data<a class="headerlink" href="#standardizing-your-data" title="Permalink to this headline">#</a></h3>
+<p>Let’s again use <code class="docutils literal notranslate"><span class="pre">sklearn</span></code> and our Zillow data from above to <strong>standardize our data</strong>. From Claude:</p>
 <p>In scikit-learn (sklearn), you can standardize your data using the StandardScaler class from the sklearn.preprocessing module. Standardization is a common preprocessing step in machine learning that scales the features to have a mean of 0 and a standard deviation of 1. This can be beneficial for algorithms that are sensitive to feature scales.</p>
 <ul class="simple">
 <li><p>scaler = StandardScaler(): Create an instance of the StandardScaler class.</p></li>
@@ -6783,14 +6822,135 @@ div.sk-label-container:hover .sk-estimator-doc-link.fitted:hover,
 <p><code class="docutils literal notranslate"><span class="pre">scaler.fit_transform</span></code> creates an <strong>array</strong>. I convert this array back to a <strong>data frame</strong> and give the data frame the same column names as before.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">zillow_sample</span> <span class="o">=</span> <span class="n">zillow_data</span><span class="p">[[</span><span class="s1">&#39;logerror&#39;</span><span class="p">,</span> <span class="s1">&#39;calculatedfinishedsquarefeet&#39;</span><span class="p">,</span> <span class="s1">&#39;lotsizesquarefeet&#39;</span><span class="p">,</span> <span class="s1">&#39;yearbuilt&#39;</span><span class="p">]]</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">scaler</span> <span class="o">=</span> <span class="n">StandardScaler</span><span class="p">()</span>
+<span class="n">Xz_train_scaled</span> <span class="o">=</span> <span class="n">scaler</span><span class="o">.</span><span class="n">fit_transform</span><span class="p">(</span><span class="n">Xz_train</span><span class="p">)</span>
 
-<span class="n">scaler</span> <span class="o">=</span> <span class="n">StandardScaler</span><span class="p">()</span>
-<span class="n">zillow_sample_scaled</span> <span class="o">=</span> <span class="n">scaler</span><span class="o">.</span><span class="n">fit_transform</span><span class="p">(</span><span class="n">zillow_sample</span><span class="p">)</span>
+<span class="n">Xz_train_scaled</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">Xz_train_scaled</span><span class="p">,</span> <span class="n">columns</span><span class="o">=</span><span class="n">Xz_train</span><span class="o">.</span><span class="n">columns</span><span class="p">)</span>
 
-<span class="n">zillow_sample_scaled</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">zillow_sample_scaled</span><span class="p">,</span> <span class="n">columns</span><span class="o">=</span><span class="n">zillow_sample</span><span class="o">.</span><span class="n">columns</span><span class="p">)</span>
+<span class="n">Xz_train_scaled</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
 
-<span class="n">zillow_sample_scaled</span>
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>calculatedfinishedsquarefeet</th>
+      <th>lotsizesquarefeet</th>
+      <th>yearbuilt</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>-0.788359</td>
+      <td>-0.134278</td>
+      <td>-0.786796</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>-0.721827</td>
+      <td>-0.133585</td>
+      <td>-0.701616</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>1.191247</td>
+      <td>-0.134877</td>
+      <td>-0.403486</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>-0.152486</td>
+      <td>-0.120922</td>
+      <td>-0.914566</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>-0.875614</td>
+      <td>-0.073567</td>
+      <td>0.533494</td>
+    </tr>
+    <tr>
+      <th>...</th>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+    </tr>
+    <tr>
+      <th>7251</th>
+      <td>-0.224471</td>
+      <td>-0.018918</td>
+      <td>1.129754</td>
+    </tr>
+    <tr>
+      <th>7252</th>
+      <td>-0.391347</td>
+      <td>-0.134278</td>
+      <td>-0.488666</td>
+    </tr>
+    <tr>
+      <th>7253</th>
+      <td>-0.237560</td>
+      <td>-0.138870</td>
+      <td>-2.149677</td>
+    </tr>
+    <tr>
+      <th>7254</th>
+      <td>-1.267173</td>
+      <td>-0.157980</td>
+      <td>0.916804</td>
+    </tr>
+    <tr>
+      <th>7255</th>
+      <td>-0.676018</td>
+      <td>-0.140959</td>
+      <td>-1.894137</td>
+    </tr>
+  </tbody>
+</table>
+<p>7256 rows × 3 columns</p>
+</div></div></div>
+</div>
+<p>Notice the steps above. I create the <strong>scaler</strong> object. It’s defined using <code class="docutils literal notranslate"><span class="pre">StandardScaler()</span></code> which does the z-score method. I then use <code class="docutils literal notranslate"><span class="pre">.fit_transform()</span></code> with it. This method combines two tasks. First, it <strong>fits the scaling method</strong> by taking the mean and standard deviation for all of the features. Then, it <strong>transforms my data</strong> using the scaler. I save this in a new array, which I then turn back into a data frame.</p>
+<p>We need to transform our y, or target variable as well. Again, we’ll pay attention to data types. <em>yz_train</em> is a series, not a data frame. <code class="docutils literal notranslate"><span class="pre">scaler()</span></code> wants a data frame.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="nb">type</span><span class="p">(</span><span class="n">yz_train</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>pandas.core.series.Series
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">yz_train</span><span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">yz_train</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">yz_train</span>
 </pre></div>
 </div>
 </div>
@@ -6814,127 +6974,321 @@ div.sk-label-container:hover .sk-estimator-doc-link.fitted:hover,
     <tr style="text-align: right;">
       <th></th>
       <th>logerror</th>
-      <th>calculatedfinishedsquarefeet</th>
-      <th>lotsizesquarefeet</th>
-      <th>yearbuilt</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>2919</th>
+      <td>0.0247</td>
+    </tr>
+    <tr>
+      <th>4298</th>
+      <td>-0.1120</td>
+    </tr>
+    <tr>
+      <th>5082</th>
+      <td>0.1458</td>
+    </tr>
+    <tr>
+      <th>1643</th>
+      <td>-0.0182</td>
+    </tr>
+    <tr>
+      <th>7624</th>
+      <td>0.1178</td>
+    </tr>
+    <tr>
+      <th>...</th>
+      <td>...</td>
+    </tr>
+    <tr>
+      <th>5734</th>
+      <td>0.0478</td>
+    </tr>
+    <tr>
+      <th>5191</th>
+      <td>0.0611</td>
+    </tr>
+    <tr>
+      <th>5390</th>
+      <td>-0.0502</td>
+    </tr>
+    <tr>
+      <th>860</th>
+      <td>-0.0060</td>
+    </tr>
+    <tr>
+      <th>7270</th>
+      <td>0.0286</td>
+    </tr>
+  </tbody>
+</table>
+<p>7256 rows × 1 columns</p>
+</div></div></div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">yz_train_scaled</span> <span class="o">=</span> <span class="n">scaler</span><span class="o">.</span><span class="n">fit_transform</span><span class="p">(</span><span class="n">yz_train</span><span class="p">)</span>
+
+<span class="n">yz_train_scaled</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">yz_train_scaled</span><span class="p">,</span> <span class="n">columns</span><span class="o">=</span><span class="n">yz_train</span><span class="o">.</span><span class="n">columns</span><span class="p">)</span>
+
+<span class="n">yz_train_scaled</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>logerror</th>
     </tr>
   </thead>
   <tbody>
     <tr>
       <th>0</th>
-      <td>0.539906</td>
-      <td>0.033474</td>
-      <td>-0.132697</td>
-      <td>-1.379712</td>
+      <td>0.088347</td>
     </tr>
     <tr>
       <th>1</th>
-      <td>-0.054958</td>
-      <td>0.581927</td>
-      <td>-0.132939</td>
-      <td>0.495126</td>
+      <td>-0.799853</td>
     </tr>
     <tr>
       <th>2</th>
-      <td>-0.425011</td>
-      <td>-0.578095</td>
-      <td>-0.144900</td>
-      <td>-0.484903</td>
+      <td>0.875187</td>
     </tr>
     <tr>
       <th>3</th>
-      <td>0.075761</td>
-      <td>-0.385483</td>
-      <td>-0.130379</td>
-      <td>-0.655343</td>
+      <td>-0.190393</td>
     </tr>
     <tr>
       <th>4</th>
-      <td>0.082076</td>
-      <td>1.208730</td>
-      <td>-0.112629</td>
-      <td>1.475155</td>
+      <td>0.693259</td>
     </tr>
     <tr>
       <th>...</th>
       <td>...</td>
-      <td>...</td>
-      <td>...</td>
-      <td>...</td>
     </tr>
     <tr>
-      <th>9066</th>
-      <td>-0.260192</td>
-      <td>0.759303</td>
-      <td>-0.145322</td>
-      <td>-1.592762</td>
+      <th>7251</th>
+      <td>0.238438</td>
     </tr>
     <tr>
-      <th>9067</th>
-      <td>0.100389</td>
-      <td>-0.044877</td>
-      <td>0.853970</td>
-      <td>0.537736</td>
+      <th>7252</th>
+      <td>0.324854</td>
     </tr>
     <tr>
-      <th>9068</th>
-      <td>-0.010753</td>
-      <td>-0.407247</td>
-      <td>-0.138305</td>
-      <td>-0.229244</td>
+      <th>7253</th>
+      <td>-0.398311</td>
     </tr>
     <tr>
-      <th>9069</th>
-      <td>0.246263</td>
-      <td>0.217380</td>
-      <td>-0.073346</td>
-      <td>-0.740563</td>
+      <th>7254</th>
+      <td>-0.111124</td>
     </tr>
     <tr>
-      <th>9070</th>
-      <td>-0.539310</td>
-      <td>1.633128</td>
-      <td>-0.156965</td>
-      <td>0.921225</td>
+      <th>7255</th>
+      <td>0.113687</td>
     </tr>
   </tbody>
 </table>
-<p>9071 rows × 4 columns</p>
+<p>7256 rows × 1 columns</p>
 </div></div></div>
 </div>
-</section>
-<section id="splitting-your-data">
-<h3><span class="section-number">12.7.2. </span>Splitting your data<a class="headerlink" href="#splitting-your-data" title="Permalink to this headline">#</a></h3>
-<p>Let’s again use <code class="docutils literal notranslate"><span class="pre">sklearn</span></code> and our Zillow data from above to <strong>split the data into training and testing samples</strong>. From Claude:</p>
-<p>train_test_split is a function in the sklearn.model_selection module of the scikit-learn library in Python. It is used to split a dataset into two subsets: a training set and a test set. The training set is used to train a machine learning model, while the test set is used to evaluate its performance on unseen data.</p>
-<p>The train_test_split function takes the following arguments:</p>
-<ul class="simple">
-<li><p>X: The feature matrix or data frame containing the input variables.</p></li>
-<li><p>y: The target vector or data frame containing the output variable(s).</p></li>
-<li><p>test_size (optional): The proportion of the dataset to include in the test split. It should be a float between 0.0 and 1.0. The default value is 0.25, which means 25% of the data will be used for testing.</p></li>
-<li><p>random_state (optional): An integer value used to seed the random number generator, which ensures reproducibility of the split.</p></li>
-</ul>
-<p>The function returns four objects:</p>
-<ul class="simple">
-<li><p>X_train: The training data for the input features.</p></li>
-<li><p>X_test: The testing data for the input features.</p></li>
-<li><p>y_train: The training data for the target variable(s).</p></li>
-<li><p>y_test: The testing data for the target variable(s).</p></li>
-</ul>
-<p>Notice that it doesn’t do the train, validation, and test split from the Hull book. We can do training and validation within the training data set. I’ll take my data frame <em>zillow_data</em> and split into target and features. Remember, <em>logerror</em> was the variable that we were trying to predict.</p>
-<p>I added <em>z</em> to all of the names, just so I don’t overwrite my data frames from above.</p>
+<p>Now, what about the <strong>testing data</strong>? From Claude:</p>
+<p>When scaling your test data using scikit-learn’s scalers (e.g., StandardScaler, MinMaxScaler, etc.), <strong>you should use the mean and standard deviation (or the minimum and maximum values for MinMaxScaler) computed from the training data</strong>. This is to ensure that the test data is scaled using the same parameters as the training data, which is crucial for preventing data leakage and maintaining consistency between the training and testing data distributions.</p>
+<p>Watch my steps here, as they are different from above. I again create my <strong>scaler object</strong>, calling it <em>scaler</em>. You could create multiple scalers with different names if you wanted to.</p>
+<p>I then <strong>fit this scaler using my unscaled training data</strong>. This is what I did above, except there I used <code class="docutils literal notranslate"><span class="pre">.fit_transform</span></code>, which fits the scaler and then transforms the data, all in one step. Now, I’m <strong>fitting my scaler with one data set and then transforming a different data set</strong>.</p>
+<p>I then take this fitted scaler that has the means and standard deviations from my <strong>training data</strong>. I use those to <strong>transform my testing data</strong>.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">yz</span> <span class="o">=</span> <span class="n">zillow_data</span><span class="p">[</span><span class="s1">&#39;logerror&#39;</span><span class="p">]</span>
-<span class="n">Xz</span> <span class="o">=</span> <span class="n">zillow_data</span><span class="o">.</span><span class="n">drop</span><span class="p">(</span><span class="s1">&#39;logerror&#39;</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
-
-<span class="n">Xz_train</span><span class="p">,</span> <span class="n">Xz_test</span><span class="p">,</span> <span class="n">yz_train</span><span class="p">,</span> <span class="n">yz_test</span> <span class="o">=</span> <span class="n">train_test_split</span><span class="p">(</span><span class="n">Xz</span><span class="p">,</span> <span class="n">yz</span><span class="p">,</span> <span class="n">test_size</span><span class="o">=</span><span class="mf">0.2</span><span class="p">,</span> <span class="n">random_state</span><span class="o">=</span><span class="mi">42</span><span class="p">)</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">scaler</span> <span class="o">=</span> <span class="n">StandardScaler</span><span class="p">()</span>
+<span class="n">scaler</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">Xz_train</span><span class="p">)</span>
+<span class="n">Xz_test_scaled</span> <span class="o">=</span> <span class="n">scaler</span><span class="o">.</span><span class="n">transform</span><span class="p">(</span><span class="n">Xz_test</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
 </div>
-<p>That will create four new data frames for you. I would make sure that you’ve cleaned and standardized everything before you split your data.</p>
-<p>AI always chooses 42 to seed its random number generated. The answer to everything.</p>
+<p>I follow the same logic for my y target test data.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">yz_test</span><span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">yz_test</span><span class="p">)</span>
+<span class="n">yz_test</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>logerror</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>447</th>
+      <td>0.0227</td>
+    </tr>
+    <tr>
+      <th>3018</th>
+      <td>0.4337</td>
+    </tr>
+    <tr>
+      <th>8579</th>
+      <td>0.3941</td>
+    </tr>
+    <tr>
+      <th>5509</th>
+      <td>-0.0182</td>
+    </tr>
+    <tr>
+      <th>5279</th>
+      <td>0.0030</td>
+    </tr>
+    <tr>
+      <th>...</th>
+      <td>...</td>
+    </tr>
+    <tr>
+      <th>6658</th>
+      <td>0.2191</td>
+    </tr>
+    <tr>
+      <th>6734</th>
+      <td>0.0188</td>
+    </tr>
+    <tr>
+      <th>7904</th>
+      <td>-0.0429</td>
+    </tr>
+    <tr>
+      <th>1244</th>
+      <td>-0.0736</td>
+    </tr>
+    <tr>
+      <th>8622</th>
+      <td>-0.0502</td>
+    </tr>
+  </tbody>
+</table>
+<p>1815 rows × 1 columns</p>
+</div></div></div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">yz_train</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>logerror</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>2919</th>
+      <td>0.0247</td>
+    </tr>
+    <tr>
+      <th>4298</th>
+      <td>-0.1120</td>
+    </tr>
+    <tr>
+      <th>5082</th>
+      <td>0.1458</td>
+    </tr>
+    <tr>
+      <th>1643</th>
+      <td>-0.0182</td>
+    </tr>
+    <tr>
+      <th>7624</th>
+      <td>0.1178</td>
+    </tr>
+    <tr>
+      <th>...</th>
+      <td>...</td>
+    </tr>
+    <tr>
+      <th>5734</th>
+      <td>0.0478</td>
+    </tr>
+    <tr>
+      <th>5191</th>
+      <td>0.0611</td>
+    </tr>
+    <tr>
+      <th>5390</th>
+      <td>-0.0502</td>
+    </tr>
+    <tr>
+      <th>860</th>
+      <td>-0.0060</td>
+    </tr>
+    <tr>
+      <th>7270</th>
+      <td>0.0286</td>
+    </tr>
+  </tbody>
+</table>
+<p>7256 rows × 1 columns</p>
+</div></div></div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">scaler</span> <span class="o">=</span> <span class="n">StandardScaler</span><span class="p">()</span>
+<span class="n">scaler</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">yz_train</span><span class="p">)</span>
+<span class="n">yz_test_scaled</span> <span class="o">=</span> <span class="n">scaler</span><span class="o">.</span><span class="n">transform</span><span class="p">(</span><span class="n">yz_test</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
 </section>
 <section id="cross-validation-and-hyperparamters">
 <h3><span class="section-number">12.7.3. </span>Cross-validation and hyperparamters<a class="headerlink" href="#cross-validation-and-hyperparamters" title="Permalink to this headline">#</a></h3>
@@ -7006,10 +7360,12 @@ div.sk-label-container:hover .sk-estimator-doc-link.fitted:hover,
 </div>
 <p>As we already knew, lower alphas give us better results in our training data. We can use this method to <strong>select a single set of hyperparameters</strong> to then use on our <strong>testing data</strong>.</p>
 </section>
+</section>
 <section id="pipelines">
-<h3><span class="section-number">12.7.4. </span>Pipelines<a class="headerlink" href="#pipelines" title="Permalink to this headline">#</a></h3>
+<h2><span class="section-number">12.8. </span>Pipelines<a class="headerlink" href="#pipelines" title="Permalink to this headline">#</a></h2>
 <p><code class="docutils literal notranslate"><span class="pre">sklearn</span></code> lets us combine many of these steps together. I’m going to <a class="reference external" href="https://scikit-learn.org/stable/auto_examples/linear_model/plot_lasso_model_selection.html">follow along with this example</a> and try something a little fancier. We will use some different model fit statistics to perform cross-validation within our training sample and have the pipeline <strong>choose our hyperparameters for us</strong>.</p>
-<p>Since I want to use some data that hasn’t been stadardized yet, I’ll go back to the Zillow example. I’ll keep some more numerical variables that will be easy to standardize.</p>
+<p><code class="docutils literal notranslate"><span class="pre">pipelines</span></code> can do much, much more that I show here. Take a look: <a class="reference external" href="https://scikit-learn.org/stable/modules/generated/sklearn.pipeline.Pipeline.html">https://scikit-learn.org/stable/modules/generated/sklearn.pipeline.Pipeline.html</a></p>
+<p>Since I want to use some data that hasn’t been standardized yet, I’ll go back to the Zillow example. I’ll keep some more numerical variables that will be easy to standardize.</p>
 <p>I will not include any indicators or other data transformations. If I was doing this for real, I would spend a lot more time doing some feature engineering.</p>
 <p>A few things to note:</p>
 <ul class="simple">
@@ -7713,6 +8069,216 @@ div.sk-label-container:hover .sk-estimator-doc-link.fitted:hover,
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">Xz_test</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>bathroomcnt</th>
+      <th>bedroomcnt</th>
+      <th>calculatedfinishedsquarefeet</th>
+      <th>fireplacecnt</th>
+      <th>fullbathcnt</th>
+      <th>garagecarcnt</th>
+      <th>garagetotalsqft</th>
+      <th>lotsizesquarefeet</th>
+      <th>poolcnt</th>
+      <th>poolsizesum</th>
+      <th>yearbuilt</th>
+      <th>numberofstories</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>447</th>
+      <td>2.0</td>
+      <td>2.0</td>
+      <td>1671.0</td>
+      <td>1.0</td>
+      <td>2.0</td>
+      <td>1.0</td>
+      <td>389.0</td>
+      <td>1750.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>1981.0</td>
+      <td>3.0</td>
+    </tr>
+    <tr>
+      <th>3018</th>
+      <td>1.0</td>
+      <td>3.0</td>
+      <td>859.0</td>
+      <td>0.0</td>
+      <td>1.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>3456.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>1940.0</td>
+      <td>0.0</td>
+    </tr>
+    <tr>
+      <th>8579</th>
+      <td>2.0</td>
+      <td>4.0</td>
+      <td>1840.0</td>
+      <td>0.0</td>
+      <td>2.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>7173.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>1965.0</td>
+      <td>0.0</td>
+    </tr>
+    <tr>
+      <th>5509</th>
+      <td>2.0</td>
+      <td>4.0</td>
+      <td>1200.0</td>
+      <td>0.0</td>
+      <td>2.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>7740.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>1955.0</td>
+      <td>0.0</td>
+    </tr>
+    <tr>
+      <th>5279</th>
+      <td>2.5</td>
+      <td>3.0</td>
+      <td>1604.0</td>
+      <td>0.0</td>
+      <td>2.0</td>
+      <td>2.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>1989.0</td>
+      <td>0.0</td>
+    </tr>
+    <tr>
+      <th>...</th>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+    </tr>
+    <tr>
+      <th>6658</th>
+      <td>2.0</td>
+      <td>2.0</td>
+      <td>947.0</td>
+      <td>0.0</td>
+      <td>2.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>72341.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>1974.0</td>
+      <td>0.0</td>
+    </tr>
+    <tr>
+      <th>6734</th>
+      <td>2.0</td>
+      <td>3.0</td>
+      <td>1974.0</td>
+      <td>0.0</td>
+      <td>2.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>6304.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>1964.0</td>
+      <td>0.0</td>
+    </tr>
+    <tr>
+      <th>7904</th>
+      <td>3.0</td>
+      <td>2.0</td>
+      <td>1888.0</td>
+      <td>0.0</td>
+      <td>3.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>122753.0</td>
+      <td>1.0</td>
+      <td>0.0</td>
+      <td>1972.0</td>
+      <td>0.0</td>
+    </tr>
+    <tr>
+      <th>1244</th>
+      <td>1.0</td>
+      <td>1.0</td>
+      <td>600.0</td>
+      <td>0.0</td>
+      <td>1.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>46486.0</td>
+      <td>1.0</td>
+      <td>0.0</td>
+      <td>2004.0</td>
+      <td>0.0</td>
+    </tr>
+    <tr>
+      <th>8622</th>
+      <td>3.5</td>
+      <td>4.0</td>
+      <td>3327.0</td>
+      <td>2.0</td>
+      <td>3.0</td>
+      <td>3.0</td>
+      <td>732.0</td>
+      <td>26332.0</td>
+      <td>1.0</td>
+      <td>648.0</td>
+      <td>2001.0</td>
+      <td>1.0</td>
+    </tr>
+  </tbody>
+</table>
+<p>1815 rows × 12 columns</p>
+</div></div></div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">yz_train</span>
 </pre></div>
 </div>
@@ -7736,6 +8302,31 @@ Name: logerror, Length: 7256, dtype: float64
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">yz_test</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>447     0.0227
+3018    0.4337
+8579    0.3941
+5509   -0.0182
+5279    0.0030
+         ...  
+6658    0.2191
+6734    0.0188
+7904   -0.0429
+1244   -0.0736
+8622   -0.0502
+Name: logerror, Length: 1815, dtype: float64
+</pre></div>
+</div>
+</div>
+</div>
+<p>Time to make the <code class="docutils literal notranslate"><span class="pre">pipeline</span></code>. This is going to use the standard scaler on my training data and run a Lasso model, here the hyperparamter is selected using the AIC criteria.</p>
+<p>Again, note how the X features set is are data frames, while the y target set are series.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">lasso_lars_ic</span> <span class="o">=</span> <span class="n">make_pipeline</span><span class="p">(</span><span class="n">StandardScaler</span><span class="p">(),</span> <span class="n">LassoLarsIC</span><span class="p">(</span><span class="n">criterion</span><span class="o">=</span><span class="s2">&quot;aic&quot;</span><span class="p">))</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">Xz_train</span><span class="p">,</span> <span class="n">yz_train</span><span class="o">.</span><span class="n">values</span><span class="o">.</span><span class="n">ravel</span><span class="p">())</span>
 </pre></div>
 </div>
@@ -7754,6 +8345,7 @@ Name: logerror, Length: 7256, dtype: float64
 </div>
 </div>
 </div>
+<p>Same thing as above, but now using the BIC selection criteria.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">lasso_lars_ic</span><span class="o">.</span><span class="n">set_params</span><span class="p">(</span><span class="n">lassolarsic__criterion</span><span class="o">=</span><span class="s2">&quot;bic&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">Xz_train</span><span class="p">,</span> <span class="n">yz_train</span><span class="o">.</span><span class="n">values</span><span class="o">.</span><span class="n">ravel</span><span class="p">())</span>
@@ -7776,16 +8368,16 @@ Name: logerror, Length: 7256, dtype: float64
 </div>
 <div class="cell_output docutils container">
 <div class="output text_html"><style type="text/css">
-#T_3425d_row0_col1, #T_3425d_row9_col0 {
+#T_bde70_row0_col1, #T_bde70_row9_col0 {
   font-weight: bold;
 }
 </style>
-<table id="T_3425d">
+<table id="T_bde70">
   <thead>
     <tr>
       <th class="blank level0" >&nbsp;</th>
-      <th id="T_3425d_level0_col0" class="col_heading level0 col0" >AIC criterion</th>
-      <th id="T_3425d_level0_col1" class="col_heading level0 col1" >BIC criterion</th>
+      <th id="T_bde70_level0_col0" class="col_heading level0 col0" >AIC criterion</th>
+      <th id="T_bde70_level0_col1" class="col_heading level0 col1" >BIC criterion</th>
     </tr>
     <tr>
       <th class="index_name level0" >alphas</th>
@@ -7795,79 +8387,79 @@ Name: logerror, Length: 7256, dtype: float64
   </thead>
   <tbody>
     <tr>
-      <th id="T_3425d_level0_row0" class="row_heading level0 row0" >0.008193</th>
-      <td id="T_3425d_row0_col0" class="data row0 col0" >-6566.197538</td>
-      <td id="T_3425d_row0_col1" class="data row0 col1" >-6566.197538</td>
+      <th id="T_bde70_level0_row0" class="row_heading level0 row0" >0.008193</th>
+      <td id="T_bde70_row0_col0" class="data row0 col0" >-6566.197538</td>
+      <td id="T_bde70_row0_col1" class="data row0 col1" >-6566.197538</td>
     </tr>
     <tr>
-      <th id="T_3425d_level0_row1" class="row_heading level0 row1" >0.006502</th>
-      <td id="T_3425d_row1_col0" class="data row1 col0" >-6571.833764</td>
-      <td id="T_3425d_row1_col1" class="data row1 col1" >-6564.944180</td>
+      <th id="T_bde70_level0_row1" class="row_heading level0 row1" >0.006502</th>
+      <td id="T_bde70_row1_col0" class="data row1 col0" >-6571.833764</td>
+      <td id="T_bde70_row1_col1" class="data row1 col1" >-6564.944180</td>
     </tr>
     <tr>
-      <th id="T_3425d_level0_row2" class="row_heading level0 row2" >0.006250</th>
-      <td id="T_3425d_row2_col0" class="data row2 col0" >-6570.829907</td>
-      <td id="T_3425d_row2_col1" class="data row2 col1" >-6557.050739</td>
+      <th id="T_bde70_level0_row2" class="row_heading level0 row2" >0.006250</th>
+      <td id="T_bde70_row2_col0" class="data row2 col0" >-6570.829907</td>
+      <td id="T_bde70_row2_col1" class="data row2 col1" >-6557.050739</td>
     </tr>
     <tr>
-      <th id="T_3425d_level0_row3" class="row_heading level0 row3" >0.006217</th>
-      <td id="T_3425d_row3_col0" class="data row3 col0" >-6568.983921</td>
-      <td id="T_3425d_row3_col1" class="data row3 col1" >-6548.315169</td>
+      <th id="T_bde70_level0_row3" class="row_heading level0 row3" >0.006217</th>
+      <td id="T_bde70_row3_col0" class="data row3 col0" >-6568.983921</td>
+      <td id="T_bde70_row3_col1" class="data row3 col1" >-6548.315169</td>
     </tr>
     <tr>
-      <th id="T_3425d_level0_row4" class="row_heading level0 row4" >0.005552</th>
-      <td id="T_3425d_row4_col0" class="data row4 col0" >-6572.082467</td>
-      <td id="T_3425d_row4_col1" class="data row4 col1" >-6551.413715</td>
+      <th id="T_bde70_level0_row4" class="row_heading level0 row4" >0.005552</th>
+      <td id="T_bde70_row4_col0" class="data row4 col0" >-6572.082467</td>
+      <td id="T_bde70_row4_col1" class="data row4 col1" >-6551.413715</td>
     </tr>
     <tr>
-      <th id="T_3425d_level0_row5" class="row_heading level0 row5" >0.004159</th>
-      <td id="T_3425d_row5_col0" class="data row5 col0" >-6577.437720</td>
-      <td id="T_3425d_row5_col1" class="data row5 col1" >-6556.768968</td>
+      <th id="T_bde70_level0_row5" class="row_heading level0 row5" >0.004159</th>
+      <td id="T_bde70_row5_col0" class="data row5 col0" >-6577.437720</td>
+      <td id="T_bde70_row5_col1" class="data row5 col1" >-6556.768968</td>
     </tr>
     <tr>
-      <th id="T_3425d_level0_row6" class="row_heading level0 row6" >0.004015</th>
-      <td id="T_3425d_row6_col0" class="data row6 col0" >-6576.114858</td>
-      <td id="T_3425d_row6_col1" class="data row6 col1" >-6548.556522</td>
+      <th id="T_bde70_level0_row6" class="row_heading level0 row6" >0.004015</th>
+      <td id="T_bde70_row6_col0" class="data row6 col0" >-6576.114858</td>
+      <td id="T_bde70_row6_col1" class="data row6 col1" >-6548.556522</td>
     </tr>
     <tr>
-      <th id="T_3425d_level0_row7" class="row_heading level0 row7" >0.002618</th>
-      <td id="T_3425d_row7_col0" class="data row7 col0" >-6581.223880</td>
-      <td id="T_3425d_row7_col1" class="data row7 col1" >-6546.775960</td>
+      <th id="T_bde70_level0_row7" class="row_heading level0 row7" >0.002618</th>
+      <td id="T_bde70_row7_col0" class="data row7 col0" >-6581.223880</td>
+      <td id="T_bde70_row7_col1" class="data row7 col1" >-6546.775960</td>
     </tr>
     <tr>
-      <th id="T_3425d_level0_row8" class="row_heading level0 row8" >0.002365</th>
-      <td id="T_3425d_row8_col0" class="data row8 col0" >-6580.648359</td>
-      <td id="T_3425d_row8_col1" class="data row8 col1" >-6539.310855</td>
+      <th id="T_bde70_level0_row8" class="row_heading level0 row8" >0.002365</th>
+      <td id="T_bde70_row8_col0" class="data row8 col0" >-6580.648359</td>
+      <td id="T_bde70_row8_col1" class="data row8 col1" >-6539.310855</td>
     </tr>
     <tr>
-      <th id="T_3425d_level0_row9" class="row_heading level0 row9" >0.000653</th>
-      <td id="T_3425d_row9_col0" class="data row9 col0" >-6587.044949</td>
-      <td id="T_3425d_row9_col1" class="data row9 col1" >-6538.817861</td>
+      <th id="T_bde70_level0_row9" class="row_heading level0 row9" >0.000653</th>
+      <td id="T_bde70_row9_col0" class="data row9 col0" >-6587.044949</td>
+      <td id="T_bde70_row9_col1" class="data row9 col1" >-6538.817861</td>
     </tr>
     <tr>
-      <th id="T_3425d_level0_row10" class="row_heading level0 row10" >0.000577</th>
-      <td id="T_3425d_row10_col0" class="data row10 col0" >-6585.219803</td>
-      <td id="T_3425d_row10_col1" class="data row10 col1" >-6530.103131</td>
+      <th id="T_bde70_level0_row10" class="row_heading level0 row10" >0.000577</th>
+      <td id="T_bde70_row10_col0" class="data row10 col0" >-6585.219803</td>
+      <td id="T_bde70_row10_col1" class="data row10 col1" >-6530.103131</td>
     </tr>
     <tr>
-      <th id="T_3425d_level0_row11" class="row_heading level0 row11" >0.000412</th>
-      <td id="T_3425d_row11_col0" class="data row11 col0" >-6583.581262</td>
-      <td id="T_3425d_row11_col1" class="data row11 col1" >-6521.575006</td>
+      <th id="T_bde70_level0_row11" class="row_heading level0 row11" >0.000412</th>
+      <td id="T_bde70_row11_col0" class="data row11 col0" >-6583.581262</td>
+      <td id="T_bde70_row11_col1" class="data row11 col1" >-6521.575006</td>
     </tr>
     <tr>
-      <th id="T_3425d_level0_row12" class="row_heading level0 row12" >0.000239</th>
-      <td id="T_3425d_row12_col0" class="data row12 col0" >-6582.063000</td>
-      <td id="T_3425d_row12_col1" class="data row12 col1" >-6513.167160</td>
+      <th id="T_bde70_level0_row12" class="row_heading level0 row12" >0.000239</th>
+      <td id="T_bde70_row12_col0" class="data row12 col0" >-6582.063000</td>
+      <td id="T_bde70_row12_col1" class="data row12 col1" >-6513.167160</td>
     </tr>
     <tr>
-      <th id="T_3425d_level0_row13" class="row_heading level0 row13" >0.000168</th>
-      <td id="T_3425d_row13_col0" class="data row13 col0" >-6580.302964</td>
-      <td id="T_3425d_row13_col1" class="data row13 col1" >-6504.517540</td>
+      <th id="T_bde70_level0_row13" class="row_heading level0 row13" >0.000168</th>
+      <td id="T_bde70_row13_col0" class="data row13 col0" >-6580.302964</td>
+      <td id="T_bde70_row13_col1" class="data row13 col1" >-6504.517540</td>
     </tr>
     <tr>
-      <th id="T_3425d_level0_row14" class="row_heading level0 row14" >0.000000</th>
-      <td id="T_3425d_row14_col0" class="data row14 col0" >-6580.414299</td>
-      <td id="T_3425d_row14_col1" class="data row14 col1" >-6497.739291</td>
+      <th id="T_bde70_level0_row14" class="row_heading level0 row14" >0.000000</th>
+      <td id="T_bde70_row14_col0" class="data row14 col0" >-6580.414299</td>
+      <td id="T_bde70_row14_col1" class="data row14 col1" >-6497.739291</td>
     </tr>
   </tbody>
 </table>
@@ -7905,10 +8497,13 @@ Name: logerror, Length: 7256, dtype: float64
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../_images/12_regression_topics_104_0.png" src="../_images/12_regression_topics_104_0.png" />
+<img alt="../_images/12_regression_topics_120_0.png" src="../_images/12_regression_topics_120_0.png" />
 </div>
 </div>
 <p>This doesn’t look as continuous as it will in practice. The lines are jumping around quite a bit. The reason: We actually don’t have that many features in this Zillow data set that I’m using. Our machine learning tools will work, but are probably unnecessary. Just run a regression!</p>
+<p>Let’s create a new pipeline using <strong>cross-validation</strong>, rather than using the AIC or BIC criteria. What’s the difference? From Claude:</p>
+<p><strong>LassoCV</strong> uses cross-validation to find the optimal alpha value that minimizes a chosen scoring metric, making it more robust but computationally expensive.
+<strong>LassoLarsIC(criterion=”aic”)</strong> uses the Akaike Information Criterion (AIC) to find the optimal alpha value, providing a faster but potentially less accurate estimate than cross-validation.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">modelcv</span> <span class="o">=</span> <span class="n">make_pipeline</span><span class="p">(</span><span class="n">LassoCV</span><span class="p">(</span><span class="n">cv</span><span class="o">=</span><span class="mi">20</span><span class="p">))</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">Xz_train</span><span class="p">,</span> <span class="n">yz_train</span><span class="p">)</span>
@@ -8763,7 +9358,167 @@ div.sk-label-container:hover .sk-estimator-doc-link.fitted:hover,
 <li><p>Finally, it retrains the Lasso regression model on the entire dataset using the optimal alpha value found through cross-validation.</p></li>
 </ul>
 <p>By using cross-validation, LassoCV can automatically find the optimal value of the regularization parameter (alpha) that balances the trade-off between model complexity and goodness of fit. This helps to prevent overfitting and improve the model’s generalization performance. The choice of cv = 20 is a common practice, as it provides a good balance between computational cost and reliable estimation of the model’s performance. However, the optimal value of cv can depend on the size of the dataset and the complexity of the problem.</p>
+<p>I can print out the parameters contained in my LASSO model. This will tell you the details of how things were estimated.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">lasso</span><span class="o">.</span><span class="n">get_params</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>{&#39;alphas&#39;: None,
+ &#39;copy_X&#39;: True,
+ &#39;cv&#39;: 20,
+ &#39;eps&#39;: 0.001,
+ &#39;fit_intercept&#39;: True,
+ &#39;max_iter&#39;: 1000,
+ &#39;n_alphas&#39;: 100,
+ &#39;n_jobs&#39;: None,
+ &#39;positive&#39;: False,
+ &#39;precompute&#39;: &#39;auto&#39;,
+ &#39;random_state&#39;: None,
+ &#39;selection&#39;: &#39;cyclic&#39;,
+ &#39;tol&#39;: 0.0001,
+ &#39;verbose&#39;: False}
+</pre></div>
+</div>
+</div>
+</div>
+<p>I can also pull out the hyperparamter that the eventually choose using cross-validation.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">lasso</span><span class="o">.</span><span class="n">alpha_</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>0.9233932158250625
+</pre></div>
+</div>
+</div>
+</div>
+<p>That’s a large hyperparameter. Lots of features were dropped. Let’s look.</p>
+<p>I’ll make a table that has the coefficients from the final model estimated using my training data. Square feet of house and lot are all that are selected. The LASSO model drops every other feature.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">feature_names</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">Xz_train</span><span class="o">.</span><span class="n">columns</span><span class="p">)</span> 
+<span class="n">coefficients</span> <span class="o">=</span> <span class="n">lasso</span><span class="o">.</span><span class="n">coef_</span>
+
+<span class="c1"># Create a DataFrame with feature names and coefficients</span>
+<span class="n">coef_df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">({</span><span class="s1">&#39;Feature&#39;</span><span class="p">:</span> <span class="n">feature_names</span><span class="p">,</span> <span class="s1">&#39;Coefficient&#39;</span><span class="p">:</span> <span class="n">coefficients</span><span class="p">})</span>
+
+<span class="c1"># Sort the DataFrame by the absolute value of coefficients in descending order</span>
+<span class="n">coef_df</span> <span class="o">=</span> <span class="n">coef_df</span><span class="o">.</span><span class="n">reindex</span><span class="p">(</span><span class="n">coef_df</span><span class="p">[</span><span class="s1">&#39;Coefficient&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">abs</span><span class="p">()</span><span class="o">.</span><span class="n">sort_values</span><span class="p">(</span><span class="n">ascending</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span><span class="o">.</span><span class="n">index</span><span class="p">)</span>
+
+<span class="n">coef_df</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>Feature</th>
+      <th>Coefficient</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>2</th>
+      <td>calculatedfinishedsquarefeet</td>
+      <td>7.260294e-06</td>
+    </tr>
+    <tr>
+      <th>7</th>
+      <td>lotsizesquarefeet</td>
+      <td>1.356992e-08</td>
+    </tr>
+    <tr>
+      <th>0</th>
+      <td>bathroomcnt</td>
+      <td>0.000000e+00</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>bedroomcnt</td>
+      <td>0.000000e+00</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>fireplacecnt</td>
+      <td>0.000000e+00</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>fullbathcnt</td>
+      <td>0.000000e+00</td>
+    </tr>
+    <tr>
+      <th>5</th>
+      <td>garagecarcnt</td>
+      <td>0.000000e+00</td>
+    </tr>
+    <tr>
+      <th>6</th>
+      <td>garagetotalsqft</td>
+      <td>0.000000e+00</td>
+    </tr>
+    <tr>
+      <th>8</th>
+      <td>poolcnt</td>
+      <td>0.000000e+00</td>
+    </tr>
+    <tr>
+      <th>9</th>
+      <td>poolsizesum</td>
+      <td>-0.000000e+00</td>
+    </tr>
+    <tr>
+      <th>10</th>
+      <td>yearbuilt</td>
+      <td>0.000000e+00</td>
+    </tr>
+    <tr>
+      <th>11</th>
+      <td>numberofstories</td>
+      <td>0.000000e+00</td>
+    </tr>
+  </tbody>
+</table>
+</div></div></div>
+</div>
+<p>And, we can print the R2 for the final model from the training data.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">score</span> <span class="o">=</span> <span class="n">modelcv</span><span class="o">.</span><span class="n">score</span><span class="p">(</span><span class="n">Xz_train</span><span class="p">,</span> <span class="n">yz_train</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Test score: </span><span class="si">{</span><span class="n">score</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Test score: 0.002722552194950656
+</pre></div>
+</div>
+</div>
+</div>
+<p>Well, that’s terrible! But, again, we’re trying to predict <strong>pricing errors</strong> with only a subset of the features. Predicting actual housing prices is much easier.</p>
 <p>I’m going to print my mse values in order to find some reasonable min and max values for the graph below. Remember, our target is the log of the pricing error. This isn’t a dollar amount for the house.</p>
+<p>See how I’m just pulling things out of my <code class="docutils literal notranslate"><span class="pre">lasso</span></code> object? It contains all of this information about our estimated model.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">lasso</span><span class="o">.</span><span class="n">mse_path_</span>
@@ -8813,17 +9568,35 @@ div.sk-label-container:hover .sk-estimator-doc-link.fitted:hover,
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../_images/12_regression_topics_113_0.png" src="../_images/12_regression_topics_113_0.png" />
+<img alt="../_images/12_regression_topics_137_0.png" src="../_images/12_regression_topics_137_0.png" />
 </div>
 </div>
-</section>
+<p>Finally, I’m going to use my fitted model from my training data on my testing data. I’ll print the R2 value as a measure of how well we predict</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Evaluate the model on the test data</span>
+<span class="n">score</span> <span class="o">=</span> <span class="n">modelcv</span><span class="o">.</span><span class="n">score</span><span class="p">(</span><span class="n">Xz_test</span><span class="p">,</span> <span class="n">yz_test</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Test score: </span><span class="si">{</span><span class="n">score</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Test score: 0.0028149345560726236
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>Still bad! I guess if you squint, it’s a little better than what we did in the training data.</p>
 <section id="hyperparamters-and-model-overfit">
-<h3><span class="section-number">12.7.5. </span>Hyperparamters and model overfit<a class="headerlink" href="#hyperparamters-and-model-overfit" title="Permalink to this headline">#</a></h3>
+<h3><span class="section-number">12.8.1. </span>Hyperparamters and model overfit<a class="headerlink" href="#hyperparamters-and-model-overfit" title="Permalink to this headline">#</a></h3>
 <p>Again, what’s the point of all of this? We’re trying to find our model <strong>hyperparameters</strong> that we can then take to data outside of our training set. We are trying to avoid <strong>overfitting</strong>. This is a problem in machine learning and, especially, in financial applications. It is easy to look at past financial and fit a model that will predict returns <strong>in sample</strong>, in the data we are using. But, will this work on new data? If you overfit your model, you risk making precisely incorrect predictions.</p>
 <p>Here’s a <a class="reference external" href="https://scikit-learn.org/stable/modules/cross_validation.html">nice explanation</a> on what is going on. This is all part of a much larger discussion on <a class="reference external" href="https://scikit-learn.org/stable/model_selection.html">model selection</a></p>
 </section>
 <section id="interpreting-linear-regression-models">
-<h3><span class="section-number">12.7.6. </span>Interpreting linear regression models<a class="headerlink" href="#interpreting-linear-regression-models" title="Permalink to this headline">#</a></h3>
+<h3><span class="section-number">12.8.2. </span>Interpreting linear regression models<a class="headerlink" href="#interpreting-linear-regression-models" title="Permalink to this headline">#</a></h3>
 <p>Chapter 10.1 discusses how to interpret our results. Traditionally, machine learning hasn’t been as interested in interpreting the model - we just want predicted values! However, as machine learning, statistics, econometrics, and specific domain knowledge (i.e. finance) mix, we are becoming more interested in exactly how to interpret our results.</p>
 <p>As the test notes, you can’t tell a loan applicant that they got rejected because “the algo said so”! You need to know why. This also gets into biases in our data. Is your model doing something illegal and/or unethical?</p>
 <p>From the Hull text:</p>
@@ -8842,7 +9615,7 @@ div.sk-label-container:hover .sk-estimator-doc-link.fitted:hover,
 <p>This is also a <a class="reference external" href="https://scikit-learn.org/stable/auto_examples/inspection/plot_linear_model_coefficient_interpretation.html#sphx-glr-auto-examples-inspection-plot-linear-model-coefficient-interpretation-py">nice summary</a> of how to interpret regression results.</p>
 </section>
 <section id="some-worked-examples">
-<h3><span class="section-number">12.7.7. </span>Some worked examples<a class="headerlink" href="#some-worked-examples" title="Permalink to this headline">#</a></h3>
+<h3><span class="section-number">12.8.3. </span>Some worked examples<a class="headerlink" href="#some-worked-examples" title="Permalink to this headline">#</a></h3>
 <p>We are just scratching the surface on machine learning in this course. Here are some complete examples that all use housing price data. Some things to pay attention to:</p>
 <ul class="simple">
 <li><p>How are the data organized? How is it split into training and test data?</p></li>
