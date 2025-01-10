@@ -1,6 +1,8 @@
 # Using Github and Github Codespaces
 
-We will go through how to get set-up in class. This means signing-up for a Github account, accessing assignments (i.e. forking repositories) via Github Classroom, working on these assignments in **Github Codespaces**, and then, finally, submitting your assignments back to Github Classroom using **git commands**. 
+We are going to be using **Github Classroom** and **Github Codespaces** to do our work. We will go through how to get set-up in class. This means signing-up for a Github account, accessing assignments (i.e. forking repositories) via Github Classroom, working on these assignments in Github Codespaces, and then, finally, submitting your assignments back to Github Classroom using **git commands**. 
+
+Github Codespaces will allow us to use the VS Code developer environment in a browser, without doing a local install. We'll need to understand how it works.
 
 
 ## Accepting assignments in Github Classroom
@@ -19,9 +21,9 @@ Your main Github page with your repositories.
 
 Go to **Moodle** and find the **link for Lab00**. You might need to copy and paste it into your browser. 
 
-This is the lab to help us get started. You'll be asked to **find your name from the class roster and then link your Github account to our Github Classroom**. Github Classroom is how you will access and submit assignments and is called ** elon-fin-data**. 
+This is the lab to help us get started. You'll be asked to **find your name from the class roster and then link your Github account to our Github Classroom**. Github Classroom is how you will access and submit assignments and is called **elon-fin-data**. 
    
-When you **accept** an assignment, you'll **fork** (copy) the **repository** (folder) with that assignment. You'll then work in this new repository, which will be linked to your Github account. For example, you'll see a new repository named something like **lab00-getting-started-git-aaiken1student**, where you're Github username will replace my name.
+When you **accept** an assignment, you'll **fork** (copy) the **repository** (folder) with that assignment. You'll then work in this new repository, which will be linked to your Github account. For example, you'll see a new repository named something like **lab00-getting-started-git-aaiken1student**, where your Github username will replace my name.
 
 These are ideas from **git**, which is used for **version control**. More on that in a second.
 
@@ -70,6 +72,8 @@ align: center
 Ready to go after a browser refresh. You see the URL for the new repository that you've created using the assignment. 
 ```
 
+## Repositories are Like Folders
+
 Now that you've accepted the assignment, it is time to get to work! **Browse to your assignment repository (repo).** 
 
 I have created a Youtube video that shows you some of the basics of how a repo works: <https://www.youtube.com/watch?v=MOevORafn-g>.
@@ -85,8 +89,8 @@ align: center
 You can open up a Github Codespace from the assignment repo.
 ```
 
-## Using Github Codespaces
 
+## Using Github Codespaces
 
 Now, you can open up a **Github Codespace**. Codespace is essentially VS Code, but in the cloud, running on Github (i.e. Microsoft) servers. You get a certain number of hours of runtime for free each month. It should be more than enough for the work that we're doing in this class.
 
@@ -112,11 +116,15 @@ This is what I see on my end for each student and each assignment. I can see you
 
 You can create new Codespaces, as well as see all of you recent ones by going to the main Codespace page: <https://github.com/codespaces/>.
 
-Notice that Codespaces can be associated with repositories. You can also just create new ones and start working on something. Github provides some ready-made templates, like the Jupyter Notebook one.
+Notice that Codespaces can be associated with **repositories**. You can also just create new ones and start working on something. Github provides some ready-made templates, like the Jupyter Notebook one.
 
-Back to our assignment repository. To get going, you'll need to tell Codespace that you want to work in Python. This means navigating to **Extensions** on the left. You'll search for and install **Python** and **Jupyter Notebooks**.
+Each Codespace that you create is an example of an **environment**. A Codespace is like a virtual machine that comes preloaded with tools and dependencies for development. For Python, this includes interpreters, package managers like **pip**, and the ability to **install libraries and frameworks**. We'll get to that.
 
-Codespaces is just VS Code in the cloud. VS Code is a place to... code. But, what kind of code? Extensions tell VS Code all about Python and Jupyter notebooks. We're going to write our code in these notebooks.
+### Setting up our Python environment
+
+Back to our assignment repository. To get going, you'll need to tell Codespace that you want to work in Python. This means navigating to **Extensions** on the left. You'll search for and install **Python** and **Jupyter Notebooks**. You'll need to do this every time you create a new codespace. Remember, each assignment is going to have a unique codespace associated with a particular repository that I've created.
+
+Codespaces is just **VS Code in the cloud**. VS Code is a place to... code. But, what kind of code? Extensions tell VS Code all about Python and Jupyter notebooks. We're going to write our code in these notebooks.
 
 Once you have these extensions, you can actually create a notebook file. Go up to the **command palette**, that strip at the top of your window where you can type commands. Type **> Jupyter**. You should get an option to create a new Jupyter notebook. This will open up a blank notebook, where you can write Python code and Markdown, mixing code and text.
 

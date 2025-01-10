@@ -1,6 +1,6 @@
 # Welcome
 
-**Spring 2024 with Prof. [Adam Aiken](https://aaiken1.github.io)**
+**Spring 2025 with Prof. [Adam Aiken](https://aaiken1.github.io)**
 
 ```{image} /images/elon-signature.png
 :alt: elon-signature
@@ -13,7 +13,7 @@
 This is a living textbook. I will be updating the notes and making improvements as we go.
 ```
 
-Welcome! This online text contains my notes and code examples. There are essentially three parts to this course. First, we'll get set-up and become comfortable with our coding environment.
+Welcome! This online text contains my notes and code examples. There are essentially three parts to this course. First, we'll get set-up and become comfortable with our coding environment. We will be using Github Classroom and VS Code within Github Codespaces.
 
 We also have a course [Github repository](https://github.com/aaiken1/fin-data-analysis-python), where I will keep data and code (e.g. Jupyter notebooks) that we use in class.
 
@@ -21,13 +21,24 @@ We also have a course [YouTube page](https://www.youtube.com/playlist?list=PLo4Q
 
 Our labs and exams are posted using Github Classroom. You'll find links to these on Moodle.
 
-The most important part is to make sure that you are up and running with Github, Jupyter Notebooks, and Github Codespaces/VS Code. We'll discuss how to get started in [Chapter 2](chapters/2_intro.html#python_set-up). Your coding environment can be entirely **browser-based**, if you choose to do so.
+The most important part is to make sure that you are up and running with Github, Jupyter Notebooks, and Github Codespaces/VS Code. We'll discuss how to get started in [Chapter 2](chapters/2_intro.html#python_set-up). Your coding environment can be entirely **browser-based**, if you choose to do so. If you have some experience with IDEs and git, you can use a local install as well. 
 
 ```{hint}
 Bookmark important links so that you don't have to go searching for them.
 ```
 
 We also have a textbook on [machine learning in finance](https://www-2.rotman.utoronto.ca/~hull/MLThirdEditionFiles/index3rdEd.html). If you've taken a derivatives class, you might have seen the author's other textbook - every derivatives trader in the world has read Hull. We'll get to these topics more in the second-half of the course.
+
+## Course Goals
+By the end of this course, you will:
+
+**Set Up Your Coding Environment**: Learn how to use Github Classroom, VS Code, and Github Codespaces for data analysis. Datacamp exercises will cover git and using ChatGPT for coding.
+**Master Python Basics**: Gain a solid understanding of Python programming, including data structures, functions, and libraries essential for data analysis.
+**Perform Data Analysis**: Learn how to import, clean, and manipulate data using libraries such as Pandas and NumPy.
+**Visualize Data**: Create insightful visualizations using Matplotlib, Seaborn, and Plotly to effectively communicate your findings.
+**Apply Machine Learning Techniques**: Understand and implement basic machine learning models, including linear regression, logit models, and clustering.
+**Integrate Finance Knowledge**: Apply your coding skills to financial data, exploring topics such as factor models, risk management, and options trading.
+**Develop Analytical Reports**: Combine code, output, and text in Markdown reports to create comprehensive analytical documents.
 
 ## Getting help
 
@@ -83,3 +94,8 @@ I also have a collection of non-DataCamp cheat sheets.
 I have also found the [The Self-Taught Programmer](https://www.theselftaughtprogrammer.io) a useful book, especially for someone like me, who does write code for research, but has only had a few formal computer science courses.
 
 If you've used R in the past, here's a [guide to setting up Python to be more like R](https://www.emilyriederer.com/post/py-rgo/).
+
+
+
+
+
