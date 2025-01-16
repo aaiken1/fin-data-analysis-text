@@ -6,7 +6,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
 
-    <title>4. Working with data &#8212; Data Analysis in Finance</title>
+    <title>2.6. Code style, PEP8, and linting &#8212; Data Analysis in Finance</title>
     
   <!-- Loaded before other Sphinx assets -->
   <link href="../_static/styles/theme.css?digest=1999514e3f237ded88cf" rel="stylesheet">
@@ -54,8 +54,8 @@ const thebe_selector_output = ".output, .cell_output"
     <script src="https://unpkg.com/@jupyter-widgets/html-manager@^0.20.0/dist/embed-amd.js"></script>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
-    <link rel="next" title="4.2. Importing data" href="4_0_dataframes.html" />
-    <link rel="prev" title="3.2. Numpy and arrays" href="3_1_numpy.html" />
+    <link rel="next" title="2.7. Using ChatGPT" href="2_5_using_chatgpt.html" />
+    <link rel="prev" title="2.5. Packages" href="2_3_packages.html" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="docsearch:language" content="None">
     
@@ -120,24 +120,24 @@ const thebe_selector_output = ".output, .cell_output"
   Getting Started
  </span>
 </p>
-<ul class="nav bd-sidenav">
+<ul class="current nav bd-sidenav">
  <li class="toctree-l1">
   <a class="reference internal" href="1_finpyth.html">
    1. Why Python and finance?
   </a>
  </li>
- <li class="toctree-l1 has-children">
+ <li class="toctree-l1 current active has-children">
   <a class="reference internal" href="2_intro.html">
    2. Python set-up
    <a id="python_set-up">
    </a>
   </a>
-  <input class="toctree-checkbox" id="toctree-checkbox-1" name="toctree-checkbox-1" type="checkbox"/>
+  <input checked="" class="toctree-checkbox" id="toctree-checkbox-1" name="toctree-checkbox-1" type="checkbox"/>
   <label for="toctree-checkbox-1">
    <i class="fas fa-chevron-down">
    </i>
   </label>
-  <ul>
+  <ul class="current">
    <li class="toctree-l2">
     <a class="reference internal" href="2_0_git.html">
      2.2. Using Github and Github Codespaces
@@ -158,8 +158,8 @@ const thebe_selector_output = ".output, .cell_output"
      2.5. Packages
     </a>
    </li>
-   <li class="toctree-l2">
-    <a class="reference internal" href="2_4_style.html">
+   <li class="toctree-l2 current active">
+    <a class="current reference internal" href="#">
      2.6. Code style, PEP8, and linting
     </a>
    </li>
@@ -176,7 +176,7 @@ const thebe_selector_output = ".output, .cell_output"
   The Basics
  </span>
 </p>
-<ul class="current nav bd-sidenav">
+<ul class="nav bd-sidenav">
  <li class="toctree-l1 has-children">
   <a class="reference internal" href="3_intro.html">
    3. CompSci 101: Types, control, and numpy arrays
@@ -199,11 +199,11 @@ const thebe_selector_output = ".output, .cell_output"
    </li>
   </ul>
  </li>
- <li class="toctree-l1 current active has-children">
-  <a class="current reference internal" href="#">
+ <li class="toctree-l1 has-children">
+  <a class="reference internal" href="4_intro.html">
    4. Working with data
   </a>
-  <input checked="" class="toctree-checkbox" id="toctree-checkbox-3" name="toctree-checkbox-3" type="checkbox"/>
+  <input class="toctree-checkbox" id="toctree-checkbox-3" name="toctree-checkbox-3" type="checkbox"/>
   <label for="toctree-checkbox-3">
    <i class="fas fa-chevron-down">
    </i>
@@ -404,6 +404,35 @@ title="Toggle navigation"
         
     </div>
     <div class="header-article__right">
+<div class="menu-dropdown menu-dropdown-launch-buttons">
+  <button class="headerbtn menu-dropdown__trigger"
+      aria-label="Launch interactive content">
+      <i class="fas fa-rocket"></i>
+  </button>
+  <div class="menu-dropdown__content">
+    <ul>
+      <li>
+        <a href="https://mybinder.org/v2/gh/executablebooks/jupyter-book/master?urlpath=tree/docs/chapters/2_4_style.ipynb"
+   class="headerbtn"
+   data-toggle="tooltip"
+data-placement="left"
+title="Launch on Binder"
+>
+  
+
+<span class="headerbtn__icon-container">
+  
+    <img src="../_static/images/logo_binder.svg">
+  </span>
+<span class="headerbtn__text-container">Binder</span>
+</a>
+
+      </li>
+      
+    </ul>
+  </div>
+</div>
+
 <button onclick="toggleFullScreen()"
   class="headerbtn"
   data-toggle="tooltip"
@@ -439,7 +468,7 @@ title="Source repository"
   <div class="menu-dropdown__content">
     <ul>
       <li>
-        <a href="../_sources/chapters/4_intro.md"
+        <a href="../_sources/chapters/2_4_style.ipynb"
    class="headerbtn"
    data-toggle="tooltip"
 data-placement="left"
@@ -450,7 +479,7 @@ title="Download source file"
 <span class="headerbtn__icon-container">
   <i class="fas fa-file"></i>
   </span>
-<span class="headerbtn__text-container">.md</span>
+<span class="headerbtn__text-container">.ipynb</span>
 </a>
 
       </li>
@@ -499,8 +528,13 @@ title="Print to PDF"
     <nav id="bd-toc-nav" aria-label="Page">
         <ul class="visible nav section-nav flex-column">
  <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#other-important-sources">
-   4.1. Other important sources
+  <a class="reference internal nav-link" href="#files-file-paths-and-the-names-of-things">
+   2.6.1. Files, file paths, and the names of things
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#linting">
+   2.6.2. Linting
   </a>
  </li>
 </ul>
@@ -512,7 +546,7 @@ title="Print to PDF"
         <div class="col pl-md-3 pl-lg-5 content-container">
             <!-- Table of contents that is only displayed when printing the page -->
             <div id="jb-print-docs-body" class="onlyprint">
-                <h1>Working with data</h1>
+                <h1>Code style, PEP8, and linting</h1>
                 <!-- Table of contents -->
                 <div id="print-main-content">
                     <div id="jb-print-toc">
@@ -523,8 +557,13 @@ title="Print to PDF"
                         <nav aria-label="Page">
                             <ul class="visible nav section-nav flex-column">
  <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#other-important-sources">
-   4.1. Other important sources
+  <a class="reference internal nav-link" href="#files-file-paths-and-the-names-of-things">
+   2.6.1. Files, file paths, and the names of things
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#linting">
+   2.6.2. Linting
   </a>
  </li>
 </ul>
@@ -537,52 +576,80 @@ title="Print to PDF"
                 
               <div>
                 
-  <section class="tex2jax_ignore mathjax_ignore" id="working-with-data">
-<h1><span class="section-number">4. </span>Working with data<a class="headerlink" href="#working-with-data" title="Permalink to this headline">#</a></h1>
-<p>Chapter 4 of our course notes discusses how to store our data, indexing, column names, converting <code class="docutils literal notranslate"><span class="pre">numpy</span></code> arrays to <code class="docutils literal notranslate"><span class="pre">pandas</span></code> DataFrames, dates, and summarizing our data, especially <strong>by group</strong>.</p>
-<p>We’ll see with how to <strong>merge</strong> and <strong>reshape</strong> our data. I’ll also discuss <strong>SQL</strong> and the <code class="docutils literal notranslate"><span class="pre">polar</span></code> library, two alternatives to <code class="docutils literal notranslate"><span class="pre">pandas</span></code>.</p>
-<p><strong>DataFrames</strong> are the main way that we are going to organize our data. They come from the <code class="docutils literal notranslate"><span class="pre">pandas</span></code> package, which along with <code class="docutils literal notranslate"><span class="pre">numpy</span></code>, <code class="docutils literal notranslate"><span class="pre">matplotlib</span></code>, and a few others, form the core of our Python and finance toolbox.</p>
-<p>DataFrames are a <code class="docutils literal notranslate"><span class="pre">class</span></code>. A <code class="docutils literal notranslate"><span class="pre">class</span></code> is like a blueprint. We create a DataFrame <code class="docutils literal notranslate"><span class="pre">object</span></code> from this <code class="docutils literal notranslate"><span class="pre">class</span></code>. The object then comes with certain characteristics and things that we can do to it. We call operations on a object <code class="docutils literal notranslate"><span class="pre">methods</span></code>.</p>
-<div class="admonition note">
-<p class="admonition-title">Note</p>
-<p>This section of the notes contains perhaps the most important topics that we’ll cover.</p>
+  <section class="tex2jax_ignore mathjax_ignore" id="code-style-pep8-and-linting">
+<h1><span class="section-number">2.6. </span>Code style, PEP8, and linting<a class="headerlink" href="#code-style-pep8-and-linting" title="Permalink to this headline">#</a></h1>
+<p>As we learn to write code, we want to strive for <strong>readable</strong> code. This means code that is both easy for someone else to read and code that is easy for a <strong>future you</strong> to read!</p>
+<p>I don’t want to overwhelm you with rules right now, but we should be aware of how to format our Python code for readability and consistency. Python programmers like to follow a certain style, called <a class="reference external" href="https://pep8.org">PEP8</a>.</p>
+<p>PEP8 lays out conventions for indentation, spacing, commenting, naming, line length, etc. Some basics rules to know for now:</p>
+<ul class="simple">
+<li><p>Use 4 spaces per indentation level.</p></li>
+<li><p>Limit you code line length to 79 characters. You can indent onto the next line.</p></li>
+<li><p>Package imports should be at the top and on separate lines.</p></li>
+<li><p>Pay attention to how you are naming your variables, functions, etc. Pick a style and be consistent.</p></li>
+</ul>
+<p>Here are some other style guides for you. Just keep them handy.</p>
+<p><a class="reference external" href="https://realpython.com/python-pep8/">https://realpython.com/python-pep8/</a></p>
+<p><a class="reference external" href="https://www.datacamp.com/tutorial/pep8-tutorial-python-code">https://www.datacamp.com/tutorial/pep8-tutorial-python-code</a></p>
+<p><a class="reference external" href="https://google.github.io/styleguide/pyguide.html">https://google.github.io/styleguide/pyguide.html</a></p>
+<p>For the Google Style Guide, check out Section 3 first.</p>
+<p>All of this will make sense as we start to code. But, I think it is helpful to be aware that there are conventions before we start. However, don’t get too hung up on them at first. They will start to feel natural as we look at examples and write our own.</p>
+<p>Here’s an example of a style guide from the DataCamp tutorial.</p>
+<figure class="align-center" id="style-png">
+<img alt="../_images/02-style.png" class="with-border" src="../_images/02-style.png" />
+<figcaption>
+<p><span class="caption-number">Fig. 2.28 </span><span class="caption-text">Indentation is important in Python. Improper indentation will lead to syntax errors and your code won’t run.
+``</span><a class="headerlink" href="#style-png" title="Permalink to this image">#</a></p>
+<div class="legend">
+<p><strong>Comments</strong> are also an important part of readability. We can add comments using <code class="docutils literal notranslate"><span class="pre">#</span></code>. For example,</p>
 </div>
-<p>This is also where we can start looking at our <strong>Hull textbook</strong>. <strong>Chapter 1</strong> introduces <strong>machine learning</strong>, very generally. What types of questions can we ask? And, most importantly for this section, how should we think about the data that we need to answer these questions?</p>
-<p>We are going to be using <strong>time series</strong>, like stock prices and returns. We’ll be using <strong>cross-sectional</strong> data, like firm or house characteristics at a single point in time. And combinations of the two, sometimes call <strong>panel data</strong>.</p>
-<p>Hull starts with discussing the differences between machine learning and statistics. I view this course as a blend - we’re covering both. When we have theory guiding us, we’re more in the traditional economics and statistics camps. When we let the models run the show, we’re more in the world of machine learning. This is a simplification, but has some truth to it.</p>
-<p>But, no matter what, we need to understand how to <strong>collect and organize our data</strong>.</p>
-<p>For now, focus on Section 1.5 of Hull on <strong>data cleaning</strong>. Data cleaning will lead to a discussion of <strong>feature engineering</strong>, which is about constructing the variables that will go into our models.</p>
-<div class="admonition note">
-<p class="admonition-title">Note</p>
-<p>Sketch your data! What do you have? What do you want it to look like? Then, go look for the syntax you need to get that done.</p>
+</figcaption>
+</figure>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># This prints Hello World!</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Hello World!&quot;</span><span class="p">)</span>
+</pre></div>
 </div>
-<section id="other-important-sources">
-<h2><span class="section-number">4.1. </span>Other important sources<a class="headerlink" href="#other-important-sources" title="Permalink to this headline">#</a></h2>
-<p>As always, my notes are not comprehensive - that’s an impossible task.</p>
-<p>From <a class="reference external" href="https://aeturrell.github.io/coding-for-economists/intro.html">Coding for Economists</a></p>
-<ul class="simple">
-<li><p><a class="reference external" href="https://aeturrell.github.io/coding-for-economists/data-intro.html">Working with Data</a> has <code class="docutils literal notranslate"><span class="pre">pandas</span></code> examples. Note the discussion of *<strong>tidy data</strong>.</p></li>
-<li><p><a class="reference external" href="https://aeturrell.github.io/coding-for-economists/data-transformation.html">Data Transformation</a> has data aggregation and summary examples.</p></li>
-<li><p><a class="reference external" href="https://aeturrell.github.io/coding-for-economists/data-exploratory-analysis.html">Exploratory Data Analysis</a> has more summary examples, including making summary tables.</p></li>
-<li><p><a class="reference external" href="https://aeturrell.github.io/coding-for-economists/data-missing-values.html">Missing Values</a> covers what to do with missing values in your data.</p></li>
-</ul>
-<p>An <a class="reference external" href="https://www.mit.edu/~amidi/teaching/data-science-tools/study-guide/data-manipulation-with-python/#main-concepts">excellent and concise guide</a> for data manipulation in <code class="docutils literal notranslate"><span class="pre">pandas</span></code>.</p>
-<p>The <a class="reference external" href="https://pandas.pydata.org/pandas-docs/stable/user_guide/10min.html">official <code class="docutils literal notranslate"><span class="pre">pandas</span></code> guide</a> is also very helpful.</p>
-<p>From <a class="reference external" href="https://www.tomasbeuzen.com/python-programming-for-data-science/README.html">Python Programming for Data Science</a>:</p>
-<ul class="simple">
-<li><p><a class="reference external" href="https://www.tomasbeuzen.com/python-programming-for-data-science/chapters/chapter7-pandas.html">Chapter 7</a> introduces <code class="docutils literal notranslate"><span class="pre">pandas</span></code>.</p></li>
-<li><p><a class="reference external" href="https://www.tomasbeuzen.com/python-programming-for-data-science/chapters/chapter8-wrangling-basics.html">Chapter 8</a> of Python Programming for Data Science is all about <code class="docutils literal notranslate"><span class="pre">pandas</span></code>.</p></li>
-</ul>
-<p>From <a class="reference external" href="https://wesmckinney.com/book/">Python for Data Analysis</a>:</p>
-<ul class="simple">
-<li><p><a class="reference external" href="https://wesmckinney.com/book/pandas-basics.html">Chapter 5</a> also introduces <code class="docutils literal notranslate"><span class="pre">pandas</span></code>.</p></li>
-<li><p><a class="reference external" href="https://wesmckinney.com/book/data-cleaning.html">Chapter 7</a> discusses data cleaning.</p></li>
-<li><p><a class="reference external" href="https://wesmckinney.com/book/data-aggregation.html">Chapter 10</a> discusses aggregation and summarizing our data.</p></li>
-</ul>
-<p>As you can see, this is a lot of material! That’s because using <code class="docutils literal notranslate"><span class="pre">pandas</span></code> to import, organize, clean, and summarize our data is about 90% of all analysis work. We could spend the entire semester just working through these chapters. In fact, we have an entire <strong>Data Wrangling</strong> class that essentially does that!</p>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Hello World!
+</pre></div>
+</div>
+</div>
+</div>
+<p>Notice the one space after the <code class="docutils literal notranslate"><span class="pre">#</span></code> in the comment. This is part of commenting style in Python.</p>
+<section id="files-file-paths-and-the-names-of-things">
+<h2><span class="section-number">2.6.1. </span>Files, file paths, and the names of things<a class="headerlink" href="#files-file-paths-and-the-names-of-things" title="Permalink to this headline">#</a></h2>
+<p>We’re using Github classroom for assignments, so we are worried about <strong>repo locations</strong>. But, there can be multiple files and folders in a repo and then again on our computers.</p>
+<aside class="margin sidebar">
+<p class="sidebar-title">Know where your stuff is!</p>
+<p>It is very important that you use a consistent organization and structure. Files, folders, and paths are very important. <strong>If you are using the lab computers, bring your own USB Drive</strong>.</p>
+</aside>
+<p>My layout is simple. A folder for this class. Then, inside that folder, I have the following sub-folders: data, output, images, and code.</p>
+<figure class="align-center" id="my-files-png">
+<img alt="../_images/02-my-files.png" class="with-border" src="../_images/02-my-files.png" />
+<figcaption>
+<p><span class="caption-number">Fig. 2.29 </span><span class="caption-text">My class folder, <strong>fin-data-analysis-python</strong> and sub-folders. You won’t have the readme.md file. That is generating the Read Me text on Github. You also probably don’t have hidden files and folders visible on your machine.</span><a class="headerlink" href="#my-files-png" title="Permalink to this image">#</a></p>
+</figcaption>
+</figure>
+<p>When I open up Jupyter or VS Code, I open up that class folder. Then, I can see my folder structure. I then use <strong>relative file paths</strong> to open and save files.</p>
+<p>And, instead of a single code folder, you can set-up a folder for each assignment. Then, inside each of these folders are folders called <em>code</em>, <em>data</em>, etc.</p>
+<figure class="align-center" id="file-paths-png">
+<img alt="../_images/02-file-paths.png" class="with-border" src="../_images/02-file-paths.png" />
+<figcaption>
+<p><span class="caption-number">Fig. 2.30 </span><span class="caption-text">Each assignment can get its own folder and sub-folder structure.</span><a class="headerlink" href="#file-paths-png" title="Permalink to this image">#</a></p>
+</figcaption>
+</figure>
+<p>And, this is a <a class="reference external" href="https://speakerdeck.com/jennybc/how-to-name-files">great presentation</a> on how to name files. You want your file names to be machine readable, human readable, easily searchable, and easily sorted. There’s something of a science to doing this correctly.</p>
+<p>Getting this stuff right will make your life easier.</p>
 </section>
-<div class="toctree-wrapper compound">
-</div>
+<section id="linting">
+<h2><span class="section-number">2.6.2. </span>Linting<a class="headerlink" href="#linting" title="Permalink to this headline">#</a></h2>
+<p><strong>Linting</strong> refers to not just properly formatted code, but also checking for unintentional errors and issues, such as functions that never get called, missing parentheses, and other “bugs”.</p>
+<p>VS code has built-in linting support when you are working in a <code class="docutils literal notranslate"><span class="pre">.py</span></code> file. Note that this is different from working in a Jupyter notebook.</p>
+<p><a class="reference external" href="https://code.visualstudio.com/docs/python/linting">https://code.visualstudio.com/docs/python/linting</a></p>
+</section>
 </section>
 
     <script type="text/x-thebe-config">
@@ -612,17 +679,17 @@ title="Print to PDF"
                 
     <!-- Previous / next buttons -->
 <div class='prev-next-area'>
-    <a class='left-prev' id="prev-link" href="3_1_numpy.html" title="previous page">
+    <a class='left-prev' id="prev-link" href="2_3_packages.html" title="previous page">
         <i class="fas fa-angle-left"></i>
         <div class="prev-next-info">
             <p class="prev-next-subtitle">previous</p>
-            <p class="prev-next-title"><span class="section-number">3.2. </span>Numpy and arrays</p>
+            <p class="prev-next-title"><span class="section-number">2.5. </span>Packages</p>
         </div>
     </a>
-    <a class='right-next' id="next-link" href="4_0_dataframes.html" title="next page">
+    <a class='right-next' id="next-link" href="2_5_using_chatgpt.html" title="next page">
     <div class="prev-next-info">
         <p class="prev-next-subtitle">next</p>
-        <p class="prev-next-title"><span class="section-number">4.2. </span>Importing data</p>
+        <p class="prev-next-title"><span class="section-number">2.7. </span>Using ChatGPT</p>
     </div>
     <i class="fas fa-angle-right"></i>
     </a>
