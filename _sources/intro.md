@@ -62,6 +62,8 @@ Some more suggestions for using ChatGPT in data projects:
 
 I have pulled material from many different sources in order to create these notes and I am very grateful that they have made their work available. For example, I include commentary on examples from our book. There are also many other excellent and, often, free guides to using Python, Jupyter notebooks, and VS Code.
 
+For each topic we cover, I'll let you know if I'd like you to read or watch something beyond what's in these notes. 
+
 [The Python Tutorial](https://docs.python.org/3/tutorial/index.html). This is the main tutorial from the folks who develop Python. I'll refer to it throughout the text if you want a more in-depth look at something.
 
 [Python for Finance, 2e](https://www.oreilly.com/library/view/python-for-finance/9781492024323/). This is one of the few "python and finance" books, though it jumps from the basics into more advanced material quite quickly. This textbook also has a Github repository that [contains the code used in the book](https://github.com/yhilpisch/py4fi2nd).
@@ -73,6 +75,8 @@ There are also many free resources available. The key is being able to find what
 [Python Programming for Data Science](https://www.tomasbeuzen.com/python-programming-for-data-science/README.html) is another great, general resource. You'll find a discussion of the basics, along with a Python style guide for writing readable code, details and about NumPy and Pandas, and tips for data wrangling and cleaning.
 
 [Python for Data Analysis, 3E](https://wesmckinney.com/book/) is also available for free online. The author has just updated to a third edition.
+
+[The StatQuest YouTube Channel](https://www.youtube.com/@statquest) is a good place to see get additional explanation about some of the statistical techniques that we'll see in this class.
 
 [DataCamp](https://www.datacamp.com/cheat-sheet) also has lots of mini-tutorials and **cheatsheets** that can help get you started. We are going to see all of these tools this semester.
 
@@ -93,7 +97,7 @@ There are also many free resources available. The key is being able to find what
 - [Scikit Lean - basic machine learning in Python](https://www.datacamp.com/cheat-sheet/scikit-learn-cheat-sheet-python-machine-learning)
 - [SciPy - linear algebra in Python because everything is linear algebra](https://www.datacamp.com/cheat-sheet/scipy-cheat-sheet-linear-algebra-in-python)
 
-I also have a collection of non-DataCamp cheat sheets.
+Here's a collection of non-DataCamp cheat sheets.
 
 - [Comprehensive Python Cheatsheet](https://gto76.github.io/python-cheatsheet/)
 
