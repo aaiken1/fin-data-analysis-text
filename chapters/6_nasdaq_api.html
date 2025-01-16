@@ -146,23 +146,28 @@ const thebe_selector_output = ".output, .cell_output"
     </a>
    </li>
    <li class="toctree-l2">
-    <a class="reference internal" href="2_7_markdown.html">
-     2.3. Markdown
+    <a class="reference internal" href="2_3_jupyter.html">
+     2.3. Using Jupyter notebooks in Codespaces
     </a>
    </li>
    <li class="toctree-l2">
-    <a class="reference internal" href="2_8_packages.html">
-     2.4. Packages
+    <a class="reference internal" href="2_4_markdown.html">
+     2.4. Markdown
     </a>
    </li>
    <li class="toctree-l2">
-    <a class="reference internal" href="2_9_style.html">
-     2.5. Code style, PEP8, and linting
+    <a class="reference internal" href="2_5_packages.html">
+     2.5. Packages
     </a>
    </li>
    <li class="toctree-l2">
-    <a class="reference internal" href="2_10_using_chatgpt.html">
-     2.6. Using ChatGPT
+    <a class="reference internal" href="2_6_style.html">
+     2.6. Code style, PEP8, and linting
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="2_7_using_chatgpt.html">
+     2.7. Using ChatGPT
     </a>
    </li>
   </ul>
@@ -326,38 +331,28 @@ const thebe_selector_output = ".output, .cell_output"
   </a>
  </li>
  <li class="toctree-l1">
-  <a class="reference internal" href="14_decision_trees.html">
-   14. Decision Trees
+  <a class="reference internal" href="14_risk_mang.html">
+   14. Risk management
   </a>
  </li>
  <li class="toctree-l1">
-  <a class="reference internal" href="15_svm.html">
-   15. SVM
+  <a class="reference internal" href="15_monte_carlo.html">
+   15. Monte Carlo and portfolios
   </a>
  </li>
  <li class="toctree-l1">
-  <a class="reference internal" href="16_risk_mang.html">
-   16. Risk management
+  <a class="reference internal" href="16_decision_trees.html">
+   16. Decision Trees
   </a>
  </li>
  <li class="toctree-l1">
-  <a class="reference internal" href="17_monte_carlo.html">
-   17. Monte Carlo and portfolios
+  <a class="reference internal" href="17_options.html">
+   17. Option basics
   </a>
  </li>
  <li class="toctree-l1">
-  <a class="reference internal" href="18_options.html">
-   18. Option basics
-  </a>
- </li>
- <li class="toctree-l1">
-  <a class="reference internal" href="19_reinforcement_learning.html">
-   19. Reinforcement Learning
-  </a>
- </li>
- <li class="toctree-l1">
-  <a class="reference internal" href="20_trading_bt.html">
-   20. Trading Strategies and the BT Package
+  <a class="reference internal" href="18_trading_bt.html">
+   18. Trading Strategies and the BT Package
   </a>
  </li>
 </ul>
@@ -1064,16 +1059,16 @@ title="Print to PDF"
 </div>
 </div>
 <p>Let’s put together some ideas, write a function, and run a simulation. We’ll use something called <strong>geometric brownian motion</strong> (GBM). What is GBM? It is a particular <a class="reference external" href="https://arxiv.org/pdf/1504.05309.pdf">stochastic differential equation</a>. But, what’s important for us is the idea, which is fairly simple. Here’s the formula:</p>
-<div class="amsmath math notranslate nohighlight" id="equation-2893064d-a704-4ba5-9e49-f3de805606a4">
-<span class="eqno">(6.1)<a class="headerlink" href="#equation-2893064d-a704-4ba5-9e49-f3de805606a4" title="Permalink to this equation">#</a></span>\[\begin{align}
+<div class="amsmath math notranslate nohighlight" id="equation-69bc131b-0929-435a-80e1-d79dbb0f79c1">
+<span class="eqno">(6.1)<a class="headerlink" href="#equation-69bc131b-0929-435a-80e1-d79dbb0f79c1" title="Permalink to this equation">#</a></span>\[\begin{align}
 dS = \mu S dt + \sigma S dW_t
 \end{align}\]</div>
 <p>This says that the change in the stock price has two components - a <strong>drift</strong>, or average increase over time, and a <strong>shock</strong> that it is random at each point in time. The shock is scaled by the standard deviation of returns that you use. So, larger standard deviation, the bigger the shocks can be. This is basically the simplest way that you can model an asset price.</p>
 <p>The shocks are what make the price wiggle around around, or else it would just go up over time, based on the drift value that we use.</p>
 <p>And, I’ll stress - we aren’t predicting here, so to speak. We are trying to capture some basic reality about how an asset moves and then seeing what is possible in the future. We aren’t making a statement about whether we think an asset is overvalued or undervalued, will go up or down, etc.</p>
 <p>You can solve this equation to get the value of the asset at any point in time t. You just need to know the total of all of the shocks at time t.</p>
-<div class="amsmath math notranslate nohighlight" id="equation-554b6da9-2cc8-4126-80f3-a6888160bab8">
-<span class="eqno">(6.2)<a class="headerlink" href="#equation-554b6da9-2cc8-4126-80f3-a6888160bab8" title="Permalink to this equation">#</a></span>\[\begin{align}
+<div class="amsmath math notranslate nohighlight" id="equation-be74015b-e586-4351-9c9f-a8f9403bbb81">
+<span class="eqno">(6.2)<a class="headerlink" href="#equation-be74015b-e586-4351-9c9f-a8f9403bbb81" title="Permalink to this equation">#</a></span>\[\begin{align}
 S(t) = S(0) \exp \left(\left(\mu - \frac{1}{2}\sigma^2\right)t + \sigma W(t)\right)
 \end{align}\]</div>
 <div class="cell docutils container">

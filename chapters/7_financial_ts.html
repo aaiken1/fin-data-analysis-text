@@ -146,23 +146,28 @@ const thebe_selector_output = ".output, .cell_output"
     </a>
    </li>
    <li class="toctree-l2">
-    <a class="reference internal" href="2_7_markdown.html">
-     2.3. Markdown
+    <a class="reference internal" href="2_3_jupyter.html">
+     2.3. Using Jupyter notebooks in Codespaces
     </a>
    </li>
    <li class="toctree-l2">
-    <a class="reference internal" href="2_8_packages.html">
-     2.4. Packages
+    <a class="reference internal" href="2_4_markdown.html">
+     2.4. Markdown
     </a>
    </li>
    <li class="toctree-l2">
-    <a class="reference internal" href="2_9_style.html">
-     2.5. Code style, PEP8, and linting
+    <a class="reference internal" href="2_5_packages.html">
+     2.5. Packages
     </a>
    </li>
    <li class="toctree-l2">
-    <a class="reference internal" href="2_10_using_chatgpt.html">
-     2.6. Using ChatGPT
+    <a class="reference internal" href="2_6_style.html">
+     2.6. Code style, PEP8, and linting
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="2_7_using_chatgpt.html">
+     2.7. Using ChatGPT
     </a>
    </li>
   </ul>
@@ -326,38 +331,28 @@ const thebe_selector_output = ".output, .cell_output"
   </a>
  </li>
  <li class="toctree-l1">
-  <a class="reference internal" href="14_decision_trees.html">
-   14. Decision Trees
+  <a class="reference internal" href="14_risk_mang.html">
+   14. Risk management
   </a>
  </li>
  <li class="toctree-l1">
-  <a class="reference internal" href="15_svm.html">
-   15. SVM
+  <a class="reference internal" href="15_monte_carlo.html">
+   15. Monte Carlo and portfolios
   </a>
  </li>
  <li class="toctree-l1">
-  <a class="reference internal" href="16_risk_mang.html">
-   16. Risk management
+  <a class="reference internal" href="16_decision_trees.html">
+   16. Decision Trees
   </a>
  </li>
  <li class="toctree-l1">
-  <a class="reference internal" href="17_monte_carlo.html">
-   17. Monte Carlo and portfolios
+  <a class="reference internal" href="17_options.html">
+   17. Option basics
   </a>
  </li>
  <li class="toctree-l1">
-  <a class="reference internal" href="18_options.html">
-   18. Option basics
-  </a>
- </li>
- <li class="toctree-l1">
-  <a class="reference internal" href="19_reinforcement_learning.html">
-   19. Reinforcement Learning
-  </a>
- </li>
- <li class="toctree-l1">
-  <a class="reference internal" href="20_trading_bt.html">
-   20. Trading Strategies and the BT Package
+  <a class="reference internal" href="18_trading_bt.html">
+   18. Trading Strategies and the BT Package
   </a>
  </li>
 </ul>
@@ -1669,14 +1664,14 @@ memory usage: 217.1 KB
 <p>I’m multiplying by 100 just for the display of the data.</p>
 <p>The percent change is called a <strong>linear return</strong>. Or, <strong>simple return</strong>. This is different from <strong>log returns</strong>, or <strong>compounded returns</strong>. Both types of returns are correct and useful. They are just used for different things.</p>
 <p>The formula for simple returns (R) is:</p>
-<div class="amsmath math notranslate nohighlight" id="equation-8a943fb3-d59e-4384-aef1-5f5a24d38825">
-<span class="eqno">(7.1)<a class="headerlink" href="#equation-8a943fb3-d59e-4384-aef1-5f5a24d38825" title="Permalink to this equation">#</a></span>\[\begin{align}
+<div class="amsmath math notranslate nohighlight" id="equation-d2f008dd-2b74-4e6e-9a0f-feccab107fbf">
+<span class="eqno">(7.1)<a class="headerlink" href="#equation-d2f008dd-2b74-4e6e-9a0f-feccab107fbf" title="Permalink to this equation">#</a></span>\[\begin{align}
 R_{t} = \frac{V_t}{V_{t-1}} - 1
 \end{align}\]</div>
 <p>where R is the simple return based on the percent change and V is the cash flow, including price and dividends (if any).</p>
 <p>The formula for log returns (r) is:</p>
-<div class="amsmath math notranslate nohighlight" id="equation-8715a911-33e8-4898-abd9-ab354e8d2611">
-<span class="eqno">(7.2)<a class="headerlink" href="#equation-8715a911-33e8-4898-abd9-ab354e8d2611" title="Permalink to this equation">#</a></span>\[\begin{align}
+<div class="amsmath math notranslate nohighlight" id="equation-c62bdafe-3357-421f-89db-b060095752c2">
+<span class="eqno">(7.2)<a class="headerlink" href="#equation-c62bdafe-3357-421f-89db-b060095752c2" title="Permalink to this equation">#</a></span>\[\begin{align}
 r_{t} = ln(\frac{V_t}{V_{t-1}}) = ln(1 + R_{t})
 \end{align}\]</div>
 <p>See <a class="reference external" href="https://papers.ssrn.com/sol3/papers.cfm?abstract_id=1586656">this article</a> for more on why this difference is important. In short, we need the mean of simple returns when doing portfolio optimization, as these returns work with a weighted average. Simple returns <strong>aggregate across assets</strong>. Log returns, however, <strong>aggregate across time</strong>. In other words, the cumulative return using log returns is the sum of individual log returns over the time period. You definitely can’t do that with simple returns!</p>
@@ -3063,8 +3058,8 @@ r_{t} = ln(\frac{V_t}{V_{t-1}}) = ln(1 + R_{t})
 </div>
 <p>We can also create return series using <strong>simple returns</strong>. We calculate percent returns, add 1 to each to get (1+R), and then <strong>chain returns together</strong> using <code class="docutils literal notranslate"><span class="pre">.cumprod()</span></code>. We subtract one at the end from the total.</p>
 <p>In other words,</p>
-<div class="amsmath math notranslate nohighlight" id="equation-30ce65cc-f169-4a2a-a3a1-9e1a3677b60b">
-<span class="eqno">(7.3)<a class="headerlink" href="#equation-30ce65cc-f169-4a2a-a3a1-9e1a3677b60b" title="Permalink to this equation">#</a></span>\[\begin{align}
+<div class="amsmath math notranslate nohighlight" id="equation-39dd2e08-2b15-43b0-9915-7da61b219f98">
+<span class="eqno">(7.3)<a class="headerlink" href="#equation-39dd2e08-2b15-43b0-9915-7da61b219f98" title="Permalink to this equation">#</a></span>\[\begin{align}
 Total Return = (1 + R_{1})*(1 + R_{2})*(1 + R_{3})*(1 + R_{4})... - 1
 \end{align}\]</div>
 <div class="cell docutils container">

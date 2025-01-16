@@ -4,24 +4,60 @@ We are going to be using **Github Classroom** and **Github Codespaces** to do ou
 
 Github Codespaces will allow us to use the VS Code developer environment in a browser, without doing a local install. We'll need to understand how it works.
 
+## Setting up Github
 
-## Accepting assignments in Github Classroom
+Sign-up for a Github account: <https://github.com/signup>. Use your **Elon email address**. Pick a username that you'll want others to see! I suggest using your name in some form. If you plan on applying for data jobs, you'll want to share your Github page. 
 
-Here are the basic steps.
-
-Sign-up for a Github Account: <https://github.com/signup>. Use your **Elon email address**. 
 
 ```{figure} ../images/22-github-page.png
 ---
 name: 22-github-page.png
 align: center
 ---
-Your main Github page with your repositories.
+Github.com when you are logged-in.
 ```
 
-Go to **Moodle** and find the **link for Lab00**. You might need to copy and paste it into your browser. 
+This will give you a Github page, like mine: <https://github.com/aaiken1>.
 
-This is the lab to help us get started. You'll be asked to **find your name from the class roster and then link your Github account to our Github Classroom**. Github Classroom is how you will access and submit assignments and is called **elon-fin-data**. 
+Or, my fake student page I use to test our workflow: <https://github.com/aaiken1student/>.
+
+Let's start by creating a **repository** for your main page. **Repos** are like folders. Each lab, exam, and project for this course will have it's own repo. You can create your own as well.
+
+Go to the upper-left of your main Github.com page and **click on the green button**. That icon is the repo icon.
+
+This will take you to the create a repo page. **Give your new repo the same name as your user name.** This will create a **special repo**, as Github tells you. This is where you can **create a readme file** that tells folks who visit your page who you are. **Make sure that option is checked** near the bottom of the page before you create the repo.
+
+
+```{figure} ../images/22-readme-repo.png
+---
+name: 22-readme-repo.png
+align: center
+---
+This is the screen that you'll see when creating a repo for your readme file.
+```
+
+
+Go back to your main page. Do you see the pencil in the upper-right hand corner of your readme box? Click that to edit the readme file directly in the browser. You could also do this via a Codespace or locally, once you see more about how files and repos work on Github.
+
+You are editing the readme.md file using a language called **markdown**. Hence, the .md file extensions. I have a separate section in my notes on this. Markdown is how you'll create text to go along with your code in this class. You can both edit and preview your readme file in the browser.
+
+You can read more about readme files and creating them here: <https://docs.github.com/en/account-and-profile/setting-up-and-managing-your-github-profile/customizing-your-profile/managing-your-profile-readme>
+
+
+```{figure} ../images/22-readme.png
+---
+name: 22-readme.png
+align: center
+---
+You can edit your readme.md file directly in your browser. 
+```
+
+
+## Accepting assignments in Github Classroom
+
+Now that you have a Github account and page, let's start our workflow by accepting an assignment. Go to **Moodle** and find the **link for Lab00**. You might need to copy and paste it into your browser. 
+
+This is the lab to help us get started. You'll be asked to **find your name from the class roster and then link your Github account to our Github Classroom**. Our Github Classroom is how you will access and submit assignments and is called **elon-fin-data**. 
    
 When you **accept** an assignment, you'll **fork** (copy) the **repository** (folder) with that assignment. You'll then work in this new repository, which will be linked to your Github account. For example, you'll see a new repository named something like **lab00-getting-started-git-aaiken1student**, where your Github username will replace my name.
 
@@ -130,9 +166,11 @@ Once you have these extensions, you can actually create a notebook file. Go up t
 
 You can also go to the **Explorer** tab on the left, click the new file icon, and create a new file with an .ipynb extension. This file will start its life in the folder that you created it in.
 
-when you create a notebook file, you might see **Select Kernel** over in the upper-right hand corner. The kernel is what actually runs your code. There are many different versions of Python out there. The version that we are using is on Github's server. The version that I'm seeing in Codespaces is Python 3.10.13. Without a kernel selected, none of your Python code will work.
+When you create a notebook file, you might see **Select Kernel** over in the upper-right hand corner. The kernel is what actually runs your code. There are many different versions of Python out there. The version that we are using is on Github's server. The version that I'm seeing in Codespaces is Python 3.12.1. Without a kernel selected, none of your Python code will work.
 
 Once you have your working Jupyter notebook (.ipynb) file created, you can proceed like you would with a local install of VS Code. Load your data, do you analysis. You work will be saved in the Codespace instance associated with that repository. 
+
+I'll discuss the ins-and-outs of the Jupyter Notebook in the next section.
 
 As you go, you can add/commit/push your files to your repository to move them from the Codespace instance to your Github repository for that assignment. This will make them more "permanent". As you do more work, you add/commit/push again to update.
 
