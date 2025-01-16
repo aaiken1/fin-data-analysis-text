@@ -6,8 +6,9 @@ Github Codespaces will allow us to use the VS Code developer environment in a br
 
 ## Setting up Github
 
-Sign-up for a Github account: <https://github.com/signup>. Use your **Elon email address**. Pick a username that you'll want others to see! I suggest using your name in some form. If you plan on applying for data jobs, you'll want to share your Github page. 
+Sign-up for a Github account: <https://github.com/signup>. Use your **Elon email address**. Pick a username that you'll want others to see! I suggest using your name in some form. If you plan on applying for data jobs, you'll want to share your Github page.
 
+You then want to join [Github Education for Students](https://docs.github.com/en/education/explore-the-benefits-of-teaching-and-learning-with-github-education/github-education-for-students/apply-to-github-education-as-a-student). This will get you access to tools like the AI code assistant Copilot inside of Codespaces.
 
 ```{figure} ../images/22-github-page.png
 ---
@@ -17,7 +18,7 @@ align: center
 Github.com when you are logged-in.
 ```
 
-This will give you a Github page, like mine: <https://github.com/aaiken1>.
+After signing-up for Github, you will get a Github page, like mine: <https://github.com/aaiken1>.
 
 Or, my fake student page I use to test our workflow: <https://github.com/aaiken1student/>.
 
