@@ -208,6 +208,8 @@ Every codespace is associated with a repo.
 
 Back to our assignment repository. To get going, you'll need to tell Codespace that you want to work in Python. This means navigating to **Extensions** on the left. You'll search for and install **Python** and **Jupyter**. You'll need to do this every time you create a new codespace. Remember, each assignment is going to have a unique codespace associated with a particular repository that I've created.
 
+If you install the **Python Data Scientist** extension, you'll get **Python, Jupyter Notebooks, Data Wrangler, and Copilot all installed at once**. The Data Wrangler extension lets you take a quick peak at your data sets, see missing values, check the distribution, etc.
+
 Once you have these extensions, you can actually create a notebook file. Go up to the **command palette**, that strip at the top of your window where you can type commands. Type **> Jupyter**. You should get an option to create a new Jupyter notebook. This will open up a blank notebook, where you can write Python code and Markdown, mixing code and text.
 
 You can also go to the **Explorer** tab on the left, click the new file icon, and create a new file with an .ipynb extension. This file will start its life in the folder that you created it in.
