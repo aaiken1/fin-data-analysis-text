@@ -50,6 +50,8 @@ const thebe_selector_input = "pre"
 const thebe_selector_output = ".output, .cell_output"
 </script>
     <script async="async" src="../_static/sphinx-thebe.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+    <script src="https://unpkg.com/@jupyter-widgets/html-manager@^0.20.0/dist/embed-amd.js"></script>
     <script>window.MathJax = {"options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
     <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
     <link rel="index" title="Index" href="../genindex.html" />
@@ -528,15 +530,10 @@ title="Print to PDF"
   </a>
  </li>
  <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#data-details-using-apis">
-   Data Details - Using APIs
+  <a class="reference internal nav-link" href="#nasdaq-api">
+   NASDAQ API
   </a>
   <ul class="nav section-nav flex-column">
-   <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#nasdaq-api-another-example">
-     NASDAQ API - Another Example
-    </a>
-   </li>
    <li class="toc-h3 nav-item toc-entry">
     <a class="reference internal nav-link" href="#using-rapid-api">
      Using Rapid API
@@ -574,15 +571,10 @@ title="Print to PDF"
   </a>
  </li>
  <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#data-details-using-apis">
-   Data Details - Using APIs
+  <a class="reference internal nav-link" href="#nasdaq-api">
+   NASDAQ API
   </a>
   <ul class="nav section-nav flex-column">
-   <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#nasdaq-api-another-example">
-     NASDAQ API - Another Example
-    </a>
-   </li>
    <li class="toc-h3 nav-item toc-entry">
     <a class="reference internal nav-link" href="#using-rapid-api">
      Using Rapid API
@@ -607,32 +599,36 @@ title="Print to PDF"
                 
   <section class="tex2jax_ignore mathjax_ignore" id="using-apis-for-data-imports-a-id-btc-sim-a">
 <h1>Using APIs for Data Imports <a id='btc-sim'></a><a class="headerlink" href="#using-apis-for-data-imports-a-id-btc-sim-a" title="Permalink to this headline">#</a></h1>
-<p>This chapter starts by using <a class="reference external" href="https://data.nasdaq.com/tools/api">NASDAQ Data Link</a> to download some BTC price and return data. We’ll also see our first set of <strong>simulations</strong>. I’ll then show you how to use <a class="reference external" href="https://pandas-datareader.readthedocs.io/en/latest/">Pandas Data Reader</a>.</p>
-<p>This is also our first time using an <strong>API</strong>. Their API, or Application Programming Interface, let’s us talk to a remote data storage system and pull in what we need. APIs are more general, though, and are used whenever you need one application to talk to another.</p>
-<p>We’ll use the <a class="reference external" href="https://data.nasdaq.com/tools/api">NASDAQ Data Link</a>. They also have <a class="reference external" href="https://data.nasdaq.com/tools/python">Python specific instructions</a>.</p>
-<p>You can read about the install <a class="reference external" href="https://pypi.org/project/Nasdaq-Data-Link/">on their package page</a>.</p>
-<p>We can again use <code class="docutils literal notranslate"><span class="pre">pip</span></code> to install packages via the command line or in your Jupyter notebook. You can type this directly into a code cell in a notebook in Githib Codespaces. Run that cell.</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">pip</span> <span class="n">install</span> <span class="n">nasdaq</span><span class="o">-</span><span class="n">data</span><span class="o">-</span><span class="n">link</span>
+<p>This chapter starts by using the <a class="reference external" href="https://fred.stlouisfed.org/docs/api/api_key.html">FRED API</a> with the package <a class="reference external" href="https://pypi.org/project/fredapi/">fredapi</a>. We’ll also see our first set of <strong>simulations</strong>. I’ll then show you how to use <a class="reference external" href="https://pandas-datareader.readthedocs.io/en/latest/">Pandas Data Reader</a>.</p>
+<p>This is also our first time using an <strong>API</strong>. Their API, or Application Programming Interface, lets us talk to a remote data storage system and pull in what we need. APIs are more general, though, and are used whenever you need one application to talk to another.</p>
+<p>We can again use <code class="docutils literal notranslate"><span class="pre">pip</span></code> to install packages via the command line or in your Jupyter notebook. You can type this directly into a code cell in a notebook in Github Codespaces. Run that cell.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>!pip install fredapi
 </pre></div>
 </div>
-<p>You can also use the <code class="docutils literal notranslate"><span class="pre">!</span> <span class="pre">pip</span></code> convention. The ! tells the Jupyter notebook that you want to run a terminal command in that cell. Older notebook environments had to have the !, but Github Codespaces does not.</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>! pip install nasdaq-data-link
+<p>Once you’ve installed a package in a Codespace, you don’t need to run that code again. You can comment it out so that you don’t load it every time you run the notebook.</p>
+<p>When you sign-up for the FRED API, you’ll get an API Key. You will need to add this key to the set-up to access either service.</p>
+<p>For security, <strong>never hardcode your API key in your script</strong>. Instead, store it in an environment variable and retrieve it using the methods described below. When working in Github Codespaces, you can store your API key in a <strong>secret</strong>. This keeps your API key <strong>hidden</strong> and prevents accidental exposure in shared code.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>You can also install `pandas-datareader` using `pip`. This API has additional data that you can bring in.
+
 </pre></div>
 </div>
-<p>When you sign-up for NASDAQ Data Link, you’ll get an API Key. You will need to add this key to the set-up to access the NASDAQ data using <code class="docutils literal notranslate"><span class="pre">nasdaqdatalink</span></code>.</p>
-<p>I have saved my key locally and am bringing it in with <code class="docutils literal notranslate"><span class="pre">nasdaqdatalink.read_key</span></code>, so that it isn’t publicly available. You don’t need that bit of code.</p>
-<p>You can also install <code class="docutils literal notranslate"><span class="pre">pandas-datareader</span></code> using <code class="docutils literal notranslate"><span class="pre">pip</span></code>.</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">pip</span> <span class="n">install</span> <span class="n">pandas</span><span class="o">-</span><span class="n">datareader</span>
+<p>!pip install pandas-datareader</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>
+<span class="n">Finally</span><span class="p">,</span> <span class="k">for</span> <span class="n">a</span> <span class="n">large</span> <span class="nb">set</span> <span class="n">of</span> <span class="n">APIs</span> <span class="k">for</span> <span class="n">access</span> <span class="n">data</span><span class="p">,</span> <span class="n">check</span> <span class="n">out</span> <span class="p">[</span><span class="n">Rapid</span> <span class="n">API</span><span class="p">](</span><span class="n">https</span><span class="p">:</span><span class="o">//</span><span class="n">rapidapi</span><span class="o">.</span><span class="n">com</span><span class="o">/</span><span class="n">hub</span><span class="p">)</span><span class="o">.</span> <span class="n">Some</span> <span class="n">are</span> <span class="n">free</span><span class="p">,</span> <span class="n">others</span> <span class="n">you</span> <span class="n">have</span> <span class="n">to</span> <span class="n">pay</span> <span class="k">for</span><span class="o">.</span> <span class="n">You</span><span class="s1">&#39;ll need to get an access API key for each one. More on this at the end of these notes.</span>
 </pre></div>
 </div>
-<p>Finally, for a large set of APIs for access data, check out <a class="reference external" href="https://rapidapi.com/hub">Rapid API</a>. Some are free, others you have to pay for. You’ll need to get an access API key for each one. More on this at the end of these notes.</p>
 <p>Let’s do our usual sort of set-up code.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Set-up</span>
 
+<span class="kn">from</span> <span class="nn">fredapi</span> <span class="kn">import</span> <span class="n">Fred</span>
 <span class="kn">import</span> <span class="nn">nasdaqdatalink</span> <span class="c1"># You could also do something like: import nasdaqdatalink as ndl</span>
 <span class="kn">import</span> <span class="nn">pandas_datareader</span> <span class="k">as</span> <span class="nn">pdr</span>
+<span class="kn">import</span> <span class="nn">os</span>
+<span class="kn">from</span> <span class="nn">dotenv</span> <span class="kn">import</span> <span class="n">load_dotenv</span>
+
+
 
 <span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
 <span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
@@ -644,27 +640,32 @@ title="Print to PDF"
 
 <span class="c1"># Include this to have plots show up in your Jupyter notebook.</span>
 <span class="o">%</span><span class="k">matplotlib</span> inline 
-
-
-<span class="kn">import</span> <span class="nn">os</span> <span class="c1"># to get access to environment variables</span>
-
-<span class="n">NASDAQ_DATA_LINK_API_KEY</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">environ</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;NASDAQ&#39;</span><span class="p">)</span>
-<span class="n">nasdaqdatalink</span><span class="o">.</span><span class="n">ApiConfig</span><span class="o">.</span><span class="n">api_key</span> <span class="o">=</span> <span class="n">NASDAQ_DATA_LINK_API_KEY</span>
-<span class="n">nasdaqdatalink</span><span class="o">.</span><span class="n">read_key</span><span class="p">()</span>
-
-<span class="c1">#nasdaqdatalink.read_key(filepath=&quot;/data/.corporatenasdaqdatalinkapikey&quot;)</span>
 </pre></div>
 </div>
 </div>
 </div>
-<p>In order for you to use <code class="docutils literal notranslate"><span class="pre">nasdaqdatalink</span></code>, you’ll need to find you API key on their web page. To do this, log in, go to the upper-right corner, and click on the little person icon. You’ll find your key under <strong>Account Settings</strong>.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Load API keys from .env file</span>
+<span class="n">load_dotenv</span><span class="p">()</span>
+
+<span class="c1"># Retrieve API keys</span>
+<span class="n">FRED_API_KEY</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">getenv</span><span class="p">(</span><span class="s1">&#39;FRED_API_KEY&#39;</span><span class="p">)</span>
+
+<span class="c1"># Initialize FRED API</span>
+<span class="n">fred</span> <span class="o">=</span> <span class="n">Fred</span><span class="p">(</span><span class="n">api_key</span><span class="o">=</span><span class="n">FRED_API_KEY</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>In order for you to use <code class="docutils literal notranslate"><span class="pre">fredapi</span></code>, you’ll need to set up a <a class="reference external" href="https://fred.stlouisfed.org">FRED account</a>. You can then request and find your API key <a class="reference external" href="https://fredaccount.stlouisfed.org/apikeys">here</a>.</p>
 <p>Here’s one way. The not-very-safe way. Copy and paste that key into:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">nasdaqdatalink</span><span class="o">.</span><span class="n">ApiConfig</span><span class="o">.</span><span class="n">api_key</span> <span class="o">=</span> <span class="s1">&#39;YOUR_KEY_HERE&#39;</span>
-<span class="n">nasdaqdatalink</span><span class="o">.</span><span class="n">read_key</span><span class="p">()</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="c1"># ❌ Insecure way (Don&#39;t do this!)</span>
+<span class="n">fred</span> <span class="o">=</span> <span class="n">Fred</span><span class="p">(</span><span class="n">api_key</span><span class="o">=</span><span class="s1">&#39;your_api_key_here&#39;</span><span class="p">)</span>
 </pre></div>
 </div>
 <p>That will work. But, copying and pasting your API keys like this is, in general, a very bad idea! After all, if someone has you API key, they can charge things to your account. Github and Codespaces <a class="reference external" href="https://docs.github.com/en/codespaces/managing-your-codespaces/managing-your-account-specific-secrets-for-github-codespaces">has a way around this</a>, though.</p>
-<p>Let’s use <strong>Github Secrets</strong> to create an <strong>enviroment variable</strong> that you can associate with any of your repositories. Then, within a repo, you can access that “secret” variable, without actually typing it into your code.</p>
+<p>Let’s use <strong>Github Secrets</strong> to create an <strong>environment variable</strong> that you can associate with any of your repositories. Then, within a repo, you can access that “secret” variable, without actually typing it into your code.</p>
 <p>Go to your <strong>main Github page at Github.com</strong>. Click on your image in the upper-right. Go to <strong>Settings</strong>. Click on <strong>Codespaces</strong> under <strong>Code, planning, and automation</strong>.</p>
 <figure class="align-center" id="secrets1-png">
 <img alt="../_images/07-secrets1.png" src="../_images/07-secrets1.png" />
@@ -674,126 +675,53 @@ title="Print to PDF"
 <img alt="../_images/07-secrets2.png" src="../_images/07-secrets2.png" />
 </figure>
 <p>You’ll now see that secret in the main Codespace settings page. You can refer to the name of that secret in your Codespace now, like I do above. Note that you need to import the <code class="docutils literal notranslate"><span class="pre">os</span></code> package to access this <strong>environment</strong> variable. An environment variable is a variable defined for all of the work in this particular repo. My secret is named <code class="docutils literal notranslate"><span class="pre">NASDAQ</span></code>, so I can refer to that.</p>
-<p>You’ll need to reload your Codespace if you had it running in another tab in order to access that secret.</p>
+<p>If you had your <strong>Codespace running</strong> in another tab before adding the secret, you’ll need to <strong>restart</strong> it:</p>
+<ol class="simple">
+<li><p>Click on the <strong>Codespaces</strong> tab in your GitHub repository.</p></li>
+<li><p>Select your active Codespace.</p></li>
+<li><p>Click <strong>Stop Codespace</strong> and then <strong>Restart</strong> it.
+This refreshes your environment, allowing the secret to be accessed.</p></li>
+</ol>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="c1"># ✅ Secure way (Recommended If Not Using Github Secrets)</span>
+<span class="kn">from</span> <span class="nn">fredapi</span> <span class="kn">import</span> <span class="n">Fred</span>
+<span class="kn">import</span> <span class="nn">os</span>
+
+<span class="c1"># My Secret for this Repo is called FRED</span>
+<span class="n">FRED_API_KEY</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">environ</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;FRED&#39;</span><span class="p">)</span>
+
+<span class="c1"># Here, I&#39;m setting the API key so that I can access the FRED server</span>
+<span class="n">fred</span> <span class="o">=</span> <span class="n">Fred</span><span class="p">(</span><span class="n">api_key</span><span class="o">=</span><span class="n">FRED_API_KEY</span><span class="p">)</span>
+</pre></div>
+</div>
 <p>With my API key read, I can now start downloading data.</p>
+<p>Just for fun, let’s start with Bitcoin data. You can see the FRED page for it <a class="reference external" href="https://fred.stlouisfed.org/series/CBBTCUSD">here</a>. Search around on FRED for the data you would like and then note the code for it. That code is how I can access it via the API.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">gdp</span> <span class="o">=</span> <span class="n">nasdaqdatalink</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;FRED/GDP&#39;</span><span class="p">)</span>
-<span class="n">gdp</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">btc</span> <span class="o">=</span> <span class="n">fred</span><span class="o">.</span><span class="n">get_series</span><span class="p">(</span><span class="s1">&#39;CBBTCUSD&#39;</span><span class="p">)</span>
+<span class="n">btc</span><span class="o">.</span><span class="n">tail</span><span class="p">()</span>
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output traceback highlight-ipythontb notranslate"><div class="highlight"><pre><span></span><span class="gt">---------------------------------------------------------------------------</span>
-<span class="ne">JSONDecodeError</span><span class="g g-Whitespace">                           </span>Traceback (most recent call last)
-<span class="nn">File /opt/anaconda3/lib/python3.9/site-packages/requests/models.py:971,</span> in <span class="ni">Response.json</span><span class="nt">(self, **kwargs)</span>
-<span class="g g-Whitespace">    </span><span class="mi">970</span> <span class="k">try</span><span class="p">:</span>
-<span class="ne">--&gt; </span><span class="mi">971</span>     <span class="k">return</span> <span class="n">complexjson</span><span class="o">.</span><span class="n">loads</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">text</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
-<span class="g g-Whitespace">    </span><span class="mi">972</span> <span class="k">except</span> <span class="n">JSONDecodeError</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
-<span class="g g-Whitespace">    </span><span class="mi">973</span>     <span class="c1"># Catch JSON-related errors and raise as requests.JSONDecodeError</span>
-<span class="g g-Whitespace">    </span><span class="mi">974</span>     <span class="c1"># This aliases json.JSONDecodeError and simplejson.JSONDecodeError</span>
-
-<span class="nn">File /opt/anaconda3/lib/python3.9/site-packages/simplejson/__init__.py:525,</span> in <span class="ni">loads</span><span class="nt">(s, encoding, cls, object_hook, parse_float, parse_int, parse_constant, object_pairs_hook, use_decimal, **kw)</span>
-<span class="g g-Whitespace">    </span><span class="mi">521</span> <span class="k">if</span> <span class="p">(</span><span class="bp">cls</span> <span class="ow">is</span> <span class="kc">None</span> <span class="ow">and</span> <span class="n">encoding</span> <span class="ow">is</span> <span class="kc">None</span> <span class="ow">and</span> <span class="n">object_hook</span> <span class="ow">is</span> <span class="kc">None</span> <span class="ow">and</span>
-<span class="g g-Whitespace">    </span><span class="mi">522</span>         <span class="n">parse_int</span> <span class="ow">is</span> <span class="kc">None</span> <span class="ow">and</span> <span class="n">parse_float</span> <span class="ow">is</span> <span class="kc">None</span> <span class="ow">and</span>
-<span class="g g-Whitespace">    </span><span class="mi">523</span>         <span class="n">parse_constant</span> <span class="ow">is</span> <span class="kc">None</span> <span class="ow">and</span> <span class="n">object_pairs_hook</span> <span class="ow">is</span> <span class="kc">None</span>
-<span class="g g-Whitespace">    </span><span class="mi">524</span>         <span class="ow">and</span> <span class="ow">not</span> <span class="n">use_decimal</span> <span class="ow">and</span> <span class="ow">not</span> <span class="n">kw</span><span class="p">):</span>
-<span class="ne">--&gt; </span><span class="mi">525</span>     <span class="k">return</span> <span class="n">_default_decoder</span><span class="o">.</span><span class="n">decode</span><span class="p">(</span><span class="n">s</span><span class="p">)</span>
-<span class="g g-Whitespace">    </span><span class="mi">526</span> <span class="k">if</span> <span class="bp">cls</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
-
-<span class="nn">File /opt/anaconda3/lib/python3.9/site-packages/simplejson/decoder.py:372,</span> in <span class="ni">JSONDecoder.decode</span><span class="nt">(self, s, _w, _PY3)</span>
-<span class="g g-Whitespace">    </span><span class="mi">371</span>     <span class="n">s</span> <span class="o">=</span> <span class="nb">str</span><span class="p">(</span><span class="n">s</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">encoding</span><span class="p">)</span>
-<span class="ne">--&gt; </span><span class="mi">372</span> <span class="n">obj</span><span class="p">,</span> <span class="n">end</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">raw_decode</span><span class="p">(</span><span class="n">s</span><span class="p">)</span>
-<span class="g g-Whitespace">    </span><span class="mi">373</span> <span class="n">end</span> <span class="o">=</span> <span class="n">_w</span><span class="p">(</span><span class="n">s</span><span class="p">,</span> <span class="n">end</span><span class="p">)</span><span class="o">.</span><span class="n">end</span><span class="p">()</span>
-
-<span class="nn">File /opt/anaconda3/lib/python3.9/site-packages/simplejson/decoder.py:402,</span> in <span class="ni">JSONDecoder.raw_decode</span><span class="nt">(self, s, idx, _w, _PY3)</span>
-<span class="g g-Whitespace">    </span><span class="mi">401</span>         <span class="n">idx</span> <span class="o">+=</span> <span class="mi">3</span>
-<span class="ne">--&gt; </span><span class="mi">402</span> <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">scan_once</span><span class="p">(</span><span class="n">s</span><span class="p">,</span> <span class="n">idx</span><span class="o">=</span><span class="n">_w</span><span class="p">(</span><span class="n">s</span><span class="p">,</span> <span class="n">idx</span><span class="p">)</span><span class="o">.</span><span class="n">end</span><span class="p">())</span>
-
-<span class="ne">JSONDecodeError</span>: Expecting value: line 1 column 1 (char 0)
-
-<span class="n">During</span> <span class="n">handling</span> <span class="n">of</span> <span class="n">the</span> <span class="n">above</span> <span class="n">exception</span><span class="p">,</span> <span class="n">another</span> <span class="n">exception</span> <span class="n">occurred</span><span class="p">:</span>
-
-<span class="ne">JSONDecodeError</span><span class="g g-Whitespace">                           </span>Traceback (most recent call last)
-<span class="nn">File /opt/anaconda3/lib/python3.9/site-packages/nasdaqdatalink/connection.py:90,</span> in <span class="ni">Connection.parse</span><span class="nt">(cls, response)</span>
-<span class="g g-Whitespace">     </span><span class="mi">89</span> <span class="k">try</span><span class="p">:</span>
-<span class="ne">---&gt; </span><span class="mi">90</span>     <span class="k">return</span> <span class="n">response</span><span class="o">.</span><span class="n">json</span><span class="p">()</span>
-<span class="g g-Whitespace">     </span><span class="mi">91</span> <span class="k">except</span> <span class="ne">ValueError</span><span class="p">:</span>
-
-<span class="nn">File /opt/anaconda3/lib/python3.9/site-packages/requests/models.py:975,</span> in <span class="ni">Response.json</span><span class="nt">(self, **kwargs)</span>
-<span class="g g-Whitespace">    </span><span class="mi">972</span> <span class="k">except</span> <span class="n">JSONDecodeError</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
-<span class="g g-Whitespace">    </span><span class="mi">973</span>     <span class="c1"># Catch JSON-related errors and raise as requests.JSONDecodeError</span>
-<span class="g g-Whitespace">    </span><span class="mi">974</span>     <span class="c1"># This aliases json.JSONDecodeError and simplejson.JSONDecodeError</span>
-<span class="ne">--&gt; </span><span class="mi">975</span>     <span class="k">raise</span> <span class="n">RequestsJSONDecodeError</span><span class="p">(</span><span class="n">e</span><span class="o">.</span><span class="n">msg</span><span class="p">,</span> <span class="n">e</span><span class="o">.</span><span class="n">doc</span><span class="p">,</span> <span class="n">e</span><span class="o">.</span><span class="n">pos</span><span class="p">)</span>
-
-<span class="ne">JSONDecodeError</span>: Expecting value: line 1 column 1 (char 0)
-
-<span class="n">During</span> <span class="n">handling</span> <span class="n">of</span> <span class="n">the</span> <span class="n">above</span> <span class="n">exception</span><span class="p">,</span> <span class="n">another</span> <span class="n">exception</span> <span class="n">occurred</span><span class="p">:</span>
-
-<span class="ne">DataLinkError</span><span class="g g-Whitespace">                             </span>Traceback (most recent call last)
-<span class="n">Cell</span> <span class="n">In</span><span class="p">[</span><span class="mi">2</span><span class="p">],</span> <span class="n">line</span> <span class="mi">1</span>
-<span class="ne">----&gt; </span><span class="mi">1</span> <span class="n">gdp</span> <span class="o">=</span> <span class="n">nasdaqdatalink</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;FRED/GDP&#39;</span><span class="p">)</span>
-<span class="g g-Whitespace">      </span><span class="mi">2</span> <span class="n">gdp</span>
-
-<span class="nn">File /opt/anaconda3/lib/python3.9/site-packages/nasdaqdatalink/get.py:48,</span> in <span class="ni">get</span><span class="nt">(dataset, **kwargs)</span>
-<span class="g g-Whitespace">     </span><span class="mi">46</span>     <span class="k">if</span> <span class="n">dataset_args</span><span class="p">[</span><span class="s1">&#39;column_index&#39;</span><span class="p">]</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
-<span class="g g-Whitespace">     </span><span class="mi">47</span>         <span class="n">kwargs</span><span class="o">.</span><span class="n">update</span><span class="p">({</span><span class="s1">&#39;column_index&#39;</span><span class="p">:</span> <span class="n">dataset_args</span><span class="p">[</span><span class="s1">&#39;column_index&#39;</span><span class="p">]})</span>
-<span class="ne">---&gt; </span><span class="mi">48</span>     <span class="n">data</span> <span class="o">=</span> <span class="n">Dataset</span><span class="p">(</span><span class="n">dataset_args</span><span class="p">[</span><span class="s1">&#39;code&#39;</span><span class="p">])</span><span class="o">.</span><span class="n">data</span><span class="p">(</span><span class="n">params</span><span class="o">=</span><span class="n">kwargs</span><span class="p">,</span> <span class="n">handle_column_not_found</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
-<span class="g g-Whitespace">     </span><span class="mi">49</span> <span class="c1"># Array</span>
-<span class="g g-Whitespace">     </span><span class="mi">50</span> <span class="k">elif</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">dataset</span><span class="p">,</span> <span class="nb">list</span><span class="p">):</span>
-
-<span class="nn">File /opt/anaconda3/lib/python3.9/site-packages/nasdaqdatalink/model/dataset.py:47,</span> in <span class="ni">Dataset.data</span><span class="nt">(self, **options)</span>
-<span class="g g-Whitespace">     </span><span class="mi">45</span> <span class="n">updated_options</span> <span class="o">=</span> <span class="n">Util</span><span class="o">.</span><span class="n">merge_options</span><span class="p">(</span><span class="s1">&#39;params&#39;</span><span class="p">,</span> <span class="n">params</span><span class="p">,</span> <span class="o">**</span><span class="n">options</span><span class="p">)</span>
-<span class="g g-Whitespace">     </span><span class="mi">46</span> <span class="k">try</span><span class="p">:</span>
-<span class="ne">---&gt; </span><span class="mi">47</span>     <span class="k">return</span> <span class="n">Data</span><span class="o">.</span><span class="n">all</span><span class="p">(</span><span class="o">**</span><span class="n">updated_options</span><span class="p">)</span>
-<span class="g g-Whitespace">     </span><span class="mi">48</span> <span class="k">except</span> <span class="n">NotFoundError</span><span class="p">:</span>
-<span class="g g-Whitespace">     </span><span class="mi">49</span>     <span class="k">if</span> <span class="n">handle_not_found_error</span><span class="p">:</span>
-
-<span class="nn">File /opt/anaconda3/lib/python3.9/site-packages/nasdaqdatalink/operations/list.py:15,</span> in <span class="ni">ListOperation.all</span><span class="nt">(cls, **options)</span>
-<span class="g g-Whitespace">     </span><span class="mi">13</span>     <span class="n">options</span><span class="p">[</span><span class="s1">&#39;params&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="p">{}</span>
-<span class="g g-Whitespace">     </span><span class="mi">14</span> <span class="n">path</span> <span class="o">=</span> <span class="n">Util</span><span class="o">.</span><span class="n">constructed_path</span><span class="p">(</span><span class="bp">cls</span><span class="o">.</span><span class="n">list_path</span><span class="p">(),</span> <span class="n">options</span><span class="p">[</span><span class="s1">&#39;params&#39;</span><span class="p">])</span>
-<span class="ne">---&gt; </span><span class="mi">15</span> <span class="n">r</span> <span class="o">=</span> <span class="n">Connection</span><span class="o">.</span><span class="n">request</span><span class="p">(</span><span class="s1">&#39;get&#39;</span><span class="p">,</span> <span class="n">path</span><span class="p">,</span> <span class="o">**</span><span class="n">options</span><span class="p">)</span>
-<span class="g g-Whitespace">     </span><span class="mi">16</span> <span class="n">response_data</span> <span class="o">=</span> <span class="n">r</span><span class="o">.</span><span class="n">json</span><span class="p">()</span>
-<span class="g g-Whitespace">     </span><span class="mi">17</span> <span class="n">Util</span><span class="o">.</span><span class="n">convert_to_dates</span><span class="p">(</span><span class="n">response_data</span><span class="p">)</span>
-
-<span class="nn">File /opt/anaconda3/lib/python3.9/site-packages/nasdaqdatalink/connection.py:40,</span> in <span class="ni">Connection.request</span><span class="nt">(cls, http_verb, url, **options)</span>
-<span class="g g-Whitespace">     </span><span class="mi">36</span> <span class="n">options</span><span class="p">[</span><span class="s1">&#39;headers&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">headers</span>
-<span class="g g-Whitespace">     </span><span class="mi">38</span> <span class="n">abs_url</span> <span class="o">=</span> <span class="s1">&#39;</span><span class="si">%s</span><span class="s1">/</span><span class="si">%s</span><span class="s1">&#39;</span> <span class="o">%</span> <span class="p">(</span><span class="n">ApiConfig</span><span class="o">.</span><span class="n">api_base</span><span class="p">,</span> <span class="n">url</span><span class="p">)</span>
-<span class="ne">---&gt; </span><span class="mi">40</span> <span class="k">return</span> <span class="bp">cls</span><span class="o">.</span><span class="n">execute_request</span><span class="p">(</span><span class="n">http_verb</span><span class="p">,</span> <span class="n">abs_url</span><span class="p">,</span> <span class="o">**</span><span class="n">options</span><span class="p">)</span>
-
-<span class="nn">File /opt/anaconda3/lib/python3.9/site-packages/nasdaqdatalink/connection.py:52,</span> in <span class="ni">Connection.execute_request</span><span class="nt">(cls, http_verb, url, **options)</span>
-<span class="g g-Whitespace">     </span><span class="mi">47</span> <span class="n">response</span> <span class="o">=</span> <span class="n">session</span><span class="o">.</span><span class="n">request</span><span class="p">(</span><span class="n">method</span><span class="o">=</span><span class="n">http_verb</span><span class="p">,</span>
-<span class="g g-Whitespace">     </span><span class="mi">48</span>                            <span class="n">url</span><span class="o">=</span><span class="n">url</span><span class="p">,</span>
-<span class="g g-Whitespace">     </span><span class="mi">49</span>                            <span class="n">verify</span><span class="o">=</span><span class="n">ApiConfig</span><span class="o">.</span><span class="n">verify_ssl</span><span class="p">,</span>
-<span class="g g-Whitespace">     </span><span class="mi">50</span>                            <span class="o">**</span><span class="n">options</span><span class="p">)</span>
-<span class="g g-Whitespace">     </span><span class="mi">51</span> <span class="k">if</span> <span class="n">response</span><span class="o">.</span><span class="n">status_code</span> <span class="o">&lt;</span> <span class="mi">200</span> <span class="ow">or</span> <span class="n">response</span><span class="o">.</span><span class="n">status_code</span> <span class="o">&gt;=</span> <span class="mi">300</span><span class="p">:</span>
-<span class="ne">---&gt; </span><span class="mi">52</span>     <span class="bp">cls</span><span class="o">.</span><span class="n">handle_api_error</span><span class="p">(</span><span class="n">response</span><span class="p">)</span>
-<span class="g g-Whitespace">     </span><span class="mi">53</span> <span class="k">else</span><span class="p">:</span>
-<span class="g g-Whitespace">     </span><span class="mi">54</span>     <span class="k">return</span> <span class="n">response</span>
-
-<span class="nn">File /opt/anaconda3/lib/python3.9/site-packages/nasdaqdatalink/connection.py:96,</span> in <span class="ni">Connection.handle_api_error</span><span class="nt">(cls, resp)</span>
-<span class="g g-Whitespace">     </span><span class="mi">94</span> <span class="nd">@classmethod</span>
-<span class="g g-Whitespace">     </span><span class="mi">95</span> <span class="k">def</span> <span class="nf">handle_api_error</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">resp</span><span class="p">):</span>
-<span class="ne">---&gt; </span><span class="mi">96</span>     <span class="n">error_body</span> <span class="o">=</span> <span class="bp">cls</span><span class="o">.</span><span class="n">parse</span><span class="p">(</span><span class="n">resp</span><span class="p">)</span>
-<span class="g g-Whitespace">     </span><span class="mi">98</span>     <span class="c1"># if our app does not form a proper data_link_error response</span>
-<span class="g g-Whitespace">     </span><span class="mi">99</span>     <span class="c1"># throw generic error</span>
-<span class="g g-Whitespace">    </span><span class="mi">100</span>     <span class="k">if</span> <span class="s1">&#39;quandl_error&#39;</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">error_body</span><span class="p">:</span>
-
-<span class="nn">File /opt/anaconda3/lib/python3.9/site-packages/nasdaqdatalink/connection.py:92,</span> in <span class="ni">Connection.parse</span><span class="nt">(cls, response)</span>
-<span class="g g-Whitespace">     </span><span class="mi">90</span>     <span class="k">return</span> <span class="n">response</span><span class="o">.</span><span class="n">json</span><span class="p">()</span>
-<span class="g g-Whitespace">     </span><span class="mi">91</span> <span class="k">except</span> <span class="ne">ValueError</span><span class="p">:</span>
-<span class="ne">---&gt; </span><span class="mi">92</span>     <span class="k">raise</span> <span class="n">DataLinkError</span><span class="p">(</span><span class="n">http_status</span><span class="o">=</span><span class="n">response</span><span class="o">.</span><span class="n">status_code</span><span class="p">,</span> <span class="n">http_body</span><span class="o">=</span><span class="n">response</span><span class="o">.</span><span class="n">text</span><span class="p">)</span>
-
-<span class="ne">DataLinkError</span>: (Status 403) Something went wrong. Please try again. If you continue to have problems, please contact us at connect@data.nasdaq.com.
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>2025-02-28    86018.76
+2025-03-01    94265.48
+2025-03-02    86161.10
+2025-03-03    87249.96
+2025-03-04    86638.34
+dtype: float64
 </pre></div>
 </div>
 </div>
 </div>
-<p>You can explore more FRED data <a class="reference external" href="https://data.nasdaq.com/data/FRED-federal-reserve-economic-data/documentation">here</a>. Always read the documentation to know what you’re pulling.</p>
+<p>That’s just a plain <strong>series</strong>, not a DataFrame. Let’s turn it into a DataFrame, create an index, and add column names.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>
+</pre></div>
+</div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">btc</span> <span class="o">=</span> <span class="n">nasdaqdatalink</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;BCHAIN/MKPRU&#39;</span><span class="p">)</span>
-<span class="n">btc</span><span class="o">.</span><span class="n">tail</span><span class="p">()</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">btc</span> <span class="o">=</span> <span class="n">btc</span><span class="o">.</span><span class="n">to_frame</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="s1">&#39;btc&#39;</span><span class="p">)</span>
+<span class="n">btc</span> <span class="o">=</span> <span class="n">btc</span><span class="o">.</span><span class="n">rename_axis</span><span class="p">(</span><span class="s1">&#39;date&#39;</span><span class="p">)</span>
+<span class="n">btc</span>
 </pre></div>
 </div>
 </div>
@@ -816,37 +744,70 @@ title="Print to PDF"
   <thead>
     <tr style="text-align: right;">
       <th></th>
-      <th>Value</th>
+      <th>btc</th>
     </tr>
     <tr>
-      <th>Date</th>
+      <th>date</th>
       <th></th>
     </tr>
   </thead>
   <tbody>
     <tr>
-      <th>2024-01-04</th>
-      <td>42854.95</td>
+      <th>2014-12-01</th>
+      <td>370.00</td>
     </tr>
     <tr>
-      <th>2024-01-05</th>
-      <td>44190.10</td>
+      <th>2014-12-02</th>
+      <td>378.00</td>
     </tr>
     <tr>
-      <th>2024-01-06</th>
-      <td>44181.10</td>
+      <th>2014-12-03</th>
+      <td>378.00</td>
     </tr>
     <tr>
-      <th>2024-01-07</th>
-      <td>43975.63</td>
+      <th>2014-12-04</th>
+      <td>377.10</td>
     </tr>
     <tr>
-      <th>2024-01-08</th>
-      <td>43928.07</td>
+      <th>2014-12-05</th>
+      <td>NaN</td>
+    </tr>
+    <tr>
+      <th>...</th>
+      <td>...</td>
+    </tr>
+    <tr>
+      <th>2025-02-28</th>
+      <td>86018.76</td>
+    </tr>
+    <tr>
+      <th>2025-03-01</th>
+      <td>94265.48</td>
+    </tr>
+    <tr>
+      <th>2025-03-02</th>
+      <td>86161.10</td>
+    </tr>
+    <tr>
+      <th>2025-03-03</th>
+      <td>87249.96</td>
+    </tr>
+    <tr>
+      <th>2025-03-04</th>
+      <td>86638.34</td>
     </tr>
   </tbody>
 </table>
+<p>3747 rows × 1 columns</p>
 </div></div></div>
+</div>
+<p>There are some missing values early on in the data. I’m not going to explore it too much - let’s just drop them. Bitcoin in 2015? That’s ancient history!</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">btc</span> <span class="o">=</span> <span class="n">btc</span><span class="o">.</span><span class="n">dropna</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -854,19 +815,29 @@ title="Print to PDF"
 </pre></div>
 </div>
 </div>
+<div class="cell_output docutils container">
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>/var/folders/kx/y8vj3n6n5kq_d74vj24jsnh40000gn/T/ipykernel_66866/623421051.py:1: SettingWithCopyWarning: 
+A value is trying to be set on a copy of a slice from a DataFrame.
+Try using .loc[row_indexer,col_indexer] = value instead
+
+See the caveats in the documentation: https://pandas.pydata.org/pandas-docs/stable/user_guide/indexing.html#returning-a-view-versus-a-copy
+  btc[&#39;ret&#39;] = btc.pct_change().dropna()
+</pre></div>
+</div>
+</div>
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">btc</span> <span class="o">=</span> <span class="n">btc</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="s1">&#39;2015-01-01&#39;</span><span class="p">:,[</span><span class="s1">&#39;Value&#39;</span><span class="p">,</span> <span class="s1">&#39;ret&#39;</span><span class="p">]]</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">btc</span> <span class="o">=</span> <span class="n">btc</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="s1">&#39;2015-01-01&#39;</span><span class="p">:,[</span><span class="s1">&#39;btc&#39;</span><span class="p">,</span> <span class="s1">&#39;ret&#39;</span><span class="p">]]</span>
 <span class="n">btc</span><span class="o">.</span><span class="n">plot</span><span class="p">()</span>
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;AxesSubplot:xlabel=&#39;Date&#39;&gt;
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;AxesSubplot:xlabel=&#39;date&#39;&gt;
 </pre></div>
 </div>
-<img alt="../_images/6_nasdaq_api_8_1.png" src="../_images/6_nasdaq_api_8_1.png" />
+<img alt="../_images/6_nasdaq_api_12_1.png" src="../_images/6_nasdaq_api_12_1.png" />
 </div>
 </div>
 <p>Well, that’s not a very good graph. The returns and price levels are in different units. Let’s use an <code class="docutils literal notranslate"><span class="pre">f</span> <span class="pre">print</span></code> to show and format the average BTC return.</p>
@@ -877,7 +848,7 @@ title="Print to PDF"
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Average return: 0.22%
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Average return: 0.23%
 </pre></div>
 </div>
 </div>
@@ -910,13 +881,13 @@ title="Print to PDF"
   <thead>
     <tr style="text-align: right;">
       <th></th>
-      <th>Value</th>
+      <th>btc</th>
       <th>ret</th>
       <th>ret_g</th>
       <th>ret_c</th>
     </tr>
     <tr>
-      <th>Date</th>
+      <th>date</th>
       <th></th>
       <th></th>
       <th></th>
@@ -925,39 +896,39 @@ title="Print to PDF"
   </thead>
   <tbody>
     <tr>
-      <th>2015-01-01</th>
-      <td>316.15</td>
-      <td>0.001425</td>
-      <td>1.001425</td>
-      <td>0.001425</td>
+      <th>2015-01-08</th>
+      <td>288.99</td>
+      <td>-0.150029</td>
+      <td>0.849971</td>
+      <td>-0.150029</td>
     </tr>
     <tr>
-      <th>2015-01-02</th>
-      <td>314.81</td>
-      <td>-0.004238</td>
-      <td>0.995762</td>
-      <td>-0.002819</td>
+      <th>2015-01-13</th>
+      <td>260.00</td>
+      <td>-0.100315</td>
+      <td>0.899685</td>
+      <td>-0.235294</td>
     </tr>
     <tr>
-      <th>2015-01-03</th>
-      <td>270.93</td>
-      <td>-0.139386</td>
-      <td>0.860614</td>
-      <td>-0.141812</td>
+      <th>2015-01-14</th>
+      <td>120.00</td>
+      <td>-0.538462</td>
+      <td>0.461538</td>
+      <td>-0.647059</td>
     </tr>
     <tr>
-      <th>2015-01-04</th>
-      <td>276.80</td>
-      <td>0.021666</td>
-      <td>1.021666</td>
-      <td>-0.123218</td>
+      <th>2015-01-15</th>
+      <td>204.22</td>
+      <td>0.701833</td>
+      <td>1.701833</td>
+      <td>-0.399353</td>
     </tr>
     <tr>
-      <th>2015-01-05</th>
-      <td>263.17</td>
-      <td>-0.049241</td>
-      <td>0.950759</td>
-      <td>-0.166392</td>
+      <th>2015-01-16</th>
+      <td>199.46</td>
+      <td>-0.023308</td>
+      <td>0.976692</td>
+      <td>-0.413353</td>
     </tr>
     <tr>
       <th>...</th>
@@ -967,43 +938,43 @@ title="Print to PDF"
       <td>...</td>
     </tr>
     <tr>
-      <th>2024-01-04</th>
-      <td>42854.95</td>
-      <td>-0.046799</td>
-      <td>0.953201</td>
-      <td>134.745803</td>
+      <th>2025-02-28</th>
+      <td>86018.76</td>
+      <td>0.020416</td>
+      <td>1.020416</td>
+      <td>251.996353</td>
     </tr>
     <tr>
-      <th>2024-01-05</th>
-      <td>44190.10</td>
-      <td>0.031155</td>
-      <td>1.031155</td>
-      <td>138.974976</td>
+      <th>2025-03-01</th>
+      <td>94265.48</td>
+      <td>0.095871</td>
+      <td>1.095871</td>
+      <td>276.251412</td>
     </tr>
     <tr>
-      <th>2024-01-06</th>
-      <td>44181.10</td>
-      <td>-0.000204</td>
-      <td>0.999796</td>
-      <td>138.946468</td>
+      <th>2025-03-02</th>
+      <td>86161.10</td>
+      <td>-0.085974</td>
+      <td>0.914026</td>
+      <td>252.415000</td>
     </tr>
     <tr>
-      <th>2024-01-07</th>
-      <td>43975.63</td>
-      <td>-0.004651</td>
-      <td>0.995349</td>
-      <td>138.295629</td>
+      <th>2025-03-03</th>
+      <td>87249.96</td>
+      <td>0.012637</td>
+      <td>1.012637</td>
+      <td>255.617529</td>
     </tr>
     <tr>
-      <th>2024-01-08</th>
-      <td>43928.07</td>
-      <td>-0.001082</td>
-      <td>0.998918</td>
-      <td>138.144979</td>
+      <th>2025-03-04</th>
+      <td>86638.34</td>
+      <td>-0.007010</td>
+      <td>0.992990</td>
+      <td>253.818647</td>
     </tr>
   </tbody>
 </table>
-<p>3295 rows × 4 columns</p>
+<p>3703 rows × 4 columns</p>
 </div></div></div>
 </div>
 <p>We can now make a graph using the <strong>fig, axs</strong> method. This is good review! Again, notice that semi-colon at the end. This suppresses some annoying output in the Jupyter notebook.</p>
@@ -1023,7 +994,7 @@ title="Print to PDF"
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../_images/6_nasdaq_api_14_0.png" src="../_images/6_nasdaq_api_14_0.png" />
+<img alt="../_images/6_nasdaq_api_18_0.png" src="../_images/6_nasdaq_api_18_0.png" />
 </div>
 </div>
 <p>I can make the same graph using the <code class="docutils literal notranslate"><span class="pre">.add_subplot()</span></code> syntax. The method above gives you some more flexibility, since you can give both plots the same x-axis.</p>
@@ -1048,27 +1019,27 @@ title="Print to PDF"
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../_images/6_nasdaq_api_16_0.png" src="../_images/6_nasdaq_api_16_0.png" />
+<img alt="../_images/6_nasdaq_api_20_0.png" src="../_images/6_nasdaq_api_20_0.png" />
 </div>
 </div>
 <p>Let’s put together some ideas, write a function, and run a simulation. We’ll use something called <strong>geometric brownian motion</strong> (GBM). What is GBM? It is a particular <a class="reference external" href="https://arxiv.org/pdf/1504.05309.pdf">stochastic differential equation</a>. But, what’s important for us is the idea, which is fairly simple. Here’s the formula:</p>
-<div class="amsmath math notranslate nohighlight" id="equation-e61e6790-b97c-4b89-a550-2303853ab564">
-<span class="eqno">(1)<a class="headerlink" href="#equation-e61e6790-b97c-4b89-a550-2303853ab564" title="Permalink to this equation">#</a></span>\[\begin{align}
+<div class="amsmath math notranslate nohighlight" id="equation-a315eb66-7f7a-4e05-a32e-7c075f1a47c3">
+<span class="eqno">(1)<a class="headerlink" href="#equation-a315eb66-7f7a-4e05-a32e-7c075f1a47c3" title="Permalink to this equation">#</a></span>\[\begin{align}
 dS = \mu S dt + \sigma S dW_t
 \end{align}\]</div>
 <p>This says that the change in the stock price has two components - a <strong>drift</strong>, or average increase over time, and a <strong>shock</strong> that it is random at each point in time. The shock is scaled by the standard deviation of returns that you use. So, larger standard deviation, the bigger the shocks can be. This is basically the simplest way that you can model an asset price.</p>
 <p>The shocks are what make the price wiggle around around, or else it would just go up over time, based on the drift value that we use.</p>
 <p>And, I’ll stress - we aren’t predicting here, so to speak. We are trying to capture some basic reality about how an asset moves and then seeing what is possible in the future. We aren’t making a statement about whether we think an asset is overvalued or undervalued, will go up or down, etc.</p>
 <p>You can solve this equation to get the value of the asset at any point in time t. You just need to know the total of all of the shocks at time t.</p>
-<div class="amsmath math notranslate nohighlight" id="equation-7fdd02a5-e8bc-4528-b38e-ec259381ec38">
-<span class="eqno">(2)<a class="headerlink" href="#equation-7fdd02a5-e8bc-4528-b38e-ec259381ec38" title="Permalink to this equation">#</a></span>\[\begin{align}
+<div class="amsmath math notranslate nohighlight" id="equation-0daa1d47-406d-4414-8586-2a1e4ef3c21f">
+<span class="eqno">(2)<a class="headerlink" href="#equation-0daa1d47-406d-4414-8586-2a1e4ef3c21f" title="Permalink to this equation">#</a></span>\[\begin{align}
 S(t) = S(0) \exp \left(\left(\mu - \frac{1}{2}\sigma^2\right)t + \sigma W(t)\right)
 \end{align}\]</div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">T</span> <span class="o">=</span> <span class="mi">30</span> <span class="c1"># How long is our simulation? Let&#39;s do 31 days (0 to 30 the way Python counts)</span>
 <span class="n">N</span> <span class="o">=</span> <span class="mi">30</span> <span class="c1"># number of time points in the prediction time horizon, making this the same as T means that we will simulate daily returns </span>
-<span class="n">S_0</span> <span class="o">=</span> <span class="n">btc</span><span class="o">.</span><span class="n">Value</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span> <span class="c1"># initial BTC price</span>
+<span class="n">S_0</span> <span class="o">=</span> <span class="n">btc</span><span class="o">.</span><span class="n">btc</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span> <span class="c1"># initial BTC price</span>
 <span class="n">N_SIM</span> <span class="o">=</span> <span class="mi">100</span>      <span class="c1"># How many simulations to run?</span>
 <span class="n">mu</span> <span class="o">=</span> <span class="n">btc</span><span class="o">.</span><span class="n">ret</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span>
 <span class="n">sigma</span> <span class="o">=</span> <span class="n">btc</span><span class="o">.</span><span class="n">ret</span><span class="o">.</span><span class="n">std</span><span class="p">()</span>
@@ -1127,19 +1098,19 @@ S(t) = S(0) \exp \left(\left(\mu - \frac{1}{2}\sigma^2\right)t + \sigma W(t)\rig
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>array([[ 1.85112558,  0.13211658,  0.45139814, ...,  0.72596267,
-        -1.63582981, -0.03377876],
-       [ 0.15421336,  0.4148752 ,  0.6439595 , ..., -0.47171271,
-         1.20669713,  2.6471703 ],
-       [ 1.79628151, -0.26420644,  0.93929834, ..., -1.13225649,
-         0.05780285, -0.72668984],
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>array([[ 0.58768938, -0.12790147,  0.55555251, ...,  1.29113288,
+        -1.46818508, -0.74259625],
+       [ 1.07634313, -0.6191215 ,  0.40122929, ..., -0.35558218,
+        -2.72151458,  0.06850405],
+       [ 0.61096289, -1.65207976,  0.08252261, ...,  2.38815523,
+         1.00562762,  0.30568123],
        ...,
-       [ 0.32724273,  2.16254346,  0.03592569, ...,  1.82984001,
-         0.09920881, -0.59093787],
-       [ 0.00503292,  0.07004887, -0.42857624, ...,  2.08370213,
-        -0.27461578, -1.99069844],
-       [ 1.12432136, -1.04952278,  0.09237506, ..., -0.25002425,
-         0.54331545,  1.29904012]])
+       [ 1.90212189, -1.12358106,  0.29079836, ...,  1.22288043,
+         0.27948523,  0.50529958],
+       [ 1.11861316,  1.14656361,  1.31381269, ...,  0.53808195,
+         0.69219027,  1.23744766],
+       [ 0.39544464, -0.56325686,  0.26156622, ...,  0.844146  ,
+         0.13143669,  0.22429397]])
 </pre></div>
 </div>
 </div>
@@ -1208,7 +1179,7 @@ S(t) = S(0) \exp \left(\left(\mu - \frac{1}{2}\sigma^2\right)t + \sigma W(t)\rig
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../_images/6_nasdaq_api_31_0.png" src="../_images/6_nasdaq_api_31_0.png" />
+<img alt="../_images/6_nasdaq_api_35_0.png" src="../_images/6_nasdaq_api_35_0.png" />
 </div>
 </div>
 <p>The y-axis has a very wide range, since some extreme values are possible, given this simulation.</p>
@@ -1230,45 +1201,73 @@ S(t) = S(0) \exp \left(\left(\mu - \frac{1}{2}\sigma^2\right)t + \sigma W(t)\rig
 
 <span class="n">gdp</span> <span class="o">=</span> <span class="n">pdr</span><span class="o">.</span><span class="n">DataReader</span><span class="p">(</span><span class="s1">&#39;GDP&#39;</span><span class="p">,</span> <span class="s1">&#39;fred&#39;</span><span class="p">,</span> <span class="n">start</span><span class="p">,</span> <span class="n">end</span><span class="p">)</span>
 
-<span class="n">gdp</span><span class="o">.</span><span class="n">head</span>
+<span class="n">gdp</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;bound method NDFrame.head of                   GDP
-DATE                 
-2010-01-01  14764.610
-2010-04-01  14980.193
-2010-07-01  15141.607
-2010-10-01  15309.474
-2011-01-01  15351.448
-2011-04-01  15557.539
-2011-07-01  15647.680
-2011-10-01  15842.259
-2012-01-01  16068.805
-2012-04-01  16207.115
-2012-07-01  16319.541
-2012-10-01  16420.419
-2013-01-01  16648.189&gt;
-</pre></div>
-</div>
-</div>
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>GDP</th>
+    </tr>
+    <tr>
+      <th>DATE</th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>2010-01-01</th>
+      <td>14764.610</td>
+    </tr>
+    <tr>
+      <th>2010-04-01</th>
+      <td>14980.193</td>
+    </tr>
+    <tr>
+      <th>2010-07-01</th>
+      <td>15141.607</td>
+    </tr>
+    <tr>
+      <th>2010-10-01</th>
+      <td>15309.474</td>
+    </tr>
+    <tr>
+      <th>2011-01-01</th>
+      <td>15351.448</td>
+    </tr>
+  </tbody>
+</table>
+</div></div></div>
 </div>
 </section>
-<section id="data-details-using-apis">
-<h2>Data Details - Using APIs<a class="headerlink" href="#data-details-using-apis" title="Permalink to this headline">#</a></h2>
-<p>This notes above use the <a class="reference external" href="https://www.nasdaq.com/nasdaq-data-link">NASDAQ Datalink API</a> to pull some BTC data. Now, I’ll discuss using this API more generally, as well as using <a class="reference external" href="https://rapidapi.com/hub">Rapid API</a>, another website with a variety of data options. I’ll also show you an API from Github.</p>
-<p>As mentioned above, APIs are ways for one program or piece of software to talk to another. In our case, we’re using them to get data. That data might come in as a <code class="docutils literal notranslate"><span class="pre">pandas</span></code> DataFrame, ready to use. Other times, it might come in as something called a <a class="reference external" href="https://realpython.com/python-json/">JSON</a> file. We’ll have to do a bit more work with this common data structure.</p>
-<section id="nasdaq-api-another-example">
-<h3>NASDAQ API - Another Example<a class="headerlink" href="#nasdaq-api-another-example" title="Permalink to this headline">#</a></h3>
-<p>Let’s look at the NASDAQ API one more time. Once you log in, you’ll see the home page below. Note the strip across the upper-left, that has API, Python, Excel, etc. You can use the NASDAQ API in a variety of settings. There’s a <strong>SEARCH FOR DATA</strong> box at the top.</p>
+<section id="nasdaq-api">
+<h2>NASDAQ API<a class="headerlink" href="#nasdaq-api" title="Permalink to this headline">#</a></h2>
+<p>Let’s look at the <a class="reference external" href="https://www.nasdaq.com/nasdaq-data-link">NASDAQ Datalink API</a>. You’ll need to create an account and then get the API key.</p>
+<p>Once you log in, you’ll see the home page below. Note the strip across the upper-left, that has API, Python, Excel, etc. You can use the NASDAQ API in a variety of settings. There’s a <strong>SEARCH FOR DATA</strong> box at the top.</p>
 <figure class="align-center" id="nasdaq-home-png">
 <img alt="../_images/07-nasdaq-home.png" src="../_images/07-nasdaq-home.png" />
 <figcaption>
 <p><span class="caption-number">Fig. 35 </span><span class="caption-text">NASDAQ API homepage.</span><a class="headerlink" href="#nasdaq-home-png" title="Permalink to this image">#</a></p>
 </figcaption>
 </figure>
-<p>If you click <strong>EXPLORE</strong> next to the search box, you’re taken to a list of all of their data. Much of it is premium - you have to pay. However, you can filter for free data. There’s free data for house prices, gold and silver markets, IMF macro data, the Fed, etc. Much of this free data comes from Quandl, which was purchased by Nasdaq recently.</p>
+<p>If you click <strong>EXPLORE</strong> next to the search box, you’re taken to a list of all of their data. Much of it is premium - you have to pay. However, you can filter for free data. There’s not much - most of the free data comes from Quandl, which was purchased by Nasdaq recently.</p>
 <p>Quandl has been completely integrated by NASDAQ now, though you will see legacy instructions on the website that refer to its older API commands.</p>
 <figure class="align-center" id="nasdaq-explore-png">
 <img alt="../_images/07-nasdaq-explore.png" src="../_images/07-nasdaq-explore.png" />
@@ -1276,7 +1275,7 @@ DATE
 <p><span class="caption-number">Fig. 36 </span><span class="caption-text">Exploring NASDAQ data options.</span><a class="headerlink" href="#nasdaq-explore-png" title="Permalink to this image">#</a></p>
 </figcaption>
 </figure>
-<p>Let’s look at the Zillow data, the first option presented when I look for free data. I’ve used them in labs and exams.</p>
+<p>Let’s look at the Zillow data, the first option presented when I look for free data. You can find that data <a class="reference external" href="https://data.nasdaq.com/databases/ZILLOW">here</a>.</p>
 <figure class="align-center" id="nasdaq-zillow-png">
 <img alt="../_images/07-nasdaq-zillow.png" src="../_images/07-nasdaq-zillow.png" />
 <figcaption>
@@ -1286,20 +1285,23 @@ DATE
 <p>Each the data APIs shows you samples of what you can access. So, we see an example table with data for a particular indicator and region. We also see a table that has a list of all of the indicators and what they measure. Finally, we see a table with all of the regions and what they represent.</p>
 <p>This data structure makes it clear that we can download value data and then merge in ID and region descriptions if needed. But, how do we do that? See the tab in the upper-left, with <strong>DATA</strong> highlighted? You can click on <strong>DOCUMENTATION</strong> and <strong>USAGE</strong> to learn more. We’ll look at a quick example here.</p>
 <p>Click <strong>USAGE</strong> and then the <strong>Python</strong> icon. You’ll seen an example that lets you filter by a single <em>indicator_id</em> and <em>region</em>. It has your API key and the <code class="docutils literal notranslate"><span class="pre">.get_table</span></code> method.</p>
-<p>However, note the <code class="docutils literal notranslate"><span class="pre">quandl</span></code> stuff. They haven’t transitioned this code yet. You’ll need to do a <code class="docutils literal notranslate"><span class="pre">pip</span></code> install for quandl.</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">pip</span> <span class="n">install</span> <span class="n">quandl</span>
+<p>Make sure that you include your API key. You can input it directly, using the code that they provide, but this isn’t the preferred method. Instead, use a Github Secret, like we did above.</p>
+<p>To use the NASDAQ API, you’ll need to install the package.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>!pip install nasdaq-data-link
 </pre></div>
 </div>
-<p>Also, we didn’t use <code class="docutils literal notranslate"><span class="pre">.get_table</span></code> above for BTC. The Zillow data is stored differently.</p>
-<p>Make sure that you include your API key. You can input it directly, using the code that they provide, but this isn’t the preferred method. Instead, use a Github Secret, like we did above.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="ch">#! pip install quandl</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="ch">#!pip install nasdaq-data-link</span>
 
-<span class="c1"># Bring in quandl for downloading data</span>
-<span class="kn">import</span> <span class="nn">quandl</span>
-<span class="c1"># quandl.ApiConfig.api_key = &#39;YOUR_KEY_HERE&#39;</span>
-<span class="n">quandl</span><span class="o">.</span><span class="n">read_key</span><span class="p">()</span>
+<span class="c1"># Bring in nasdaqdatalink for downloading data. Note how you don&#39;t have the dashes in the package name.</span>
+
+<span class="kn">import</span> <span class="nn">nasdaqdatalink</span>
+
+<span class="n">NASDAQ_API_KEY</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">getenv</span><span class="p">(</span><span class="s1">&#39;NASDAQ_API_KEY&#39;</span><span class="p">)</span>
+
+<span class="n">nasdaqdatalink</span><span class="o">.</span><span class="n">ApiConfig</span><span class="o">.</span><span class="n">api_key</span> <span class="o">=</span> <span class="s1">&#39;NASDAQ_API_KEY&#39;</span>
+<span class="n">nasdaqdatalink</span><span class="o">.</span><span class="n">read_key</span><span class="p">()</span>
 </pre></div>
 </div>
 </div>
@@ -1308,7 +1310,7 @@ DATE
 <p>Let’s try pulling in the <em>indicator_id</em> ZATT for all regions.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># zillow = quandl.get_table(&#39;ZILLOW/DATA&#39;, indicator_id = &#39;ZATT&#39;, paginate=True)</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># zillow = nasdaqdatalink.get_table(&#39;ZILLOW/DATA&#39;, indicator_id = &#39;ZATT&#39;, paginate=True)</span>
 </pre></div>
 </div>
 </div>
@@ -1319,7 +1321,7 @@ DATE
 <p>However, you can filter on <em>region_id</em>. Let’s pull the ZILLOW/REGIONS table to see what we can use.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">regions</span> <span class="o">=</span> <span class="n">quandl</span><span class="o">.</span><span class="n">get_table</span><span class="p">(</span><span class="s1">&#39;ZILLOW/REGIONS&#39;</span><span class="p">,</span> <span class="n">paginate</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">regions</span> <span class="o">=</span> <span class="n">nasdaqdatalink</span><span class="o">.</span><span class="n">get_table</span><span class="p">(</span><span class="s1">&#39;ZILLOW/REGIONS&#39;</span><span class="p">,</span> <span class="n">paginate</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
@@ -1539,7 +1541,7 @@ DATE
     </tr>
   </tbody>
 </table>
-<p>28125 rows × 3 columns</p>
+<p>28104 rows × 3 columns</p>
 </div></div></div>
 </div>
 <div class="cell docutils container">
@@ -1550,15 +1552,15 @@ DATE
 </div>
 <div class="cell_output docutils container">
 <div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;class &#39;pandas.core.frame.DataFrame&#39;&gt;
-Int64Index: 28125 entries, 10 to 89301
+Int64Index: 28104 entries, 10 to 89301
 Data columns (total 3 columns):
  #   Column       Non-Null Count  Dtype 
 ---  ------       --------------  ----- 
- 0   region_id    28125 non-null  object
- 1   region_type  28125 non-null  object
- 2   region       28125 non-null  object
+ 0   region_id    28104 non-null  object
+ 1   region_type  28104 non-null  object
+ 2   region       28104 non-null  object
 dtypes: object(3)
-memory usage: 878.9+ KB
+memory usage: 878.2+ KB
 </pre></div>
 </div>
 </div>
@@ -1826,7 +1828,7 @@ memory usage: 3.1+ KB
 <p>I’m going to pull down just the NC counties. I’ll comment out my code, though, so that I don’t download from the API every time I update my notes. This can cause a time-out error.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1">#zillow_nc = quandl.get_table(&#39;ZILLOW/DATA&#39;, indicator_id = &#39;ZATT&#39;, paginate = True, region_id = nc_county_list,  qopts = {&#39;columns&#39;: [&#39;indicator_id&#39;, &#39;region_id&#39;, &#39;date&#39;, &#39;value&#39;]})</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1">#zillow_nc = nasdaqdatalink.get_table(&#39;ZILLOW/DATA&#39;, indicator_id = &#39;ZATT&#39;, paginate = True, region_id = nc_county_list,  qopts = {&#39;columns&#39;: [&#39;indicator_id&#39;, &#39;region_id&#39;, &#39;date&#39;, &#39;value&#39;]})</span>
 </pre></div>
 </div>
 </div>
@@ -1837,217 +1839,6 @@ memory usage: 3.1+ KB
 </pre></div>
 </div>
 </div>
-<div class="cell_output docutils container">
-<div class="output text_html"><div>
-<style scoped>
-    .dataframe tbody tr th:only-of-type {
-        vertical-align: middle;
-    }
-
-    .dataframe tbody tr th {
-        vertical-align: top;
-    }
-
-    .dataframe thead th {
-        text-align: right;
-    }
-</style>
-<table border="1" class="dataframe">
-  <thead>
-    <tr style="text-align: right;">
-      <th></th>
-      <th>indicator_id</th>
-      <th>region_id</th>
-      <th>date</th>
-      <th>value</th>
-    </tr>
-    <tr>
-      <th>None</th>
-      <th></th>
-      <th></th>
-      <th></th>
-      <th></th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <th>0</th>
-      <td>ZATT</td>
-      <td>999</td>
-      <td>2024-01-31</td>
-      <td>557371.760608</td>
-    </tr>
-    <tr>
-      <th>1</th>
-      <td>ZATT</td>
-      <td>999</td>
-      <td>2023-12-31</td>
-      <td>557661.809892</td>
-    </tr>
-    <tr>
-      <th>2</th>
-      <td>ZATT</td>
-      <td>999</td>
-      <td>2023-11-30</td>
-      <td>556887.747711</td>
-    </tr>
-    <tr>
-      <th>3</th>
-      <td>ZATT</td>
-      <td>999</td>
-      <td>2023-10-31</td>
-      <td>555300.176497</td>
-    </tr>
-    <tr>
-      <th>4</th>
-      <td>ZATT</td>
-      <td>999</td>
-      <td>2023-09-30</td>
-      <td>553246.874842</td>
-    </tr>
-    <tr>
-      <th>5</th>
-      <td>ZATT</td>
-      <td>999</td>
-      <td>2023-08-31</td>
-      <td>550952.109307</td>
-    </tr>
-    <tr>
-      <th>6</th>
-      <td>ZATT</td>
-      <td>999</td>
-      <td>2023-07-31</td>
-      <td>547469.076081</td>
-    </tr>
-    <tr>
-      <th>7</th>
-      <td>ZATT</td>
-      <td>999</td>
-      <td>2023-06-30</td>
-      <td>542981.400227</td>
-    </tr>
-    <tr>
-      <th>8</th>
-      <td>ZATT</td>
-      <td>999</td>
-      <td>2023-05-31</td>
-      <td>538523.149903</td>
-    </tr>
-    <tr>
-      <th>9</th>
-      <td>ZATT</td>
-      <td>999</td>
-      <td>2023-04-30</td>
-      <td>536026.114767</td>
-    </tr>
-    <tr>
-      <th>10</th>
-      <td>ZATT</td>
-      <td>999</td>
-      <td>2023-03-31</td>
-      <td>535978.017181</td>
-    </tr>
-    <tr>
-      <th>11</th>
-      <td>ZATT</td>
-      <td>999</td>
-      <td>2023-02-28</td>
-      <td>537883.027543</td>
-    </tr>
-    <tr>
-      <th>12</th>
-      <td>ZATT</td>
-      <td>999</td>
-      <td>2023-01-31</td>
-      <td>541175.601929</td>
-    </tr>
-    <tr>
-      <th>13</th>
-      <td>ZATT</td>
-      <td>999</td>
-      <td>2022-12-31</td>
-      <td>545361.903669</td>
-    </tr>
-    <tr>
-      <th>14</th>
-      <td>ZATT</td>
-      <td>999</td>
-      <td>2022-11-30</td>
-      <td>549751.208349</td>
-    </tr>
-    <tr>
-      <th>15</th>
-      <td>ZATT</td>
-      <td>999</td>
-      <td>2022-10-31</td>
-      <td>554505.626693</td>
-    </tr>
-    <tr>
-      <th>16</th>
-      <td>ZATT</td>
-      <td>999</td>
-      <td>2022-09-30</td>
-      <td>559896.493202</td>
-    </tr>
-    <tr>
-      <th>17</th>
-      <td>ZATT</td>
-      <td>999</td>
-      <td>2022-08-31</td>
-      <td>564915.670096</td>
-    </tr>
-    <tr>
-      <th>18</th>
-      <td>ZATT</td>
-      <td>999</td>
-      <td>2022-07-31</td>
-      <td>565417.726032</td>
-    </tr>
-    <tr>
-      <th>19</th>
-      <td>ZATT</td>
-      <td>999</td>
-      <td>2022-06-30</td>
-      <td>559501.205643</td>
-    </tr>
-    <tr>
-      <th>20</th>
-      <td>ZATT</td>
-      <td>999</td>
-      <td>2022-05-31</td>
-      <td>547576.105906</td>
-    </tr>
-    <tr>
-      <th>21</th>
-      <td>ZATT</td>
-      <td>999</td>
-      <td>2022-04-30</td>
-      <td>533067.734141</td>
-    </tr>
-    <tr>
-      <th>22</th>
-      <td>ZATT</td>
-      <td>999</td>
-      <td>2022-03-31</td>
-      <td>518721.114714</td>
-    </tr>
-    <tr>
-      <th>23</th>
-      <td>ZATT</td>
-      <td>999</td>
-      <td>2022-02-28</td>
-      <td>506041.692210</td>
-    </tr>
-    <tr>
-      <th>24</th>
-      <td>ZATT</td>
-      <td>999</td>
-      <td>2022-01-31</td>
-      <td>495895.806066</td>
-    </tr>
-  </tbody>
-</table>
-</div></div></div>
 </div>
 <p>Hey, there’s Durham County!</p>
 <div class="cell docutils container">
@@ -2056,24 +1847,8 @@ memory usage: 3.1+ KB
 </pre></div>
 </div>
 </div>
-<div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;class &#39;pandas.core.frame.DataFrame&#39;&gt;
-RangeIndex: 27676 entries, 0 to 27675
-Data columns (total 4 columns):
- #   Column        Non-Null Count  Dtype         
----  ------        --------------  -----         
- 0   indicator_id  27676 non-null  object        
- 1   region_id     27676 non-null  object        
- 2   date          27676 non-null  datetime64[ns]
- 3   value         27676 non-null  float64       
-dtypes: datetime64[ns](1), float64(1), object(2)
-memory usage: 865.0+ KB
-</pre></div>
-</div>
-</div>
 </div>
 <p>Now you can filter by <em>date</em> if you like. And, you could pull down multiple states this way, change the variable type, etc. You could also merge in the region names using <em>region_id</em> as your key.</p>
-</section>
 <section id="using-rapid-api">
 <h3>Using Rapid API<a class="headerlink" href="#using-rapid-api" title="Permalink to this headline">#</a></h3>
 <p>Another data option is <a class="reference external" href="https://rapidapi.com/hub">Rapid API</a>. There’s all types of data here - markets, sports, gambling, housing, etc. People will write their own APIs, perhaps interfacing with the websites that contain the information. They can then publish their APIs on this webpage. Many have free options, some you have to pay for. There are thousands here, so you’ll have to dig around.</p>

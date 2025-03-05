@@ -605,7 +605,7 @@ title="Print to PDF"
                 
   <section class="tex2jax_ignore mathjax_ignore" id="merging-and-reshaping-data">
 <h1>Merging and reshaping data<a class="headerlink" href="#merging-and-reshaping-data" title="Permalink to this headline">#</a></h1>
-<p>We are going to cover two main topics in this brief section. First, we want to learn about <strong>merging</strong> or <strong>joining</strong> data sets. Think of this like <a class="reference external" href="https://support.microsoft.com/en-us/office/xlookup-function-b7fd680e-6d10-43e6-84f9-88eae8bf5929">xlookup</a> in Excel, or, more generally, SQL queries. In fact, you can do <a class="reference external" href="https://www.datacamp.com/community/tutorials/mysql-python">SQL in Python</a>, if you’re familiar with it. We will also see <strong>concatenating</strong>, or <strong>stacking</strong> data. We will see how to <strong>reshape our data</strong>. We’ll see <strong>wide</strong> and <strong>long</strong> data. We’ll end with using <strong>multi-level indices</strong> to shape our data.</p>
+<p>We are going to cover a few topics in this brief section. First, we want to learn about <strong>merging</strong> or <strong>joining</strong> data sets. Think of this like <a class="reference external" href="https://support.microsoft.com/en-us/office/xlookup-function-b7fd680e-6d10-43e6-84f9-88eae8bf5929">xlookup</a> in Excel, or, more generally, SQL queries. In fact, you can do <a class="reference external" href="https://www.datacamp.com/community/tutorials/mysql-python">SQL in Python</a>, if you’re familiar with it. We will also see <strong>concatenating</strong>, or <strong>stacking</strong> data. We will see how to <strong>reshape our data</strong>. We’ll see <strong>wide</strong> and <strong>long</strong> data. We’ll end with using <strong>multi-level indices</strong> to shape our data.</p>
 <aside class="margin sidebar">
 <p class="sidebar-title">The Keys to Our Data</p>
 <p>What variables (e.g. security ID and a date) uniquely identify our data? What variables are common across data sets?</p>
@@ -623,8 +623,11 @@ title="Print to PDF"
 
 <span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
 
+<span class="c1"># Load AAPL and XOM stock data from GitHub</span>
 <span class="n">aapl</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s1">&#39;https://raw.githubusercontent.com/aaiken1/fin-data-analysis-python/main/data/aapl.csv&#39;</span><span class="p">)</span>
 <span class="n">xom</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s1">&#39;https://raw.githubusercontent.com/aaiken1/fin-data-analysis-python/main/data/xom.csv&#39;</span><span class="p">)</span>
+
+<span class="c1"># These CSV files contain historical stock prices and returns</span>
 
 <span class="n">aapl</span> <span class="o">=</span> <span class="n">aapl</span><span class="o">.</span><span class="n">set_index</span><span class="p">(</span><span class="s1">&#39;date&#39;</span><span class="p">)</span>
 <span class="n">xom</span> <span class="o">=</span> <span class="n">xom</span><span class="o">.</span><span class="n">set_index</span><span class="p">(</span><span class="s1">&#39;date&#39;</span><span class="p">)</span>
@@ -660,7 +663,7 @@ memory usage: 88.7+ KB
 </div>
 </div>
 <p>Our usual set-up is above. Notice that I’m setting the index of each DataFrame using <code class="docutils literal notranslate"><span class="pre">.set_index()</span></code>, instead of doing it inside of the <code class="docutils literal notranslate"><span class="pre">.read_csv()</span></code>. Either way works.</p>
-<p>By setting <em>date</em> as my index, it will disappear from the variable list.</p>
+<p>When we set <em>date</em> as our index using <code class="docutils literal notranslate"><span class="pre">.set_index()</span></code>, it becomes the <strong>primary identifier</strong> for each row. This means it no longer appears as a <strong>regular column</strong>, but instead is used to label each row for easier lookups and time-series operations.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">xom</span><span class="o">.</span><span class="n">info</span><span class="p">()</span>
@@ -693,7 +696,13 @@ memory usage: 88.6+ KB
 </div>
 </div>
 </div>
-<p>We can check and make sure that <em>date</em> really is the index. I’ll use the <em>xom</em> DataFrame.</p>
+<p>To confirm that <em>date</em> is now the <strong>index</strong>, we can use <code class="docutils literal notranslate"><span class="pre">.info()</span></code>.<br />
+This command prints:</p>
+<ul class="simple">
+<li><p><strong>The total number of rows and columns</strong>.</p></li>
+<li><p><strong>Data types</strong> of each column.</p></li>
+<li><p><strong>Whether an index is set</strong> (look at the first line, where it should mention “Index: <strong>Int64Index</strong>” instead of a column name).</p></li>
+</ul>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">xom</span><span class="o">.</span><span class="n">index</span>

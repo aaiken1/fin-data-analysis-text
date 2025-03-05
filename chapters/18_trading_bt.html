@@ -725,22 +725,24 @@ title="Print to PDF"
 <div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[*********************100%%**********************]  1 of 1 completed
 </pre></div>
 </div>
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>1 Failed download:
+</pre></div>
+</div>
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[&#39;SPY&#39;]: JSONDecodeError(&#39;Expecting value: line 1 column 1 (char 0)&#39;)
 </pre></div>
 </div>
 <div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[*********************100%%**********************]  1 of 1 completed
 </pre></div>
 </div>
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>                  spy        agg
-Date                            
-2010-01-04  86.026443  68.920502
-2010-01-05  86.254166  69.233986
-2010-01-06  86.314911  69.193970
-2010-01-07  86.679237  69.113922
-2010-01-08  86.967690  69.153931
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>1 Failed download:
 </pre></div>
 </div>
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[&#39;AGG&#39;]: JSONDecodeError(&#39;Expecting value: line 1 column 1 (char 0)&#39;)
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Empty DataFrame
+Columns: [spy, agg]
+Index: []
 </pre></div>
 </div>
 </div>
@@ -817,64 +819,8 @@ Date
     </tr>
   </thead>
   <tbody>
-    <tr>
-      <th>2010-01-04</th>
-      <td>NaN</td>
-      <td>NaN</td>
-    </tr>
-    <tr>
-      <th>2010-01-05</th>
-      <td>NaN</td>
-      <td>NaN</td>
-    </tr>
-    <tr>
-      <th>2010-01-06</th>
-      <td>NaN</td>
-      <td>NaN</td>
-    </tr>
-    <tr>
-      <th>2010-01-07</th>
-      <td>NaN</td>
-      <td>NaN</td>
-    </tr>
-    <tr>
-      <th>2010-01-08</th>
-      <td>NaN</td>
-      <td>NaN</td>
-    </tr>
-    <tr>
-      <th>...</th>
-      <td>...</td>
-      <td>...</td>
-    </tr>
-    <tr>
-      <th>2025-01-10</th>
-      <td>592.272338</td>
-      <td>97.454086</td>
-    </tr>
-    <tr>
-      <th>2025-01-13</th>
-      <td>592.303767</td>
-      <td>97.418987</td>
-    </tr>
-    <tr>
-      <th>2025-01-14</th>
-      <td>592.386278</td>
-      <td>97.386468</td>
-    </tr>
-    <tr>
-      <th>2025-01-15</th>
-      <td>592.907227</td>
-      <td>97.370946</td>
-    </tr>
-    <tr>
-      <th>2025-01-16</th>
-      <td>593.368802</td>
-      <td>97.368675</td>
-    </tr>
   </tbody>
 </table>
-<p>3784 rows × 2 columns</p>
 </div></div></div>
 </div>
 <p>See how the first rows are missing? This is a 50-day moving average, so you don’t get an average until 50 days have passed.</p>
@@ -931,64 +877,8 @@ Date
     </tr>
   </thead>
   <tbody>
-    <tr>
-      <th>2010-01-04</th>
-      <td>False</td>
-      <td>False</td>
-    </tr>
-    <tr>
-      <th>2010-01-05</th>
-      <td>False</td>
-      <td>False</td>
-    </tr>
-    <tr>
-      <th>2010-01-06</th>
-      <td>False</td>
-      <td>False</td>
-    </tr>
-    <tr>
-      <th>2010-01-07</th>
-      <td>False</td>
-      <td>False</td>
-    </tr>
-    <tr>
-      <th>2010-01-08</th>
-      <td>False</td>
-      <td>False</td>
-    </tr>
-    <tr>
-      <th>...</th>
-      <td>...</td>
-      <td>...</td>
-    </tr>
-    <tr>
-      <th>2025-01-10</th>
-      <td>False</td>
-      <td>False</td>
-    </tr>
-    <tr>
-      <th>2025-01-13</th>
-      <td>False</td>
-      <td>False</td>
-    </tr>
-    <tr>
-      <th>2025-01-14</th>
-      <td>False</td>
-      <td>False</td>
-    </tr>
-    <tr>
-      <th>2025-01-15</th>
-      <td>False</td>
-      <td>False</td>
-    </tr>
-    <tr>
-      <th>2025-01-16</th>
-      <td>False</td>
-      <td>False</td>
-    </tr>
   </tbody>
 </table>
-<p>3784 rows × 2 columns</p>
 </div></div></div>
 </div>
 <p>We can now create a <strong>new strategy</strong> with that logic. The new strategy is called <strong>above50sma</strong> and is saved in the <strong>sma50</strong> object. Notice the new first line that has the <code class="docutils literal notranslate"><span class="pre">.SelectWhere</span></code> method. This is going to select securities where <code class="docutils literal notranslate"><span class="pre">signal</span> <span class="pre">==</span> <span class="pre">True</span></code>.</p>
@@ -1018,8 +908,51 @@ Date
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;class &#39;bt.backtest.Backtest&#39;&gt;
-&lt;class &#39;bt.backtest.Result&#39;&gt;
+<div class="output traceback highlight-ipythontb notranslate"><div class="highlight"><pre><span></span><span class="gt">---------------------------------------------------------------------------</span>
+<span class="ne">IndexError</span><span class="g g-Whitespace">                                </span>Traceback (most recent call last)
+<span class="n">Cell</span> <span class="n">In</span><span class="p">[</span><span class="mi">9</span><span class="p">],</span> <span class="n">line</span> <span class="mi">1</span>
+<span class="ne">----&gt; </span><span class="mi">1</span> <span class="n">test_ew</span> <span class="o">=</span> <span class="n">bt</span><span class="o">.</span><span class="n">Backtest</span><span class="p">(</span><span class="n">ew</span><span class="p">,</span> <span class="n">data</span><span class="p">)</span>
+<span class="g g-Whitespace">      </span><span class="mi">2</span> <span class="n">res_ew</span> <span class="o">=</span> <span class="n">bt</span><span class="o">.</span><span class="n">run</span><span class="p">(</span><span class="n">test_ew</span><span class="p">)</span>
+<span class="g g-Whitespace">      </span><span class="mi">4</span> <span class="nb">print</span><span class="p">(</span><span class="nb">type</span><span class="p">(</span><span class="n">test_ew</span><span class="p">))</span>
+
+<span class="nn">File /opt/anaconda3/lib/python3.9/site-packages/bt/backtest.py:147,</span> in <span class="ni">Backtest.__init__</span><span class="nt">(self, strategy, data, name, initial_capital, commissions, integer_positions, progress_bar, additional_data)</span>
+<span class="g g-Whitespace">    </span><span class="mi">144</span> <span class="bp">self</span><span class="o">.</span><span class="n">strategy</span> <span class="o">=</span> <span class="n">deepcopy</span><span class="p">(</span><span class="n">strategy</span><span class="p">)</span>
+<span class="g g-Whitespace">    </span><span class="mi">145</span> <span class="bp">self</span><span class="o">.</span><span class="n">strategy</span><span class="o">.</span><span class="n">use_integer_positions</span><span class="p">(</span><span class="n">integer_positions</span><span class="p">)</span>
+<span class="ne">--&gt; </span><span class="mi">147</span> <span class="bp">self</span><span class="o">.</span><span class="n">_process_data</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">additional_data</span><span class="p">)</span>
+<span class="g g-Whitespace">    </span><span class="mi">149</span> <span class="bp">self</span><span class="o">.</span><span class="n">initial_capital</span> <span class="o">=</span> <span class="n">initial_capital</span>
+<span class="g g-Whitespace">    </span><span class="mi">150</span> <span class="bp">self</span><span class="o">.</span><span class="n">name</span> <span class="o">=</span> <span class="n">name</span> <span class="k">if</span> <span class="n">name</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span> <span class="k">else</span> <span class="n">strategy</span><span class="o">.</span><span class="n">name</span>
+
+<span class="nn">File /opt/anaconda3/lib/python3.9/site-packages/bt/backtest.py:175,</span> in <span class="ni">Backtest._process_data</span><span class="nt">(self, data, additional_data)</span>
+<span class="g g-Whitespace">    </span><span class="mi">162</span> <span class="k">def</span> <span class="nf">_process_data</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">data</span><span class="p">,</span> <span class="n">additional_data</span><span class="p">):</span>
+<span class="g g-Whitespace">    </span><span class="mi">163</span>     <span class="c1"># add virtual row at t0-1day with NaNs</span>
+<span class="g g-Whitespace">    </span><span class="mi">164</span>     <span class="c1"># this is so that any trading action at t0 can be evaluated relative to</span>
+   <span class="p">(</span><span class="o">...</span><span class="p">)</span>
+<span class="g g-Whitespace">    </span><span class="mi">168</span>     <span class="c1"># start at 100, but may start at 90, for example. Here, we add a</span>
+<span class="g g-Whitespace">    </span><span class="mi">169</span>     <span class="c1"># starting point at t0-1day, and this is the reference starting point</span>
+<span class="g g-Whitespace">    </span><span class="mi">170</span>     <span class="n">data_new</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">concat</span><span class="p">(</span>
+<span class="g g-Whitespace">    </span><span class="mi">171</span>         <span class="p">[</span>
+<span class="g g-Whitespace">    </span><span class="mi">172</span>             <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span>
+<span class="g g-Whitespace">    </span><span class="mi">173</span>                 <span class="n">np</span><span class="o">.</span><span class="n">nan</span><span class="p">,</span>
+<span class="g g-Whitespace">    </span><span class="mi">174</span>                 <span class="n">columns</span><span class="o">=</span><span class="n">data</span><span class="o">.</span><span class="n">columns</span><span class="p">,</span>
+<span class="ne">--&gt; </span><span class="mi">175</span>                 <span class="n">index</span><span class="o">=</span><span class="p">[</span><span class="n">data</span><span class="o">.</span><span class="n">index</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">-</span> <span class="n">pd</span><span class="o">.</span><span class="n">DateOffset</span><span class="p">(</span><span class="n">days</span><span class="o">=</span><span class="mi">1</span><span class="p">)],</span>
+<span class="g g-Whitespace">    </span><span class="mi">176</span>             <span class="p">),</span>
+<span class="g g-Whitespace">    </span><span class="mi">177</span>             <span class="n">data</span><span class="p">,</span>
+<span class="g g-Whitespace">    </span><span class="mi">178</span>         <span class="p">]</span>
+<span class="g g-Whitespace">    </span><span class="mi">179</span>     <span class="p">)</span>
+<span class="g g-Whitespace">    </span><span class="mi">181</span>     <span class="bp">self</span><span class="o">.</span><span class="n">data</span> <span class="o">=</span> <span class="n">data_new</span>
+<span class="g g-Whitespace">    </span><span class="mi">182</span>     <span class="bp">self</span><span class="o">.</span><span class="n">dates</span> <span class="o">=</span> <span class="n">data_new</span><span class="o">.</span><span class="n">index</span>
+
+<span class="nn">File /opt/anaconda3/lib/python3.9/site-packages/pandas/core/indexes/base.py:5053,</span> in <span class="ni">Index.__getitem__</span><span class="nt">(self, key)</span>
+<span class="g g-Whitespace">   </span><span class="mi">5050</span> <span class="k">if</span> <span class="n">is_integer</span><span class="p">(</span><span class="n">key</span><span class="p">)</span> <span class="ow">or</span> <span class="n">is_float</span><span class="p">(</span><span class="n">key</span><span class="p">):</span>
+<span class="g g-Whitespace">   </span><span class="mi">5051</span>     <span class="c1"># GH#44051 exclude bool, which would return a 2d ndarray</span>
+<span class="g g-Whitespace">   </span><span class="mi">5052</span>     <span class="n">key</span> <span class="o">=</span> <span class="n">com</span><span class="o">.</span><span class="n">cast_scalar_indexer</span><span class="p">(</span><span class="n">key</span><span class="p">,</span> <span class="n">warn_float</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="ne">-&gt; </span><span class="mi">5053</span>     <span class="k">return</span> <span class="n">getitem</span><span class="p">(</span><span class="n">key</span><span class="p">)</span>
+<span class="g g-Whitespace">   </span><span class="mi">5055</span> <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">key</span><span class="p">,</span> <span class="nb">slice</span><span class="p">):</span>
+<span class="g g-Whitespace">   </span><span class="mi">5056</span>     <span class="c1"># This case is separated from the conditional above to avoid</span>
+<span class="g g-Whitespace">   </span><span class="mi">5057</span>     <span class="c1"># pessimization com.is_bool_indexer and ndim checks.</span>
+<span class="g g-Whitespace">   </span><span class="mi">5058</span>     <span class="n">result</span> <span class="o">=</span> <span class="n">getitem</span><span class="p">(</span><span class="n">key</span><span class="p">)</span>
+
+<span class="ne">IndexError</span>: index 0 is out of bounds for axis 0 with size 0
 </pre></div>
 </div>
 </div>
@@ -1065,59 +998,59 @@ Date
 <div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Stat                 ew
 -------------------  ----------
 Start                2010-01-03
-End                  2025-01-16
+End                  2023-04-21
 Risk-free rate       0.00%
 
-Total Return         226.67%
-Daily Sharpe         0.95
-Daily Sortino        1.47
-CAGR                 8.19%
+Total Return         163.35%
+Daily Sharpe         0.86
+Daily Sortino        1.33
+CAGR                 7.56%
 Max Drawdown         -19.87%
-Calmar Ratio         0.41
+Calmar Ratio         0.38
 
-MTD                  0.57%
-3m                   0.01%
-6m                   2.98%
-YTD                  0.57%
-1Y                   13.87%
-3Y (ann.)            4.61%
-5Y (ann.)            6.97%
-10Y (ann.)           7.44%
-Since Incep. (ann.)  8.19%
+MTD                  0.23%
+3m                   2.16%
+6m                   9.24%
+YTD                  5.61%
+1Y                   -2.53%
+3Y (ann.)            6.45%
+5Y (ann.)            6.41%
+10Y (ann.)           6.95%
+Since Incep. (ann.)  7.56%
 
-Daily Sharpe         0.95
-Daily Sortino        1.47
-Daily Mean (ann.)    8.27%
-Daily Vol (ann.)     8.75%
-Daily Skew           -0.71
-Daily Kurt           13.70
+Daily Sharpe         0.86
+Daily Sortino        1.33
+Daily Mean (ann.)    7.69%
+Daily Vol (ann.)     8.90%
+Daily Skew           -0.75
+Daily Kurt           14.37
 Best Day             4.77%
 Worst Day            -6.63%
 
-Monthly Sharpe       1.03
-Monthly Sortino      1.89
-Monthly Mean (ann.)  8.38%
-Monthly Vol (ann.)   8.13%
-Monthly Skew         -0.34
-Monthly Kurt         0.99
+Monthly Sharpe       0.97
+Monthly Sortino      1.73
+Monthly Mean (ann.)  7.80%
+Monthly Vol (ann.)   8.01%
+Monthly Skew         -0.41
+Monthly Kurt         1.20
 Best Month           7.57%
 Worst Month          -6.68%
 
-Yearly Sharpe        0.89
-Yearly Sortino       2.00
-Yearly Mean          7.87%
-Yearly Vol           8.81%
-Yearly Skew          -1.35
-Yearly Kurt          2.25
+Yearly Sharpe        0.82
+Yearly Sortino       1.72
+Yearly Mean          7.30%
+Yearly Vol           8.90%
+Yearly Skew          -1.36
+Yearly Kurt          2.63
 Best Year            19.64%
 Worst Year           -15.30%
 
-Avg. Drawdown        -0.86%
-Avg. Drawdown Days   14.99
-Avg. Up Month        1.91%
+Avg. Drawdown        -0.85%
+Avg. Drawdown Days   14.30
+Avg. Up Month        1.82%
 Avg. Down Month      -1.98%
-Win Year %           86.67%
-Win 12m %            90.59%
+Win Year %           84.62%
+Win 12m %            89.26%
 </pre></div>
 </div>
 </div>
@@ -1132,59 +1065,59 @@ Win 12m %            90.59%
 <div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Stat                 above50sma
 -------------------  ------------
 Start                2010-01-03
-End                  2025-01-16
+End                  2023-04-21
 Risk-free rate       0.00%
 
-Total Return         96.93%
-Daily Sharpe         0.62
-Daily Sortino        0.90
-CAGR                 4.61%
-Max Drawdown         -21.94%
-Calmar Ratio         0.21
+Total Return         60.43%
+Daily Sharpe         0.50
+Daily Sortino        0.72
+CAGR                 3.62%
+Max Drawdown         -21.95%
+Calmar Ratio         0.16
 
-MTD                  -0.56%
-3m                   -0.82%
-6m                   -0.08%
-YTD                  -0.56%
-1Y                   9.32%
-3Y (ann.)            0.71%
-5Y (ann.)            3.91%
-10Y (ann.)           3.00%
-Since Incep. (ann.)  4.61%
+MTD                  0.24%
+3m                   -3.10%
+6m                   -8.54%
+YTD                  -1.01%
+1Y                   -13.50%
+3Y (ann.)            0.60%
+5Y (ann.)            2.94%
+10Y (ann.)           1.94%
+Since Incep. (ann.)  3.62%
 
-Daily Sharpe         0.62
-Daily Sortino        0.90
-Daily Mean (ann.)    4.82%
-Daily Vol (ann.)     7.82%
-Daily Skew           -1.02
-Daily Kurt           10.02
+Daily Sharpe         0.50
+Daily Sortino        0.72
+Daily Mean (ann.)    3.86%
+Daily Vol (ann.)     7.73%
+Daily Skew           -1.15
+Daily Kurt           11.09
 Best Day             3.48%
 Worst Day            -4.35%
 
-Monthly Sharpe       0.60
-Monthly Sortino      0.99
-Monthly Mean (ann.)  4.85%
-Monthly Vol (ann.)   8.10%
-Monthly Skew         -0.54
-Monthly Kurt         1.05
-Best Month           6.69%
+Monthly Sharpe       0.50
+Monthly Sortino      0.78
+Monthly Mean (ann.)  3.88%
+Monthly Vol (ann.)   7.82%
+Monthly Skew         -0.74
+Monthly Kurt         1.28
+Best Month           6.68%
 Worst Month          -7.97%
 
-Yearly Sharpe        0.43
-Yearly Sortino       0.77
-Yearly Mean          4.30%
-Yearly Vol           9.92%
-Yearly Skew          -1.15
-Yearly Kurt          0.66
+Yearly Sharpe        0.32
+Yearly Sortino       0.56
+Yearly Mean          3.31%
+Yearly Vol           10.37%
+Yearly Skew          -0.91
+Yearly Kurt          0.12
 Best Year            16.05%
 Worst Year           -17.78%
 
-Avg. Drawdown        -1.29%
-Avg. Drawdown Days   37.77
-Avg. Up Month        1.88%
-Avg. Down Month      -1.76%
-Win Year %           73.33%
-Win 12m %            74.71%
+Avg. Drawdown        -1.28%
+Avg. Drawdown Days   34.35
+Avg. Up Month        1.78%
+Avg. Down Month      -1.72%
+Win Year %           69.23%
+Win 12m %            75.17%
 </pre></div>
 </div>
 </div>
