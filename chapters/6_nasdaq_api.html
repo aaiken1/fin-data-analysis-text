@@ -694,11 +694,11 @@ title="Print to PDF"
 <figure class="align-center" id="secrets1-png">
 <img alt="../_images/07-secrets1.png" src="../_images/07-secrets1.png" />
 </figure>
-<p>Click on <strong>Update</strong> under <strong>Codespaces Secrets</strong>. You can now name your secret (e.g. NASDAQ) and copy your API key in the box below. <strong>Select</strong> the repo(s) that you want to associate with this secret. <strong>Add</strong> your secret.</p>
+<p>Click on <strong>New Secret</strong> under <strong>Codespaces Secrets</strong>. You can now name your secret (e.g. NASDAQ) and copy your API key in the box below. <strong>Select</strong> the repo(s) that you want to associate with this secret. Click the green <strong>Add Secret</strong>.</p>
 <figure class="align-center" id="secrets2-png">
 <img alt="../_images/07-secrets2.png" src="../_images/07-secrets2.png" />
 </figure>
-<p>You’ll now see that secret in the main Codespace settings page. You can refer to the name of that secret in your Codespace now, like I do above. Note that you need to import the <code class="docutils literal notranslate"><span class="pre">os</span></code> package to access this <strong>environment</strong> variable. An environment variable is a variable defined for all of the work in this particular repo. My secret is named <code class="docutils literal notranslate"><span class="pre">NASDAQ</span></code>, so I can refer to that.</p>
+<p>You’ll now see that secret in the main Codespace settings page. You can refer to the name of that secret in your Codespace now, like I do below. Note that you need to import the <code class="docutils literal notranslate"><span class="pre">os</span></code> package to access this <strong>environment</strong> variable. An environment variable is a variable defined for all of the work in this particular repo. My secret is named <code class="docutils literal notranslate"><span class="pre">NASDAQ</span></code>, so I can refer to that.</p>
 <p>If you had your <strong>Codespace running</strong> in another tab before adding the secret, you’ll need to <strong>restart</strong> it:</p>
 <ol class="simple">
 <li><p>Click on the <strong>Codespaces</strong> tab in your GitHub repository.</p></li>
@@ -706,7 +706,8 @@ title="Print to PDF"
 <li><p>Click <strong>Stop Codespace</strong> and then <strong>Restart</strong> it.
 This refreshes your environment, allowing the secret to be accessed.</p></li>
 </ol>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="c1"># ✅ Secure way (Recommended If Not Using Github Secrets)</span>
+<p>This is the code for accessing your <code class="docutils literal notranslate"><span class="pre">FRED</span></code> secret, which contains the API key.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="c1"># ✅ Secure way (Recommended)</span>
 <span class="kn">from</span> <span class="nn">fredapi</span> <span class="kn">import</span> <span class="n">Fred</span>
 <span class="kn">import</span> <span class="nn">os</span>
 
@@ -727,11 +728,11 @@ This refreshes your environment, allowing the secret to be accessed.</p></li>
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>2025-02-28    86018.76
-2025-03-01    94265.48
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>2025-03-01    94265.48
 2025-03-02    86161.10
 2025-03-03    87249.96
-2025-03-04    86638.34
+2025-03-04    90603.73
+2025-03-05    90195.42
 dtype: float64
 </pre></div>
 </div>
@@ -801,10 +802,6 @@ dtype: float64
       <td>...</td>
     </tr>
     <tr>
-      <th>2025-02-28</th>
-      <td>86018.76</td>
-    </tr>
-    <tr>
       <th>2025-03-01</th>
       <td>94265.48</td>
     </tr>
@@ -818,11 +815,15 @@ dtype: float64
     </tr>
     <tr>
       <th>2025-03-04</th>
-      <td>86638.34</td>
+      <td>90603.73</td>
+    </tr>
+    <tr>
+      <th>2025-03-05</th>
+      <td>90195.42</td>
     </tr>
   </tbody>
 </table>
-<p>3747 rows × 1 columns</p>
+<p>3748 rows × 1 columns</p>
 </div></div></div>
 </div>
 <p>There are some missing values early on in the data. I’m not going to explore it too much - let’s just drop them. Bitcoin in 2015? That’s ancient history!</p>
@@ -840,7 +841,7 @@ dtype: float64
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>/var/folders/kx/y8vj3n6n5kq_d74vj24jsnh40000gn/T/ipykernel_67496/623421051.py:1: SettingWithCopyWarning: 
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>/var/folders/kx/y8vj3n6n5kq_d74vj24jsnh40000gn/T/ipykernel_70580/623421051.py:1: SettingWithCopyWarning: 
 A value is trying to be set on a copy of a slice from a DataFrame.
 Try using .loc[row_indexer,col_indexer] = value instead
 
@@ -962,13 +963,6 @@ See the caveats in the documentation: https://pandas.pydata.org/pandas-docs/stab
       <td>...</td>
     </tr>
     <tr>
-      <th>2025-02-28</th>
-      <td>86018.76</td>
-      <td>0.020416</td>
-      <td>1.020416</td>
-      <td>251.996353</td>
-    </tr>
-    <tr>
       <th>2025-03-01</th>
       <td>94265.48</td>
       <td>0.095871</td>
@@ -991,14 +985,21 @@ See the caveats in the documentation: https://pandas.pydata.org/pandas-docs/stab
     </tr>
     <tr>
       <th>2025-03-04</th>
-      <td>86638.34</td>
-      <td>-0.007010</td>
-      <td>0.992990</td>
-      <td>253.818647</td>
+      <td>90603.73</td>
+      <td>0.038439</td>
+      <td>1.038439</td>
+      <td>265.481559</td>
+    </tr>
+    <tr>
+      <th>2025-03-05</th>
+      <td>90195.42</td>
+      <td>-0.004507</td>
+      <td>0.995493</td>
+      <td>264.280647</td>
     </tr>
   </tbody>
 </table>
-<p>3703 rows × 4 columns</p>
+<p>3704 rows × 4 columns</p>
 </div></div></div>
 </div>
 <p>We can now make a graph using the <strong>fig, axs</strong> method. This is good review! Again, notice that semi-colon at the end. This suppresses some annoying output in the Jupyter notebook.</p>
@@ -1049,16 +1050,16 @@ See the caveats in the documentation: https://pandas.pydata.org/pandas-docs/stab
 <section id="a-btc-simulation">
 <h3>A BTC Simulation<a class="headerlink" href="#a-btc-simulation" title="Permalink to this headline">#</a></h3>
 <p>Let’s put together some ideas, write a function, and run a simulation. We’ll use something called <strong>geometric brownian motion</strong> (GBM). What is GBM? It is a particular <a class="reference external" href="https://arxiv.org/pdf/1504.05309.pdf">stochastic differential equation</a>. But, what’s important for us is the idea, which is fairly simple. Here’s the formula:</p>
-<div class="amsmath math notranslate nohighlight" id="equation-848bb068-6574-4cfc-896b-de7d3d122911">
-<span class="eqno">(1)<a class="headerlink" href="#equation-848bb068-6574-4cfc-896b-de7d3d122911" title="Permalink to this equation">#</a></span>\[\begin{align}
+<div class="amsmath math notranslate nohighlight" id="equation-1eaf454e-22cf-4320-a965-518f687ad279">
+<span class="eqno">(1)<a class="headerlink" href="#equation-1eaf454e-22cf-4320-a965-518f687ad279" title="Permalink to this equation">#</a></span>\[\begin{align}
 dS = \mu S dt + \sigma S dW_t
 \end{align}\]</div>
 <p>This says that the change in the stock price has two components - a <strong>drift</strong>, or average increase over time, and a <strong>shock</strong> that it is random at each point in time. The shock is scaled by the standard deviation of returns that you use. So, larger standard deviation, the bigger the shocks can be. This is basically the simplest way that you can model an asset price.</p>
 <p>The shocks are what make the price wiggle around around, or else it would just go up over time, based on the drift value that we use.</p>
 <p>And, I’ll stress - we aren’t predicting here, so to speak. We are trying to capture some basic reality about how an asset moves and then seeing what is possible in the future. We aren’t making a statement about whether we think an asset is overvalued or undervalued, will go up or down, etc.</p>
 <p>You can solve this equation to get the value of the asset at any point in time t. You just need to know the total of all of the shocks at time t.</p>
-<div class="amsmath math notranslate nohighlight" id="equation-b84555a0-7ac2-4f72-9c57-381b05feb700">
-<span class="eqno">(2)<a class="headerlink" href="#equation-b84555a0-7ac2-4f72-9c57-381b05feb700" title="Permalink to this equation">#</a></span>\[\begin{align}
+<div class="amsmath math notranslate nohighlight" id="equation-13448fcd-72bf-42a2-9fe1-e4f6855bfbe6">
+<span class="eqno">(2)<a class="headerlink" href="#equation-13448fcd-72bf-42a2-9fe1-e4f6855bfbe6" title="Permalink to this equation">#</a></span>\[\begin{align}
 S(t) = S(0) \exp \left(\left(\mu - \frac{1}{2}\sigma^2\right)t + \sigma W(t)\right)
 \end{align}\]</div>
 <div class="cell docutils container">
@@ -1124,19 +1125,19 @@ S(t) = S(0) \exp \left(\left(\mu - \frac{1}{2}\sigma^2\right)t + \sigma W(t)\rig
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>array([[-0.04537129,  0.07788324,  1.13463859, ..., -0.72178968,
-        -0.20022786,  0.27178995],
-       [-0.39256115, -1.34205275, -1.02742363, ...,  0.54644388,
-         0.92450028, -0.32802875],
-       [ 0.54924745,  1.30056117,  0.38792658, ..., -0.26923901,
-         0.41955306,  0.30957442],
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>array([[ 2.60080905,  1.08158256, -0.9151394 , ..., -0.25862379,
+         0.39776845,  0.30848961],
+       [ 0.58968061, -2.15998215, -0.83588131, ..., -0.74251349,
+         0.59963121, -0.01388188],
+       [-0.25789172,  0.49589513, -1.28078582, ..., -0.8243737 ,
+        -2.10620233,  0.6398911 ],
        ...,
-       [ 0.14270154,  0.38566707, -0.81208359, ..., -1.2072247 ,
-         0.79095287,  0.40717044],
-       [-0.60557013,  0.12505138, -0.53370869, ..., -1.51903648,
-         0.897199  ,  0.40512283],
-       [-0.00525311, -0.17152712, -0.00349148, ...,  0.31223694,
-        -0.99667525,  0.67773242]])
+       [ 0.76420061,  0.81233538,  0.52242267, ..., -0.64263231,
+        -0.17181532,  0.74431827],
+       [-0.02004376,  1.38516055,  0.86071169, ..., -0.84111921,
+         1.15795652, -0.45604676],
+       [-0.09659505, -0.19287991,  1.08193564, ...,  0.12241713,
+        -0.17361332, -0.69755814]])
 </pre></div>
 </div>
 </div>
