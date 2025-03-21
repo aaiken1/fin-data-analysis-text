@@ -50,8 +50,6 @@ const thebe_selector_input = "pre"
 const thebe_selector_output = ".output, .cell_output"
 </script>
     <script async="async" src="../_static/sphinx-thebe.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
-    <script src="https://unpkg.com/@jupyter-widgets/html-manager@^0.20.0/dist/embed-amd.js"></script>
     <script>window.MathJax = {"options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
     <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
     <link rel="index" title="Index" href="../genindex.html" />
@@ -526,7 +524,7 @@ title="Print to PDF"
         <ul class="visible nav section-nav flex-column">
  <li class="toc-h2 nav-item toc-entry">
   <a class="reference internal nav-link" href="#supervised-learning-and-the-machine-learning-process-hull-chapter-1">
-   Supervised Learning and the Machine Learning Process. Hull, Chapter 1.
+   Supervised learning and the machine learning process. Hull, Chapter 1.
   </a>
  </li>
  <li class="toc-h2 nav-item toc-entry">
@@ -535,9 +533,26 @@ title="Print to PDF"
   </a>
  </li>
  <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#workflow">
-   Workflow
+  <a class="reference internal nav-link" href="#the-basic-workflow">
+   The basic workflow
   </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#what-is-regression-hull-chapter-3">
+   What is regression? Hull, Chapter 3.
+  </a>
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#assumptions-and-the-gauss-markov-theorem">
+     Assumptions and the Gauss-Markov Theorem
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#interpreting-coefficients">
+     Interpreting Coefficients
+    </a>
+   </li>
+  </ul>
  </li>
  <li class="toc-h2 nav-item toc-entry">
   <a class="reference internal nav-link" href="#example-using-zillow-pricing-errors">
@@ -557,8 +572,8 @@ title="Print to PDF"
   </ul>
  </li>
  <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#hull-chapters-3-and-10-linear-regression-and-prediction">
-   Hull, Chapters 3 and 10. Linear regression and prediction.
+  <a class="reference internal nav-link" href="#linear-regression-and-prediction-more-hull-chapters-3-and-10">
+   Linear regression and prediction. More Hull, Chapters 3 and 10.
   </a>
   <ul class="nav section-nav flex-column">
    <li class="toc-h3 nav-item toc-entry">
@@ -683,7 +698,7 @@ title="Print to PDF"
                             <ul class="visible nav section-nav flex-column">
  <li class="toc-h2 nav-item toc-entry">
   <a class="reference internal nav-link" href="#supervised-learning-and-the-machine-learning-process-hull-chapter-1">
-   Supervised Learning and the Machine Learning Process. Hull, Chapter 1.
+   Supervised learning and the machine learning process. Hull, Chapter 1.
   </a>
  </li>
  <li class="toc-h2 nav-item toc-entry">
@@ -692,9 +707,26 @@ title="Print to PDF"
   </a>
  </li>
  <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#workflow">
-   Workflow
+  <a class="reference internal nav-link" href="#the-basic-workflow">
+   The basic workflow
   </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#what-is-regression-hull-chapter-3">
+   What is regression? Hull, Chapter 3.
+  </a>
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#assumptions-and-the-gauss-markov-theorem">
+     Assumptions and the Gauss-Markov Theorem
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#interpreting-coefficients">
+     Interpreting Coefficients
+    </a>
+   </li>
+  </ul>
  </li>
  <li class="toc-h2 nav-item toc-entry">
   <a class="reference internal nav-link" href="#example-using-zillow-pricing-errors">
@@ -714,8 +746,8 @@ title="Print to PDF"
   </ul>
  </li>
  <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#hull-chapters-3-and-10-linear-regression-and-prediction">
-   Hull, Chapters 3 and 10. Linear regression and prediction.
+  <a class="reference internal nav-link" href="#linear-regression-and-prediction-more-hull-chapters-3-and-10">
+   Linear regression and prediction. More Hull, Chapters 3 and 10.
   </a>
   <ul class="nav section-nav flex-column">
    <li class="toc-h3 nav-item toc-entry">
@@ -838,7 +870,7 @@ title="Print to PDF"
 <p><a class="reference external" href="https://theeffectbook.net">The Effect</a> is a great book for getting starting with econometrics, regression, and how to add meaning to the regressions that we’re running. <a class="reference external" href="https://theeffectbook.net/ch-StatisticalAdjustment.html">Chapter 13</a> of that book covers regression (with code in R). Like most econometrics, that book is focused on <strong>causality</strong> - did some intervention or change <strong>cause</strong> a change in behavior or another outcome? These tools are beyond the scope of this course, but we have a new course on Causal Inference if you’re interested.</p>
 <p>You’ll also see categorical variables and logs. Thinking about how to define our variables is an example of <strong>feature engineering</strong> in the machine learning world.</p>
 <section id="supervised-learning-and-the-machine-learning-process-hull-chapter-1">
-<h2>Supervised Learning and the Machine Learning Process. Hull, Chapter 1.<a class="headerlink" href="#supervised-learning-and-the-machine-learning-process-hull-chapter-1" title="Permalink to this headline">#</a></h2>
+<h2>Supervised learning and the machine learning process. Hull, Chapter 1.<a class="headerlink" href="#supervised-learning-and-the-machine-learning-process-hull-chapter-1" title="Permalink to this headline">#</a></h2>
 <p>Chapter 1 of Hull starts us the Hull book starts our discussion of machine learning. Tradtional econometrics is about <strong>explaining</strong>. Machine learning is about <strong>predicting</strong>. Roughly speaking.</p>
 <p>We saw <strong>unsupervised learning</strong> when looking at clustering. Regression gets us into <strong>supervised learning</strong>. From Hull, Chapter 1:</p>
 <blockquote>
@@ -860,8 +892,8 @@ title="Print to PDF"
 <p>Two libraries, two ways to do regression. The Hull textbook uses <code class="docutils literal notranslate"><span class="pre">sklearn</span></code> for the <strong>ridge, LASSO, and Elastic Net</strong> models.</p>
 <p>You can read more about <a class="reference external" href="https://www.statsmodels.org/dev/regression.html">the statsmodels library on their help page</a>. Here’s <a class="reference external" href="https://scikit-learn.org/stable/modules/generated/sklearn.linear_model.LinearRegression.html">linear regression from the sklearn libary</a>.</p>
 </section>
-<section id="workflow">
-<h2>Workflow<a class="headerlink" href="#workflow" title="Permalink to this headline">#</a></h2>
+<section id="the-basic-workflow">
+<h2>The basic workflow<a class="headerlink" href="#the-basic-workflow" title="Permalink to this headline">#</a></h2>
 <p>A lot of the data that we’re using in these examples is already clean. There are no missing values. The columns are what we want. The features and target have been standardized.</p>
 <p>In reality, things don’t work that way. You need to <strong>carefully look at your data</strong>. The regressions, the models, the machine learning is “easy”, in a sense. The tools are built-in. You don’t exactly have to do a lot of linear algebra or optimization math by hand.</p>
 <p>The real work is in the details. It is your judgement and domain expertise that tells you what features you should be looking for. You need to know how your data were collected. You need the background knowledge to understand your task.</p>
@@ -879,6 +911,78 @@ title="Print to PDF"
 <li><p><strong>Predict your target.</strong> Take the fitted model that uses the optimal hyperparamter(s) and use it to fit your testing data. Get predicted values and compare to the actual y targets in your testing sample.</p></li>
 <li><p><strong>Evaluate your model.</strong> How good a job did it do? See Hull for more on the numbers you might use to evaluate a model. I like to make a scatter plot of actual vs. predicted values.</p></li>
 </ul>
+</section>
+<section id="what-is-regression-hull-chapter-3">
+<h2>What is regression? Hull, Chapter 3.<a class="headerlink" href="#what-is-regression-hull-chapter-3" title="Permalink to this headline">#</a></h2>
+<p>We are going to run a bunch of regressions. You’ve seen the basics in other classes. However, we should make sure that we really understand what we’re doing. At its core, linear regression attempts to find the best-fitting line (or hyperplane in multiple dimensions) through a set of data points, minimizing the discrepancy between the observed values and the values predicted by the model.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Chapters 3.1 and 3.2 of Hull cover regression basics and some of the algebra, with an example for housing prices. If you are doing anything even remotely <code class="docutils literal notranslate"><span class="pre">quant</span></code> or data science or analytics for a job, you should know regression really, really well. Be able to derive these equations.</p>
+</div>
+<p>This is an excellent overview: <a class="reference external" href="https://aeturrell.github.io/coding-for-economists/econmt-regression.html">https://aeturrell.github.io/coding-for-economists/econmt-regression.html</a>. Some important concepts covered:</p>
+<ul class="simple">
+<li><p>Notation and assumptions behind regression.</p></li>
+<li><p>Using the <code class="docutils literal notranslate"><span class="pre">pyfest</span></code> package. We’ll use a different package below, but this one is nice.</p></li>
+<li><p>Standard errors. They determine the <strong>significance level</strong> of your coefficients and often <strong>need to be fixed</strong>.</p></li>
+<li><p>Fixed effects and categorical variables.</p></li>
+<li><p>Transforming your variables with things like logs. Our textbook talks about this when discussing <strong>defining our features</strong>.</p></li>
+<li><p>Causality with things like instrumental variables. Beyond our scope, but business are interested in these things. They want to run <strong>experiments</strong> to get at <strong>what happens to Y if we do X?</strong> This is a causal question, but just pure statistics.</p></li>
+</ul>
+<p>I also like this section on <strong>regression diagnostics</strong>: <a class="reference external" href="https://aeturrell.github.io/coding-for-economists/econmt-diagnostics.html">https://aeturrell.github.io/coding-for-economists/econmt-diagnostics.html</a>. Does your model do a good job explaining the relationship that you’re interested in?</p>
+<p>Back to the basics. The population linear regression model is written as:</p>
+<div class="math notranslate nohighlight">
+\[y_i = \beta_0 + \beta_1 x_{i1} + \beta_2 x_{i2} + \cdots + \beta_k x_{ik} + u_i\]</div>
+<p>or, in matrix form:</p>
+<div class="math notranslate nohighlight">
+\[\mathbf{y} = \mathbf{X} \boldsymbol{\beta} + \mathbf{u}\]</div>
+<p>where:</p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>•	 $\mathbf{y}$  is an  $n \times 1$ vector of the dependent variable,
+•	 $\mathbf{X}$  is an  $n \times (k+1)$ matrix of regressors (including a column of ones for the intercept),
+•	 $\boldsymbol{\beta}$  is a  $(k+1) \times 1$ vector of coefficients,
+•	 $\mathbf{u}$  is an  $n \times 1$ vector of error terms.
+</pre></div>
+</div>
+<p>The goal of ordinary least squares (OLS) is to estimate  <span class="math notranslate nohighlight">\(\boldsymbol{\beta}\)</span>  such that the sum of squared residuals  <span class="math notranslate nohighlight">\(\mathbf{u}{\prime}\mathbf{u}\)</span> is <strong>minimized</strong>. In short, regression is an optimization problem (like you would in calculus) expressed with some linear algebra (so, vectors and matrices).</p>
+<p>The OLS estimator is derived as:</p>
+<div class="math notranslate nohighlight">
+\[\hat{\boldsymbol{\beta}} = (\mathbf{X}^{\prime}\mathbf{X})^{-1} \mathbf{X}^{\prime}\mathbf{y}\]</div>
+<p>This estimator gives the “best” linear approximation of the relationship between the variables under certain conditions. The <span class="math notranslate nohighlight">\(\prime\)</span> means the <strong>transpose</strong> of the matrix. The <span class="math notranslate nohighlight">\({-1}\)</span> is a matrix <strong>inverse</strong>. You probably saw all of this in high school math.</p>
+<section id="assumptions-and-the-gauss-markov-theorem">
+<h3>Assumptions and the Gauss-Markov Theorem<a class="headerlink" href="#assumptions-and-the-gauss-markov-theorem" title="Permalink to this headline">#</a></h3>
+<p>The validity of OLS relies on several classical assumptions (often called the Gauss-Markov assumptions):
+1.	Linearity: The model is linear in parameters.
+2.	Random Sampling: The data is an i.i.d. sample from the population.
+3.	No Perfect Multicollinearity: No regressor is a perfect linear combination of others.
+4.	Zero Conditional Mean: <span class="math notranslate nohighlight">\(\mathbb{E}[u_i | \mathbf{X}] = 0\)</span> , implying regressors are exogenous.
+5.	Homoskedasticity:  <span class="math notranslate nohighlight">\(\mathbb{E}[u_i^2 | \mathbf{X}] = \sigma^2\)</span>, i.e., constant variance of the error term.</p>
+<p>Under these assumptions, the Gauss-Markov Theorem states that the OLS estimator  <span class="math notranslate nohighlight">\(\hat{\boldsymbol{\beta}}\)</span> is the <strong>Best Linear Unbiased Estimator (BLUE)</strong>. This means that among all linear and unbiased estimators, OLS has the smallest variance. It’s the best!</p>
+<p>These assumptions are actually pretty general. OLS works in all kinds of settings, with all kinds of data. It’s actually kind of amazing that something this simple is used absolutely everywhere.</p>
+<figure class="align-center" id="ols1-png">
+<img alt="../_images/12-ols1.png" class="with-border" src="../_images/12-ols1.png" />
+<figcaption>
+<p><span class="caption-number">Fig. 70 </span><span class="caption-text">You want to understand when some tools are appropriate. But, don’t over-complicate things.</span><a class="headerlink" href="#ols1-png" title="Permalink to this image">#</a></p>
+</figcaption>
+</figure>
+<p>But, you still want to understand the assumptions. OLS isn’t magic. It’s just some math. OLS <strong>doesn’t tell you if a relationship is causal</strong>, that one of the X variables causes the Y variable. For all OLS cares, you could switch the Y and X variables around and the math would still work. It’s really just telling you <strong>conditional correlations</strong>.</p>
+<p>For causality, you need <strong>experimental design</strong>. That’s beyond the scope of what we’re doing. Take econometrics.</p>
+</section>
+<section id="interpreting-coefficients">
+<h3>Interpreting Coefficients<a class="headerlink" href="#interpreting-coefficients" title="Permalink to this headline">#</a></h3>
+<p>Intuitively, each coefficient <span class="math notranslate nohighlight">\(\beta_j\)</span> represents the partial correlation of the corresponding explanatory variable <span class="math notranslate nohighlight">\(x_j\)</span> on the dependent variable <span class="math notranslate nohighlight">\(y\)</span> , holding all other variables constant. In algebraic terms, in the linear model:</p>
+<p><span class="math notranslate nohighlight">\(\frac{\partial y_i}{\partial x_{ij}} = \beta_j\)</span></p>
+<p>So if  <span class="math notranslate nohighlight">\(\beta_2 = 5\)</span>, then a one-unit increase in <span class="math notranslate nohighlight">\(x_2\)</span> is associated with a 5-unit increase in the expected value of <span class="math notranslate nohighlight">\(y\)</span> , assuming other variables are held constant.</p>
+<figure class="align-center" id="ols2-png">
+<img alt="../_images/12-ols2.png" class="with-border" src="../_images/12-ols2.png" />
+<figcaption>
+<p><span class="caption-number">Fig. 71 </span><span class="caption-text">Regression is great.</span><a class="headerlink" href="#ols2-png" title="Permalink to this image">#</a></p>
+</figcaption>
+</figure>
+</section>
+</section>
+<section id="example-using-zillow-pricing-errors">
+<h2>Example using Zillow pricing errors<a class="headerlink" href="#example-using-zillow-pricing-errors" title="Permalink to this headline">#</a></h2>
+<p>Let’s start with a typical regression and output. So, no prediction. Let’s run a regression like we might using the Data Analysis Toolkit in Excel. We’ll look at the ouput and interpret the coefficients and statistical significance.</p>
+<p>I’ll be using our Zillow pricing error data in this example. The <code class="docutils literal notranslate"><span class="pre">statsmodel</span></code> library will let us run the regressions and give us nicely formatted output.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
@@ -926,11 +1030,6 @@ title="Print to PDF"
 </div>
 </div>
 </div>
-</section>
-<section id="example-using-zillow-pricing-errors">
-<h2>Example using Zillow pricing errors<a class="headerlink" href="#example-using-zillow-pricing-errors" title="Permalink to this headline">#</a></h2>
-<p>Let’s start with a typical regression and output. So, no prediction. Let’s run a regression like we might using the Data Analysis Toolkit in Excel. We’ll look at the ouput and interpret the coefficients and statistical significance.</p>
-<p>I’ll be using our Zillow pricing error data in this example. The <code class="docutils literal notranslate"><span class="pre">statsmodel</span></code> library will let us run the regressions and give us nicely formatted output.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">housing</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s1">&#39;https://raw.githubusercontent.com/aaiken1/fin-data-analysis-python/main/data/properties_2016_sample10_1.csv&#39;</span><span class="p">)</span>
@@ -942,7 +1041,7 @@ title="Print to PDF"
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>/var/folders/kx/y8vj3n6n5kq_d74vj24jsnh40000gn/T/ipykernel_83398/4278326240.py:1: DtypeWarning: Columns (49) have mixed types. Specify dtype option on import or set low_memory=False.
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>/var/folders/kx/y8vj3n6n5kq_d74vj24jsnh40000gn/T/ipykernel_5568/4278326240.py:1: DtypeWarning: Columns (49) have mixed types. Specify dtype option on import or set low_memory=False.
   housing = pd.read_csv(&#39;https://raw.githubusercontent.com/aaiken1/fin-data-analysis-python/main/data/properties_2016_sample10_1.csv&#39;)
 </pre></div>
 </div>
@@ -1525,8 +1624,8 @@ title="Print to PDF"
 Dep. Variable:               logerror   R-squared:                       0.001
 Model:                            OLS   Adj. R-squared:                  0.001
 Method:                 Least Squares   F-statistic:                     13.30
-Date:                Mon, 10 Mar 2025   Prob (F-statistic):           0.000267
-Time:                        09:29:29   Log-Likelihood:                 3831.8
+Date:                Fri, 21 Mar 2025   Prob (F-statistic):           0.000267
+Time:                        12:12:20   Log-Likelihood:                 3831.8
 No. Observations:                9001   AIC:                            -7660.
 Df Residuals:                    8999   BIC:                            -7645.
 Df Model:                           1                                         
@@ -1585,8 +1684,8 @@ Notes:
 Dep. Variable:               logerror   R-squared:                       0.002
 Model:                            OLS   Adj. R-squared:                  0.002
 Method:                 Least Squares   F-statistic:                     6.718
-Date:                Mon, 10 Mar 2025   Prob (F-statistic):           0.000159
-Time:                        09:29:29   Log-Likelihood:                 3835.2
+Date:                Fri, 21 Mar 2025   Prob (F-statistic):           0.000159
+Time:                        12:12:20   Log-Likelihood:                 3835.2
 No. Observations:                9001   AIC:                            -7662.
 Df Residuals:                    8997   BIC:                            -7634.
 Df Model:                           3                                         
@@ -1627,8 +1726,8 @@ Notes:
 Dep. Variable:               logerror   R-squared:                       0.002
 Model:                            OLS   Adj. R-squared:                  0.002
 Method:                 Least Squares   F-statistic:                     21.69
-Date:                Mon, 10 Mar 2025   Prob (F-statistic):           3.24e-06
-Time:                        09:29:29   Log-Likelihood:                 3856.7
+Date:                Fri, 21 Mar 2025   Prob (F-statistic):           3.24e-06
+Time:                        12:12:21   Log-Likelihood:                 3856.7
 No. Observations:                9071   AIC:                            -7709.
 Df Residuals:                    9069   BIC:                            -7695.
 Df Model:                           1                                         
@@ -1655,6 +1754,7 @@ Notes:
 <section id="indicators-and-categorical-variables">
 <h2>Indicators and categorical variables<a class="headerlink" href="#indicators-and-categorical-variables" title="Permalink to this headline">#</a></h2>
 <p>The variables used above are measured numerically. Some are <strong>continuous</strong>, like square footage, while others are <strong>counts</strong>, like the number of bedrooms. Sometimes, though, we want to include an <strong>indicator</strong> for something? For example, does this house have a pool or not?</p>
+<p>These kinds of variables are called <strong>categorical</strong> and are a very common way to structure your features. You can read more here: <a class="reference external" href="https://aeturrell.github.io/coding-for-economists/data-categorical.html">https://aeturrell.github.io/coding-for-economists/data-categorical.html</a></p>
 <p>There is a variable in the data called <code class="docutils literal notranslate"><span class="pre">poolcnt</span></code>. It seems to be either missing (NaN) or set equal to 1. I believe that a value of 1 means that the house has a pool and that <code class="docutils literal notranslate"><span class="pre">NaN</span></code> means that it does not. This is bit of a tricky assumption, because <code class="docutils literal notranslate"><span class="pre">NaN</span></code> could mean no pool or that we don’t know either way. But, I’ll make that assumption for illustrative purposes.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -1713,8 +1813,8 @@ Name: pool_d, dtype: float64
 Dep. Variable:               logerror   R-squared:                       0.001
 Model:                            OLS   Adj. R-squared:                  0.001
 Method:                 Least Squares   F-statistic:                     6.684
-Date:                Mon, 10 Mar 2025   Prob (F-statistic):            0.00126
-Time:                        09:29:29   Log-Likelihood:                 3831.8
+Date:                Fri, 21 Mar 2025   Prob (F-statistic):            0.00126
+Time:                        12:12:21   Log-Likelihood:                 3831.8
 No. Observations:                9001   AIC:                            -7658.
 Df Residuals:                    8998   BIC:                            -7636.
 Df Model:                           2                                         
@@ -1755,8 +1855,8 @@ Notes:
 Dep. Variable:               logerror   R-squared:                       0.004
 Model:                            OLS   Adj. R-squared:                  0.003
 Method:                 Least Squares   F-statistic:                     3.118
-Date:                Mon, 10 Mar 2025   Prob (F-statistic):           0.000196
-Time:                        09:29:30   Log-Likelihood:                 3843.8
+Date:                Fri, 21 Mar 2025   Prob (F-statistic):           0.000196
+Time:                        12:12:21   Log-Likelihood:                 3843.8
 No. Observations:                9001   AIC:                            -7662.
 Df Residuals:                    8988   BIC:                            -7569.
 Df Model:                          12                                         
@@ -1788,12 +1888,9 @@ Notes:
 [1] Standard Errors assume that the covariance matrix of the errors is correctly specified.
 </pre></div>
 </div>
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>
-</pre></div>
 </div>
 </div>
-</div>
-<p>And here are zip codes as a categorical variable. This is saying: Is the house in this zip code or no? If it is, the indicator for that zip code gets a 1, and a 0 otherwise. If we didn’t do this, then the zip code would get treated like a numerical variable in the regression, like square footage, which makes no sense!</p>
+<p>And here are zip codes as a <strong>categorical variable</strong>. This is saying: Is the house in this zip code or no? If it is, the indicator for that zip code gets a 1, and a 0 otherwise. If we didn’t do this, then the zip code would get treated like a numerical variable in the regression, like square footage, which makes no sense!</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">results</span> <span class="o">=</span> <span class="n">smf</span><span class="o">.</span><span class="n">ols</span><span class="p">(</span><span class="s2">&quot;logerror ~ ln_calculatedfinishedsquarefeet + C(regionidzip)&quot;</span><span class="p">,</span> <span class="n">data</span><span class="o">=</span><span class="n">zillow_data</span><span class="p">)</span><span class="o">.</span><span class="n">fit</span><span class="p">()</span>
@@ -1807,8 +1904,8 @@ Notes:
 Dep. Variable:               logerror   R-squared:                       0.054
 Model:                            OLS   Adj. R-squared:                  0.012
 Method:                 Least Squares   F-statistic:                     1.300
-Date:                Mon, 10 Mar 2025   Prob (F-statistic):           0.000104
-Time:                        09:29:30   Log-Likelihood:                 4075.3
+Date:                Fri, 21 Mar 2025   Prob (F-statistic):           0.000104
+Time:                        12:12:21   Log-Likelihood:                 4075.3
 No. Observations:                9001   AIC:                            -7391.
 Df Residuals:                    8621   BIC:                            -4691.
 Df Model:                         379                                         
@@ -3226,9 +3323,10 @@ strong multicollinearity or other numerical problems.
 <p><code class="docutils literal notranslate"><span class="pre">pd.get_dummies</span></code> has an option <code class="docutils literal notranslate"><span class="pre">dtype=</span></code> for the output. You can choose to get <strong>booleans</strong> (True or False) or <strong>integers</strong> (1/0) for the output. You’ll want integers for your regression models.</p>
 </section>
 </section>
-<section id="hull-chapters-3-and-10-linear-regression-and-prediction">
-<h2>Hull, Chapters 3 and 10. Linear regression and prediction.<a class="headerlink" href="#hull-chapters-3-and-10-linear-regression-and-prediction" title="Permalink to this headline">#</a></h2>
-<p>Chapter 3.1 starts off with the math behind linear regression with one feature. This is just what we did above, when we tried to explain pricing errors with one variable. This math and how regression works should be familiar from your introductory statistics course.</p>
+<section id="linear-regression-and-prediction-more-hull-chapters-3-and-10">
+<h2>Linear regression and prediction. More Hull, Chapters 3 and 10.<a class="headerlink" href="#linear-regression-and-prediction-more-hull-chapters-3-and-10" title="Permalink to this headline">#</a></h2>
+<p>As noted above, Chapter 3 starts off with the math behind linear regression with one feature. This is just what we did above, when we tried to explain pricing errors with one variable. This math and how regression works should be familiar from your introductory statistics course.</p>
+<p>The notes below walk you through what’s in Hull in more detail.</p>
 <section id="machine-learning-and-prediction">
 <h3>Machine learning and prediction<a class="headerlink" href="#machine-learning-and-prediction" title="Permalink to this headline">#</a></h3>
 <p>We’re going to introduce <strong>machine learning concepts</strong> now. Notice the idea of a <strong>training set</strong>. This is the data that we use to create our model. We are then going to take the outputs (i.e. the coefficients) from this model and use it to predict values in the <strong>out-of-sample</strong> data.</p>
@@ -3246,8 +3344,8 @@ strong multicollinearity or other numerical problems.
 <p>As you’ll see, sometimes we only use two separate data sets, training and test data. We’ll validate the model within the training data.</p>
 <p><code class="docutils literal notranslate"><span class="pre">sklearn</span></code> has many built-in features to help, like ways to automatically split your data, though the textbook tends to do things manually.</p>
 <p>Chapter 3.2 introduces <strong>multiple features</strong>. Again, this just means multiple explanatory X variables. Eq. 3.1 gives us the general form of a linear regression model:</p>
-<div class="amsmath math notranslate nohighlight" id="equation-0e7a4c4d-5e27-4134-842b-3e6a4ecc3706">
-<span class="eqno">(15)<a class="headerlink" href="#equation-0e7a4c4d-5e27-4134-842b-3e6a4ecc3706" title="Permalink to this equation">#</a></span>\[\begin{align}
+<div class="amsmath math notranslate nohighlight" id="equation-1fec4c95-e818-4932-9e8c-004c0743888e">
+<span class="eqno">(15)<a class="headerlink" href="#equation-1fec4c95-e818-4932-9e8c-004c0743888e" title="Permalink to this equation">#</a></span>\[\begin{align}
 Y = a + b_1 X_1 + b_2 X_2 + \cdots + b_m X_m + \varepsilon
 \end{align}\]</div>
 <p>The <a class="reference external" href="https://www.statsmodels.org/dev/examples/notebooks/generated/ols.html">statsmodel</a> page for linear regression has helpful code examples, including how to generate dummy variables (see below).</p>
@@ -3258,13 +3356,13 @@ Y = a + b_1 X_1 + b_2 X_2 + \cdots + b_m X_m + \varepsilon
 <p>In short, the linear regression algorithm selects values for <span class="math notranslate nohighlight">\(a\)</span> and each <span class="math notranslate nohighlight">\(b\)</span> above that minimize the sum of the squared differences between each Y and its predicted value (i.e. the right-hand side of the equation). This is shown in Eq. 3.2. Why do we square the differences? The direction of the error doesn’t matter - we want predicted values to be close to the actual value.</p>
 <p>The text notes that <span class="math notranslate nohighlight">\(a\)</span> is called the model <strong>bias</strong> and the <span class="math notranslate nohighlight">\(b\)</span> values are called the model <strong>weights</strong>. In econometrics, we call <span class="math notranslate nohighlight">\(a\)</span> the <strong>intercept</strong> and the <span class="math notranslate nohighlight">\(b\)</span> values <strong>coefficients</strong>.</p>
 <p>Machine learning techniques are all about <strong>prediction</strong>. How well does the model predict or fit the data? To measure this, we can use the <strong>R-Squared</strong> value for the model.</p>
-<div class="amsmath math notranslate nohighlight" id="equation-55c25f4b-7d77-4482-8e58-9f5c544a2d13">
-<span class="eqno">(16)<a class="headerlink" href="#equation-55c25f4b-7d77-4482-8e58-9f5c544a2d13" title="Permalink to this equation">#</a></span>\[\begin{align}
+<div class="amsmath math notranslate nohighlight" id="equation-9ad0baee-3262-4577-8207-8884d64a869d">
+<span class="eqno">(16)<a class="headerlink" href="#equation-9ad0baee-3262-4577-8207-8884d64a869d" title="Permalink to this equation">#</a></span>\[\begin{align}
 R^2 = 1 - \frac{\sum_{i=1}^{n} (y_i - \hat{y}_i)^2}{\sum_{i=1}^{n} (y_i - \bar{y})^2}
 \end{align}\]</div>
 <p>We can also put this into words:</p>
-<div class="amsmath math notranslate nohighlight" id="equation-b57e14ce-458e-4c19-baa0-2f27e818f62f">
-<span class="eqno">(17)<a class="headerlink" href="#equation-b57e14ce-458e-4c19-baa0-2f27e818f62f" title="Permalink to this equation">#</a></span>\[\begin{align}
+<div class="amsmath math notranslate nohighlight" id="equation-3ca43bb2-95b7-45ec-a09e-62adeff456ac">
+<span class="eqno">(17)<a class="headerlink" href="#equation-3ca43bb2-95b7-45ec-a09e-62adeff456ac" title="Permalink to this equation">#</a></span>\[\begin{align}
 R^2 = 1 - \frac{\text{Variance of the errors } \epsilon}{\text{Variation of the observations on the target Y}}
 \end{align}\]</div>
 <p>As noted by the text:</p>
@@ -3306,8 +3404,8 @@ R^2 = 1 - \frac{\text{Variance of the errors } \epsilon}{\text{Variation of the 
 <div><p>Feature scaling through standardization, also called Z-score normalization, is an important preprocessing step for many machine learning algorithms. It involves rescaling each feature such that it has a standard deviation of 1 and a mean of 0.</p>
 </div></blockquote>
 <p>One way to regularize our model is to use a <strong>Ridge regression</strong>. This algorithm chooses <span class="math notranslate nohighlight">\(a\)</span> and <span class="math notranslate nohighlight">\(b\)</span> parameters to minimize this function:</p>
-<div class="amsmath math notranslate nohighlight" id="equation-cfce8a9a-2e6f-4603-8b35-e4248cf3dccb">
-<span class="eqno">(18)<a class="headerlink" href="#equation-cfce8a9a-2e6f-4603-8b35-e4248cf3dccb" title="Permalink to this equation">#</a></span>\[\begin{align}
+<div class="amsmath math notranslate nohighlight" id="equation-6d51310e-0e2b-4890-9ce6-f4da0a9ca902">
+<span class="eqno">(18)<a class="headerlink" href="#equation-6d51310e-0e2b-4890-9ce6-f4da0a9ca902" title="Permalink to this equation">#</a></span>\[\begin{align}
 \frac{1}{n}\sum_{i=1}^{n}(Y_i - a - b_1X_{i1} - b_2X_{i2} - \cdots - b_mX_{im})^2 + \lambda\sum_{j=1}^{m}b_j^2
 \end{align}\]</div>
 <p>Note that this looks a lot like a normal regression, except that we now have the last term with <span class="math notranslate nohighlight">\(\lambda\)</span> and <span class="math notranslate nohighlight">\(b^2\)</span>. From the text:</p>
@@ -3332,8 +3430,8 @@ R^2 = 1 - \frac{\text{Variance of the errors } \epsilon}{\text{Variation of the 
 <div><p>In Ridge, we added a constant times the sum of the squared weights to the objective function. In LASSO, we add a constant times the sum of the <strong>absolute weights</strong>.</p>
 </div></blockquote>
 <p>LASSO is also called <strong>L1 regularization</strong>. This changes the last term in the equation that we are trying to minimize:</p>
-<div class="amsmath math notranslate nohighlight" id="equation-95a4e869-1ccc-4c76-bdfd-61835ed0a582">
-<span class="eqno">(19)<a class="headerlink" href="#equation-95a4e869-1ccc-4c76-bdfd-61835ed0a582" title="Permalink to this equation">#</a></span>\[\begin{align}
+<div class="amsmath math notranslate nohighlight" id="equation-033e0ef6-43e2-4511-b4bd-d53b9d780291">
+<span class="eqno">(19)<a class="headerlink" href="#equation-033e0ef6-43e2-4511-b4bd-d53b9d780291" title="Permalink to this equation">#</a></span>\[\begin{align}
 \frac{1}{n}\sum_{i=1}^{n}(Y_i - a - b_1X_{i1} - b_2X_{i2} - \cdots - b_mX_{im})^2 + \lambda\sum_{j=1}^{m}|b_j|
 \end{align}\]</div>
 <p>I asked the Claude GPT to explain this equation:</p>
@@ -3345,8 +3443,8 @@ R^2 = 1 - \frac{\text{Variance of the errors } \epsilon}{\text{Variation of the 
 <section id="elastic-net-regression">
 <h3>Elastic net regression<a class="headerlink" href="#elastic-net-regression" title="Permalink to this headline">#</a></h3>
 <p>Elastic Net regression is a <strong>mixture of Ridge and LASSO</strong>. The function to be minimized includes both a constant times the sum of the squared weights and a different constant times the sum of the absolute values of the weights.</p>
-<div class="amsmath math notranslate nohighlight" id="equation-104652bd-a690-4a66-bb11-03ec682f695a">
-<span class="eqno">(20)<a class="headerlink" href="#equation-104652bd-a690-4a66-bb11-03ec682f695a" title="Permalink to this equation">#</a></span>\[\begin{align}
+<div class="amsmath math notranslate nohighlight" id="equation-f03c07eb-4f1f-48dc-800e-f1f3f005d819">
+<span class="eqno">(20)<a class="headerlink" href="#equation-f03c07eb-4f1f-48dc-800e-f1f3f005d819" title="Permalink to this equation">#</a></span>\[\begin{align}
 \frac{1}{n}\sum_{i=1}^{n}(Y_i - a - b_1X_{i1} - b_2X_{i2} - \cdots - b_mX_{im})^2 + \lambda_1\sum_{j=1}^{m}b_j^2 + \lambda_2\sum_{j=1}^{m}|b_j|
 \end{align}\]</div>
 <p>From the text:</p>
@@ -4517,8 +4615,8 @@ div.sk-label-container:hover .sk-estimator-doc-link.fitted:hover,
 Dep. Variable:             Sale Price   R-squared:                       0.886
 Model:                            OLS   Adj. R-squared:                  0.883
 Method:                 Least Squares   F-statistic:                     295.9
-Date:                Mon, 10 Mar 2025   Prob (F-statistic):               0.00
-Time:                        09:29:31   Log-Likelihood:                -599.81
+Date:                Fri, 21 Mar 2025   Prob (F-statistic):               0.00
+Time:                        12:12:22   Log-Likelihood:                -599.81
 No. Observations:                1800   AIC:                             1294.
 Df Residuals:                    1753   BIC:                             1552.
 Df Model:                          46                                         
@@ -4719,7 +4817,7 @@ Coefficient of determination: 0.90
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[&lt;matplotlib.lines.Line2D at 0x30f7c29d0&gt;]
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[&lt;matplotlib.lines.Line2D at 0x3140c9520&gt;]
 </pre></div>
 </div>
 <img alt="../_images/12_regression_topics_63_1.png" src="../_images/12_regression_topics_63_1.png" />
@@ -5419,7 +5517,7 @@ div.sk-label-container:hover .sk-estimator-doc-link.fitted:hover,
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[&lt;matplotlib.lines.Line2D at 0x30fce3bb0&gt;]
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[&lt;matplotlib.lines.Line2D at 0x31780ed60&gt;]
 </pre></div>
 </div>
 <img alt="../_images/12_regression_topics_71_1.png" src="../_images/12_regression_topics_71_1.png" />
@@ -7305,7 +7403,7 @@ div.sk-label-container:hover .sk-estimator-doc-link.fitted:hover,
 <figure class="align-center" id="cross-validation-png">
 <img alt="../_images/12-cross-validation.png" src="../_images/12-cross-validation.png" />
 <figcaption>
-<p><span class="caption-number">Fig. 70 </span><span class="caption-text">Holding out different parts of our training data in order to search for optimal hyperparameters. Source:Justintodata.com</span><a class="headerlink" href="#cross-validation-png" title="Permalink to this image">#</a></p>
+<p><span class="caption-number">Fig. 72 </span><span class="caption-text">Holding out different parts of our training data in order to search for optimal hyperparameters. Source:Justintodata.com</span><a class="headerlink" href="#cross-validation-png" title="Permalink to this image">#</a></p>
 </figcaption>
 </figure>
 <div class="cell docutils container">
@@ -8339,16 +8437,16 @@ Name: logerror, Length: 1815, dtype: float64
 </div>
 <div class="cell_output docutils container">
 <div class="output text_html"><style type="text/css">
-#T_de0f1_row0_col1, #T_de0f1_row9_col0 {
+#T_66268_row0_col1, #T_66268_row9_col0 {
   font-weight: bold;
 }
 </style>
-<table id="T_de0f1">
+<table id="T_66268">
   <thead>
     <tr>
       <th class="blank level0" >&nbsp;</th>
-      <th id="T_de0f1_level0_col0" class="col_heading level0 col0" >AIC criterion</th>
-      <th id="T_de0f1_level0_col1" class="col_heading level0 col1" >BIC criterion</th>
+      <th id="T_66268_level0_col0" class="col_heading level0 col0" >AIC criterion</th>
+      <th id="T_66268_level0_col1" class="col_heading level0 col1" >BIC criterion</th>
     </tr>
     <tr>
       <th class="index_name level0" >alphas</th>
@@ -8358,79 +8456,79 @@ Name: logerror, Length: 1815, dtype: float64
   </thead>
   <tbody>
     <tr>
-      <th id="T_de0f1_level0_row0" class="row_heading level0 row0" >0.008193</th>
-      <td id="T_de0f1_row0_col0" class="data row0 col0" >-6566.197538</td>
-      <td id="T_de0f1_row0_col1" class="data row0 col1" >-6566.197538</td>
+      <th id="T_66268_level0_row0" class="row_heading level0 row0" >0.008193</th>
+      <td id="T_66268_row0_col0" class="data row0 col0" >-6566.197538</td>
+      <td id="T_66268_row0_col1" class="data row0 col1" >-6566.197538</td>
     </tr>
     <tr>
-      <th id="T_de0f1_level0_row1" class="row_heading level0 row1" >0.006502</th>
-      <td id="T_de0f1_row1_col0" class="data row1 col0" >-6571.833764</td>
-      <td id="T_de0f1_row1_col1" class="data row1 col1" >-6564.944180</td>
+      <th id="T_66268_level0_row1" class="row_heading level0 row1" >0.006502</th>
+      <td id="T_66268_row1_col0" class="data row1 col0" >-6571.833764</td>
+      <td id="T_66268_row1_col1" class="data row1 col1" >-6564.944180</td>
     </tr>
     <tr>
-      <th id="T_de0f1_level0_row2" class="row_heading level0 row2" >0.006250</th>
-      <td id="T_de0f1_row2_col0" class="data row2 col0" >-6570.829907</td>
-      <td id="T_de0f1_row2_col1" class="data row2 col1" >-6557.050739</td>
+      <th id="T_66268_level0_row2" class="row_heading level0 row2" >0.006250</th>
+      <td id="T_66268_row2_col0" class="data row2 col0" >-6570.829907</td>
+      <td id="T_66268_row2_col1" class="data row2 col1" >-6557.050739</td>
     </tr>
     <tr>
-      <th id="T_de0f1_level0_row3" class="row_heading level0 row3" >0.006217</th>
-      <td id="T_de0f1_row3_col0" class="data row3 col0" >-6568.983921</td>
-      <td id="T_de0f1_row3_col1" class="data row3 col1" >-6548.315169</td>
+      <th id="T_66268_level0_row3" class="row_heading level0 row3" >0.006217</th>
+      <td id="T_66268_row3_col0" class="data row3 col0" >-6568.983921</td>
+      <td id="T_66268_row3_col1" class="data row3 col1" >-6548.315169</td>
     </tr>
     <tr>
-      <th id="T_de0f1_level0_row4" class="row_heading level0 row4" >0.005552</th>
-      <td id="T_de0f1_row4_col0" class="data row4 col0" >-6572.082467</td>
-      <td id="T_de0f1_row4_col1" class="data row4 col1" >-6551.413715</td>
+      <th id="T_66268_level0_row4" class="row_heading level0 row4" >0.005552</th>
+      <td id="T_66268_row4_col0" class="data row4 col0" >-6572.082467</td>
+      <td id="T_66268_row4_col1" class="data row4 col1" >-6551.413715</td>
     </tr>
     <tr>
-      <th id="T_de0f1_level0_row5" class="row_heading level0 row5" >0.004159</th>
-      <td id="T_de0f1_row5_col0" class="data row5 col0" >-6577.437720</td>
-      <td id="T_de0f1_row5_col1" class="data row5 col1" >-6556.768968</td>
+      <th id="T_66268_level0_row5" class="row_heading level0 row5" >0.004159</th>
+      <td id="T_66268_row5_col0" class="data row5 col0" >-6577.437720</td>
+      <td id="T_66268_row5_col1" class="data row5 col1" >-6556.768968</td>
     </tr>
     <tr>
-      <th id="T_de0f1_level0_row6" class="row_heading level0 row6" >0.004015</th>
-      <td id="T_de0f1_row6_col0" class="data row6 col0" >-6576.114858</td>
-      <td id="T_de0f1_row6_col1" class="data row6 col1" >-6548.556522</td>
+      <th id="T_66268_level0_row6" class="row_heading level0 row6" >0.004015</th>
+      <td id="T_66268_row6_col0" class="data row6 col0" >-6576.114858</td>
+      <td id="T_66268_row6_col1" class="data row6 col1" >-6548.556522</td>
     </tr>
     <tr>
-      <th id="T_de0f1_level0_row7" class="row_heading level0 row7" >0.002618</th>
-      <td id="T_de0f1_row7_col0" class="data row7 col0" >-6581.223880</td>
-      <td id="T_de0f1_row7_col1" class="data row7 col1" >-6546.775960</td>
+      <th id="T_66268_level0_row7" class="row_heading level0 row7" >0.002618</th>
+      <td id="T_66268_row7_col0" class="data row7 col0" >-6581.223880</td>
+      <td id="T_66268_row7_col1" class="data row7 col1" >-6546.775960</td>
     </tr>
     <tr>
-      <th id="T_de0f1_level0_row8" class="row_heading level0 row8" >0.002365</th>
-      <td id="T_de0f1_row8_col0" class="data row8 col0" >-6580.648359</td>
-      <td id="T_de0f1_row8_col1" class="data row8 col1" >-6539.310855</td>
+      <th id="T_66268_level0_row8" class="row_heading level0 row8" >0.002365</th>
+      <td id="T_66268_row8_col0" class="data row8 col0" >-6580.648359</td>
+      <td id="T_66268_row8_col1" class="data row8 col1" >-6539.310855</td>
     </tr>
     <tr>
-      <th id="T_de0f1_level0_row9" class="row_heading level0 row9" >0.000653</th>
-      <td id="T_de0f1_row9_col0" class="data row9 col0" >-6587.044949</td>
-      <td id="T_de0f1_row9_col1" class="data row9 col1" >-6538.817861</td>
+      <th id="T_66268_level0_row9" class="row_heading level0 row9" >0.000653</th>
+      <td id="T_66268_row9_col0" class="data row9 col0" >-6587.044949</td>
+      <td id="T_66268_row9_col1" class="data row9 col1" >-6538.817861</td>
     </tr>
     <tr>
-      <th id="T_de0f1_level0_row10" class="row_heading level0 row10" >0.000577</th>
-      <td id="T_de0f1_row10_col0" class="data row10 col0" >-6585.219803</td>
-      <td id="T_de0f1_row10_col1" class="data row10 col1" >-6530.103131</td>
+      <th id="T_66268_level0_row10" class="row_heading level0 row10" >0.000577</th>
+      <td id="T_66268_row10_col0" class="data row10 col0" >-6585.219803</td>
+      <td id="T_66268_row10_col1" class="data row10 col1" >-6530.103131</td>
     </tr>
     <tr>
-      <th id="T_de0f1_level0_row11" class="row_heading level0 row11" >0.000412</th>
-      <td id="T_de0f1_row11_col0" class="data row11 col0" >-6583.581262</td>
-      <td id="T_de0f1_row11_col1" class="data row11 col1" >-6521.575006</td>
+      <th id="T_66268_level0_row11" class="row_heading level0 row11" >0.000412</th>
+      <td id="T_66268_row11_col0" class="data row11 col0" >-6583.581262</td>
+      <td id="T_66268_row11_col1" class="data row11 col1" >-6521.575006</td>
     </tr>
     <tr>
-      <th id="T_de0f1_level0_row12" class="row_heading level0 row12" >0.000239</th>
-      <td id="T_de0f1_row12_col0" class="data row12 col0" >-6582.063000</td>
-      <td id="T_de0f1_row12_col1" class="data row12 col1" >-6513.167160</td>
+      <th id="T_66268_level0_row12" class="row_heading level0 row12" >0.000239</th>
+      <td id="T_66268_row12_col0" class="data row12 col0" >-6582.063000</td>
+      <td id="T_66268_row12_col1" class="data row12 col1" >-6513.167160</td>
     </tr>
     <tr>
-      <th id="T_de0f1_level0_row13" class="row_heading level0 row13" >0.000168</th>
-      <td id="T_de0f1_row13_col0" class="data row13 col0" >-6580.302964</td>
-      <td id="T_de0f1_row13_col1" class="data row13 col1" >-6504.517540</td>
+      <th id="T_66268_level0_row13" class="row_heading level0 row13" >0.000168</th>
+      <td id="T_66268_row13_col0" class="data row13 col0" >-6580.302964</td>
+      <td id="T_66268_row13_col1" class="data row13 col1" >-6504.517540</td>
     </tr>
     <tr>
-      <th id="T_de0f1_level0_row14" class="row_heading level0 row14" >0.000000</th>
-      <td id="T_de0f1_row14_col0" class="data row14 col0" >-6580.414299</td>
-      <td id="T_de0f1_row14_col1" class="data row14 col1" >-6497.739291</td>
+      <th id="T_66268_level0_row14" class="row_heading level0 row14" >0.000000</th>
+      <td id="T_66268_row14_col0" class="data row14 col0" >-6580.414299</td>
+      <td id="T_66268_row14_col1" class="data row14 col1" >-6497.739291</td>
     </tr>
   </tbody>
 </table>
