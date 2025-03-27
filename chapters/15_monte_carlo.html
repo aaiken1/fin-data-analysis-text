@@ -50,8 +50,6 @@ const thebe_selector_input = "pre"
 const thebe_selector_output = ".output, .cell_output"
 </script>
     <script async="async" src="../_static/sphinx-thebe.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
-    <script src="https://unpkg.com/@jupyter-widgets/html-manager@^0.20.0/dist/embed-amd.js"></script>
     <script>window.MathJax = {"options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
     <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
     <link rel="index" title="Index" href="../genindex.html" />
@@ -574,15 +572,15 @@ title="Print to PDF"
 <p>However, when we start to form portfolios, we are going to care about the correlations across assets. We’ve already seen this when looking at portfolio math. When simulating the Bitcoin prices, we took random numbers from the standard normal distribution and then scaled them by our estimate for the volatility of BTC. This allowed us to capture the randomness of the returns.</p>
 <p>However, when dealing with more than one asset, we can’t do that, since the assets are <strong>not independent</strong> from one another. If Apple goes up, Google is more likely to have gone up as well. The two stocks are <strong>correlated</strong>. How can we account for this in our simulation? We will create <strong>correlated random shocks</strong> (<span class="math notranslate nohighlight">\(W\)</span>), where the random movement of one asset depends on another assets movement.</p>
 <p>Let’s try a simulation to see what’s going on. I’ll draw two random variables from the standard normal distribution, N(0,1). The random part of the return for Asset 1, <span class="math notranslate nohighlight">\(W_1\)</span>, is simply the random draw, <span class="math notranslate nohighlight">\(x_1\)</span>. However, the random part of the return for Asset 2, <span class="math notranslate nohighlight">\(W_2\)</span>, is correlated with whatever <span class="math notranslate nohighlight">\(x_1\)</span> ends up being. Mathematically, this dependent random movement is given as:</p>
-<div class="amsmath math notranslate nohighlight" id="equation-cceb679c-daac-4853-af18-2fd2dd5c2963">
-<span class="eqno">(23)<a class="headerlink" href="#equation-cceb679c-daac-4853-af18-2fd2dd5c2963" title="Permalink to this equation">#</a></span>\[\begin{align}
+<div class="amsmath math notranslate nohighlight" id="equation-86a7cece-40c5-430f-b45a-6827201d383d">
+<span class="eqno">(23)<a class="headerlink" href="#equation-86a7cece-40c5-430f-b45a-6827201d383d" title="Permalink to this equation">#</a></span>\[\begin{align}
 W_2 = \rho x_1 + (1 - \sqrt{\rho^2}) x_2
 \end{align}\]</div>
 <p>I’ll set the correlation, <span class="math notranslate nohighlight">\(\rho\)</span>, to be -0.80. These two assets are negatively correlated, so they should move in opposite directions. We’ll set each asset to have the same mean return and same volatility. I’ll set the starting price of each of these assets to 1.</p>
 <p>We’ll bring in our usual packages and try this out. This code should look a lot like the Bitcoin code, except that I now have two assets. I am only doing one simulation for each asset, so two total simulations.</p>
 <p>How do we simulative prices? Let me remind you of a formula:</p>
-<div class="amsmath math notranslate nohighlight" id="equation-a42f019c-ee9f-450d-b865-69521787c707">
-<span class="eqno">(24)<a class="headerlink" href="#equation-a42f019c-ee9f-450d-b865-69521787c707" title="Permalink to this equation">#</a></span>\[\begin{align}
+<div class="amsmath math notranslate nohighlight" id="equation-4a91061c-1f9b-41ca-bd4f-f822e0e7ae06">
+<span class="eqno">(24)<a class="headerlink" href="#equation-4a91061c-1f9b-41ca-bd4f-f822e0e7ae06" title="Permalink to this equation">#</a></span>\[\begin{align}
 S(t) = S(0) \exp \left(\left(\mu - \frac{1}{2}\sigma^2\right)t + \sigma W(t)\right)
 \end{align}\]</div>
 <p>Take a starting price <span class="math notranslate nohighlight">\(S_0\)</span>. We use <code class="docutils literal notranslate"><span class="pre">exp</span></code> for continuous compounding. Then, the price today, <span class="math notranslate nohighlight">\(S_t\)</span> is a function of two return sources. The first source is called <strong>drift</strong>: <span class="math notranslate nohighlight">\(\mu - \frac{1}{2}\sigma^2\)</span>. This is what an asset returns on average over some period, like a day. This is the <strong>deterministic</strong> piece of the return and would be related to risk. <span class="math notranslate nohighlight">\(\mu\)</span> is the <strong>arithmetic average</strong> and <span class="math notranslate nohighlight">\(\sigma\)</span> is the volatility (standard deviation). They should be in the same units (e.g. daily).</p>
@@ -593,7 +591,6 @@ S(t) = S(0) \exp \left(\left(\mu - \frac{1}{2}\sigma^2\right)t + \sigma W(t)\rig
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">datetime</span>
 <span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
-<span class="kn">import</span> <span class="nn">yfinance</span> <span class="k">as</span> <span class="nn">yf</span>
 <span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
 <span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
 
@@ -660,42 +657,56 @@ S(t) = S(0) \exp \left(\left(\mu - \frac{1}{2}\sigma^2\right)t + \sigma W(t)\rig
 </div>
 <p>You can really see the negative correlation!</p>
 <p>Let’s move to some real data now. I am using <code class="docutils literal notranslate"><span class="pre">yfinance</span></code> to bring in price and volume data. I then keep just the adjusted closing prices for five stocks. Finally, I can calculate discrete returns and check my descriptives.</p>
+<p>You can read more here: <a class="reference external" href="https://yfinance-python.org/reference/api/yfinance.download.html#yfinance.download">https://yfinance-python.org/reference/api/yfinance.download.html#yfinance.download</a></p>
+<p>YFinance is not officially supported by Yahoo and is finicky to work with. StackOverflow says that his install method is best and that redoing it will fix issues that you might run into.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">start_date</span> <span class="o">=</span> <span class="n">datetime</span><span class="o">.</span><span class="n">datetime</span><span class="p">(</span><span class="mi">2019</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1">#pip install yfinance --upgrade --no-cache-dir</span>
+<span class="kn">import</span> <span class="nn">yfinance</span> <span class="k">as</span> <span class="nn">yf</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Define start and end dates</span>
+<span class="n">start_date</span> <span class="o">=</span> <span class="n">datetime</span><span class="o">.</span><span class="n">datetime</span><span class="p">(</span><span class="mi">2019</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
 <span class="n">end_date</span> <span class="o">=</span> <span class="n">datetime</span><span class="o">.</span><span class="n">datetime</span><span class="p">(</span><span class="mi">2020</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
+
+<span class="c1"># Define list of tickers</span>
 <span class="n">ticker_list</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;AAPL&quot;</span><span class="p">,</span> <span class="s2">&quot;F&quot;</span><span class="p">,</span> <span class="s2">&quot;CAG&quot;</span><span class="p">,</span> <span class="s2">&quot;AMZN&quot;</span><span class="p">,</span> <span class="s2">&quot;XOM&quot;</span><span class="p">]</span>
 
-<span class="n">stock_data</span> <span class="o">=</span> <span class="n">yf</span><span class="o">.</span><span class="n">download</span><span class="p">(</span><span class="n">ticker_list</span><span class="p">,</span> <span class="n">start_date</span><span class="p">,</span> <span class="n">end_date</span><span class="p">)</span>
-
-<span class="n">prices</span> <span class="o">=</span> <span class="n">stock_data</span><span class="p">[</span><span class="s1">&#39;Adj Close&#39;</span><span class="p">]</span>
-
-<span class="n">rets</span> <span class="o">=</span> <span class="n">prices</span><span class="o">.</span><span class="n">pct_change</span><span class="p">()</span><span class="o">.</span><span class="n">dropna</span><span class="p">()</span>
+<span class="c1"># Download adjusted close prices</span>
+<span class="n">stock_data</span> <span class="o">=</span> <span class="n">yf</span><span class="o">.</span><span class="n">download</span><span class="p">(</span><span class="n">ticker_list</span><span class="p">,</span> <span class="n">start</span><span class="o">=</span><span class="n">start_date</span><span class="p">,</span> <span class="n">end</span><span class="o">=</span><span class="n">end_date</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[                       0%%                      ]
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>YF.download() has changed argument auto_adjust default to True
 </pre></div>
 </div>
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[                       0%%                      ]
-[**********************60%%***                   ]  3 of 5 completed
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[                       0%                       ]
 </pre></div>
 </div>
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[**********************80%%************          ]  4 of 5 completed
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[*******************   40%                       ]  2 of 5 completed
 </pre></div>
 </div>
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[*********************100%%**********************]  5 of 5 completed
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[**********************60%****                   ]  3 of 5 completed
 </pre></div>
 </div>
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>5 Failed downloads:
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[**********************80%*************          ]  4 of 5 completed
 </pre></div>
 </div>
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[&#39;AMZN&#39;, &#39;CAG&#39;, &#39;XOM&#39;, &#39;AAPL&#39;, &#39;F&#39;]: JSONDecodeError(&#39;Expecting value: line 1 column 1 (char 0)&#39;)
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[*********************100%***********************]  5 of 5 completed
+</pre></div>
+</div>
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>
 </pre></div>
 </div>
 </div>
 </div>
+<p>You can see the data here. This is a <strong>multi-index data frame</strong>. I am going to keep the <em>Close</em>. I’ll also calculate the returns. However, there’s a problem here. We have the closing price, but is it adjusted for splits and dividends? Typically, we see the <strong>Adjusted Close</strong>. However, I don’t see it here. I saw a comment online that it was removed in January 2025. I’ll just use the closing price for now.</p>
+<p>See this for the difference: <a class="reference external" href="https://stackoverflow.com/questions/59799567/how-does-yahoo-finance-calculate-adjusted-close-stock-prices">https://stackoverflow.com/questions/59799567/how-does-yahoo-finance-calculate-adjusted-close-stock-prices</a></p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">stock_data</span>
@@ -725,8 +736,8 @@ S(t) = S(0) \exp \left(\left(\mu - \frac{1}{2}\sigma^2\right)t + \sigma W(t)\rig
   <thead>
     <tr>
       <th>Price</th>
-      <th colspan="5" halign="left">Adj Close</th>
       <th colspan="5" halign="left">Close</th>
+      <th colspan="5" halign="left">High</th>
       <th>...</th>
       <th colspan="5" halign="left">Open</th>
       <th colspan="5" halign="left">Volume</th>
@@ -781,10 +792,285 @@ S(t) = S(0) \exp \left(\left(\mu - \frac{1}{2}\sigma^2\right)t + \sigma W(t)\rig
     </tr>
   </thead>
   <tbody>
+    <tr>
+      <th>2019-01-02</th>
+      <td>37.667187</td>
+      <td>76.956497</td>
+      <td>16.942221</td>
+      <td>5.748631</td>
+      <td>51.719879</td>
+      <td>37.889013</td>
+      <td>77.667999</td>
+      <td>17.124907</td>
+      <td>5.835952</td>
+      <td>51.853465</td>
+      <td>...</td>
+      <td>36.944469</td>
+      <td>73.260002</td>
+      <td>16.791305</td>
+      <td>5.479391</td>
+      <td>49.983264</td>
+      <td>148158800</td>
+      <td>159662000</td>
+      <td>9529800</td>
+      <td>47494400</td>
+      <td>16727200</td>
+    </tr>
+    <tr>
+      <th>2019-01-03</th>
+      <td>33.915249</td>
+      <td>75.014000</td>
+      <td>17.124903</td>
+      <td>5.661311</td>
+      <td>50.925793</td>
+      <td>34.757226</td>
+      <td>76.900002</td>
+      <td>17.220218</td>
+      <td>5.814123</td>
+      <td>52.135482</td>
+      <td>...</td>
+      <td>34.342199</td>
+      <td>76.000504</td>
+      <td>16.894559</td>
+      <td>5.799569</td>
+      <td>51.949947</td>
+      <td>365248800</td>
+      <td>139512000</td>
+      <td>8526000</td>
+      <td>39172400</td>
+      <td>13866100</td>
+    </tr>
+    <tr>
+      <th>2019-01-04</th>
+      <td>35.363068</td>
+      <td>78.769501</td>
+      <td>17.363192</td>
+      <td>5.879612</td>
+      <td>52.803402</td>
+      <td>35.432241</td>
+      <td>79.699997</td>
+      <td>17.704737</td>
+      <td>5.908719</td>
+      <td>52.892455</td>
+      <td>...</td>
+      <td>34.473387</td>
+      <td>76.500000</td>
+      <td>17.228162</td>
+      <td>5.755908</td>
+      <td>51.682766</td>
+      <td>234428400</td>
+      <td>183652000</td>
+      <td>10307800</td>
+      <td>43039800</td>
+      <td>16043600</td>
+    </tr>
+    <tr>
+      <th>2019-01-07</th>
+      <td>35.284367</td>
+      <td>81.475502</td>
+      <td>17.720621</td>
+      <td>6.032424</td>
+      <td>53.077984</td>
+      <td>35.499037</td>
+      <td>81.727997</td>
+      <td>17.935080</td>
+      <td>6.090638</td>
+      <td>53.508427</td>
+      <td>...</td>
+      <td>35.468029</td>
+      <td>80.115501</td>
+      <td>17.355248</td>
+      <td>5.901443</td>
+      <td>52.877608</td>
+      <td>219111200</td>
+      <td>159864000</td>
+      <td>7688400</td>
+      <td>40729400</td>
+      <td>10844200</td>
+    </tr>
+    <tr>
+      <th>2019-01-08</th>
+      <td>35.956989</td>
+      <td>82.829002</td>
+      <td>17.029589</td>
+      <td>6.090638</td>
+      <td>53.463913</td>
+      <td>36.212208</td>
+      <td>83.830498</td>
+      <td>17.649134</td>
+      <td>6.214343</td>
+      <td>53.872088</td>
+      <td>...</td>
+      <td>35.673149</td>
+      <td>83.234497</td>
+      <td>17.569706</td>
+      <td>6.127022</td>
+      <td>53.834984</td>
+      <td>164101200</td>
+      <td>177628000</td>
+      <td>12699700</td>
+      <td>45644000</td>
+      <td>11439000</td>
+    </tr>
+    <tr>
+      <th>...</th>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+    </tr>
+    <tr>
+      <th>2019-12-24</th>
+      <td>68.823051</td>
+      <td>89.460503</td>
+      <td>27.924417</td>
+      <td>7.348589</td>
+      <td>54.453621</td>
+      <td>68.973162</td>
+      <td>89.778503</td>
+      <td>28.309866</td>
+      <td>7.364108</td>
+      <td>54.826913</td>
+      <td>...</td>
+      <td>68.924739</td>
+      <td>89.690498</td>
+      <td>27.932620</td>
+      <td>7.325309</td>
+      <td>54.710259</td>
+      <td>48478800</td>
+      <td>17626000</td>
+      <td>2459600</td>
+      <td>11881600</td>
+      <td>3979400</td>
+    </tr>
+    <tr>
+      <th>2019-12-26</th>
+      <td>70.188515</td>
+      <td>93.438499</td>
+      <td>27.629185</td>
+      <td>7.333068</td>
+      <td>54.539162</td>
+      <td>70.205464</td>
+      <td>93.523003</td>
+      <td>28.047438</td>
+      <td>7.364108</td>
+      <td>54.826908</td>
+      <td>...</td>
+      <td>68.956204</td>
+      <td>90.050499</td>
+      <td>27.850612</td>
+      <td>7.348588</td>
+      <td>54.585827</td>
+      <td>93121200</td>
+      <td>120108000</td>
+      <td>4672700</td>
+      <td>28961300</td>
+      <td>8840200</td>
+    </tr>
+    <tr>
+      <th>2019-12-27</th>
+      <td>70.161858</td>
+      <td>93.489998</td>
+      <td>28.031040</td>
+      <td>7.263230</td>
+      <td>54.352512</td>
+      <td>71.171436</td>
+      <td>95.070000</td>
+      <td>28.113049</td>
+      <td>7.340829</td>
+      <td>54.679139</td>
+      <td>...</td>
+      <td>70.481437</td>
+      <td>94.146004</td>
+      <td>27.694799</td>
+      <td>7.333069</td>
+      <td>54.593593</td>
+      <td>146266000</td>
+      <td>123732000</td>
+      <td>2574400</td>
+      <td>28272800</td>
+      <td>10516100</td>
+    </tr>
+    <tr>
+      <th>2019-12-30</th>
+      <td>70.578285</td>
+      <td>92.344498</td>
+      <td>27.916224</td>
+      <td>7.177871</td>
+      <td>54.033661</td>
+      <td>70.861551</td>
+      <td>94.199997</td>
+      <td>28.072042</td>
+      <td>7.255470</td>
+      <td>54.780239</td>
+      <td>...</td>
+      <td>70.079551</td>
+      <td>93.699997</td>
+      <td>27.981830</td>
+      <td>7.247710</td>
+      <td>54.508044</td>
+      <td>144114400</td>
+      <td>73494000</td>
+      <td>1813200</td>
+      <td>36074900</td>
+      <td>12689400</td>
+    </tr>
+    <tr>
+      <th>2019-12-31</th>
+      <td>71.093979</td>
+      <td>92.391998</td>
+      <td>28.080242</td>
+      <td>7.216671</td>
+      <td>54.266975</td>
+      <td>71.101242</td>
+      <td>92.663002</td>
+      <td>28.186853</td>
+      <td>7.239950</td>
+      <td>54.282532</td>
+      <td>...</td>
+      <td>70.193350</td>
+      <td>92.099998</td>
+      <td>27.981828</td>
+      <td>7.177871</td>
+      <td>53.675932</td>
+      <td>100805600</td>
+      <td>50130000</td>
+      <td>2558500</td>
+      <td>32342100</td>
+      <td>13151800</td>
+    </tr>
   </tbody>
 </table>
-<p>0 rows × 30 columns</p>
+<p>252 rows × 25 columns</p>
 </div></div></div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Extract only the adjusted close prices</span>
+<span class="n">prices</span> <span class="o">=</span> <span class="n">stock_data</span><span class="p">[</span><span class="s1">&#39;Close&#39;</span><span class="p">]</span>
+
+<span class="c1"># Compute daily returns</span>
+<span class="n">rets</span> <span class="o">=</span> <span class="n">prices</span><span class="o">.</span><span class="n">pct_change</span><span class="p">()</span><span class="o">.</span><span class="n">dropna</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -827,8 +1113,97 @@ S(t) = S(0) \exp \left(\left(\mu - \frac{1}{2}\sigma^2\right)t + \sigma W(t)\rig
     </tr>
   </thead>
   <tbody>
+    <tr>
+      <th>2019-01-03</th>
+      <td>-0.099608</td>
+      <td>-0.025241</td>
+      <td>0.010783</td>
+      <td>-0.015190</td>
+      <td>-0.015354</td>
+    </tr>
+    <tr>
+      <th>2019-01-04</th>
+      <td>0.042689</td>
+      <td>0.050064</td>
+      <td>0.013915</td>
+      <td>0.038560</td>
+      <td>0.036870</td>
+    </tr>
+    <tr>
+      <th>2019-01-07</th>
+      <td>-0.002226</td>
+      <td>0.034353</td>
+      <td>0.020585</td>
+      <td>0.025990</td>
+      <td>0.005200</td>
+    </tr>
+    <tr>
+      <th>2019-01-08</th>
+      <td>0.019063</td>
+      <td>0.016612</td>
+      <td>-0.038996</td>
+      <td>0.009650</td>
+      <td>0.007271</td>
+    </tr>
+    <tr>
+      <th>2019-01-09</th>
+      <td>0.016982</td>
+      <td>0.001714</td>
+      <td>-0.002799</td>
+      <td>0.041816</td>
+      <td>0.005274</td>
+    </tr>
+    <tr>
+      <th>...</th>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+    </tr>
+    <tr>
+      <th>2019-12-24</th>
+      <td>0.000951</td>
+      <td>-0.002114</td>
+      <td>0.000882</td>
+      <td>0.003178</td>
+      <td>-0.003841</td>
+    </tr>
+    <tr>
+      <th>2019-12-26</th>
+      <td>0.019840</td>
+      <td>0.044467</td>
+      <td>-0.010573</td>
+      <td>-0.002112</td>
+      <td>0.001571</td>
+    </tr>
+    <tr>
+      <th>2019-12-27</th>
+      <td>-0.000380</td>
+      <td>0.000551</td>
+      <td>0.014545</td>
+      <td>-0.009524</td>
+      <td>-0.003422</td>
+    </tr>
+    <tr>
+      <th>2019-12-30</th>
+      <td>0.005935</td>
+      <td>-0.012253</td>
+      <td>-0.004096</td>
+      <td>-0.011752</td>
+      <td>-0.005866</td>
+    </tr>
+    <tr>
+      <th>2019-12-31</th>
+      <td>0.007307</td>
+      <td>0.000514</td>
+      <td>0.005875</td>
+      <td>0.005405</td>
+      <td>0.004318</td>
+    </tr>
   </tbody>
 </table>
+<p>251 rows × 5 columns</p>
 </div></div></div>
 </div>
 <div class="cell docutils container">
@@ -866,67 +1241,67 @@ S(t) = S(0) \exp \left(\left(\mu - \frac{1}{2}\sigma^2\right)t + \sigma W(t)\rig
   <tbody>
     <tr>
       <th>count</th>
-      <td>0.0</td>
-      <td>0.0</td>
-      <td>0.0</td>
-      <td>0.0</td>
-      <td>0.0</td>
+      <td>251.000000</td>
+      <td>251.000000</td>
+      <td>251.000000</td>
+      <td>251.000000</td>
+      <td>251.000000</td>
     </tr>
     <tr>
       <th>mean</th>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
+      <td>0.002671</td>
+      <td>0.000832</td>
+      <td>0.002271</td>
+      <td>0.001053</td>
+      <td>0.000257</td>
     </tr>
     <tr>
       <th>std</th>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
+      <td>0.016498</td>
+      <td>0.014382</td>
+      <td>0.022887</td>
+      <td>0.017158</td>
+      <td>0.011499</td>
     </tr>
     <tr>
       <th>min</th>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
+      <td>-0.099608</td>
+      <td>-0.053819</td>
+      <td>-0.120982</td>
+      <td>-0.074540</td>
+      <td>-0.040289</td>
     </tr>
     <tr>
       <th>25%</th>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
+      <td>-0.004820</td>
+      <td>-0.006649</td>
+      <td>-0.008724</td>
+      <td>-0.006961</td>
+      <td>-0.006711</td>
     </tr>
     <tr>
       <th>50%</th>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
+      <td>0.002768</td>
+      <td>0.001163</td>
+      <td>0.002338</td>
+      <td>0.000965</td>
+      <td>0.000693</td>
     </tr>
     <tr>
       <th>75%</th>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
+      <td>0.011560</td>
+      <td>0.008535</td>
+      <td>0.013240</td>
+      <td>0.010034</td>
+      <td>0.007803</td>
     </tr>
     <tr>
       <th>max</th>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
+      <td>0.068335</td>
+      <td>0.050064</td>
+      <td>0.158692</td>
+      <td>0.107447</td>
+      <td>0.036870</td>
     </tr>
   </tbody>
 </table>
@@ -956,20 +1331,6 @@ S(t) = S(0) \exp \left(\left(\mu - \frac{1}{2}\sigma^2\right)t + \sigma W(t)\rig
 
 <span class="c1"># initial matrix</span>
 <span class="n">port_returns_all</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">full</span><span class="p">((</span><span class="n">T</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="n">N_SIM</span><span class="p">),</span> <span class="mf">0.</span><span class="p">)</span> <span class="c1"># One less return than price</span>
-</pre></div>
-</div>
-</div>
-<div class="cell_output docutils container">
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>/opt/anaconda3/lib/python3.9/site-packages/numpy/lib/function_base.py:518: RuntimeWarning: Mean of empty slice.
-  avg = a.mean(axis, **keepdims_kw)
-/opt/anaconda3/lib/python3.9/site-packages/numpy/core/_methods.py:182: RuntimeWarning: invalid value encountered in divide
-  ret = um.true_divide(
-/opt/anaconda3/lib/python3.9/site-packages/pandas/core/frame.py:9688: RuntimeWarning: Degrees of freedom &lt;= 0 for slice
-  base_cov = np.cov(mat.T, ddof=ddof)
-/opt/anaconda3/lib/python3.9/site-packages/numpy/lib/function_base.py:2704: RuntimeWarning: divide by zero encountered in divide
-  c *= np.true_divide(1, fact)
-/opt/anaconda3/lib/python3.9/site-packages/numpy/lib/function_base.py:2704: RuntimeWarning: invalid value encountered in multiply
-  c *= np.true_divide(1, fact)
 </pre></div>
 </div>
 </div>
@@ -1018,43 +1379,43 @@ S(t) = S(0) \exp \left(\left(\mu - \frac{1}{2}\sigma^2\right)t + \sigma W(t)\rig
   <tbody>
     <tr>
       <th>AAPL</th>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
+      <td>1.000000</td>
+      <td>0.592889</td>
+      <td>0.152911</td>
+      <td>0.305896</td>
+      <td>0.416557</td>
     </tr>
     <tr>
       <th>AMZN</th>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
+      <td>0.592889</td>
+      <td>1.000000</td>
+      <td>0.116090</td>
+      <td>0.364216</td>
+      <td>0.370257</td>
     </tr>
     <tr>
       <th>CAG</th>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
+      <td>0.152911</td>
+      <td>0.116090</td>
+      <td>1.000000</td>
+      <td>0.066562</td>
+      <td>0.160015</td>
     </tr>
     <tr>
       <th>F</th>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
+      <td>0.305896</td>
+      <td>0.364216</td>
+      <td>0.066562</td>
+      <td>1.000000</td>
+      <td>0.375396</td>
     </tr>
     <tr>
       <th>XOM</th>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
+      <td>0.416557</td>
+      <td>0.370257</td>
+      <td>0.160015</td>
+      <td>0.375396</td>
+      <td>1.000000</td>
     </tr>
   </tbody>
 </table>
@@ -1088,34 +1449,6 @@ S(t) = S(0) \exp \left(\left(\mu - \frac{1}{2}\sigma^2\right)t + \sigma W(t)\rig
 <span class="n">R</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">S</span><span class="o">.</span><span class="n">T</span><span class="p">)</span><span class="o">.</span><span class="n">pct_change</span><span class="p">()</span><span class="o">.</span><span class="n">dropna</span><span class="p">()</span> <span class="c1"># Create returns from those simulated prices.</span>
 
 <span class="n">port_rets</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">cumprod</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">inner</span><span class="p">(</span><span class="n">weights</span><span class="p">,</span> <span class="n">R</span><span class="p">)</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)</span> <span class="c1"># Weights x returns, cumulative product to get cumulative portfolio returns.</span>
-</pre></div>
-</div>
-</div>
-<div class="cell_output docutils container">
-<div class="output traceback highlight-ipythontb notranslate"><div class="highlight"><pre><span></span><span class="gt">---------------------------------------------------------------------------</span>
-<span class="ne">IndexError</span><span class="g g-Whitespace">                                </span>Traceback (most recent call last)
-<span class="n">Cell</span> <span class="n">In</span><span class="p">[</span><span class="mi">10</span><span class="p">],</span> <span class="n">line</span> <span class="mi">1</span>
-<span class="ne">----&gt; </span><span class="mi">1</span> <span class="n">S_0</span> <span class="o">=</span> <span class="n">prices</span><span class="o">.</span><span class="n">iloc</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
-<span class="g g-Whitespace">      </span><span class="mi">2</span> <span class="n">A</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linalg</span><span class="o">.</span><span class="n">cholesky</span><span class="p">(</span><span class="n">cov</span><span class="p">)</span>
-<span class="g g-Whitespace">      </span><span class="mi">3</span> <span class="n">S</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">([</span><span class="n">noa</span><span class="p">,</span> <span class="n">N</span><span class="p">])</span> <span class="c1"># Why N+1? We want our starting price + 252 days of prices.</span>
-
-<span class="nn">File /opt/anaconda3/lib/python3.9/site-packages/pandas/core/indexing.py:967,</span> in <span class="ni">_LocationIndexer.__getitem__</span><span class="nt">(self, key)</span>
-<span class="g g-Whitespace">    </span><span class="mi">964</span> <span class="n">axis</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">axis</span> <span class="ow">or</span> <span class="mi">0</span>
-<span class="g g-Whitespace">    </span><span class="mi">966</span> <span class="n">maybe_callable</span> <span class="o">=</span> <span class="n">com</span><span class="o">.</span><span class="n">apply_if_callable</span><span class="p">(</span><span class="n">key</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">obj</span><span class="p">)</span>
-<span class="ne">--&gt; </span><span class="mi">967</span> <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_getitem_axis</span><span class="p">(</span><span class="n">maybe_callable</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="n">axis</span><span class="p">)</span>
-
-<span class="nn">File /opt/anaconda3/lib/python3.9/site-packages/pandas/core/indexing.py:1523,</span> in <span class="ni">_iLocIndexer._getitem_axis</span><span class="nt">(self, key, axis)</span>
-<span class="g g-Whitespace">   </span><span class="mi">1520</span>     <span class="k">raise</span> <span class="ne">TypeError</span><span class="p">(</span><span class="s2">&quot;Cannot index by location index with a non-integer key&quot;</span><span class="p">)</span>
-<span class="g g-Whitespace">   </span><span class="mi">1522</span> <span class="c1"># validate the location</span>
-<span class="ne">-&gt; </span><span class="mi">1523</span> <span class="bp">self</span><span class="o">.</span><span class="n">_validate_integer</span><span class="p">(</span><span class="n">key</span><span class="p">,</span> <span class="n">axis</span><span class="p">)</span>
-<span class="g g-Whitespace">   </span><span class="mi">1525</span> <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">obj</span><span class="o">.</span><span class="n">_ixs</span><span class="p">(</span><span class="n">key</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="n">axis</span><span class="p">)</span>
-
-<span class="nn">File /opt/anaconda3/lib/python3.9/site-packages/pandas/core/indexing.py:1455,</span> in <span class="ni">_iLocIndexer._validate_integer</span><span class="nt">(self, key, axis)</span>
-<span class="g g-Whitespace">   </span><span class="mi">1453</span> <span class="n">len_axis</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">obj</span><span class="o">.</span><span class="n">_get_axis</span><span class="p">(</span><span class="n">axis</span><span class="p">))</span>
-<span class="g g-Whitespace">   </span><span class="mi">1454</span> <span class="k">if</span> <span class="n">key</span> <span class="o">&gt;=</span> <span class="n">len_axis</span> <span class="ow">or</span> <span class="n">key</span> <span class="o">&lt;</span> <span class="o">-</span><span class="n">len_axis</span><span class="p">:</span>
-<span class="ne">-&gt; </span><span class="mi">1455</span>     <span class="k">raise</span> <span class="ne">IndexError</span><span class="p">(</span><span class="s2">&quot;single positional indexer is out-of-bounds&quot;</span><span class="p">)</span>
-
-<span class="ne">IndexError</span>: single positional indexer is out-of-bounds
 </pre></div>
 </div>
 </div>
@@ -1163,8 +1496,8 @@ S(t) = S(0) \exp \left(\left(\mu - \frac{1}{2}\sigma^2\right)t + \sigma W(t)\rig
       <th>0</th>
       <td>1.000000</td>
       <td>0.595471</td>
-      <td>0.266348</td>
-      <td>0.304452</td>
+      <td>0.266350</td>
+      <td>0.304453</td>
       <td>0.501392</td>
     </tr>
     <tr>
@@ -1172,31 +1505,31 @@ S(t) = S(0) \exp \left(\left(\mu - \frac{1}{2}\sigma^2\right)t + \sigma W(t)\rig
       <td>0.595471</td>
       <td>1.000000</td>
       <td>0.213023</td>
-      <td>0.387221</td>
+      <td>0.387220</td>
       <td>0.443720</td>
     </tr>
     <tr>
       <th>2</th>
-      <td>0.266348</td>
+      <td>0.266350</td>
       <td>0.213023</td>
       <td>1.000000</td>
       <td>0.156466</td>
-      <td>0.257573</td>
+      <td>0.257572</td>
     </tr>
     <tr>
       <th>3</th>
-      <td>0.304452</td>
-      <td>0.387221</td>
+      <td>0.304453</td>
+      <td>0.387220</td>
       <td>0.156466</td>
       <td>1.000000</td>
-      <td>0.349661</td>
+      <td>0.349658</td>
     </tr>
     <tr>
       <th>4</th>
       <td>0.501392</td>
       <td>0.443720</td>
-      <td>0.257573</td>
-      <td>0.349661</td>
+      <td>0.257572</td>
+      <td>0.349658</td>
       <td>1.000000</td>
     </tr>
   </tbody>
@@ -1344,7 +1677,7 @@ S(t) = S(0) \exp \left(\left(\mu - \frac{1}{2}\sigma^2\right)t + \sigma W(t)\rig
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../_images/15_monte_carlo_24_0.png" src="../_images/15_monte_carlo_24_0.png" />
+<img alt="../_images/15_monte_carlo_27_0.png" src="../_images/15_monte_carlo_27_0.png" />
 </div>
 </div>
 <p>That’s a large spread of possible cumulative portfolio returns over the year! This type of simulation is potentially useful for financial planners, and let’s you “answer” questions like, “What’s the probability that my portfolio falls below a particular level over the next decade?”. You can also use price paths like this to price certain options, where the value of the option depends on the paths that a basket of stocks took.</p>

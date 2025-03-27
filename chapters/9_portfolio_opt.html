@@ -856,6 +856,72 @@ dtype: float64
 </table>
 </div></div></div>
 </div>
+<p>Let’s save that somewhere. We’ll use it later.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">ann_cov</span> <span class="o">=</span> <span class="n">rets</span><span class="o">.</span><span class="n">cov</span><span class="p">()</span> <span class="o">*</span> <span class="mi">252</span>
+<span class="n">ann_cov</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>AAPL.O</th>
+      <th>MSFT.O</th>
+      <th>SPY</th>
+      <th>GLD</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>AAPL.O</th>
+      <td>0.063710</td>
+      <td>0.023364</td>
+      <td>0.021015</td>
+      <td>0.001497</td>
+    </tr>
+    <tr>
+      <th>MSFT.O</th>
+      <td>0.023364</td>
+      <td>0.050965</td>
+      <td>0.022193</td>
+      <td>-0.000337</td>
+    </tr>
+    <tr>
+      <th>SPY</th>
+      <td>0.021015</td>
+      <td>0.022193</td>
+      <td>0.021858</td>
+      <td>0.000041</td>
+    </tr>
+    <tr>
+      <th>GLD</th>
+      <td>0.001497</td>
+      <td>-0.000337</td>
+      <td>0.000041</td>
+      <td>0.026063</td>
+    </tr>
+  </tbody>
+</table>
+</div></div></div>
+</div>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
 <p>You can also annualize everything at the end, after the optimization. The optimizer will work just fine with daily data, but you have to keep in mind that you’ll need a daily risk-free rate and that you’re finding a daily Sharpe ratio.</p>
@@ -890,7 +956,7 @@ dtype: float64
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>0.12035260806951363
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>0.15767384415554495
 </pre></div>
 </div>
 </div>
@@ -898,12 +964,12 @@ dtype: float64
 <p>We can also find portfolio variance using the random weights. Again, we’re annualizing variances and covariances.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">np</span><span class="o">.</span><span class="n">dot</span><span class="p">(</span><span class="n">weights</span><span class="o">.</span><span class="n">T</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">dot</span><span class="p">(</span><span class="n">rets</span><span class="o">.</span><span class="n">cov</span><span class="p">()</span> <span class="o">*</span> <span class="mi">252</span><span class="p">,</span> <span class="n">weights</span><span class="p">))</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">np</span><span class="o">.</span><span class="n">dot</span><span class="p">(</span><span class="n">weights</span><span class="o">.</span><span class="n">T</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">dot</span><span class="p">(</span><span class="n">ann_cov</span><span class="p">,</span> <span class="n">weights</span><span class="p">))</span>
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>0.016780570931679333
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>0.02372973865752364
 </pre></div>
 </div>
 </div>
@@ -911,12 +977,12 @@ dtype: float64
 <p>Finally, we take the square root of variance to get standard deviation.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">dot</span><span class="p">(</span><span class="n">weights</span><span class="o">.</span><span class="n">T</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">dot</span><span class="p">(</span><span class="n">rets</span><span class="o">.</span><span class="n">cov</span><span class="p">()</span> <span class="o">*</span> <span class="mi">252</span><span class="p">,</span> <span class="n">weights</span><span class="p">)))</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">dot</span><span class="p">(</span><span class="n">weights</span><span class="o">.</span><span class="n">T</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">dot</span><span class="p">(</span><span class="n">ann_cov</span><span class="p">,</span> <span class="n">weights</span><span class="p">)))</span>
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>0.12953984302784735
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>0.15404459957273295
 </pre></div>
 </div>
 </div>
@@ -946,7 +1012,7 @@ dtype: float64
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">port_vol</span><span class="p">(</span><span class="n">weights</span><span class="p">):</span>
-    <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">dot</span><span class="p">(</span><span class="n">weights</span><span class="o">.</span><span class="n">T</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">dot</span><span class="p">(</span><span class="n">rets</span><span class="o">.</span><span class="n">cov</span><span class="p">()</span> <span class="o">*</span> <span class="mi">252</span><span class="p">,</span> <span class="n">weights</span><span class="p">)))</span>
+    <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">dot</span><span class="p">(</span><span class="n">weights</span><span class="o">.</span><span class="n">T</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">dot</span><span class="p">(</span><span class="n">ann_cov</span><span class="p">,</span> <span class="n">weights</span><span class="p">)))</span>
 </pre></div>
 </div>
 </div>
@@ -981,7 +1047,7 @@ dtype: float64
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../_images/9_portfolio_opt_25_0.png" src="../_images/9_portfolio_opt_25_0.png" />
+<img alt="../_images/9_portfolio_opt_27_0.png" src="../_images/9_portfolio_opt_27_0.png" />
 </div>
 </div>
 <p>We’ve just generated the <strong>efficient frontier</strong> from a simulation. No “formulas”, per se. Just make 2500 random portfolios and at least some of them are going to be good!</p>
@@ -1039,6 +1105,20 @@ dtype: float64
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">eweights</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">noa</span> <span class="o">*</span> <span class="p">[</span><span class="mf">1.</span> <span class="o">/</span> <span class="n">noa</span><span class="p">,])</span>  
 <span class="n">eweights</span>  
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>array([0.25, 0.25, 0.25, 0.25])
+</pre></div>
+</div>
+</div>
+</div>
+<p>By the way, here’s another way to do the same thing. I think I like this better.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">eweights2</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">full</span><span class="p">(</span><span class="n">noa</span><span class="p">,</span> <span class="mf">1.</span> <span class="o">/</span> <span class="n">noa</span><span class="p">)</span>
+<span class="n">eweights2</span>
 </pre></div>
 </div>
 </div>
@@ -1311,8 +1391,8 @@ dtype: float64
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>CPU times: user 549 ms, sys: 4.7 ms, total: 553 ms
-Wall time: 351 ms
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>CPU times: user 409 ms, sys: 1.17 ms, total: 410 ms
+Wall time: 183 ms
 </pre></div>
 </div>
 </div>
@@ -1335,7 +1415,7 @@ Wall time: 351 ms
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../_images/9_portfolio_opt_69_0.png" src="../_images/9_portfolio_opt_69_0.png" />
+<img alt="../_images/9_portfolio_opt_73_0.png" src="../_images/9_portfolio_opt_73_0.png" />
 </div>
 </div>
 </section>
@@ -1726,7 +1806,7 @@ context of a mean-variance optimizer, which will maximise the erroneous inputs.<
 <div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;AxesSubplot:&gt;
 </pre></div>
 </div>
-<img alt="../_images/9_portfolio_opt_83_1.png" src="../_images/9_portfolio_opt_83_1.png" />
+<img alt="../_images/9_portfolio_opt_87_1.png" src="../_images/9_portfolio_opt_87_1.png" />
 </div>
 </div>
 <p>Let’s find our max Sharpe portfolio. We’ll do this step-by-step. First, we’ll use the function <code class="docutils literal notranslate"><span class="pre">EfficientFrontier</span></code> to find and create an object that contains the information needed to describe the efficient frontier for these assets. Note that you just need the expected returns and the variance-covariance matrix to define the efficient frontier.</p>
@@ -1738,7 +1818,7 @@ context of a mean-variance optimizer, which will maximise the erroneous inputs.<
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;pypfopt.efficient_frontier.efficient_frontier.EfficientFrontier at 0x16e7edbe0&gt;
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;pypfopt.efficient_frontier.efficient_frontier.EfficientFrontier at 0x16e263790&gt;
 </pre></div>
 </div>
 </div>

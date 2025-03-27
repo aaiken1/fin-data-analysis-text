@@ -50,8 +50,6 @@ const thebe_selector_input = "pre"
 const thebe_selector_output = ".output, .cell_output"
 </script>
     <script async="async" src="../_static/sphinx-thebe.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
-    <script src="https://unpkg.com/@jupyter-widgets/html-manager@^0.20.0/dist/embed-amd.js"></script>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
     <link rel="prev" title="Option basics" href="17_options.html" />
@@ -704,8 +702,7 @@ title="Print to PDF"
 <span class="o">%</span><span class="k">matplotlib</span> inline 
 
 <span class="c1"># As of Dec 2022, looks like yfinance broke the ffn/bt data import. Add this to get it to work. See https://github.com/pmorissette/ffn/issues/185</span>
-<span class="kn">import</span> <span class="nn">yfinance</span>
-<span class="n">yfinance</span><span class="o">.</span><span class="n">pdr_override</span><span class="p">()</span>
+<span class="kn">import</span> <span class="nn">yfinance</span> <span class="k">as</span> <span class="nn">yf</span>
 </pre></div>
 </div>
 </div>
@@ -716,36 +713,82 @@ title="Print to PDF"
 <p>Note that <code class="docutils literal notranslate"><span class="pre">ffn.get</span></code> works as well to get data from Yahoo! Finance.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">data</span> <span class="o">=</span> <span class="n">bt</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;spy,agg&#39;</span><span class="p">,</span> <span class="n">start</span><span class="o">=</span><span class="s1">&#39;2010-01-01&#39;</span><span class="p">)</span>
-<span class="nb">print</span><span class="p">(</span><span class="n">data</span><span class="o">.</span><span class="n">head</span><span class="p">())</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">tickers</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;SPY&#39;</span><span class="p">,</span> <span class="s1">&#39;AGG&#39;</span><span class="p">]</span>
+<span class="n">data</span> <span class="o">=</span> <span class="n">yf</span><span class="o">.</span><span class="n">download</span><span class="p">(</span><span class="n">tickers</span><span class="p">,</span> <span class="n">start</span><span class="o">=</span><span class="s1">&#39;2010-01-01&#39;</span><span class="p">)</span>
+<span class="n">data</span> <span class="o">=</span> <span class="n">data</span><span class="p">[</span><span class="s1">&#39;Close&#39;</span><span class="p">]</span>
+<span class="n">data</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[*********************100%%**********************]  1 of 1 completed
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>YF.download() has changed argument auto_adjust default to True
 </pre></div>
 </div>
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>1 Failed download:
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[                       0%                       ]
 </pre></div>
 </div>
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[&#39;SPY&#39;]: JSONDecodeError(&#39;Expecting value: line 1 column 1 (char 0)&#39;)
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[*********************100%***********************]  2 of 2 completed
 </pre></div>
 </div>
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[*********************100%%**********************]  1 of 1 completed
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>
 </pre></div>
 </div>
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>1 Failed download:
-</pre></div>
-</div>
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[&#39;AGG&#39;]: JSONDecodeError(&#39;Expecting value: line 1 column 1 (char 0)&#39;)
-</pre></div>
-</div>
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Empty DataFrame
-Columns: [spy, agg]
-Index: []
-</pre></div>
-</div>
-</div>
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th>Ticker</th>
+      <th>AGG</th>
+      <th>SPY</th>
+    </tr>
+    <tr>
+      <th>Date</th>
+      <th></th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>2010-01-04</th>
+      <td>68.268402</td>
+      <td>85.768456</td>
+    </tr>
+    <tr>
+      <th>2010-01-05</th>
+      <td>68.578972</td>
+      <td>85.995483</td>
+    </tr>
+    <tr>
+      <th>2010-01-06</th>
+      <td>68.539337</td>
+      <td>86.056038</td>
+    </tr>
+    <tr>
+      <th>2010-01-07</th>
+      <td>68.460007</td>
+      <td>86.419289</td>
+    </tr>
+    <tr>
+      <th>2010-01-08</th>
+      <td>68.499672</td>
+      <td>86.706856</td>
+    </tr>
+  </tbody>
+</table>
+</div></div></div>
 </div>
 </section>
 <section id="step-2-define-your-strategy">
@@ -808,9 +851,9 @@ Index: []
 <table border="1" class="dataframe">
   <thead>
     <tr style="text-align: right;">
-      <th></th>
-      <th>spy</th>
-      <th>agg</th>
+      <th>Ticker</th>
+      <th>AGG</th>
+      <th>SPY</th>
     </tr>
     <tr>
       <th>Date</th>
@@ -819,8 +862,64 @@ Index: []
     </tr>
   </thead>
   <tbody>
+    <tr>
+      <th>2010-01-04</th>
+      <td>NaN</td>
+      <td>NaN</td>
+    </tr>
+    <tr>
+      <th>2010-01-05</th>
+      <td>NaN</td>
+      <td>NaN</td>
+    </tr>
+    <tr>
+      <th>2010-01-06</th>
+      <td>NaN</td>
+      <td>NaN</td>
+    </tr>
+    <tr>
+      <th>2010-01-07</th>
+      <td>NaN</td>
+      <td>NaN</td>
+    </tr>
+    <tr>
+      <th>2010-01-08</th>
+      <td>NaN</td>
+      <td>NaN</td>
+    </tr>
+    <tr>
+      <th>...</th>
+      <td>...</td>
+      <td>...</td>
+    </tr>
+    <tr>
+      <th>2025-03-21</th>
+      <td>97.447379</td>
+      <td>588.379761</td>
+    </tr>
+    <tr>
+      <th>2025-03-24</th>
+      <td>97.497249</td>
+      <td>588.106921</td>
+    </tr>
+    <tr>
+      <th>2025-03-25</th>
+      <td>97.559650</td>
+      <td>588.041143</td>
+    </tr>
+    <tr>
+      <th>2025-03-26</th>
+      <td>97.619040</td>
+      <td>587.820017</td>
+    </tr>
+    <tr>
+      <th>2025-03-27</th>
+      <td>97.676832</td>
+      <td>587.572639</td>
+    </tr>
   </tbody>
 </table>
+<p>3832 rows × 2 columns</p>
 </div></div></div>
 </div>
 <p>See how the first rows are missing? This is a 50-day moving average, so you don’t get an average until 50 days have passed.</p>
@@ -866,9 +965,9 @@ Index: []
 <table border="1" class="dataframe">
   <thead>
     <tr style="text-align: right;">
-      <th></th>
-      <th>spy</th>
-      <th>agg</th>
+      <th>Ticker</th>
+      <th>AGG</th>
+      <th>SPY</th>
     </tr>
     <tr>
       <th>Date</th>
@@ -877,8 +976,64 @@ Index: []
     </tr>
   </thead>
   <tbody>
+    <tr>
+      <th>2010-01-04</th>
+      <td>False</td>
+      <td>False</td>
+    </tr>
+    <tr>
+      <th>2010-01-05</th>
+      <td>False</td>
+      <td>False</td>
+    </tr>
+    <tr>
+      <th>2010-01-06</th>
+      <td>False</td>
+      <td>False</td>
+    </tr>
+    <tr>
+      <th>2010-01-07</th>
+      <td>False</td>
+      <td>False</td>
+    </tr>
+    <tr>
+      <th>2010-01-08</th>
+      <td>False</td>
+      <td>False</td>
+    </tr>
+    <tr>
+      <th>...</th>
+      <td>...</td>
+      <td>...</td>
+    </tr>
+    <tr>
+      <th>2025-03-21</th>
+      <td>True</td>
+      <td>False</td>
+    </tr>
+    <tr>
+      <th>2025-03-24</th>
+      <td>True</td>
+      <td>False</td>
+    </tr>
+    <tr>
+      <th>2025-03-25</th>
+      <td>True</td>
+      <td>False</td>
+    </tr>
+    <tr>
+      <th>2025-03-26</th>
+      <td>True</td>
+      <td>False</td>
+    </tr>
+    <tr>
+      <th>2025-03-27</th>
+      <td>True</td>
+      <td>False</td>
+    </tr>
   </tbody>
 </table>
+<p>3832 rows × 2 columns</p>
 </div></div></div>
 </div>
 <p>We can now create a <strong>new strategy</strong> with that logic. The new strategy is called <strong>above50sma</strong> and is saved in the <strong>sma50</strong> object. Notice the new first line that has the <code class="docutils literal notranslate"><span class="pre">.SelectWhere</span></code> method. This is going to select securities where <code class="docutils literal notranslate"><span class="pre">signal</span> <span class="pre">==</span> <span class="pre">True</span></code>.</p>
@@ -908,51 +1063,8 @@ Index: []
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output traceback highlight-ipythontb notranslate"><div class="highlight"><pre><span></span><span class="gt">---------------------------------------------------------------------------</span>
-<span class="ne">IndexError</span><span class="g g-Whitespace">                                </span>Traceback (most recent call last)
-<span class="n">Cell</span> <span class="n">In</span><span class="p">[</span><span class="mi">9</span><span class="p">],</span> <span class="n">line</span> <span class="mi">1</span>
-<span class="ne">----&gt; </span><span class="mi">1</span> <span class="n">test_ew</span> <span class="o">=</span> <span class="n">bt</span><span class="o">.</span><span class="n">Backtest</span><span class="p">(</span><span class="n">ew</span><span class="p">,</span> <span class="n">data</span><span class="p">)</span>
-<span class="g g-Whitespace">      </span><span class="mi">2</span> <span class="n">res_ew</span> <span class="o">=</span> <span class="n">bt</span><span class="o">.</span><span class="n">run</span><span class="p">(</span><span class="n">test_ew</span><span class="p">)</span>
-<span class="g g-Whitespace">      </span><span class="mi">4</span> <span class="nb">print</span><span class="p">(</span><span class="nb">type</span><span class="p">(</span><span class="n">test_ew</span><span class="p">))</span>
-
-<span class="nn">File /opt/anaconda3/lib/python3.9/site-packages/bt/backtest.py:147,</span> in <span class="ni">Backtest.__init__</span><span class="nt">(self, strategy, data, name, initial_capital, commissions, integer_positions, progress_bar, additional_data)</span>
-<span class="g g-Whitespace">    </span><span class="mi">144</span> <span class="bp">self</span><span class="o">.</span><span class="n">strategy</span> <span class="o">=</span> <span class="n">deepcopy</span><span class="p">(</span><span class="n">strategy</span><span class="p">)</span>
-<span class="g g-Whitespace">    </span><span class="mi">145</span> <span class="bp">self</span><span class="o">.</span><span class="n">strategy</span><span class="o">.</span><span class="n">use_integer_positions</span><span class="p">(</span><span class="n">integer_positions</span><span class="p">)</span>
-<span class="ne">--&gt; </span><span class="mi">147</span> <span class="bp">self</span><span class="o">.</span><span class="n">_process_data</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">additional_data</span><span class="p">)</span>
-<span class="g g-Whitespace">    </span><span class="mi">149</span> <span class="bp">self</span><span class="o">.</span><span class="n">initial_capital</span> <span class="o">=</span> <span class="n">initial_capital</span>
-<span class="g g-Whitespace">    </span><span class="mi">150</span> <span class="bp">self</span><span class="o">.</span><span class="n">name</span> <span class="o">=</span> <span class="n">name</span> <span class="k">if</span> <span class="n">name</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span> <span class="k">else</span> <span class="n">strategy</span><span class="o">.</span><span class="n">name</span>
-
-<span class="nn">File /opt/anaconda3/lib/python3.9/site-packages/bt/backtest.py:175,</span> in <span class="ni">Backtest._process_data</span><span class="nt">(self, data, additional_data)</span>
-<span class="g g-Whitespace">    </span><span class="mi">162</span> <span class="k">def</span> <span class="nf">_process_data</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">data</span><span class="p">,</span> <span class="n">additional_data</span><span class="p">):</span>
-<span class="g g-Whitespace">    </span><span class="mi">163</span>     <span class="c1"># add virtual row at t0-1day with NaNs</span>
-<span class="g g-Whitespace">    </span><span class="mi">164</span>     <span class="c1"># this is so that any trading action at t0 can be evaluated relative to</span>
-   <span class="p">(</span><span class="o">...</span><span class="p">)</span>
-<span class="g g-Whitespace">    </span><span class="mi">168</span>     <span class="c1"># start at 100, but may start at 90, for example. Here, we add a</span>
-<span class="g g-Whitespace">    </span><span class="mi">169</span>     <span class="c1"># starting point at t0-1day, and this is the reference starting point</span>
-<span class="g g-Whitespace">    </span><span class="mi">170</span>     <span class="n">data_new</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">concat</span><span class="p">(</span>
-<span class="g g-Whitespace">    </span><span class="mi">171</span>         <span class="p">[</span>
-<span class="g g-Whitespace">    </span><span class="mi">172</span>             <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span>
-<span class="g g-Whitespace">    </span><span class="mi">173</span>                 <span class="n">np</span><span class="o">.</span><span class="n">nan</span><span class="p">,</span>
-<span class="g g-Whitespace">    </span><span class="mi">174</span>                 <span class="n">columns</span><span class="o">=</span><span class="n">data</span><span class="o">.</span><span class="n">columns</span><span class="p">,</span>
-<span class="ne">--&gt; </span><span class="mi">175</span>                 <span class="n">index</span><span class="o">=</span><span class="p">[</span><span class="n">data</span><span class="o">.</span><span class="n">index</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">-</span> <span class="n">pd</span><span class="o">.</span><span class="n">DateOffset</span><span class="p">(</span><span class="n">days</span><span class="o">=</span><span class="mi">1</span><span class="p">)],</span>
-<span class="g g-Whitespace">    </span><span class="mi">176</span>             <span class="p">),</span>
-<span class="g g-Whitespace">    </span><span class="mi">177</span>             <span class="n">data</span><span class="p">,</span>
-<span class="g g-Whitespace">    </span><span class="mi">178</span>         <span class="p">]</span>
-<span class="g g-Whitespace">    </span><span class="mi">179</span>     <span class="p">)</span>
-<span class="g g-Whitespace">    </span><span class="mi">181</span>     <span class="bp">self</span><span class="o">.</span><span class="n">data</span> <span class="o">=</span> <span class="n">data_new</span>
-<span class="g g-Whitespace">    </span><span class="mi">182</span>     <span class="bp">self</span><span class="o">.</span><span class="n">dates</span> <span class="o">=</span> <span class="n">data_new</span><span class="o">.</span><span class="n">index</span>
-
-<span class="nn">File /opt/anaconda3/lib/python3.9/site-packages/pandas/core/indexes/base.py:5053,</span> in <span class="ni">Index.__getitem__</span><span class="nt">(self, key)</span>
-<span class="g g-Whitespace">   </span><span class="mi">5050</span> <span class="k">if</span> <span class="n">is_integer</span><span class="p">(</span><span class="n">key</span><span class="p">)</span> <span class="ow">or</span> <span class="n">is_float</span><span class="p">(</span><span class="n">key</span><span class="p">):</span>
-<span class="g g-Whitespace">   </span><span class="mi">5051</span>     <span class="c1"># GH#44051 exclude bool, which would return a 2d ndarray</span>
-<span class="g g-Whitespace">   </span><span class="mi">5052</span>     <span class="n">key</span> <span class="o">=</span> <span class="n">com</span><span class="o">.</span><span class="n">cast_scalar_indexer</span><span class="p">(</span><span class="n">key</span><span class="p">,</span> <span class="n">warn_float</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
-<span class="ne">-&gt; </span><span class="mi">5053</span>     <span class="k">return</span> <span class="n">getitem</span><span class="p">(</span><span class="n">key</span><span class="p">)</span>
-<span class="g g-Whitespace">   </span><span class="mi">5055</span> <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">key</span><span class="p">,</span> <span class="nb">slice</span><span class="p">):</span>
-<span class="g g-Whitespace">   </span><span class="mi">5056</span>     <span class="c1"># This case is separated from the conditional above to avoid</span>
-<span class="g g-Whitespace">   </span><span class="mi">5057</span>     <span class="c1"># pessimization com.is_bool_indexer and ndim checks.</span>
-<span class="g g-Whitespace">   </span><span class="mi">5058</span>     <span class="n">result</span> <span class="o">=</span> <span class="n">getitem</span><span class="p">(</span><span class="n">key</span><span class="p">)</span>
-
-<span class="ne">IndexError</span>: index 0 is out of bounds for axis 0 with size 0
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;class &#39;bt.backtest.Backtest&#39;&gt;
+&lt;class &#39;bt.backtest.Result&#39;&gt;
 </pre></div>
 </div>
 </div>
@@ -998,59 +1110,59 @@ Index: []
 <div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Stat                 ew
 -------------------  ----------
 Start                2010-01-03
-End                  2023-04-21
+End                  2025-03-27
 Risk-free rate       0.00%
 
-Total Return         163.35%
-Daily Sharpe         0.86
-Daily Sortino        1.33
-CAGR                 7.56%
+Total Return         224.00%
+Daily Sharpe         0.93
+Daily Sortino        1.44
+CAGR                 8.03%
 Max Drawdown         -19.87%
-Calmar Ratio         0.38
+Calmar Ratio         0.40
 
-MTD                  0.23%
-3m                   2.16%
-6m                   9.24%
-YTD                  5.61%
-1Y                   -2.53%
-3Y (ann.)            6.45%
-5Y (ann.)            6.41%
-10Y (ann.)           6.95%
-Since Incep. (ann.)  7.56%
+MTD                  -2.44%
+3m                   -1.03%
+6m                   -0.63%
+YTD                  -0.41%
+1Y                   7.22%
+3Y (ann.)            5.00%
+5Y (ann.)            9.24%
+10Y (ann.)           7.21%
+Since Incep. (ann.)  8.03%
 
-Daily Sharpe         0.86
-Daily Sortino        1.33
-Daily Mean (ann.)    7.69%
-Daily Vol (ann.)     8.90%
-Daily Skew           -0.75
-Daily Kurt           14.37
+Daily Sharpe         0.93
+Daily Sortino        1.44
+Daily Mean (ann.)    8.11%
+Daily Vol (ann.)     8.74%
+Daily Skew           -0.70
+Daily Kurt           13.57
 Best Day             4.77%
 Worst Day            -6.63%
 
-Monthly Sharpe       0.97
-Monthly Sortino      1.73
-Monthly Mean (ann.)  7.80%
-Monthly Vol (ann.)   8.01%
-Monthly Skew         -0.41
-Monthly Kurt         1.20
+Monthly Sharpe       1.01
+Monthly Sortino      1.86
+Monthly Mean (ann.)  8.24%
+Monthly Vol (ann.)   8.13%
+Monthly Skew         -0.33
+Monthly Kurt         0.96
 Best Month           7.57%
 Worst Month          -6.68%
 
-Yearly Sharpe        0.82
-Yearly Sortino       1.72
-Yearly Mean          7.30%
-Yearly Vol           8.90%
-Yearly Skew          -1.36
-Yearly Kurt          2.63
+Yearly Sharpe        0.88
+Yearly Sortino       1.99
+Yearly Mean          7.82%
+Yearly Vol           8.87%
+Yearly Skew          -1.31
+Yearly Kurt          2.06
 Best Year            19.64%
 Worst Year           -15.30%
 
-Avg. Drawdown        -0.85%
-Avg. Drawdown Days   14.30
-Avg. Up Month        1.82%
-Avg. Down Month      -1.98%
-Win Year %           84.62%
-Win 12m %            89.26%
+Avg. Drawdown        -0.87%
+Avg. Drawdown Days   15.22
+Avg. Up Month        1.91%
+Avg. Down Month      -1.99%
+Win Year %           80.00%
+Win 12m %            90.70%
 </pre></div>
 </div>
 </div>
@@ -1065,59 +1177,59 @@ Win 12m %            89.26%
 <div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Stat                 above50sma
 -------------------  ------------
 Start                2010-01-03
-End                  2023-04-21
+End                  2025-03-27
 Risk-free rate       0.00%
 
-Total Return         60.43%
-Daily Sharpe         0.50
-Daily Sortino        0.72
-CAGR                 3.62%
+Total Return         100.05%
+Daily Sharpe         0.62
+Daily Sortino        0.92
+CAGR                 4.66%
 Max Drawdown         -21.95%
-Calmar Ratio         0.16
+Calmar Ratio         0.21
 
-MTD                  0.24%
-3m                   -3.10%
-6m                   -8.54%
-YTD                  -1.01%
-1Y                   -13.50%
-3Y (ann.)            0.60%
-5Y (ann.)            2.94%
-10Y (ann.)           1.94%
-Since Incep. (ann.)  3.62%
+MTD                  -0.79%
+3m                   -0.58%
+6m                   1.74%
+YTD                  0.56%
+1Y                   4.11%
+3Y (ann.)            0.39%
+5Y (ann.)            5.05%
+10Y (ann.)           3.51%
+Since Incep. (ann.)  4.66%
 
-Daily Sharpe         0.50
-Daily Sortino        0.72
-Daily Mean (ann.)    3.86%
-Daily Vol (ann.)     7.73%
-Daily Skew           -1.15
-Daily Kurt           11.09
+Daily Sharpe         0.62
+Daily Sortino        0.92
+Daily Mean (ann.)    4.87%
+Daily Vol (ann.)     7.80%
+Daily Skew           -1.01
+Daily Kurt           9.99
 Best Day             3.48%
 Worst Day            -4.35%
 
-Monthly Sharpe       0.50
-Monthly Sortino      0.78
-Monthly Mean (ann.)  3.88%
-Monthly Vol (ann.)   7.82%
-Monthly Skew         -0.74
-Monthly Kurt         1.28
-Best Month           6.68%
+Monthly Sharpe       0.61
+Monthly Sortino      1.01
+Monthly Mean (ann.)  4.90%
+Monthly Vol (ann.)   8.06%
+Monthly Skew         -0.54
+Monthly Kurt         1.08
+Best Month           6.69%
 Worst Month          -7.97%
 
-Yearly Sharpe        0.32
-Yearly Sortino       0.56
-Yearly Mean          3.31%
-Yearly Vol           10.37%
-Yearly Skew          -0.91
-Yearly Kurt          0.12
+Yearly Sharpe        0.44
+Yearly Sortino       0.78
+Yearly Mean          4.41%
+Yearly Vol           9.91%
+Yearly Skew          -1.18
+Yearly Kurt          0.76
 Best Year            16.05%
 Worst Year           -17.78%
 
-Avg. Drawdown        -1.28%
-Avg. Drawdown Days   34.35
-Avg. Up Month        1.78%
-Avg. Down Month      -1.72%
-Win Year %           69.23%
-Win 12m %            75.17%
+Avg. Drawdown        -1.29%
+Avg. Drawdown Days   38.29
+Avg. Up Month        1.88%
+Avg. Down Month      -1.74%
+Win Year %           80.00%
+Win 12m %            75.00%
 </pre></div>
 </div>
 </div>
