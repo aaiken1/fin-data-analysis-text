@@ -50,6 +50,8 @@ const thebe_selector_input = "pre"
 const thebe_selector_output = ".output, .cell_output"
 </script>
     <script async="async" src="../_static/sphinx-thebe.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+    <script src="https://unpkg.com/@jupyter-widgets/html-manager@^0.20.0/dist/embed-amd.js"></script>
     <script>window.MathJax = {"options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
     <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
     <link rel="index" title="Index" href="../genindex.html" />
@@ -315,7 +317,9 @@ const thebe_selector_output = ".output, .cell_output"
  </li>
  <li class="toctree-l1">
   <a class="reference internal" href="12_regression_topics.html">
-   Regression topics
+   Supervised machine learning and regression topics
+   <a id="regression">
+   </a>
   </a>
  </li>
  <li class="toctree-l1">
@@ -773,14 +777,14 @@ title="Print to PDF"
 <p>Instead, you need to change your variables. Scale or normalize them. Create categories. Take logs. All to help with interpretation and create better models.</p>
 <p>The purpose of feature scaling is to ensure that the features are given equal importance in a model. You’re trying to capture how different a variable is from its typical value and whether or not this relates to some other value, the one that you’re trying to predict.</p>
 <p>The text discusses <strong>normalization</strong>. You’ve probably seen this calculation in your stats class.</p>
-<div class="amsmath math notranslate nohighlight" id="equation-1771c296-dae2-49a5-b545-7a0c90d92f4a">
-<span class="eqno">(9)<a class="headerlink" href="#equation-1771c296-dae2-49a5-b545-7a0c90d92f4a" title="Permalink to this equation">#</a></span>\[\begin{align}
+<div class="amsmath math notranslate nohighlight" id="equation-01b3eef3-3a84-4ea0-be32-f091f75e99b3">
+<span class="eqno">(9)<a class="headerlink" href="#equation-01b3eef3-3a84-4ea0-be32-f091f75e99b3" title="Permalink to this equation">#</a></span>\[\begin{align}
 \text{Scaled Feature Value} = \frac{V - \mu}{\sigma}
 \end{align}\]</div>
 <p>where V is the value of an observation, <span class="math notranslate nohighlight">\(\mu\)</span> is the mean of all of the observations, and <span class="math notranslate nohighlight">\(\sigma\)</span> is the standard deviation of the values. This is called a <strong>Z-score normalization</strong>.</p>
 <p>You can also do <strong>min-max scaling</strong>.</p>
-<div class="amsmath math notranslate nohighlight" id="equation-7b186fe5-3820-425d-b1d5-49aca2957da2">
-<span class="eqno">(10)<a class="headerlink" href="#equation-7b186fe5-3820-425d-b1d5-49aca2957da2" title="Permalink to this equation">#</a></span>\[\begin{align}
+<div class="amsmath math notranslate nohighlight" id="equation-69c758df-a9b6-4cbb-b038-bef347c109c3">
+<span class="eqno">(10)<a class="headerlink" href="#equation-69c758df-a9b6-4cbb-b038-bef347c109c3" title="Permalink to this equation">#</a></span>\[\begin{align}
 \text{Scaled Feature Value} = \frac{V - min(V)}{max(V) - min(V)}
 \end{align}\]</div>
 <p>Finally, note that use of <strong>training set</strong> and <strong>validation set</strong>. We are going to start splitting our data up as we use <strong>machine learning</strong> techniques to make predictions. We use these data sets to build our model and, in particular, look for <strong>hyperparameters</strong>, a subject we’ll get to when discussing regression and logit in Chapter 3 of Hull. We’l also create a <strong>testing set</strong> where we take the trained model and see how well it <strong>predicts values</strong> using data we’ve <strong>pulled out</strong> and not used.</p>
@@ -805,8 +809,8 @@ title="Print to PDF"
 </figcaption>
 </figure>
 <p>How do you know if your clustering method is any good? A measure of the performance of a clustering algorithm is the within-cluster sum of squares, also known as the <strong>inertia</strong>. Define <span class="math notranslate nohighlight">\(d_i\)</span> as the  distance of the ith observation from the center of the cluster to which it belongs.</p>
-<div class="amsmath math notranslate nohighlight" id="equation-2ef83f7e-1f14-4420-8de8-bd7fbf14a378">
-<span class="eqno">(11)<a class="headerlink" href="#equation-2ef83f7e-1f14-4420-8de8-bd7fbf14a378" title="Permalink to this equation">#</a></span>\[\begin{align}
+<div class="amsmath math notranslate nohighlight" id="equation-179bbfcf-0a08-4c5e-945c-965ae56947a1">
+<span class="eqno">(11)<a class="headerlink" href="#equation-179bbfcf-0a08-4c5e-945c-965ae56947a1" title="Permalink to this equation">#</a></span>\[\begin{align}
 \text{Inertia} = \sum_{i=1}^{N} d_i
 \end{align}\]</div>
 <p>The larger the inertia value, the worse the fit. Now, you can always get smaller inertia by adding more clusters. In fact, each observation could be its own cluster! But, that defeats the purpose. At some point, there’s an “optimal” number of clusters to try and divide your data into.</p>
