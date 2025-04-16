@@ -718,12 +718,6 @@ title="Print to PDF"
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>/opt/anaconda3/lib/python3.9/site-packages/seaborn/rcmod.py:82: DeprecationWarning: distutils Version classes are deprecated. Use packaging.version instead.
-  if LooseVersion(mpl.__version__) &gt;= &quot;3.0&quot;:
-/opt/anaconda3/lib/python3.9/site-packages/setuptools/_distutils/version.py:346: DeprecationWarning: distutils Version classes are deprecated. Use packaging.version instead.
-  other = LooseVersion(other)
-</pre></div>
-</div>
 <div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;class &#39;pandas.core.frame.DataFrame&#39;&gt;
 DatetimeIndex: 2138 entries, 2010-01-04 to 2018-06-29
 Data columns (total 12 columns):
@@ -743,6 +737,12 @@ Data columns (total 12 columns):
  11  gld     2138 non-null   float64
 dtypes: float64(12)
 memory usage: 217.1 KB
+</pre></div>
+</div>
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>/opt/anaconda3/lib/python3.9/site-packages/seaborn/rcmod.py:82: DeprecationWarning: distutils Version classes are deprecated. Use packaging.version instead.
+  if LooseVersion(mpl.__version__) &gt;= &quot;3.0&quot;:
+/opt/anaconda3/lib/python3.9/site-packages/setuptools/_distutils/version.py:346: DeprecationWarning: distutils Version classes are deprecated. Use packaging.version instead.
+  other = LooseVersion(other)
 </pre></div>
 </div>
 </div>
@@ -1670,14 +1670,14 @@ memory usage: 217.1 KB
 <p>I’m multiplying by 100 just for the display of the data.</p>
 <p>The percent change is called a <strong>linear return</strong>. Or, <strong>simple return</strong>. This is different from <strong>log returns</strong>, or <strong>compounded returns</strong>. Both types of returns are correct and useful. They are just used for different things.</p>
 <p>The formula for simple returns (R) is:</p>
-<div class="amsmath math notranslate nohighlight" id="equation-d3708f8c-41c5-4032-8cbb-f5eec962a0a6">
-<span class="eqno">(3)<a class="headerlink" href="#equation-d3708f8c-41c5-4032-8cbb-f5eec962a0a6" title="Permalink to this equation">#</a></span>\[\begin{align}
+<div class="amsmath math notranslate nohighlight" id="equation-d15bba09-7998-40e6-8d3a-3d905f44c04d">
+<span class="eqno">(3)<a class="headerlink" href="#equation-d15bba09-7998-40e6-8d3a-3d905f44c04d" title="Permalink to this equation">#</a></span>\[\begin{align}
 R_{t} = \frac{V_t}{V_{t-1}} - 1
 \end{align}\]</div>
 <p>where R is the simple return based on the percent change and V is the cash flow, including price and dividends (if any).</p>
 <p>The formula for log returns (r) is:</p>
-<div class="amsmath math notranslate nohighlight" id="equation-0bd669ad-7feb-480e-979b-251cd034df05">
-<span class="eqno">(4)<a class="headerlink" href="#equation-0bd669ad-7feb-480e-979b-251cd034df05" title="Permalink to this equation">#</a></span>\[\begin{align}
+<div class="amsmath math notranslate nohighlight" id="equation-4f9103ae-bd60-40cc-9e3c-1e43fd4a91a5">
+<span class="eqno">(4)<a class="headerlink" href="#equation-4f9103ae-bd60-40cc-9e3c-1e43fd4a91a5" title="Permalink to this equation">#</a></span>\[\begin{align}
 r_{t} = ln(\frac{V_t}{V_{t-1}}) = ln(1 + R_{t})
 \end{align}\]</div>
 <p>See <a class="reference external" href="https://papers.ssrn.com/sol3/papers.cfm?abstract_id=1586656">this article</a> for more on why this difference is important. In short, we need the mean of simple returns when doing portfolio optimization, as these returns work with a weighted average. Simple returns <strong>aggregate across assets</strong>. Log returns, however, <strong>aggregate across time</strong>. In other words, the cumulative return using log returns is the sum of individual log returns over the time period. You definitely can’t do that with simple returns!</p>
@@ -3065,8 +3065,8 @@ r_{t} = ln(\frac{V_t}{V_{t-1}}) = ln(1 + R_{t})
 </div>
 <p>We can also create return series using <strong>simple returns</strong>. We calculate percent returns, add 1 to each to get (1+R), and then <strong>chain returns together</strong> using <code class="docutils literal notranslate"><span class="pre">.cumprod()</span></code>. We subtract one at the end from the total.</p>
 <p>In other words,</p>
-<div class="amsmath math notranslate nohighlight" id="equation-72eca30a-a7d0-4c71-8156-6add2d135564">
-<span class="eqno">(5)<a class="headerlink" href="#equation-72eca30a-a7d0-4c71-8156-6add2d135564" title="Permalink to this equation">#</a></span>\[\begin{align}
+<div class="amsmath math notranslate nohighlight" id="equation-68337386-f9ee-4018-8438-c0f6a4445dbc">
+<span class="eqno">(5)<a class="headerlink" href="#equation-68337386-f9ee-4018-8438-c0f6a4445dbc" title="Permalink to this equation">#</a></span>\[\begin{align}
 Total Return = (1 + R_{1})*(1 + R_{2})*(1 + R_{3})*(1 + R_{4})... - 1
 \end{align}\]</div>
 <div class="cell docutils container">

@@ -732,11 +732,11 @@ This refreshes your environment, allowing the secret to be accessed.</p></li>
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>2025-04-09    79552.34
-2025-04-10    83380.47
-2025-04-11    85271.01
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>2025-04-11    85271.01
 2025-04-12    83733.07
-2025-04-13    83747.78
+2025-04-13    84590.36
+2025-04-14    83629.78
+2025-04-15    83662.13
 dtype: float64
 </pre></div>
 </div>
@@ -806,14 +806,6 @@ dtype: float64
       <td>...</td>
     </tr>
     <tr>
-      <th>2025-04-09</th>
-      <td>79552.34</td>
-    </tr>
-    <tr>
-      <th>2025-04-10</th>
-      <td>83380.47</td>
-    </tr>
-    <tr>
       <th>2025-04-11</th>
       <td>85271.01</td>
     </tr>
@@ -823,11 +815,19 @@ dtype: float64
     </tr>
     <tr>
       <th>2025-04-13</th>
-      <td>83747.78</td>
+      <td>84590.36</td>
+    </tr>
+    <tr>
+      <th>2025-04-14</th>
+      <td>83629.78</td>
+    </tr>
+    <tr>
+      <th>2025-04-15</th>
+      <td>83662.13</td>
     </tr>
   </tbody>
 </table>
-<p>3787 rows × 1 columns</p>
+<p>3789 rows × 1 columns</p>
 </div></div></div>
 </div>
 <p>There are some missing values early on in the data. I’m not going to explore it too much - let’s just drop them. Bitcoin in 2015? That’s ancient history!</p>
@@ -845,7 +845,7 @@ dtype: float64
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>/var/folders/kx/y8vj3n6n5kq_d74vj24jsnh40000gn/T/ipykernel_81307/623421051.py:1: SettingWithCopyWarning: 
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>/var/folders/kx/y8vj3n6n5kq_d74vj24jsnh40000gn/T/ipykernel_64709/623421051.py:1: SettingWithCopyWarning: 
 A value is trying to be set on a copy of a slice from a DataFrame.
 Try using .loc[row_indexer,col_indexer] = value instead
 
@@ -967,20 +967,6 @@ See the caveats in the documentation: https://pandas.pydata.org/pandas-docs/stab
       <td>...</td>
     </tr>
     <tr>
-      <th>2025-04-09</th>
-      <td>79552.34</td>
-      <td>-0.036835</td>
-      <td>0.963165</td>
-      <td>232.977471</td>
-    </tr>
-    <tr>
-      <th>2025-04-10</th>
-      <td>83380.47</td>
-      <td>0.048121</td>
-      <td>1.048121</td>
-      <td>244.236676</td>
-    </tr>
-    <tr>
       <th>2025-04-11</th>
       <td>85271.01</td>
       <td>0.022674</td>
@@ -996,14 +982,28 @@ See the caveats in the documentation: https://pandas.pydata.org/pandas-docs/stab
     </tr>
     <tr>
       <th>2025-04-13</th>
-      <td>83747.78</td>
-      <td>0.000176</td>
-      <td>1.000176</td>
-      <td>245.317000</td>
+      <td>84590.36</td>
+      <td>0.010238</td>
+      <td>1.010238</td>
+      <td>247.795176</td>
+    </tr>
+    <tr>
+      <th>2025-04-14</th>
+      <td>83629.78</td>
+      <td>-0.011356</td>
+      <td>0.988644</td>
+      <td>244.969941</td>
+    </tr>
+    <tr>
+      <th>2025-04-15</th>
+      <td>83662.13</td>
+      <td>0.000387</td>
+      <td>1.000387</td>
+      <td>245.065088</td>
     </tr>
   </tbody>
 </table>
-<p>3743 rows × 4 columns</p>
+<p>3745 rows × 4 columns</p>
 </div></div></div>
 </div>
 <p>We can now make a graph using the <strong>fig, axs</strong> method. This is good review! Again, notice that semi-colon at the end. This suppresses some annoying output in the Jupyter notebook.</p>
@@ -1054,16 +1054,16 @@ See the caveats in the documentation: https://pandas.pydata.org/pandas-docs/stab
 <section id="a-btc-simulation">
 <h3>A BTC Simulation<a class="headerlink" href="#a-btc-simulation" title="Permalink to this headline">#</a></h3>
 <p>Let’s put together some ideas, write a function, and run a simulation. We’ll use something called <strong>geometric brownian motion</strong> (GBM). What is GBM? It is a particular <a class="reference external" href="https://arxiv.org/pdf/1504.05309.pdf">stochastic differential equation</a>. But, what’s important for us is the idea, which is fairly simple. Here’s the formula:</p>
-<div class="amsmath math notranslate nohighlight" id="equation-507d1460-8a3e-4c6d-b1bb-cd4ee3557136">
-<span class="eqno">(1)<a class="headerlink" href="#equation-507d1460-8a3e-4c6d-b1bb-cd4ee3557136" title="Permalink to this equation">#</a></span>\[\begin{align}
+<div class="amsmath math notranslate nohighlight" id="equation-5765c6a6-38be-4d64-bc45-140ad0c91dd4">
+<span class="eqno">(1)<a class="headerlink" href="#equation-5765c6a6-38be-4d64-bc45-140ad0c91dd4" title="Permalink to this equation">#</a></span>\[\begin{align}
 dS = \mu S dt + \sigma S dW_t
 \end{align}\]</div>
 <p>This says that the change in the stock price has two components - a <strong>drift</strong>, or average increase over time, and a <strong>shock</strong> that it is random at each point in time. The shock is scaled by the standard deviation of returns that you use. So, larger standard deviation, the bigger the shocks can be. This is basically the simplest way that you can model an asset price.</p>
 <p>The shocks are what make the price wiggle around around, or else it would just go up over time, based on the drift value that we use.</p>
 <p>And, I’ll stress - we aren’t predicting here, so to speak. We are trying to capture some basic reality about how an asset moves and then seeing what is possible in the future. We aren’t making a statement about whether we think an asset is overvalued or undervalued, will go up or down, etc.</p>
 <p>You can solve this equation to get the value of the asset at any point in time t. You just need to know the total of all of the shocks at time t.</p>
-<div class="amsmath math notranslate nohighlight" id="equation-4638cb12-1f48-4a3c-85c6-bfb112c35645">
-<span class="eqno">(2)<a class="headerlink" href="#equation-4638cb12-1f48-4a3c-85c6-bfb112c35645" title="Permalink to this equation">#</a></span>\[\begin{align}
+<div class="amsmath math notranslate nohighlight" id="equation-ffdbc037-a239-48db-8c29-b468e9bf2184">
+<span class="eqno">(2)<a class="headerlink" href="#equation-ffdbc037-a239-48db-8c29-b468e9bf2184" title="Permalink to this equation">#</a></span>\[\begin{align}
 S(t) = S(0) \exp \left(\left(\mu - \frac{1}{2}\sigma^2\right)t + \sigma W(t)\right)
 \end{align}\]</div>
 <div class="cell docutils container">
@@ -1129,19 +1129,19 @@ S(t) = S(0) \exp \left(\left(\mu - \frac{1}{2}\sigma^2\right)t + \sigma W(t)\rig
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>array([[-0.64909837,  0.14934744,  0.91772881, ...,  0.05781357,
-         0.30981391,  0.4467809 ],
-       [ 0.49579531, -0.55689076,  0.71121766, ..., -0.75716186,
-        -0.23753498,  1.25650773],
-       [ 0.57797629,  1.6119148 ,  2.24098383, ..., -0.75349147,
-         1.4351943 , -0.68032548],
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>array([[ 1.41875254, -0.19931111, -0.67484719, ...,  0.0531467 ,
+        -0.35622902, -0.41959522],
+       [-0.2435237 ,  0.79751283,  0.01731578, ...,  0.27916169,
+        -0.84097827, -0.81379528],
+       [ 1.13067077,  1.32553889, -0.29567385, ...,  1.54560801,
+         0.39969053,  1.76749263],
        ...,
-       [-0.62999656,  0.88747953, -1.75358045, ...,  0.20319987,
-        -0.56203917, -1.15014578],
-       [-0.72350685, -0.41936695,  0.05312874, ..., -0.824236  ,
-         0.96984268,  0.1626727 ],
-       [-0.25937694,  1.26966949, -0.13267008, ...,  0.0031428 ,
-        -0.95433883, -0.10152182]])
+       [-0.63885459,  0.77173953,  0.72882078, ..., -0.20645609,
+         0.27090527, -0.48860751],
+       [ 0.46822946,  0.93904224, -0.65061677, ..., -0.0067407 ,
+         1.35014566, -0.6153313 ],
+       [ 0.05115396,  0.17192937,  1.64440733, ...,  0.342026  ,
+         0.99411986, -0.28560982]])
 </pre></div>
 </div>
 </div>
