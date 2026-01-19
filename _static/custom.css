@@ -1,0 +1,284 @@
+/*
+ * Elon University Custom Theme
+ * Official Colors: Maroon (#73000a) and Gold (#b59a57)
+ *
+ * A subtle, professional color scheme for Jupyter Book
+ */
+
+/* ============================================
+   CSS Variables - Elon Color Palette
+   ============================================ */
+:root {
+    /* Primary Elon Colors */
+    --elon-maroon: #73000a;
+    --elon-maroon-light: #8a1a24;
+    --elon-maroon-dark: #5a0008;
+    --elon-gold: #b59a57;
+    --elon-gold-light: #c9b377;
+    --elon-gold-dark: #9a8045;
+
+    /* Derived colors for UI */
+    --elon-maroon-transparent: rgba(115, 0, 10, 0.1);
+    --elon-gold-transparent: rgba(181, 154, 87, 0.15);
+}
+
+/* ============================================
+   Sidebar / Navigation
+   ============================================ */
+
+/* Sidebar background with subtle maroon tint */
+.bd-sidebar-primary {
+    border-right: 3px solid var(--elon-maroon);
+}
+
+/* Active navigation item */
+.bd-sidebar-primary .nav-link.active,
+.bd-sidebar-primary .toc-entry a.nav-link.active {
+    color: var(--elon-maroon) !important;
+    font-weight: 600;
+    border-left: 3px solid var(--elon-gold);
+    padding-left: 0.5rem;
+}
+
+/* Navigation hover state */
+.bd-sidebar-primary .nav-link:hover {
+    color: var(--elon-maroon-light) !important;
+}
+
+/* ============================================
+   Headers
+   ============================================ */
+
+/* Main page title */
+h1 {
+    color: var(--elon-maroon);
+    border-bottom: 2px solid var(--elon-gold);
+    padding-bottom: 0.5rem;
+}
+
+/* Section headers */
+h2 {
+    color: var(--elon-maroon);
+    border-bottom: 1px solid var(--elon-gold-light);
+    padding-bottom: 0.3rem;
+}
+
+h3, h4, h5, h6 {
+    color: var(--elon-maroon-light);
+}
+
+/* ============================================
+   Links
+   ============================================ */
+
+/* Default links */
+.bd-content a:not(.btn):not(.nav-link):not(.dropdown-item) {
+    color: var(--elon-maroon);
+    text-decoration: underline;
+    text-decoration-color: var(--elon-gold);
+    text-underline-offset: 2px;
+}
+
+.bd-content a:not(.btn):not(.nav-link):not(.dropdown-item):hover {
+    color: var(--elon-maroon-dark);
+    text-decoration-color: var(--elon-maroon);
+}
+
+/* ============================================
+   Admonitions (Note, Warning, Hint boxes)
+   ============================================ */
+
+/* Note boxes - Elon gold accent */
+.admonition.note {
+    border-left: 4px solid var(--elon-gold);
+    background-color: var(--elon-gold-transparent);
+}
+
+.admonition.note > .admonition-title {
+    background-color: var(--elon-gold);
+    color: #333;
+}
+
+/* Hint boxes - Elon maroon accent */
+.admonition.hint,
+.admonition.tip {
+    border-left: 4px solid var(--elon-maroon);
+    background-color: var(--elon-maroon-transparent);
+}
+
+.admonition.hint > .admonition-title,
+.admonition.tip > .admonition-title {
+    background-color: var(--elon-maroon);
+    color: white;
+}
+
+/* Warning boxes - keep distinct but coordinate */
+.admonition.warning {
+    border-left: 4px solid var(--elon-maroon-dark);
+}
+
+/* Important boxes */
+.admonition.important {
+    border-left: 4px solid var(--elon-gold-dark);
+    background-color: var(--elon-gold-transparent);
+}
+
+.admonition.important > .admonition-title {
+    background-color: var(--elon-gold-dark);
+    color: white;
+}
+
+/* ============================================
+   Code Blocks
+   ============================================ */
+
+/* Inline code */
+code.literal {
+    background-color: var(--elon-gold-transparent);
+    color: var(--elon-maroon-dark);
+    padding: 0.1rem 0.3rem;
+    border-radius: 3px;
+}
+
+/* Code block headers/labels */
+div.highlight pre {
+    border-left: 3px solid var(--elon-maroon);
+}
+
+/* ============================================
+   Tables
+   ============================================ */
+
+/* Table headers */
+table thead th {
+    background-color: var(--elon-maroon);
+    color: white;
+    border-color: var(--elon-maroon-dark);
+}
+
+/* Table row hover */
+table tbody tr:hover {
+    background-color: var(--elon-gold-transparent);
+}
+
+/* Alternating rows */
+table tbody tr:nth-child(even) {
+    background-color: rgba(181, 154, 87, 0.05);
+}
+
+/* ============================================
+   Buttons & Interactive Elements
+   ============================================ */
+
+/* Primary buttons */
+.btn-primary,
+.btn.btn-primary {
+    background-color: var(--elon-maroon);
+    border-color: var(--elon-maroon);
+}
+
+.btn-primary:hover,
+.btn.btn-primary:hover {
+    background-color: var(--elon-maroon-dark);
+    border-color: var(--elon-maroon-dark);
+}
+
+/* Secondary buttons */
+.btn-secondary,
+.btn.btn-secondary {
+    background-color: var(--elon-gold);
+    border-color: var(--elon-gold);
+    color: #333;
+}
+
+.btn-secondary:hover,
+.btn.btn-secondary:hover {
+    background-color: var(--elon-gold-dark);
+    border-color: var(--elon-gold-dark);
+}
+
+/* ============================================
+   Header / Top Bar
+   ============================================ */
+
+.bd-header {
+    border-bottom: 3px solid var(--elon-gold);
+}
+
+/* Book title in header */
+.navbar-brand {
+    color: var(--elon-maroon) !important;
+    font-weight: 600;
+}
+
+/* ============================================
+   Footer
+   ============================================ */
+
+.bd-footer {
+    border-top: 2px solid var(--elon-maroon);
+}
+
+/* ============================================
+   Selection Highlight
+   ============================================ */
+
+::selection {
+    background-color: var(--elon-gold);
+    color: #333;
+}
+
+::-moz-selection {
+    background-color: var(--elon-gold);
+    color: #333;
+}
+
+/* ============================================
+   Scrollbar (WebKit browsers)
+   ============================================ */
+
+::-webkit-scrollbar {
+    width: 8px;
+}
+
+::-webkit-scrollbar-track {
+    background: #f1f1f1;
+}
+
+::-webkit-scrollbar-thumb {
+    background: var(--elon-gold);
+    border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: var(--elon-maroon);
+}
+
+/* ============================================
+   Jupyter Notebook Specific
+   ============================================ */
+
+/* Cell output styling */
+.cell_output {
+    border-left: 2px solid var(--elon-gold-light);
+    padding-left: 1rem;
+}
+
+/* Input prompt */
+.cell_input::before {
+    color: var(--elon-maroon);
+}
+
+/* ============================================
+   Print Styles
+   ============================================ */
+
+@media print {
+    h1, h2, h3 {
+        color: var(--elon-maroon) !important;
+    }
+
+    a {
+        color: var(--elon-maroon) !important;
+    }
+}

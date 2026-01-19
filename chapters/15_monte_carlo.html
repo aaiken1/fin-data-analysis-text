@@ -26,6 +26,8 @@
     <link rel="stylesheet" type="text/css" href="../_static/copybutton.css" />
     <link rel="stylesheet" type="text/css" href="../_static/mystnb.css" />
     <link rel="stylesheet" type="text/css" href="../_static/sphinx-thebe.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/custom.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/custom.css" />
     <link rel="stylesheet" type="text/css" href="../_static/design-style.b7bb847fb20b106c3d81b95245e65545.min.css" />
     
   <!-- Pre-loaded scripts that we'll load fully later -->
@@ -42,6 +44,7 @@
     <script>let toggleHintHide = 'Click to hide';</script>
     <script>let toggleOpenOnPrint = 'true';</script>
     <script src="../_static/togglebutton.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
     <script>var togglebuttonSelector = '.toggle, .admonition.dropdown, .tag_hide_input div.cell_input, .tag_hide-input div.cell_input, .tag_hide_output div.cell_output, .tag_hide-output div.cell_output, .tag_hide_cell.cell, .tag_hide-cell.cell';</script>
     <script src="../_static/design-tabs.js"></script>
     <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"
@@ -50,8 +53,6 @@ const thebe_selector_input = "pre"
 const thebe_selector_output = ".output, .cell_output"
 </script>
     <script async="async" src="../_static/sphinx-thebe.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
-    <script src="https://unpkg.com/@jupyter-widgets/html-manager@^0.20.0/dist/embed-amd.js"></script>
     <script>window.MathJax = {"options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
     <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
     <link rel="index" title="Index" href="../genindex.html" />
@@ -303,7 +304,7 @@ const thebe_selector_output = ".output, .cell_output"
  </li>
  <li class="toctree-l1">
   <a class="reference internal" href="10_unsupervised_learning.html">
-   Machine Learning and Unsupervised Learning
+   Machine learning and unsupervised learning
    <a id="unsupervised_learning">
    </a>
   </a>
@@ -576,15 +577,15 @@ title="Print to PDF"
 <p>However, when we start to form portfolios, we are going to care about the correlations across assets. We’ve already seen this when looking at portfolio math. When simulating the Bitcoin prices, we took random numbers from the standard normal distribution and then scaled them by our estimate for the volatility of BTC. This allowed us to capture the randomness of the returns.</p>
 <p>However, when dealing with more than one asset, we can’t do that, since the assets are <strong>not independent</strong> from one another. If Apple goes up, Google is more likely to have gone up as well. The two stocks are <strong>correlated</strong>. How can we account for this in our simulation? We will create <strong>correlated random shocks</strong> (<span class="math notranslate nohighlight">\(W\)</span>), where the random movement of one asset depends on another assets movement.</p>
 <p>Let’s try a simulation to see what’s going on. I’ll draw two random variables from the standard normal distribution, N(0,1). The random part of the return for Asset 1, <span class="math notranslate nohighlight">\(W_1\)</span>, is simply the random draw, <span class="math notranslate nohighlight">\(x_1\)</span>. However, the random part of the return for Asset 2, <span class="math notranslate nohighlight">\(W_2\)</span>, is correlated with whatever <span class="math notranslate nohighlight">\(x_1\)</span> ends up being. Mathematically, this dependent random movement is given as:</p>
-<div class="amsmath math notranslate nohighlight" id="equation-e4747e3d-ef71-4954-877d-cb6238acf3d6">
-<span class="eqno">(23)<a class="headerlink" href="#equation-e4747e3d-ef71-4954-877d-cb6238acf3d6" title="Permalink to this equation">#</a></span>\[\begin{align}
+<div class="amsmath math notranslate nohighlight" id="equation-5167216f-2006-4a54-8ff1-85070e1ac500">
+<span class="eqno">(23)<a class="headerlink" href="#equation-5167216f-2006-4a54-8ff1-85070e1ac500" title="Permalink to this equation">#</a></span>\[\begin{align}
 W_2 = \rho x_1 + (1 - \sqrt{\rho^2}) x_2
 \end{align}\]</div>
 <p>I’ll set the correlation, <span class="math notranslate nohighlight">\(\rho\)</span>, to be -0.80. These two assets are negatively correlated, so they should move in opposite directions. We’ll set each asset to have the same mean return and same volatility. I’ll set the starting price of each of these assets to 1.</p>
 <p>We’ll bring in our usual packages and try this out. This code should look a lot like the Bitcoin code, except that I now have two assets. I am only doing one simulation for each asset, so two total simulations.</p>
 <p>How do we simulative prices? Let me remind you of a formula:</p>
-<div class="amsmath math notranslate nohighlight" id="equation-9b088607-0e9c-4d36-a438-abca361257a5">
-<span class="eqno">(24)<a class="headerlink" href="#equation-9b088607-0e9c-4d36-a438-abca361257a5" title="Permalink to this equation">#</a></span>\[\begin{align}
+<div class="amsmath math notranslate nohighlight" id="equation-e038170e-8a46-4ce3-93cc-54c8a2906580">
+<span class="eqno">(24)<a class="headerlink" href="#equation-e038170e-8a46-4ce3-93cc-54c8a2906580" title="Permalink to this equation">#</a></span>\[\begin{align}
 S(t) = S(0) \exp \left(\left(\mu - \frac{1}{2}\sigma^2\right)t + \sigma W(t)\right)
 \end{align}\]</div>
 <p>Take a starting price <span class="math notranslate nohighlight">\(S_0\)</span>. We use <code class="docutils literal notranslate"><span class="pre">exp</span></code> for continuous compounding. Then, the price today, <span class="math notranslate nohighlight">\(S_t\)</span> is a function of two return sources. The first source is called <strong>drift</strong>: <span class="math notranslate nohighlight">\(\mu - \frac{1}{2}\sigma^2\)</span>. This is what an asset returns on average over some period, like a day. This is the <strong>deterministic</strong> piece of the return and would be related to risk. <span class="math notranslate nohighlight">\(\mu\)</span> is the <strong>arithmetic average</strong> and <span class="math notranslate nohighlight">\(\sigma\)</span> is the volatility (standard deviation). They should be in the same units (e.g. daily).</p>
@@ -600,6 +601,14 @@ S(t) = S(0) \exp \left(\left(\mu - \frac{1}{2}\sigma^2\right)t + \sigma W(t)\rig
 
 <span class="c1"># Include this to have plots show up in your Jupyter notebook.</span>
 <span class="o">%</span><span class="k">matplotlib</span> inline 
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>/opt/anaconda3/lib/python3.9/site-packages/pandas/core/computation/expressions.py:21: UserWarning: Pandas requires version &#39;2.8.4&#39; or newer of &#39;numexpr&#39; (version &#39;2.8.3&#39; currently installed).
+  from pandas.core.computation.check import NUMEXPR_INSTALLED
+/opt/anaconda3/lib/python3.9/site-packages/pandas/core/arrays/masked.py:60: UserWarning: Pandas requires version &#39;1.3.6&#39; or newer of &#39;bottleneck&#39; (version &#39;1.3.5&#39; currently installed).
+  from pandas.core import (
 </pre></div>
 </div>
 </div>
@@ -686,13 +695,8 @@ S(t) = S(0) \exp \left(\left(\mu - \frac{1}{2}\sigma^2\right)t + \sigma W(t)\rig
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>YF.download() has changed argument auto_adjust default to True
-</pre></div>
-</div>
 <div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[                       0%                       ]
-</pre></div>
-</div>
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[*******************   40%                       ]  2 of 5 completed
+[                       0%                       ]
 </pre></div>
 </div>
 <div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[**********************60%****                   ]  3 of 5 completed
@@ -704,7 +708,25 @@ S(t) = S(0) \exp \left(\left(\mu - \frac{1}{2}\sigma^2\right)t + \sigma W(t)\rig
 <div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[*********************100%***********************]  5 of 5 completed
 </pre></div>
 </div>
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>5 Failed downloads:
+</pre></div>
+</div>
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[&#39;F&#39;]: ConnectionError(MaxRetryError(&quot;HTTPSConnectionPool(host=&#39;fc.yahoo.com&#39;, port=443): Max retries exceeded with url: / (Caused by NewConnectionError(&#39;&lt;urllib3.connection.HTTPSConnection object at 0x147f260a0&gt;: Failed to establish a new connection: [Errno 8] nodename nor servname provided, or not known&#39;))&quot;))
+</pre></div>
+</div>
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[&#39;CAG&#39;]: ConnectionError(MaxRetryError(&quot;HTTPSConnectionPool(host=&#39;fc.yahoo.com&#39;, port=443): Max retries exceeded with url: / (Caused by NewConnectionError(&#39;&lt;urllib3.connection.HTTPSConnection object at 0x147f30820&gt;: Failed to establish a new connection: [Errno 8] nodename nor servname provided, or not known&#39;))&quot;))
+</pre></div>
+</div>
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[&#39;AAPL&#39;]: ConnectionError(MaxRetryError(&quot;HTTPSConnectionPool(host=&#39;fc.yahoo.com&#39;, port=443): Max retries exceeded with url: / (Caused by NewConnectionError(&#39;&lt;urllib3.connection.HTTPSConnection object at 0x147f56460&gt;: Failed to establish a new connection: [Errno 8] nodename nor servname provided, or not known&#39;))&quot;))
+</pre></div>
+</div>
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[&#39;AMZN&#39;]: ConnectionError(MaxRetryError(&quot;HTTPSConnectionPool(host=&#39;fc.yahoo.com&#39;, port=443): Max retries exceeded with url: / (Caused by NewConnectionError(&#39;&lt;urllib3.connection.HTTPSConnection object at 0x147f56af0&gt;: Failed to establish a new connection: [Errno 8] nodename nor servname provided, or not known&#39;))&quot;))
+</pre></div>
+</div>
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[&#39;XOM&#39;]: ConnectionError(MaxRetryError(&quot;HTTPSConnectionPool(host=&#39;fc.yahoo.com&#39;, port=443): Max retries exceeded with url: / (Caused by NewConnectionError(&#39;&lt;urllib3.connection.HTTPSConnection object at 0x106de5070&gt;: Failed to establish a new connection: [Errno 8] nodename nor servname provided, or not known&#39;))&quot;))
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>YF.download() has changed argument auto_adjust default to True
 </pre></div>
 </div>
 </div>
@@ -740,8 +762,8 @@ S(t) = S(0) \exp \left(\left(\mu - \frac{1}{2}\sigma^2\right)t + \sigma W(t)\rig
   <thead>
     <tr>
       <th>Price</th>
+      <th colspan="5" halign="left">Adj Close</th>
       <th colspan="5" halign="left">Close</th>
-      <th colspan="5" halign="left">High</th>
       <th>...</th>
       <th colspan="5" halign="left">Open</th>
       <th colspan="5" halign="left">Volume</th>
@@ -796,273 +818,9 @@ S(t) = S(0) \exp \left(\left(\mu - \frac{1}{2}\sigma^2\right)t + \sigma W(t)\rig
     </tr>
   </thead>
   <tbody>
-    <tr>
-      <th>2019-01-02</th>
-      <td>37.667183</td>
-      <td>76.956497</td>
-      <td>16.942217</td>
-      <td>5.748631</td>
-      <td>51.719868</td>
-      <td>37.889009</td>
-      <td>77.667999</td>
-      <td>17.124903</td>
-      <td>5.835952</td>
-      <td>51.853453</td>
-      <td>...</td>
-      <td>36.944466</td>
-      <td>73.260002</td>
-      <td>16.791301</td>
-      <td>5.479391</td>
-      <td>49.983253</td>
-      <td>148158800</td>
-      <td>159662000</td>
-      <td>9529800</td>
-      <td>47494400</td>
-      <td>16727200</td>
-    </tr>
-    <tr>
-      <th>2019-01-03</th>
-      <td>33.915253</td>
-      <td>75.014000</td>
-      <td>17.124901</td>
-      <td>5.661311</td>
-      <td>50.925774</td>
-      <td>34.757230</td>
-      <td>76.900002</td>
-      <td>17.220216</td>
-      <td>5.814122</td>
-      <td>52.135463</td>
-      <td>...</td>
-      <td>34.342203</td>
-      <td>76.000504</td>
-      <td>16.894557</td>
-      <td>5.799569</td>
-      <td>51.949927</td>
-      <td>365248800</td>
-      <td>139512000</td>
-      <td>8526000</td>
-      <td>39172400</td>
-      <td>13866100</td>
-    </tr>
-    <tr>
-      <th>2019-01-04</th>
-      <td>35.363064</td>
-      <td>78.769501</td>
-      <td>17.363190</td>
-      <td>5.879612</td>
-      <td>52.803402</td>
-      <td>35.432237</td>
-      <td>79.699997</td>
-      <td>17.704735</td>
-      <td>5.908719</td>
-      <td>52.892455</td>
-      <td>...</td>
-      <td>34.473383</td>
-      <td>76.500000</td>
-      <td>17.228160</td>
-      <td>5.755907</td>
-      <td>51.682766</td>
-      <td>234428400</td>
-      <td>183652000</td>
-      <td>10307800</td>
-      <td>43039800</td>
-      <td>16043600</td>
-    </tr>
-    <tr>
-      <th>2019-01-07</th>
-      <td>35.284359</td>
-      <td>81.475502</td>
-      <td>17.720621</td>
-      <td>6.032425</td>
-      <td>53.077980</td>
-      <td>35.499030</td>
-      <td>81.727997</td>
-      <td>17.935080</td>
-      <td>6.090639</td>
-      <td>53.508424</td>
-      <td>...</td>
-      <td>35.468021</td>
-      <td>80.115501</td>
-      <td>17.355248</td>
-      <td>5.901443</td>
-      <td>52.877604</td>
-      <td>219111200</td>
-      <td>159864000</td>
-      <td>7688400</td>
-      <td>40729400</td>
-      <td>10844200</td>
-    </tr>
-    <tr>
-      <th>2019-01-08</th>
-      <td>35.956993</td>
-      <td>82.829002</td>
-      <td>17.029589</td>
-      <td>6.090637</td>
-      <td>53.463909</td>
-      <td>36.212212</td>
-      <td>83.830498</td>
-      <td>17.649134</td>
-      <td>6.214342</td>
-      <td>53.872084</td>
-      <td>...</td>
-      <td>35.673153</td>
-      <td>83.234497</td>
-      <td>17.569706</td>
-      <td>6.127021</td>
-      <td>53.834980</td>
-      <td>164101200</td>
-      <td>177628000</td>
-      <td>12699700</td>
-      <td>45644000</td>
-      <td>11439000</td>
-    </tr>
-    <tr>
-      <th>...</th>
-      <td>...</td>
-      <td>...</td>
-      <td>...</td>
-      <td>...</td>
-      <td>...</td>
-      <td>...</td>
-      <td>...</td>
-      <td>...</td>
-      <td>...</td>
-      <td>...</td>
-      <td>...</td>
-      <td>...</td>
-      <td>...</td>
-      <td>...</td>
-      <td>...</td>
-      <td>...</td>
-      <td>...</td>
-      <td>...</td>
-      <td>...</td>
-      <td>...</td>
-      <td>...</td>
-    </tr>
-    <tr>
-      <th>2019-12-24</th>
-      <td>68.823029</td>
-      <td>89.460503</td>
-      <td>27.924419</td>
-      <td>7.348588</td>
-      <td>54.453609</td>
-      <td>68.973140</td>
-      <td>89.778503</td>
-      <td>28.309868</td>
-      <td>7.364108</td>
-      <td>54.826902</td>
-      <td>...</td>
-      <td>68.924716</td>
-      <td>89.690498</td>
-      <td>27.932622</td>
-      <td>7.325308</td>
-      <td>54.710247</td>
-      <td>48478800</td>
-      <td>17626000</td>
-      <td>2459600</td>
-      <td>11881600</td>
-      <td>3979400</td>
-    </tr>
-    <tr>
-      <th>2019-12-26</th>
-      <td>70.188484</td>
-      <td>93.438499</td>
-      <td>27.629181</td>
-      <td>7.333068</td>
-      <td>54.539158</td>
-      <td>70.205433</td>
-      <td>93.523003</td>
-      <td>28.047434</td>
-      <td>7.364107</td>
-      <td>54.826904</td>
-      <td>...</td>
-      <td>68.956174</td>
-      <td>90.050499</td>
-      <td>27.850608</td>
-      <td>7.348588</td>
-      <td>54.585823</td>
-      <td>93121200</td>
-      <td>120108000</td>
-      <td>4672700</td>
-      <td>28961300</td>
-      <td>8840200</td>
-    </tr>
-    <tr>
-      <th>2019-12-27</th>
-      <td>70.161842</td>
-      <td>93.489998</td>
-      <td>28.031033</td>
-      <td>7.263230</td>
-      <td>54.352505</td>
-      <td>71.171421</td>
-      <td>95.070000</td>
-      <td>28.113041</td>
-      <td>7.340829</td>
-      <td>54.679132</td>
-      <td>...</td>
-      <td>70.481422</td>
-      <td>94.146004</td>
-      <td>27.694792</td>
-      <td>7.333069</td>
-      <td>54.593586</td>
-      <td>146266000</td>
-      <td>123732000</td>
-      <td>2574400</td>
-      <td>28272800</td>
-      <td>10516100</td>
-    </tr>
-    <tr>
-      <th>2019-12-30</th>
-      <td>70.578285</td>
-      <td>92.344498</td>
-      <td>27.916210</td>
-      <td>7.177870</td>
-      <td>54.033665</td>
-      <td>70.861551</td>
-      <td>94.199997</td>
-      <td>28.072028</td>
-      <td>7.255469</td>
-      <td>54.780243</td>
-      <td>...</td>
-      <td>70.079551</td>
-      <td>93.699997</td>
-      <td>27.981817</td>
-      <td>7.247709</td>
-      <td>54.508048</td>
-      <td>144114400</td>
-      <td>73494000</td>
-      <td>1813200</td>
-      <td>36074900</td>
-      <td>12689400</td>
-    </tr>
-    <tr>
-      <th>2019-12-31</th>
-      <td>71.093964</td>
-      <td>92.391998</td>
-      <td>28.080236</td>
-      <td>7.216671</td>
-      <td>54.266972</td>
-      <td>71.101226</td>
-      <td>92.663002</td>
-      <td>28.186847</td>
-      <td>7.239951</td>
-      <td>54.282529</td>
-      <td>...</td>
-      <td>70.193335</td>
-      <td>92.099998</td>
-      <td>27.981822</td>
-      <td>7.177872</td>
-      <td>53.675928</td>
-      <td>100805600</td>
-      <td>50130000</td>
-      <td>2558500</td>
-      <td>32342100</td>
-      <td>13151800</td>
-    </tr>
   </tbody>
 </table>
-<p>252 rows × 25 columns</p>
+<p>0 rows × 30 columns</p>
 </div></div></div>
 </div>
 <div class="cell docutils container">
@@ -1117,97 +875,8 @@ S(t) = S(0) \exp \left(\left(\mu - \frac{1}{2}\sigma^2\right)t + \sigma W(t)\rig
     </tr>
   </thead>
   <tbody>
-    <tr>
-      <th>2019-01-03</th>
-      <td>-0.099607</td>
-      <td>-0.025241</td>
-      <td>0.010783</td>
-      <td>-0.015190</td>
-      <td>-0.015354</td>
-    </tr>
-    <tr>
-      <th>2019-01-04</th>
-      <td>0.042689</td>
-      <td>0.050064</td>
-      <td>0.013915</td>
-      <td>0.038560</td>
-      <td>0.036870</td>
-    </tr>
-    <tr>
-      <th>2019-01-07</th>
-      <td>-0.002226</td>
-      <td>0.034353</td>
-      <td>0.020586</td>
-      <td>0.025990</td>
-      <td>0.005200</td>
-    </tr>
-    <tr>
-      <th>2019-01-08</th>
-      <td>0.019063</td>
-      <td>0.016612</td>
-      <td>-0.038996</td>
-      <td>0.009650</td>
-      <td>0.007271</td>
-    </tr>
-    <tr>
-      <th>2019-01-09</th>
-      <td>0.016982</td>
-      <td>0.001714</td>
-      <td>-0.002798</td>
-      <td>0.041816</td>
-      <td>0.005275</td>
-    </tr>
-    <tr>
-      <th>...</th>
-      <td>...</td>
-      <td>...</td>
-      <td>...</td>
-      <td>...</td>
-      <td>...</td>
-    </tr>
-    <tr>
-      <th>2019-12-24</th>
-      <td>0.000951</td>
-      <td>-0.002114</td>
-      <td>0.000882</td>
-      <td>0.003178</td>
-      <td>-0.003841</td>
-    </tr>
-    <tr>
-      <th>2019-12-26</th>
-      <td>0.019840</td>
-      <td>0.044467</td>
-      <td>-0.010573</td>
-      <td>-0.002112</td>
-      <td>0.001571</td>
-    </tr>
-    <tr>
-      <th>2019-12-27</th>
-      <td>-0.000380</td>
-      <td>0.000551</td>
-      <td>0.014544</td>
-      <td>-0.009524</td>
-      <td>-0.003422</td>
-    </tr>
-    <tr>
-      <th>2019-12-30</th>
-      <td>0.005935</td>
-      <td>-0.012253</td>
-      <td>-0.004096</td>
-      <td>-0.011752</td>
-      <td>-0.005866</td>
-    </tr>
-    <tr>
-      <th>2019-12-31</th>
-      <td>0.007306</td>
-      <td>0.000514</td>
-      <td>0.005876</td>
-      <td>0.005406</td>
-      <td>0.004318</td>
-    </tr>
   </tbody>
 </table>
-<p>251 rows × 5 columns</p>
 </div></div></div>
 </div>
 <div class="cell docutils container">
@@ -1245,67 +914,67 @@ S(t) = S(0) \exp \left(\left(\mu - \frac{1}{2}\sigma^2\right)t + \sigma W(t)\rig
   <tbody>
     <tr>
       <th>count</th>
-      <td>251.000000</td>
-      <td>251.000000</td>
-      <td>251.000000</td>
-      <td>251.000000</td>
-      <td>251.000000</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
     </tr>
     <tr>
       <th>mean</th>
-      <td>0.002671</td>
-      <td>0.000832</td>
-      <td>0.002271</td>
-      <td>0.001053</td>
-      <td>0.000257</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
     </tr>
     <tr>
       <th>std</th>
-      <td>0.016498</td>
-      <td>0.014382</td>
-      <td>0.022887</td>
-      <td>0.017158</td>
-      <td>0.011500</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
     </tr>
     <tr>
       <th>min</th>
-      <td>-0.099607</td>
-      <td>-0.053819</td>
-      <td>-0.120982</td>
-      <td>-0.074540</td>
-      <td>-0.040289</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
     </tr>
     <tr>
       <th>25%</th>
-      <td>-0.004820</td>
-      <td>-0.006649</td>
-      <td>-0.008724</td>
-      <td>-0.006961</td>
-      <td>-0.006711</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
     </tr>
     <tr>
       <th>50%</th>
-      <td>0.002768</td>
-      <td>0.001163</td>
-      <td>0.002338</td>
-      <td>0.000964</td>
-      <td>0.000694</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
     </tr>
     <tr>
       <th>75%</th>
-      <td>0.011560</td>
-      <td>0.008535</td>
-      <td>0.013240</td>
-      <td>0.010034</td>
-      <td>0.007803</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
     </tr>
     <tr>
       <th>max</th>
-      <td>0.068335</td>
-      <td>0.050064</td>
-      <td>0.158692</td>
-      <td>0.107447</td>
-      <td>0.036870</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
     </tr>
   </tbody>
 </table>
@@ -1335,6 +1004,20 @@ S(t) = S(0) \exp \left(\left(\mu - \frac{1}{2}\sigma^2\right)t + \sigma W(t)\rig
 
 <span class="c1"># initial matrix</span>
 <span class="n">port_returns_all</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">full</span><span class="p">((</span><span class="n">T</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="n">N_SIM</span><span class="p">),</span> <span class="mf">0.</span><span class="p">)</span> <span class="c1"># One less return than price</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>/opt/anaconda3/lib/python3.9/site-packages/numpy/lib/function_base.py:518: RuntimeWarning: Mean of empty slice.
+  avg = a.mean(axis, **keepdims_kw)
+/opt/anaconda3/lib/python3.9/site-packages/numpy/core/_methods.py:182: RuntimeWarning: invalid value encountered in divide
+  ret = um.true_divide(
+/opt/anaconda3/lib/python3.9/site-packages/pandas/core/frame.py:11211: RuntimeWarning: Degrees of freedom &lt;= 0 for slice
+  base_cov = np.cov(mat.T, ddof=ddof)
+/opt/anaconda3/lib/python3.9/site-packages/numpy/lib/function_base.py:2704: RuntimeWarning: divide by zero encountered in divide
+  c *= np.true_divide(1, fact)
+/opt/anaconda3/lib/python3.9/site-packages/numpy/lib/function_base.py:2704: RuntimeWarning: invalid value encountered in multiply
+  c *= np.true_divide(1, fact)
 </pre></div>
 </div>
 </div>
@@ -1383,43 +1066,43 @@ S(t) = S(0) \exp \left(\left(\mu - \frac{1}{2}\sigma^2\right)t + \sigma W(t)\rig
   <tbody>
     <tr>
       <th>AAPL</th>
-      <td>1.000000</td>
-      <td>0.592889</td>
-      <td>0.152908</td>
-      <td>0.305896</td>
-      <td>0.416556</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
     </tr>
     <tr>
       <th>AMZN</th>
-      <td>0.592889</td>
-      <td>1.000000</td>
-      <td>0.116090</td>
-      <td>0.364217</td>
-      <td>0.370255</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
     </tr>
     <tr>
       <th>CAG</th>
-      <td>0.152908</td>
-      <td>0.116090</td>
-      <td>1.000000</td>
-      <td>0.066562</td>
-      <td>0.160014</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
     </tr>
     <tr>
       <th>F</th>
-      <td>0.305896</td>
-      <td>0.364217</td>
-      <td>0.066562</td>
-      <td>1.000000</td>
-      <td>0.375397</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
     </tr>
     <tr>
       <th>XOM</th>
-      <td>0.416556</td>
-      <td>0.370255</td>
-      <td>0.160014</td>
-      <td>0.375397</td>
-      <td>1.000000</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
     </tr>
   </tbody>
 </table>
@@ -1453,6 +1136,34 @@ S(t) = S(0) \exp \left(\left(\mu - \frac{1}{2}\sigma^2\right)t + \sigma W(t)\rig
 <span class="n">R</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">S</span><span class="o">.</span><span class="n">T</span><span class="p">)</span><span class="o">.</span><span class="n">pct_change</span><span class="p">()</span><span class="o">.</span><span class="n">dropna</span><span class="p">()</span> <span class="c1"># Create returns from those simulated prices.</span>
 
 <span class="n">port_rets</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">cumprod</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">inner</span><span class="p">(</span><span class="n">weights</span><span class="p">,</span> <span class="n">R</span><span class="p">)</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)</span> <span class="c1"># Weights x returns, cumulative product to get cumulative portfolio returns.</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output traceback highlight-ipythontb notranslate"><div class="highlight"><pre><span></span><span class="gt">---------------------------------------------------------------------------</span>
+<span class="ne">IndexError</span><span class="g g-Whitespace">                                </span>Traceback (most recent call last)
+<span class="n">Cell</span> <span class="n">In</span><span class="p">[</span><span class="mi">12</span><span class="p">],</span> <span class="n">line</span> <span class="mi">1</span>
+<span class="ne">----&gt; </span><span class="mi">1</span> <span class="n">S_0</span> <span class="o">=</span> <span class="n">prices</span><span class="o">.</span><span class="n">iloc</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
+<span class="g g-Whitespace">      </span><span class="mi">2</span> <span class="n">A</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linalg</span><span class="o">.</span><span class="n">cholesky</span><span class="p">(</span><span class="n">cov</span><span class="p">)</span>
+<span class="g g-Whitespace">      </span><span class="mi">3</span> <span class="n">S</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">([</span><span class="n">noa</span><span class="p">,</span> <span class="n">N</span><span class="p">])</span> <span class="c1"># Why N+1? We want our starting price + 252 days of prices.</span>
+
+<span class="nn">File /opt/anaconda3/lib/python3.9/site-packages/pandas/core/indexing.py:1191,</span> in <span class="ni">_LocationIndexer.__getitem__</span><span class="nt">(self, key)</span>
+<span class="g g-Whitespace">   </span><span class="mi">1189</span> <span class="n">maybe_callable</span> <span class="o">=</span> <span class="n">com</span><span class="o">.</span><span class="n">apply_if_callable</span><span class="p">(</span><span class="n">key</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">obj</span><span class="p">)</span>
+<span class="g g-Whitespace">   </span><span class="mi">1190</span> <span class="n">maybe_callable</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_check_deprecated_callable_usage</span><span class="p">(</span><span class="n">key</span><span class="p">,</span> <span class="n">maybe_callable</span><span class="p">)</span>
+<span class="ne">-&gt; </span><span class="mi">1191</span> <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_getitem_axis</span><span class="p">(</span><span class="n">maybe_callable</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="n">axis</span><span class="p">)</span>
+
+<span class="nn">File /opt/anaconda3/lib/python3.9/site-packages/pandas/core/indexing.py:1752,</span> in <span class="ni">_iLocIndexer._getitem_axis</span><span class="nt">(self, key, axis)</span>
+<span class="g g-Whitespace">   </span><span class="mi">1749</span>     <span class="k">raise</span> <span class="ne">TypeError</span><span class="p">(</span><span class="s2">&quot;Cannot index by location index with a non-integer key&quot;</span><span class="p">)</span>
+<span class="g g-Whitespace">   </span><span class="mi">1751</span> <span class="c1"># validate the location</span>
+<span class="ne">-&gt; </span><span class="mi">1752</span> <span class="bp">self</span><span class="o">.</span><span class="n">_validate_integer</span><span class="p">(</span><span class="n">key</span><span class="p">,</span> <span class="n">axis</span><span class="p">)</span>
+<span class="g g-Whitespace">   </span><span class="mi">1754</span> <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">obj</span><span class="o">.</span><span class="n">_ixs</span><span class="p">(</span><span class="n">key</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="n">axis</span><span class="p">)</span>
+
+<span class="nn">File /opt/anaconda3/lib/python3.9/site-packages/pandas/core/indexing.py:1685,</span> in <span class="ni">_iLocIndexer._validate_integer</span><span class="nt">(self, key, axis)</span>
+<span class="g g-Whitespace">   </span><span class="mi">1683</span> <span class="n">len_axis</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">obj</span><span class="o">.</span><span class="n">_get_axis</span><span class="p">(</span><span class="n">axis</span><span class="p">))</span>
+<span class="g g-Whitespace">   </span><span class="mi">1684</span> <span class="k">if</span> <span class="n">key</span> <span class="o">&gt;=</span> <span class="n">len_axis</span> <span class="ow">or</span> <span class="n">key</span> <span class="o">&lt;</span> <span class="o">-</span><span class="n">len_axis</span><span class="p">:</span>
+<span class="ne">-&gt; </span><span class="mi">1685</span>     <span class="k">raise</span> <span class="ne">IndexError</span><span class="p">(</span><span class="s2">&quot;single positional indexer is out-of-bounds&quot;</span><span class="p">)</span>
+
+<span class="ne">IndexError</span>: single positional indexer is out-of-bounds
 </pre></div>
 </div>
 </div>
@@ -1501,39 +1212,39 @@ S(t) = S(0) \exp \left(\left(\mu - \frac{1}{2}\sigma^2\right)t + \sigma W(t)\rig
       <td>1.000000</td>
       <td>0.595471</td>
       <td>0.266347</td>
-      <td>0.304452</td>
+      <td>0.304453</td>
       <td>0.501391</td>
     </tr>
     <tr>
       <th>1</th>
       <td>0.595471</td>
       <td>1.000000</td>
-      <td>0.213024</td>
-      <td>0.387221</td>
-      <td>0.443718</td>
+      <td>0.213023</td>
+      <td>0.387222</td>
+      <td>0.443719</td>
     </tr>
     <tr>
       <th>2</th>
       <td>0.266347</td>
-      <td>0.213024</td>
+      <td>0.213023</td>
       <td>1.000000</td>
-      <td>0.156466</td>
-      <td>0.257571</td>
+      <td>0.156465</td>
+      <td>0.257572</td>
     </tr>
     <tr>
       <th>3</th>
-      <td>0.304452</td>
-      <td>0.387221</td>
-      <td>0.156466</td>
+      <td>0.304453</td>
+      <td>0.387222</td>
+      <td>0.156465</td>
       <td>1.000000</td>
-      <td>0.349659</td>
+      <td>0.349658</td>
     </tr>
     <tr>
       <th>4</th>
       <td>0.501391</td>
-      <td>0.443718</td>
-      <td>0.257571</td>
-      <td>0.349659</td>
+      <td>0.443719</td>
+      <td>0.257572</td>
+      <td>0.349658</td>
       <td>1.000000</td>
     </tr>
   </tbody>
