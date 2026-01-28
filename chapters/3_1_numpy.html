@@ -1,115 +1,180 @@
 
 <!DOCTYPE html>
 
-<html>
+
+<html lang="en" data-content_root="../" >
+
   <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
     <title>Numpy and arrays &#8212; Data Analysis in Finance</title>
-    
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
+  </script>
+  
   <!-- Loaded before other Sphinx assets -->
-  <link href="../_static/styles/theme.css?digest=1999514e3f237ded88cf" rel="stylesheet">
-<link href="../_static/styles/pydata-sphinx-theme.css?digest=1999514e3f237ded88cf" rel="stylesheet">
+  <link href="../_static/styles/theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="../_static/styles/bootstrap.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="../_static/styles/pydata-sphinx-theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
 
-    
-  <link rel="stylesheet"
-    href="../_static/vendor/fontawesome/5.13.0/css/all.min.css">
-  <link rel="preload" as="font" type="font/woff2" crossorigin
-    href="../_static/vendor/fontawesome/5.13.0/webfonts/fa-solid-900.woff2">
-  <link rel="preload" as="font" type="font/woff2" crossorigin
-    href="../_static/vendor/fontawesome/5.13.0/webfonts/fa-brands-400.woff2">
+  
+  <link href="../_static/vendor/fontawesome/6.5.2/css/all.min.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.2/webfonts/fa-solid-900.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.2/webfonts/fa-brands-400.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.2/webfonts/fa-regular-400.woff2" />
 
-    <link rel="stylesheet" type="text/css" href="../_static/pygments.css" />
-    <link rel="stylesheet" href="../_static/styles/sphinx-book-theme.css?digest=5115cc725059bd94278eecd172e13a965bf8f5a9" type="text/css" />
-    <link rel="stylesheet" type="text/css" href="../_static/togglebutton.css" />
-    <link rel="stylesheet" type="text/css" href="../_static/copybutton.css" />
-    <link rel="stylesheet" type="text/css" href="../_static/mystnb.css" />
-    <link rel="stylesheet" type="text/css" href="../_static/sphinx-thebe.css" />
-    <link rel="stylesheet" type="text/css" href="../_static/custom.css" />
-    <link rel="stylesheet" type="text/css" href="../_static/custom.css" />
-    <link rel="stylesheet" type="text/css" href="../_static/design-style.b7bb847fb20b106c3d81b95245e65545.min.css" />
-    
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=03e43079" />
+    <link rel="stylesheet" type="text/css" href="../_static/styles/sphinx-book-theme.css?v=eba8b062" />
+    <link rel="stylesheet" type="text/css" href="../_static/togglebutton.css?v=9c3e77be" />
+    <link rel="stylesheet" type="text/css" href="../_static/copybutton.css?v=76b2166b" />
+    <link rel="stylesheet" type="text/css" href="../_static/mystnb.8ecb98da25f57f5357bf6f572d296f466b2cfe2517ffebfabe82451661e28f02.css?v=6644e6bb" />
+    <link rel="stylesheet" type="text/css" href="../_static/sphinx-thebe.css?v=4fa983c6" />
+    <link rel="stylesheet" type="text/css" href="../_static/sphinx-design.min.css?v=95c83b7e" />
+    <link rel="stylesheet" type="text/css" href="../_static/custom.css?v=b747247e" />
+  
   <!-- Pre-loaded scripts that we'll load fully later -->
-  <link rel="preload" as="script" href="../_static/scripts/pydata-sphinx-theme.js?digest=1999514e3f237ded88cf">
+  <link rel="preload" as="script" href="../_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b" />
+<link rel="preload" as="script" href="../_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b" />
+  <script src="../_static/vendor/fontawesome/6.5.2/js/all.min.js?digest=dfe6caa3a7d634c4db9b"></script>
 
-    <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
-    <script src="../_static/jquery.js"></script>
-    <script src="../_static/underscore.js"></script>
-    <script src="../_static/doctools.js"></script>
-    <script src="../_static/clipboard.min.js"></script>
-    <script src="../_static/copybutton.js"></script>
-    <script src="../_static/scripts/sphinx-book-theme.js?digest=9c920249402e914e316237a7dbc6769907cce411"></script>
+    <script src="../_static/documentation_options.js?v=9eb32ce0"></script>
+    <script src="../_static/doctools.js?v=9a2dae69"></script>
+    <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../_static/clipboard.min.js?v=a7894cd8"></script>
+    <script src="../_static/copybutton.js?v=f281be69"></script>
+    <script src="../_static/scripts/sphinx-book-theme.js?v=887ef09a"></script>
     <script>let toggleHintShow = 'Click to show';</script>
     <script>let toggleHintHide = 'Click to hide';</script>
     <script>let toggleOpenOnPrint = 'true';</script>
-    <script src="../_static/togglebutton.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
-    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown, .tag_hide_input div.cell_input, .tag_hide-input div.cell_input, .tag_hide_output div.cell_output, .tag_hide-output div.cell_output, .tag_hide_cell.cell, .tag_hide-cell.cell';</script>
-    <script src="../_static/design-tabs.js"></script>
-    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"
-const thebe_selector = ".thebe,.cell"
-const thebe_selector_input = "pre"
-const thebe_selector_output = ".output, .cell_output"
-</script>
-    <script async="async" src="../_static/sphinx-thebe.js"></script>
+    <script src="../_static/togglebutton.js?v=1ae7504c"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script src="../_static/design-tabs.js?v=36754332"></script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script async="async" src="../_static/sphinx-thebe.js?v=c100c467"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
     <script>window.MathJax = {"options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
     <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'chapters/3_1_numpy';</script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
     <link rel="next" title="Working with data" href="4_intro.html" />
     <link rel="prev" title="The Basics" href="3_0_comp101.html" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <meta name="docsearch:language" content="None">
-    
-
-    <!-- Google Analytics -->
-    
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
   </head>
-  <body data-spy="scroll" data-target="#bd-toc-nav" data-offset="60">
-<!-- Checkboxes to toggle the left sidebar -->
-<input type="checkbox" class="sidebar-toggle" name="__navigation" id="__navigation" aria-label="Toggle navigation sidebar">
-<label class="overlay overlay-navbar" for="__navigation">
-    <div class="visually-hidden">Toggle navigation sidebar</div>
-</label>
-<!-- Checkboxes to toggle the in-page toc -->
-<input type="checkbox" class="sidebar-toggle" name="__page-toc" id="__page-toc" aria-label="Toggle in-page Table of Contents">
-<label class="overlay overlay-pagetoc" for="__page-toc">
-    <div class="visually-hidden">Toggle in-page Table of Contents</div>
-</label>
-<!-- Headers at the top -->
-<div class="announcement header-item noprint"></div>
-<div class="header header-item noprint"></div>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
 
-    
-    <div class="container-fluid" id="banner"></div>
+  
+  
+  <div id="pst-skip-link" class="skip-link d-print-none"><a href="#main-content">Skip to main content</a></div>
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>Back to top</button>
 
-    
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-primary-sidebar-checkbox"/>
+  <label class="overlay overlay-primary" for="pst-primary-sidebar-checkbox"></label>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-secondary-sidebar-checkbox"/>
+  <label class="overlay overlay-secondary" for="pst-secondary-sidebar-checkbox"></label>
+  
+  <div class="search-button__wrapper">
+    <div class="search-button__overlay"></div>
+    <div class="search-button__search-container">
+<form class="bd-search d-flex align-items-center"
+      action="../search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         id="search-input"
+         placeholder="Search this book..."
+         aria-label="Search this book..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form></div>
+  </div>
 
-    <div class="container-xl">
-      <div class="row">
-          
-<!-- Sidebar -->
-<div class="bd-sidebar noprint" id="site-navigation">
-    <div class="bd-sidebar__content">
-        <div class="bd-sidebar__top"><div class="navbar-brand-box">
-    <a class="navbar-brand text-wrap" href="../index.html">
+  <div class="pst-async-banner-revealer d-none">
+  <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
+</div>
+
+  
+    <header class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
+    </header>
+  
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
       
-        <!-- `logo` is deprecated in Sphinx 4.0, so remove this when we stop supporting 3 -->
+      
+      
+      <div class="bd-sidebar-primary bd-sidebar">
         
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+    
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+
+  
+    
+  
+
+<a class="navbar-brand logo" href="../intro.html">
+  
+  
+  
+  
+  
+    
+    
       
-      
-      <img src="../_static/cat.png" class="logo" alt="logo">
-      
-      
-      <h1 class="site-logo" id="site-title">Data Analysis in Finance</h1>
-      
-    </a>
-</div><form class="bd-search d-flex align-items-center" action="../search.html" method="get">
-  <i class="icon fas fa-search"></i>
-  <input type="search" class="form-control" name="q" id="search-input" placeholder="Search this book..." aria-label="Search this book..." autocomplete="off" >
-</form><nav class="bd-links" id="bd-docs-nav" aria-label="Main">
-    <div class="bd-toc-item active">
+    
+    
+    <img src="../_static/cat.png" class="logo__image only-light" alt="Data Analysis in Finance - Home"/>
+    <script>document.write(`<img src="../_static/cat.png" class="logo__image only-dark" alt="Data Analysis in Finance - Home"/>`);</script>
+  
+  
+</a></div>
+        <div class="sidebar-primary-item">
+
+ <script>
+ document.write(`
+   <button class="btn search-button-field search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass"></i>
+    <span class="search-button__default-text">Search</span>
+    <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+   </button>
+ `);
+ </script></div>
+        <div class="sidebar-primary-item"><nav class="bd-links bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item navbar-nav active">
         
         <ul class="nav bd-sidenav bd-sidenav__home-link">
             <li class="toctree-l1">
@@ -118,530 +183,249 @@ const thebe_selector_output = ".output, .cell_output"
                 </a>
             </li>
         </ul>
-        <p aria-level="2" class="caption" role="heading">
- <span class="caption-text">
-  Getting Started
- </span>
-</p>
+        <p aria-level="2" class="caption" role="heading"><span class="caption-text">Getting Started</span></p>
 <ul class="nav bd-sidenav">
- <li class="toctree-l1">
-  <a class="reference internal" href="1_finpyth.html">
-   Why Python and finance?
-  </a>
- </li>
- <li class="toctree-l1 has-children">
-  <a class="reference internal" href="2_intro.html">
-   Python set-up
-   <a id="python_set-up">
-   </a>
-  </a>
-  <input class="toctree-checkbox" id="toctree-checkbox-1" name="toctree-checkbox-1" type="checkbox"/>
-  <label for="toctree-checkbox-1">
-   <i class="fas fa-chevron-down">
-   </i>
-  </label>
-  <ul>
-   <li class="toctree-l2">
-    <a class="reference internal" href="2_0_git.html">
-     Using Github and Github Codespaces
-    </a>
-   </li>
-   <li class="toctree-l2">
-    <a class="reference internal" href="2_1_markdown.html">
-     Markdown
-    </a>
-   </li>
-   <li class="toctree-l2">
-    <a class="reference internal" href="2_2_packages.html">
-     Packages
-    </a>
-   </li>
-   <li class="toctree-l2">
-    <a class="reference internal" href="2_3_style.html">
-     Code style, PEP8, and linting
-    </a>
-   </li>
-   <li class="toctree-l2">
-    <a class="reference internal" href="2_4_using_ai.html">
-     Using AI Coding Tools
-    </a>
-   </li>
-  </ul>
- </li>
+<li class="toctree-l1"><a class="reference internal" href="1_finpyth.html">Why Python and finance?</a></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="2_intro.html">Python set-up <a id="python_set-up"></a></a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="2_0_git.html">Using Github and Github Codespaces</a></li>
+<li class="toctree-l2"><a class="reference internal" href="2_1_markdown.html">Markdown</a></li>
+<li class="toctree-l2"><a class="reference internal" href="2_2_packages.html">Packages</a></li>
+<li class="toctree-l2"><a class="reference internal" href="2_3_style.html">Code style, PEP8, and linting</a></li>
+<li class="toctree-l2"><a class="reference internal" href="2_4_using_ai.html">Using AI Coding Tools</a></li>
 </ul>
-<p aria-level="2" class="caption" role="heading">
- <span class="caption-text">
-  The Basics
- </span>
-</p>
+</details></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">The Basics</span></p>
 <ul class="current nav bd-sidenav">
- <li class="toctree-l1 current active has-children">
-  <a class="reference internal" href="3_intro.html">
-   CompSci 101: Types, control, and numpy arrays
-  </a>
-  <input checked="" class="toctree-checkbox" id="toctree-checkbox-2" name="toctree-checkbox-2" type="checkbox"/>
-  <label for="toctree-checkbox-2">
-   <i class="fas fa-chevron-down">
-   </i>
-  </label>
-  <ul class="current">
-   <li class="toctree-l2">
-    <a class="reference internal" href="3_0_comp101.html">
-     The Basics
-    </a>
-   </li>
-   <li class="toctree-l2 current active">
-    <a class="current reference internal" href="#">
-     Numpy and arrays
-    </a>
-   </li>
-  </ul>
- </li>
- <li class="toctree-l1 has-children">
-  <a class="reference internal" href="4_intro.html">
-   Working with data
-  </a>
-  <input class="toctree-checkbox" id="toctree-checkbox-3" name="toctree-checkbox-3" type="checkbox"/>
-  <label for="toctree-checkbox-3">
-   <i class="fas fa-chevron-down">
-   </i>
-  </label>
-  <ul>
-   <li class="toctree-l2">
-    <a class="reference internal" href="4_0_dataframes.html">
-     Importing data
-    </a>
-   </li>
-   <li class="toctree-l2">
-    <a class="reference internal" href="4_1_pandas.html">
-     pandas
-    </a>
-   </li>
-   <li class="toctree-l2">
-    <a class="reference internal" href="4_2_cleaning_data.html">
-     Cleaning our data
-    </a>
-   </li>
-   <li class="toctree-l2">
-    <a class="reference internal" href="4_3_eda.html">
-     Exploratory data analysis (EDA)
-    </a>
-   </li>
-   <li class="toctree-l2">
-    <a class="reference internal" href="4_4_merge_shape.html">
-     Merging and reshaping data
-    </a>
-   </li>
-   <li class="toctree-l2">
-    <a class="reference internal" href="4_5_sql.html">
-     Using SQL in Python
-    </a>
-   </li>
-   <li class="toctree-l2">
-    <a class="reference internal" href="4_6_polar.html">
-     polars: A fast, fancy pandas alternative
-    </a>
-   </li>
-  </ul>
- </li>
- <li class="toctree-l1 has-children">
-  <a class="reference internal" href="5_intro.html">
-   Data visualization
-  </a>
-  <input class="toctree-checkbox" id="toctree-checkbox-4" name="toctree-checkbox-4" type="checkbox"/>
-  <label for="toctree-checkbox-4">
-   <i class="fas fa-chevron-down">
-   </i>
-  </label>
-  <ul>
-   <li class="toctree-l2">
-    <a class="reference internal" href="5_0_seaborn.html">
-     seaborn
-    </a>
-   </li>
-   <li class="toctree-l2">
-    <a class="reference internal" href="5_1_matplotlib.html">
-     matplotlib
-    </a>
-   </li>
-   <li class="toctree-l2">
-    <a class="reference internal" href="5_2_plotly.html">
-     plotly
-    </a>
-   </li>
-  </ul>
- </li>
- <li class="toctree-l1">
-  <a class="reference internal" href="6_nasdaq_api.html">
-   Using APIs for Data Imports
-   <a id="btc-sim">
-   </a>
-  </a>
- </li>
- <li class="toctree-l1">
-  <a class="reference internal" href="7_financial_ts.html">
-   Financial time series
-   <a id="financial-time-series">
-   </a>
-  </a>
- </li>
+<li class="toctree-l1 current active has-children"><a class="reference internal" href="3_intro.html">CompSci 101: Types, control, and numpy arrays</a><details open="open"><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="3_0_comp101.html">The Basics</a></li>
+<li class="toctree-l2 current active"><a class="current reference internal" href="#">Numpy and arrays</a></li>
 </ul>
-<p aria-level="2" class="caption" role="heading">
- <span class="caption-text">
-  Applications
- </span>
-</p>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="4_intro.html">Working with data</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="4_0_dataframes.html">Importing data</a></li>
+<li class="toctree-l2"><a class="reference internal" href="4_1_pandas.html">pandas</a></li>
+<li class="toctree-l2"><a class="reference internal" href="4_2_cleaning_data.html">Cleaning our data</a></li>
+<li class="toctree-l2"><a class="reference internal" href="4_3_eda.html">Exploratory data analysis (EDA)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="4_4_merge_shape.html">Merging and reshaping data</a></li>
+<li class="toctree-l2"><a class="reference internal" href="4_5_sql.html">Using SQL in Python</a></li>
+<li class="toctree-l2"><a class="reference internal" href="4_6_polar.html">polars: A fast, fancy pandas alternative</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="5_intro.html">Data visualization</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="5_0_seaborn.html">seaborn</a></li>
+<li class="toctree-l2"><a class="reference internal" href="5_1_matplotlib.html">matplotlib</a></li>
+<li class="toctree-l2"><a class="reference internal" href="5_2_plotly.html">plotly</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="6_intro.html">Data APIs</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="6_1_fred.html">FRED API and pandas-datareader</a></li>
+<li class="toctree-l2"><a class="reference internal" href="6_2_nasdaq.html">NASDAQ Data Link</a></li>
+<li class="toctree-l2"><a class="reference internal" href="6_3_databento.html">Databento</a></li>
+<li class="toctree-l2"><a class="reference internal" href="6_4_wrds.html">WRDS (Wharton Research Data Services)</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1"><a class="reference internal" href="7_financial_ts.html">Financial time series <a id="financial-time-series"></a></a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Applications</span></p>
 <ul class="nav bd-sidenav">
- <li class="toctree-l1">
-  <a class="reference internal" href="8_port_math.html">
-   Essential portfolio math
-  </a>
- </li>
- <li class="toctree-l1">
-  <a class="reference internal" href="9_portfolio_opt.html">
-   Portfolio optimization
-  </a>
- </li>
- <li class="toctree-l1">
-  <a class="reference internal" href="10_unsupervised_learning.html">
-   Machine learning and unsupervised learning
-   <a id="unsupervised_learning">
-   </a>
-  </a>
- </li>
- <li class="toctree-l1">
-  <a class="reference internal" href="11_factor_models.html">
-   Factor models
-   <a id="factor_models">
-   </a>
-  </a>
- </li>
- <li class="toctree-l1">
-  <a class="reference internal" href="12_regression_topics.html">
-   Supervised machine learning and regression topics
-   <a id="regression">
-   </a>
-  </a>
- </li>
- <li class="toctree-l1">
-  <a class="reference internal" href="13_logit_credit.html">
-   Logit models
-  </a>
- </li>
- <li class="toctree-l1">
-  <a class="reference internal" href="14_risk_mang.html">
-   Risk management
-  </a>
- </li>
- <li class="toctree-l1">
-  <a class="reference internal" href="15_monte_carlo.html">
-   Monte Carlo and portfolios
-  </a>
- </li>
- <li class="toctree-l1">
-  <a class="reference internal" href="16_decision_trees.html">
-   Decision Trees
-  </a>
- </li>
- <li class="toctree-l1">
-  <a class="reference internal" href="17_options.html">
-   Option basics
-  </a>
- </li>
- <li class="toctree-l1">
-  <a class="reference internal" href="18_trading_bt.html">
-   Trading Strategies and the BT Package
-  </a>
- </li>
+<li class="toctree-l1"><a class="reference internal" href="8_port_math.html">Essential portfolio math</a></li>
+<li class="toctree-l1"><a class="reference internal" href="9_portfolio_opt.html">Portfolio optimization</a></li>
+<li class="toctree-l1"><a class="reference internal" href="10_unsupervised_learning.html">Machine learning and unsupervised learning <a id="unsupervised_learning"></a></a></li>
+<li class="toctree-l1"><a class="reference internal" href="11_factor_models.html">Factor models <a id="factor_models"></a></a></li>
+<li class="toctree-l1"><a class="reference internal" href="12_regression_topics.html">Supervised machine learning and regression topics <a id="regression"></a></a></li>
+<li class="toctree-l1"><a class="reference internal" href="13_logit_credit.html">Logit models</a></li>
+<li class="toctree-l1"><a class="reference internal" href="14_risk_mang.html">Risk management</a></li>
+<li class="toctree-l1"><a class="reference internal" href="15_monte_carlo.html">Monte Carlo and portfolios</a></li>
+<li class="toctree-l1"><a class="reference internal" href="16_decision_trees.html">Decision Trees</a></li>
+<li class="toctree-l1"><a class="reference internal" href="17_options.html">Option basics</a></li>
+<li class="toctree-l1"><a class="reference internal" href="18_trading_bt.html">Trading Strategies and the BT Package</a></li>
 </ul>
 
     </div>
 </nav></div>
-        <div class="bd-sidebar__bottom">
-             <!-- To handle the deprecated key -->
-            
-            <div class="navbar_extra_footer">
-            Powered by <a href="https://jupyterbook.org">Jupyter Book</a>
-            </div>
-            
-        </div>
     </div>
-    <div id="rtd-footer-container"></div>
-</div>
-
-
-          
-
-
-          
-<!-- A tiny helper pixel to detect if we've scrolled -->
-<div class="sbt-scroll-pixel-helper"></div>
-<!-- Main content -->
-<div class="col py-0 content-container">
-    
-    <div class="header-article row sticky-top noprint">
-        
-
-
-
-<div class="col py-1 d-flex header-article-main">
-    <div class="header-article__left">
-        
-        <label for="__navigation"
-  class="headerbtn"
-  data-toggle="tooltip"
-data-placement="right"
-title="Toggle navigation"
->
   
-
-<span class="headerbtn__icon-container">
-  <i class="fas fa-bars"></i>
-  </span>
-
-</label>
-
-        
-    </div>
-    <div class="header-article__right">
-<div class="menu-dropdown menu-dropdown-launch-buttons">
-  <button class="headerbtn menu-dropdown__trigger"
-      aria-label="Launch interactive content">
-      <i class="fas fa-rocket"></i>
-  </button>
-  <div class="menu-dropdown__content">
-    <ul>
-      <li>
-        <a href="https://mybinder.org/v2/gh/executablebooks/jupyter-book/master?urlpath=tree/docs/chapters/3_1_numpy.ipynb"
-   class="headerbtn"
-   data-toggle="tooltip"
-data-placement="left"
-title="Launch on Binder"
->
   
-
-<span class="headerbtn__icon-container">
-  
-    <img src="../_static/images/logo_binder.svg">
-  </span>
-<span class="headerbtn__text-container">Binder</span>
-</a>
-
-      </li>
-      
-    </ul>
+  <div class="sidebar-primary-items__end sidebar-primary__section">
   </div>
-</div>
+  
+  <div id="rtd-footer-container"></div>
 
-<button onclick="toggleFullScreen()"
-  class="headerbtn"
-  data-toggle="tooltip"
-data-placement="bottom"
-title="Fullscreen mode"
+
+      </div>
+      
+      <main id="main-content" class="bd-main" role="main">
+        
+        
+
+<div class="sbt-scroll-pixel-helper"></div>
+
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article d-print-none">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item"><button class="sidebar-toggle primary-toggle btn btn-sm" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <span class="fa-solid fa-bars"></span>
+</button></div>
+      
+    </div>
+  
+  
+    <div class="header-article-items__end">
+      
+        <div class="header-article-item">
+
+<div class="article-header-buttons">
+
+
+<a href="https://github.com/executablebooks/jupyter-book" target="_blank"
+   class="btn btn-sm btn-source-repository-button"
+   title="Source repository"
+   data-bs-placement="bottom" data-bs-toggle="tooltip"
 >
   
 
-<span class="headerbtn__icon-container">
-  <i class="fas fa-expand"></i>
-  </span>
-
-</button>
-<a href="https://github.com/executablebooks/jupyter-book"
-   class="headerbtn"
-   data-toggle="tooltip"
-data-placement="bottom"
-title="Source repository"
->
-  
-
-<span class="headerbtn__icon-container">
+<span class="btn__icon-container">
   <i class="fab fa-github"></i>
   </span>
 
 </a>
 
-<div class="menu-dropdown menu-dropdown-download-buttons">
-  <button class="headerbtn menu-dropdown__trigger"
-      aria-label="Download this page">
-      <i class="fas fa-download"></i>
+
+
+
+
+
+<div class="dropdown dropdown-download-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Download this page">
+    <i class="fas fa-download"></i>
   </button>
-  <div class="menu-dropdown__content">
-    <ul>
-      <li>
-        <a href="../_sources/chapters/3_1_numpy.ipynb"
-   class="headerbtn"
-   data-toggle="tooltip"
-data-placement="left"
-title="Download source file"
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="../_sources/chapters/3_1_numpy.ipynb" target="_blank"
+   class="btn btn-sm btn-download-source-button dropdown-item"
+   title="Download source file"
+   data-bs-placement="left" data-bs-toggle="tooltip"
 >
   
 
-<span class="headerbtn__icon-container">
+<span class="btn__icon-container">
   <i class="fas fa-file"></i>
   </span>
-<span class="headerbtn__text-container">.ipynb</span>
+<span class="btn__text-container">.ipynb</span>
 </a>
-
-      </li>
+</li>
+      
+      
+      
       
       <li>
-        
-<button onclick="printPdf(this)"
-  class="headerbtn"
-  data-toggle="tooltip"
-data-placement="left"
-title="Print to PDF"
+<button onclick="window.print()"
+  class="btn btn-sm btn-download-pdf-button dropdown-item"
+  title="Print to PDF"
+  data-bs-placement="left" data-bs-toggle="tooltip"
 >
   
 
-<span class="headerbtn__icon-container">
+<span class="btn__icon-container">
   <i class="fas fa-file-pdf"></i>
   </span>
-<span class="headerbtn__text-container">.pdf</span>
+<span class="btn__text-container">.pdf</span>
 </button>
-
-      </li>
+</li>
       
-    </ul>
-  </div>
+  </ul>
 </div>
-<label for="__page-toc"
-  class="headerbtn headerbtn-page-toc"
-  
+
+
+
+
+<button onclick="toggleFullScreen()"
+  class="btn btn-sm btn-fullscreen-button"
+  title="Fullscreen mode"
+  data-bs-placement="bottom" data-bs-toggle="tooltip"
 >
   
 
-<span class="headerbtn__icon-container">
-  <i class="fas fa-list"></i>
+<span class="btn__icon-container">
+  <i class="fas fa-expand"></i>
   </span>
 
-</label>
+</button>
 
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="theme-switch fa-solid fa-sun fa-lg" data-mode="light"></i>
+    <i class="theme-switch fa-solid fa-moon fa-lg" data-mode="dark"></i>
+    <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"></i>
+  </button>
+`);
+</script>
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm pst-navbar-icon search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass fa-lg"></i>
+  </button>
+`);
+</script>
+<button class="sidebar-toggle secondary-toggle btn btn-sm" title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="fa-solid fa-list"></span>
+</button>
+</div></div>
+      
     </div>
+  
 </div>
-
-<!-- Table of contents -->
-<div class="col-md-3 bd-toc show noprint">
-    <div class="tocsection onthispage pt-5 pb-3">
-        <i class="fas fa-list"></i> Contents
-    </div>
-    <nav id="bd-toc-nav" aria-label="Page">
-        <ul class="visible nav section-nav flex-column">
- <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#getting-started">
-   Getting started
-  </a>
- </li>
- <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#creating-arrays">
-   Creating arrays
-  </a>
- </li>
- <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#array-math">
-   Array math
-  </a>
- </li>
- <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#reshaping-and-resizing">
-   Reshaping and resizing
-  </a>
-  <ul class="nav section-nav flex-column">
-   <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#an-aside-functions-methods-and-objects">
-     An aside: Functions, methods and objects
-    </a>
-   </li>
-  </ul>
- </li>
- <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#indexing-and-slicing">
-   Indexing and slicing
-  </a>
- </li>
- <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#vectorization">
-   Vectorization
-  </a>
- </li>
- <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#broadcasting">
-   Broadcasting
-  </a>
- </li>
-</ul>
-
-    </nav>
 </div>
-    </div>
-    <div class="article row">
-        <div class="col pl-md-3 pl-lg-5 content-container">
-            <!-- Table of contents that is only displayed when printing the page -->
-            <div id="jb-print-docs-body" class="onlyprint">
-                <h1>Numpy and arrays</h1>
-                <!-- Table of contents -->
-                <div id="print-main-content">
-                    <div id="jb-print-toc">
-                        
-                        <div>
-                            <h2> Contents </h2>
-                        </div>
-                        <nav aria-label="Page">
-                            <ul class="visible nav section-nav flex-column">
- <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#getting-started">
-   Getting started
-  </a>
- </li>
- <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#creating-arrays">
-   Creating arrays
-  </a>
- </li>
- <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#array-math">
-   Array math
-  </a>
- </li>
- <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#reshaping-and-resizing">
-   Reshaping and resizing
-  </a>
-  <ul class="nav section-nav flex-column">
-   <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#an-aside-functions-methods-and-objects">
-     An aside: Functions, methods and objects
-    </a>
-   </li>
-  </ul>
- </li>
- <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#indexing-and-slicing">
-   Indexing and slicing
-  </a>
- </li>
- <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#vectorization">
-   Vectorization
-  </a>
- </li>
- <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#broadcasting">
-   Broadcasting
-  </a>
- </li>
-</ul>
+              
+              
 
-                        </nav>
-                    </div>
-                </div>
+<div id="jb-print-docs-body" class="onlyprint">
+    <h1>Numpy and arrays</h1>
+    <!-- Table of contents -->
+    <div id="print-main-content">
+        <div id="jb-print-toc">
+            
+            <div>
+                <h2> Contents </h2>
             </div>
-            <main id="main-content" role="main">
+            <nav aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#getting-started">Getting started</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#creating-arrays">Creating arrays</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#array-math">Array math</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#reshaping-and-resizing">Reshaping and resizing</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#an-aside-functions-methods-and-objects">An aside: Functions, methods and objects</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#indexing-and-slicing">Indexing and slicing</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#vectorization">Vectorization</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#broadcasting">Broadcasting</a></li>
+</ul>
+            </nav>
+        </div>
+    </div>
+</div>
+
+              
                 
-              <div>
-                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                  
   <section class="tex2jax_ignore mathjax_ignore" id="numpy-and-arrays">
-<h1>Numpy and arrays<a class="headerlink" href="#numpy-and-arrays" title="Permalink to this headline">#</a></h1>
+<h1>Numpy and arrays<a class="headerlink" href="#numpy-and-arrays" title="Link to this heading">#</a></h1>
 <p>It is time for our first Python library! <strong>Chapter 4</strong> of <a class="reference external" href="https://www.oreilly.com/library/view/python-for-finance/9781492024323/">Python for Finance, 2e</a> covers the <a class="reference external" href="https://numpy.org">NumPy</a> library and <code class="docutils literal notranslate"><span class="pre">arrays</span></code>. Arrays can hold many different values, which you then reference or perform operations on. For example, a <strong>matrix</strong> is a two-dimensional array of numbers. However, arrays themselves can have any number <em>n</em> dimensions.</p>
 <p>Why do we need arrays? Math stuff. Linear algebra. They allow us to perform mathematical operations on numbers, like stock prices and returns. Arrays are also necessary for machine learning, image recognition, and anything else that requires computation. In short, you really can’t do much without arrays and matrices.</p>
 <p>Specifically, we are going to cover <code class="docutils literal notranslate"><span class="pre">numpy</span></code> arrays, basic math with them, how to reshape their n x k dimensions, and <strong>vectorization</strong> and <strong>broadcasting</strong>. These last two are ways of doing loop-like things without the loops. Loops can be slow, so taking advantage of vectorization can speed things up.</p>
@@ -657,26 +441,26 @@ title="Print to PDF"
 </aside>
 <p>This set of <a class="reference external" href="https://www.w3schools.com/python/numpy/default.asp">notes from W3</a> is also a good resource.</p>
 <section id="getting-started">
-<h2>Getting started<a class="headerlink" href="#getting-started" title="Permalink to this headline">#</a></h2>
+<h2>Getting started<a class="headerlink" href="#getting-started" title="Link to this heading">#</a></h2>
 <p>NumPy stands for <strong>Numerical Python</strong> and is a crucial package for data work in Python. The <code class="docutils literal notranslate"><span class="pre">numpy</span></code> array object is used in essentially all data work, so we need to understand their propoerties and how to manipulate them. Arrays are “n-dimensional” data structures that can contain all the basic Python data types, e.g., floats, integers, strings, etc. However, we are going to use them mainly for <strong>numerical data</strong>. NumPy arrays (“ndarrays”) are homogenous, which means that items in the array should be of the same type - no mixing of integers and strings, for example.</p>
 <figure class="align-center" id="numpy-arrays-png">
 <img alt="../_images/03-numpy_arrays.png" src="../_images/03-numpy_arrays.png" />
 <figcaption>
-<p><span class="caption-number">Fig. 31 </span><span class="caption-text">A graphical representation of arrays. You’re probably most familiar with the two-dimensional version, a matrix. Source: <a class="reference external" href="https://www.tomasbeuzen.com/python-programming-for-data-science/chapters/chapter5-numpy.html">Chapter 5 of Python for Data Science</a></span><a class="headerlink" href="#numpy-arrays-png" title="Permalink to this image">#</a></p>
+<p><span class="caption-number">Fig. 31 </span><span class="caption-text">A graphical representation of arrays. You’re probably most familiar with the two-dimensional version, a matrix. Source: <a class="reference external" href="https://www.tomasbeuzen.com/python-programming-for-data-science/chapters/chapter5-numpy.html">Chapter 5 of Python for Data Science</a></span><a class="headerlink" href="#numpy-arrays-png" title="Link to this image">#</a></p>
 </figcaption>
 </figure>
 <p>We need to import the <code class="docutils literal notranslate"><span class="pre">numpy</span></code> package in order to use <code class="docutils literal notranslate"><span class="pre">narrays</span></code>. Here’s the syntax for bringing in a package to our code. We’re going to type this at the start of basically all of our code. We are going to use the <em>np</em> part to tell Python where to look for a function/method in the <code class="docutils literal notranslate"><span class="pre">numpy</span></code> package. This is important, as <code class="docutils literal notranslate"><span class="pre">numpy</span></code> contains functions like <code class="docutils literal notranslate"><span class="pre">min</span></code> or <code class="docutils literal notranslate"><span class="pre">max</span></code> that are also built-in the standard Python. If you just write <code class="docutils literal notranslate"><span class="pre">max(x)</span></code>, Python is going to wonder what <code class="docutils literal notranslate"><span class="pre">max</span></code> you mean!</p>
 <p>You only need to import once per Python session. But, if you restart your Python kernel, you’ll need to run the import again.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
 </pre></div>
 </div>
 </div>
 </div>
 </section>
 <section id="creating-arrays">
-<h2>Creating arrays<a class="headerlink" href="#creating-arrays" title="Permalink to this headline">#</a></h2>
+<h2>Creating arrays<a class="headerlink" href="#creating-arrays" title="Link to this heading">#</a></h2>
 <p>We can create our own arrays using data we input ourselves.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -702,8 +486,8 @@ title="Print to PDF"
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>array([[-0.92585701,  1.09958932, -0.33593915],
-       [ 0.72373107, -1.02792756, -1.09038713]])
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>array([[-1.15797646, -0.53805635, -0.07303219],
+       [ 1.77759417,  0.46675894,  0.34096515]])
 </pre></div>
 </div>
 </div>
@@ -769,16 +553,16 @@ title="Print to PDF"
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>array([[ 1.15895396,  0.32826616,  1.3509771 ,  0.30805344, -0.98374929],
-       [-0.92226316, -2.03379799,  0.32832848, -1.62669198, -1.55814207],
-       [ 0.73826593, -0.02069963,  3.29641575,  1.00926411, -0.31203749],
-       [-0.33865857,  0.6799056 , -1.06216865,  0.97609256, -0.97095829],
-       [-0.46867817,  0.40610727, -0.3209595 ,  0.55389437, -0.84332487],
-       [ 1.11355011, -0.3860138 , -0.7088521 , -0.01682298,  0.0150014 ],
-       [ 0.05185528,  0.93557322, -1.71932154,  0.07845384,  0.51006717],
-       [-0.89190927,  0.13786975,  0.22971622,  0.5807305 ,  1.1076962 ],
-       [ 1.43219422, -0.22323782,  0.2053582 , -0.70483941,  0.34483663],
-       [-0.2864985 , -1.37060403, -0.02998041,  1.12896418, -0.5980982 ]])
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>array([[-1.07814477, -1.92000283,  1.1688006 ,  1.06656081, -0.29523132],
+       [-0.31512126, -0.84252486,  0.60882058, -1.28426973, -0.00604238],
+       [ 1.64643346,  0.45654262,  0.55813145,  1.60888119,  0.37608501],
+       [ 0.83296434,  0.10116814,  0.27536482,  1.278533  , -0.55187157],
+       [ 1.46305094,  0.21184517, -1.39695192,  0.0814609 ,  0.8178572 ],
+       [ 1.14971622,  0.15950561, -0.74672511,  0.77307503, -0.42720862],
+       [ 0.19674695, -0.51587641, -1.31049442, -0.26809807, -1.36653438],
+       [-0.94061645, -2.18887981, -0.62416008, -0.99166462, -0.22570946],
+       [ 0.05410297,  0.0780151 ,  1.64573229,  0.98204827, -0.7608575 ],
+       [-0.05953692,  0.90664693,  0.20166651,  0.34350761,  0.03122047]])
 </pre></div>
 </div>
 </div>
@@ -824,7 +608,7 @@ title="Print to PDF"
 <p>There are 10 * 5 = 50 total elements in that array.</p>
 </section>
 <section id="array-math">
-<h2>Array math<a class="headerlink" href="#array-math" title="Permalink to this headline">#</a></h2>
+<h2>Array math<a class="headerlink" href="#array-math" title="Link to this heading">#</a></h2>
 <p>We’ll start with <strong>element-by-element</strong> operations. You’ve likely seen these in a math class somewhere. We’ll start by creating a 1-D array of ones. You’d be surprised how often you just need a bunch of ones in linear algebra!</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -903,7 +687,7 @@ title="Print to PDF"
 </div>
 </section>
 <section id="reshaping-and-resizing">
-<h2>Reshaping and resizing<a class="headerlink" href="#reshaping-and-resizing" title="Permalink to this headline">#</a></h2>
+<h2>Reshaping and resizing<a class="headerlink" href="#reshaping-and-resizing" title="Link to this heading">#</a></h2>
 <p>You can also <strong>reshape</strong> your arrays. This means rearranging the different axis. Let’s create 1-D array with 8 elements to play with. We can again see the shape attribute with <code class="docutils literal notranslate"><span class="pre">.shape()</span></code>.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -944,11 +728,11 @@ title="Print to PDF"
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>array([[0.23418468, 0.7417141 ],
-       [0.14498463, 0.48374695],
-       [0.99576492, 0.22875283],
-       [0.89617849, 0.98471982],
-       [0.35098032, 0.14915276]])
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>array([[0.62065917, 0.66681375],
+       [0.14479254, 0.59114185],
+       [0.38294662, 0.51656203],
+       [0.26487094, 0.57844998],
+       [0.15014062, 0.64253283]])
 </pre></div>
 </div>
 </div>
@@ -961,8 +745,8 @@ title="Print to PDF"
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>array([[0.23418468, 0.14498463, 0.99576492, 0.89617849, 0.35098032],
-       [0.7417141 , 0.48374695, 0.22875283, 0.98471982, 0.14915276]])
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>array([[0.62065917, 0.14479254, 0.38294662, 0.26487094, 0.15014062],
+       [0.66681375, 0.59114185, 0.51656203, 0.57844998, 0.64253283]])
 </pre></div>
 </div>
 </div>
@@ -977,12 +761,12 @@ title="Print to PDF"
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>array([[0.83127173, 0.30649255],
-       [0.86318906, 0.96137322],
-       [0.36648264, 0.44615989],
-       [0.7641879 , 0.6731341 ],
-       [0.08337332, 0.04828335],
-       [0.87606013, 0.78742712]])
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>array([[0.28543038, 0.08074133],
+       [0.1795249 , 0.81187765],
+       [0.60763593, 0.17198579],
+       [0.21811829, 0.13008167],
+       [0.19038796, 0.55597255],
+       [0.97357801, 0.16774853]])
 </pre></div>
 </div>
 </div>
@@ -994,9 +778,9 @@ title="Print to PDF"
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>array([[0.83127173, 0.30649255, 0.86318906, 0.96137322],
-       [0.36648264, 0.44615989, 0.7641879 , 0.6731341 ],
-       [0.08337332, 0.04828335, 0.87606013, 0.78742712]])
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>array([[0.28543038, 0.08074133, 0.1795249 , 0.81187765],
+       [0.60763593, 0.17198579, 0.21811829, 0.13008167],
+       [0.19038796, 0.55597255, 0.97357801, 0.16774853]])
 </pre></div>
 </div>
 </div>
@@ -1008,10 +792,10 @@ title="Print to PDF"
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>array([[0.83127173, 0.86318906, 0.36648264, 0.7641879 , 0.08337332,
-        0.87606013],
-       [0.30649255, 0.96137322, 0.44615989, 0.6731341 , 0.04828335,
-        0.78742712]])
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>array([[0.28543038, 0.1795249 , 0.60763593, 0.21811829, 0.19038796,
+        0.97357801],
+       [0.08074133, 0.81187765, 0.17198579, 0.13008167, 0.55597255,
+        0.16774853]])
 </pre></div>
 </div>
 </div>
@@ -1025,12 +809,12 @@ title="Print to PDF"
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>array([[0.89286788, 0.47285983],
-       [0.03009323, 0.95722555],
-       [0.15821493, 0.04630058],
-       [0.28010821, 0.8292654 ],
-       [0.34605873, 0.67190606],
-       [0.16144059, 0.04442995]])
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>array([[0.37315004, 0.95602028],
+       [0.27363756, 0.60442428],
+       [0.15392836, 0.83375081],
+       [0.59558843, 0.13458636],
+       [0.53553975, 0.76647434],
+       [0.174501  , 0.54100874]])
 </pre></div>
 </div>
 </div>
@@ -1043,7 +827,7 @@ title="Print to PDF"
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>array([[0.89286788, 0.47285983]])
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>array([[0.37315004, 0.95602028]])
 </pre></div>
 </div>
 </div>
@@ -1056,18 +840,18 @@ title="Print to PDF"
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>array([[0.89286788, 0.47285983],
-       [0.03009323, 0.95722555],
-       [0.15821493, 0.04630058],
-       [0.28010821, 0.8292654 ],
-       [0.34605873, 0.67190606],
-       [0.16144059, 0.04442995],
-       [0.89286788, 0.47285983],
-       [0.03009323, 0.95722555],
-       [0.15821493, 0.04630058],
-       [0.28010821, 0.8292654 ],
-       [0.34605873, 0.67190606],
-       [0.16144059, 0.04442995]])
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>array([[0.37315004, 0.95602028],
+       [0.27363756, 0.60442428],
+       [0.15392836, 0.83375081],
+       [0.59558843, 0.13458636],
+       [0.53553975, 0.76647434],
+       [0.174501  , 0.54100874],
+       [0.37315004, 0.95602028],
+       [0.27363756, 0.60442428],
+       [0.15392836, 0.83375081],
+       [0.59558843, 0.13458636],
+       [0.53553975, 0.76647434],
+       [0.174501  , 0.54100874]])
 </pre></div>
 </div>
 </div>
@@ -1075,7 +859,7 @@ title="Print to PDF"
 <p>Why do we need to do any of this? Matrix math sometimes requires our data to be in a certain shape.</p>
 <p>But, wait… I just wrote my code differently. There’s an <code class="docutils literal notranslate"><span class="pre">x</span></code> inside the <code class="docutils literal notranslate"><span class="pre">.resize()</span></code>, rather than just writing <code class="docutils literal notranslate"><span class="pre">x.resize()</span></code>! And, why are there parentheses around the dimensions? What’s going on?</p>
 <section id="an-aside-functions-methods-and-objects">
-<h3>An aside: Functions, methods and objects<a class="headerlink" href="#an-aside-functions-methods-and-objects" title="Permalink to this headline">#</a></h3>
+<h3>An aside: Functions, methods and objects<a class="headerlink" href="#an-aside-functions-methods-and-objects" title="Link to this heading">#</a></h3>
 <p>Let’s look at two lines of code from above.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -1085,12 +869,12 @@ title="Print to PDF"
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>array([[0.20182868, 0.61737492],
-       [0.14804578, 0.50923586],
-       [0.91372492, 0.80949854],
-       [0.17229898, 0.11267478],
-       [0.71628672, 0.9197995 ],
-       [0.48469827, 0.25524634]])
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>array([[0.51264775, 0.35768428],
+       [0.04629852, 0.70677251],
+       [0.78071891, 0.07335545],
+       [0.06084082, 0.05944322],
+       [0.11279488, 0.56683419],
+       [0.98726167, 0.12024902]])
 </pre></div>
 </div>
 </div>
@@ -1107,9 +891,9 @@ title="Print to PDF"
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>array([[0.20182868, 0.61737492, 0.14804578, 0.50923586],
-       [0.91372492, 0.80949854, 0.17229898, 0.11267478],
-       [0.71628672, 0.9197995 , 0.48469827, 0.25524634]])
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>array([[0.51264775, 0.35768428, 0.04629852, 0.70677251],
+       [0.78071891, 0.07335545, 0.06084082, 0.05944322],
+       [0.11279488, 0.56683419, 0.98726167, 0.12024902]])
 </pre></div>
 </div>
 </div>
@@ -1122,9 +906,9 @@ title="Print to PDF"
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>array([[0.20182868, 0.61737492, 0.14804578, 0.50923586],
-       [0.91372492, 0.80949854, 0.17229898, 0.11267478],
-       [0.71628672, 0.9197995 , 0.48469827, 0.25524634]])
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>array([[0.51264775, 0.35768428, 0.04629852, 0.70677251],
+       [0.78071891, 0.07335545, 0.06084082, 0.05944322],
+       [0.11279488, 0.56683419, 0.98726167, 0.12024902]])
 </pre></div>
 </div>
 </div>
@@ -1167,7 +951,7 @@ title="Print to PDF"
 </section>
 </section>
 <section id="indexing-and-slicing">
-<h2>Indexing and slicing<a class="headerlink" href="#indexing-and-slicing" title="Permalink to this headline">#</a></h2>
+<h2>Indexing and slicing<a class="headerlink" href="#indexing-and-slicing" title="Link to this heading">#</a></h2>
 <p>We’ve seen indexing and slicing already. Let’s look at how we can pull a particular number, row, or column out of an array. There are three particular pieces of syntax to pay attention to: we are using square brackets with arrays <code class="docutils literal notranslate"><span class="pre">[]</span></code>, use are using a comma <code class="docutils literal notranslate"><span class="pre">,</span></code> to separate the different axis (e.g. rows and columns in a two-dimensional array), and we are using a colon <code class="docutils literal notranslate"><span class="pre">:</span></code> to <strong>slice</strong> and get back certain parts of the array.</p>
 <p>Let’s create a simple 1-D array to start, the numbers 0 - 9. Remember how Python starts indexing at 0?</p>
 <div class="cell docutils container">
@@ -1382,7 +1166,7 @@ title="Print to PDF"
 </div>
 </section>
 <section id="vectorization">
-<h2>Vectorization<a class="headerlink" href="#vectorization" title="Permalink to this headline">#</a></h2>
+<h2>Vectorization<a class="headerlink" href="#vectorization" title="Link to this heading">#</a></h2>
 <p>Vectorization let’s us avoid slow, inefficient loops. Let’s look at example.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -1428,7 +1212,7 @@ title="Print to PDF"
 <span class="c1"># vectorized method</span>
 <span class="n">array</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="nb">range</span><span class="p">(</span><span class="mi">5</span><span class="p">))</span>
 <span class="n">time_vec</span> <span class="o">=</span> <span class="o">%</span><span class="k">timeit</span> -q -o -r 3 array ** 2
-<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Vectorized operation is </span><span class="si">{</span><span class="n">time_loop</span><span class="o">.</span><span class="n">average</span> <span class="o">/</span> <span class="n">time_vec</span><span class="o">.</span><span class="n">average</span><span class="si">:</span><span class="s2">.2f</span><span class="si">}</span><span class="s2">x faster than looping here.&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Vectorized operation is </span><span class="si">{</span><span class="n">time_loop</span><span class="o">.</span><span class="n">average</span><span class="w"> </span><span class="o">/</span><span class="w"> </span><span class="n">time_vec</span><span class="o">.</span><span class="n">average</span><span class="si">:</span><span class="s2">.2f</span><span class="si">}</span><span class="s2">x faster than looping here.&quot;</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
@@ -1440,7 +1224,7 @@ title="Print to PDF"
 </div>
 </section>
 <section id="broadcasting">
-<h2>Broadcasting<a class="headerlink" href="#broadcasting" title="Permalink to this headline">#</a></h2>
+<h2>Broadcasting<a class="headerlink" href="#broadcasting" title="Link to this heading">#</a></h2>
 <p>We’ll end with <strong>broadcasting</strong>. Arrays of different dimensions can’t be directly used in arithmetic, element-by-element, operations. For example, let’s create two arrays of different sizes and try adding them together.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -1670,7 +1454,7 @@ title="Print to PDF"
             mode: "python"
         },
         kernelOptions: {
-            kernelName: "python3",
+            name: "python3",
             path: "./chapters"
         },
         predefinedOutput: true
@@ -1678,49 +1462,105 @@ title="Print to PDF"
     </script>
     <script>kernelName = 'python3'</script>
 
-              </div>
+                </article>
               
-            </main>
-            <footer class="footer-article noprint">
-                
-    <!-- Previous / next buttons -->
-<div class='prev-next-area'>
-    <a class='left-prev' id="prev-link" href="3_0_comp101.html" title="previous page">
-        <i class="fas fa-angle-left"></i>
-        <div class="prev-next-info">
-            <p class="prev-next-subtitle">previous</p>
-            <p class="prev-next-title">The Basics</p>
-        </div>
+
+              
+              
+              
+              
+                <footer class="prev-next-footer d-print-none">
+                  
+<div class="prev-next-area">
+    <a class="left-prev"
+       href="3_0_comp101.html"
+       title="previous page">
+      <i class="fa-solid fa-angle-left"></i>
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">previous</p>
+        <p class="prev-next-title">The Basics</p>
+      </div>
     </a>
-    <a class='right-next' id="next-link" href="4_intro.html" title="next page">
-    <div class="prev-next-info">
+    <a class="right-next"
+       href="4_intro.html"
+       title="next page">
+      <div class="prev-next-info">
         <p class="prev-next-subtitle">next</p>
         <p class="prev-next-title">Working with data</p>
-    </div>
-    <i class="fas fa-angle-right"></i>
+      </div>
+      <i class="fa-solid fa-angle-right"></i>
     </a>
 </div>
-            </footer>
-        </div>
-    </div>
-    <div class="footer-content row">
-        <footer class="col footer"><p>
+                </footer>
+              
+            </div>
+            
+            
+              
+                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+
+  <div class="sidebar-secondary-item">
+  <div class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> Contents
+  </div>
+  <nav class="bd-toc-nav page-toc">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#getting-started">Getting started</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#creating-arrays">Creating arrays</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#array-math">Array math</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#reshaping-and-resizing">Reshaping and resizing</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#an-aside-functions-methods-and-objects">An aside: Functions, methods and objects</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#indexing-and-slicing">Indexing and slicing</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#vectorization">Vectorization</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#broadcasting">Broadcasting</a></li>
+</ul>
+  </nav></div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+<div class="bd-footer-content__inner container">
   
-    By Prof. Adam Aiken<br/>
-  
-</p>
-        </footer>
-    </div>
+  <div class="footer-item">
     
+<p class="component-author">
+By Prof. Adam Aiken
+</p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
 </div>
+          </footer>
+        
 
-
-      </div>
+      </main>
     </div>
+  </div>
   
   <!-- Scripts loaded after <body> so the DOM is not blocked -->
-  <script src="../_static/scripts/pydata-sphinx-theme.js?digest=1999514e3f237ded88cf"></script>
+  <script src="../_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b"></script>
+<script src="../_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b"></script>
 
-
+  <footer class="bd-footer">
+  </footer>
   </body>
 </html>

@@ -1,113 +1,178 @@
 
 <!DOCTYPE html>
 
-<html>
+
+<html lang="en" data-content_root="../" >
+
   <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
     <title>Cleaning our data &#8212; Data Analysis in Finance</title>
-    
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
+  </script>
+  
   <!-- Loaded before other Sphinx assets -->
-  <link href="../_static/styles/theme.css?digest=1999514e3f237ded88cf" rel="stylesheet">
-<link href="../_static/styles/pydata-sphinx-theme.css?digest=1999514e3f237ded88cf" rel="stylesheet">
+  <link href="../_static/styles/theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="../_static/styles/bootstrap.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="../_static/styles/pydata-sphinx-theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
 
-    
-  <link rel="stylesheet"
-    href="../_static/vendor/fontawesome/5.13.0/css/all.min.css">
-  <link rel="preload" as="font" type="font/woff2" crossorigin
-    href="../_static/vendor/fontawesome/5.13.0/webfonts/fa-solid-900.woff2">
-  <link rel="preload" as="font" type="font/woff2" crossorigin
-    href="../_static/vendor/fontawesome/5.13.0/webfonts/fa-brands-400.woff2">
+  
+  <link href="../_static/vendor/fontawesome/6.5.2/css/all.min.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.2/webfonts/fa-solid-900.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.2/webfonts/fa-brands-400.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.2/webfonts/fa-regular-400.woff2" />
 
-    <link rel="stylesheet" type="text/css" href="../_static/pygments.css" />
-    <link rel="stylesheet" href="../_static/styles/sphinx-book-theme.css?digest=5115cc725059bd94278eecd172e13a965bf8f5a9" type="text/css" />
-    <link rel="stylesheet" type="text/css" href="../_static/togglebutton.css" />
-    <link rel="stylesheet" type="text/css" href="../_static/copybutton.css" />
-    <link rel="stylesheet" type="text/css" href="../_static/mystnb.css" />
-    <link rel="stylesheet" type="text/css" href="../_static/sphinx-thebe.css" />
-    <link rel="stylesheet" type="text/css" href="../_static/custom.css" />
-    <link rel="stylesheet" type="text/css" href="../_static/custom.css" />
-    <link rel="stylesheet" type="text/css" href="../_static/design-style.b7bb847fb20b106c3d81b95245e65545.min.css" />
-    
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=03e43079" />
+    <link rel="stylesheet" type="text/css" href="../_static/styles/sphinx-book-theme.css?v=eba8b062" />
+    <link rel="stylesheet" type="text/css" href="../_static/togglebutton.css?v=9c3e77be" />
+    <link rel="stylesheet" type="text/css" href="../_static/copybutton.css?v=76b2166b" />
+    <link rel="stylesheet" type="text/css" href="../_static/mystnb.8ecb98da25f57f5357bf6f572d296f466b2cfe2517ffebfabe82451661e28f02.css?v=6644e6bb" />
+    <link rel="stylesheet" type="text/css" href="../_static/sphinx-thebe.css?v=4fa983c6" />
+    <link rel="stylesheet" type="text/css" href="../_static/sphinx-design.min.css?v=95c83b7e" />
+    <link rel="stylesheet" type="text/css" href="../_static/custom.css?v=b747247e" />
+  
   <!-- Pre-loaded scripts that we'll load fully later -->
-  <link rel="preload" as="script" href="../_static/scripts/pydata-sphinx-theme.js?digest=1999514e3f237ded88cf">
+  <link rel="preload" as="script" href="../_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b" />
+<link rel="preload" as="script" href="../_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b" />
+  <script src="../_static/vendor/fontawesome/6.5.2/js/all.min.js?digest=dfe6caa3a7d634c4db9b"></script>
 
-    <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
-    <script src="../_static/jquery.js"></script>
-    <script src="../_static/underscore.js"></script>
-    <script src="../_static/doctools.js"></script>
-    <script src="../_static/clipboard.min.js"></script>
-    <script src="../_static/copybutton.js"></script>
-    <script src="../_static/scripts/sphinx-book-theme.js?digest=9c920249402e914e316237a7dbc6769907cce411"></script>
+    <script src="../_static/documentation_options.js?v=9eb32ce0"></script>
+    <script src="../_static/doctools.js?v=9a2dae69"></script>
+    <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../_static/clipboard.min.js?v=a7894cd8"></script>
+    <script src="../_static/copybutton.js?v=f281be69"></script>
+    <script src="../_static/scripts/sphinx-book-theme.js?v=887ef09a"></script>
     <script>let toggleHintShow = 'Click to show';</script>
     <script>let toggleHintHide = 'Click to hide';</script>
     <script>let toggleOpenOnPrint = 'true';</script>
-    <script src="../_static/togglebutton.js"></script>
+    <script src="../_static/togglebutton.js?v=1ae7504c"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script src="../_static/design-tabs.js?v=36754332"></script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script async="async" src="../_static/sphinx-thebe.js?v=c100c467"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'chapters/4_2_cleaning_data';</script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
-    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown, .tag_hide_input div.cell_input, .tag_hide-input div.cell_input, .tag_hide_output div.cell_output, .tag_hide-output div.cell_output, .tag_hide_cell.cell, .tag_hide-cell.cell';</script>
-    <script src="../_static/design-tabs.js"></script>
-    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"
-const thebe_selector = ".thebe,.cell"
-const thebe_selector_input = "pre"
-const thebe_selector_output = ".output, .cell_output"
-</script>
-    <script async="async" src="../_static/sphinx-thebe.js"></script>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
     <link rel="next" title="Exploratory data analysis (EDA)" href="4_3_eda.html" />
     <link rel="prev" title="pandas" href="4_1_pandas.html" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <meta name="docsearch:language" content="None">
-    
-
-    <!-- Google Analytics -->
-    
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
   </head>
-  <body data-spy="scroll" data-target="#bd-toc-nav" data-offset="60">
-<!-- Checkboxes to toggle the left sidebar -->
-<input type="checkbox" class="sidebar-toggle" name="__navigation" id="__navigation" aria-label="Toggle navigation sidebar">
-<label class="overlay overlay-navbar" for="__navigation">
-    <div class="visually-hidden">Toggle navigation sidebar</div>
-</label>
-<!-- Checkboxes to toggle the in-page toc -->
-<input type="checkbox" class="sidebar-toggle" name="__page-toc" id="__page-toc" aria-label="Toggle in-page Table of Contents">
-<label class="overlay overlay-pagetoc" for="__page-toc">
-    <div class="visually-hidden">Toggle in-page Table of Contents</div>
-</label>
-<!-- Headers at the top -->
-<div class="announcement header-item noprint"></div>
-<div class="header header-item noprint"></div>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
 
-    
-    <div class="container-fluid" id="banner"></div>
+  
+  
+  <div id="pst-skip-link" class="skip-link d-print-none"><a href="#main-content">Skip to main content</a></div>
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>Back to top</button>
 
-    
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-primary-sidebar-checkbox"/>
+  <label class="overlay overlay-primary" for="pst-primary-sidebar-checkbox"></label>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-secondary-sidebar-checkbox"/>
+  <label class="overlay overlay-secondary" for="pst-secondary-sidebar-checkbox"></label>
+  
+  <div class="search-button__wrapper">
+    <div class="search-button__overlay"></div>
+    <div class="search-button__search-container">
+<form class="bd-search d-flex align-items-center"
+      action="../search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         id="search-input"
+         placeholder="Search this book..."
+         aria-label="Search this book..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form></div>
+  </div>
 
-    <div class="container-xl">
-      <div class="row">
-          
-<!-- Sidebar -->
-<div class="bd-sidebar noprint" id="site-navigation">
-    <div class="bd-sidebar__content">
-        <div class="bd-sidebar__top"><div class="navbar-brand-box">
-    <a class="navbar-brand text-wrap" href="../index.html">
+  <div class="pst-async-banner-revealer d-none">
+  <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
+</div>
+
+  
+    <header class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
+    </header>
+  
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
       
-        <!-- `logo` is deprecated in Sphinx 4.0, so remove this when we stop supporting 3 -->
+      
+      
+      <div class="bd-sidebar-primary bd-sidebar">
         
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+    
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+
+  
+    
+  
+
+<a class="navbar-brand logo" href="../intro.html">
+  
+  
+  
+  
+  
+    
+    
       
-      
-      <img src="../_static/cat.png" class="logo" alt="logo">
-      
-      
-      <h1 class="site-logo" id="site-title">Data Analysis in Finance</h1>
-      
-    </a>
-</div><form class="bd-search d-flex align-items-center" action="../search.html" method="get">
-  <i class="icon fas fa-search"></i>
-  <input type="search" class="form-control" name="q" id="search-input" placeholder="Search this book..." aria-label="Search this book..." autocomplete="off" >
-</form><nav class="bd-links" id="bd-docs-nav" aria-label="Main">
-    <div class="bd-toc-item active">
+    
+    
+    <img src="../_static/cat.png" class="logo__image only-light" alt="Data Analysis in Finance - Home"/>
+    <script>document.write(`<img src="../_static/cat.png" class="logo__image only-dark" alt="Data Analysis in Finance - Home"/>`);</script>
+  
+  
+</a></div>
+        <div class="sidebar-primary-item">
+
+ <script>
+ document.write(`
+   <button class="btn search-button-field search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass"></i>
+    <span class="search-button__default-text">Search</span>
+    <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+   </button>
+ `);
+ </script></div>
+        <div class="sidebar-primary-item"><nav class="bd-links bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item navbar-nav active">
         
         <ul class="nav bd-sidenav bd-sidenav__home-link">
             <li class="toctree-l1">
@@ -116,536 +181,248 @@ const thebe_selector_output = ".output, .cell_output"
                 </a>
             </li>
         </ul>
-        <p aria-level="2" class="caption" role="heading">
- <span class="caption-text">
-  Getting Started
- </span>
-</p>
+        <p aria-level="2" class="caption" role="heading"><span class="caption-text">Getting Started</span></p>
 <ul class="nav bd-sidenav">
- <li class="toctree-l1">
-  <a class="reference internal" href="1_finpyth.html">
-   Why Python and finance?
-  </a>
- </li>
- <li class="toctree-l1 has-children">
-  <a class="reference internal" href="2_intro.html">
-   Python set-up
-   <a id="python_set-up">
-   </a>
-  </a>
-  <input class="toctree-checkbox" id="toctree-checkbox-1" name="toctree-checkbox-1" type="checkbox"/>
-  <label for="toctree-checkbox-1">
-   <i class="fas fa-chevron-down">
-   </i>
-  </label>
-  <ul>
-   <li class="toctree-l2">
-    <a class="reference internal" href="2_0_git.html">
-     Using Github and Github Codespaces
-    </a>
-   </li>
-   <li class="toctree-l2">
-    <a class="reference internal" href="2_1_markdown.html">
-     Markdown
-    </a>
-   </li>
-   <li class="toctree-l2">
-    <a class="reference internal" href="2_2_packages.html">
-     Packages
-    </a>
-   </li>
-   <li class="toctree-l2">
-    <a class="reference internal" href="2_3_style.html">
-     Code style, PEP8, and linting
-    </a>
-   </li>
-   <li class="toctree-l2">
-    <a class="reference internal" href="2_4_using_ai.html">
-     Using AI Coding Tools
-    </a>
-   </li>
-  </ul>
- </li>
+<li class="toctree-l1"><a class="reference internal" href="1_finpyth.html">Why Python and finance?</a></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="2_intro.html">Python set-up <a id="python_set-up"></a></a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="2_0_git.html">Using Github and Github Codespaces</a></li>
+<li class="toctree-l2"><a class="reference internal" href="2_1_markdown.html">Markdown</a></li>
+<li class="toctree-l2"><a class="reference internal" href="2_2_packages.html">Packages</a></li>
+<li class="toctree-l2"><a class="reference internal" href="2_3_style.html">Code style, PEP8, and linting</a></li>
+<li class="toctree-l2"><a class="reference internal" href="2_4_using_ai.html">Using AI Coding Tools</a></li>
 </ul>
-<p aria-level="2" class="caption" role="heading">
- <span class="caption-text">
-  The Basics
- </span>
-</p>
+</details></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">The Basics</span></p>
 <ul class="current nav bd-sidenav">
- <li class="toctree-l1 has-children">
-  <a class="reference internal" href="3_intro.html">
-   CompSci 101: Types, control, and numpy arrays
-  </a>
-  <input class="toctree-checkbox" id="toctree-checkbox-2" name="toctree-checkbox-2" type="checkbox"/>
-  <label for="toctree-checkbox-2">
-   <i class="fas fa-chevron-down">
-   </i>
-  </label>
-  <ul>
-   <li class="toctree-l2">
-    <a class="reference internal" href="3_0_comp101.html">
-     The Basics
-    </a>
-   </li>
-   <li class="toctree-l2">
-    <a class="reference internal" href="3_1_numpy.html">
-     Numpy and arrays
-    </a>
-   </li>
-  </ul>
- </li>
- <li class="toctree-l1 current active has-children">
-  <a class="reference internal" href="4_intro.html">
-   Working with data
-  </a>
-  <input checked="" class="toctree-checkbox" id="toctree-checkbox-3" name="toctree-checkbox-3" type="checkbox"/>
-  <label for="toctree-checkbox-3">
-   <i class="fas fa-chevron-down">
-   </i>
-  </label>
-  <ul class="current">
-   <li class="toctree-l2">
-    <a class="reference internal" href="4_0_dataframes.html">
-     Importing data
-    </a>
-   </li>
-   <li class="toctree-l2">
-    <a class="reference internal" href="4_1_pandas.html">
-     pandas
-    </a>
-   </li>
-   <li class="toctree-l2 current active">
-    <a class="current reference internal" href="#">
-     Cleaning our data
-    </a>
-   </li>
-   <li class="toctree-l2">
-    <a class="reference internal" href="4_3_eda.html">
-     Exploratory data analysis (EDA)
-    </a>
-   </li>
-   <li class="toctree-l2">
-    <a class="reference internal" href="4_4_merge_shape.html">
-     Merging and reshaping data
-    </a>
-   </li>
-   <li class="toctree-l2">
-    <a class="reference internal" href="4_5_sql.html">
-     Using SQL in Python
-    </a>
-   </li>
-   <li class="toctree-l2">
-    <a class="reference internal" href="4_6_polar.html">
-     polars: A fast, fancy pandas alternative
-    </a>
-   </li>
-  </ul>
- </li>
- <li class="toctree-l1 has-children">
-  <a class="reference internal" href="5_intro.html">
-   Data visualization
-  </a>
-  <input class="toctree-checkbox" id="toctree-checkbox-4" name="toctree-checkbox-4" type="checkbox"/>
-  <label for="toctree-checkbox-4">
-   <i class="fas fa-chevron-down">
-   </i>
-  </label>
-  <ul>
-   <li class="toctree-l2">
-    <a class="reference internal" href="5_0_seaborn.html">
-     seaborn
-    </a>
-   </li>
-   <li class="toctree-l2">
-    <a class="reference internal" href="5_1_matplotlib.html">
-     matplotlib
-    </a>
-   </li>
-   <li class="toctree-l2">
-    <a class="reference internal" href="5_2_plotly.html">
-     plotly
-    </a>
-   </li>
-  </ul>
- </li>
- <li class="toctree-l1">
-  <a class="reference internal" href="6_nasdaq_api.html">
-   Using APIs for Data Imports
-   <a id="btc-sim">
-   </a>
-  </a>
- </li>
- <li class="toctree-l1">
-  <a class="reference internal" href="7_financial_ts.html">
-   Financial time series
-   <a id="financial-time-series">
-   </a>
-  </a>
- </li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="3_intro.html">CompSci 101: Types, control, and numpy arrays</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="3_0_comp101.html">The Basics</a></li>
+<li class="toctree-l2"><a class="reference internal" href="3_1_numpy.html">Numpy and arrays</a></li>
 </ul>
-<p aria-level="2" class="caption" role="heading">
- <span class="caption-text">
-  Applications
- </span>
-</p>
+</details></li>
+<li class="toctree-l1 current active has-children"><a class="reference internal" href="4_intro.html">Working with data</a><details open="open"><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="4_0_dataframes.html">Importing data</a></li>
+<li class="toctree-l2"><a class="reference internal" href="4_1_pandas.html">pandas</a></li>
+<li class="toctree-l2 current active"><a class="current reference internal" href="#">Cleaning our data</a></li>
+<li class="toctree-l2"><a class="reference internal" href="4_3_eda.html">Exploratory data analysis (EDA)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="4_4_merge_shape.html">Merging and reshaping data</a></li>
+<li class="toctree-l2"><a class="reference internal" href="4_5_sql.html">Using SQL in Python</a></li>
+<li class="toctree-l2"><a class="reference internal" href="4_6_polar.html">polars: A fast, fancy pandas alternative</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="5_intro.html">Data visualization</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="5_0_seaborn.html">seaborn</a></li>
+<li class="toctree-l2"><a class="reference internal" href="5_1_matplotlib.html">matplotlib</a></li>
+<li class="toctree-l2"><a class="reference internal" href="5_2_plotly.html">plotly</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="6_intro.html">Data APIs</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="6_1_fred.html">FRED API and pandas-datareader</a></li>
+<li class="toctree-l2"><a class="reference internal" href="6_2_nasdaq.html">NASDAQ Data Link</a></li>
+<li class="toctree-l2"><a class="reference internal" href="6_3_databento.html">Databento</a></li>
+<li class="toctree-l2"><a class="reference internal" href="6_4_wrds.html">WRDS (Wharton Research Data Services)</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1"><a class="reference internal" href="7_financial_ts.html">Financial time series <a id="financial-time-series"></a></a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Applications</span></p>
 <ul class="nav bd-sidenav">
- <li class="toctree-l1">
-  <a class="reference internal" href="8_port_math.html">
-   Essential portfolio math
-  </a>
- </li>
- <li class="toctree-l1">
-  <a class="reference internal" href="9_portfolio_opt.html">
-   Portfolio optimization
-  </a>
- </li>
- <li class="toctree-l1">
-  <a class="reference internal" href="10_unsupervised_learning.html">
-   Machine learning and unsupervised learning
-   <a id="unsupervised_learning">
-   </a>
-  </a>
- </li>
- <li class="toctree-l1">
-  <a class="reference internal" href="11_factor_models.html">
-   Factor models
-   <a id="factor_models">
-   </a>
-  </a>
- </li>
- <li class="toctree-l1">
-  <a class="reference internal" href="12_regression_topics.html">
-   Supervised machine learning and regression topics
-   <a id="regression">
-   </a>
-  </a>
- </li>
- <li class="toctree-l1">
-  <a class="reference internal" href="13_logit_credit.html">
-   Logit models
-  </a>
- </li>
- <li class="toctree-l1">
-  <a class="reference internal" href="14_risk_mang.html">
-   Risk management
-  </a>
- </li>
- <li class="toctree-l1">
-  <a class="reference internal" href="15_monte_carlo.html">
-   Monte Carlo and portfolios
-  </a>
- </li>
- <li class="toctree-l1">
-  <a class="reference internal" href="16_decision_trees.html">
-   Decision Trees
-  </a>
- </li>
- <li class="toctree-l1">
-  <a class="reference internal" href="17_options.html">
-   Option basics
-  </a>
- </li>
- <li class="toctree-l1">
-  <a class="reference internal" href="18_trading_bt.html">
-   Trading Strategies and the BT Package
-  </a>
- </li>
+<li class="toctree-l1"><a class="reference internal" href="8_port_math.html">Essential portfolio math</a></li>
+<li class="toctree-l1"><a class="reference internal" href="9_portfolio_opt.html">Portfolio optimization</a></li>
+<li class="toctree-l1"><a class="reference internal" href="10_unsupervised_learning.html">Machine learning and unsupervised learning <a id="unsupervised_learning"></a></a></li>
+<li class="toctree-l1"><a class="reference internal" href="11_factor_models.html">Factor models <a id="factor_models"></a></a></li>
+<li class="toctree-l1"><a class="reference internal" href="12_regression_topics.html">Supervised machine learning and regression topics <a id="regression"></a></a></li>
+<li class="toctree-l1"><a class="reference internal" href="13_logit_credit.html">Logit models</a></li>
+<li class="toctree-l1"><a class="reference internal" href="14_risk_mang.html">Risk management</a></li>
+<li class="toctree-l1"><a class="reference internal" href="15_monte_carlo.html">Monte Carlo and portfolios</a></li>
+<li class="toctree-l1"><a class="reference internal" href="16_decision_trees.html">Decision Trees</a></li>
+<li class="toctree-l1"><a class="reference internal" href="17_options.html">Option basics</a></li>
+<li class="toctree-l1"><a class="reference internal" href="18_trading_bt.html">Trading Strategies and the BT Package</a></li>
 </ul>
 
     </div>
 </nav></div>
-        <div class="bd-sidebar__bottom">
-             <!-- To handle the deprecated key -->
-            
-            <div class="navbar_extra_footer">
-            Powered by <a href="https://jupyterbook.org">Jupyter Book</a>
-            </div>
-            
-        </div>
     </div>
-    <div id="rtd-footer-container"></div>
-</div>
-
-
-          
-
-
-          
-<!-- A tiny helper pixel to detect if we've scrolled -->
-<div class="sbt-scroll-pixel-helper"></div>
-<!-- Main content -->
-<div class="col py-0 content-container">
-    
-    <div class="header-article row sticky-top noprint">
-        
-
-
-
-<div class="col py-1 d-flex header-article-main">
-    <div class="header-article__left">
-        
-        <label for="__navigation"
-  class="headerbtn"
-  data-toggle="tooltip"
-data-placement="right"
-title="Toggle navigation"
->
   
-
-<span class="headerbtn__icon-container">
-  <i class="fas fa-bars"></i>
-  </span>
-
-</label>
-
-        
-    </div>
-    <div class="header-article__right">
-<div class="menu-dropdown menu-dropdown-launch-buttons">
-  <button class="headerbtn menu-dropdown__trigger"
-      aria-label="Launch interactive content">
-      <i class="fas fa-rocket"></i>
-  </button>
-  <div class="menu-dropdown__content">
-    <ul>
-      <li>
-        <a href="https://mybinder.org/v2/gh/executablebooks/jupyter-book/master?urlpath=tree/docs/chapters/4_2_cleaning_data.ipynb"
-   class="headerbtn"
-   data-toggle="tooltip"
-data-placement="left"
-title="Launch on Binder"
->
   
-
-<span class="headerbtn__icon-container">
-  
-    <img src="../_static/images/logo_binder.svg">
-  </span>
-<span class="headerbtn__text-container">Binder</span>
-</a>
-
-      </li>
-      
-    </ul>
+  <div class="sidebar-primary-items__end sidebar-primary__section">
   </div>
-</div>
+  
+  <div id="rtd-footer-container"></div>
 
-<button onclick="toggleFullScreen()"
-  class="headerbtn"
-  data-toggle="tooltip"
-data-placement="bottom"
-title="Fullscreen mode"
+
+      </div>
+      
+      <main id="main-content" class="bd-main" role="main">
+        
+        
+
+<div class="sbt-scroll-pixel-helper"></div>
+
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article d-print-none">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item"><button class="sidebar-toggle primary-toggle btn btn-sm" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <span class="fa-solid fa-bars"></span>
+</button></div>
+      
+    </div>
+  
+  
+    <div class="header-article-items__end">
+      
+        <div class="header-article-item">
+
+<div class="article-header-buttons">
+
+
+<a href="https://github.com/executablebooks/jupyter-book" target="_blank"
+   class="btn btn-sm btn-source-repository-button"
+   title="Source repository"
+   data-bs-placement="bottom" data-bs-toggle="tooltip"
 >
   
 
-<span class="headerbtn__icon-container">
-  <i class="fas fa-expand"></i>
-  </span>
-
-</button>
-<a href="https://github.com/executablebooks/jupyter-book"
-   class="headerbtn"
-   data-toggle="tooltip"
-data-placement="bottom"
-title="Source repository"
->
-  
-
-<span class="headerbtn__icon-container">
+<span class="btn__icon-container">
   <i class="fab fa-github"></i>
   </span>
 
 </a>
 
-<div class="menu-dropdown menu-dropdown-download-buttons">
-  <button class="headerbtn menu-dropdown__trigger"
-      aria-label="Download this page">
-      <i class="fas fa-download"></i>
+
+
+
+
+
+<div class="dropdown dropdown-download-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Download this page">
+    <i class="fas fa-download"></i>
   </button>
-  <div class="menu-dropdown__content">
-    <ul>
-      <li>
-        <a href="../_sources/chapters/4_2_cleaning_data.ipynb"
-   class="headerbtn"
-   data-toggle="tooltip"
-data-placement="left"
-title="Download source file"
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="../_sources/chapters/4_2_cleaning_data.ipynb" target="_blank"
+   class="btn btn-sm btn-download-source-button dropdown-item"
+   title="Download source file"
+   data-bs-placement="left" data-bs-toggle="tooltip"
 >
   
 
-<span class="headerbtn__icon-container">
+<span class="btn__icon-container">
   <i class="fas fa-file"></i>
   </span>
-<span class="headerbtn__text-container">.ipynb</span>
+<span class="btn__text-container">.ipynb</span>
 </a>
-
-      </li>
+</li>
+      
+      
+      
       
       <li>
-        
-<button onclick="printPdf(this)"
-  class="headerbtn"
-  data-toggle="tooltip"
-data-placement="left"
-title="Print to PDF"
+<button onclick="window.print()"
+  class="btn btn-sm btn-download-pdf-button dropdown-item"
+  title="Print to PDF"
+  data-bs-placement="left" data-bs-toggle="tooltip"
 >
   
 
-<span class="headerbtn__icon-container">
+<span class="btn__icon-container">
   <i class="fas fa-file-pdf"></i>
   </span>
-<span class="headerbtn__text-container">.pdf</span>
+<span class="btn__text-container">.pdf</span>
 </button>
-
-      </li>
+</li>
       
-    </ul>
-  </div>
+  </ul>
 </div>
-<label for="__page-toc"
-  class="headerbtn headerbtn-page-toc"
-  
+
+
+
+
+<button onclick="toggleFullScreen()"
+  class="btn btn-sm btn-fullscreen-button"
+  title="Fullscreen mode"
+  data-bs-placement="bottom" data-bs-toggle="tooltip"
 >
   
 
-<span class="headerbtn__icon-container">
-  <i class="fas fa-list"></i>
+<span class="btn__icon-container">
+  <i class="fas fa-expand"></i>
   </span>
 
-</label>
+</button>
 
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="theme-switch fa-solid fa-sun fa-lg" data-mode="light"></i>
+    <i class="theme-switch fa-solid fa-moon fa-lg" data-mode="dark"></i>
+    <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"></i>
+  </button>
+`);
+</script>
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm pst-navbar-icon search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass fa-lg"></i>
+  </button>
+`);
+</script>
+<button class="sidebar-toggle secondary-toggle btn btn-sm" title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="fa-solid fa-list"></span>
+</button>
+</div></div>
+      
     </div>
+  
 </div>
-
-<!-- Table of contents -->
-<div class="col-md-3 bd-toc show noprint">
-    <div class="tocsection onthispage pt-5 pb-3">
-        <i class="fas fa-list"></i> Contents
-    </div>
-    <nav id="bd-toc-nav" aria-label="Page">
-        <ul class="visible nav section-nav flex-column">
- <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#data-integrity">
-   Data Integrity
-  </a>
- </li>
- <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#underwater-exploration">
-   Underwater exploration
-  </a>
- </li>
- <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#counting-missings-and-dupes">
-   Counting, missings, and dupes
-  </a>
- </li>
- <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#sorting-our-data">
-   Sorting our data
-  </a>
- </li>
- <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#renaming-columns">
-   Renaming columns
-  </a>
- </li>
- <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#dropping-columns">
-   Dropping columns
-  </a>
- </li>
- <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#missing-data-example">
-   Missing data example
-  </a>
- </li>
- <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#back-to-stocks">
-   Back to stocks
-  </a>
- </li>
- <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#pyjanitor">
-   Pyjanitor
-  </a>
- </li>
-</ul>
-
-    </nav>
 </div>
-    </div>
-    <div class="article row">
-        <div class="col pl-md-3 pl-lg-5 content-container">
-            <!-- Table of contents that is only displayed when printing the page -->
-            <div id="jb-print-docs-body" class="onlyprint">
-                <h1>Cleaning our data</h1>
-                <!-- Table of contents -->
-                <div id="print-main-content">
-                    <div id="jb-print-toc">
-                        
-                        <div>
-                            <h2> Contents </h2>
-                        </div>
-                        <nav aria-label="Page">
-                            <ul class="visible nav section-nav flex-column">
- <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#data-integrity">
-   Data Integrity
-  </a>
- </li>
- <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#underwater-exploration">
-   Underwater exploration
-  </a>
- </li>
- <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#counting-missings-and-dupes">
-   Counting, missings, and dupes
-  </a>
- </li>
- <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#sorting-our-data">
-   Sorting our data
-  </a>
- </li>
- <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#renaming-columns">
-   Renaming columns
-  </a>
- </li>
- <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#dropping-columns">
-   Dropping columns
-  </a>
- </li>
- <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#missing-data-example">
-   Missing data example
-  </a>
- </li>
- <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#back-to-stocks">
-   Back to stocks
-  </a>
- </li>
- <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#pyjanitor">
-   Pyjanitor
-  </a>
- </li>
-</ul>
+              
+              
 
-                        </nav>
-                    </div>
-                </div>
+<div id="jb-print-docs-body" class="onlyprint">
+    <h1>Cleaning our data</h1>
+    <!-- Table of contents -->
+    <div id="print-main-content">
+        <div id="jb-print-toc">
+            
+            <div>
+                <h2> Contents </h2>
             </div>
-            <main id="main-content" role="main">
+            <nav aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#data-integrity">Data Integrity</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#underwater-exploration">Underwater exploration</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#counting-missings-and-dupes">Counting, missings, and dupes</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#sorting-our-data">Sorting our data</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#renaming-columns">Renaming columns</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#dropping-columns">Dropping columns</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#missing-data-example">Missing data example</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#back-to-stocks">Back to stocks</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#pyjanitor">Pyjanitor</a></li>
+</ul>
+            </nav>
+        </div>
+    </div>
+</div>
+
+              
                 
-              <div>
-                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                  
   <section class="tex2jax_ignore mathjax_ignore" id="cleaning-our-data">
-<h1>Cleaning our data<a class="headerlink" href="#cleaning-our-data" title="Permalink to this headline">#</a></h1>
+<h1>Cleaning our data<a class="headerlink" href="#cleaning-our-data" title="Link to this heading">#</a></h1>
 <p>Cleaning your data and dealing with dates. That’s the life of anyone who deals with data, especially in finance. Most data sets are messy. This is especially true if you or your firm is the one collecting the data and not just purchasing something.</p>
 <p>Then, once your data is (reasonably) clean and error free, you start <strong>creating the variables</strong> that will go into your statistical/machine learning models. This is called <strong>feature engineering</strong>.</p>
 <p>DataCamp has an article on <a class="reference external" href="https://www.datacamp.com/community/tutorials/data-preparation-with-pandas">cleaning data in <code class="docutils literal notranslate"><span class="pre">pandas</span></code></a>.</p>
@@ -658,18 +435,18 @@ title="Print to PDF"
 </ul>
 <p>You’ll see all of these steps when we get our actual models.</p>
 <section id="data-integrity">
-<h2>Data Integrity<a class="headerlink" href="#data-integrity" title="Permalink to this headline">#</a></h2>
+<h2>Data Integrity<a class="headerlink" href="#data-integrity" title="Link to this heading">#</a></h2>
 <p>Before you even start to clean your data, you have to <a class="reference external" href="https://kieranhealy.org/blog/archives/2018/08/01/i-cant-believe-its-not-butter/">know how your data were created</a>.</p>
 <p>What does this mean in practice? Read the data manual if you are using data constructed by someone else! Did you pull data from <a class="reference external" href="https://fred.stlouisfed.org">FRED</a>? How did the BLS construct that time series? Did anything change? Can you really compare a number from 2023 to 2019, or did a definition change?</p>
 <p>Can you <a class="reference external" href="https://www.sportsmediawatch.com/super-bowl-ratings-historical-viewership-chart-cbs-nbc-fox-abc/">compare Super Bowl viewership over time?</a></p>
 </section>
 <section id="underwater-exploration">
-<h2>Underwater exploration<a class="headerlink" href="#underwater-exploration" title="Permalink to this headline">#</a></h2>
+<h2>Underwater exploration<a class="headerlink" href="#underwater-exploration" title="Link to this heading">#</a></h2>
 <p>We’ll start by bringing in our Zillow data again.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
-<span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">pandas</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">pd</span>
 
 <span class="n">uw</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s1">&#39;https://github.com/aaiken1/fin-data-analysis-python/raw/main/data/zestimatesAndCutoffs_byGeo_uw_2017-10-10_forDataPage.csv&#39;</span><span class="p">)</span>
 <span class="n">uw</span><span class="o">.</span><span class="n">info</span><span class="p">()</span>
@@ -677,12 +454,6 @@ title="Print to PDF"
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>/opt/anaconda3/lib/python3.9/site-packages/pandas/core/computation/expressions.py:21: UserWarning: Pandas requires version &#39;2.8.4&#39; or newer of &#39;numexpr&#39; (version &#39;2.8.3&#39; currently installed).
-  from pandas.core.computation.check import NUMEXPR_INSTALLED
-/opt/anaconda3/lib/python3.9/site-packages/pandas/core/arrays/masked.py:60: UserWarning: Pandas requires version &#39;1.3.6&#39; or newer of &#39;bottleneck&#39; (version &#39;1.3.5&#39; currently installed).
-  from pandas.core import (
-</pre></div>
-</div>
 <div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;class &#39;pandas.core.frame.DataFrame&#39;&gt;
 RangeIndex: 2610 entries, 0 to 2609
 Data columns (total 24 columns):
@@ -731,7 +502,7 @@ memory usage: 489.5+ KB
 <p>This code is actually taking the column, changing its type, and saving it to the DataFrame with the same column name. Note that we could changed the name of the column.</p>
 </section>
 <section id="counting-missings-and-dupes">
-<h2>Counting, missings, and dupes<a class="headerlink" href="#counting-missings-and-dupes" title="Permalink to this headline">#</a></h2>
+<h2>Counting, missings, and dupes<a class="headerlink" href="#counting-missings-and-dupes" title="Link to this heading">#</a></h2>
 <p>When you first bring in some data, you often want to do some simple checks. How many observations do you have? Are you missing anything? Are their duplicate observations? How do we define duplicate observations?</p>
 <p>You can’t do any data analysis until you <strong>understand the structure of your data</strong>. What do you have? Why do you have it? How do you want to use it?</p>
 <p>Let’s start with <strong>counts</strong>. We can count the number of times a <strong>category</strong> appears in a variable. Note that this is only useful for variables that have an sense of category. You would do this for any of the home count or dollar value variables, for example.</p>
@@ -2504,7 +2275,7 @@ dtype: int64
 <p>You want to keep track of the number of observations (rows) when you’re dropping duplicates. In this case, we go from 2,610 rows to 2,571.</p>
 </section>
 <section id="sorting-our-data">
-<h2>Sorting our data<a class="headerlink" href="#sorting-our-data" title="Permalink to this headline">#</a></h2>
+<h2>Sorting our data<a class="headerlink" href="#sorting-our-data" title="Link to this heading">#</a></h2>
 <p>Another basic task that we often face is <strong>sorting our data</strong>. You can sort numeric or string data, by variable using <code class="docutils literal notranslate"><span class="pre">.sort_values()</span></code> from <code class="docutils literal notranslate"><span class="pre">pandas</span></code>.</p>
 <p>The <code class="docutils literal notranslate"><span class="pre">ascending=</span></code> argument can be True or False and tells us how to sort. You can pass it a list of how to sort if you’re sorting on multiple variables.</p>
 <p>I’l sort the data by <em>RegionType</em> first. Then, I’ll sort the data by <em>RegionType</em>, <em>RegionName</em>, and <em>AllHomes_Tier1</em></p>
@@ -3147,7 +2918,7 @@ dtype: int64
 </div>
 </section>
 <section id="renaming-columns">
-<h2>Renaming columns<a class="headerlink" href="#renaming-columns" title="Permalink to this headline">#</a></h2>
+<h2>Renaming columns<a class="headerlink" href="#renaming-columns" title="Link to this heading">#</a></h2>
 <p>While cleaning our data, we might want to rename our columns, or variables. You can do this automatically with something like <code class="docutils literal notranslate"><span class="pre">pyjanitor</span></code> (see below). You can also do it when importing the data using <code class="docutils literal notranslate"><span class="pre">.read_csv</span></code> from <code class="docutils literal notranslate"><span class="pre">pandas</span></code>, if you know that you’ll want to change the name.</p>
 <p>It is also easy enough to do using <code class="docutils literal notranslate"><span class="pre">.rename</span></code> from <code class="docutils literal notranslate"><span class="pre">pandas</span></code>. You give it a mapping of old name to new name. I’ll rename <em>MSAName</em> for fun.</p>
 <p>Note the <code class="docutils literal notranslate"><span class="pre">inplace=True</span></code> argument. You’ll see this a lot for <code class="docutils literal notranslate"><span class="pre">pandas</span></code> methods. This makes it so that we don’t have to do a <code class="docutils literal notranslate"><span class="pre">uw</span> <span class="pre">=</span> <span class="pre">uw.rename()</span></code>. Instead, we save over the old DataFrame with the new one with the new column name.</p>
@@ -3161,7 +2932,7 @@ dtype: int64
 </div>
 </section>
 <section id="dropping-columns">
-<h2>Dropping columns<a class="headerlink" href="#dropping-columns" title="Permalink to this headline">#</a></h2>
+<h2>Dropping columns<a class="headerlink" href="#dropping-columns" title="Link to this heading">#</a></h2>
 <p>We can also simply drop a column of data. You could do this via data subsets (e.g. <code class="docutils literal notranslate"><span class="pre">.iloc</span></code>), but this method lets you use <code class="docutils literal notranslate"><span class="pre">.drop()</span></code> to specify the name of the column. It’s a little clearer doing things this way.</p>
 <p>The <code class="docutils literal notranslate"><span class="pre">axis=1</span></code> option means that you are dropping the column named. I’ve picked a column at random to drop. Notice that I’m saving my work back to the <em>uw</em> DataFrame.</p>
 <div class="cell docutils container">
@@ -3173,7 +2944,7 @@ dtype: int64
 </div>
 </section>
 <section id="missing-data-example">
-<h2>Missing data example<a class="headerlink" href="#missing-data-example" title="Permalink to this headline">#</a></h2>
+<h2>Missing data example<a class="headerlink" href="#missing-data-example" title="Link to this heading">#</a></h2>
 <p>Finally, let’s try some more complicated code. I found this example <a class="reference external" href="https://towardsdatascience.com/a-better-eda-with-pandas-profiling-e842a00e1136">here</a>.</p>
 <p>First, we will create a DataFrame that has the total number of missing values for each variable. We can sort the data using <code class="docutils literal notranslate"><span class="pre">sort_values()</span></code>. The <code class="docutils literal notranslate"><span class="pre">ascending=False</span></code> option will have the variable with the largest number of missings at the top.</p>
 <div class="cell docutils container">
@@ -3250,7 +3021,7 @@ dtype: int64
 </div>
 </section>
 <section id="back-to-stocks">
-<h2>Back to stocks<a class="headerlink" href="#back-to-stocks" title="Permalink to this headline">#</a></h2>
+<h2>Back to stocks<a class="headerlink" href="#back-to-stocks" title="Link to this heading">#</a></h2>
 <p>We can bring back the stock data too, as that data has some missing values.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -3597,7 +3368,7 @@ dtype: int64
 </div>
 </section>
 <section id="pyjanitor">
-<h2>Pyjanitor<a class="headerlink" href="#pyjanitor" title="Permalink to this headline">#</a></h2>
+<h2>Pyjanitor<a class="headerlink" href="#pyjanitor" title="Link to this heading">#</a></h2>
 <p>We are going to look at a fun package that is based on something from the <a class="reference external" href="https://www.r-project.org">R</a> statistical programming language, called <a class="reference external" href="https://pyjanitor-devs.github.io/pyjanitor/#installation">pyjanitor</a>.</p>
 <p>To use this package, you’ll need to type the following in the terminal (Mac) or cmd terminal (Windows).</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">pip</span> <span class="n">install</span> <span class="n">pyjanitor</span>
@@ -3612,64 +3383,7 @@ dtype: int64
 <p>We can bring in <code class="docutils literal notranslate"><span class="pre">janitor</span></code> and treat it as part of <code class="docutils literal notranslate"><span class="pre">pandas</span></code> using the <code class="docutils literal notranslate"><span class="pre">import</span></code> function.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">janitor</span>
-</pre></div>
-</div>
-</div>
-<div class="cell_output docutils container">
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>/opt/anaconda3/lib/python3.9/site-packages/janitor/utils.py:87: FutureWarning: PandasArray has been renamed NumpyExtensionArray. Use that instead. This alias will be removed in a future version.
-  @_expand_grid.register(pd.arrays.PandasArray)
-</pre></div>
-</div>
-<div class="output traceback highlight-ipythontb notranslate"><div class="highlight"><pre><span></span><span class="gt">---------------------------------------------------------------------------</span>
-<span class="ne">ImportError</span><span class="g g-Whitespace">                               </span>Traceback (most recent call last)
-<span class="n">Cell</span> <span class="n">In</span><span class="p">[</span><span class="mi">28</span><span class="p">],</span> <span class="n">line</span> <span class="mi">1</span>
-<span class="ne">----&gt; </span><span class="mi">1</span> <span class="kn">import</span> <span class="nn">janitor</span>
-
-<span class="n">File</span> <span class="o">/</span><span class="n">opt</span><span class="o">/</span><span class="n">anaconda3</span><span class="o">/</span><span class="n">lib</span><span class="o">/</span><span class="n">python3</span><span class="mf">.9</span><span class="o">/</span><span class="n">site</span><span class="o">-</span><span class="n">packages</span><span class="o">/</span><span class="n">janitor</span><span class="o">/</span><span class="fm">__init__</span><span class="o">.</span><span class="n">py</span><span class="p">:</span><span class="mi">9</span>
-<span class="g g-Whitespace">      </span><span class="mi">5</span> <span class="kn">import</span> <span class="nn">lazy_loader</span> <span class="k">as</span> <span class="nn">lazy</span>
-<span class="g g-Whitespace">      </span><span class="mi">8</span> <span class="kn">from</span> <span class="nn">.accessors</span> <span class="kn">import</span> <span class="o">*</span>  <span class="c1"># noqa: F403, F401</span>
-<span class="ne">----&gt; </span><span class="mi">9</span> <span class="kn">from</span> <span class="nn">.functions</span> <span class="kn">import</span> <span class="o">*</span>  <span class="c1"># noqa: F403, F401</span>
-<span class="g g-Whitespace">     </span><span class="mi">10</span> <span class="kn">from</span> <span class="nn">.io</span> <span class="kn">import</span> <span class="o">*</span>  <span class="c1"># noqa: F403, F401</span>
-<span class="g g-Whitespace">     </span><span class="mi">11</span> <span class="kn">from</span> <span class="nn">.math</span> <span class="kn">import</span> <span class="o">*</span>  <span class="c1"># noqa: F403, F401</span>
-
-<span class="n">File</span> <span class="o">/</span><span class="n">opt</span><span class="o">/</span><span class="n">anaconda3</span><span class="o">/</span><span class="n">lib</span><span class="o">/</span><span class="n">python3</span><span class="mf">.9</span><span class="o">/</span><span class="n">site</span><span class="o">-</span><span class="n">packages</span><span class="o">/</span><span class="n">janitor</span><span class="o">/</span><span class="n">functions</span><span class="o">/</span><span class="fm">__init__</span><span class="o">.</span><span class="n">py</span><span class="p">:</span><span class="mi">25</span>
-<span class="g g-Whitespace">     </span><span class="mi">23</span> <span class="kn">from</span> <span class="nn">.change_type</span> <span class="kn">import</span> <span class="n">change_type</span>
-<span class="g g-Whitespace">     </span><span class="mi">24</span> <span class="kn">from</span> <span class="nn">.clean_names</span> <span class="kn">import</span> <span class="n">clean_names</span>
-<span class="ne">---&gt; </span><span class="mi">25</span> <span class="kn">from</span> <span class="nn">.coalesce</span> <span class="kn">import</span> <span class="n">coalesce</span>
-<span class="g g-Whitespace">     </span><span class="mi">26</span> <span class="kn">from</span> <span class="nn">.collapse_levels</span> <span class="kn">import</span> <span class="n">collapse_levels</span>
-<span class="g g-Whitespace">     </span><span class="mi">27</span> <span class="kn">from</span> <span class="nn">.complete</span> <span class="kn">import</span> <span class="n">complete</span>
-
-<span class="n">File</span> <span class="o">/</span><span class="n">opt</span><span class="o">/</span><span class="n">anaconda3</span><span class="o">/</span><span class="n">lib</span><span class="o">/</span><span class="n">python3</span><span class="mf">.9</span><span class="o">/</span><span class="n">site</span><span class="o">-</span><span class="n">packages</span><span class="o">/</span><span class="n">janitor</span><span class="o">/</span><span class="n">functions</span><span class="o">/</span><span class="n">coalesce</span><span class="o">.</span><span class="n">py</span><span class="p">:</span><span class="mi">7</span>
-<span class="g g-Whitespace">      </span><span class="mi">4</span> <span class="kn">import</span> <span class="nn">pandas_flavor</span> <span class="k">as</span> <span class="nn">pf</span>
-<span class="g g-Whitespace">      </span><span class="mi">6</span> <span class="kn">from</span> <span class="nn">janitor.utils</span> <span class="kn">import</span> <span class="n">check</span><span class="p">,</span> <span class="n">deprecated_alias</span>
-<span class="ne">----&gt; </span><span class="mi">7</span> <span class="kn">from</span> <span class="nn">janitor.functions.utils</span> <span class="kn">import</span> <span class="n">_select_index</span>
-<span class="g g-Whitespace">     </span><span class="mi">10</span> <span class="nd">@pf</span><span class="o">.</span><span class="n">register_dataframe_method</span>
-<span class="g g-Whitespace">     </span><span class="mi">11</span> <span class="nd">@deprecated_alias</span><span class="p">(</span><span class="n">columns</span><span class="o">=</span><span class="s2">&quot;column_names&quot;</span><span class="p">,</span> <span class="n">new_column_name</span><span class="o">=</span><span class="s2">&quot;target_column_name&quot;</span><span class="p">)</span>
-<span class="g g-Whitespace">     </span><span class="mi">12</span> <span class="k">def</span> <span class="nf">coalesce</span><span class="p">(</span>
-   <span class="p">(</span><span class="o">...</span><span class="p">)</span>
-<span class="g g-Whitespace">     </span><span class="mi">16</span>     <span class="n">default_value</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">Union</span><span class="p">[</span><span class="nb">int</span><span class="p">,</span> <span class="nb">float</span><span class="p">,</span> <span class="nb">str</span><span class="p">]]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
-<span class="g g-Whitespace">     </span><span class="mi">17</span> <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">:</span>
-<span class="g g-Whitespace">     </span><span class="mi">18</span>     <span class="sd">&quot;&quot;&quot;Coalesce two or more columns of data in order of column names provided.</span>
-<span class="g g-Whitespace">     </span><span class="mi">19</span><span class="sd"> </span>
-<span class="g g-Whitespace">     </span><span class="mi">20</span><span class="sd">     Given the variable arguments of column names,</span>
-<span class="sd">   (...)</span>
-<span class="g g-Whitespace">     </span><span class="mi">87</span><span class="sd">     :raises ValueError: if length of `column_names` is less than 2.</span>
-<span class="g g-Whitespace">     </span><span class="mi">88</span><span class="sd">     &quot;&quot;&quot;</span>
-
-<span class="n">File</span> <span class="o">/</span><span class="n">opt</span><span class="o">/</span><span class="n">anaconda3</span><span class="o">/</span><span class="n">lib</span><span class="o">/</span><span class="n">python3</span><span class="mf">.9</span><span class="o">/</span><span class="n">site</span><span class="o">-</span><span class="n">packages</span><span class="o">/</span><span class="n">janitor</span><span class="o">/</span><span class="n">functions</span><span class="o">/</span><span class="n">utils</span><span class="o">.</span><span class="n">py</span><span class="p">:</span><span class="mi">16</span>
-<span class="g g-Whitespace">      </span><span class="mi">5</span> <span class="kn">import</span> <span class="nn">re</span>
-<span class="g g-Whitespace">      </span><span class="mi">6</span> <span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="p">(</span>
-<span class="g g-Whitespace">      </span><span class="mi">7</span>     <span class="n">Hashable</span><span class="p">,</span>
-<span class="g g-Whitespace">      </span><span class="mi">8</span>     <span class="n">Iterable</span><span class="p">,</span>
-   <span class="p">(</span><span class="o">...</span><span class="p">)</span>
-<span class="g g-Whitespace">     </span><span class="mi">14</span>     <span class="n">Any</span><span class="p">,</span>
-<span class="g g-Whitespace">     </span><span class="mi">15</span> <span class="p">)</span>
-<span class="ne">---&gt; </span><span class="mi">16</span> <span class="kn">from</span> <span class="nn">pandas.core.dtypes.generic</span> <span class="kn">import</span> <span class="n">ABCPandasArray</span><span class="p">,</span> <span class="n">ABCExtensionArray</span>
-<span class="g g-Whitespace">     </span><span class="mi">17</span> <span class="kn">from</span> <span class="nn">pandas.core.common</span> <span class="kn">import</span> <span class="n">is_bool_indexer</span>
-<span class="g g-Whitespace">     </span><span class="mi">18</span> <span class="kn">from</span> <span class="nn">dataclasses</span> <span class="kn">import</span> <span class="n">dataclass</span>
-
-<span class="ne">ImportError</span>: cannot import name &#39;ABCPandasArray&#39; from &#39;pandas.core.dtypes.generic&#39; (/opt/anaconda3/lib/python3.9/site-packages/pandas/core/dtypes/generic.py)
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">janitor</span>
 </pre></div>
 </div>
 </div>
@@ -3685,6 +3399,14 @@ dtype: int64
     <span class="o">.</span><span class="n">rename_column</span><span class="p">(</span><span class="s1">&#39;AAPL.O&#39;</span><span class="p">,</span> <span class="s1">&#39;AAPL&#39;</span><span class="p">)</span>
     <span class="o">.</span><span class="n">rename_column</span><span class="p">(</span><span class="s1">&#39;MSFT.O&#39;</span><span class="p">,</span> <span class="s1">&#39;MSFT&#39;</span><span class="p">)</span>
 <span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>/Users/adamaiken/Documents/fin-data-analysis-text/.venv/lib/python3.9/site-packages/pandas_flavor/register.py:157: FutureWarning: This function will be deprecated in a 1.x release. Please use `pd.DataFrame.drop` instead.
+  return method(self._obj, *args, **kwargs)
+/Users/adamaiken/Documents/fin-data-analysis-text/.venv/lib/python3.9/site-packages/pandas_flavor/register.py:157: FutureWarning: This function will be deprecated in a 1.x release. Please use `pd.DataFrame.rename` instead.
+  return method(self._obj, *args, **kwargs)
 </pre></div>
 </div>
 </div>
@@ -3704,7 +3426,7 @@ dtype: int64
 <p>You might see another syntax, though. You can import the functions directly and then include the DataFrame as an argument to that function. Both ways are detailed in the <a class="reference external" href="https://pyjanitor-devs.github.io/pyjanitor/#installation">pyjanitor</a> instructions.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">janitor</span> <span class="kn">import</span> <span class="n">clean_names</span><span class="p">,</span> <span class="n">remove_empty</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">janitor</span><span class="w"> </span><span class="kn">import</span> <span class="n">clean_names</span><span class="p">,</span> <span class="n">remove_empty</span>
  
 <span class="n">prices</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s1">&#39;https://github.com/aaiken1/fin-data-analysis-python/raw/main/data/tr_eikon_eod_data.csv&#39;</span><span class="p">,</span>
                       <span class="n">index_col</span> <span class="o">=</span> <span class="mi">0</span><span class="p">,</span> <span class="n">parse_dates</span> <span class="o">=</span> <span class="kc">True</span><span class="p">)</span>
@@ -4031,7 +3753,7 @@ dtype: int64
             mode: "python"
         },
         kernelOptions: {
-            kernelName: "python3",
+            name: "python3",
             path: "./chapters"
         },
         predefinedOutput: true
@@ -4039,49 +3761,104 @@ dtype: int64
     </script>
     <script>kernelName = 'python3'</script>
 
-              </div>
+                </article>
               
-            </main>
-            <footer class="footer-article noprint">
-                
-    <!-- Previous / next buttons -->
-<div class='prev-next-area'>
-    <a class='left-prev' id="prev-link" href="4_1_pandas.html" title="previous page">
-        <i class="fas fa-angle-left"></i>
-        <div class="prev-next-info">
-            <p class="prev-next-subtitle">previous</p>
-            <p class="prev-next-title">pandas</p>
-        </div>
+
+              
+              
+              
+              
+                <footer class="prev-next-footer d-print-none">
+                  
+<div class="prev-next-area">
+    <a class="left-prev"
+       href="4_1_pandas.html"
+       title="previous page">
+      <i class="fa-solid fa-angle-left"></i>
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">previous</p>
+        <p class="prev-next-title">pandas</p>
+      </div>
     </a>
-    <a class='right-next' id="next-link" href="4_3_eda.html" title="next page">
-    <div class="prev-next-info">
+    <a class="right-next"
+       href="4_3_eda.html"
+       title="next page">
+      <div class="prev-next-info">
         <p class="prev-next-subtitle">next</p>
         <p class="prev-next-title">Exploratory data analysis (EDA)</p>
-    </div>
-    <i class="fas fa-angle-right"></i>
+      </div>
+      <i class="fa-solid fa-angle-right"></i>
     </a>
 </div>
-            </footer>
-        </div>
-    </div>
-    <div class="footer-content row">
-        <footer class="col footer"><p>
+                </footer>
+              
+            </div>
+            
+            
+              
+                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+
+  <div class="sidebar-secondary-item">
+  <div class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> Contents
+  </div>
+  <nav class="bd-toc-nav page-toc">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#data-integrity">Data Integrity</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#underwater-exploration">Underwater exploration</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#counting-missings-and-dupes">Counting, missings, and dupes</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#sorting-our-data">Sorting our data</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#renaming-columns">Renaming columns</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#dropping-columns">Dropping columns</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#missing-data-example">Missing data example</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#back-to-stocks">Back to stocks</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#pyjanitor">Pyjanitor</a></li>
+</ul>
+  </nav></div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+<div class="bd-footer-content__inner container">
   
-    By Prof. Adam Aiken<br/>
-  
-</p>
-        </footer>
-    </div>
+  <div class="footer-item">
     
+<p class="component-author">
+By Prof. Adam Aiken
+</p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
 </div>
+          </footer>
+        
 
-
-      </div>
+      </main>
     </div>
+  </div>
   
   <!-- Scripts loaded after <body> so the DOM is not blocked -->
-  <script src="../_static/scripts/pydata-sphinx-theme.js?digest=1999514e3f237ded88cf"></script>
+  <script src="../_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b"></script>
+<script src="../_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b"></script>
 
-
+  <footer class="bd-footer">
+  </footer>
   </body>
 </html>

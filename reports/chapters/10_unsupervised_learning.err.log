@@ -1,0 +1,81 @@
+Traceback (most recent call last):
+  File "/Users/adamaiken/Documents/fin-data-analysis-text/.venv/lib/python3.9/site-packages/jupyter_core/utils/__init__.py", line 154, in wrapped
+    asyncio.get_running_loop()
+RuntimeError: no running event loop
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/Users/adamaiken/Documents/fin-data-analysis-text/.venv/lib/python3.9/site-packages/jupyter_cache/executors/utils.py", line 58, in single_nb_execution
+    executenb(
+  File "/Users/adamaiken/Documents/fin-data-analysis-text/.venv/lib/python3.9/site-packages/nbclient/client.py", line 1319, in execute
+    return NotebookClient(nb=nb, resources=resources, km=km, **kwargs).execute()
+  File "/Users/adamaiken/Documents/fin-data-analysis-text/.venv/lib/python3.9/site-packages/jupyter_core/utils/__init__.py", line 158, in wrapped
+    return loop.run_until_complete(inner)
+  File "/opt/anaconda3/lib/python3.9/asyncio/base_events.py", line 647, in run_until_complete
+    return future.result()
+  File "/Users/adamaiken/Documents/fin-data-analysis-text/.venv/lib/python3.9/site-packages/nbclient/client.py", line 709, in async_execute
+    await self.async_execute_cell(
+  File "/Users/adamaiken/Documents/fin-data-analysis-text/.venv/lib/python3.9/site-packages/nbclient/client.py", line 1062, in async_execute_cell
+    await self._check_raise_for_error(cell, cell_index, exec_reply)
+  File "/Users/adamaiken/Documents/fin-data-analysis-text/.venv/lib/python3.9/site-packages/nbclient/client.py", line 918, in _check_raise_for_error
+    raise CellExecutionError.from_cell_and_msg(cell, exec_reply_content)
+nbclient.exceptions.CellExecutionError: An error occurred while executing the following cell:
+------------------
+# print summary statistics
+print("\nSummary statistics\n", raw.describe())
+print("\nCorrelation matrix\n", raw.corr())
+------------------
+
+----- stdout -----
+
+Summary statistics
+        Corruption       Peace       Legal  GDP Growth
+count  121.000000  121.000000  121.000000  121.000000
+mean    46.842975    2.001017    5.752529    2.657529
+std     18.702499    0.461485    1.373932    2.563741
+min     15.000000    1.072000    2.671000   -9.459000
+25%     33.000000    1.699000    4.785000    1.249000
+50%     41.000000    1.939000    5.455000    2.600000
+75%     60.000000    2.294000    6.488000    4.000000
+max     87.000000    3.369000    8.712000    7.800000
+------------------
+
+[0;31m---------------------------------------------------------------------------[0m
+[0;31mValueError[0m                                Traceback (most recent call last)
+Cell [0;32mIn[3], line 3[0m
+[1;32m      1[0m [38;5;66;03m# print summary statistics[39;00m
+[1;32m      2[0m [38;5;28mprint[39m([38;5;124m"[39m[38;5;130;01m\n[39;00m[38;5;124mSummary statistics[39m[38;5;130;01m\n[39;00m[38;5;124m"[39m, raw[38;5;241m.[39mdescribe())
+[0;32m----> 3[0m [38;5;28mprint[39m([38;5;124m"[39m[38;5;130;01m\n[39;00m[38;5;124mCorrelation matrix[39m[38;5;130;01m\n[39;00m[38;5;124m"[39m, [43mraw[49m[38;5;241;43m.[39;49m[43mcorr[49m[43m([49m[43m)[49m)
+
+File [0;32m~/Documents/fin-data-analysis-text/.venv/lib/python3.9/site-packages/pandas/core/frame.py:11076[0m, in [0;36mDataFrame.corr[0;34m(self, method, min_periods, numeric_only)[0m
+[1;32m  11074[0m cols [38;5;241m=[39m data[38;5;241m.[39mcolumns
+[1;32m  11075[0m idx [38;5;241m=[39m cols[38;5;241m.[39mcopy()
+[0;32m> 11076[0m mat [38;5;241m=[39m [43mdata[49m[38;5;241;43m.[39;49m[43mto_numpy[49m[43m([49m[43mdtype[49m[38;5;241;43m=[39;49m[38;5;28;43mfloat[39;49m[43m,[49m[43m [49m[43mna_value[49m[38;5;241;43m=[39;49m[43mnp[49m[38;5;241;43m.[39;49m[43mnan[49m[43m,[49m[43m [49m[43mcopy[49m[38;5;241;43m=[39;49m[38;5;28;43;01mFalse[39;49;00m[43m)[49m
+[1;32m  11078[0m [38;5;28;01mif[39;00m method [38;5;241m==[39m [38;5;124m"[39m[38;5;124mpearson[39m[38;5;124m"[39m:
+[1;32m  11079[0m     correl [38;5;241m=[39m libalgos[38;5;241m.[39mnancorr(mat, minp[38;5;241m=[39mmin_periods)
+
+File [0;32m~/Documents/fin-data-analysis-text/.venv/lib/python3.9/site-packages/pandas/core/frame.py:2002[0m, in [0;36mDataFrame.to_numpy[0;34m(self, dtype, copy, na_value)[0m
+[1;32m   2000[0m [38;5;28;01mif[39;00m dtype [38;5;129;01mis[39;00m [38;5;129;01mnot[39;00m [38;5;28;01mNone[39;00m:
+[1;32m   2001[0m     dtype [38;5;241m=[39m np[38;5;241m.[39mdtype(dtype)
+[0;32m-> 2002[0m result [38;5;241m=[39m [38;5;28;43mself[39;49m[38;5;241;43m.[39;49m[43m_mgr[49m[38;5;241;43m.[39;49m[43mas_array[49m[43m([49m[43mdtype[49m[38;5;241;43m=[39;49m[43mdtype[49m[43m,[49m[43m [49m[43mcopy[49m[38;5;241;43m=[39;49m[43mcopy[49m[43m,[49m[43m [49m[43mna_value[49m[38;5;241;43m=[39;49m[43mna_value[49m[43m)[49m
+[1;32m   2003[0m [38;5;28;01mif[39;00m result[38;5;241m.[39mdtype [38;5;129;01mis[39;00m [38;5;129;01mnot[39;00m dtype:
+[1;32m   2004[0m     result [38;5;241m=[39m np[38;5;241m.[39masarray(result, dtype[38;5;241m=[39mdtype)
+
+File [0;32m~/Documents/fin-data-analysis-text/.venv/lib/python3.9/site-packages/pandas/core/internals/managers.py:1713[0m, in [0;36mBlockManager.as_array[0;34m(self, dtype, copy, na_value)[0m
+[1;32m   1711[0m         arr[38;5;241m.[39mflags[38;5;241m.[39mwriteable [38;5;241m=[39m [38;5;28;01mFalse[39;00m
+[1;32m   1712[0m [38;5;28;01melse[39;00m:
+[0;32m-> 1713[0m     arr [38;5;241m=[39m [38;5;28;43mself[39;49m[38;5;241;43m.[39;49m[43m_interleave[49m[43m([49m[43mdtype[49m[38;5;241;43m=[39;49m[43mdtype[49m[43m,[49m[43m [49m[43mna_value[49m[38;5;241;43m=[39;49m[43mna_value[49m[43m)[49m
+[1;32m   1714[0m     [38;5;66;03m# The underlying data was copied within _interleave, so no need[39;00m
+[1;32m   1715[0m     [38;5;66;03m# to further copy if copy=True or setting na_value[39;00m
+[1;32m   1717[0m [38;5;28;01mif[39;00m na_value [38;5;129;01mis[39;00m lib[38;5;241m.[39mno_default:
+
+File [0;32m~/Documents/fin-data-analysis-text/.venv/lib/python3.9/site-packages/pandas/core/internals/managers.py:1772[0m, in [0;36mBlockManager._interleave[0;34m(self, dtype, na_value)[0m
+[1;32m   1770[0m     [38;5;28;01melse[39;00m:
+[1;32m   1771[0m         arr [38;5;241m=[39m blk[38;5;241m.[39mget_values(dtype)
+[0;32m-> 1772[0m     [43mresult[49m[43m[[49m[43mrl[49m[38;5;241;43m.[39;49m[43mindexer[49m[43m][49m [38;5;241m=[39m arr
+[1;32m   1773[0m     itemmask[rl[38;5;241m.[39mindexer] [38;5;241m=[39m [38;5;241m1[39m
+[1;32m   1775[0m [38;5;28;01mif[39;00m [38;5;129;01mnot[39;00m itemmask[38;5;241m.[39mall():
+
+[0;31mValueError[0m: could not convert string to float: 'Albania'
+

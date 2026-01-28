@@ -1,115 +1,180 @@
 
 <!DOCTYPE html>
 
-<html>
+
+<html lang="en" data-content_root="../" >
+
   <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
     <title>Logit models &#8212; Data Analysis in Finance</title>
-    
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
+  </script>
+  
   <!-- Loaded before other Sphinx assets -->
-  <link href="../_static/styles/theme.css?digest=1999514e3f237ded88cf" rel="stylesheet">
-<link href="../_static/styles/pydata-sphinx-theme.css?digest=1999514e3f237ded88cf" rel="stylesheet">
+  <link href="../_static/styles/theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="../_static/styles/bootstrap.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="../_static/styles/pydata-sphinx-theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
 
-    
-  <link rel="stylesheet"
-    href="../_static/vendor/fontawesome/5.13.0/css/all.min.css">
-  <link rel="preload" as="font" type="font/woff2" crossorigin
-    href="../_static/vendor/fontawesome/5.13.0/webfonts/fa-solid-900.woff2">
-  <link rel="preload" as="font" type="font/woff2" crossorigin
-    href="../_static/vendor/fontawesome/5.13.0/webfonts/fa-brands-400.woff2">
+  
+  <link href="../_static/vendor/fontawesome/6.5.2/css/all.min.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.2/webfonts/fa-solid-900.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.2/webfonts/fa-brands-400.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.2/webfonts/fa-regular-400.woff2" />
 
-    <link rel="stylesheet" type="text/css" href="../_static/pygments.css" />
-    <link rel="stylesheet" href="../_static/styles/sphinx-book-theme.css?digest=5115cc725059bd94278eecd172e13a965bf8f5a9" type="text/css" />
-    <link rel="stylesheet" type="text/css" href="../_static/togglebutton.css" />
-    <link rel="stylesheet" type="text/css" href="../_static/copybutton.css" />
-    <link rel="stylesheet" type="text/css" href="../_static/mystnb.css" />
-    <link rel="stylesheet" type="text/css" href="../_static/sphinx-thebe.css" />
-    <link rel="stylesheet" type="text/css" href="../_static/custom.css" />
-    <link rel="stylesheet" type="text/css" href="../_static/custom.css" />
-    <link rel="stylesheet" type="text/css" href="../_static/design-style.b7bb847fb20b106c3d81b95245e65545.min.css" />
-    
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=03e43079" />
+    <link rel="stylesheet" type="text/css" href="../_static/styles/sphinx-book-theme.css?v=eba8b062" />
+    <link rel="stylesheet" type="text/css" href="../_static/togglebutton.css?v=9c3e77be" />
+    <link rel="stylesheet" type="text/css" href="../_static/copybutton.css?v=76b2166b" />
+    <link rel="stylesheet" type="text/css" href="../_static/mystnb.8ecb98da25f57f5357bf6f572d296f466b2cfe2517ffebfabe82451661e28f02.css?v=6644e6bb" />
+    <link rel="stylesheet" type="text/css" href="../_static/sphinx-thebe.css?v=4fa983c6" />
+    <link rel="stylesheet" type="text/css" href="../_static/sphinx-design.min.css?v=95c83b7e" />
+    <link rel="stylesheet" type="text/css" href="../_static/custom.css?v=b747247e" />
+  
   <!-- Pre-loaded scripts that we'll load fully later -->
-  <link rel="preload" as="script" href="../_static/scripts/pydata-sphinx-theme.js?digest=1999514e3f237ded88cf">
+  <link rel="preload" as="script" href="../_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b" />
+<link rel="preload" as="script" href="../_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b" />
+  <script src="../_static/vendor/fontawesome/6.5.2/js/all.min.js?digest=dfe6caa3a7d634c4db9b"></script>
 
-    <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
-    <script src="../_static/jquery.js"></script>
-    <script src="../_static/underscore.js"></script>
-    <script src="../_static/doctools.js"></script>
-    <script src="../_static/clipboard.min.js"></script>
-    <script src="../_static/copybutton.js"></script>
-    <script src="../_static/scripts/sphinx-book-theme.js?digest=9c920249402e914e316237a7dbc6769907cce411"></script>
+    <script src="../_static/documentation_options.js?v=9eb32ce0"></script>
+    <script src="../_static/doctools.js?v=9a2dae69"></script>
+    <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../_static/clipboard.min.js?v=a7894cd8"></script>
+    <script src="../_static/copybutton.js?v=f281be69"></script>
+    <script src="../_static/scripts/sphinx-book-theme.js?v=887ef09a"></script>
     <script>let toggleHintShow = 'Click to show';</script>
     <script>let toggleHintHide = 'Click to hide';</script>
     <script>let toggleOpenOnPrint = 'true';</script>
-    <script src="../_static/togglebutton.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
-    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown, .tag_hide_input div.cell_input, .tag_hide-input div.cell_input, .tag_hide_output div.cell_output, .tag_hide-output div.cell_output, .tag_hide_cell.cell, .tag_hide-cell.cell';</script>
-    <script src="../_static/design-tabs.js"></script>
-    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"
-const thebe_selector = ".thebe,.cell"
-const thebe_selector_input = "pre"
-const thebe_selector_output = ".output, .cell_output"
-</script>
-    <script async="async" src="../_static/sphinx-thebe.js"></script>
+    <script src="../_static/togglebutton.js?v=1ae7504c"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script src="../_static/design-tabs.js?v=36754332"></script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script async="async" src="../_static/sphinx-thebe.js?v=c100c467"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
     <script>window.MathJax = {"options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
     <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'chapters/13_logit_credit';</script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
     <link rel="next" title="Risk management" href="14_risk_mang.html" />
     <link rel="prev" title="Supervised machine learning and regression topics" href="12_regression_topics.html" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <meta name="docsearch:language" content="None">
-    
-
-    <!-- Google Analytics -->
-    
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
   </head>
-  <body data-spy="scroll" data-target="#bd-toc-nav" data-offset="60">
-<!-- Checkboxes to toggle the left sidebar -->
-<input type="checkbox" class="sidebar-toggle" name="__navigation" id="__navigation" aria-label="Toggle navigation sidebar">
-<label class="overlay overlay-navbar" for="__navigation">
-    <div class="visually-hidden">Toggle navigation sidebar</div>
-</label>
-<!-- Checkboxes to toggle the in-page toc -->
-<input type="checkbox" class="sidebar-toggle" name="__page-toc" id="__page-toc" aria-label="Toggle in-page Table of Contents">
-<label class="overlay overlay-pagetoc" for="__page-toc">
-    <div class="visually-hidden">Toggle in-page Table of Contents</div>
-</label>
-<!-- Headers at the top -->
-<div class="announcement header-item noprint"></div>
-<div class="header header-item noprint"></div>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
 
-    
-    <div class="container-fluid" id="banner"></div>
+  
+  
+  <div id="pst-skip-link" class="skip-link d-print-none"><a href="#main-content">Skip to main content</a></div>
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>Back to top</button>
 
-    
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-primary-sidebar-checkbox"/>
+  <label class="overlay overlay-primary" for="pst-primary-sidebar-checkbox"></label>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-secondary-sidebar-checkbox"/>
+  <label class="overlay overlay-secondary" for="pst-secondary-sidebar-checkbox"></label>
+  
+  <div class="search-button__wrapper">
+    <div class="search-button__overlay"></div>
+    <div class="search-button__search-container">
+<form class="bd-search d-flex align-items-center"
+      action="../search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         id="search-input"
+         placeholder="Search this book..."
+         aria-label="Search this book..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form></div>
+  </div>
 
-    <div class="container-xl">
-      <div class="row">
-          
-<!-- Sidebar -->
-<div class="bd-sidebar noprint" id="site-navigation">
-    <div class="bd-sidebar__content">
-        <div class="bd-sidebar__top"><div class="navbar-brand-box">
-    <a class="navbar-brand text-wrap" href="../index.html">
+  <div class="pst-async-banner-revealer d-none">
+  <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
+</div>
+
+  
+    <header class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
+    </header>
+  
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
       
-        <!-- `logo` is deprecated in Sphinx 4.0, so remove this when we stop supporting 3 -->
+      
+      
+      <div class="bd-sidebar-primary bd-sidebar">
         
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+    
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+
+  
+    
+  
+
+<a class="navbar-brand logo" href="../intro.html">
+  
+  
+  
+  
+  
+    
+    
       
-      
-      <img src="../_static/cat.png" class="logo" alt="logo">
-      
-      
-      <h1 class="site-logo" id="site-title">Data Analysis in Finance</h1>
-      
-    </a>
-</div><form class="bd-search d-flex align-items-center" action="../search.html" method="get">
-  <i class="icon fas fa-search"></i>
-  <input type="search" class="form-control" name="q" id="search-input" placeholder="Search this book..." aria-label="Search this book..." autocomplete="off" >
-</form><nav class="bd-links" id="bd-docs-nav" aria-label="Main">
-    <div class="bd-toc-item active">
+    
+    
+    <img src="../_static/cat.png" class="logo__image only-light" alt="Data Analysis in Finance - Home"/>
+    <script>document.write(`<img src="../_static/cat.png" class="logo__image only-dark" alt="Data Analysis in Finance - Home"/>`);</script>
+  
+  
+</a></div>
+        <div class="sidebar-primary-item">
+
+ <script>
+ document.write(`
+   <button class="btn search-button-field search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass"></i>
+    <span class="search-button__default-text">Search</span>
+    <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+   </button>
+ `);
+ </script></div>
+        <div class="sidebar-primary-item"><nav class="bd-links bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item navbar-nav active">
         
         <ul class="nav bd-sidenav bd-sidenav__home-link">
             <li class="toctree-l1">
@@ -118,534 +183,251 @@ const thebe_selector_output = ".output, .cell_output"
                 </a>
             </li>
         </ul>
-        <p aria-level="2" class="caption" role="heading">
- <span class="caption-text">
-  Getting Started
- </span>
-</p>
+        <p aria-level="2" class="caption" role="heading"><span class="caption-text">Getting Started</span></p>
 <ul class="nav bd-sidenav">
- <li class="toctree-l1">
-  <a class="reference internal" href="1_finpyth.html">
-   Why Python and finance?
-  </a>
- </li>
- <li class="toctree-l1 has-children">
-  <a class="reference internal" href="2_intro.html">
-   Python set-up
-   <a id="python_set-up">
-   </a>
-  </a>
-  <input class="toctree-checkbox" id="toctree-checkbox-1" name="toctree-checkbox-1" type="checkbox"/>
-  <label for="toctree-checkbox-1">
-   <i class="fas fa-chevron-down">
-   </i>
-  </label>
-  <ul>
-   <li class="toctree-l2">
-    <a class="reference internal" href="2_0_git.html">
-     Using Github and Github Codespaces
-    </a>
-   </li>
-   <li class="toctree-l2">
-    <a class="reference internal" href="2_1_markdown.html">
-     Markdown
-    </a>
-   </li>
-   <li class="toctree-l2">
-    <a class="reference internal" href="2_2_packages.html">
-     Packages
-    </a>
-   </li>
-   <li class="toctree-l2">
-    <a class="reference internal" href="2_3_style.html">
-     Code style, PEP8, and linting
-    </a>
-   </li>
-   <li class="toctree-l2">
-    <a class="reference internal" href="2_4_using_ai.html">
-     Using AI Coding Tools
-    </a>
-   </li>
-  </ul>
- </li>
+<li class="toctree-l1"><a class="reference internal" href="1_finpyth.html">Why Python and finance?</a></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="2_intro.html">Python set-up <a id="python_set-up"></a></a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="2_0_git.html">Using Github and Github Codespaces</a></li>
+<li class="toctree-l2"><a class="reference internal" href="2_1_markdown.html">Markdown</a></li>
+<li class="toctree-l2"><a class="reference internal" href="2_2_packages.html">Packages</a></li>
+<li class="toctree-l2"><a class="reference internal" href="2_3_style.html">Code style, PEP8, and linting</a></li>
+<li class="toctree-l2"><a class="reference internal" href="2_4_using_ai.html">Using AI Coding Tools</a></li>
 </ul>
-<p aria-level="2" class="caption" role="heading">
- <span class="caption-text">
-  The Basics
- </span>
-</p>
+</details></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">The Basics</span></p>
 <ul class="nav bd-sidenav">
- <li class="toctree-l1 has-children">
-  <a class="reference internal" href="3_intro.html">
-   CompSci 101: Types, control, and numpy arrays
-  </a>
-  <input class="toctree-checkbox" id="toctree-checkbox-2" name="toctree-checkbox-2" type="checkbox"/>
-  <label for="toctree-checkbox-2">
-   <i class="fas fa-chevron-down">
-   </i>
-  </label>
-  <ul>
-   <li class="toctree-l2">
-    <a class="reference internal" href="3_0_comp101.html">
-     The Basics
-    </a>
-   </li>
-   <li class="toctree-l2">
-    <a class="reference internal" href="3_1_numpy.html">
-     Numpy and arrays
-    </a>
-   </li>
-  </ul>
- </li>
- <li class="toctree-l1 has-children">
-  <a class="reference internal" href="4_intro.html">
-   Working with data
-  </a>
-  <input class="toctree-checkbox" id="toctree-checkbox-3" name="toctree-checkbox-3" type="checkbox"/>
-  <label for="toctree-checkbox-3">
-   <i class="fas fa-chevron-down">
-   </i>
-  </label>
-  <ul>
-   <li class="toctree-l2">
-    <a class="reference internal" href="4_0_dataframes.html">
-     Importing data
-    </a>
-   </li>
-   <li class="toctree-l2">
-    <a class="reference internal" href="4_1_pandas.html">
-     pandas
-    </a>
-   </li>
-   <li class="toctree-l2">
-    <a class="reference internal" href="4_2_cleaning_data.html">
-     Cleaning our data
-    </a>
-   </li>
-   <li class="toctree-l2">
-    <a class="reference internal" href="4_3_eda.html">
-     Exploratory data analysis (EDA)
-    </a>
-   </li>
-   <li class="toctree-l2">
-    <a class="reference internal" href="4_4_merge_shape.html">
-     Merging and reshaping data
-    </a>
-   </li>
-   <li class="toctree-l2">
-    <a class="reference internal" href="4_5_sql.html">
-     Using SQL in Python
-    </a>
-   </li>
-   <li class="toctree-l2">
-    <a class="reference internal" href="4_6_polar.html">
-     polars: A fast, fancy pandas alternative
-    </a>
-   </li>
-  </ul>
- </li>
- <li class="toctree-l1 has-children">
-  <a class="reference internal" href="5_intro.html">
-   Data visualization
-  </a>
-  <input class="toctree-checkbox" id="toctree-checkbox-4" name="toctree-checkbox-4" type="checkbox"/>
-  <label for="toctree-checkbox-4">
-   <i class="fas fa-chevron-down">
-   </i>
-  </label>
-  <ul>
-   <li class="toctree-l2">
-    <a class="reference internal" href="5_0_seaborn.html">
-     seaborn
-    </a>
-   </li>
-   <li class="toctree-l2">
-    <a class="reference internal" href="5_1_matplotlib.html">
-     matplotlib
-    </a>
-   </li>
-   <li class="toctree-l2">
-    <a class="reference internal" href="5_2_plotly.html">
-     plotly
-    </a>
-   </li>
-  </ul>
- </li>
- <li class="toctree-l1">
-  <a class="reference internal" href="6_nasdaq_api.html">
-   Using APIs for Data Imports
-   <a id="btc-sim">
-   </a>
-  </a>
- </li>
- <li class="toctree-l1">
-  <a class="reference internal" href="7_financial_ts.html">
-   Financial time series
-   <a id="financial-time-series">
-   </a>
-  </a>
- </li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="3_intro.html">CompSci 101: Types, control, and numpy arrays</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="3_0_comp101.html">The Basics</a></li>
+<li class="toctree-l2"><a class="reference internal" href="3_1_numpy.html">Numpy and arrays</a></li>
 </ul>
-<p aria-level="2" class="caption" role="heading">
- <span class="caption-text">
-  Applications
- </span>
-</p>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="4_intro.html">Working with data</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="4_0_dataframes.html">Importing data</a></li>
+<li class="toctree-l2"><a class="reference internal" href="4_1_pandas.html">pandas</a></li>
+<li class="toctree-l2"><a class="reference internal" href="4_2_cleaning_data.html">Cleaning our data</a></li>
+<li class="toctree-l2"><a class="reference internal" href="4_3_eda.html">Exploratory data analysis (EDA)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="4_4_merge_shape.html">Merging and reshaping data</a></li>
+<li class="toctree-l2"><a class="reference internal" href="4_5_sql.html">Using SQL in Python</a></li>
+<li class="toctree-l2"><a class="reference internal" href="4_6_polar.html">polars: A fast, fancy pandas alternative</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="5_intro.html">Data visualization</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="5_0_seaborn.html">seaborn</a></li>
+<li class="toctree-l2"><a class="reference internal" href="5_1_matplotlib.html">matplotlib</a></li>
+<li class="toctree-l2"><a class="reference internal" href="5_2_plotly.html">plotly</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="6_intro.html">Data APIs</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="6_1_fred.html">FRED API and pandas-datareader</a></li>
+<li class="toctree-l2"><a class="reference internal" href="6_2_nasdaq.html">NASDAQ Data Link</a></li>
+<li class="toctree-l2"><a class="reference internal" href="6_3_databento.html">Databento</a></li>
+<li class="toctree-l2"><a class="reference internal" href="6_4_wrds.html">WRDS (Wharton Research Data Services)</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1"><a class="reference internal" href="7_financial_ts.html">Financial time series <a id="financial-time-series"></a></a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Applications</span></p>
 <ul class="current nav bd-sidenav">
- <li class="toctree-l1">
-  <a class="reference internal" href="8_port_math.html">
-   Essential portfolio math
-  </a>
- </li>
- <li class="toctree-l1">
-  <a class="reference internal" href="9_portfolio_opt.html">
-   Portfolio optimization
-  </a>
- </li>
- <li class="toctree-l1">
-  <a class="reference internal" href="10_unsupervised_learning.html">
-   Machine learning and unsupervised learning
-   <a id="unsupervised_learning">
-   </a>
-  </a>
- </li>
- <li class="toctree-l1">
-  <a class="reference internal" href="11_factor_models.html">
-   Factor models
-   <a id="factor_models">
-   </a>
-  </a>
- </li>
- <li class="toctree-l1">
-  <a class="reference internal" href="12_regression_topics.html">
-   Supervised machine learning and regression topics
-   <a id="regression">
-   </a>
-  </a>
- </li>
- <li class="toctree-l1 current active">
-  <a class="current reference internal" href="#">
-   Logit models
-  </a>
- </li>
- <li class="toctree-l1">
-  <a class="reference internal" href="14_risk_mang.html">
-   Risk management
-  </a>
- </li>
- <li class="toctree-l1">
-  <a class="reference internal" href="15_monte_carlo.html">
-   Monte Carlo and portfolios
-  </a>
- </li>
- <li class="toctree-l1">
-  <a class="reference internal" href="16_decision_trees.html">
-   Decision Trees
-  </a>
- </li>
- <li class="toctree-l1">
-  <a class="reference internal" href="17_options.html">
-   Option basics
-  </a>
- </li>
- <li class="toctree-l1">
-  <a class="reference internal" href="18_trading_bt.html">
-   Trading Strategies and the BT Package
-  </a>
- </li>
+<li class="toctree-l1"><a class="reference internal" href="8_port_math.html">Essential portfolio math</a></li>
+<li class="toctree-l1"><a class="reference internal" href="9_portfolio_opt.html">Portfolio optimization</a></li>
+<li class="toctree-l1"><a class="reference internal" href="10_unsupervised_learning.html">Machine learning and unsupervised learning <a id="unsupervised_learning"></a></a></li>
+<li class="toctree-l1"><a class="reference internal" href="11_factor_models.html">Factor models <a id="factor_models"></a></a></li>
+<li class="toctree-l1"><a class="reference internal" href="12_regression_topics.html">Supervised machine learning and regression topics <a id="regression"></a></a></li>
+<li class="toctree-l1 current active"><a class="current reference internal" href="#">Logit models</a></li>
+<li class="toctree-l1"><a class="reference internal" href="14_risk_mang.html">Risk management</a></li>
+<li class="toctree-l1"><a class="reference internal" href="15_monte_carlo.html">Monte Carlo and portfolios</a></li>
+<li class="toctree-l1"><a class="reference internal" href="16_decision_trees.html">Decision Trees</a></li>
+<li class="toctree-l1"><a class="reference internal" href="17_options.html">Option basics</a></li>
+<li class="toctree-l1"><a class="reference internal" href="18_trading_bt.html">Trading Strategies and the BT Package</a></li>
 </ul>
 
     </div>
 </nav></div>
-        <div class="bd-sidebar__bottom">
-             <!-- To handle the deprecated key -->
-            
-            <div class="navbar_extra_footer">
-            Powered by <a href="https://jupyterbook.org">Jupyter Book</a>
-            </div>
-            
-        </div>
     </div>
-    <div id="rtd-footer-container"></div>
-</div>
-
-
-          
-
-
-          
-<!-- A tiny helper pixel to detect if we've scrolled -->
-<div class="sbt-scroll-pixel-helper"></div>
-<!-- Main content -->
-<div class="col py-0 content-container">
-    
-    <div class="header-article row sticky-top noprint">
-        
-
-
-
-<div class="col py-1 d-flex header-article-main">
-    <div class="header-article__left">
-        
-        <label for="__navigation"
-  class="headerbtn"
-  data-toggle="tooltip"
-data-placement="right"
-title="Toggle navigation"
->
   
-
-<span class="headerbtn__icon-container">
-  <i class="fas fa-bars"></i>
-  </span>
-
-</label>
-
-        
-    </div>
-    <div class="header-article__right">
-<div class="menu-dropdown menu-dropdown-launch-buttons">
-  <button class="headerbtn menu-dropdown__trigger"
-      aria-label="Launch interactive content">
-      <i class="fas fa-rocket"></i>
-  </button>
-  <div class="menu-dropdown__content">
-    <ul>
-      <li>
-        <a href="https://mybinder.org/v2/gh/executablebooks/jupyter-book/master?urlpath=tree/docs/chapters/13_logit_credit.ipynb"
-   class="headerbtn"
-   data-toggle="tooltip"
-data-placement="left"
-title="Launch on Binder"
->
   
-
-<span class="headerbtn__icon-container">
-  
-    <img src="../_static/images/logo_binder.svg">
-  </span>
-<span class="headerbtn__text-container">Binder</span>
-</a>
-
-      </li>
-      
-    </ul>
+  <div class="sidebar-primary-items__end sidebar-primary__section">
   </div>
-</div>
+  
+  <div id="rtd-footer-container"></div>
 
-<button onclick="toggleFullScreen()"
-  class="headerbtn"
-  data-toggle="tooltip"
-data-placement="bottom"
-title="Fullscreen mode"
+
+      </div>
+      
+      <main id="main-content" class="bd-main" role="main">
+        
+        
+
+<div class="sbt-scroll-pixel-helper"></div>
+
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article d-print-none">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item"><button class="sidebar-toggle primary-toggle btn btn-sm" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <span class="fa-solid fa-bars"></span>
+</button></div>
+      
+    </div>
+  
+  
+    <div class="header-article-items__end">
+      
+        <div class="header-article-item">
+
+<div class="article-header-buttons">
+
+
+<a href="https://github.com/executablebooks/jupyter-book" target="_blank"
+   class="btn btn-sm btn-source-repository-button"
+   title="Source repository"
+   data-bs-placement="bottom" data-bs-toggle="tooltip"
 >
   
 
-<span class="headerbtn__icon-container">
-  <i class="fas fa-expand"></i>
-  </span>
-
-</button>
-<a href="https://github.com/executablebooks/jupyter-book"
-   class="headerbtn"
-   data-toggle="tooltip"
-data-placement="bottom"
-title="Source repository"
->
-  
-
-<span class="headerbtn__icon-container">
+<span class="btn__icon-container">
   <i class="fab fa-github"></i>
   </span>
 
 </a>
 
-<div class="menu-dropdown menu-dropdown-download-buttons">
-  <button class="headerbtn menu-dropdown__trigger"
-      aria-label="Download this page">
-      <i class="fas fa-download"></i>
+
+
+
+
+
+<div class="dropdown dropdown-download-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Download this page">
+    <i class="fas fa-download"></i>
   </button>
-  <div class="menu-dropdown__content">
-    <ul>
-      <li>
-        <a href="../_sources/chapters/13_logit_credit.ipynb"
-   class="headerbtn"
-   data-toggle="tooltip"
-data-placement="left"
-title="Download source file"
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="../_sources/chapters/13_logit_credit.ipynb" target="_blank"
+   class="btn btn-sm btn-download-source-button dropdown-item"
+   title="Download source file"
+   data-bs-placement="left" data-bs-toggle="tooltip"
 >
   
 
-<span class="headerbtn__icon-container">
+<span class="btn__icon-container">
   <i class="fas fa-file"></i>
   </span>
-<span class="headerbtn__text-container">.ipynb</span>
+<span class="btn__text-container">.ipynb</span>
 </a>
-
-      </li>
+</li>
+      
+      
+      
       
       <li>
-        
-<button onclick="printPdf(this)"
-  class="headerbtn"
-  data-toggle="tooltip"
-data-placement="left"
-title="Print to PDF"
+<button onclick="window.print()"
+  class="btn btn-sm btn-download-pdf-button dropdown-item"
+  title="Print to PDF"
+  data-bs-placement="left" data-bs-toggle="tooltip"
 >
   
 
-<span class="headerbtn__icon-container">
+<span class="btn__icon-container">
   <i class="fas fa-file-pdf"></i>
   </span>
-<span class="headerbtn__text-container">.pdf</span>
+<span class="btn__text-container">.pdf</span>
 </button>
-
-      </li>
+</li>
       
-    </ul>
-  </div>
+  </ul>
 </div>
-<label for="__page-toc"
-  class="headerbtn headerbtn-page-toc"
-  
+
+
+
+
+<button onclick="toggleFullScreen()"
+  class="btn btn-sm btn-fullscreen-button"
+  title="Fullscreen mode"
+  data-bs-placement="bottom" data-bs-toggle="tooltip"
 >
   
 
-<span class="headerbtn__icon-container">
-  <i class="fas fa-list"></i>
+<span class="btn__icon-container">
+  <i class="fas fa-expand"></i>
   </span>
 
-</label>
+</button>
 
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="theme-switch fa-solid fa-sun fa-lg" data-mode="light"></i>
+    <i class="theme-switch fa-solid fa-moon fa-lg" data-mode="dark"></i>
+    <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"></i>
+  </button>
+`);
+</script>
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm pst-navbar-icon search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass fa-lg"></i>
+  </button>
+`);
+</script>
+<button class="sidebar-toggle secondary-toggle btn btn-sm" title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="fa-solid fa-list"></span>
+</button>
+</div></div>
+      
     </div>
+  
 </div>
-
-<!-- Table of contents -->
-<div class="col-md-3 bd-toc show noprint">
-    <div class="tocsection onthispage pt-5 pb-3">
-        <i class="fas fa-list"></i> Contents
-    </div>
-    <nav id="bd-toc-nav" aria-label="Page">
-        <ul class="visible nav section-nav flex-column">
- <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#cleaning-our-data">
-   Cleaning our data
-  </a>
- </li>
- <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#linear-regression-with-a-binary-outcome">
-   Linear regression with a binary outcome
-  </a>
-  <ul class="nav section-nav flex-column">
-   <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#categorical-variables-again">
-     Categorical variables, again
-    </a>
-   </li>
-  </ul>
- </li>
- <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#id1">
-   Logit models
-  </a>
-  <ul class="nav section-nav flex-column">
-   <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#logit-with-a-discrete-variable">
-     Logit with a discrete variable
-    </a>
-   </li>
-   <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#logit-with-a-continuous-variable">
-     Logit with a continuous variable
-    </a>
-   </li>
-   <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#combining-variables-in-a-logit">
-     Combining variables in a logit
-    </a>
-   </li>
-  </ul>
- </li>
- <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#hull-chapters-3-and-10-logit">
-   Hull, Chapters 3 and 10. Logit.
-  </a>
- </li>
-</ul>
-
-    </nav>
 </div>
-    </div>
-    <div class="article row">
-        <div class="col pl-md-3 pl-lg-5 content-container">
-            <!-- Table of contents that is only displayed when printing the page -->
-            <div id="jb-print-docs-body" class="onlyprint">
-                <h1>Logit models</h1>
-                <!-- Table of contents -->
-                <div id="print-main-content">
-                    <div id="jb-print-toc">
-                        
-                        <div>
-                            <h2> Contents </h2>
-                        </div>
-                        <nav aria-label="Page">
-                            <ul class="visible nav section-nav flex-column">
- <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#cleaning-our-data">
-   Cleaning our data
-  </a>
- </li>
- <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#linear-regression-with-a-binary-outcome">
-   Linear regression with a binary outcome
-  </a>
-  <ul class="nav section-nav flex-column">
-   <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#categorical-variables-again">
-     Categorical variables, again
-    </a>
-   </li>
-  </ul>
- </li>
- <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#id1">
-   Logit models
-  </a>
-  <ul class="nav section-nav flex-column">
-   <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#logit-with-a-discrete-variable">
-     Logit with a discrete variable
-    </a>
-   </li>
-   <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#logit-with-a-continuous-variable">
-     Logit with a continuous variable
-    </a>
-   </li>
-   <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#combining-variables-in-a-logit">
-     Combining variables in a logit
-    </a>
-   </li>
-  </ul>
- </li>
- <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#hull-chapters-3-and-10-logit">
-   Hull, Chapters 3 and 10. Logit.
-  </a>
- </li>
-</ul>
+              
+              
 
-                        </nav>
-                    </div>
-                </div>
+<div id="jb-print-docs-body" class="onlyprint">
+    <h1>Logit models</h1>
+    <!-- Table of contents -->
+    <div id="print-main-content">
+        <div id="jb-print-toc">
+            
+            <div>
+                <h2> Contents </h2>
             </div>
-            <main id="main-content" role="main">
+            <nav aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#cleaning-our-data">Cleaning our data</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#linear-regression-with-a-binary-outcome">Linear regression with a binary outcome</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#categorical-variables-again">Categorical variables, again</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id1">Logit models</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#logit-with-a-discrete-variable">Logit with a discrete variable</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#logit-with-a-continuous-variable">Logit with a continuous variable</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#combining-variables-in-a-logit">Combining variables in a logit</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#hull-chapters-3-and-10-logit">Hull, Chapters 3 and 10. Logit.</a></li>
+</ul>
+            </nav>
+        </div>
+    </div>
+</div>
+
+              
                 
-              <div>
-                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                  
   <section class="tex2jax_ignore mathjax_ignore" id="logit-models">
-<h1>Logit models<a class="headerlink" href="#logit-models" title="Permalink to this headline">#</a></h1>
+<h1>Logit models<a class="headerlink" href="#logit-models" title="Link to this heading">#</a></h1>
 <p>Linear regressions ((ordinary least squares, or OLS)) tells us about the association between a <strong>dependent</strong>, or Y variable, and a set of <strong>independent</strong>, or X variables. Regression does not tell us anything about one variable causing another or if the correlations we find have any real meaning. It is simply a <a class="reference external" href="https://www.statology.org/linear-regression-assumptions/">statistical technique</a> for finding a linear relationship between two variables. The meaning of that relationship is up to us and the ideas that we are working with. In finance, we usually have an economic model in mind, such as the CAPM, that gives meaning to the relationship that we find.</p>
 <p>A <strong>logit regression</strong> does something similar, except that it was developed for when our dependent variable is <strong>binary</strong>, a Yes or No. Logistic regression is a regression model where the response variable Y is <strong>categorical</strong>, as opposed to <strong>continuous</strong>. These types of models are used for <strong>classification</strong>. Why do we need a new model? We want a model that can give us <strong>probabilities</strong> for an event. Regular regression isn’t set up to do this</p>
 <p>We will look at a type of data that is commonly used with logit models in finance: credit card default data. This data set has a <strong>binary outcome</strong>. Did the credit card user default? Yes or No? 1 or 0?</p>
@@ -655,25 +437,25 @@ title="Print to PDF"
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># import packages</span>
-<span class="kn">import</span> <span class="nn">warnings</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">warnings</span>
 <span class="n">warnings</span><span class="o">.</span><span class="n">filterwarnings</span><span class="p">(</span><span class="s1">&#39;ignore&#39;</span><span class="p">)</span>
 
-<span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
-<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
-<span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
-<span class="kn">import</span> <span class="nn">seaborn</span> <span class="k">as</span> <span class="nn">sns</span>
-<span class="kn">import</span> <span class="nn">statsmodels.api</span> <span class="k">as</span> <span class="nn">sm</span>
-<span class="kn">import</span> <span class="nn">statsmodels.formula.api</span> <span class="k">as</span> <span class="nn">smf</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">pandas</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">pd</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">matplotlib.pyplot</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">plt</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">seaborn</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">sns</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">statsmodels.api</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">sm</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">statsmodels.formula.api</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">smf</span>
 
 <span class="c1"># Include this to have plots show up in your Jupyter notebook.</span>
 <span class="o">%</span><span class="k">matplotlib</span> inline 
 
 <span class="c1"># For the Hull logit</span>
-<span class="kn">from</span> <span class="nn">sklearn.linear_model</span> <span class="kn">import</span> <span class="n">LogisticRegression</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">sklearn.linear_model</span><span class="w"> </span><span class="kn">import</span> <span class="n">LogisticRegression</span>
 
-<span class="kn">from</span> <span class="nn">sklearn.metrics</span> <span class="kn">import</span> <span class="n">accuracy_score</span><span class="p">,</span> <span class="n">recall_score</span><span class="p">,</span> <span class="n">precision_score</span><span class="p">,</span> <span class="n">f1_score</span>
-<span class="kn">from</span> <span class="nn">sklearn.metrics</span> <span class="kn">import</span> <span class="n">confusion_matrix</span><span class="p">,</span> <span class="n">classification_report</span><span class="p">,</span> <span class="n">roc_curve</span><span class="p">,</span> <span class="n">roc_auc_score</span>
-<span class="kn">from</span> <span class="nn">sklearn.metrics</span> <span class="kn">import</span> <span class="n">precision_recall_curve</span><span class="p">,</span> <span class="n">auc</span><span class="p">,</span> <span class="n">average_precision_score</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">sklearn.metrics</span><span class="w"> </span><span class="kn">import</span> <span class="n">accuracy_score</span><span class="p">,</span> <span class="n">recall_score</span><span class="p">,</span> <span class="n">precision_score</span><span class="p">,</span> <span class="n">f1_score</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">sklearn.metrics</span><span class="w"> </span><span class="kn">import</span> <span class="n">confusion_matrix</span><span class="p">,</span> <span class="n">classification_report</span><span class="p">,</span> <span class="n">roc_curve</span><span class="p">,</span> <span class="n">roc_auc_score</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">sklearn.metrics</span><span class="w"> </span><span class="kn">import</span> <span class="n">precision_recall_curve</span><span class="p">,</span> <span class="n">auc</span><span class="p">,</span> <span class="n">average_precision_score</span>
 </pre></div>
 </div>
 </div>
@@ -688,7 +470,7 @@ title="Print to PDF"
 </div>
 <p>There are no dates in this data, so no dates to parse. The first column is simply the row number, so I’ll make that my index.</p>
 <section id="cleaning-our-data">
-<h2>Cleaning our data<a class="headerlink" href="#cleaning-our-data" title="Permalink to this headline">#</a></h2>
+<h2>Cleaning our data<a class="headerlink" href="#cleaning-our-data" title="Link to this heading">#</a></h2>
 <p>Let’s get started by just looking at what we have.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -1063,135 +845,7 @@ Name: count, dtype: int64
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output traceback highlight-ipythontb notranslate"><div class="highlight"><pre><span></span><span class="gt">---------------------------------------------------------------------------</span>
-<span class="ne">OptionError</span><span class="g g-Whitespace">                               </span>Traceback (most recent call last)
-<span class="n">Cell</span> <span class="n">In</span><span class="p">[</span><span class="mi">9</span><span class="p">],</span> <span class="n">line</span> <span class="mi">1</span>
-<span class="ne">----&gt; </span><span class="mi">1</span> <span class="n">sns</span><span class="o">.</span><span class="n">pairplot</span><span class="p">(</span><span class="n">loans</span><span class="p">,</span> <span class="n">hue</span><span class="o">=</span><span class="s1">&#39;loan_status&#39;</span><span class="p">)</span>
-
-<span class="nn">File /opt/anaconda3/lib/python3.9/site-packages/seaborn/_decorators.py:46,</span> in <span class="ni">_deprecate_positional_args.&lt;locals&gt;.inner_f</span><span class="nt">(*args, **kwargs)</span>
-<span class="g g-Whitespace">     </span><span class="mi">36</span>     <span class="n">warnings</span><span class="o">.</span><span class="n">warn</span><span class="p">(</span>
-<span class="g g-Whitespace">     </span><span class="mi">37</span>         <span class="s2">&quot;Pass the following variable</span><span class="si">{}</span><span class="s2"> as </span><span class="si">{}</span><span class="s2">keyword arg</span><span class="si">{}</span><span class="s2">: </span><span class="si">{}</span><span class="s2">. &quot;</span>
-<span class="g g-Whitespace">     </span><span class="mi">38</span>         <span class="s2">&quot;From version 0.12, the only valid positional argument &quot;</span>
-   <span class="p">(</span><span class="o">...</span><span class="p">)</span>
-<span class="g g-Whitespace">     </span><span class="mi">43</span>         <span class="ne">FutureWarning</span>
-<span class="g g-Whitespace">     </span><span class="mi">44</span>     <span class="p">)</span>
-<span class="nn">     45 kwargs.update({k: arg for k, arg</span> in <span class="ni">zip</span><span class="nt">(sig.parameters, args)})</span>
-<span class="ne">---&gt; </span><span class="mi">46</span> <span class="k">return</span> <span class="n">f</span><span class="p">(</span><span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
-
-<span class="nn">File /opt/anaconda3/lib/python3.9/site-packages/seaborn/axisgrid.py:2130,</span> in <span class="ni">pairplot</span><span class="nt">(data, hue, hue_order, palette, vars, x_vars, y_vars, kind, diag_kind, markers, height, aspect, corner, dropna, plot_kws, diag_kws, grid_kws, size)</span>
-<span class="g g-Whitespace">   </span><span class="mi">2128</span>     <span class="n">diag_kws</span><span class="o">.</span><span class="n">setdefault</span><span class="p">(</span><span class="s2">&quot;fill&quot;</span><span class="p">,</span> <span class="kc">True</span><span class="p">)</span>
-<span class="g g-Whitespace">   </span><span class="mi">2129</span>     <span class="n">diag_kws</span><span class="o">.</span><span class="n">setdefault</span><span class="p">(</span><span class="s2">&quot;warn_singular&quot;</span><span class="p">,</span> <span class="kc">False</span><span class="p">)</span>
-<span class="ne">-&gt; </span><span class="mi">2130</span>     <span class="n">grid</span><span class="o">.</span><span class="n">map_diag</span><span class="p">(</span><span class="n">kdeplot</span><span class="p">,</span> <span class="o">**</span><span class="n">diag_kws</span><span class="p">)</span>
-<span class="g g-Whitespace">   </span><span class="mi">2132</span> <span class="c1"># Maybe plot on the off-diagonals</span>
-<span class="g g-Whitespace">   </span><span class="mi">2133</span> <span class="k">if</span> <span class="n">diag_kind</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
-
-<span class="nn">File /opt/anaconda3/lib/python3.9/site-packages/seaborn/axisgrid.py:1478,</span> in <span class="ni">PairGrid.map_diag</span><span class="nt">(self, func, **kwargs)</span>
-<span class="g g-Whitespace">   </span><span class="mi">1476</span>     <span class="n">plot_kwargs</span><span class="o">.</span><span class="n">setdefault</span><span class="p">(</span><span class="s2">&quot;hue_order&quot;</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_hue_order</span><span class="p">)</span>
-<span class="g g-Whitespace">   </span><span class="mi">1477</span>     <span class="n">plot_kwargs</span><span class="o">.</span><span class="n">setdefault</span><span class="p">(</span><span class="s2">&quot;palette&quot;</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_orig_palette</span><span class="p">)</span>
-<span class="ne">-&gt; </span><span class="mi">1478</span>     <span class="n">func</span><span class="p">(</span><span class="n">x</span><span class="o">=</span><span class="n">vector</span><span class="p">,</span> <span class="o">**</span><span class="n">plot_kwargs</span><span class="p">)</span>
-<span class="g g-Whitespace">   </span><span class="mi">1479</span>     <span class="n">ax</span><span class="o">.</span><span class="n">legend_</span> <span class="o">=</span> <span class="kc">None</span>
-<span class="g g-Whitespace">   </span><span class="mi">1481</span> <span class="bp">self</span><span class="o">.</span><span class="n">_add_axis_labels</span><span class="p">()</span>
-
-<span class="nn">File /opt/anaconda3/lib/python3.9/site-packages/seaborn/_decorators.py:46,</span> in <span class="ni">_deprecate_positional_args.&lt;locals&gt;.inner_f</span><span class="nt">(*args, **kwargs)</span>
-<span class="g g-Whitespace">     </span><span class="mi">36</span>     <span class="n">warnings</span><span class="o">.</span><span class="n">warn</span><span class="p">(</span>
-<span class="g g-Whitespace">     </span><span class="mi">37</span>         <span class="s2">&quot;Pass the following variable</span><span class="si">{}</span><span class="s2"> as </span><span class="si">{}</span><span class="s2">keyword arg</span><span class="si">{}</span><span class="s2">: </span><span class="si">{}</span><span class="s2">. &quot;</span>
-<span class="g g-Whitespace">     </span><span class="mi">38</span>         <span class="s2">&quot;From version 0.12, the only valid positional argument &quot;</span>
-   <span class="p">(</span><span class="o">...</span><span class="p">)</span>
-<span class="g g-Whitespace">     </span><span class="mi">43</span>         <span class="ne">FutureWarning</span>
-<span class="g g-Whitespace">     </span><span class="mi">44</span>     <span class="p">)</span>
-<span class="nn">     45 kwargs.update({k: arg for k, arg</span> in <span class="ni">zip</span><span class="nt">(sig.parameters, args)})</span>
-<span class="ne">---&gt; </span><span class="mi">46</span> <span class="k">return</span> <span class="n">f</span><span class="p">(</span><span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
-
-<span class="nn">File /opt/anaconda3/lib/python3.9/site-packages/seaborn/distributions.py:1770,</span> in <span class="ni">kdeplot</span><span class="nt">(x, y, shade, vertical, kernel, bw, gridsize, cut, clip, legend, cumulative, shade_lowest, cbar, cbar_ax, cbar_kws, ax, weights, hue, palette, hue_order, hue_norm, multiple, common_norm, common_grid, levels, thresh, bw_method, bw_adjust, log_scale, color, fill, data, data2, warn_singular, **kwargs)</span>
-<span class="g g-Whitespace">   </span><span class="mi">1767</span>     <span class="k">if</span> <span class="n">color</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
-<span class="g g-Whitespace">   </span><span class="mi">1768</span>         <span class="n">plot_kws</span><span class="p">[</span><span class="s2">&quot;color&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">color</span>
-<span class="ne">-&gt; </span><span class="mi">1770</span>     <span class="n">p</span><span class="o">.</span><span class="n">plot_univariate_density</span><span class="p">(</span>
-<span class="g g-Whitespace">   </span><span class="mi">1771</span>         <span class="n">multiple</span><span class="o">=</span><span class="n">multiple</span><span class="p">,</span>
-<span class="g g-Whitespace">   </span><span class="mi">1772</span>         <span class="n">common_norm</span><span class="o">=</span><span class="n">common_norm</span><span class="p">,</span>
-<span class="g g-Whitespace">   </span><span class="mi">1773</span>         <span class="n">common_grid</span><span class="o">=</span><span class="n">common_grid</span><span class="p">,</span>
-<span class="g g-Whitespace">   </span><span class="mi">1774</span>         <span class="n">fill</span><span class="o">=</span><span class="n">fill</span><span class="p">,</span>
-<span class="g g-Whitespace">   </span><span class="mi">1775</span>         <span class="n">legend</span><span class="o">=</span><span class="n">legend</span><span class="p">,</span>
-<span class="g g-Whitespace">   </span><span class="mi">1776</span>         <span class="n">warn_singular</span><span class="o">=</span><span class="n">warn_singular</span><span class="p">,</span>
-<span class="g g-Whitespace">   </span><span class="mi">1777</span>         <span class="n">estimate_kws</span><span class="o">=</span><span class="n">estimate_kws</span><span class="p">,</span>
-<span class="g g-Whitespace">   </span><span class="mi">1778</span>         <span class="o">**</span><span class="n">plot_kws</span><span class="p">,</span>
-<span class="g g-Whitespace">   </span><span class="mi">1779</span>     <span class="p">)</span>
-<span class="g g-Whitespace">   </span><span class="mi">1781</span> <span class="k">else</span><span class="p">:</span>
-<span class="g g-Whitespace">   </span><span class="mi">1783</span>     <span class="n">p</span><span class="o">.</span><span class="n">plot_bivariate_density</span><span class="p">(</span>
-<span class="g g-Whitespace">   </span><span class="mi">1784</span>         <span class="n">common_norm</span><span class="o">=</span><span class="n">common_norm</span><span class="p">,</span>
-<span class="g g-Whitespace">   </span><span class="mi">1785</span>         <span class="n">fill</span><span class="o">=</span><span class="n">fill</span><span class="p">,</span>
-   <span class="p">(</span><span class="o">...</span><span class="p">)</span>
-<span class="g g-Whitespace">   </span><span class="mi">1795</span>         <span class="o">**</span><span class="n">kwargs</span><span class="p">,</span>
-<span class="g g-Whitespace">   </span><span class="mi">1796</span>     <span class="p">)</span>
-
-<span class="nn">File /opt/anaconda3/lib/python3.9/site-packages/seaborn/distributions.py:928,</span> in <span class="ni">_DistributionPlotter.plot_univariate_density</span><span class="nt">(self, multiple, common_norm, common_grid, warn_singular, fill, legend, estimate_kws, **plot_kws)</span>
-<span class="g g-Whitespace">    </span><span class="mi">925</span> <span class="n">log_scale</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_log_scaled</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">data_variable</span><span class="p">)</span>
-<span class="g g-Whitespace">    </span><span class="mi">927</span> <span class="c1"># Do the computation</span>
-<span class="ne">--&gt; </span><span class="mi">928</span> <span class="n">densities</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_compute_univariate_density</span><span class="p">(</span>
-<span class="g g-Whitespace">    </span><span class="mi">929</span>     <span class="bp">self</span><span class="o">.</span><span class="n">data_variable</span><span class="p">,</span>
-<span class="g g-Whitespace">    </span><span class="mi">930</span>     <span class="n">common_norm</span><span class="p">,</span>
-<span class="g g-Whitespace">    </span><span class="mi">931</span>     <span class="n">common_grid</span><span class="p">,</span>
-<span class="g g-Whitespace">    </span><span class="mi">932</span>     <span class="n">estimate_kws</span><span class="p">,</span>
-<span class="g g-Whitespace">    </span><span class="mi">933</span>     <span class="n">log_scale</span><span class="p">,</span>
-<span class="g g-Whitespace">    </span><span class="mi">934</span>     <span class="n">warn_singular</span><span class="p">,</span>
-<span class="g g-Whitespace">    </span><span class="mi">935</span> <span class="p">)</span>
-<span class="g g-Whitespace">    </span><span class="mi">937</span> <span class="c1"># Adjust densities based on the `multiple` rule</span>
-<span class="g g-Whitespace">    </span><span class="mi">938</span> <span class="n">densities</span><span class="p">,</span> <span class="n">baselines</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_resolve_multiple</span><span class="p">(</span><span class="n">densities</span><span class="p">,</span> <span class="n">multiple</span><span class="p">)</span>
-
-<span class="nn">File /opt/anaconda3/lib/python3.9/site-packages/seaborn/distributions.py:303,</span> in <span class="ni">_DistributionPlotter._compute_univariate_density</span><span class="nt">(self, data_variable, common_norm, common_grid, estimate_kws, log_scale, warn_singular)</span>
-<span class="g g-Whitespace">    </span><span class="mi">299</span>     <span class="n">common_norm</span> <span class="o">=</span> <span class="kc">False</span>
-<span class="g g-Whitespace">    </span><span class="mi">301</span> <span class="n">densities</span> <span class="o">=</span> <span class="p">{}</span>
-<span class="ne">--&gt; </span><span class="mi">303</span> <span class="k">for</span> <span class="n">sub_vars</span><span class="p">,</span> <span class="n">sub_data</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">iter_data</span><span class="p">(</span><span class="s2">&quot;hue&quot;</span><span class="p">,</span> <span class="n">from_comp_data</span><span class="o">=</span><span class="kc">True</span><span class="p">):</span>
-<span class="g g-Whitespace">    </span><span class="mi">304</span> 
-<span class="g g-Whitespace">    </span><span class="mi">305</span>     <span class="c1"># Extract the data points from this sub set and remove nulls</span>
-<span class="g g-Whitespace">    </span><span class="mi">306</span>     <span class="n">sub_data</span> <span class="o">=</span> <span class="n">sub_data</span><span class="o">.</span><span class="n">dropna</span><span class="p">()</span>
-<span class="g g-Whitespace">    </span><span class="mi">307</span>     <span class="n">observations</span> <span class="o">=</span> <span class="n">sub_data</span><span class="p">[</span><span class="n">data_variable</span><span class="p">]</span>
-
-<span class="nn">File /opt/anaconda3/lib/python3.9/site-packages/seaborn/_core.py:983,</span> in <span class="ni">VectorPlotter.iter_data</span><span class="nt">(self, grouping_vars, reverse, from_comp_data)</span>
-<span class="g g-Whitespace">    </span><span class="mi">978</span> <span class="n">grouping_vars</span> <span class="o">=</span> <span class="p">[</span>
-<span class="g g-Whitespace">    </span><span class="mi">979</span>     <span class="n">var</span> <span class="k">for</span> <span class="n">var</span> <span class="ow">in</span> <span class="n">grouping_vars</span> <span class="k">if</span> <span class="n">var</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">variables</span>
-<span class="g g-Whitespace">    </span><span class="mi">980</span> <span class="p">]</span>
-<span class="g g-Whitespace">    </span><span class="mi">982</span> <span class="k">if</span> <span class="n">from_comp_data</span><span class="p">:</span>
-<span class="ne">--&gt; </span><span class="mi">983</span>     <span class="n">data</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">comp_data</span>
-<span class="g g-Whitespace">    </span><span class="mi">984</span> <span class="k">else</span><span class="p">:</span>
-<span class="g g-Whitespace">    </span><span class="mi">985</span>     <span class="n">data</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">plot_data</span>
-
-<span class="nn">File /opt/anaconda3/lib/python3.9/site-packages/seaborn/_core.py:1054,</span> in <span class="ni">VectorPlotter.comp_data</span><span class="nt">(self)</span>
-<span class="g g-Whitespace">   </span><span class="mi">1050</span> <span class="n">axis</span> <span class="o">=</span> <span class="nb">getattr</span><span class="p">(</span><span class="n">ax</span><span class="p">,</span> <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">var</span><span class="si">}</span><span class="s2">axis&quot;</span><span class="p">)</span>
-<span class="g g-Whitespace">   </span><span class="mi">1052</span> <span class="c1"># Use the converter assigned to the axis to get a float representation</span>
-<span class="g g-Whitespace">   </span><span class="mi">1053</span> <span class="c1"># of the data, passing np.nan or pd.NA through (pd.NA becomes np.nan)</span>
-<span class="ne">-&gt; </span><span class="mi">1054</span> <span class="k">with</span> <span class="n">pd</span><span class="o">.</span><span class="n">option_context</span><span class="p">(</span><span class="s1">&#39;mode.use_inf_as_null&#39;</span><span class="p">,</span> <span class="kc">True</span><span class="p">):</span>
-<span class="g g-Whitespace">   </span><span class="mi">1055</span>     <span class="n">orig</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">plot_data</span><span class="p">[</span><span class="n">var</span><span class="p">]</span><span class="o">.</span><span class="n">dropna</span><span class="p">()</span>
-<span class="g g-Whitespace">   </span><span class="mi">1056</span> <span class="n">comp_col</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">Series</span><span class="p">(</span><span class="n">index</span><span class="o">=</span><span class="n">orig</span><span class="o">.</span><span class="n">index</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="nb">float</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="n">var</span><span class="p">)</span>
-
-<span class="nn">File /opt/anaconda3/lib/python3.9/site-packages/pandas/_config/config.py:480,</span> in <span class="ni">option_context.__enter__</span><span class="nt">(self)</span>
-<span class="g g-Whitespace">    </span><span class="mi">479</span> <span class="k">def</span> <span class="fm">__enter__</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
-<span class="ne">--&gt; </span><span class="mi">480</span>     <span class="bp">self</span><span class="o">.</span><span class="n">undo</span> <span class="o">=</span> <span class="p">[(</span><span class="n">pat</span><span class="p">,</span> <span class="n">_get_option</span><span class="p">(</span><span class="n">pat</span><span class="p">))</span> <span class="k">for</span> <span class="n">pat</span><span class="p">,</span> <span class="n">val</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">ops</span><span class="p">]</span>
-<span class="g g-Whitespace">    </span><span class="mi">482</span>     <span class="k">for</span> <span class="n">pat</span><span class="p">,</span> <span class="n">val</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">ops</span><span class="p">:</span>
-<span class="g g-Whitespace">    </span><span class="mi">483</span>         <span class="n">_set_option</span><span class="p">(</span><span class="n">pat</span><span class="p">,</span> <span class="n">val</span><span class="p">,</span> <span class="n">silent</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
-
-<span class="nn">File /opt/anaconda3/lib/python3.9/site-packages/pandas/_config/config.py:480,</span> in <span class="ni">&lt;listcomp&gt;</span><span class="nt">(.0)</span>
-<span class="g g-Whitespace">    </span><span class="mi">479</span> <span class="k">def</span> <span class="fm">__enter__</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
-<span class="ne">--&gt; </span><span class="mi">480</span>     <span class="bp">self</span><span class="o">.</span><span class="n">undo</span> <span class="o">=</span> <span class="p">[(</span><span class="n">pat</span><span class="p">,</span> <span class="n">_get_option</span><span class="p">(</span><span class="n">pat</span><span class="p">))</span> <span class="k">for</span> <span class="n">pat</span><span class="p">,</span> <span class="n">val</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">ops</span><span class="p">]</span>
-<span class="g g-Whitespace">    </span><span class="mi">482</span>     <span class="k">for</span> <span class="n">pat</span><span class="p">,</span> <span class="n">val</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">ops</span><span class="p">:</span>
-<span class="g g-Whitespace">    </span><span class="mi">483</span>         <span class="n">_set_option</span><span class="p">(</span><span class="n">pat</span><span class="p">,</span> <span class="n">val</span><span class="p">,</span> <span class="n">silent</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
-
-<span class="nn">File /opt/anaconda3/lib/python3.9/site-packages/pandas/_config/config.py:146,</span> in <span class="ni">_get_option</span><span class="nt">(pat, silent)</span>
-<span class="g g-Whitespace">    </span><span class="mi">145</span> <span class="k">def</span> <span class="nf">_get_option</span><span class="p">(</span><span class="n">pat</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">silent</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Any</span><span class="p">:</span>
-<span class="ne">--&gt; </span><span class="mi">146</span>     <span class="n">key</span> <span class="o">=</span> <span class="n">_get_single_key</span><span class="p">(</span><span class="n">pat</span><span class="p">,</span> <span class="n">silent</span><span class="p">)</span>
-<span class="g g-Whitespace">    </span><span class="mi">148</span>     <span class="c1"># walk the nested dict</span>
-<span class="g g-Whitespace">    </span><span class="mi">149</span>     <span class="n">root</span><span class="p">,</span> <span class="n">k</span> <span class="o">=</span> <span class="n">_get_root</span><span class="p">(</span><span class="n">key</span><span class="p">)</span>
-
-<span class="nn">File /opt/anaconda3/lib/python3.9/site-packages/pandas/_config/config.py:132,</span> in <span class="ni">_get_single_key</span><span class="nt">(pat, silent)</span>
-<span class="g g-Whitespace">    </span><span class="mi">130</span>     <span class="k">if</span> <span class="ow">not</span> <span class="n">silent</span><span class="p">:</span>
-<span class="g g-Whitespace">    </span><span class="mi">131</span>         <span class="n">_warn_if_deprecated</span><span class="p">(</span><span class="n">pat</span><span class="p">)</span>
-<span class="ne">--&gt; </span><span class="mi">132</span>     <span class="k">raise</span> <span class="n">OptionError</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;No such keys(s): </span><span class="si">{</span><span class="nb">repr</span><span class="p">(</span><span class="n">pat</span><span class="p">)</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
-<span class="g g-Whitespace">    </span><span class="mi">133</span> <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">keys</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">1</span><span class="p">:</span>
-<span class="g g-Whitespace">    </span><span class="mi">134</span>     <span class="k">raise</span> <span class="n">OptionError</span><span class="p">(</span><span class="s2">&quot;Pattern matched multiple keys&quot;</span><span class="p">)</span>
-
-<span class="ne">OptionError</span>: &quot;No such keys(s): &#39;mode.use_inf_as_null&#39;&quot;
-</pre></div>
-</div>
-<img alt="../_images/13_logit_credit_17_1.png" src="../_images/13_logit_credit_17_1.png" />
+<img alt="../_images/98eb02272ba4532bf425489b16d5e33133d3c6b94c50c2e3ba367485e9174c4b.png" src="../_images/98eb02272ba4532bf425489b16d5e33133d3c6b94c50c2e3ba367485e9174c4b.png" />
 </div>
 </div>
 <p>What jumps out to you? First, I see some outliers in age. Someone is over 140 years old in the data! We should drop that observation.</p>
@@ -1616,7 +1270,7 @@ Name: count, dtype: int64
 <p>You can play around with the options to get the counts or percents that you want.</p>
 </section>
 <section id="linear-regression-with-a-binary-outcome">
-<h2>Linear regression with a binary outcome<a class="headerlink" href="#linear-regression-with-a-binary-outcome" title="Permalink to this headline">#</a></h2>
+<h2>Linear regression with a binary outcome<a class="headerlink" href="#linear-regression-with-a-binary-outcome" title="Link to this heading">#</a></h2>
 <p>Now, let’s run a regular linear regression to see what the relationship between loan status (default = 1) and annual income is. We are going to use the <code class="docutils literal notranslate"><span class="pre">statsmodel</span></code> library.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -1631,8 +1285,8 @@ Name: count, dtype: int64
 Dep. Variable:            loan_status   R-squared:                       0.003
 Model:                            OLS   Adj. R-squared:                  0.003
 Method:                 Least Squares   F-statistic:                     67.76
-Date:                Tue, 26 Mar 2024   Prob (F-statistic):           1.93e-16
-Time:                        13:29:19   Log-Likelihood:                -6455.7
+Date:                Wed, 28 Jan 2026   Prob (F-statistic):           1.93e-16
+Time:                        16:30:27   Log-Likelihood:                -6455.7
 No. Observations:               25570   AIC:                         1.292e+04
 Df Residuals:                   25568   BIC:                         1.293e+04
 Df Model:                           1                                         
@@ -1671,7 +1325,7 @@ strong multicollinearity or other numerical problems.
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../_images/13_logit_credit_32_0.png" src="../_images/13_logit_credit_32_0.png" />
+<img alt="../_images/052f9b00448dfadc3cd5a9d29018824ccd3d186555e102892175cb220bd98470.png" src="../_images/052f9b00448dfadc3cd5a9d29018824ccd3d186555e102892175cb220bd98470.png" />
 </div>
 </div>
 <p>Well, that sure looks strange! Linear regression shows loan status going negative!</p>
@@ -1683,7 +1337,7 @@ strong multicollinearity or other numerical problems.
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../_images/13_logit_credit_34_0.png" src="../_images/13_logit_credit_34_0.png" />
+<img alt="../_images/eaa94c2da8d8b1d6a07307d82905d4f440998876a0ca34c252e6cde3f065247e.png" src="../_images/eaa94c2da8d8b1d6a07307d82905d4f440998876a0ca34c252e6cde3f065247e.png" />
 </div>
 </div>
 <p>Yeah, that really doesn’t make sense. <code class="docutils literal notranslate"><span class="pre">seaborn</span></code> lets us also add the fit from a logistic regression, though.</p>
@@ -1695,12 +1349,12 @@ strong multicollinearity or other numerical problems.
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../_images/13_logit_credit_36_0.png" src="../_images/13_logit_credit_36_0.png" />
+<img alt="../_images/d6631582bf64fbd78494634a679fc01d5e26e2483e98670d749b7b9857af0ce2.png" src="../_images/d6631582bf64fbd78494634a679fc01d5e26e2483e98670d749b7b9857af0ce2.png" />
 </div>
 </div>
 <p>OK, that still looks a bit strange, but at least loan status is never below 0!</p>
 <section id="categorical-variables-again">
-<h3>Categorical variables, again<a class="headerlink" href="#categorical-variables-again" title="Permalink to this headline">#</a></h3>
+<h3>Categorical variables, again<a class="headerlink" href="#categorical-variables-again" title="Link to this heading">#</a></h3>
 <p>We’ll add the other variables to the regression, for completeness. To do this, though, I’m going to take my categorical variables and create new <strong>dummy or indicator variables</strong>. This will take the categories and create new columns. These new columns will take the value of 1 or 0, depending on whether or not that observation is in that category.</p>
 <p>I’ll use <a class="reference external" href="https://www.sharpsightlabs.com/blog/pandas-get-dummies/">pd.get_dummies</a> to do this. I then concatenate, or combine, this new set of indicator variables to my original data. The <code class="docutils literal notranslate"><span class="pre">prefix=</span></code> helps me name the new variables.</p>
 <div class="cell docutils container">
@@ -1727,8 +1381,8 @@ strong multicollinearity or other numerical problems.
 Dep. Variable:            loan_status   R-squared:                       0.003
 Model:                            OLS   Adj. R-squared:                  0.003
 Method:                 Least Squares   F-statistic:                     21.92
-Date:                Tue, 26 Mar 2024   Prob (F-statistic):           4.44e-18
-Time:                        13:31:02   Log-Likelihood:                -6445.8
+Date:                Wed, 28 Jan 2026   Prob (F-statistic):           4.44e-18
+Time:                        16:30:43   Log-Likelihood:                -6445.8
 No. Observations:               25570   AIC:                         1.290e+04
 Df Residuals:                   25565   BIC:                         1.294e+04
 Df Model:                           4                                         
@@ -1766,7 +1420,7 @@ strong multicollinearity or other numerical problems.
 </div>
 <div class="cell_output docutils container">
 <div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;class &#39;pandas.core.frame.DataFrame&#39;&gt;
-Int64Index: 25570 entries, 1 to 29091
+Index: 25570 entries, 1 to 29091
 Data columns (total 19 columns):
  #   Column          Non-Null Count  Dtype   
 ---  ------          --------------  -----   
@@ -1778,18 +1432,18 @@ Data columns (total 19 columns):
  5   home_ownership  25570 non-null  category
  6   annual_inc      25570 non-null  float64 
  7   age             25570 non-null  int64   
- 8   loan_grade_A    25570 non-null  uint8   
- 9   loan_grade_B    25570 non-null  uint8   
- 10  loan_grade_C    25570 non-null  uint8   
- 11  loan_grade_D    25570 non-null  uint8   
- 12  loan_grade_E    25570 non-null  uint8   
- 13  loan_grade_F    25570 non-null  uint8   
- 14  loan_grade_G    25570 non-null  uint8   
- 15  home_MORTGAGE   25570 non-null  uint8   
- 16  home_OTHER      25570 non-null  uint8   
- 17  home_OWN        25570 non-null  uint8   
- 18  home_RENT       25570 non-null  uint8   
-dtypes: category(2), float64(3), int64(3), uint8(11)
+ 8   loan_grade_A    25570 non-null  bool    
+ 9   loan_grade_B    25570 non-null  bool    
+ 10  loan_grade_C    25570 non-null  bool    
+ 11  loan_grade_D    25570 non-null  bool    
+ 12  loan_grade_E    25570 non-null  bool    
+ 13  loan_grade_F    25570 non-null  bool    
+ 14  loan_grade_G    25570 non-null  bool    
+ 15  home_MORTGAGE   25570 non-null  bool    
+ 16  home_OTHER      25570 non-null  bool    
+ 17  home_OWN        25570 non-null  bool    
+ 18  home_RENT       25570 non-null  bool    
+dtypes: bool(11), category(2), float64(3), int64(3)
 memory usage: 1.7 MB
 </pre></div>
 </div>
@@ -1809,30 +1463,30 @@ memory usage: 1.7 MB
 Dep. Variable:            loan_status   R-squared:                       0.028
 Model:                            OLS   Adj. R-squared:                  0.028
 Method:                 Least Squares   F-statistic:                     52.76
-Date:                Tue, 26 Mar 2024   Prob (F-statistic):          2.32e-146
-Time:                        13:31:09   Log-Likelihood:                -6125.3
+Date:                Wed, 28 Jan 2026   Prob (F-statistic):          2.32e-146
+Time:                        16:30:43   Log-Likelihood:                -6125.3
 No. Observations:               25570   AIC:                         1.228e+04
 Df Residuals:                   25555   BIC:                         1.240e+04
 Df Model:                          14                                         
 Covariance Type:            nonrobust                                         
-=================================================================================
-                    coef    std err          t      P&gt;|t|      [0.025      0.975]
----------------------------------------------------------------------------------
-Intercept         0.0348      0.017      2.033      0.042       0.001       0.068
-loan_amnt     -7.349e-07   3.29e-07     -2.236      0.025   -1.38e-06   -9.07e-08
-int_rate          0.0083      0.002      4.368      0.000       0.005       0.012
-emp_length        0.0006      0.000      1.868      0.062   -2.76e-05       0.001
-annual_inc    -3.002e-07   4.04e-08     -7.435      0.000   -3.79e-07   -2.21e-07
-age              -0.0006      0.000     -1.808      0.071      -0.001    4.81e-05
-loan_grade_B      0.0178      0.008      2.107      0.035       0.001       0.034
-loan_grade_C      0.0372      0.013      2.893      0.004       0.012       0.062
-loan_grade_D      0.0565      0.017      3.397      0.001       0.024       0.089
-loan_grade_E      0.0724      0.022      3.337      0.001       0.030       0.115
-loan_grade_F      0.1421      0.031      4.515      0.000       0.080       0.204
-loan_grade_G      0.2082      0.049      4.239      0.000       0.112       0.304
-home_MORTGAGE    -0.0019      0.004     -0.435      0.663      -0.010       0.007
-home_OWN         -0.0061      0.008     -0.819      0.413      -0.021       0.009
-home_OTHER        0.0674      0.033      2.014      0.044       0.002       0.133
+=========================================================================================
+                            coef    std err          t      P&gt;|t|      [0.025      0.975]
+-----------------------------------------------------------------------------------------
+Intercept                 0.0348      0.017      2.033      0.042       0.001       0.068
+loan_grade_B[T.True]      0.0178      0.008      2.107      0.035       0.001       0.034
+loan_grade_C[T.True]      0.0372      0.013      2.893      0.004       0.012       0.062
+loan_grade_D[T.True]      0.0565      0.017      3.397      0.001       0.024       0.089
+loan_grade_E[T.True]      0.0724      0.022      3.337      0.001       0.030       0.115
+loan_grade_F[T.True]      0.1421      0.031      4.515      0.000       0.080       0.204
+loan_grade_G[T.True]      0.2082      0.049      4.239      0.000       0.112       0.304
+home_MORTGAGE[T.True]    -0.0019      0.004     -0.435      0.663      -0.010       0.007
+home_OWN[T.True]         -0.0061      0.008     -0.819      0.413      -0.021       0.009
+home_OTHER[T.True]        0.0674      0.033      2.014      0.044       0.002       0.133
+loan_amnt             -7.349e-07   3.29e-07     -2.236      0.025   -1.38e-06   -9.07e-08
+int_rate                  0.0083      0.002      4.368      0.000       0.005       0.012
+emp_length                0.0006      0.000      1.868      0.062   -2.76e-05       0.001
+annual_inc            -3.002e-07   4.04e-08     -7.435      0.000   -3.79e-07   -2.21e-07
+age                      -0.0006      0.000     -1.808      0.071      -0.001    4.81e-05
 ==============================================================================
 Omnibus:                    11579.427   Durbin-Watson:                   2.001
 Prob(Omnibus):                  0.000   Jarque-Bera (JB):            42088.653
@@ -1852,11 +1506,11 @@ strong multicollinearity or other numerical problems.
 </section>
 </section>
 <section id="id1">
-<h2>Logit models<a class="headerlink" href="#id1" title="Permalink to this headline">#</a></h2>
+<h2>Logit models<a class="headerlink" href="#id1" title="Link to this heading">#</a></h2>
 <p>OK, so let’s look at a <a class="reference external" href="https://www.andrewvillazon.com/logistic-regression-python-statsmodels/#fitting-a-logistic-regression">logit model</a>. We can look at the signs of the coefficients from the OLS model, but we can’t really interpret much else. Those coefficients are not probabilities.</p>
 <p>The true probability of defaulting must fall between 0 and 1. A <strong>logit function</strong>, show below, will satisfy this requirement.</p>
-<div class="amsmath math notranslate nohighlight" id="equation-ed0720b6-1e67-4694-be6d-5e0562b17dd3">
-<span class="eqno">(21)<a class="headerlink" href="#equation-ed0720b6-1e67-4694-be6d-5e0562b17dd3" title="Permalink to this equation">#</a></span>\[\begin{align}
+<div class="amsmath math notranslate nohighlight" id="equation-03d9b5bc-4e66-47d2-98b2-d636e245649d">
+<span class="eqno">(19)<a class="headerlink" href="#equation-03d9b5bc-4e66-47d2-98b2-d636e245649d" title="Permalink to this equation">#</a></span>\[\begin{align}
 {\displaystyle \mathbb{P}(Y=1\mid X) = \frac{1}{1 + e^{-X'\beta}}}
 \end{align}\]</div>
 <p>The left-hand side is the probability that Y = 1, or, in our case, that a loan is in default, <strong>conditional</strong> on the X variables, or the variables that we are using to predict loan status. The right-hand side is the function that <strong>links</strong> our X variables to the probability that Y = 1.</p>
@@ -1867,7 +1521,7 @@ strong multicollinearity or other numerical problems.
 <p>Essentially, we pick a model that we think can explain our data. This could be OLS, logit, or something else. Then, we find the parameters to plug into that model that give us the best possible predicted values based on minimizing some kind of error function.</p>
 <p>Let’s look at a logit with a discrete variable and a continuous X variable separately, in order to better understand how to interpret the output.</p>
 <section id="logit-with-a-discrete-variable">
-<h3>Logit with a discrete variable<a class="headerlink" href="#logit-with-a-discrete-variable" title="Permalink to this headline">#</a></h3>
+<h3>Logit with a discrete variable<a class="headerlink" href="#logit-with-a-discrete-variable" title="Link to this heading">#</a></h3>
 <p>We can start simply, again. This time, I’m going to just use the indicator for whether or not the person rents.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -1885,16 +1539,16 @@ strong multicollinearity or other numerical problems.
 Dep. Variable:            loan_status   No. Observations:                25570
 Model:                          Logit   Df Residuals:                    25568
 Method:                           MLE   Df Model:                            1
-Date:                Tue, 26 Mar 2024   Pseudo R-squ.:                0.001567
-Time:                        13:31:27   Log-Likelihood:                -8803.2
+Date:                Wed, 28 Jan 2026   Pseudo R-squ.:                0.001567
+Time:                        16:30:43   Log-Likelihood:                -8803.2
 converged:                       True   LL-Null:                       -8817.0
 Covariance Type:            nonrobust   LLR p-value:                 1.473e-07
-==============================================================================
-                 coef    std err          z      P&gt;|z|      [0.025      0.975]
-------------------------------------------------------------------------------
-Intercept     -2.2110      0.030    -73.913      0.000      -2.270      -2.152
-home_RENT      0.2114      0.040      5.243      0.000       0.132       0.290
-==============================================================================
+=====================================================================================
+                        coef    std err          z      P&gt;|z|      [0.025      0.975]
+-------------------------------------------------------------------------------------
+Intercept            -2.2110      0.030    -73.913      0.000      -2.270      -2.152
+home_RENT[T.True]     0.2114      0.040      5.243      0.000       0.132       0.290
+=====================================================================================
 </pre></div>
 </div>
 </div>
@@ -1903,8 +1557,8 @@ home_RENT      0.2114      0.040      5.243      0.000       0.132       0.290
 <p>Also note that we don’t have <em>t</em>-statistics. With logit, you can <em>z</em>-scores. You can look at the p-values to see how you should interpret the score. The hypothesis is the same as in linear regression: can we reject the null hypothesis that this coefficient is zero?</p>
 <p>The output from the logit regression is still hard to interpret, though. What does the coefficient on home_RENT of 0.2114 mean? This is a <strong>log odds ratio</strong>. Let’s convert this to an <strong>odds ratio</strong>, which is easier to think about.</p>
 <p>An odds ratio is defined as:</p>
-<div class="amsmath math notranslate nohighlight" id="equation-96c07675-307a-49ad-bee3-feec70a1d24a">
-<span class="eqno">(22)<a class="headerlink" href="#equation-96c07675-307a-49ad-bee3-feec70a1d24a" title="Permalink to this equation">#</a></span>\[\begin{align}
+<div class="amsmath math notranslate nohighlight" id="equation-3d95dd03-5708-4724-be3c-f70acc1b74e8">
+<span class="eqno">(20)<a class="headerlink" href="#equation-3d95dd03-5708-4724-be3c-f70acc1b74e8" title="Permalink to this equation">#</a></span>\[\begin{align}
 {\displaystyle \text{odds(success)} = \frac{p}{1-p}}
 \end{align}\]</div>
 <p>where p = probability of the event happening. So, an 80% chance of happening = .8/.2 = 4:1 odds. 1:1 odds is a 50/50 chance. The logit model gives us the log of this number. So, we can use the inverse of the log, the natural number e, to “undo” the log and get us the odds.</p>
@@ -1923,9 +1577,9 @@ home_RENT      0.2114      0.040      5.243      0.000       0.132       0.290
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>                 OR  Lower CI  Upper CI
-Intercept  0.109589  0.103349  0.116206
-home_RENT  1.235453  1.141559  1.337070
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>                         OR  Lower CI  Upper CI
+Intercept          0.109589  0.103349  0.116206
+home_RENT[T.True]  1.235453  1.141559  1.337070
 </pre></div>
 </div>
 </div>
@@ -1956,10 +1610,10 @@ home_RENT  1.235453  1.141559  1.337070
 </table>
 <table class="simpletable">
 <tr>
-      <th></th>       <th>d(lny)/dx</th>  <th>std err</th>      <th>z</th>      <th>P>|z|</th>  <th>[0.025</th>    <th>0.975]</th>  
+          <th></th>           <th>d(lny)/dx</th>  <th>std err</th>      <th>z</th>      <th>P>|z|</th>  <th>[0.025</th>    <th>0.975]</th>  
 </tr>
 <tr>
-  <th>home_RENT</th> <td>    0.1884</td> <td>    0.036</td> <td>    5.238</td> <td> 0.000</td> <td>    0.118</td> <td>    0.259</td>
+  <th>home_RENT[T.True]</th> <td>    0.1884</td> <td>    0.036</td> <td>    5.238</td> <td> 0.000</td> <td>    0.118</td> <td>    0.259</td>
 </tr>
 </table></div></div>
 </div>
@@ -1986,17 +1640,17 @@ home_RENT  1.235453  1.141559  1.337070
 </table>
 <table class="simpletable">
 <tr>
-      <th></th>         <th>dy/dx</th>    <th>std err</th>      <th>z</th>      <th>P>|z|</th>  <th>[0.025</th>    <th>0.975]</th>  
+          <th></th>             <th>dy/dx</th>    <th>std err</th>      <th>z</th>      <th>P>|z|</th>  <th>[0.025</th>    <th>0.975]</th>  
 </tr>
 <tr>
-  <th>home_RENT</th> <td>    0.0205</td> <td>    0.004</td> <td>    5.260</td> <td> 0.000</td> <td>    0.013</td> <td>    0.028</td>
+  <th>home_RENT[T.True]</th> <td>    0.0205</td> <td>    0.004</td> <td>    5.260</td> <td> 0.000</td> <td>    0.013</td> <td>    0.028</td>
 </tr>
 </table></div></div>
 </div>
 <p>You can interpret this as “going from not renting to renting is associated with an 0.0205 increase in <em>loan_status</em> from the mean of <em>loan_status</em>.”</p>
 </section>
 <section id="logit-with-a-continuous-variable">
-<h3>Logit with a continuous variable<a class="headerlink" href="#logit-with-a-continuous-variable" title="Permalink to this headline">#</a></h3>
+<h3>Logit with a continuous variable<a class="headerlink" href="#logit-with-a-continuous-variable" title="Link to this heading">#</a></h3>
 <p>We can also look at a continuous variable, like annual income.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -2014,8 +1668,8 @@ home_RENT  1.235453  1.141559  1.337070
 Dep. Variable:            loan_status   No. Observations:                25570
 Model:                          Logit   Df Residuals:                    25568
 Method:                           MLE   Df Model:                            1
-Date:                Tue, 26 Mar 2024   Pseudo R-squ.:                0.005569
-Time:                        13:32:05   Log-Likelihood:                -8767.9
+Date:                Wed, 28 Jan 2026   Pseudo R-squ.:                0.005569
+Time:                        16:30:43   Log-Likelihood:                -8767.9
 converged:                       True   LL-Null:                       -8817.0
 Covariance Type:            nonrobust   LLR p-value:                 3.765e-23
 ==============================================================================
@@ -2087,7 +1741,7 @@ annual_inc  0.948297  0.937414  0.959307
 <p>If annual income, starting at the mean value, increases by 1%, then the probability of default drops by 0.32%.</p>
 </section>
 <section id="combining-variables-in-a-logit">
-<h3>Combining variables in a logit<a class="headerlink" href="#combining-variables-in-a-logit" title="Permalink to this headline">#</a></h3>
+<h3>Combining variables in a logit<a class="headerlink" href="#combining-variables-in-a-logit" title="Link to this heading">#</a></h3>
 <p>Let’s look at both annual income and renting together. It’s good to get a feel for how to deal with both discrete and continuous variables.</p>
 <p>I’m going to use the <code class="docutils literal notranslate"><span class="pre">C</span></code> categorical method and specify the “treatment”, or omitted, indicator. This is instead of using my dummy variables that I created above. I just want to show you the different ways of doing the same thing.</p>
 <div class="cell docutils container">
@@ -2106,8 +1760,8 @@ annual_inc  0.948297  0.937414  0.959307
 Dep. Variable:            loan_status   No. Observations:                25570
 Model:                          Logit   Df Residuals:                    25555
 Method:                           MLE   Df Model:                           14
-Date:                Tue, 26 Mar 2024   Pseudo R-squ.:                 0.04168
-Time:                        13:32:30   Log-Likelihood:                -8449.5
+Date:                Wed, 28 Jan 2026   Pseudo R-squ.:                 0.04168
+Time:                        16:30:43   Log-Likelihood:                -8449.5
 converged:                       True   LL-Null:                       -8817.0
 Covariance Type:            nonrobust   LLR p-value:                8.432e-148
 =====================================================================================================================
@@ -2205,7 +1859,7 @@ age                                                  -0.0060      0.003     -1.7
 </section>
 </section>
 <section id="hull-chapters-3-and-10-logit">
-<h2>Hull, Chapters 3 and 10. Logit.<a class="headerlink" href="#hull-chapters-3-and-10-logit" title="Permalink to this headline">#</a></h2>
+<h2>Hull, Chapters 3 and 10. Logit.<a class="headerlink" href="#hull-chapters-3-and-10-logit" title="Link to this heading">#</a></h2>
 <p>As we’ve seen, logit models are examples of <strong>classification models</strong>. Chapter 3.9 starts with the logit sigmoid function and how the model works. This is similar to the discussion above. He also notes that you can use our ideas from Ridge and Lasso models with a logit.</p>
 <p>Chapter 3.10 talks about <strong>class imbalance</strong>. This comes up when the even that we are trying to predict is rare. This is often the case - many diseases are rare, credit default is rare. Your <strong>unconditional probability</strong> is going to be something like 99.9% of the time you don’t have the disease or that the credit card holder doesn’t default. We’re trying to use machine learning tools to see if we can improve on that.</p>
 <p>Let’s bring in the data that Hull uses in the text. We’ll give them each some actual column names look at each data set.</p>
@@ -2479,6 +2133,19 @@ age                                                  -0.0060      0.003     -1.7
 <span class="n">y_train</span> <span class="o">=</span> <span class="n">train</span><span class="p">[</span><span class="s1">&#39;loan_status&#39;</span><span class="p">]</span>
 <span class="n">y_val</span><span class="o">=</span><span class="n">validation</span><span class="p">[</span><span class="s1">&#39;loan_status&#39;</span><span class="p">]</span>
 <span class="n">y_test</span> <span class="o">=</span> <span class="n">test</span><span class="p">[</span><span class="s1">&#39;loan_status&#39;</span><span class="p">]</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output traceback highlight-ipythontb notranslate"><div class="highlight"><pre><span></span><span class="gt">---------------------------------------------------------------------------</span>
+<span class="ne">TypeError</span><span class="g g-Whitespace">                                 </span>Traceback (most recent call last)
+<span class="n">Cell</span> <span class="n">In</span><span class="p">[</span><span class="mi">36</span><span class="p">],</span> <span class="n">line</span> <span class="mi">2</span>
+<span class="g g-Whitespace">      </span><span class="mi">1</span> <span class="c1"># remove target column to create feature only dataset</span>
+<span class="ne">----&gt; </span><span class="mi">2</span> <span class="n">X_train</span> <span class="o">=</span> <span class="n">train</span><span class="o">.</span><span class="n">drop</span><span class="p">(</span><span class="s1">&#39;loan_status&#39;</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
+<span class="g g-Whitespace">      </span><span class="mi">3</span> <span class="n">X_val</span><span class="o">=</span><span class="n">validation</span><span class="o">.</span><span class="n">drop</span><span class="p">(</span><span class="s1">&#39;loan_status&#39;</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
+<span class="g g-Whitespace">      </span><span class="mi">4</span> <span class="n">X_test</span> <span class="o">=</span> <span class="n">test</span><span class="o">.</span><span class="n">drop</span><span class="p">(</span><span class="s1">&#39;loan_status&#39;</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
+
+<span class="ne">TypeError</span>: drop() takes from 1 to 2 positional arguments but 3 were given
 </pre></div>
 </div>
 </div>
@@ -3027,7 +2694,7 @@ f-score         0.859092  0.801957  0.665532  0.433625
 AUC predictions from logistic regression model = 0.6577663531841429
 </pre></div>
 </div>
-<img alt="../_images/13_logit_credit_99_1.png" src="../_images/13_logit_credit_99_1.png" />
+<img alt="../_images/a0b8aeabccb1a508d1f5930836f636f0e300376084914a360a0b7187d58ef05d.png" src="../_images/a0b8aeabccb1a508d1f5930836f636f0e300376084914a360a0b7187d58ef05d.png" />
 </div>
 </div>
 </section>
@@ -3045,7 +2712,7 @@ AUC predictions from logistic regression model = 0.6577663531841429
             mode: "python"
         },
         kernelOptions: {
-            kernelName: "python3",
+            name: "python3",
             path: "./chapters"
         },
         predefinedOutput: true
@@ -3053,49 +2720,107 @@ AUC predictions from logistic regression model = 0.6577663531841429
     </script>
     <script>kernelName = 'python3'</script>
 
-              </div>
+                </article>
               
-            </main>
-            <footer class="footer-article noprint">
-                
-    <!-- Previous / next buttons -->
-<div class='prev-next-area'>
-    <a class='left-prev' id="prev-link" href="12_regression_topics.html" title="previous page">
-        <i class="fas fa-angle-left"></i>
-        <div class="prev-next-info">
-            <p class="prev-next-subtitle">previous</p>
-            <p class="prev-next-title">Supervised machine learning and regression topics <a id='regression'></a></p>
-        </div>
+
+              
+              
+              
+              
+                <footer class="prev-next-footer d-print-none">
+                  
+<div class="prev-next-area">
+    <a class="left-prev"
+       href="12_regression_topics.html"
+       title="previous page">
+      <i class="fa-solid fa-angle-left"></i>
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">previous</p>
+        <p class="prev-next-title">Supervised machine learning and regression topics <a id='regression'></a></p>
+      </div>
     </a>
-    <a class='right-next' id="next-link" href="14_risk_mang.html" title="next page">
-    <div class="prev-next-info">
+    <a class="right-next"
+       href="14_risk_mang.html"
+       title="next page">
+      <div class="prev-next-info">
         <p class="prev-next-subtitle">next</p>
         <p class="prev-next-title">Risk management</p>
-    </div>
-    <i class="fas fa-angle-right"></i>
+      </div>
+      <i class="fa-solid fa-angle-right"></i>
     </a>
 </div>
-            </footer>
-        </div>
-    </div>
-    <div class="footer-content row">
-        <footer class="col footer"><p>
+                </footer>
+              
+            </div>
+            
+            
+              
+                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+
+  <div class="sidebar-secondary-item">
+  <div class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> Contents
+  </div>
+  <nav class="bd-toc-nav page-toc">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#cleaning-our-data">Cleaning our data</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#linear-regression-with-a-binary-outcome">Linear regression with a binary outcome</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#categorical-variables-again">Categorical variables, again</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id1">Logit models</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#logit-with-a-discrete-variable">Logit with a discrete variable</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#logit-with-a-continuous-variable">Logit with a continuous variable</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#combining-variables-in-a-logit">Combining variables in a logit</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#hull-chapters-3-and-10-logit">Hull, Chapters 3 and 10. Logit.</a></li>
+</ul>
+  </nav></div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+<div class="bd-footer-content__inner container">
   
-    By Prof. Adam Aiken<br/>
-  
-</p>
-        </footer>
-    </div>
+  <div class="footer-item">
     
+<p class="component-author">
+By Prof. Adam Aiken
+</p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
 </div>
+          </footer>
+        
 
-
-      </div>
+      </main>
     </div>
+  </div>
   
   <!-- Scripts loaded after <body> so the DOM is not blocked -->
-  <script src="../_static/scripts/pydata-sphinx-theme.js?digest=1999514e3f237ded88cf"></script>
+  <script src="../_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b"></script>
+<script src="../_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b"></script>
 
-
+  <footer class="bd-footer">
+  </footer>
   </body>
 </html>

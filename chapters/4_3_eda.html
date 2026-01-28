@@ -1,113 +1,178 @@
 
 <!DOCTYPE html>
 
-<html>
+
+<html lang="en" data-content_root="../" >
+
   <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
     <title>Exploratory data analysis (EDA) &#8212; Data Analysis in Finance</title>
-    
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
+  </script>
+  
   <!-- Loaded before other Sphinx assets -->
-  <link href="../_static/styles/theme.css?digest=1999514e3f237ded88cf" rel="stylesheet">
-<link href="../_static/styles/pydata-sphinx-theme.css?digest=1999514e3f237ded88cf" rel="stylesheet">
+  <link href="../_static/styles/theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="../_static/styles/bootstrap.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="../_static/styles/pydata-sphinx-theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
 
-    
-  <link rel="stylesheet"
-    href="../_static/vendor/fontawesome/5.13.0/css/all.min.css">
-  <link rel="preload" as="font" type="font/woff2" crossorigin
-    href="../_static/vendor/fontawesome/5.13.0/webfonts/fa-solid-900.woff2">
-  <link rel="preload" as="font" type="font/woff2" crossorigin
-    href="../_static/vendor/fontawesome/5.13.0/webfonts/fa-brands-400.woff2">
+  
+  <link href="../_static/vendor/fontawesome/6.5.2/css/all.min.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.2/webfonts/fa-solid-900.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.2/webfonts/fa-brands-400.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.2/webfonts/fa-regular-400.woff2" />
 
-    <link rel="stylesheet" type="text/css" href="../_static/pygments.css" />
-    <link rel="stylesheet" href="../_static/styles/sphinx-book-theme.css?digest=5115cc725059bd94278eecd172e13a965bf8f5a9" type="text/css" />
-    <link rel="stylesheet" type="text/css" href="../_static/togglebutton.css" />
-    <link rel="stylesheet" type="text/css" href="../_static/copybutton.css" />
-    <link rel="stylesheet" type="text/css" href="../_static/mystnb.css" />
-    <link rel="stylesheet" type="text/css" href="../_static/sphinx-thebe.css" />
-    <link rel="stylesheet" type="text/css" href="../_static/custom.css" />
-    <link rel="stylesheet" type="text/css" href="../_static/custom.css" />
-    <link rel="stylesheet" type="text/css" href="../_static/design-style.b7bb847fb20b106c3d81b95245e65545.min.css" />
-    
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=03e43079" />
+    <link rel="stylesheet" type="text/css" href="../_static/styles/sphinx-book-theme.css?v=eba8b062" />
+    <link rel="stylesheet" type="text/css" href="../_static/togglebutton.css?v=9c3e77be" />
+    <link rel="stylesheet" type="text/css" href="../_static/copybutton.css?v=76b2166b" />
+    <link rel="stylesheet" type="text/css" href="../_static/mystnb.8ecb98da25f57f5357bf6f572d296f466b2cfe2517ffebfabe82451661e28f02.css?v=6644e6bb" />
+    <link rel="stylesheet" type="text/css" href="../_static/sphinx-thebe.css?v=4fa983c6" />
+    <link rel="stylesheet" type="text/css" href="../_static/sphinx-design.min.css?v=95c83b7e" />
+    <link rel="stylesheet" type="text/css" href="../_static/custom.css?v=b747247e" />
+  
   <!-- Pre-loaded scripts that we'll load fully later -->
-  <link rel="preload" as="script" href="../_static/scripts/pydata-sphinx-theme.js?digest=1999514e3f237ded88cf">
+  <link rel="preload" as="script" href="../_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b" />
+<link rel="preload" as="script" href="../_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b" />
+  <script src="../_static/vendor/fontawesome/6.5.2/js/all.min.js?digest=dfe6caa3a7d634c4db9b"></script>
 
-    <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
-    <script src="../_static/jquery.js"></script>
-    <script src="../_static/underscore.js"></script>
-    <script src="../_static/doctools.js"></script>
-    <script src="../_static/clipboard.min.js"></script>
-    <script src="../_static/copybutton.js"></script>
-    <script src="../_static/scripts/sphinx-book-theme.js?digest=9c920249402e914e316237a7dbc6769907cce411"></script>
+    <script src="../_static/documentation_options.js?v=9eb32ce0"></script>
+    <script src="../_static/doctools.js?v=9a2dae69"></script>
+    <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../_static/clipboard.min.js?v=a7894cd8"></script>
+    <script src="../_static/copybutton.js?v=f281be69"></script>
+    <script src="../_static/scripts/sphinx-book-theme.js?v=887ef09a"></script>
     <script>let toggleHintShow = 'Click to show';</script>
     <script>let toggleHintHide = 'Click to hide';</script>
     <script>let toggleOpenOnPrint = 'true';</script>
-    <script src="../_static/togglebutton.js"></script>
+    <script src="../_static/togglebutton.js?v=1ae7504c"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script src="../_static/design-tabs.js?v=36754332"></script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script async="async" src="../_static/sphinx-thebe.js?v=c100c467"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'chapters/4_3_eda';</script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
-    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown, .tag_hide_input div.cell_input, .tag_hide-input div.cell_input, .tag_hide_output div.cell_output, .tag_hide-output div.cell_output, .tag_hide_cell.cell, .tag_hide-cell.cell';</script>
-    <script src="../_static/design-tabs.js"></script>
-    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"
-const thebe_selector = ".thebe,.cell"
-const thebe_selector_input = "pre"
-const thebe_selector_output = ".output, .cell_output"
-</script>
-    <script async="async" src="../_static/sphinx-thebe.js"></script>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
     <link rel="next" title="Merging and reshaping data" href="4_4_merge_shape.html" />
     <link rel="prev" title="Cleaning our data" href="4_2_cleaning_data.html" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <meta name="docsearch:language" content="None">
-    
-
-    <!-- Google Analytics -->
-    
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
   </head>
-  <body data-spy="scroll" data-target="#bd-toc-nav" data-offset="60">
-<!-- Checkboxes to toggle the left sidebar -->
-<input type="checkbox" class="sidebar-toggle" name="__navigation" id="__navigation" aria-label="Toggle navigation sidebar">
-<label class="overlay overlay-navbar" for="__navigation">
-    <div class="visually-hidden">Toggle navigation sidebar</div>
-</label>
-<!-- Checkboxes to toggle the in-page toc -->
-<input type="checkbox" class="sidebar-toggle" name="__page-toc" id="__page-toc" aria-label="Toggle in-page Table of Contents">
-<label class="overlay overlay-pagetoc" for="__page-toc">
-    <div class="visually-hidden">Toggle in-page Table of Contents</div>
-</label>
-<!-- Headers at the top -->
-<div class="announcement header-item noprint"></div>
-<div class="header header-item noprint"></div>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
 
-    
-    <div class="container-fluid" id="banner"></div>
+  
+  
+  <div id="pst-skip-link" class="skip-link d-print-none"><a href="#main-content">Skip to main content</a></div>
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>Back to top</button>
 
-    
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-primary-sidebar-checkbox"/>
+  <label class="overlay overlay-primary" for="pst-primary-sidebar-checkbox"></label>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-secondary-sidebar-checkbox"/>
+  <label class="overlay overlay-secondary" for="pst-secondary-sidebar-checkbox"></label>
+  
+  <div class="search-button__wrapper">
+    <div class="search-button__overlay"></div>
+    <div class="search-button__search-container">
+<form class="bd-search d-flex align-items-center"
+      action="../search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         id="search-input"
+         placeholder="Search this book..."
+         aria-label="Search this book..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form></div>
+  </div>
 
-    <div class="container-xl">
-      <div class="row">
-          
-<!-- Sidebar -->
-<div class="bd-sidebar noprint" id="site-navigation">
-    <div class="bd-sidebar__content">
-        <div class="bd-sidebar__top"><div class="navbar-brand-box">
-    <a class="navbar-brand text-wrap" href="../index.html">
+  <div class="pst-async-banner-revealer d-none">
+  <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
+</div>
+
+  
+    <header class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
+    </header>
+  
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
       
-        <!-- `logo` is deprecated in Sphinx 4.0, so remove this when we stop supporting 3 -->
+      
+      
+      <div class="bd-sidebar-primary bd-sidebar">
         
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+    
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+
+  
+    
+  
+
+<a class="navbar-brand logo" href="../intro.html">
+  
+  
+  
+  
+  
+    
+    
       
-      
-      <img src="../_static/cat.png" class="logo" alt="logo">
-      
-      
-      <h1 class="site-logo" id="site-title">Data Analysis in Finance</h1>
-      
-    </a>
-</div><form class="bd-search d-flex align-items-center" action="../search.html" method="get">
-  <i class="icon fas fa-search"></i>
-  <input type="search" class="form-control" name="q" id="search-input" placeholder="Search this book..." aria-label="Search this book..." autocomplete="off" >
-</form><nav class="bd-links" id="bd-docs-nav" aria-label="Main">
-    <div class="bd-toc-item active">
+    
+    
+    <img src="../_static/cat.png" class="logo__image only-light" alt="Data Analysis in Finance - Home"/>
+    <script>document.write(`<img src="../_static/cat.png" class="logo__image only-dark" alt="Data Analysis in Finance - Home"/>`);</script>
+  
+  
+</a></div>
+        <div class="sidebar-primary-item">
+
+ <script>
+ document.write(`
+   <button class="btn search-button-field search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass"></i>
+    <span class="search-button__default-text">Search</span>
+    <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+   </button>
+ `);
+ </script></div>
+        <div class="sidebar-primary-item"><nav class="bd-links bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item navbar-nav active">
         
         <ul class="nav bd-sidenav bd-sidenav__home-link">
             <li class="toctree-l1">
@@ -116,530 +181,249 @@ const thebe_selector_output = ".output, .cell_output"
                 </a>
             </li>
         </ul>
-        <p aria-level="2" class="caption" role="heading">
- <span class="caption-text">
-  Getting Started
- </span>
-</p>
+        <p aria-level="2" class="caption" role="heading"><span class="caption-text">Getting Started</span></p>
 <ul class="nav bd-sidenav">
- <li class="toctree-l1">
-  <a class="reference internal" href="1_finpyth.html">
-   Why Python and finance?
-  </a>
- </li>
- <li class="toctree-l1 has-children">
-  <a class="reference internal" href="2_intro.html">
-   Python set-up
-   <a id="python_set-up">
-   </a>
-  </a>
-  <input class="toctree-checkbox" id="toctree-checkbox-1" name="toctree-checkbox-1" type="checkbox"/>
-  <label for="toctree-checkbox-1">
-   <i class="fas fa-chevron-down">
-   </i>
-  </label>
-  <ul>
-   <li class="toctree-l2">
-    <a class="reference internal" href="2_0_git.html">
-     Using Github and Github Codespaces
-    </a>
-   </li>
-   <li class="toctree-l2">
-    <a class="reference internal" href="2_1_markdown.html">
-     Markdown
-    </a>
-   </li>
-   <li class="toctree-l2">
-    <a class="reference internal" href="2_2_packages.html">
-     Packages
-    </a>
-   </li>
-   <li class="toctree-l2">
-    <a class="reference internal" href="2_3_style.html">
-     Code style, PEP8, and linting
-    </a>
-   </li>
-   <li class="toctree-l2">
-    <a class="reference internal" href="2_4_using_ai.html">
-     Using AI Coding Tools
-    </a>
-   </li>
-  </ul>
- </li>
+<li class="toctree-l1"><a class="reference internal" href="1_finpyth.html">Why Python and finance?</a></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="2_intro.html">Python set-up <a id="python_set-up"></a></a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="2_0_git.html">Using Github and Github Codespaces</a></li>
+<li class="toctree-l2"><a class="reference internal" href="2_1_markdown.html">Markdown</a></li>
+<li class="toctree-l2"><a class="reference internal" href="2_2_packages.html">Packages</a></li>
+<li class="toctree-l2"><a class="reference internal" href="2_3_style.html">Code style, PEP8, and linting</a></li>
+<li class="toctree-l2"><a class="reference internal" href="2_4_using_ai.html">Using AI Coding Tools</a></li>
 </ul>
-<p aria-level="2" class="caption" role="heading">
- <span class="caption-text">
-  The Basics
- </span>
-</p>
+</details></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">The Basics</span></p>
 <ul class="current nav bd-sidenav">
- <li class="toctree-l1 has-children">
-  <a class="reference internal" href="3_intro.html">
-   CompSci 101: Types, control, and numpy arrays
-  </a>
-  <input class="toctree-checkbox" id="toctree-checkbox-2" name="toctree-checkbox-2" type="checkbox"/>
-  <label for="toctree-checkbox-2">
-   <i class="fas fa-chevron-down">
-   </i>
-  </label>
-  <ul>
-   <li class="toctree-l2">
-    <a class="reference internal" href="3_0_comp101.html">
-     The Basics
-    </a>
-   </li>
-   <li class="toctree-l2">
-    <a class="reference internal" href="3_1_numpy.html">
-     Numpy and arrays
-    </a>
-   </li>
-  </ul>
- </li>
- <li class="toctree-l1 current active has-children">
-  <a class="reference internal" href="4_intro.html">
-   Working with data
-  </a>
-  <input checked="" class="toctree-checkbox" id="toctree-checkbox-3" name="toctree-checkbox-3" type="checkbox"/>
-  <label for="toctree-checkbox-3">
-   <i class="fas fa-chevron-down">
-   </i>
-  </label>
-  <ul class="current">
-   <li class="toctree-l2">
-    <a class="reference internal" href="4_0_dataframes.html">
-     Importing data
-    </a>
-   </li>
-   <li class="toctree-l2">
-    <a class="reference internal" href="4_1_pandas.html">
-     pandas
-    </a>
-   </li>
-   <li class="toctree-l2">
-    <a class="reference internal" href="4_2_cleaning_data.html">
-     Cleaning our data
-    </a>
-   </li>
-   <li class="toctree-l2 current active">
-    <a class="current reference internal" href="#">
-     Exploratory data analysis (EDA)
-    </a>
-   </li>
-   <li class="toctree-l2">
-    <a class="reference internal" href="4_4_merge_shape.html">
-     Merging and reshaping data
-    </a>
-   </li>
-   <li class="toctree-l2">
-    <a class="reference internal" href="4_5_sql.html">
-     Using SQL in Python
-    </a>
-   </li>
-   <li class="toctree-l2">
-    <a class="reference internal" href="4_6_polar.html">
-     polars: A fast, fancy pandas alternative
-    </a>
-   </li>
-  </ul>
- </li>
- <li class="toctree-l1 has-children">
-  <a class="reference internal" href="5_intro.html">
-   Data visualization
-  </a>
-  <input class="toctree-checkbox" id="toctree-checkbox-4" name="toctree-checkbox-4" type="checkbox"/>
-  <label for="toctree-checkbox-4">
-   <i class="fas fa-chevron-down">
-   </i>
-  </label>
-  <ul>
-   <li class="toctree-l2">
-    <a class="reference internal" href="5_0_seaborn.html">
-     seaborn
-    </a>
-   </li>
-   <li class="toctree-l2">
-    <a class="reference internal" href="5_1_matplotlib.html">
-     matplotlib
-    </a>
-   </li>
-   <li class="toctree-l2">
-    <a class="reference internal" href="5_2_plotly.html">
-     plotly
-    </a>
-   </li>
-  </ul>
- </li>
- <li class="toctree-l1">
-  <a class="reference internal" href="6_nasdaq_api.html">
-   Using APIs for Data Imports
-   <a id="btc-sim">
-   </a>
-  </a>
- </li>
- <li class="toctree-l1">
-  <a class="reference internal" href="7_financial_ts.html">
-   Financial time series
-   <a id="financial-time-series">
-   </a>
-  </a>
- </li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="3_intro.html">CompSci 101: Types, control, and numpy arrays</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="3_0_comp101.html">The Basics</a></li>
+<li class="toctree-l2"><a class="reference internal" href="3_1_numpy.html">Numpy and arrays</a></li>
 </ul>
-<p aria-level="2" class="caption" role="heading">
- <span class="caption-text">
-  Applications
- </span>
-</p>
+</details></li>
+<li class="toctree-l1 current active has-children"><a class="reference internal" href="4_intro.html">Working with data</a><details open="open"><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="4_0_dataframes.html">Importing data</a></li>
+<li class="toctree-l2"><a class="reference internal" href="4_1_pandas.html">pandas</a></li>
+<li class="toctree-l2"><a class="reference internal" href="4_2_cleaning_data.html">Cleaning our data</a></li>
+<li class="toctree-l2 current active"><a class="current reference internal" href="#">Exploratory data analysis (EDA)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="4_4_merge_shape.html">Merging and reshaping data</a></li>
+<li class="toctree-l2"><a class="reference internal" href="4_5_sql.html">Using SQL in Python</a></li>
+<li class="toctree-l2"><a class="reference internal" href="4_6_polar.html">polars: A fast, fancy pandas alternative</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="5_intro.html">Data visualization</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="5_0_seaborn.html">seaborn</a></li>
+<li class="toctree-l2"><a class="reference internal" href="5_1_matplotlib.html">matplotlib</a></li>
+<li class="toctree-l2"><a class="reference internal" href="5_2_plotly.html">plotly</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="6_intro.html">Data APIs</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="6_1_fred.html">FRED API and pandas-datareader</a></li>
+<li class="toctree-l2"><a class="reference internal" href="6_2_nasdaq.html">NASDAQ Data Link</a></li>
+<li class="toctree-l2"><a class="reference internal" href="6_3_databento.html">Databento</a></li>
+<li class="toctree-l2"><a class="reference internal" href="6_4_wrds.html">WRDS (Wharton Research Data Services)</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1"><a class="reference internal" href="7_financial_ts.html">Financial time series <a id="financial-time-series"></a></a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Applications</span></p>
 <ul class="nav bd-sidenav">
- <li class="toctree-l1">
-  <a class="reference internal" href="8_port_math.html">
-   Essential portfolio math
-  </a>
- </li>
- <li class="toctree-l1">
-  <a class="reference internal" href="9_portfolio_opt.html">
-   Portfolio optimization
-  </a>
- </li>
- <li class="toctree-l1">
-  <a class="reference internal" href="10_unsupervised_learning.html">
-   Machine learning and unsupervised learning
-   <a id="unsupervised_learning">
-   </a>
-  </a>
- </li>
- <li class="toctree-l1">
-  <a class="reference internal" href="11_factor_models.html">
-   Factor models
-   <a id="factor_models">
-   </a>
-  </a>
- </li>
- <li class="toctree-l1">
-  <a class="reference internal" href="12_regression_topics.html">
-   Supervised machine learning and regression topics
-   <a id="regression">
-   </a>
-  </a>
- </li>
- <li class="toctree-l1">
-  <a class="reference internal" href="13_logit_credit.html">
-   Logit models
-  </a>
- </li>
- <li class="toctree-l1">
-  <a class="reference internal" href="14_risk_mang.html">
-   Risk management
-  </a>
- </li>
- <li class="toctree-l1">
-  <a class="reference internal" href="15_monte_carlo.html">
-   Monte Carlo and portfolios
-  </a>
- </li>
- <li class="toctree-l1">
-  <a class="reference internal" href="16_decision_trees.html">
-   Decision Trees
-  </a>
- </li>
- <li class="toctree-l1">
-  <a class="reference internal" href="17_options.html">
-   Option basics
-  </a>
- </li>
- <li class="toctree-l1">
-  <a class="reference internal" href="18_trading_bt.html">
-   Trading Strategies and the BT Package
-  </a>
- </li>
+<li class="toctree-l1"><a class="reference internal" href="8_port_math.html">Essential portfolio math</a></li>
+<li class="toctree-l1"><a class="reference internal" href="9_portfolio_opt.html">Portfolio optimization</a></li>
+<li class="toctree-l1"><a class="reference internal" href="10_unsupervised_learning.html">Machine learning and unsupervised learning <a id="unsupervised_learning"></a></a></li>
+<li class="toctree-l1"><a class="reference internal" href="11_factor_models.html">Factor models <a id="factor_models"></a></a></li>
+<li class="toctree-l1"><a class="reference internal" href="12_regression_topics.html">Supervised machine learning and regression topics <a id="regression"></a></a></li>
+<li class="toctree-l1"><a class="reference internal" href="13_logit_credit.html">Logit models</a></li>
+<li class="toctree-l1"><a class="reference internal" href="14_risk_mang.html">Risk management</a></li>
+<li class="toctree-l1"><a class="reference internal" href="15_monte_carlo.html">Monte Carlo and portfolios</a></li>
+<li class="toctree-l1"><a class="reference internal" href="16_decision_trees.html">Decision Trees</a></li>
+<li class="toctree-l1"><a class="reference internal" href="17_options.html">Option basics</a></li>
+<li class="toctree-l1"><a class="reference internal" href="18_trading_bt.html">Trading Strategies and the BT Package</a></li>
 </ul>
 
     </div>
 </nav></div>
-        <div class="bd-sidebar__bottom">
-             <!-- To handle the deprecated key -->
-            
-            <div class="navbar_extra_footer">
-            Powered by <a href="https://jupyterbook.org">Jupyter Book</a>
-            </div>
-            
-        </div>
     </div>
-    <div id="rtd-footer-container"></div>
-</div>
-
-
-          
-
-
-          
-<!-- A tiny helper pixel to detect if we've scrolled -->
-<div class="sbt-scroll-pixel-helper"></div>
-<!-- Main content -->
-<div class="col py-0 content-container">
-    
-    <div class="header-article row sticky-top noprint">
-        
-
-
-
-<div class="col py-1 d-flex header-article-main">
-    <div class="header-article__left">
-        
-        <label for="__navigation"
-  class="headerbtn"
-  data-toggle="tooltip"
-data-placement="right"
-title="Toggle navigation"
->
   
-
-<span class="headerbtn__icon-container">
-  <i class="fas fa-bars"></i>
-  </span>
-
-</label>
-
-        
-    </div>
-    <div class="header-article__right">
-<div class="menu-dropdown menu-dropdown-launch-buttons">
-  <button class="headerbtn menu-dropdown__trigger"
-      aria-label="Launch interactive content">
-      <i class="fas fa-rocket"></i>
-  </button>
-  <div class="menu-dropdown__content">
-    <ul>
-      <li>
-        <a href="https://mybinder.org/v2/gh/executablebooks/jupyter-book/master?urlpath=tree/docs/chapters/4_3_eda.ipynb"
-   class="headerbtn"
-   data-toggle="tooltip"
-data-placement="left"
-title="Launch on Binder"
->
   
-
-<span class="headerbtn__icon-container">
-  
-    <img src="../_static/images/logo_binder.svg">
-  </span>
-<span class="headerbtn__text-container">Binder</span>
-</a>
-
-      </li>
-      
-    </ul>
+  <div class="sidebar-primary-items__end sidebar-primary__section">
   </div>
-</div>
+  
+  <div id="rtd-footer-container"></div>
 
-<button onclick="toggleFullScreen()"
-  class="headerbtn"
-  data-toggle="tooltip"
-data-placement="bottom"
-title="Fullscreen mode"
+
+      </div>
+      
+      <main id="main-content" class="bd-main" role="main">
+        
+        
+
+<div class="sbt-scroll-pixel-helper"></div>
+
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article d-print-none">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item"><button class="sidebar-toggle primary-toggle btn btn-sm" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <span class="fa-solid fa-bars"></span>
+</button></div>
+      
+    </div>
+  
+  
+    <div class="header-article-items__end">
+      
+        <div class="header-article-item">
+
+<div class="article-header-buttons">
+
+
+<a href="https://github.com/executablebooks/jupyter-book" target="_blank"
+   class="btn btn-sm btn-source-repository-button"
+   title="Source repository"
+   data-bs-placement="bottom" data-bs-toggle="tooltip"
 >
   
 
-<span class="headerbtn__icon-container">
-  <i class="fas fa-expand"></i>
-  </span>
-
-</button>
-<a href="https://github.com/executablebooks/jupyter-book"
-   class="headerbtn"
-   data-toggle="tooltip"
-data-placement="bottom"
-title="Source repository"
->
-  
-
-<span class="headerbtn__icon-container">
+<span class="btn__icon-container">
   <i class="fab fa-github"></i>
   </span>
 
 </a>
 
-<div class="menu-dropdown menu-dropdown-download-buttons">
-  <button class="headerbtn menu-dropdown__trigger"
-      aria-label="Download this page">
-      <i class="fas fa-download"></i>
+
+
+
+
+
+<div class="dropdown dropdown-download-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Download this page">
+    <i class="fas fa-download"></i>
   </button>
-  <div class="menu-dropdown__content">
-    <ul>
-      <li>
-        <a href="../_sources/chapters/4_3_eda.ipynb"
-   class="headerbtn"
-   data-toggle="tooltip"
-data-placement="left"
-title="Download source file"
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="../_sources/chapters/4_3_eda.ipynb" target="_blank"
+   class="btn btn-sm btn-download-source-button dropdown-item"
+   title="Download source file"
+   data-bs-placement="left" data-bs-toggle="tooltip"
 >
   
 
-<span class="headerbtn__icon-container">
+<span class="btn__icon-container">
   <i class="fas fa-file"></i>
   </span>
-<span class="headerbtn__text-container">.ipynb</span>
+<span class="btn__text-container">.ipynb</span>
 </a>
-
-      </li>
+</li>
+      
+      
+      
       
       <li>
-        
-<button onclick="printPdf(this)"
-  class="headerbtn"
-  data-toggle="tooltip"
-data-placement="left"
-title="Print to PDF"
+<button onclick="window.print()"
+  class="btn btn-sm btn-download-pdf-button dropdown-item"
+  title="Print to PDF"
+  data-bs-placement="left" data-bs-toggle="tooltip"
 >
   
 
-<span class="headerbtn__icon-container">
+<span class="btn__icon-container">
   <i class="fas fa-file-pdf"></i>
   </span>
-<span class="headerbtn__text-container">.pdf</span>
+<span class="btn__text-container">.pdf</span>
 </button>
-
-      </li>
+</li>
       
-    </ul>
-  </div>
+  </ul>
 </div>
-<label for="__page-toc"
-  class="headerbtn headerbtn-page-toc"
-  
+
+
+
+
+<button onclick="toggleFullScreen()"
+  class="btn btn-sm btn-fullscreen-button"
+  title="Fullscreen mode"
+  data-bs-placement="bottom" data-bs-toggle="tooltip"
 >
   
 
-<span class="headerbtn__icon-container">
-  <i class="fas fa-list"></i>
+<span class="btn__icon-container">
+  <i class="fas fa-expand"></i>
   </span>
 
-</label>
+</button>
 
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="theme-switch fa-solid fa-sun fa-lg" data-mode="light"></i>
+    <i class="theme-switch fa-solid fa-moon fa-lg" data-mode="dark"></i>
+    <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"></i>
+  </button>
+`);
+</script>
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm pst-navbar-icon search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass fa-lg"></i>
+  </button>
+`);
+</script>
+<button class="sidebar-toggle secondary-toggle btn btn-sm" title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="fa-solid fa-list"></span>
+</button>
+</div></div>
+      
     </div>
+  
 </div>
-
-<!-- Table of contents -->
-<div class="col-md-3 bd-toc show noprint">
-    <div class="tocsection onthispage pt-5 pb-3">
-        <i class="fas fa-list"></i> Contents
-    </div>
-    <nav id="bd-toc-nav" aria-label="Page">
-        <ul class="visible nav section-nav flex-column">
- <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#set-up">
-   Set-up
-  </a>
- </li>
- <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#exploring-nc-breweries">
-   Exploring NC breweries
-  </a>
-  <ul class="nav section-nav flex-column">
-   <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#group-and-agg">
-     Group and .agg
-    </a>
-   </li>
-   <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#grouping-by-more-than-one-variable">
-     Grouping by more than one variable
-    </a>
-   </li>
-   <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#groupby-objects">
-     GroupBy objects
-    </a>
-   </li>
-  </ul>
- </li>
- <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#outliers">
-   Outliers
-  </a>
- </li>
- <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#skimpy">
-   skimpy
-  </a>
- </li>
- <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#ydata-profiling">
-   ydata profiling
-  </a>
- </li>
-</ul>
-
-    </nav>
 </div>
-    </div>
-    <div class="article row">
-        <div class="col pl-md-3 pl-lg-5 content-container">
-            <!-- Table of contents that is only displayed when printing the page -->
-            <div id="jb-print-docs-body" class="onlyprint">
-                <h1>Exploratory data analysis (EDA)</h1>
-                <!-- Table of contents -->
-                <div id="print-main-content">
-                    <div id="jb-print-toc">
-                        
-                        <div>
-                            <h2> Contents </h2>
-                        </div>
-                        <nav aria-label="Page">
-                            <ul class="visible nav section-nav flex-column">
- <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#set-up">
-   Set-up
-  </a>
- </li>
- <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#exploring-nc-breweries">
-   Exploring NC breweries
-  </a>
-  <ul class="nav section-nav flex-column">
-   <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#group-and-agg">
-     Group and .agg
-    </a>
-   </li>
-   <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#grouping-by-more-than-one-variable">
-     Grouping by more than one variable
-    </a>
-   </li>
-   <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#groupby-objects">
-     GroupBy objects
-    </a>
-   </li>
-  </ul>
- </li>
- <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#outliers">
-   Outliers
-  </a>
- </li>
- <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#skimpy">
-   skimpy
-  </a>
- </li>
- <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#ydata-profiling">
-   ydata profiling
-  </a>
- </li>
-</ul>
+              
+              
 
-                        </nav>
-                    </div>
-                </div>
+<div id="jb-print-docs-body" class="onlyprint">
+    <h1>Exploratory data analysis (EDA)</h1>
+    <!-- Table of contents -->
+    <div id="print-main-content">
+        <div id="jb-print-toc">
+            
+            <div>
+                <h2> Contents </h2>
             </div>
-            <main id="main-content" role="main">
+            <nav aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#set-up">Set-up</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#exploring-nc-breweries">Exploring NC breweries</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#group-and-agg">Group and .agg</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#grouping-by-more-than-one-variable">Grouping by more than one variable</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#groupby-objects">GroupBy objects</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#outliers">Outliers</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#skimpy">skimpy</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#ydata-profiling">ydata profiling</a></li>
+</ul>
+            </nav>
+        </div>
+    </div>
+</div>
+
+              
                 
-              <div>
-                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                  
   <section class="tex2jax_ignore mathjax_ignore" id="exploratory-data-analysis-eda">
-<h1>Exploratory data analysis (EDA)<a class="headerlink" href="#exploratory-data-analysis-eda" title="Permalink to this headline">#</a></h1>
+<h1>Exploratory data analysis (EDA)<a class="headerlink" href="#exploratory-data-analysis-eda" title="Link to this heading">#</a></h1>
 <p>Exploratory data analysis, or <strong>EDA</strong>, means just that. We are going look at and summarize our idea. The data cleaning that we’ve already done, the looking for missings and understanding our variables, is actually part of EDA. In these notes, however, we’ll focus on <strong>grouping</strong>, or <strong>aggregating</strong>, and summarizing our data.</p>
 <p>This type of data work is sometimes called <strong>split-apply-combine</strong>, where we split, or <strong>group</strong> our data, apply a function (e.g. mean), and then combine the summary statistics back together.</p>
 <p>We are starting to <strong>ask questions</strong> of our data. For example,</p>
@@ -651,22 +435,22 @@ title="Print to PDF"
 <li><p>How are our variables related to each other?</p></li>
 <li><p>How can we <strong>summarize</strong> them?</p></li>
 </ul>
-<p>We’ll graphically summarize our data in the <a class="reference external" href="#dataviz">next section</a>. We’ll look more at <strong>datetime</strong> variables when we get to our work on <a class="reference external" href="#financial-times-series">financial time series</a>.</p>
+<p>We’ll graphically summarize our data in the <a class="reference internal" href="#dataviz"><span class="xref myst">next section</span></a>. We’ll look more at <strong>datetime</strong> variables when we get to our work on <a class="reference internal" href="#financial-times-series"><span class="xref myst">financial time series</span></a>.</p>
 <p>We want to eventually be able to open up a new data, see what questions <strong>can be answered</strong>, and then have the tools to actually <strong>answer the questions</strong>. Sometimes we want to ask questions that data can’t answer - we need to recognize when that’s the case too.</p>
 <p><a class="reference external" href="https://www.datacamp.com/community/tutorials/exploratory-data-analysis-python">DataCamp</a>, of course, has a tutorial on some EDA ideas, perhaps more related to what people are doing in machine learning.</p>
 <p><a class="reference external" href="https://wesmckinney.com/book/data-aggregation.html">Chapter 10</a> of <em>Python for Data Analysis</em> discusses aggregation and summarizing our data.</p>
 <p><a class="reference external" href="https://aeturrell.github.io/coding-for-economists/data-exploratory-analysis.html">Exploratory Data Analysis</a> from <em>Coding for Economists</em> has data aggregation and summary examples. That chapter also covers the logic of opening up a data set and seeing what you have to work with. I am following along with a lot of that material in these notes.</p>
 <section id="set-up">
-<h2>Set-up<a class="headerlink" href="#set-up" title="Permalink to this headline">#</a></h2>
+<h2>Set-up<a class="headerlink" href="#set-up" title="Link to this heading">#</a></h2>
 <p>Let’s bring in some data on NC breweries. We’ll again use my Github URL to download the data directly: <a class="reference external" href="https://raw.githubusercontent.com/aaiken1/fin-data-analysis-python/main/data/ncbreweries.csv">https://raw.githubusercontent.com/aaiken1/fin-data-analysis-python/main/data/ncbreweries.csv</a>.</p>
 <p>We’ll bring in our usual libraries. I’ll also use <code class="docutils literal notranslate"><span class="pre">pyjanitor</span></code>, in case we need to clean anything.</p>
 <p>I’ll name the DataFrame <strong>nc</strong>.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Set-up</span>
-<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
-<span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
-<span class="kn">import</span> <span class="nn">janitor</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">pandas</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">pd</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">janitor</span>
 
 <span class="n">nc</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s1">&#39;https://raw.githubusercontent.com/aaiken1/fin-data-analysis-python/main/data/ncbreweries.csv&#39;</span><span class="p">)</span>
 <span class="n">nc</span><span class="o">.</span><span class="n">info</span><span class="p">()</span>
@@ -674,67 +458,20 @@ title="Print to PDF"
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>/opt/anaconda3/lib/python3.9/site-packages/pandas/core/computation/expressions.py:21: UserWarning: Pandas requires version &#39;2.8.4&#39; or newer of &#39;numexpr&#39; (version &#39;2.8.3&#39; currently installed).
-  from pandas.core.computation.check import NUMEXPR_INSTALLED
-/opt/anaconda3/lib/python3.9/site-packages/pandas/core/arrays/masked.py:60: UserWarning: Pandas requires version &#39;1.3.6&#39; or newer of &#39;bottleneck&#39; (version &#39;1.3.5&#39; currently installed).
-  from pandas.core import (
-/opt/anaconda3/lib/python3.9/site-packages/janitor/utils.py:87: FutureWarning: PandasArray has been renamed NumpyExtensionArray. Use that instead. This alias will be removed in a future version.
-  @_expand_grid.register(pd.arrays.PandasArray)
-</pre></div>
-</div>
-<div class="output traceback highlight-ipythontb notranslate"><div class="highlight"><pre><span></span><span class="gt">---------------------------------------------------------------------------</span>
-<span class="ne">ImportError</span><span class="g g-Whitespace">                               </span>Traceback (most recent call last)
-<span class="n">Cell</span> <span class="n">In</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">line</span> <span class="mi">4</span>
-<span class="g g-Whitespace">      </span><span class="mi">2</span> <span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
-<span class="g g-Whitespace">      </span><span class="mi">3</span> <span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
-<span class="ne">----&gt; </span><span class="mi">4</span> <span class="kn">import</span> <span class="nn">janitor</span>
-<span class="g g-Whitespace">      </span><span class="mi">6</span> <span class="n">nc</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s1">&#39;https://raw.githubusercontent.com/aaiken1/fin-data-analysis-python/main/data/ncbreweries.csv&#39;</span><span class="p">)</span>
-<span class="g g-Whitespace">      </span><span class="mi">7</span> <span class="n">nc</span><span class="o">.</span><span class="n">info</span><span class="p">()</span>
-
-<span class="n">File</span> <span class="o">/</span><span class="n">opt</span><span class="o">/</span><span class="n">anaconda3</span><span class="o">/</span><span class="n">lib</span><span class="o">/</span><span class="n">python3</span><span class="mf">.9</span><span class="o">/</span><span class="n">site</span><span class="o">-</span><span class="n">packages</span><span class="o">/</span><span class="n">janitor</span><span class="o">/</span><span class="fm">__init__</span><span class="o">.</span><span class="n">py</span><span class="p">:</span><span class="mi">9</span>
-<span class="g g-Whitespace">      </span><span class="mi">5</span> <span class="kn">import</span> <span class="nn">lazy_loader</span> <span class="k">as</span> <span class="nn">lazy</span>
-<span class="g g-Whitespace">      </span><span class="mi">8</span> <span class="kn">from</span> <span class="nn">.accessors</span> <span class="kn">import</span> <span class="o">*</span>  <span class="c1"># noqa: F403, F401</span>
-<span class="ne">----&gt; </span><span class="mi">9</span> <span class="kn">from</span> <span class="nn">.functions</span> <span class="kn">import</span> <span class="o">*</span>  <span class="c1"># noqa: F403, F401</span>
-<span class="g g-Whitespace">     </span><span class="mi">10</span> <span class="kn">from</span> <span class="nn">.io</span> <span class="kn">import</span> <span class="o">*</span>  <span class="c1"># noqa: F403, F401</span>
-<span class="g g-Whitespace">     </span><span class="mi">11</span> <span class="kn">from</span> <span class="nn">.math</span> <span class="kn">import</span> <span class="o">*</span>  <span class="c1"># noqa: F403, F401</span>
-
-<span class="n">File</span> <span class="o">/</span><span class="n">opt</span><span class="o">/</span><span class="n">anaconda3</span><span class="o">/</span><span class="n">lib</span><span class="o">/</span><span class="n">python3</span><span class="mf">.9</span><span class="o">/</span><span class="n">site</span><span class="o">-</span><span class="n">packages</span><span class="o">/</span><span class="n">janitor</span><span class="o">/</span><span class="n">functions</span><span class="o">/</span><span class="fm">__init__</span><span class="o">.</span><span class="n">py</span><span class="p">:</span><span class="mi">25</span>
-<span class="g g-Whitespace">     </span><span class="mi">23</span> <span class="kn">from</span> <span class="nn">.change_type</span> <span class="kn">import</span> <span class="n">change_type</span>
-<span class="g g-Whitespace">     </span><span class="mi">24</span> <span class="kn">from</span> <span class="nn">.clean_names</span> <span class="kn">import</span> <span class="n">clean_names</span>
-<span class="ne">---&gt; </span><span class="mi">25</span> <span class="kn">from</span> <span class="nn">.coalesce</span> <span class="kn">import</span> <span class="n">coalesce</span>
-<span class="g g-Whitespace">     </span><span class="mi">26</span> <span class="kn">from</span> <span class="nn">.collapse_levels</span> <span class="kn">import</span> <span class="n">collapse_levels</span>
-<span class="g g-Whitespace">     </span><span class="mi">27</span> <span class="kn">from</span> <span class="nn">.complete</span> <span class="kn">import</span> <span class="n">complete</span>
-
-<span class="n">File</span> <span class="o">/</span><span class="n">opt</span><span class="o">/</span><span class="n">anaconda3</span><span class="o">/</span><span class="n">lib</span><span class="o">/</span><span class="n">python3</span><span class="mf">.9</span><span class="o">/</span><span class="n">site</span><span class="o">-</span><span class="n">packages</span><span class="o">/</span><span class="n">janitor</span><span class="o">/</span><span class="n">functions</span><span class="o">/</span><span class="n">coalesce</span><span class="o">.</span><span class="n">py</span><span class="p">:</span><span class="mi">7</span>
-<span class="g g-Whitespace">      </span><span class="mi">4</span> <span class="kn">import</span> <span class="nn">pandas_flavor</span> <span class="k">as</span> <span class="nn">pf</span>
-<span class="g g-Whitespace">      </span><span class="mi">6</span> <span class="kn">from</span> <span class="nn">janitor.utils</span> <span class="kn">import</span> <span class="n">check</span><span class="p">,</span> <span class="n">deprecated_alias</span>
-<span class="ne">----&gt; </span><span class="mi">7</span> <span class="kn">from</span> <span class="nn">janitor.functions.utils</span> <span class="kn">import</span> <span class="n">_select_index</span>
-<span class="g g-Whitespace">     </span><span class="mi">10</span> <span class="nd">@pf</span><span class="o">.</span><span class="n">register_dataframe_method</span>
-<span class="g g-Whitespace">     </span><span class="mi">11</span> <span class="nd">@deprecated_alias</span><span class="p">(</span><span class="n">columns</span><span class="o">=</span><span class="s2">&quot;column_names&quot;</span><span class="p">,</span> <span class="n">new_column_name</span><span class="o">=</span><span class="s2">&quot;target_column_name&quot;</span><span class="p">)</span>
-<span class="g g-Whitespace">     </span><span class="mi">12</span> <span class="k">def</span> <span class="nf">coalesce</span><span class="p">(</span>
-   <span class="p">(</span><span class="o">...</span><span class="p">)</span>
-<span class="g g-Whitespace">     </span><span class="mi">16</span>     <span class="n">default_value</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">Union</span><span class="p">[</span><span class="nb">int</span><span class="p">,</span> <span class="nb">float</span><span class="p">,</span> <span class="nb">str</span><span class="p">]]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
-<span class="g g-Whitespace">     </span><span class="mi">17</span> <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">:</span>
-<span class="g g-Whitespace">     </span><span class="mi">18</span>     <span class="sd">&quot;&quot;&quot;Coalesce two or more columns of data in order of column names provided.</span>
-<span class="g g-Whitespace">     </span><span class="mi">19</span><span class="sd"> </span>
-<span class="g g-Whitespace">     </span><span class="mi">20</span><span class="sd">     Given the variable arguments of column names,</span>
-<span class="sd">   (...)</span>
-<span class="g g-Whitespace">     </span><span class="mi">87</span><span class="sd">     :raises ValueError: if length of `column_names` is less than 2.</span>
-<span class="g g-Whitespace">     </span><span class="mi">88</span><span class="sd">     &quot;&quot;&quot;</span>
-
-<span class="n">File</span> <span class="o">/</span><span class="n">opt</span><span class="o">/</span><span class="n">anaconda3</span><span class="o">/</span><span class="n">lib</span><span class="o">/</span><span class="n">python3</span><span class="mf">.9</span><span class="o">/</span><span class="n">site</span><span class="o">-</span><span class="n">packages</span><span class="o">/</span><span class="n">janitor</span><span class="o">/</span><span class="n">functions</span><span class="o">/</span><span class="n">utils</span><span class="o">.</span><span class="n">py</span><span class="p">:</span><span class="mi">16</span>
-<span class="g g-Whitespace">      </span><span class="mi">5</span> <span class="kn">import</span> <span class="nn">re</span>
-<span class="g g-Whitespace">      </span><span class="mi">6</span> <span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="p">(</span>
-<span class="g g-Whitespace">      </span><span class="mi">7</span>     <span class="n">Hashable</span><span class="p">,</span>
-<span class="g g-Whitespace">      </span><span class="mi">8</span>     <span class="n">Iterable</span><span class="p">,</span>
-   <span class="p">(</span><span class="o">...</span><span class="p">)</span>
-<span class="g g-Whitespace">     </span><span class="mi">14</span>     <span class="n">Any</span><span class="p">,</span>
-<span class="g g-Whitespace">     </span><span class="mi">15</span> <span class="p">)</span>
-<span class="ne">---&gt; </span><span class="mi">16</span> <span class="kn">from</span> <span class="nn">pandas.core.dtypes.generic</span> <span class="kn">import</span> <span class="n">ABCPandasArray</span><span class="p">,</span> <span class="n">ABCExtensionArray</span>
-<span class="g g-Whitespace">     </span><span class="mi">17</span> <span class="kn">from</span> <span class="nn">pandas.core.common</span> <span class="kn">import</span> <span class="n">is_bool_indexer</span>
-<span class="g g-Whitespace">     </span><span class="mi">18</span> <span class="kn">from</span> <span class="nn">dataclasses</span> <span class="kn">import</span> <span class="n">dataclass</span>
-
-<span class="ne">ImportError</span>: cannot import name &#39;ABCPandasArray&#39; from &#39;pandas.core.dtypes.generic&#39; (/opt/anaconda3/lib/python3.9/site-packages/pandas/core/dtypes/generic.py)
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;class &#39;pandas.core.frame.DataFrame&#39;&gt;
+RangeIndex: 251 entries, 0 to 250
+Data columns (total 7 columns):
+ #   Column      Non-Null Count  Dtype 
+---  ------      --------------  ----- 
+ 0   Name        251 non-null    object
+ 1   City        251 non-null    object
+ 2   Type        251 non-null    object
+ 3   Beer Count  251 non-null    int64 
+ 4   Est         251 non-null    int64 
+ 5   Status      251 non-null    object
+ 6   URL         251 non-null    object
+dtypes: int64(2), object(5)
+memory usage: 13.9+ KB
 </pre></div>
 </div>
 </div>
@@ -914,7 +651,7 @@ dtype: int64
 </div>
 </section>
 <section id="exploring-nc-breweries">
-<h2>Exploring NC breweries<a class="headerlink" href="#exploring-nc-breweries" title="Permalink to this headline">#</a></h2>
+<h2>Exploring NC breweries<a class="headerlink" href="#exploring-nc-breweries" title="Link to this heading">#</a></h2>
 <p>We’ll start with <code class="docutils literal notranslate"><span class="pre">describe()</span></code>. The will give us summary statistics for our numeric variables.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -1240,19 +977,20 @@ Name: beer_count, dtype: float64
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Microbrewery          165
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>type
+Microbrewery          165
 Brewpub/Brewery        41
 Brewpub                33
 Client Brewer           9
 Commercial Brewery      3
-Name: type, dtype: int64
+Name: count, dtype: int64
 </pre></div>
 </div>
 </div>
 </div>
 <p>Mainly microbreweries.</p>
 <section id="group-and-agg">
-<h3>Group and .agg<a class="headerlink" href="#group-and-agg" title="Permalink to this headline">#</a></h3>
+<h3>Group and .agg<a class="headerlink" href="#group-and-agg" title="Link to this heading">#</a></h3>
 <p>I wonder what type of brewery has the largest number of beers on average? This is where we can start using the idea of <strong>split-apply-combine</strong>.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -1261,6 +999,10 @@ Name: type, dtype: int64
 </div>
 </div>
 <div class="cell_output docutils container">
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>/var/folders/kx/y8vj3n6n5kq_d74vj24jsnh40000gn/T/ipykernel_85693/3512017678.py:1: FutureWarning: The default of observed=False is deprecated and will be changed to True in a future version of pandas. Pass observed=False to retain current behavior or observed=True to adopt the future default and silence this warning.
+  nc.groupby(&#39;type&#39;)[&#39;beer_count&#39;].mean()
+</pre></div>
+</div>
 <div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>type
 Brewpub               44.939394
 Brewpub/Brewery       37.707317
@@ -1287,6 +1029,16 @@ Name: beer_count, dtype: float64
 </div>
 </div>
 <div class="cell_output docutils container">
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>/var/folders/kx/y8vj3n6n5kq_d74vj24jsnh40000gn/T/ipykernel_85693/3463493523.py:1: FutureWarning: The default of observed=False is deprecated and will be changed to True in a future version of pandas. Pass observed=False to retain current behavior or observed=True to adopt the future default and silence this warning.
+  nc.groupby(&#39;type&#39;)[&#39;beer_count&#39;].agg([np.mean, np.median, np.std]).round(1)
+/var/folders/kx/y8vj3n6n5kq_d74vj24jsnh40000gn/T/ipykernel_85693/3463493523.py:1: FutureWarning: The provided callable &lt;function mean at 0x1054f18b0&gt; is currently using SeriesGroupBy.mean. In a future version of pandas, the provided callable will be used directly. To keep current behavior pass the string &quot;mean&quot; instead.
+  nc.groupby(&#39;type&#39;)[&#39;beer_count&#39;].agg([np.mean, np.median, np.std]).round(1)
+/var/folders/kx/y8vj3n6n5kq_d74vj24jsnh40000gn/T/ipykernel_85693/3463493523.py:1: FutureWarning: The provided callable &lt;function median at 0x1056504c0&gt; is currently using SeriesGroupBy.median. In a future version of pandas, the provided callable will be used directly. To keep current behavior pass the string &quot;median&quot; instead.
+  nc.groupby(&#39;type&#39;)[&#39;beer_count&#39;].agg([np.mean, np.median, np.std]).round(1)
+/var/folders/kx/y8vj3n6n5kq_d74vj24jsnh40000gn/T/ipykernel_85693/3463493523.py:1: FutureWarning: The provided callable &lt;function std at 0x1054f19d0&gt; is currently using SeriesGroupBy.std. In a future version of pandas, the provided callable will be used directly. To keep current behavior pass the string &quot;std&quot; instead.
+  nc.groupby(&#39;type&#39;)[&#39;beer_count&#39;].agg([np.mean, np.median, np.std]).round(1)
+</pre></div>
+</div>
 <div class="output text_html"><div>
 <style scoped>
     .dataframe tbody tr th:only-of-type {
@@ -1362,15 +1114,75 @@ Name: beer_count, dtype: float64
 </div>
 </div>
 <div class="cell_output docutils container">
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>/var/folders/kx/y8vj3n6n5kq_d74vj24jsnh40000gn/T/ipykernel_85693/1747456186.py:1: FutureWarning: The default of observed=False is deprecated and will be changed to True in a future version of pandas. Pass observed=False to retain current behavior or observed=True to adopt the future default and silence this warning.
+  sum_table_group = nc.groupby(&#39;type&#39;)[&#39;beer_count&#39;].agg([np.mean, np.median, np.std])
+/var/folders/kx/y8vj3n6n5kq_d74vj24jsnh40000gn/T/ipykernel_85693/1747456186.py:1: FutureWarning: The provided callable &lt;function mean at 0x1054f18b0&gt; is currently using SeriesGroupBy.mean. In a future version of pandas, the provided callable will be used directly. To keep current behavior pass the string &quot;mean&quot; instead.
+  sum_table_group = nc.groupby(&#39;type&#39;)[&#39;beer_count&#39;].agg([np.mean, np.median, np.std])
+/var/folders/kx/y8vj3n6n5kq_d74vj24jsnh40000gn/T/ipykernel_85693/1747456186.py:1: FutureWarning: The provided callable &lt;function median at 0x1056504c0&gt; is currently using SeriesGroupBy.median. In a future version of pandas, the provided callable will be used directly. To keep current behavior pass the string &quot;median&quot; instead.
+  sum_table_group = nc.groupby(&#39;type&#39;)[&#39;beer_count&#39;].agg([np.mean, np.median, np.std])
+/var/folders/kx/y8vj3n6n5kq_d74vj24jsnh40000gn/T/ipykernel_85693/1747456186.py:1: FutureWarning: The provided callable &lt;function std at 0x1054f19d0&gt; is currently using SeriesGroupBy.std. In a future version of pandas, the provided callable will be used directly. To keep current behavior pass the string &quot;std&quot; instead.
+  sum_table_group = nc.groupby(&#39;type&#39;)[&#39;beer_count&#39;].agg([np.mean, np.median, np.std])
+/Users/adamaiken/Documents/fin-data-analysis-text/.venv/lib/python3.9/site-packages/matplotlib/_fontconfig_pattern.py:64: DeprecationWarning: &#39;oneOf&#39; deprecated - use &#39;one_of&#39;
+  prop = Group((name + Suppress(&quot;=&quot;) + comma_separated(value)) | oneOf(_CONSTANTS))
+/Users/adamaiken/Documents/fin-data-analysis-text/.venv/lib/python3.9/site-packages/matplotlib/_fontconfig_pattern.py:85: DeprecationWarning: &#39;parseString&#39; deprecated - use &#39;parse_string&#39;
+  parse = parser.parseString(pattern)
+/Users/adamaiken/Documents/fin-data-analysis-text/.venv/lib/python3.9/site-packages/matplotlib/_fontconfig_pattern.py:89: DeprecationWarning: &#39;resetCache&#39; deprecated - use &#39;reset_cache&#39;
+  parser.resetCache()
+/Users/adamaiken/Documents/fin-data-analysis-text/.venv/lib/python3.9/site-packages/matplotlib/_fontconfig_pattern.py:85: DeprecationWarning: &#39;parseString&#39; deprecated - use &#39;parse_string&#39;
+  parse = parser.parseString(pattern)
+/Users/adamaiken/Documents/fin-data-analysis-text/.venv/lib/python3.9/site-packages/matplotlib/_fontconfig_pattern.py:89: DeprecationWarning: &#39;resetCache&#39; deprecated - use &#39;reset_cache&#39;
+  parser.resetCache()
+/Users/adamaiken/Documents/fin-data-analysis-text/.venv/lib/python3.9/site-packages/matplotlib/_fontconfig_pattern.py:85: DeprecationWarning: &#39;parseString&#39; deprecated - use &#39;parse_string&#39;
+  parse = parser.parseString(pattern)
+/Users/adamaiken/Documents/fin-data-analysis-text/.venv/lib/python3.9/site-packages/matplotlib/_fontconfig_pattern.py:89: DeprecationWarning: &#39;resetCache&#39; deprecated - use &#39;reset_cache&#39;
+  parser.resetCache()
+/Users/adamaiken/Documents/fin-data-analysis-text/.venv/lib/python3.9/site-packages/matplotlib/_fontconfig_pattern.py:85: DeprecationWarning: &#39;parseString&#39; deprecated - use &#39;parse_string&#39;
+  parse = parser.parseString(pattern)
+/Users/adamaiken/Documents/fin-data-analysis-text/.venv/lib/python3.9/site-packages/matplotlib/_fontconfig_pattern.py:89: DeprecationWarning: &#39;resetCache&#39; deprecated - use &#39;reset_cache&#39;
+  parser.resetCache()
+/Users/adamaiken/Documents/fin-data-analysis-text/.venv/lib/python3.9/site-packages/matplotlib/_fontconfig_pattern.py:85: DeprecationWarning: &#39;parseString&#39; deprecated - use &#39;parse_string&#39;
+  parse = parser.parseString(pattern)
+/Users/adamaiken/Documents/fin-data-analysis-text/.venv/lib/python3.9/site-packages/matplotlib/_fontconfig_pattern.py:89: DeprecationWarning: &#39;resetCache&#39; deprecated - use &#39;reset_cache&#39;
+  parser.resetCache()
+/Users/adamaiken/Documents/fin-data-analysis-text/.venv/lib/python3.9/site-packages/matplotlib/_fontconfig_pattern.py:85: DeprecationWarning: &#39;parseString&#39; deprecated - use &#39;parse_string&#39;
+  parse = parser.parseString(pattern)
+/Users/adamaiken/Documents/fin-data-analysis-text/.venv/lib/python3.9/site-packages/matplotlib/_fontconfig_pattern.py:89: DeprecationWarning: &#39;resetCache&#39; deprecated - use &#39;reset_cache&#39;
+  parser.resetCache()
+/Users/adamaiken/Documents/fin-data-analysis-text/.venv/lib/python3.9/site-packages/matplotlib/_mathtext.py:45: DeprecationWarning: &#39;enablePackrat&#39; deprecated - use &#39;enable_packrat&#39;
+  ParserElement.enablePackrat()
+In /Users/adamaiken/Documents/fin-data-analysis-text/.venv/lib/python3.9/site-packages/matplotlib/mpl-data/stylelib/classic.mplstyle: &#39;parseString&#39; deprecated - use &#39;parse_string&#39;
+</pre></div>
+</div>
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>In /Users/adamaiken/Documents/fin-data-analysis-text/.venv/lib/python3.9/site-packages/matplotlib/mpl-data/stylelib/classic.mplstyle: &#39;resetCache&#39; deprecated - use &#39;reset_cache&#39;
+</pre></div>
+</div>
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>In /Users/adamaiken/Documents/fin-data-analysis-text/.venv/lib/python3.9/site-packages/matplotlib/mpl-data/stylelib/classic.mplstyle: &#39;parseString&#39; deprecated - use &#39;parse_string&#39;
+</pre></div>
+</div>
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>In /Users/adamaiken/Documents/fin-data-analysis-text/.venv/lib/python3.9/site-packages/matplotlib/mpl-data/stylelib/classic.mplstyle: &#39;resetCache&#39; deprecated - use &#39;reset_cache&#39;
+</pre></div>
+</div>
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>In /Users/adamaiken/Documents/fin-data-analysis-text/.venv/lib/python3.9/site-packages/matplotlib/mpl-data/stylelib/classic.mplstyle: &#39;parseString&#39; deprecated - use &#39;parse_string&#39;
+</pre></div>
+</div>
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>In /Users/adamaiken/Documents/fin-data-analysis-text/.venv/lib/python3.9/site-packages/matplotlib/mpl-data/stylelib/classic.mplstyle: &#39;resetCache&#39; deprecated - use &#39;reset_cache&#39;
+</pre></div>
+</div>
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>In /Users/adamaiken/Documents/fin-data-analysis-text/.venv/lib/python3.9/site-packages/matplotlib/mpl-data/stylelib/classic.mplstyle: &#39;parseString&#39; deprecated - use &#39;parse_string&#39;
+</pre></div>
+</div>
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>In /Users/adamaiken/Documents/fin-data-analysis-text/.venv/lib/python3.9/site-packages/matplotlib/mpl-data/stylelib/classic.mplstyle: &#39;resetCache&#39; deprecated - use &#39;reset_cache&#39;
+</pre></div>
+</div>
 <div class="output text_html"><style type="text/css">
 </style>
-<table id="T_aca77_">
+<table id="T_be382">
   <thead>
     <tr>
       <th class="blank level0" >&nbsp;</th>
-      <th class="col_heading level0 col0" >mean</th>
-      <th class="col_heading level0 col1" >median</th>
-      <th class="col_heading level0 col2" >std</th>
+      <th id="T_be382_level0_col0" class="col_heading level0 col0" >mean</th>
+      <th id="T_be382_level0_col1" class="col_heading level0 col1" >median</th>
+      <th id="T_be382_level0_col2" class="col_heading level0 col2" >std</th>
     </tr>
     <tr>
       <th class="index_name level0" >type</th>
@@ -1381,34 +1193,34 @@ Name: beer_count, dtype: float64
   </thead>
   <tbody>
     <tr>
-      <th id="T_aca77_level0_row0" class="row_heading level0 row0" >Brewpub</th>
-      <td id="T_aca77_row0_col0" class="data row0 col0" >45</td>
-      <td id="T_aca77_row0_col1" class="data row0 col1" >21</td>
-      <td id="T_aca77_row0_col2" class="data row0 col2" >77</td>
+      <th id="T_be382_level0_row0" class="row_heading level0 row0" >Brewpub</th>
+      <td id="T_be382_row0_col0" class="data row0 col0" >45</td>
+      <td id="T_be382_row0_col1" class="data row0 col1" >21</td>
+      <td id="T_be382_row0_col2" class="data row0 col2" >77</td>
     </tr>
     <tr>
-      <th id="T_aca77_level0_row1" class="row_heading level0 row1" >Brewpub/Brewery</th>
-      <td id="T_aca77_row1_col0" class="data row1 col0" >38</td>
-      <td id="T_aca77_row1_col1" class="data row1 col1" >28</td>
-      <td id="T_aca77_row1_col2" class="data row1 col2" >36</td>
+      <th id="T_be382_level0_row1" class="row_heading level0 row1" >Brewpub/Brewery</th>
+      <td id="T_be382_row1_col0" class="data row1 col0" >38</td>
+      <td id="T_be382_row1_col1" class="data row1 col1" >28</td>
+      <td id="T_be382_row1_col2" class="data row1 col2" >36</td>
     </tr>
     <tr>
-      <th id="T_aca77_level0_row2" class="row_heading level0 row2" >Client Brewer</th>
-      <td id="T_aca77_row2_col0" class="data row2 col0" >5</td>
-      <td id="T_aca77_row2_col1" class="data row2 col1" >2</td>
-      <td id="T_aca77_row2_col2" class="data row2 col2" >7</td>
+      <th id="T_be382_level0_row2" class="row_heading level0 row2" >Client Brewer</th>
+      <td id="T_be382_row2_col0" class="data row2 col0" >5</td>
+      <td id="T_be382_row2_col1" class="data row2 col1" >2</td>
+      <td id="T_be382_row2_col2" class="data row2 col2" >7</td>
     </tr>
     <tr>
-      <th id="T_aca77_level0_row3" class="row_heading level0 row3" >Commercial Brewery</th>
-      <td id="T_aca77_row3_col0" class="data row3 col0" >11</td>
-      <td id="T_aca77_row3_col1" class="data row3 col1" >9</td>
-      <td id="T_aca77_row3_col2" class="data row3 col2" >7</td>
+      <th id="T_be382_level0_row3" class="row_heading level0 row3" >Commercial Brewery</th>
+      <td id="T_be382_row3_col0" class="data row3 col0" >11</td>
+      <td id="T_be382_row3_col1" class="data row3 col1" >9</td>
+      <td id="T_be382_row3_col2" class="data row3 col2" >7</td>
     </tr>
     <tr>
-      <th id="T_aca77_level0_row4" class="row_heading level0 row4" >Microbrewery</th>
-      <td id="T_aca77_row4_col0" class="data row4 col0" >31</td>
-      <td id="T_aca77_row4_col1" class="data row4 col1" >18</td>
-      <td id="T_aca77_row4_col2" class="data row4 col2" >37</td>
+      <th id="T_be382_level0_row4" class="row_heading level0 row4" >Microbrewery</th>
+      <td id="T_be382_row4_col0" class="data row4 col0" >31</td>
+      <td id="T_be382_row4_col1" class="data row4 col1" >18</td>
+      <td id="T_be382_row4_col2" class="data row4 col2" >37</td>
     </tr>
   </tbody>
 </table>
@@ -1425,15 +1237,25 @@ Name: beer_count, dtype: float64
 </div>
 </div>
 <div class="cell_output docutils container">
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>/var/folders/kx/y8vj3n6n5kq_d74vj24jsnh40000gn/T/ipykernel_85693/3839799728.py:1: FutureWarning: The default of observed=False is deprecated and will be changed to True in a future version of pandas. Pass observed=False to retain current behavior or observed=True to adopt the future default and silence this warning.
+  sum_table_group = nc.groupby(&#39;type&#39;)[&#39;beer_count&#39;].agg([np.mean, np.median, np.std]).rename(columns={&#39;mean&#39;: &#39;avg&#39;, &#39;median&#39;: &#39;50th&#39;, &#39;std&#39;: &#39;sigma&#39;})
+/var/folders/kx/y8vj3n6n5kq_d74vj24jsnh40000gn/T/ipykernel_85693/3839799728.py:1: FutureWarning: The provided callable &lt;function mean at 0x1054f18b0&gt; is currently using SeriesGroupBy.mean. In a future version of pandas, the provided callable will be used directly. To keep current behavior pass the string &quot;mean&quot; instead.
+  sum_table_group = nc.groupby(&#39;type&#39;)[&#39;beer_count&#39;].agg([np.mean, np.median, np.std]).rename(columns={&#39;mean&#39;: &#39;avg&#39;, &#39;median&#39;: &#39;50th&#39;, &#39;std&#39;: &#39;sigma&#39;})
+/var/folders/kx/y8vj3n6n5kq_d74vj24jsnh40000gn/T/ipykernel_85693/3839799728.py:1: FutureWarning: The provided callable &lt;function median at 0x1056504c0&gt; is currently using SeriesGroupBy.median. In a future version of pandas, the provided callable will be used directly. To keep current behavior pass the string &quot;median&quot; instead.
+  sum_table_group = nc.groupby(&#39;type&#39;)[&#39;beer_count&#39;].agg([np.mean, np.median, np.std]).rename(columns={&#39;mean&#39;: &#39;avg&#39;, &#39;median&#39;: &#39;50th&#39;, &#39;std&#39;: &#39;sigma&#39;})
+/var/folders/kx/y8vj3n6n5kq_d74vj24jsnh40000gn/T/ipykernel_85693/3839799728.py:1: FutureWarning: The provided callable &lt;function std at 0x1054f19d0&gt; is currently using SeriesGroupBy.std. In a future version of pandas, the provided callable will be used directly. To keep current behavior pass the string &quot;std&quot; instead.
+  sum_table_group = nc.groupby(&#39;type&#39;)[&#39;beer_count&#39;].agg([np.mean, np.median, np.std]).rename(columns={&#39;mean&#39;: &#39;avg&#39;, &#39;median&#39;: &#39;50th&#39;, &#39;std&#39;: &#39;sigma&#39;})
+</pre></div>
+</div>
 <div class="output text_html"><style type="text/css">
 </style>
-<table id="T_26dc4_">
+<table id="T_850fd">
   <thead>
     <tr>
       <th class="blank level0" >&nbsp;</th>
-      <th class="col_heading level0 col0" >avg</th>
-      <th class="col_heading level0 col1" >50th</th>
-      <th class="col_heading level0 col2" >sigma</th>
+      <th id="T_850fd_level0_col0" class="col_heading level0 col0" >avg</th>
+      <th id="T_850fd_level0_col1" class="col_heading level0 col1" >50th</th>
+      <th id="T_850fd_level0_col2" class="col_heading level0 col2" >sigma</th>
     </tr>
     <tr>
       <th class="index_name level0" >type</th>
@@ -1444,34 +1266,34 @@ Name: beer_count, dtype: float64
   </thead>
   <tbody>
     <tr>
-      <th id="T_26dc4_level0_row0" class="row_heading level0 row0" >Brewpub</th>
-      <td id="T_26dc4_row0_col0" class="data row0 col0" >45</td>
-      <td id="T_26dc4_row0_col1" class="data row0 col1" >21</td>
-      <td id="T_26dc4_row0_col2" class="data row0 col2" >77</td>
+      <th id="T_850fd_level0_row0" class="row_heading level0 row0" >Brewpub</th>
+      <td id="T_850fd_row0_col0" class="data row0 col0" >45</td>
+      <td id="T_850fd_row0_col1" class="data row0 col1" >21</td>
+      <td id="T_850fd_row0_col2" class="data row0 col2" >77</td>
     </tr>
     <tr>
-      <th id="T_26dc4_level0_row1" class="row_heading level0 row1" >Brewpub/Brewery</th>
-      <td id="T_26dc4_row1_col0" class="data row1 col0" >38</td>
-      <td id="T_26dc4_row1_col1" class="data row1 col1" >28</td>
-      <td id="T_26dc4_row1_col2" class="data row1 col2" >36</td>
+      <th id="T_850fd_level0_row1" class="row_heading level0 row1" >Brewpub/Brewery</th>
+      <td id="T_850fd_row1_col0" class="data row1 col0" >38</td>
+      <td id="T_850fd_row1_col1" class="data row1 col1" >28</td>
+      <td id="T_850fd_row1_col2" class="data row1 col2" >36</td>
     </tr>
     <tr>
-      <th id="T_26dc4_level0_row2" class="row_heading level0 row2" >Client Brewer</th>
-      <td id="T_26dc4_row2_col0" class="data row2 col0" >5</td>
-      <td id="T_26dc4_row2_col1" class="data row2 col1" >2</td>
-      <td id="T_26dc4_row2_col2" class="data row2 col2" >7</td>
+      <th id="T_850fd_level0_row2" class="row_heading level0 row2" >Client Brewer</th>
+      <td id="T_850fd_row2_col0" class="data row2 col0" >5</td>
+      <td id="T_850fd_row2_col1" class="data row2 col1" >2</td>
+      <td id="T_850fd_row2_col2" class="data row2 col2" >7</td>
     </tr>
     <tr>
-      <th id="T_26dc4_level0_row3" class="row_heading level0 row3" >Commercial Brewery</th>
-      <td id="T_26dc4_row3_col0" class="data row3 col0" >11</td>
-      <td id="T_26dc4_row3_col1" class="data row3 col1" >9</td>
-      <td id="T_26dc4_row3_col2" class="data row3 col2" >7</td>
+      <th id="T_850fd_level0_row3" class="row_heading level0 row3" >Commercial Brewery</th>
+      <td id="T_850fd_row3_col0" class="data row3 col0" >11</td>
+      <td id="T_850fd_row3_col1" class="data row3 col1" >9</td>
+      <td id="T_850fd_row3_col2" class="data row3 col2" >7</td>
     </tr>
     <tr>
-      <th id="T_26dc4_level0_row4" class="row_heading level0 row4" >Microbrewery</th>
-      <td id="T_26dc4_row4_col0" class="data row4 col0" >31</td>
-      <td id="T_26dc4_row4_col1" class="data row4 col1" >18</td>
-      <td id="T_26dc4_row4_col2" class="data row4 col2" >37</td>
+      <th id="T_850fd_level0_row4" class="row_heading level0 row4" >Microbrewery</th>
+      <td id="T_850fd_row4_col0" class="data row4 col0" >31</td>
+      <td id="T_850fd_row4_col1" class="data row4 col1" >18</td>
+      <td id="T_850fd_row4_col2" class="data row4 col2" >37</td>
     </tr>
   </tbody>
 </table>
@@ -1492,44 +1314,132 @@ Name: beer_count, dtype: float64
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output text_html"><style type="text/css">
-</style>
-<table id="T_7d01a_">
-  <caption>Beer Count by Brewery Type</caption>
-  <thead>
-    <tr>
-      <th class="blank level0" >&nbsp;</th>
-      <th class="col_heading level0 col0" >beer_count</th>
-    </tr>
-    <tr>
-      <th class="index_name level0" >type</th>
-      <th class="blank col0" >&nbsp;</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <th id="T_7d01a_level0_row0" class="row_heading level0 row0" >Brewpub</th>
-      <td id="T_7d01a_row0_col0" class="data row0 col0" >45</td>
-    </tr>
-    <tr>
-      <th id="T_7d01a_level0_row1" class="row_heading level0 row1" >Brewpub/Brewery</th>
-      <td id="T_7d01a_row1_col0" class="data row1 col0" >38</td>
-    </tr>
-    <tr>
-      <th id="T_7d01a_level0_row2" class="row_heading level0 row2" >Client Brewer</th>
-      <td id="T_7d01a_row2_col0" class="data row2 col0" >5</td>
-    </tr>
-    <tr>
-      <th id="T_7d01a_level0_row3" class="row_heading level0 row3" >Commercial Brewery</th>
-      <td id="T_7d01a_row3_col0" class="data row3 col0" >11</td>
-    </tr>
-    <tr>
-      <th id="T_7d01a_level0_row4" class="row_heading level0 row4" >Microbrewery</th>
-      <td id="T_7d01a_row4_col0" class="data row4 col0" >31</td>
-    </tr>
-  </tbody>
-</table>
-</div></div>
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>/var/folders/kx/y8vj3n6n5kq_d74vj24jsnh40000gn/T/ipykernel_85693/452258875.py:2: FutureWarning: The default of observed=False is deprecated and will be changed to True in a future version of pandas. Pass observed=False to retain current behavior or observed=True to adopt the future default and silence this warning.
+  nc.groupby(&#39;type&#39;)
+</pre></div>
+</div>
+<div class="output traceback highlight-ipythontb notranslate"><div class="highlight"><pre><span></span><span class="gt">---------------------------------------------------------------------------</span>
+<span class="ne">TypeError</span><span class="g g-Whitespace">                                 </span>Traceback (most recent call last)
+<span class="n">Cell</span> <span class="n">In</span><span class="p">[</span><span class="mi">17</span><span class="p">],</span> <span class="n">line</span> <span class="mi">2</span>
+<span class="g g-Whitespace">      </span><span class="mi">1</span> <span class="p">(</span>
+<span class="ne">----&gt; </span><span class="mi">2</span>     <span class="n">nc</span><span class="o">.</span><span class="n">groupby</span><span class="p">(</span><span class="s1">&#39;type&#39;</span><span class="p">)</span>
+<span class="g g-Whitespace">      </span><span class="mi">3</span>     <span class="o">.</span><span class="n">mean</span><span class="p">()[</span><span class="s1">&#39;beer_count&#39;</span><span class="p">]</span>
+<span class="g g-Whitespace">      </span><span class="mi">4</span>     <span class="o">.</span><span class="n">to_frame</span><span class="p">()</span>
+<span class="g g-Whitespace">      </span><span class="mi">5</span>     <span class="o">.</span><span class="n">style</span>
+<span class="g g-Whitespace">      </span><span class="mi">6</span>         <span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">precision</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+<span class="g g-Whitespace">      </span><span class="mi">7</span>         <span class="o">.</span><span class="n">set_caption</span><span class="p">(</span><span class="s1">&#39;Beer Count by Brewery Type&#39;</span><span class="p">)</span>   
+<span class="g g-Whitespace">      </span><span class="mi">8</span> <span class="p">)</span>
+
+<span class="nn">File ~/Documents/fin-data-analysis-text/.venv/lib/python3.9/site-packages/pandas/core/groupby/groupby.py:2459,</span> in <span class="ni">GroupBy.mean</span><span class="nt">(self, numeric_only, engine, engine_kwargs)</span>
+<span class="g g-Whitespace">   </span><span class="mi">2452</span>     <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_numba_agg_general</span><span class="p">(</span>
+<span class="g g-Whitespace">   </span><span class="mi">2453</span>         <span class="n">grouped_mean</span><span class="p">,</span>
+<span class="g g-Whitespace">   </span><span class="mi">2454</span>         <span class="n">executor</span><span class="o">.</span><span class="n">float_dtype_mapping</span><span class="p">,</span>
+<span class="g g-Whitespace">   </span><span class="mi">2455</span>         <span class="n">engine_kwargs</span><span class="p">,</span>
+<span class="g g-Whitespace">   </span><span class="mi">2456</span>         <span class="n">min_periods</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span>
+<span class="g g-Whitespace">   </span><span class="mi">2457</span>     <span class="p">)</span>
+<span class="g g-Whitespace">   </span><span class="mi">2458</span> <span class="k">else</span><span class="p">:</span>
+<span class="ne">-&gt; </span><span class="mi">2459</span>     <span class="n">result</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_cython_agg_general</span><span class="p">(</span>
+<span class="g g-Whitespace">   </span><span class="mi">2460</span>         <span class="s2">&quot;mean&quot;</span><span class="p">,</span>
+<span class="g g-Whitespace">   </span><span class="mi">2461</span>         <span class="n">alt</span><span class="o">=</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="n">Series</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">copy</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">numeric_only</span><span class="o">=</span><span class="n">numeric_only</span><span class="p">),</span>
+<span class="g g-Whitespace">   </span><span class="mi">2462</span>         <span class="n">numeric_only</span><span class="o">=</span><span class="n">numeric_only</span><span class="p">,</span>
+<span class="g g-Whitespace">   </span><span class="mi">2463</span>     <span class="p">)</span>
+<span class="g g-Whitespace">   </span><span class="mi">2464</span>     <span class="k">return</span> <span class="n">result</span><span class="o">.</span><span class="n">__finalize__</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">obj</span><span class="p">,</span> <span class="n">method</span><span class="o">=</span><span class="s2">&quot;groupby&quot;</span><span class="p">)</span>
+
+<span class="nn">File ~/Documents/fin-data-analysis-text/.venv/lib/python3.9/site-packages/pandas/core/groupby/groupby.py:2005,</span> in <span class="ni">GroupBy._cython_agg_general</span><span class="nt">(self, how, alt, numeric_only, min_count, **kwargs)</span>
+<span class="g g-Whitespace">   </span><span class="mi">2002</span>     <span class="n">result</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_agg_py_fallback</span><span class="p">(</span><span class="n">how</span><span class="p">,</span> <span class="n">values</span><span class="p">,</span> <span class="n">ndim</span><span class="o">=</span><span class="n">data</span><span class="o">.</span><span class="n">ndim</span><span class="p">,</span> <span class="n">alt</span><span class="o">=</span><span class="n">alt</span><span class="p">)</span>
+<span class="g g-Whitespace">   </span><span class="mi">2003</span>     <span class="k">return</span> <span class="n">result</span>
+<span class="ne">-&gt; </span><span class="mi">2005</span> <span class="n">new_mgr</span> <span class="o">=</span> <span class="n">data</span><span class="o">.</span><span class="n">grouped_reduce</span><span class="p">(</span><span class="n">array_func</span><span class="p">)</span>
+<span class="g g-Whitespace">   </span><span class="mi">2006</span> <span class="n">res</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_wrap_agged_manager</span><span class="p">(</span><span class="n">new_mgr</span><span class="p">)</span>
+<span class="g g-Whitespace">   </span><span class="mi">2007</span> <span class="k">if</span> <span class="n">how</span> <span class="ow">in</span> <span class="p">[</span><span class="s2">&quot;idxmin&quot;</span><span class="p">,</span> <span class="s2">&quot;idxmax&quot;</span><span class="p">]:</span>
+
+<span class="nn">File ~/Documents/fin-data-analysis-text/.venv/lib/python3.9/site-packages/pandas/core/internals/managers.py:1491,</span> in <span class="ni">BlockManager.grouped_reduce</span><span class="nt">(self, func)</span>
+<span class="g g-Whitespace">   </span><span class="mi">1489</span>             <span class="n">result_blocks</span> <span class="o">=</span> <span class="n">extend_blocks</span><span class="p">(</span><span class="n">applied</span><span class="p">,</span> <span class="n">result_blocks</span><span class="p">)</span>
+<span class="g g-Whitespace">   </span><span class="mi">1490</span>     <span class="k">else</span><span class="p">:</span>
+<span class="ne">-&gt; </span><span class="mi">1491</span>         <span class="n">applied</span> <span class="o">=</span> <span class="n">blk</span><span class="o">.</span><span class="n">apply</span><span class="p">(</span><span class="n">func</span><span class="p">)</span>
+<span class="g g-Whitespace">   </span><span class="mi">1492</span>         <span class="n">result_blocks</span> <span class="o">=</span> <span class="n">extend_blocks</span><span class="p">(</span><span class="n">applied</span><span class="p">,</span> <span class="n">result_blocks</span><span class="p">)</span>
+<span class="g g-Whitespace">   </span><span class="mi">1494</span> <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">result_blocks</span><span class="p">)</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+
+<span class="nn">File ~/Documents/fin-data-analysis-text/.venv/lib/python3.9/site-packages/pandas/core/internals/blocks.py:395,</span> in <span class="ni">Block.apply</span><span class="nt">(self, func, **kwargs)</span>
+<span class="g g-Whitespace">    </span><span class="mi">389</span> <span class="nd">@final</span>
+<span class="g g-Whitespace">    </span><span class="mi">390</span> <span class="k">def</span><span class="w"> </span><span class="nf">apply</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">func</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">list</span><span class="p">[</span><span class="n">Block</span><span class="p">]:</span>
+<span class="g g-Whitespace">    </span><span class="mi">391</span><span class="w">     </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="g g-Whitespace">    </span><span class="mi">392</span><span class="sd">     apply the function to my values; return a block if we are not</span>
+<span class="g g-Whitespace">    </span><span class="mi">393</span><span class="sd">     one</span>
+<span class="g g-Whitespace">    </span><span class="mi">394</span><span class="sd">     &quot;&quot;&quot;</span>
+<span class="ne">--&gt; </span><span class="mi">395</span>     <span class="n">result</span> <span class="o">=</span> <span class="n">func</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">values</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+<span class="g g-Whitespace">    </span><span class="mi">397</span>     <span class="n">result</span> <span class="o">=</span> <span class="n">maybe_coerce_values</span><span class="p">(</span><span class="n">result</span><span class="p">)</span>
+<span class="g g-Whitespace">    </span><span class="mi">398</span>     <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_split_op_result</span><span class="p">(</span><span class="n">result</span><span class="p">)</span>
+
+<span class="nn">File ~/Documents/fin-data-analysis-text/.venv/lib/python3.9/site-packages/pandas/core/groupby/groupby.py:1980,</span> in <span class="ni">GroupBy._cython_agg_general.&lt;locals&gt;.array_func</span><span class="nt">(values)</span>
+<span class="g g-Whitespace">   </span><span class="mi">1978</span> <span class="k">def</span><span class="w"> </span><span class="nf">array_func</span><span class="p">(</span><span class="n">values</span><span class="p">:</span> <span class="n">ArrayLike</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">ArrayLike</span><span class="p">:</span>
+<span class="g g-Whitespace">   </span><span class="mi">1979</span>     <span class="k">try</span><span class="p">:</span>
+<span class="ne">-&gt; </span><span class="mi">1980</span>         <span class="n">result</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_grouper</span><span class="o">.</span><span class="n">_cython_operation</span><span class="p">(</span>
+<span class="g g-Whitespace">   </span><span class="mi">1981</span>             <span class="s2">&quot;aggregate&quot;</span><span class="p">,</span>
+<span class="g g-Whitespace">   </span><span class="mi">1982</span>             <span class="n">values</span><span class="p">,</span>
+<span class="g g-Whitespace">   </span><span class="mi">1983</span>             <span class="n">how</span><span class="p">,</span>
+<span class="g g-Whitespace">   </span><span class="mi">1984</span>             <span class="n">axis</span><span class="o">=</span><span class="n">data</span><span class="o">.</span><span class="n">ndim</span> <span class="o">-</span> <span class="mi">1</span><span class="p">,</span>
+<span class="g g-Whitespace">   </span><span class="mi">1985</span>             <span class="n">min_count</span><span class="o">=</span><span class="n">min_count</span><span class="p">,</span>
+<span class="g g-Whitespace">   </span><span class="mi">1986</span>             <span class="o">**</span><span class="n">kwargs</span><span class="p">,</span>
+<span class="g g-Whitespace">   </span><span class="mi">1987</span>         <span class="p">)</span>
+<span class="g g-Whitespace">   </span><span class="mi">1988</span>     <span class="k">except</span> <span class="ne">NotImplementedError</span><span class="p">:</span>
+<span class="g g-Whitespace">   </span><span class="mi">1989</span>         <span class="c1"># generally if we have numeric_only=False</span>
+<span class="g g-Whitespace">   </span><span class="mi">1990</span>         <span class="c1"># and non-applicable functions</span>
+<span class="g g-Whitespace">   </span><span class="mi">1991</span>         <span class="c1"># try to python agg</span>
+<span class="g g-Whitespace">   </span><span class="mi">1992</span>         <span class="c1"># TODO: shouldn&#39;t min_count matter?</span>
+<span class="g g-Whitespace">   </span><span class="mi">1993</span>         <span class="c1"># TODO: avoid special casing SparseArray here</span>
+<span class="g g-Whitespace">   </span><span class="mi">1994</span>         <span class="k">if</span> <span class="n">how</span> <span class="ow">in</span> <span class="p">[</span><span class="s2">&quot;any&quot;</span><span class="p">,</span> <span class="s2">&quot;all&quot;</span><span class="p">]</span> <span class="ow">and</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">values</span><span class="p">,</span> <span class="n">SparseArray</span><span class="p">):</span>
+
+<span class="nn">File ~/Documents/fin-data-analysis-text/.venv/lib/python3.9/site-packages/pandas/core/groupby/ops.py:840,</span> in <span class="ni">BaseGrouper._cython_operation</span><span class="nt">(self, kind, values, how, axis, min_count, **kwargs)</span>
+<span class="g g-Whitespace">    </span><span class="mi">838</span> <span class="n">ids</span><span class="p">,</span> <span class="n">_</span><span class="p">,</span> <span class="n">_</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">group_info</span>
+<span class="g g-Whitespace">    </span><span class="mi">839</span> <span class="n">ngroups</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">ngroups</span>
+<span class="ne">--&gt; </span><span class="mi">840</span> <span class="k">return</span> <span class="n">cy_op</span><span class="o">.</span><span class="n">cython_operation</span><span class="p">(</span>
+<span class="g g-Whitespace">    </span><span class="mi">841</span>     <span class="n">values</span><span class="o">=</span><span class="n">values</span><span class="p">,</span>
+<span class="g g-Whitespace">    </span><span class="mi">842</span>     <span class="n">axis</span><span class="o">=</span><span class="n">axis</span><span class="p">,</span>
+<span class="g g-Whitespace">    </span><span class="mi">843</span>     <span class="n">min_count</span><span class="o">=</span><span class="n">min_count</span><span class="p">,</span>
+<span class="g g-Whitespace">    </span><span class="mi">844</span>     <span class="n">comp_ids</span><span class="o">=</span><span class="n">ids</span><span class="p">,</span>
+<span class="g g-Whitespace">    </span><span class="mi">845</span>     <span class="n">ngroups</span><span class="o">=</span><span class="n">ngroups</span><span class="p">,</span>
+<span class="g g-Whitespace">    </span><span class="mi">846</span>     <span class="o">**</span><span class="n">kwargs</span><span class="p">,</span>
+<span class="g g-Whitespace">    </span><span class="mi">847</span> <span class="p">)</span>
+
+<span class="nn">File ~/Documents/fin-data-analysis-text/.venv/lib/python3.9/site-packages/pandas/core/groupby/ops.py:550,</span> in <span class="ni">WrappedCythonOp.cython_operation</span><span class="nt">(self, values, axis, min_count, comp_ids, ngroups, **kwargs)</span>
+<span class="g g-Whitespace">    </span><span class="mi">546</span> <span class="bp">self</span><span class="o">.</span><span class="n">_validate_axis</span><span class="p">(</span><span class="n">axis</span><span class="p">,</span> <span class="n">values</span><span class="p">)</span>
+<span class="g g-Whitespace">    </span><span class="mi">548</span> <span class="k">if</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">values</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">):</span>
+<span class="g g-Whitespace">    </span><span class="mi">549</span>     <span class="c1"># i.e. ExtensionArray</span>
+<span class="ne">--&gt; </span><span class="mi">550</span>     <span class="k">return</span> <span class="n">values</span><span class="o">.</span><span class="n">_groupby_op</span><span class="p">(</span>
+<span class="g g-Whitespace">    </span><span class="mi">551</span>         <span class="n">how</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">how</span><span class="p">,</span>
+<span class="g g-Whitespace">    </span><span class="mi">552</span>         <span class="n">has_dropped_na</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">has_dropped_na</span><span class="p">,</span>
+<span class="g g-Whitespace">    </span><span class="mi">553</span>         <span class="n">min_count</span><span class="o">=</span><span class="n">min_count</span><span class="p">,</span>
+<span class="g g-Whitespace">    </span><span class="mi">554</span>         <span class="n">ngroups</span><span class="o">=</span><span class="n">ngroups</span><span class="p">,</span>
+<span class="g g-Whitespace">    </span><span class="mi">555</span>         <span class="n">ids</span><span class="o">=</span><span class="n">comp_ids</span><span class="p">,</span>
+<span class="g g-Whitespace">    </span><span class="mi">556</span>         <span class="o">**</span><span class="n">kwargs</span><span class="p">,</span>
+<span class="g g-Whitespace">    </span><span class="mi">557</span>     <span class="p">)</span>
+<span class="g g-Whitespace">    </span><span class="mi">559</span> <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_cython_op_ndim_compat</span><span class="p">(</span>
+<span class="g g-Whitespace">    </span><span class="mi">560</span>     <span class="n">values</span><span class="p">,</span>
+<span class="g g-Whitespace">    </span><span class="mi">561</span>     <span class="n">min_count</span><span class="o">=</span><span class="n">min_count</span><span class="p">,</span>
+   <span class="p">(</span><span class="o">...</span><span class="p">)</span>
+<span class="g g-Whitespace">    </span><span class="mi">565</span>     <span class="o">**</span><span class="n">kwargs</span><span class="p">,</span>
+<span class="g g-Whitespace">    </span><span class="mi">566</span> <span class="p">)</span>
+
+<span class="nn">File ~/Documents/fin-data-analysis-text/.venv/lib/python3.9/site-packages/pandas/core/arrays/base.py:2384,</span> in <span class="ni">ExtensionArray._groupby_op</span><span class="nt">(self, how, has_dropped_na, min_count, ngroups, ids, **kwargs)</span>
+<span class="g g-Whitespace">   </span><span class="mi">2371</span> <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">dtype</span><span class="p">,</span> <span class="n">StringDtype</span><span class="p">):</span>
+<span class="g g-Whitespace">   </span><span class="mi">2372</span>     <span class="c1"># StringArray</span>
+<span class="g g-Whitespace">   </span><span class="mi">2373</span>     <span class="k">if</span> <span class="n">op</span><span class="o">.</span><span class="n">how</span> <span class="ow">in</span> <span class="p">[</span>
+<span class="g g-Whitespace">   </span><span class="mi">2374</span>         <span class="s2">&quot;prod&quot;</span><span class="p">,</span>
+<span class="g g-Whitespace">   </span><span class="mi">2375</span>         <span class="s2">&quot;mean&quot;</span><span class="p">,</span>
+   <span class="p">(</span><span class="o">...</span><span class="p">)</span>
+<span class="g g-Whitespace">   </span><span class="mi">2382</span>         <span class="s2">&quot;skew&quot;</span><span class="p">,</span>
+<span class="g g-Whitespace">   </span><span class="mi">2383</span>     <span class="p">]:</span>
+<span class="ne">-&gt; </span><span class="mi">2384</span>         <span class="k">raise</span> <span class="ne">TypeError</span><span class="p">(</span>
+<span class="g g-Whitespace">   </span><span class="mi">2385</span>             <span class="sa">f</span><span class="s2">&quot;dtype &#39;</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">dtype</span><span class="si">}</span><span class="s2">&#39; does not support operation &#39;</span><span class="si">{</span><span class="n">how</span><span class="si">}</span><span class="s2">&#39;&quot;</span>
+<span class="g g-Whitespace">   </span><span class="mi">2386</span>         <span class="p">)</span>
+<span class="g g-Whitespace">   </span><span class="mi">2387</span>     <span class="k">if</span> <span class="n">op</span><span class="o">.</span><span class="n">how</span> <span class="ow">not</span> <span class="ow">in</span> <span class="p">[</span><span class="s2">&quot;any&quot;</span><span class="p">,</span> <span class="s2">&quot;all&quot;</span><span class="p">]:</span>
+<span class="g g-Whitespace">   </span><span class="mi">2388</span>         <span class="c1"># Fail early to avoid conversion to object</span>
+<span class="g g-Whitespace">   </span><span class="mi">2389</span>         <span class="n">op</span><span class="o">.</span><span class="n">_get_cython_function</span><span class="p">(</span><span class="n">op</span><span class="o">.</span><span class="n">kind</span><span class="p">,</span> <span class="n">op</span><span class="o">.</span><span class="n">how</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">dtype</span><span class="p">(</span><span class="nb">object</span><span class="p">),</span> <span class="kc">False</span><span class="p">)</span>
+
+<span class="ne">TypeError</span>: dtype &#39;string&#39; does not support operation &#39;mean&#39;
+</pre></div>
+</div>
+</div>
 </div>
 <p>We are starting with the <strong>nc</strong> DataFrame and grouping by <em>type</em>. I am calculating the mean of <em>beer_count</em>. This actually creates a <strong>series</strong>, not a DataFrame. You can’t style a series and make it look good in your output. So, I use <code class="docutils literal notranslate"><span class="pre">to.frame()</span></code> to put it back into a DataFrame that can be styled. I then use different style functions on that DataFrame. Both <code class="docutils literal notranslate"><span class="pre">format</span></code> and <code class="docutils literal notranslate"><span class="pre">set_caption</span></code> are functions found as part of <code class="docutils literal notranslate"><span class="pre">style</span></code>.</p>
 <p>I can also use the <code class="docutils literal notranslate"><span class="pre">.agg</span></code> function in this way. I’ll again pass the list of <code class="docutils literal notranslate"><span class="pre">numpy</span></code> functions for <code class="docutils literal notranslate"><span class="pre">.agg</span></code> to use when summarizing the <em>beer_count</em> variable. Now, note that <code class="docutils literal notranslate"><span class="pre">.agg</span></code> creates a DataFrame, not a series, so I don’t need the <code class="docutils literal notranslate"><span class="pre">to.frame()</span></code> in there to get back to a DataFrame for styling.</p>
@@ -1606,7 +1516,7 @@ Name: beer_count, dtype: float64
 </div>
 </section>
 <section id="grouping-by-more-than-one-variable">
-<h3>Grouping by more than one variable<a class="headerlink" href="#grouping-by-more-than-one-variable" title="Permalink to this headline">#</a></h3>
+<h3>Grouping by more than one variable<a class="headerlink" href="#grouping-by-more-than-one-variable" title="Link to this heading">#</a></h3>
 <p>Let’s go back to just the mean. I’ll group by <strong>two variables</strong> now. We give <code class="docutils literal notranslate"><span class="pre">.groupby()</span></code> a <strong>list</strong> of what to group by. Note the square brackets.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -1881,7 +1791,7 @@ Name: beer_count, dtype: float64
 </div>
 </section>
 <section id="groupby-objects">
-<h3>GroupBy objects<a class="headerlink" href="#groupby-objects" title="Permalink to this headline">#</a></h3>
+<h3>GroupBy objects<a class="headerlink" href="#groupby-objects" title="Link to this heading">#</a></h3>
 <p>We’ve been splitting our data into groups. Let’s look at <code class="docutils literal notranslate"><span class="pre">GroupBy</span></code> objects themselves. These are created by the <code class="docutils literal notranslate"><span class="pre">groupby</span></code> function. Our textbook discusses these, starting pg. 130. Essentially, it’s another way of doing what we’ve already done in these notes.</p>
 <p>Let’s create a <code class="docutils literal notranslate"><span class="pre">GroupBy</span></code> object with the brewery data and take an look.</p>
 <div class="cell docutils container">
@@ -2052,7 +1962,7 @@ dtype: int64
 </section>
 </section>
 <section id="outliers">
-<h2>Outliers<a class="headerlink" href="#outliers" title="Permalink to this headline">#</a></h2>
+<h2>Outliers<a class="headerlink" href="#outliers" title="Link to this heading">#</a></h2>
 <p>Our summary statistics can give us a sense of the <strong>distribution of the data</strong>. We’ll be plotting the actual distributions in the coming chapters. Sometimes, we might want to work with just a portion of the data, after removing some extreme examples.</p>
 <p>We’ll go back to the original <em>nc</em> data, before we grouped it. I’ll <strong>mask</strong>, or <strong>screen</strong>, for only active breweries and then only keep the breweries with a beer count less than the 95th percentile threshold.</p>
 <div class="cell docutils container">
@@ -2222,7 +2132,7 @@ dtype: int64
 </div>
 </section>
 <section id="skimpy">
-<h2>skimpy<a class="headerlink" href="#skimpy" title="Permalink to this headline">#</a></h2>
+<h2>skimpy<a class="headerlink" href="#skimpy" title="Link to this heading">#</a></h2>
 <p>Adding in some new libraries really lets us see why using something like Python can improve our workflow. The <code class="docutils literal notranslate"><span class="pre">skimpy</span></code> library gives us a nice summary of our data. We can install <code class="docutils literal notranslate"><span class="pre">skimpy</span></code> via Anaconda. To use this package, you’ll need to type the following in the terminal (Mac) or command prompt (Windows). You’ll need to restart VS Code.</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">python</span> <span class="o">-</span><span class="n">m</span> <span class="n">pip</span> <span class="n">install</span> <span class="n">skimpy</span>
 </pre></div>
@@ -2232,8 +2142,8 @@ dtype: int64
 <p>You can read about this package <a class="reference external" href="https://aeturrell.github.io/skimpy/">here</a>.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
-<span class="kn">from</span> <span class="nn">skimpy</span> <span class="kn">import</span> <span class="n">skim</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">pandas</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">pd</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">skimpy</span><span class="w"> </span><span class="kn">import</span> <span class="n">skim</span>
 
 <span class="n">uw</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s1">&#39;https://github.com/aaiken1/fin-data-analysis-python/raw/main/data/zestimatesAndCutoffs_byGeo_uw_2017-10-10_forDataPage.csv&#39;</span><span class="p">)</span>
 
@@ -2311,7 +2221,7 @@ dtype: int64
 </div>
 </section>
 <section id="ydata-profiling">
-<h2>ydata profiling<a class="headerlink" href="#ydata-profiling" title="Permalink to this headline">#</a></h2>
+<h2>ydata profiling<a class="headerlink" href="#ydata-profiling" title="Link to this heading">#</a></h2>
 <p>If you want something more in-depth, try <code class="docutils literal notranslate"><span class="pre">ydata-profiling</span></code>. We can install <code class="docutils literal notranslate"><span class="pre">ydata-profiling</span></code> using pip. To use this package, you’ll need to type the following in the terminal (Mac) or command prompt (Windows). You’ll need to restart VS Code.</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">python</span> <span class="o">-</span><span class="n">m</span> <span class="n">pip</span> <span class="n">install</span> <span class="n">ydata_profiling</span>
 </pre></div>
@@ -2320,7 +2230,7 @@ dtype: int64
 <p>Let’s add the <code class="docutils literal notranslate"><span class="pre">import</span></code> needed to bring <code class="docutils literal notranslate"><span class="pre">ProfileReport</span></code> from <code class="docutils literal notranslate"><span class="pre">pandas_profiling</span></code>.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">ydata_profiling</span> <span class="kn">import</span> <span class="n">ProfileReport</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">ydata_profiling</span><span class="w"> </span><span class="kn">import</span> <span class="n">ProfileReport</span>
 </pre></div>
 </div>
 </div>
@@ -2357,13 +2267,7 @@ dtype: int64
 </div>
 </div>
 <div class="cell_output docutils container">
-<script type="application/vnd.jupyter.widget-view+json">
-{"model_id": "d5f136ad5c864d49aa2dadbbc9880d56", "version_major": 2, "version_minor": 0}
-</script><script type="application/vnd.jupyter.widget-view+json">
-{"model_id": "1584eb7347f445a0937c18ac3cbbe834", "version_major": 2, "version_minor": 0}
-</script><script type="application/vnd.jupyter.widget-view+json">
-{"model_id": "0495c3f5a892474b9adbc48648c9f980", "version_major": 2, "version_minor": 0}
-</script><div class="output text_html"><iframe width="100%" height="800px" srcdoc="&lt;!doctype html&gt;&lt;html lang=en&gt;&lt;head&gt;&lt;meta charset=utf-8&gt;&lt;meta name=viewport content=&quot;width=device-width, initial-scale=1, shrink-to-fit=no&quot;&gt;&lt;meta name=description content=&quot;Profile report generated by YData! Visit us at https://ydata.ai&quot;&gt;&lt;meta name=author content=&quot;YData and the open source community.&quot;&gt;&lt;meta name=generator content=&quot;Pandas Profiling vv4.0.0&quot;&gt;&lt;meta name=url content=https://github.com/ydataai/ydata-profiling&gt;&lt;meta name=date content=&quot;2023-02-21 17:24:21.845197&quot;&gt;&lt;title&gt;Zillow Housing Data for Flood Risk&lt;/title&gt;&lt;style&gt;
+<script type="application/vnd.jupyter.widget-view+json">{"model_id": "d5f136ad5c864d49aa2dadbbc9880d56", "version_major": 2, "version_minor": 0}</script><script type="application/vnd.jupyter.widget-view+json">{"model_id": "1584eb7347f445a0937c18ac3cbbe834", "version_major": 2, "version_minor": 0}</script><script type="application/vnd.jupyter.widget-view+json">{"model_id": "0495c3f5a892474b9adbc48648c9f980", "version_major": 2, "version_minor": 0}</script><div class="output text_html"><iframe width="100%" height="800px" srcdoc="&lt;!doctype html&gt;&lt;html lang=en&gt;&lt;head&gt;&lt;meta charset=utf-8&gt;&lt;meta name=viewport content=&quot;width=device-width, initial-scale=1, shrink-to-fit=no&quot;&gt;&lt;meta name=description content=&quot;Profile report generated by YData! Visit us at https://ydata.ai&quot;&gt;&lt;meta name=author content=&quot;YData and the open source community.&quot;&gt;&lt;meta name=generator content=&quot;Pandas Profiling vv4.0.0&quot;&gt;&lt;meta name=url content=https://github.com/ydataai/ydata-profiling&gt;&lt;meta name=date content=&quot;2023-02-21 17:24:21.845197&quot;&gt;&lt;title&gt;Zillow Housing Data for Flood Risk&lt;/title&gt;&lt;style&gt;
 /*!
  * Bootstrap v3.3.7 (http://getbootstrap.com)
  * Copyright 2011-2016 Twitter, Inc.
@@ -23514,7 +23418,7 @@ $(&quot;select#variables-dropdown&quot;).on(&quot;change&quot;, function (e) {
             mode: "python"
         },
         kernelOptions: {
-            kernelName: "python3",
+            name: "python3",
             path: "./chapters"
         },
         predefinedOutput: true
@@ -23522,49 +23426,105 @@ $(&quot;select#variables-dropdown&quot;).on(&quot;change&quot;, function (e) {
     </script>
     <script>kernelName = 'python3'</script>
 
-              </div>
+                </article>
               
-            </main>
-            <footer class="footer-article noprint">
-                
-    <!-- Previous / next buttons -->
-<div class='prev-next-area'>
-    <a class='left-prev' id="prev-link" href="4_2_cleaning_data.html" title="previous page">
-        <i class="fas fa-angle-left"></i>
-        <div class="prev-next-info">
-            <p class="prev-next-subtitle">previous</p>
-            <p class="prev-next-title">Cleaning our data</p>
-        </div>
+
+              
+              
+              
+              
+                <footer class="prev-next-footer d-print-none">
+                  
+<div class="prev-next-area">
+    <a class="left-prev"
+       href="4_2_cleaning_data.html"
+       title="previous page">
+      <i class="fa-solid fa-angle-left"></i>
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">previous</p>
+        <p class="prev-next-title">Cleaning our data</p>
+      </div>
     </a>
-    <a class='right-next' id="next-link" href="4_4_merge_shape.html" title="next page">
-    <div class="prev-next-info">
+    <a class="right-next"
+       href="4_4_merge_shape.html"
+       title="next page">
+      <div class="prev-next-info">
         <p class="prev-next-subtitle">next</p>
         <p class="prev-next-title">Merging and reshaping data</p>
-    </div>
-    <i class="fas fa-angle-right"></i>
+      </div>
+      <i class="fa-solid fa-angle-right"></i>
     </a>
 </div>
-            </footer>
-        </div>
-    </div>
-    <div class="footer-content row">
-        <footer class="col footer"><p>
+                </footer>
+              
+            </div>
+            
+            
+              
+                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+
+  <div class="sidebar-secondary-item">
+  <div class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> Contents
+  </div>
+  <nav class="bd-toc-nav page-toc">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#set-up">Set-up</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#exploring-nc-breweries">Exploring NC breweries</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#group-and-agg">Group and .agg</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#grouping-by-more-than-one-variable">Grouping by more than one variable</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#groupby-objects">GroupBy objects</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#outliers">Outliers</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#skimpy">skimpy</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#ydata-profiling">ydata profiling</a></li>
+</ul>
+  </nav></div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+<div class="bd-footer-content__inner container">
   
-    By Prof. Adam Aiken<br/>
-  
-</p>
-        </footer>
-    </div>
+  <div class="footer-item">
     
+<p class="component-author">
+By Prof. Adam Aiken
+</p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
 </div>
+          </footer>
+        
 
-
-      </div>
+      </main>
     </div>
+  </div>
   
   <!-- Scripts loaded after <body> so the DOM is not blocked -->
-  <script src="../_static/scripts/pydata-sphinx-theme.js?digest=1999514e3f237ded88cf"></script>
+  <script src="../_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b"></script>
+<script src="../_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b"></script>
 
-
+  <footer class="bd-footer">
+  </footer>
   </body>
 </html>

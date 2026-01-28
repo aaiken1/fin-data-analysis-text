@@ -1,115 +1,180 @@
 
 <!DOCTYPE html>
 
-<html>
+
+<html lang="en" data-content_root="../" >
+
   <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
     <title>Monte Carlo and portfolios &#8212; Data Analysis in Finance</title>
-    
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
+  </script>
+  
   <!-- Loaded before other Sphinx assets -->
-  <link href="../_static/styles/theme.css?digest=1999514e3f237ded88cf" rel="stylesheet">
-<link href="../_static/styles/pydata-sphinx-theme.css?digest=1999514e3f237ded88cf" rel="stylesheet">
+  <link href="../_static/styles/theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="../_static/styles/bootstrap.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="../_static/styles/pydata-sphinx-theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
 
-    
-  <link rel="stylesheet"
-    href="../_static/vendor/fontawesome/5.13.0/css/all.min.css">
-  <link rel="preload" as="font" type="font/woff2" crossorigin
-    href="../_static/vendor/fontawesome/5.13.0/webfonts/fa-solid-900.woff2">
-  <link rel="preload" as="font" type="font/woff2" crossorigin
-    href="../_static/vendor/fontawesome/5.13.0/webfonts/fa-brands-400.woff2">
+  
+  <link href="../_static/vendor/fontawesome/6.5.2/css/all.min.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.2/webfonts/fa-solid-900.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.2/webfonts/fa-brands-400.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.2/webfonts/fa-regular-400.woff2" />
 
-    <link rel="stylesheet" type="text/css" href="../_static/pygments.css" />
-    <link rel="stylesheet" href="../_static/styles/sphinx-book-theme.css?digest=5115cc725059bd94278eecd172e13a965bf8f5a9" type="text/css" />
-    <link rel="stylesheet" type="text/css" href="../_static/togglebutton.css" />
-    <link rel="stylesheet" type="text/css" href="../_static/copybutton.css" />
-    <link rel="stylesheet" type="text/css" href="../_static/mystnb.css" />
-    <link rel="stylesheet" type="text/css" href="../_static/sphinx-thebe.css" />
-    <link rel="stylesheet" type="text/css" href="../_static/custom.css" />
-    <link rel="stylesheet" type="text/css" href="../_static/custom.css" />
-    <link rel="stylesheet" type="text/css" href="../_static/design-style.b7bb847fb20b106c3d81b95245e65545.min.css" />
-    
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=03e43079" />
+    <link rel="stylesheet" type="text/css" href="../_static/styles/sphinx-book-theme.css?v=eba8b062" />
+    <link rel="stylesheet" type="text/css" href="../_static/togglebutton.css?v=9c3e77be" />
+    <link rel="stylesheet" type="text/css" href="../_static/copybutton.css?v=76b2166b" />
+    <link rel="stylesheet" type="text/css" href="../_static/mystnb.8ecb98da25f57f5357bf6f572d296f466b2cfe2517ffebfabe82451661e28f02.css?v=6644e6bb" />
+    <link rel="stylesheet" type="text/css" href="../_static/sphinx-thebe.css?v=4fa983c6" />
+    <link rel="stylesheet" type="text/css" href="../_static/sphinx-design.min.css?v=95c83b7e" />
+    <link rel="stylesheet" type="text/css" href="../_static/custom.css?v=b747247e" />
+  
   <!-- Pre-loaded scripts that we'll load fully later -->
-  <link rel="preload" as="script" href="../_static/scripts/pydata-sphinx-theme.js?digest=1999514e3f237ded88cf">
+  <link rel="preload" as="script" href="../_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b" />
+<link rel="preload" as="script" href="../_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b" />
+  <script src="../_static/vendor/fontawesome/6.5.2/js/all.min.js?digest=dfe6caa3a7d634c4db9b"></script>
 
-    <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
-    <script src="../_static/jquery.js"></script>
-    <script src="../_static/underscore.js"></script>
-    <script src="../_static/doctools.js"></script>
-    <script src="../_static/clipboard.min.js"></script>
-    <script src="../_static/copybutton.js"></script>
-    <script src="../_static/scripts/sphinx-book-theme.js?digest=9c920249402e914e316237a7dbc6769907cce411"></script>
+    <script src="../_static/documentation_options.js?v=9eb32ce0"></script>
+    <script src="../_static/doctools.js?v=9a2dae69"></script>
+    <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../_static/clipboard.min.js?v=a7894cd8"></script>
+    <script src="../_static/copybutton.js?v=f281be69"></script>
+    <script src="../_static/scripts/sphinx-book-theme.js?v=887ef09a"></script>
     <script>let toggleHintShow = 'Click to show';</script>
     <script>let toggleHintHide = 'Click to hide';</script>
     <script>let toggleOpenOnPrint = 'true';</script>
-    <script src="../_static/togglebutton.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
-    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown, .tag_hide_input div.cell_input, .tag_hide-input div.cell_input, .tag_hide_output div.cell_output, .tag_hide-output div.cell_output, .tag_hide_cell.cell, .tag_hide-cell.cell';</script>
-    <script src="../_static/design-tabs.js"></script>
-    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"
-const thebe_selector = ".thebe,.cell"
-const thebe_selector_input = "pre"
-const thebe_selector_output = ".output, .cell_output"
-</script>
-    <script async="async" src="../_static/sphinx-thebe.js"></script>
+    <script src="../_static/togglebutton.js?v=1ae7504c"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script src="../_static/design-tabs.js?v=36754332"></script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script async="async" src="../_static/sphinx-thebe.js?v=c100c467"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
     <script>window.MathJax = {"options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
     <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'chapters/15_monte_carlo';</script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
     <link rel="next" title="Decision Trees" href="16_decision_trees.html" />
     <link rel="prev" title="Risk management" href="14_risk_mang.html" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <meta name="docsearch:language" content="None">
-    
-
-    <!-- Google Analytics -->
-    
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
   </head>
-  <body data-spy="scroll" data-target="#bd-toc-nav" data-offset="60">
-<!-- Checkboxes to toggle the left sidebar -->
-<input type="checkbox" class="sidebar-toggle" name="__navigation" id="__navigation" aria-label="Toggle navigation sidebar">
-<label class="overlay overlay-navbar" for="__navigation">
-    <div class="visually-hidden">Toggle navigation sidebar</div>
-</label>
-<!-- Checkboxes to toggle the in-page toc -->
-<input type="checkbox" class="sidebar-toggle" name="__page-toc" id="__page-toc" aria-label="Toggle in-page Table of Contents">
-<label class="overlay overlay-pagetoc" for="__page-toc">
-    <div class="visually-hidden">Toggle in-page Table of Contents</div>
-</label>
-<!-- Headers at the top -->
-<div class="announcement header-item noprint"></div>
-<div class="header header-item noprint"></div>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
 
-    
-    <div class="container-fluid" id="banner"></div>
+  
+  
+  <div id="pst-skip-link" class="skip-link d-print-none"><a href="#main-content">Skip to main content</a></div>
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>Back to top</button>
 
-    
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-primary-sidebar-checkbox"/>
+  <label class="overlay overlay-primary" for="pst-primary-sidebar-checkbox"></label>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-secondary-sidebar-checkbox"/>
+  <label class="overlay overlay-secondary" for="pst-secondary-sidebar-checkbox"></label>
+  
+  <div class="search-button__wrapper">
+    <div class="search-button__overlay"></div>
+    <div class="search-button__search-container">
+<form class="bd-search d-flex align-items-center"
+      action="../search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         id="search-input"
+         placeholder="Search this book..."
+         aria-label="Search this book..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form></div>
+  </div>
 
-    <div class="container-xl">
-      <div class="row">
-          
-<!-- Sidebar -->
-<div class="bd-sidebar noprint" id="site-navigation">
-    <div class="bd-sidebar__content">
-        <div class="bd-sidebar__top"><div class="navbar-brand-box">
-    <a class="navbar-brand text-wrap" href="../index.html">
+  <div class="pst-async-banner-revealer d-none">
+  <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
+</div>
+
+  
+    <header class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
+    </header>
+  
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
       
-        <!-- `logo` is deprecated in Sphinx 4.0, so remove this when we stop supporting 3 -->
+      
+      
+      <div class="bd-sidebar-primary bd-sidebar">
         
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+    
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+
+  
+    
+  
+
+<a class="navbar-brand logo" href="../intro.html">
+  
+  
+  
+  
+  
+    
+    
       
-      
-      <img src="../_static/cat.png" class="logo" alt="logo">
-      
-      
-      <h1 class="site-logo" id="site-title">Data Analysis in Finance</h1>
-      
-    </a>
-</div><form class="bd-search d-flex align-items-center" action="../search.html" method="get">
-  <i class="icon fas fa-search"></i>
-  <input type="search" class="form-control" name="q" id="search-input" placeholder="Search this book..." aria-label="Search this book..." autocomplete="off" >
-</form><nav class="bd-links" id="bd-docs-nav" aria-label="Main">
-    <div class="bd-toc-item active">
+    
+    
+    <img src="../_static/cat.png" class="logo__image only-light" alt="Data Analysis in Finance - Home"/>
+    <script>document.write(`<img src="../_static/cat.png" class="logo__image only-dark" alt="Data Analysis in Finance - Home"/>`);</script>
+  
+  
+</a></div>
+        <div class="sidebar-primary-item">
+
+ <script>
+ document.write(`
+   <button class="btn search-button-field search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass"></i>
+    <span class="search-button__default-text">Search</span>
+    <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+   </button>
+ `);
+ </script></div>
+        <div class="sidebar-primary-item"><nav class="bd-links bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item navbar-nav active">
         
         <ul class="nav bd-sidenav bd-sidenav__home-link">
             <li class="toctree-l1">
@@ -118,474 +183,258 @@ const thebe_selector_output = ".output, .cell_output"
                 </a>
             </li>
         </ul>
-        <p aria-level="2" class="caption" role="heading">
- <span class="caption-text">
-  Getting Started
- </span>
-</p>
+        <p aria-level="2" class="caption" role="heading"><span class="caption-text">Getting Started</span></p>
 <ul class="nav bd-sidenav">
- <li class="toctree-l1">
-  <a class="reference internal" href="1_finpyth.html">
-   Why Python and finance?
-  </a>
- </li>
- <li class="toctree-l1 has-children">
-  <a class="reference internal" href="2_intro.html">
-   Python set-up
-   <a id="python_set-up">
-   </a>
-  </a>
-  <input class="toctree-checkbox" id="toctree-checkbox-1" name="toctree-checkbox-1" type="checkbox"/>
-  <label for="toctree-checkbox-1">
-   <i class="fas fa-chevron-down">
-   </i>
-  </label>
-  <ul>
-   <li class="toctree-l2">
-    <a class="reference internal" href="2_0_git.html">
-     Using Github and Github Codespaces
-    </a>
-   </li>
-   <li class="toctree-l2">
-    <a class="reference internal" href="2_1_markdown.html">
-     Markdown
-    </a>
-   </li>
-   <li class="toctree-l2">
-    <a class="reference internal" href="2_2_packages.html">
-     Packages
-    </a>
-   </li>
-   <li class="toctree-l2">
-    <a class="reference internal" href="2_3_style.html">
-     Code style, PEP8, and linting
-    </a>
-   </li>
-   <li class="toctree-l2">
-    <a class="reference internal" href="2_4_using_ai.html">
-     Using AI Coding Tools
-    </a>
-   </li>
-  </ul>
- </li>
+<li class="toctree-l1"><a class="reference internal" href="1_finpyth.html">Why Python and finance?</a></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="2_intro.html">Python set-up <a id="python_set-up"></a></a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="2_0_git.html">Using Github and Github Codespaces</a></li>
+<li class="toctree-l2"><a class="reference internal" href="2_1_markdown.html">Markdown</a></li>
+<li class="toctree-l2"><a class="reference internal" href="2_2_packages.html">Packages</a></li>
+<li class="toctree-l2"><a class="reference internal" href="2_3_style.html">Code style, PEP8, and linting</a></li>
+<li class="toctree-l2"><a class="reference internal" href="2_4_using_ai.html">Using AI Coding Tools</a></li>
 </ul>
-<p aria-level="2" class="caption" role="heading">
- <span class="caption-text">
-  The Basics
- </span>
-</p>
+</details></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">The Basics</span></p>
 <ul class="nav bd-sidenav">
- <li class="toctree-l1 has-children">
-  <a class="reference internal" href="3_intro.html">
-   CompSci 101: Types, control, and numpy arrays
-  </a>
-  <input class="toctree-checkbox" id="toctree-checkbox-2" name="toctree-checkbox-2" type="checkbox"/>
-  <label for="toctree-checkbox-2">
-   <i class="fas fa-chevron-down">
-   </i>
-  </label>
-  <ul>
-   <li class="toctree-l2">
-    <a class="reference internal" href="3_0_comp101.html">
-     The Basics
-    </a>
-   </li>
-   <li class="toctree-l2">
-    <a class="reference internal" href="3_1_numpy.html">
-     Numpy and arrays
-    </a>
-   </li>
-  </ul>
- </li>
- <li class="toctree-l1 has-children">
-  <a class="reference internal" href="4_intro.html">
-   Working with data
-  </a>
-  <input class="toctree-checkbox" id="toctree-checkbox-3" name="toctree-checkbox-3" type="checkbox"/>
-  <label for="toctree-checkbox-3">
-   <i class="fas fa-chevron-down">
-   </i>
-  </label>
-  <ul>
-   <li class="toctree-l2">
-    <a class="reference internal" href="4_0_dataframes.html">
-     Importing data
-    </a>
-   </li>
-   <li class="toctree-l2">
-    <a class="reference internal" href="4_1_pandas.html">
-     pandas
-    </a>
-   </li>
-   <li class="toctree-l2">
-    <a class="reference internal" href="4_2_cleaning_data.html">
-     Cleaning our data
-    </a>
-   </li>
-   <li class="toctree-l2">
-    <a class="reference internal" href="4_3_eda.html">
-     Exploratory data analysis (EDA)
-    </a>
-   </li>
-   <li class="toctree-l2">
-    <a class="reference internal" href="4_4_merge_shape.html">
-     Merging and reshaping data
-    </a>
-   </li>
-   <li class="toctree-l2">
-    <a class="reference internal" href="4_5_sql.html">
-     Using SQL in Python
-    </a>
-   </li>
-   <li class="toctree-l2">
-    <a class="reference internal" href="4_6_polar.html">
-     polars: A fast, fancy pandas alternative
-    </a>
-   </li>
-  </ul>
- </li>
- <li class="toctree-l1 has-children">
-  <a class="reference internal" href="5_intro.html">
-   Data visualization
-  </a>
-  <input class="toctree-checkbox" id="toctree-checkbox-4" name="toctree-checkbox-4" type="checkbox"/>
-  <label for="toctree-checkbox-4">
-   <i class="fas fa-chevron-down">
-   </i>
-  </label>
-  <ul>
-   <li class="toctree-l2">
-    <a class="reference internal" href="5_0_seaborn.html">
-     seaborn
-    </a>
-   </li>
-   <li class="toctree-l2">
-    <a class="reference internal" href="5_1_matplotlib.html">
-     matplotlib
-    </a>
-   </li>
-   <li class="toctree-l2">
-    <a class="reference internal" href="5_2_plotly.html">
-     plotly
-    </a>
-   </li>
-  </ul>
- </li>
- <li class="toctree-l1">
-  <a class="reference internal" href="6_nasdaq_api.html">
-   Using APIs for Data Imports
-   <a id="btc-sim">
-   </a>
-  </a>
- </li>
- <li class="toctree-l1">
-  <a class="reference internal" href="7_financial_ts.html">
-   Financial time series
-   <a id="financial-time-series">
-   </a>
-  </a>
- </li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="3_intro.html">CompSci 101: Types, control, and numpy arrays</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="3_0_comp101.html">The Basics</a></li>
+<li class="toctree-l2"><a class="reference internal" href="3_1_numpy.html">Numpy and arrays</a></li>
 </ul>
-<p aria-level="2" class="caption" role="heading">
- <span class="caption-text">
-  Applications
- </span>
-</p>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="4_intro.html">Working with data</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="4_0_dataframes.html">Importing data</a></li>
+<li class="toctree-l2"><a class="reference internal" href="4_1_pandas.html">pandas</a></li>
+<li class="toctree-l2"><a class="reference internal" href="4_2_cleaning_data.html">Cleaning our data</a></li>
+<li class="toctree-l2"><a class="reference internal" href="4_3_eda.html">Exploratory data analysis (EDA)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="4_4_merge_shape.html">Merging and reshaping data</a></li>
+<li class="toctree-l2"><a class="reference internal" href="4_5_sql.html">Using SQL in Python</a></li>
+<li class="toctree-l2"><a class="reference internal" href="4_6_polar.html">polars: A fast, fancy pandas alternative</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="5_intro.html">Data visualization</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="5_0_seaborn.html">seaborn</a></li>
+<li class="toctree-l2"><a class="reference internal" href="5_1_matplotlib.html">matplotlib</a></li>
+<li class="toctree-l2"><a class="reference internal" href="5_2_plotly.html">plotly</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="6_intro.html">Data APIs</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="6_1_fred.html">FRED API and pandas-datareader</a></li>
+<li class="toctree-l2"><a class="reference internal" href="6_2_nasdaq.html">NASDAQ Data Link</a></li>
+<li class="toctree-l2"><a class="reference internal" href="6_3_databento.html">Databento</a></li>
+<li class="toctree-l2"><a class="reference internal" href="6_4_wrds.html">WRDS (Wharton Research Data Services)</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1"><a class="reference internal" href="7_financial_ts.html">Financial time series <a id="financial-time-series"></a></a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Applications</span></p>
 <ul class="current nav bd-sidenav">
- <li class="toctree-l1">
-  <a class="reference internal" href="8_port_math.html">
-   Essential portfolio math
-  </a>
- </li>
- <li class="toctree-l1">
-  <a class="reference internal" href="9_portfolio_opt.html">
-   Portfolio optimization
-  </a>
- </li>
- <li class="toctree-l1">
-  <a class="reference internal" href="10_unsupervised_learning.html">
-   Machine learning and unsupervised learning
-   <a id="unsupervised_learning">
-   </a>
-  </a>
- </li>
- <li class="toctree-l1">
-  <a class="reference internal" href="11_factor_models.html">
-   Factor models
-   <a id="factor_models">
-   </a>
-  </a>
- </li>
- <li class="toctree-l1">
-  <a class="reference internal" href="12_regression_topics.html">
-   Supervised machine learning and regression topics
-   <a id="regression">
-   </a>
-  </a>
- </li>
- <li class="toctree-l1">
-  <a class="reference internal" href="13_logit_credit.html">
-   Logit models
-  </a>
- </li>
- <li class="toctree-l1">
-  <a class="reference internal" href="14_risk_mang.html">
-   Risk management
-  </a>
- </li>
- <li class="toctree-l1 current active">
-  <a class="current reference internal" href="#">
-   Monte Carlo and portfolios
-  </a>
- </li>
- <li class="toctree-l1">
-  <a class="reference internal" href="16_decision_trees.html">
-   Decision Trees
-  </a>
- </li>
- <li class="toctree-l1">
-  <a class="reference internal" href="17_options.html">
-   Option basics
-  </a>
- </li>
- <li class="toctree-l1">
-  <a class="reference internal" href="18_trading_bt.html">
-   Trading Strategies and the BT Package
-  </a>
- </li>
+<li class="toctree-l1"><a class="reference internal" href="8_port_math.html">Essential portfolio math</a></li>
+<li class="toctree-l1"><a class="reference internal" href="9_portfolio_opt.html">Portfolio optimization</a></li>
+<li class="toctree-l1"><a class="reference internal" href="10_unsupervised_learning.html">Machine learning and unsupervised learning <a id="unsupervised_learning"></a></a></li>
+<li class="toctree-l1"><a class="reference internal" href="11_factor_models.html">Factor models <a id="factor_models"></a></a></li>
+<li class="toctree-l1"><a class="reference internal" href="12_regression_topics.html">Supervised machine learning and regression topics <a id="regression"></a></a></li>
+<li class="toctree-l1"><a class="reference internal" href="13_logit_credit.html">Logit models</a></li>
+<li class="toctree-l1"><a class="reference internal" href="14_risk_mang.html">Risk management</a></li>
+<li class="toctree-l1 current active"><a class="current reference internal" href="#">Monte Carlo and portfolios</a></li>
+<li class="toctree-l1"><a class="reference internal" href="16_decision_trees.html">Decision Trees</a></li>
+<li class="toctree-l1"><a class="reference internal" href="17_options.html">Option basics</a></li>
+<li class="toctree-l1"><a class="reference internal" href="18_trading_bt.html">Trading Strategies and the BT Package</a></li>
 </ul>
 
     </div>
 </nav></div>
-        <div class="bd-sidebar__bottom">
-             <!-- To handle the deprecated key -->
-            
-            <div class="navbar_extra_footer">
-            Powered by <a href="https://jupyterbook.org">Jupyter Book</a>
-            </div>
-            
-        </div>
     </div>
-    <div id="rtd-footer-container"></div>
-</div>
-
-
-          
-
-
-          
-<!-- A tiny helper pixel to detect if we've scrolled -->
-<div class="sbt-scroll-pixel-helper"></div>
-<!-- Main content -->
-<div class="col py-0 content-container">
-    
-    <div class="header-article row sticky-top noprint">
-        
-
-
-
-<div class="col py-1 d-flex header-article-main">
-    <div class="header-article__left">
-        
-        <label for="__navigation"
-  class="headerbtn"
-  data-toggle="tooltip"
-data-placement="right"
-title="Toggle navigation"
->
   
-
-<span class="headerbtn__icon-container">
-  <i class="fas fa-bars"></i>
-  </span>
-
-</label>
-
-        
-    </div>
-    <div class="header-article__right">
-<div class="menu-dropdown menu-dropdown-launch-buttons">
-  <button class="headerbtn menu-dropdown__trigger"
-      aria-label="Launch interactive content">
-      <i class="fas fa-rocket"></i>
-  </button>
-  <div class="menu-dropdown__content">
-    <ul>
-      <li>
-        <a href="https://mybinder.org/v2/gh/executablebooks/jupyter-book/master?urlpath=tree/docs/chapters/15_monte_carlo.ipynb"
-   class="headerbtn"
-   data-toggle="tooltip"
-data-placement="left"
-title="Launch on Binder"
->
   
-
-<span class="headerbtn__icon-container">
-  
-    <img src="../_static/images/logo_binder.svg">
-  </span>
-<span class="headerbtn__text-container">Binder</span>
-</a>
-
-      </li>
-      
-    </ul>
+  <div class="sidebar-primary-items__end sidebar-primary__section">
   </div>
-</div>
+  
+  <div id="rtd-footer-container"></div>
 
-<button onclick="toggleFullScreen()"
-  class="headerbtn"
-  data-toggle="tooltip"
-data-placement="bottom"
-title="Fullscreen mode"
+
+      </div>
+      
+      <main id="main-content" class="bd-main" role="main">
+        
+        
+
+<div class="sbt-scroll-pixel-helper"></div>
+
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article d-print-none">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item"><button class="sidebar-toggle primary-toggle btn btn-sm" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <span class="fa-solid fa-bars"></span>
+</button></div>
+      
+    </div>
+  
+  
+    <div class="header-article-items__end">
+      
+        <div class="header-article-item">
+
+<div class="article-header-buttons">
+
+
+<a href="https://github.com/executablebooks/jupyter-book" target="_blank"
+   class="btn btn-sm btn-source-repository-button"
+   title="Source repository"
+   data-bs-placement="bottom" data-bs-toggle="tooltip"
 >
   
 
-<span class="headerbtn__icon-container">
-  <i class="fas fa-expand"></i>
-  </span>
-
-</button>
-<a href="https://github.com/executablebooks/jupyter-book"
-   class="headerbtn"
-   data-toggle="tooltip"
-data-placement="bottom"
-title="Source repository"
->
-  
-
-<span class="headerbtn__icon-container">
+<span class="btn__icon-container">
   <i class="fab fa-github"></i>
   </span>
 
 </a>
 
-<div class="menu-dropdown menu-dropdown-download-buttons">
-  <button class="headerbtn menu-dropdown__trigger"
-      aria-label="Download this page">
-      <i class="fas fa-download"></i>
+
+
+
+
+
+<div class="dropdown dropdown-download-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Download this page">
+    <i class="fas fa-download"></i>
   </button>
-  <div class="menu-dropdown__content">
-    <ul>
-      <li>
-        <a href="../_sources/chapters/15_monte_carlo.ipynb"
-   class="headerbtn"
-   data-toggle="tooltip"
-data-placement="left"
-title="Download source file"
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="../_sources/chapters/15_monte_carlo.ipynb" target="_blank"
+   class="btn btn-sm btn-download-source-button dropdown-item"
+   title="Download source file"
+   data-bs-placement="left" data-bs-toggle="tooltip"
 >
   
 
-<span class="headerbtn__icon-container">
+<span class="btn__icon-container">
   <i class="fas fa-file"></i>
   </span>
-<span class="headerbtn__text-container">.ipynb</span>
+<span class="btn__text-container">.ipynb</span>
 </a>
-
-      </li>
+</li>
+      
+      
+      
       
       <li>
-        
-<button onclick="printPdf(this)"
-  class="headerbtn"
-  data-toggle="tooltip"
-data-placement="left"
-title="Print to PDF"
+<button onclick="window.print()"
+  class="btn btn-sm btn-download-pdf-button dropdown-item"
+  title="Print to PDF"
+  data-bs-placement="left" data-bs-toggle="tooltip"
 >
   
 
-<span class="headerbtn__icon-container">
+<span class="btn__icon-container">
   <i class="fas fa-file-pdf"></i>
   </span>
-<span class="headerbtn__text-container">.pdf</span>
+<span class="btn__text-container">.pdf</span>
 </button>
-
-      </li>
+</li>
       
-    </ul>
-  </div>
+  </ul>
 </div>
-<label for="__page-toc"
-  class="headerbtn headerbtn-page-toc"
-  
+
+
+
+
+<button onclick="toggleFullScreen()"
+  class="btn btn-sm btn-fullscreen-button"
+  title="Fullscreen mode"
+  data-bs-placement="bottom" data-bs-toggle="tooltip"
 >
   
 
-<span class="headerbtn__icon-container">
-  <i class="fas fa-list"></i>
+<span class="btn__icon-container">
+  <i class="fas fa-expand"></i>
   </span>
 
-</label>
+</button>
 
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="theme-switch fa-solid fa-sun fa-lg" data-mode="light"></i>
+    <i class="theme-switch fa-solid fa-moon fa-lg" data-mode="dark"></i>
+    <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"></i>
+  </button>
+`);
+</script>
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm pst-navbar-icon search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass fa-lg"></i>
+  </button>
+`);
+</script>
+<button class="sidebar-toggle secondary-toggle btn btn-sm" title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="fa-solid fa-list"></span>
+</button>
+</div></div>
+      
     </div>
+  
 </div>
-
-<!-- Table of contents -->
-<div class="col-md-3 bd-toc show noprint">
-    <div class="tocsection onthispage pt-5 pb-3">
-        <i class="fas fa-list"></i> Contents
-    </div>
-    <nav id="bd-toc-nav" aria-label="Page">
-        <ul class="visible nav section-nav flex-column">
- <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#how-correlation-affects-our-simulations">
-   How correlation affects our simulations
-  </a>
- </li>
-</ul>
-
-    </nav>
 </div>
-    </div>
-    <div class="article row">
-        <div class="col pl-md-3 pl-lg-5 content-container">
-            <!-- Table of contents that is only displayed when printing the page -->
-            <div id="jb-print-docs-body" class="onlyprint">
-                <h1>Monte Carlo and portfolios</h1>
-                <!-- Table of contents -->
-                <div id="print-main-content">
-                    <div id="jb-print-toc">
-                        
-                        <div>
-                            <h2> Contents </h2>
-                        </div>
-                        <nav aria-label="Page">
-                            <ul class="visible nav section-nav flex-column">
- <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#how-correlation-affects-our-simulations">
-   How correlation affects our simulations
-  </a>
- </li>
-</ul>
+              
+              
 
-                        </nav>
-                    </div>
-                </div>
+<div id="jb-print-docs-body" class="onlyprint">
+    <h1>Monte Carlo and portfolios</h1>
+    <!-- Table of contents -->
+    <div id="print-main-content">
+        <div id="jb-print-toc">
+            
+            <div>
+                <h2> Contents </h2>
             </div>
-            <main id="main-content" role="main">
+            <nav aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#how-correlation-affects-our-simulations">How correlation affects our simulations</a></li>
+</ul>
+            </nav>
+        </div>
+    </div>
+</div>
+
+              
                 
-              <div>
-                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                  
   <section class="tex2jax_ignore mathjax_ignore" id="monte-carlo-and-portfolios">
-<h1>Monte Carlo and portfolios<a class="headerlink" href="#monte-carlo-and-portfolios" title="Permalink to this headline">#</a></h1>
-<p>We saw how to simulate the price of an asset back when we looked at the price of <a class="reference external" href="7_nasdaq_api.html#btc-sim">Bitcoin</a> and using the Nasdaq API. We are going to take a more complete look here at <strong>simulating correlated assets within a portfolio</strong>. These methods can be used for measuring portfolio risk, for simulating client portfolios in a <a class="reference external" href="https://www.kitces.com/blog/volatility-drag-variance-drain-mean-arithmetic-vs-geometric-average-investment-returns/">financial planning setting</a>, or <a class="reference external" href="https://en.wikipedia.org/wiki/Monte_Carlo_methods_for_option_pricing">pricing complex options</a> like <a class="reference external" href="https://en.wikipedia.org/wiki/Asian_option">Asian options</a>.</p>
+<h1>Monte Carlo and portfolios<a class="headerlink" href="#monte-carlo-and-portfolios" title="Link to this heading">#</a></h1>
+<p>We saw how to simulate the price of an asset back when we looked at the price of <a class="reference internal" href="#7_nasdaq_api.html#btc-sim"><span class="xref myst">Bitcoin</span></a> and using the Nasdaq API. We are going to take a more complete look here at <strong>simulating correlated assets within a portfolio</strong>. These methods can be used for measuring portfolio risk, for simulating client portfolios in a <a class="reference external" href="https://www.kitces.com/blog/volatility-drag-variance-drain-mean-arithmetic-vs-geometric-average-investment-returns/">financial planning setting</a>, or <a class="reference external" href="https://en.wikipedia.org/wiki/Monte_Carlo_methods_for_option_pricing">pricing complex options</a> like <a class="reference external" href="https://en.wikipedia.org/wiki/Asian_option">Asian options</a>.</p>
 <p>I am basing a lot of my code and discussion on this <a class="reference external" href="https://medium.com/codex/simulate-multi-asset-baskets-with-correlated-price-paths-using-python-472cbec4e379">blog post</a>.</p>
 <p>This material is related to the <a class="reference external" href="https://www.codearmo.com/python-tutorial/heston-model-simulation-python">Heston model</a> for simulating the prices of correlated assets. The volatility of the assets are linked together. In the Heston model, the volatility of an asset today is also related to past volatility. We’ll do more on this when we get to <a class="reference external" href="https://en.wikipedia.org/wiki/Autoregressive_conditional_heteroskedasticity">GARCH models</a>.</p>
 <p>We’ll also use <strong>yfinance</strong> to bring in some stock prices from Yahoo! finance. You’ll need to run <code class="docutils literal notranslate"><span class="pre">pip</span> <span class="pre">install</span> <span class="pre">yfinance</span></code> in the terminal. You can read more about it <a class="reference external" href="https://pypi.org/project/yfinance/">here</a>.</p>
 <section id="how-correlation-affects-our-simulations">
-<h2>How correlation affects our simulations<a class="headerlink" href="#how-correlation-affects-our-simulations" title="Permalink to this headline">#</a></h2>
+<h2>How correlation affects our simulations<a class="headerlink" href="#how-correlation-affects-our-simulations" title="Link to this heading">#</a></h2>
 <p>However, when we start to form portfolios, we are going to care about the correlations across assets. We’ve already seen this when looking at portfolio math. When simulating the Bitcoin prices, we took random numbers from the standard normal distribution and then scaled them by our estimate for the volatility of BTC. This allowed us to capture the randomness of the returns.</p>
 <p>However, when dealing with more than one asset, we can’t do that, since the assets are <strong>not independent</strong> from one another. If Apple goes up, Google is more likely to have gone up as well. The two stocks are <strong>correlated</strong>. How can we account for this in our simulation? We will create <strong>correlated random shocks</strong> (<span class="math notranslate nohighlight">\(W\)</span>), where the random movement of one asset depends on another assets movement.</p>
 <p>Let’s try a simulation to see what’s going on. I’ll draw two random variables from the standard normal distribution, N(0,1). The random part of the return for Asset 1, <span class="math notranslate nohighlight">\(W_1\)</span>, is simply the random draw, <span class="math notranslate nohighlight">\(x_1\)</span>. However, the random part of the return for Asset 2, <span class="math notranslate nohighlight">\(W_2\)</span>, is correlated with whatever <span class="math notranslate nohighlight">\(x_1\)</span> ends up being. Mathematically, this dependent random movement is given as:</p>
-<div class="amsmath math notranslate nohighlight" id="equation-5167216f-2006-4a54-8ff1-85070e1ac500">
-<span class="eqno">(23)<a class="headerlink" href="#equation-5167216f-2006-4a54-8ff1-85070e1ac500" title="Permalink to this equation">#</a></span>\[\begin{align}
+<div class="amsmath math notranslate nohighlight" id="equation-1373085d-33e4-482a-8648-6f952dbf5b06">
+<span class="eqno">(21)<a class="headerlink" href="#equation-1373085d-33e4-482a-8648-6f952dbf5b06" title="Permalink to this equation">#</a></span>\[\begin{align}
 W_2 = \rho x_1 + (1 - \sqrt{\rho^2}) x_2
 \end{align}\]</div>
 <p>I’ll set the correlation, <span class="math notranslate nohighlight">\(\rho\)</span>, to be -0.80. These two assets are negatively correlated, so they should move in opposite directions. We’ll set each asset to have the same mean return and same volatility. I’ll set the starting price of each of these assets to 1.</p>
 <p>We’ll bring in our usual packages and try this out. This code should look a lot like the Bitcoin code, except that I now have two assets. I am only doing one simulation for each asset, so two total simulations.</p>
 <p>How do we simulative prices? Let me remind you of a formula:</p>
-<div class="amsmath math notranslate nohighlight" id="equation-e038170e-8a46-4ce3-93cc-54c8a2906580">
-<span class="eqno">(24)<a class="headerlink" href="#equation-e038170e-8a46-4ce3-93cc-54c8a2906580" title="Permalink to this equation">#</a></span>\[\begin{align}
+<div class="amsmath math notranslate nohighlight" id="equation-8ac1d5b5-b4da-4de0-aade-a6003737c951">
+<span class="eqno">(22)<a class="headerlink" href="#equation-8ac1d5b5-b4da-4de0-aade-a6003737c951" title="Permalink to this equation">#</a></span>\[\begin{align}
 S(t) = S(0) \exp \left(\left(\mu - \frac{1}{2}\sigma^2\right)t + \sigma W(t)\right)
 \end{align}\]</div>
 <p>Take a starting price <span class="math notranslate nohighlight">\(S_0\)</span>. We use <code class="docutils literal notranslate"><span class="pre">exp</span></code> for continuous compounding. Then, the price today, <span class="math notranslate nohighlight">\(S_t\)</span> is a function of two return sources. The first source is called <strong>drift</strong>: <span class="math notranslate nohighlight">\(\mu - \frac{1}{2}\sigma^2\)</span>. This is what an asset returns on average over some period, like a day. This is the <strong>deterministic</strong> piece of the return and would be related to risk. <span class="math notranslate nohighlight">\(\mu\)</span> is the <strong>arithmetic average</strong> and <span class="math notranslate nohighlight">\(\sigma\)</span> is the volatility (standard deviation). They should be in the same units (e.g. daily).</p>
@@ -594,21 +443,13 @@ S(t) = S(0) \exp \left(\left(\mu - \frac{1}{2}\sigma^2\right)t + \sigma W(t)\rig
 <p>In this example, our random wiggles are going to be <strong>correlated</strong> across assets.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">datetime</span>
-<span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
-<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
-<span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">datetime</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">pandas</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">pd</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">matplotlib.pyplot</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">plt</span>
 
 <span class="c1"># Include this to have plots show up in your Jupyter notebook.</span>
 <span class="o">%</span><span class="k">matplotlib</span> inline 
-</pre></div>
-</div>
-</div>
-<div class="cell_output docutils container">
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>/opt/anaconda3/lib/python3.9/site-packages/pandas/core/computation/expressions.py:21: UserWarning: Pandas requires version &#39;2.8.4&#39; or newer of &#39;numexpr&#39; (version &#39;2.8.3&#39; currently installed).
-  from pandas.core.computation.check import NUMEXPR_INSTALLED
-/opt/anaconda3/lib/python3.9/site-packages/pandas/core/arrays/masked.py:60: UserWarning: Pandas requires version &#39;1.3.6&#39; or newer of &#39;bottleneck&#39; (version &#39;1.3.5&#39; currently installed).
-  from pandas.core import (
 </pre></div>
 </div>
 </div>
@@ -665,7 +506,7 @@ S(t) = S(0) \exp \left(\left(\mu - \frac{1}{2}\sigma^2\right)t + \sigma W(t)\rig
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../_images/15_monte_carlo_5_0.png" src="../_images/15_monte_carlo_5_0.png" />
+<img alt="../_images/330606f8ef98f887f819e551de700c4dbf8efef15746b1979eaa8bf4585cbbd2.png" src="../_images/330606f8ef98f887f819e551de700c4dbf8efef15746b1979eaa8bf4585cbbd2.png" />
 </div>
 </div>
 <p>You can really see the negative correlation!</p>
@@ -675,7 +516,52 @@ S(t) = S(0) \exp \left(\left(\mu - \frac{1}{2}\sigma^2\right)t + \sigma W(t)\rig
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1">#pip install yfinance --upgrade --no-cache-dir</span>
-<span class="kn">import</span> <span class="nn">yfinance</span> <span class="k">as</span> <span class="nn">yf</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">yfinance</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">yf</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output traceback highlight-ipythontb notranslate"><div class="highlight"><pre><span></span><span class="gt">---------------------------------------------------------------------------</span>
+<span class="ne">TypeError</span><span class="g g-Whitespace">                                 </span>Traceback (most recent call last)
+<span class="n">Cell</span> <span class="n">In</span><span class="p">[</span><span class="mi">4</span><span class="p">],</span> <span class="n">line</span> <span class="mi">2</span>
+<span class="g g-Whitespace">      </span><span class="mi">1</span> <span class="c1">#pip install yfinance --upgrade --no-cache-dir</span>
+<span class="ne">----&gt; </span><span class="mi">2</span> <span class="kn">import</span><span class="w"> </span><span class="nn">yfinance</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">yf</span>
+
+<span class="n">File</span> <span class="o">~/</span><span class="n">Documents</span><span class="o">/</span><span class="n">fin</span><span class="o">-</span><span class="n">data</span><span class="o">-</span><span class="n">analysis</span><span class="o">-</span><span class="n">text</span><span class="o">/.</span><span class="n">venv</span><span class="o">/</span><span class="n">lib</span><span class="o">/</span><span class="n">python3</span><span class="mf">.9</span><span class="o">/</span><span class="n">site</span><span class="o">-</span><span class="n">packages</span><span class="o">/</span><span class="n">yfinance</span><span class="o">/</span><span class="fm">__init__</span><span class="o">.</span><span class="n">py</span><span class="p">:</span><span class="mi">26</span>
+<span class="g g-Whitespace">     </span><span class="mi">24</span> <span class="kn">from</span><span class="w"> </span><span class="nn">.lookup</span><span class="w"> </span><span class="kn">import</span> <span class="n">Lookup</span>
+<span class="g g-Whitespace">     </span><span class="mi">25</span> <span class="kn">from</span><span class="w"> </span><span class="nn">.ticker</span><span class="w"> </span><span class="kn">import</span> <span class="n">Ticker</span>
+<span class="ne">---&gt; </span><span class="mi">26</span> <span class="kn">from</span><span class="w"> </span><span class="nn">.calendars</span><span class="w"> </span><span class="kn">import</span> <span class="n">Calendars</span>
+<span class="g g-Whitespace">     </span><span class="mi">27</span> <span class="kn">from</span><span class="w"> </span><span class="nn">.tickers</span><span class="w"> </span><span class="kn">import</span> <span class="n">Tickers</span>
+<span class="g g-Whitespace">     </span><span class="mi">28</span> <span class="kn">from</span><span class="w"> </span><span class="nn">.multi</span><span class="w"> </span><span class="kn">import</span> <span class="n">download</span>
+
+<span class="n">File</span> <span class="o">~/</span><span class="n">Documents</span><span class="o">/</span><span class="n">fin</span><span class="o">-</span><span class="n">data</span><span class="o">-</span><span class="n">analysis</span><span class="o">-</span><span class="n">text</span><span class="o">/.</span><span class="n">venv</span><span class="o">/</span><span class="n">lib</span><span class="o">/</span><span class="n">python3</span><span class="mf">.9</span><span class="o">/</span><span class="n">site</span><span class="o">-</span><span class="n">packages</span><span class="o">/</span><span class="n">yfinance</span><span class="o">/</span><span class="n">calendars</span><span class="o">.</span><span class="n">py</span><span class="p">:</span><span class="mi">16</span>
+<span class="g g-Whitespace">     </span><span class="mi">12</span> <span class="kn">from</span><span class="w"> </span><span class="nn">.data</span><span class="w"> </span><span class="kn">import</span> <span class="n">YfData</span>
+<span class="g g-Whitespace">     </span><span class="mi">13</span> <span class="kn">from</span><span class="w"> </span><span class="nn">.exceptions</span><span class="w"> </span><span class="kn">import</span> <span class="n">YFException</span>
+<span class="ne">---&gt; </span><span class="mi">16</span> <span class="k">class</span><span class="w"> </span><span class="nc">CalendarQuery</span><span class="p">:</span>
+<span class="g g-Whitespace">     </span><span class="mi">17</span><span class="w">     </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="g g-Whitespace">     </span><span class="mi">18</span><span class="sd">     Simple CalendarQuery class for calendar queries, similar to yf.screener.query.QueryBase.</span>
+<span class="g g-Whitespace">     </span><span class="mi">19</span><span class="sd"> </span>
+<span class="sd">   (...)</span>
+<span class="g g-Whitespace">     </span><span class="mi">30</span><span class="sd">     ```</span>
+<span class="g g-Whitespace">     </span><span class="mi">31</span><span class="sd">     &quot;&quot;&quot;</span>
+<span class="g g-Whitespace">     </span><span class="mi">33</span>     <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">operator</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">operand</span><span class="p">:</span> <span class="nb">list</span><span class="p">[</span><span class="n">Any</span><span class="p">]</span> <span class="o">|</span> <span class="nb">list</span><span class="p">[</span><span class="s2">&quot;CalendarQuery&quot;</span><span class="p">]):</span>
+
+<span class="nn">File ~/Documents/fin-data-analysis-text/.venv/lib/python3.9/site-packages/yfinance/calendars.py:33,</span> in <span class="ni">CalendarQuery</span><span class="nt">()</span>
+<span class="g g-Whitespace">     </span><span class="mi">16</span> <span class="k">class</span><span class="w"> </span><span class="nc">CalendarQuery</span><span class="p">:</span>
+<span class="g g-Whitespace">     </span><span class="mi">17</span><span class="w">     </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="g g-Whitespace">     </span><span class="mi">18</span><span class="sd">     Simple CalendarQuery class for calendar queries, similar to yf.screener.query.QueryBase.</span>
+<span class="g g-Whitespace">     </span><span class="mi">19</span><span class="sd"> </span>
+<span class="sd">   (...)</span>
+<span class="g g-Whitespace">     </span><span class="mi">30</span><span class="sd">     ```</span>
+<span class="g g-Whitespace">     </span><span class="mi">31</span><span class="sd">     &quot;&quot;&quot;</span>
+<span class="ne">---&gt; </span><span class="mi">33</span>     <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">operator</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">operand</span><span class="p">:</span> <span class="nb">list</span><span class="p">[</span><span class="n">Any</span><span class="p">]</span> <span class="o">|</span> <span class="nb">list</span><span class="p">[</span><span class="s2">&quot;CalendarQuery&quot;</span><span class="p">]):</span>
+<span class="g g-Whitespace">     </span><span class="mi">34</span><span class="w">         </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="g g-Whitespace">     </span><span class="mi">35</span><span class="sd">         :param operator: Operator string, e.g., &#39;eq&#39;, &#39;gte&#39;, &#39;and&#39;, &#39;or&#39;.</span>
+<span class="g g-Whitespace">     </span><span class="mi">36</span><span class="sd">         :param operand: List of operands: can be values (str, int), or other Operands instances (nested).</span>
+<span class="g g-Whitespace">     </span><span class="mi">37</span><span class="sd">         &quot;&quot;&quot;</span>
+<span class="g g-Whitespace">     </span><span class="mi">38</span>         <span class="n">operator</span> <span class="o">=</span> <span class="n">operator</span><span class="o">.</span><span class="n">upper</span><span class="p">()</span>
+
+<span class="ne">TypeError</span>: unsupported operand type(s) for |: &#39;types.GenericAlias&#39; and &#39;types.GenericAlias&#39;
 </pre></div>
 </div>
 </div>
@@ -695,38 +581,7 @@ S(t) = S(0) \exp \left(\left(\mu - \frac{1}{2}\sigma^2\right)t + \sigma W(t)\rig
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[                       0%                       ]
-[                       0%                       ]
-</pre></div>
-</div>
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[**********************60%****                   ]  3 of 5 completed
-</pre></div>
-</div>
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[**********************80%*************          ]  4 of 5 completed
-</pre></div>
-</div>
 <div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[*********************100%***********************]  5 of 5 completed
-</pre></div>
-</div>
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>5 Failed downloads:
-</pre></div>
-</div>
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[&#39;F&#39;]: ConnectionError(MaxRetryError(&quot;HTTPSConnectionPool(host=&#39;fc.yahoo.com&#39;, port=443): Max retries exceeded with url: / (Caused by NewConnectionError(&#39;&lt;urllib3.connection.HTTPSConnection object at 0x147f260a0&gt;: Failed to establish a new connection: [Errno 8] nodename nor servname provided, or not known&#39;))&quot;))
-</pre></div>
-</div>
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[&#39;CAG&#39;]: ConnectionError(MaxRetryError(&quot;HTTPSConnectionPool(host=&#39;fc.yahoo.com&#39;, port=443): Max retries exceeded with url: / (Caused by NewConnectionError(&#39;&lt;urllib3.connection.HTTPSConnection object at 0x147f30820&gt;: Failed to establish a new connection: [Errno 8] nodename nor servname provided, or not known&#39;))&quot;))
-</pre></div>
-</div>
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[&#39;AAPL&#39;]: ConnectionError(MaxRetryError(&quot;HTTPSConnectionPool(host=&#39;fc.yahoo.com&#39;, port=443): Max retries exceeded with url: / (Caused by NewConnectionError(&#39;&lt;urllib3.connection.HTTPSConnection object at 0x147f56460&gt;: Failed to establish a new connection: [Errno 8] nodename nor servname provided, or not known&#39;))&quot;))
-</pre></div>
-</div>
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[&#39;AMZN&#39;]: ConnectionError(MaxRetryError(&quot;HTTPSConnectionPool(host=&#39;fc.yahoo.com&#39;, port=443): Max retries exceeded with url: / (Caused by NewConnectionError(&#39;&lt;urllib3.connection.HTTPSConnection object at 0x147f56af0&gt;: Failed to establish a new connection: [Errno 8] nodename nor servname provided, or not known&#39;))&quot;))
-</pre></div>
-</div>
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[&#39;XOM&#39;]: ConnectionError(MaxRetryError(&quot;HTTPSConnectionPool(host=&#39;fc.yahoo.com&#39;, port=443): Max retries exceeded with url: / (Caused by NewConnectionError(&#39;&lt;urllib3.connection.HTTPSConnection object at 0x106de5070&gt;: Failed to establish a new connection: [Errno 8] nodename nor servname provided, or not known&#39;))&quot;))
-</pre></div>
-</div>
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>YF.download() has changed argument auto_adjust default to True
 </pre></div>
 </div>
 </div>
@@ -762,8 +617,8 @@ S(t) = S(0) \exp \left(\left(\mu - \frac{1}{2}\sigma^2\right)t + \sigma W(t)\rig
   <thead>
     <tr>
       <th>Price</th>
-      <th colspan="5" halign="left">Adj Close</th>
       <th colspan="5" halign="left">Close</th>
+      <th colspan="5" halign="left">High</th>
       <th>...</th>
       <th colspan="5" halign="left">Open</th>
       <th colspan="5" halign="left">Volume</th>
@@ -818,9 +673,273 @@ S(t) = S(0) \exp \left(\left(\mu - \frac{1}{2}\sigma^2\right)t + \sigma W(t)\rig
     </tr>
   </thead>
   <tbody>
+    <tr>
+      <th>2019-01-02</th>
+      <td>37.667191</td>
+      <td>76.956497</td>
+      <td>16.942211</td>
+      <td>5.748631</td>
+      <td>51.719875</td>
+      <td>37.889017</td>
+      <td>77.667999</td>
+      <td>17.124898</td>
+      <td>5.835953</td>
+      <td>51.853461</td>
+      <td>...</td>
+      <td>36.944473</td>
+      <td>73.260002</td>
+      <td>16.791296</td>
+      <td>5.479392</td>
+      <td>49.983260</td>
+      <td>148158800</td>
+      <td>159662000</td>
+      <td>9529800</td>
+      <td>47494400</td>
+      <td>16727200</td>
+    </tr>
+    <tr>
+      <th>2019-01-03</th>
+      <td>33.915260</td>
+      <td>75.014000</td>
+      <td>17.124903</td>
+      <td>5.661311</td>
+      <td>50.925789</td>
+      <td>34.757238</td>
+      <td>76.900002</td>
+      <td>17.220218</td>
+      <td>5.814122</td>
+      <td>52.135478</td>
+      <td>...</td>
+      <td>34.342211</td>
+      <td>76.000504</td>
+      <td>16.894559</td>
+      <td>5.799569</td>
+      <td>51.949943</td>
+      <td>365248800</td>
+      <td>139512000</td>
+      <td>8526000</td>
+      <td>39172400</td>
+      <td>13866100</td>
+    </tr>
+    <tr>
+      <th>2019-01-04</th>
+      <td>35.363071</td>
+      <td>78.769501</td>
+      <td>17.363192</td>
+      <td>5.879612</td>
+      <td>52.803398</td>
+      <td>35.432244</td>
+      <td>79.699997</td>
+      <td>17.704737</td>
+      <td>5.908719</td>
+      <td>52.892452</td>
+      <td>...</td>
+      <td>34.473390</td>
+      <td>76.500000</td>
+      <td>17.228162</td>
+      <td>5.755908</td>
+      <td>51.682762</td>
+      <td>234428400</td>
+      <td>183652000</td>
+      <td>10307800</td>
+      <td>43039800</td>
+      <td>16043600</td>
+    </tr>
+    <tr>
+      <th>2019-01-07</th>
+      <td>35.284355</td>
+      <td>81.475502</td>
+      <td>17.720625</td>
+      <td>6.032424</td>
+      <td>53.077969</td>
+      <td>35.499026</td>
+      <td>81.727997</td>
+      <td>17.935084</td>
+      <td>6.090638</td>
+      <td>53.508412</td>
+      <td>...</td>
+      <td>35.468017</td>
+      <td>80.115501</td>
+      <td>17.355252</td>
+      <td>5.901443</td>
+      <td>52.877593</td>
+      <td>219111200</td>
+      <td>159864000</td>
+      <td>7688400</td>
+      <td>40729400</td>
+      <td>10844200</td>
+    </tr>
+    <tr>
+      <th>2019-01-08</th>
+      <td>35.956985</td>
+      <td>82.829002</td>
+      <td>17.029587</td>
+      <td>6.090639</td>
+      <td>53.463898</td>
+      <td>36.212204</td>
+      <td>83.830498</td>
+      <td>17.649132</td>
+      <td>6.214343</td>
+      <td>53.872072</td>
+      <td>...</td>
+      <td>35.673145</td>
+      <td>83.234497</td>
+      <td>17.569705</td>
+      <td>6.127023</td>
+      <td>53.834969</td>
+      <td>164101200</td>
+      <td>177628000</td>
+      <td>12699700</td>
+      <td>45644000</td>
+      <td>11439000</td>
+    </tr>
+    <tr>
+      <th>...</th>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+    </tr>
+    <tr>
+      <th>2019-12-24</th>
+      <td>68.823029</td>
+      <td>89.460503</td>
+      <td>27.924419</td>
+      <td>7.348588</td>
+      <td>54.453629</td>
+      <td>68.973140</td>
+      <td>89.778503</td>
+      <td>28.309868</td>
+      <td>7.364108</td>
+      <td>54.826921</td>
+      <td>...</td>
+      <td>68.924716</td>
+      <td>89.690498</td>
+      <td>27.932622</td>
+      <td>7.325308</td>
+      <td>54.710267</td>
+      <td>48478800</td>
+      <td>17626000</td>
+      <td>2459600</td>
+      <td>11881600</td>
+      <td>3979400</td>
+    </tr>
+    <tr>
+      <th>2019-12-26</th>
+      <td>70.188499</td>
+      <td>93.438499</td>
+      <td>27.629185</td>
+      <td>7.333069</td>
+      <td>54.539158</td>
+      <td>70.205449</td>
+      <td>93.523003</td>
+      <td>28.047438</td>
+      <td>7.364108</td>
+      <td>54.826904</td>
+      <td>...</td>
+      <td>68.956189</td>
+      <td>90.050499</td>
+      <td>27.850612</td>
+      <td>7.348589</td>
+      <td>54.585823</td>
+      <td>93121200</td>
+      <td>120108000</td>
+      <td>4672700</td>
+      <td>28961300</td>
+      <td>8840200</td>
+    </tr>
+    <tr>
+      <th>2019-12-27</th>
+      <td>70.161865</td>
+      <td>93.489998</td>
+      <td>28.031033</td>
+      <td>7.263229</td>
+      <td>54.352512</td>
+      <td>71.171444</td>
+      <td>95.070000</td>
+      <td>28.113041</td>
+      <td>7.340828</td>
+      <td>54.679139</td>
+      <td>...</td>
+      <td>70.481445</td>
+      <td>94.146004</td>
+      <td>27.694792</td>
+      <td>7.333068</td>
+      <td>54.593593</td>
+      <td>146266000</td>
+      <td>123732000</td>
+      <td>2574400</td>
+      <td>28272800</td>
+      <td>10516100</td>
+    </tr>
+    <tr>
+      <th>2019-12-30</th>
+      <td>70.578285</td>
+      <td>92.344498</td>
+      <td>27.916222</td>
+      <td>7.177871</td>
+      <td>54.033661</td>
+      <td>70.861551</td>
+      <td>94.199997</td>
+      <td>28.072040</td>
+      <td>7.255470</td>
+      <td>54.780239</td>
+      <td>...</td>
+      <td>70.079551</td>
+      <td>93.699997</td>
+      <td>27.981828</td>
+      <td>7.247710</td>
+      <td>54.508044</td>
+      <td>144114400</td>
+      <td>73494000</td>
+      <td>1813200</td>
+      <td>36074900</td>
+      <td>12689400</td>
+    </tr>
+    <tr>
+      <th>2019-12-31</th>
+      <td>71.093971</td>
+      <td>92.391998</td>
+      <td>28.080242</td>
+      <td>7.216671</td>
+      <td>54.266968</td>
+      <td>71.101234</td>
+      <td>92.663002</td>
+      <td>28.186853</td>
+      <td>7.239950</td>
+      <td>54.282525</td>
+      <td>...</td>
+      <td>70.193342</td>
+      <td>92.099998</td>
+      <td>27.981828</td>
+      <td>7.177872</td>
+      <td>53.675924</td>
+      <td>100805600</td>
+      <td>50130000</td>
+      <td>2558500</td>
+      <td>32342100</td>
+      <td>13151800</td>
+    </tr>
   </tbody>
 </table>
-<p>0 rows × 30 columns</p>
+<p>252 rows × 25 columns</p>
 </div></div></div>
 </div>
 <div class="cell docutils container">
@@ -875,8 +994,97 @@ S(t) = S(0) \exp \left(\left(\mu - \frac{1}{2}\sigma^2\right)t + \sigma W(t)\rig
     </tr>
   </thead>
   <tbody>
+    <tr>
+      <th>2019-01-03</th>
+      <td>-0.099607</td>
+      <td>-0.025241</td>
+      <td>0.010783</td>
+      <td>-0.015190</td>
+      <td>-0.015354</td>
+    </tr>
+    <tr>
+      <th>2019-01-04</th>
+      <td>0.042689</td>
+      <td>0.050064</td>
+      <td>0.013915</td>
+      <td>0.038560</td>
+      <td>0.036870</td>
+    </tr>
+    <tr>
+      <th>2019-01-07</th>
+      <td>-0.002226</td>
+      <td>0.034353</td>
+      <td>0.020586</td>
+      <td>0.025990</td>
+      <td>0.005200</td>
+    </tr>
+    <tr>
+      <th>2019-01-08</th>
+      <td>0.019063</td>
+      <td>0.016612</td>
+      <td>-0.038996</td>
+      <td>0.009650</td>
+      <td>0.007271</td>
+    </tr>
+    <tr>
+      <th>2019-01-09</th>
+      <td>0.016982</td>
+      <td>0.001714</td>
+      <td>-0.002799</td>
+      <td>0.041816</td>
+      <td>0.005275</td>
+    </tr>
+    <tr>
+      <th>...</th>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+    </tr>
+    <tr>
+      <th>2019-12-24</th>
+      <td>0.000951</td>
+      <td>-0.002114</td>
+      <td>0.000882</td>
+      <td>0.003178</td>
+      <td>-0.003841</td>
+    </tr>
+    <tr>
+      <th>2019-12-26</th>
+      <td>0.019840</td>
+      <td>0.044467</td>
+      <td>-0.010573</td>
+      <td>-0.002112</td>
+      <td>0.001571</td>
+    </tr>
+    <tr>
+      <th>2019-12-27</th>
+      <td>-0.000379</td>
+      <td>0.000551</td>
+      <td>0.014544</td>
+      <td>-0.009524</td>
+      <td>-0.003422</td>
+    </tr>
+    <tr>
+      <th>2019-12-30</th>
+      <td>0.005935</td>
+      <td>-0.012253</td>
+      <td>-0.004096</td>
+      <td>-0.011752</td>
+      <td>-0.005866</td>
+    </tr>
+    <tr>
+      <th>2019-12-31</th>
+      <td>0.007307</td>
+      <td>0.000514</td>
+      <td>0.005875</td>
+      <td>0.005405</td>
+      <td>0.004318</td>
+    </tr>
   </tbody>
 </table>
+<p>251 rows × 5 columns</p>
 </div></div></div>
 </div>
 <div class="cell docutils container">
@@ -914,67 +1122,67 @@ S(t) = S(0) \exp \left(\left(\mu - \frac{1}{2}\sigma^2\right)t + \sigma W(t)\rig
   <tbody>
     <tr>
       <th>count</th>
-      <td>0.0</td>
-      <td>0.0</td>
-      <td>0.0</td>
-      <td>0.0</td>
-      <td>0.0</td>
+      <td>251.000000</td>
+      <td>251.000000</td>
+      <td>251.000000</td>
+      <td>251.000000</td>
+      <td>251.000000</td>
     </tr>
     <tr>
       <th>mean</th>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
+      <td>0.002671</td>
+      <td>0.000832</td>
+      <td>0.002271</td>
+      <td>0.001053</td>
+      <td>0.000257</td>
     </tr>
     <tr>
       <th>std</th>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
+      <td>0.016498</td>
+      <td>0.014382</td>
+      <td>0.022887</td>
+      <td>0.017158</td>
+      <td>0.011499</td>
     </tr>
     <tr>
       <th>min</th>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
+      <td>-0.099607</td>
+      <td>-0.053819</td>
+      <td>-0.120982</td>
+      <td>-0.074540</td>
+      <td>-0.040289</td>
     </tr>
     <tr>
       <th>25%</th>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
+      <td>-0.004820</td>
+      <td>-0.006649</td>
+      <td>-0.008724</td>
+      <td>-0.006961</td>
+      <td>-0.006711</td>
     </tr>
     <tr>
       <th>50%</th>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
+      <td>0.002768</td>
+      <td>0.001163</td>
+      <td>0.002338</td>
+      <td>0.000964</td>
+      <td>0.000694</td>
     </tr>
     <tr>
       <th>75%</th>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
+      <td>0.011561</td>
+      <td>0.008535</td>
+      <td>0.013240</td>
+      <td>0.010034</td>
+      <td>0.007803</td>
     </tr>
     <tr>
       <th>max</th>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
+      <td>0.068335</td>
+      <td>0.050064</td>
+      <td>0.158692</td>
+      <td>0.107447</td>
+      <td>0.036870</td>
     </tr>
   </tbody>
 </table>
@@ -1004,20 +1212,6 @@ S(t) = S(0) \exp \left(\left(\mu - \frac{1}{2}\sigma^2\right)t + \sigma W(t)\rig
 
 <span class="c1"># initial matrix</span>
 <span class="n">port_returns_all</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">full</span><span class="p">((</span><span class="n">T</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="n">N_SIM</span><span class="p">),</span> <span class="mf">0.</span><span class="p">)</span> <span class="c1"># One less return than price</span>
-</pre></div>
-</div>
-</div>
-<div class="cell_output docutils container">
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>/opt/anaconda3/lib/python3.9/site-packages/numpy/lib/function_base.py:518: RuntimeWarning: Mean of empty slice.
-  avg = a.mean(axis, **keepdims_kw)
-/opt/anaconda3/lib/python3.9/site-packages/numpy/core/_methods.py:182: RuntimeWarning: invalid value encountered in divide
-  ret = um.true_divide(
-/opt/anaconda3/lib/python3.9/site-packages/pandas/core/frame.py:11211: RuntimeWarning: Degrees of freedom &lt;= 0 for slice
-  base_cov = np.cov(mat.T, ddof=ddof)
-/opt/anaconda3/lib/python3.9/site-packages/numpy/lib/function_base.py:2704: RuntimeWarning: divide by zero encountered in divide
-  c *= np.true_divide(1, fact)
-/opt/anaconda3/lib/python3.9/site-packages/numpy/lib/function_base.py:2704: RuntimeWarning: invalid value encountered in multiply
-  c *= np.true_divide(1, fact)
 </pre></div>
 </div>
 </div>
@@ -1066,43 +1260,43 @@ S(t) = S(0) \exp \left(\left(\mu - \frac{1}{2}\sigma^2\right)t + \sigma W(t)\rig
   <tbody>
     <tr>
       <th>AAPL</th>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
+      <td>1.000000</td>
+      <td>0.592888</td>
+      <td>0.152908</td>
+      <td>0.305897</td>
+      <td>0.416555</td>
     </tr>
     <tr>
       <th>AMZN</th>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
+      <td>0.592888</td>
+      <td>1.000000</td>
+      <td>0.116090</td>
+      <td>0.364217</td>
+      <td>0.370256</td>
     </tr>
     <tr>
       <th>CAG</th>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
+      <td>0.152908</td>
+      <td>0.116090</td>
+      <td>1.000000</td>
+      <td>0.066561</td>
+      <td>0.160015</td>
     </tr>
     <tr>
       <th>F</th>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
+      <td>0.305897</td>
+      <td>0.364217</td>
+      <td>0.066561</td>
+      <td>1.000000</td>
+      <td>0.375396</td>
     </tr>
     <tr>
       <th>XOM</th>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
+      <td>0.416555</td>
+      <td>0.370256</td>
+      <td>0.160015</td>
+      <td>0.375396</td>
+      <td>1.000000</td>
     </tr>
   </tbody>
 </table>
@@ -1136,34 +1330,6 @@ S(t) = S(0) \exp \left(\left(\mu - \frac{1}{2}\sigma^2\right)t + \sigma W(t)\rig
 <span class="n">R</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">S</span><span class="o">.</span><span class="n">T</span><span class="p">)</span><span class="o">.</span><span class="n">pct_change</span><span class="p">()</span><span class="o">.</span><span class="n">dropna</span><span class="p">()</span> <span class="c1"># Create returns from those simulated prices.</span>
 
 <span class="n">port_rets</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">cumprod</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">inner</span><span class="p">(</span><span class="n">weights</span><span class="p">,</span> <span class="n">R</span><span class="p">)</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)</span> <span class="c1"># Weights x returns, cumulative product to get cumulative portfolio returns.</span>
-</pre></div>
-</div>
-</div>
-<div class="cell_output docutils container">
-<div class="output traceback highlight-ipythontb notranslate"><div class="highlight"><pre><span></span><span class="gt">---------------------------------------------------------------------------</span>
-<span class="ne">IndexError</span><span class="g g-Whitespace">                                </span>Traceback (most recent call last)
-<span class="n">Cell</span> <span class="n">In</span><span class="p">[</span><span class="mi">12</span><span class="p">],</span> <span class="n">line</span> <span class="mi">1</span>
-<span class="ne">----&gt; </span><span class="mi">1</span> <span class="n">S_0</span> <span class="o">=</span> <span class="n">prices</span><span class="o">.</span><span class="n">iloc</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
-<span class="g g-Whitespace">      </span><span class="mi">2</span> <span class="n">A</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linalg</span><span class="o">.</span><span class="n">cholesky</span><span class="p">(</span><span class="n">cov</span><span class="p">)</span>
-<span class="g g-Whitespace">      </span><span class="mi">3</span> <span class="n">S</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">([</span><span class="n">noa</span><span class="p">,</span> <span class="n">N</span><span class="p">])</span> <span class="c1"># Why N+1? We want our starting price + 252 days of prices.</span>
-
-<span class="nn">File /opt/anaconda3/lib/python3.9/site-packages/pandas/core/indexing.py:1191,</span> in <span class="ni">_LocationIndexer.__getitem__</span><span class="nt">(self, key)</span>
-<span class="g g-Whitespace">   </span><span class="mi">1189</span> <span class="n">maybe_callable</span> <span class="o">=</span> <span class="n">com</span><span class="o">.</span><span class="n">apply_if_callable</span><span class="p">(</span><span class="n">key</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">obj</span><span class="p">)</span>
-<span class="g g-Whitespace">   </span><span class="mi">1190</span> <span class="n">maybe_callable</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_check_deprecated_callable_usage</span><span class="p">(</span><span class="n">key</span><span class="p">,</span> <span class="n">maybe_callable</span><span class="p">)</span>
-<span class="ne">-&gt; </span><span class="mi">1191</span> <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_getitem_axis</span><span class="p">(</span><span class="n">maybe_callable</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="n">axis</span><span class="p">)</span>
-
-<span class="nn">File /opt/anaconda3/lib/python3.9/site-packages/pandas/core/indexing.py:1752,</span> in <span class="ni">_iLocIndexer._getitem_axis</span><span class="nt">(self, key, axis)</span>
-<span class="g g-Whitespace">   </span><span class="mi">1749</span>     <span class="k">raise</span> <span class="ne">TypeError</span><span class="p">(</span><span class="s2">&quot;Cannot index by location index with a non-integer key&quot;</span><span class="p">)</span>
-<span class="g g-Whitespace">   </span><span class="mi">1751</span> <span class="c1"># validate the location</span>
-<span class="ne">-&gt; </span><span class="mi">1752</span> <span class="bp">self</span><span class="o">.</span><span class="n">_validate_integer</span><span class="p">(</span><span class="n">key</span><span class="p">,</span> <span class="n">axis</span><span class="p">)</span>
-<span class="g g-Whitespace">   </span><span class="mi">1754</span> <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">obj</span><span class="o">.</span><span class="n">_ixs</span><span class="p">(</span><span class="n">key</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="n">axis</span><span class="p">)</span>
-
-<span class="nn">File /opt/anaconda3/lib/python3.9/site-packages/pandas/core/indexing.py:1685,</span> in <span class="ni">_iLocIndexer._validate_integer</span><span class="nt">(self, key, axis)</span>
-<span class="g g-Whitespace">   </span><span class="mi">1683</span> <span class="n">len_axis</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">obj</span><span class="o">.</span><span class="n">_get_axis</span><span class="p">(</span><span class="n">axis</span><span class="p">))</span>
-<span class="g g-Whitespace">   </span><span class="mi">1684</span> <span class="k">if</span> <span class="n">key</span> <span class="o">&gt;=</span> <span class="n">len_axis</span> <span class="ow">or</span> <span class="n">key</span> <span class="o">&lt;</span> <span class="o">-</span><span class="n">len_axis</span><span class="p">:</span>
-<span class="ne">-&gt; </span><span class="mi">1685</span>     <span class="k">raise</span> <span class="ne">IndexError</span><span class="p">(</span><span class="s2">&quot;single positional indexer is out-of-bounds&quot;</span><span class="p">)</span>
-
-<span class="ne">IndexError</span>: single positional indexer is out-of-bounds
 </pre></div>
 </div>
 </div>
@@ -1392,7 +1558,7 @@ S(t) = S(0) \exp \left(\left(\mu - \frac{1}{2}\sigma^2\right)t + \sigma W(t)\rig
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../_images/15_monte_carlo_27_0.png" src="../_images/15_monte_carlo_27_0.png" />
+<img alt="../_images/28d78232cb795de664bdd9e0f6404390909d234a9f3379f89fee62a6b6e96b2d.png" src="../_images/28d78232cb795de664bdd9e0f6404390909d234a9f3379f89fee62a6b6e96b2d.png" />
 </div>
 </div>
 <p>That’s a large spread of possible cumulative portfolio returns over the year! This type of simulation is potentially useful for financial planners, and let’s you “answer” questions like, “What’s the probability that my portfolio falls below a particular level over the next decade?”. You can also use price paths like this to price certain options, where the value of the option depends on the paths that a basket of stocks took.</p>
@@ -1411,7 +1577,7 @@ S(t) = S(0) \exp \left(\left(\mu - \frac{1}{2}\sigma^2\right)t + \sigma W(t)\rig
             mode: "python"
         },
         kernelOptions: {
-            kernelName: "python3",
+            name: "python3",
             path: "./chapters"
         },
         predefinedOutput: true
@@ -1419,49 +1585,96 @@ S(t) = S(0) \exp \left(\left(\mu - \frac{1}{2}\sigma^2\right)t + \sigma W(t)\rig
     </script>
     <script>kernelName = 'python3'</script>
 
-              </div>
+                </article>
               
-            </main>
-            <footer class="footer-article noprint">
-                
-    <!-- Previous / next buttons -->
-<div class='prev-next-area'>
-    <a class='left-prev' id="prev-link" href="14_risk_mang.html" title="previous page">
-        <i class="fas fa-angle-left"></i>
-        <div class="prev-next-info">
-            <p class="prev-next-subtitle">previous</p>
-            <p class="prev-next-title">Risk management</p>
-        </div>
+
+              
+              
+              
+              
+                <footer class="prev-next-footer d-print-none">
+                  
+<div class="prev-next-area">
+    <a class="left-prev"
+       href="14_risk_mang.html"
+       title="previous page">
+      <i class="fa-solid fa-angle-left"></i>
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">previous</p>
+        <p class="prev-next-title">Risk management</p>
+      </div>
     </a>
-    <a class='right-next' id="next-link" href="16_decision_trees.html" title="next page">
-    <div class="prev-next-info">
+    <a class="right-next"
+       href="16_decision_trees.html"
+       title="next page">
+      <div class="prev-next-info">
         <p class="prev-next-subtitle">next</p>
         <p class="prev-next-title">Decision Trees</p>
-    </div>
-    <i class="fas fa-angle-right"></i>
+      </div>
+      <i class="fa-solid fa-angle-right"></i>
     </a>
 </div>
-            </footer>
-        </div>
-    </div>
-    <div class="footer-content row">
-        <footer class="col footer"><p>
+                </footer>
+              
+            </div>
+            
+            
+              
+                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+
+  <div class="sidebar-secondary-item">
+  <div class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> Contents
+  </div>
+  <nav class="bd-toc-nav page-toc">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#how-correlation-affects-our-simulations">How correlation affects our simulations</a></li>
+</ul>
+  </nav></div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+<div class="bd-footer-content__inner container">
   
-    By Prof. Adam Aiken<br/>
-  
-</p>
-        </footer>
-    </div>
+  <div class="footer-item">
     
+<p class="component-author">
+By Prof. Adam Aiken
+</p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
 </div>
+          </footer>
+        
 
-
-      </div>
+      </main>
     </div>
+  </div>
   
   <!-- Scripts loaded after <body> so the DOM is not blocked -->
-  <script src="../_static/scripts/pydata-sphinx-theme.js?digest=1999514e3f237ded88cf"></script>
+  <script src="../_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b"></script>
+<script src="../_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b"></script>
 
-
+  <footer class="bd-footer">
+  </footer>
   </body>
 </html>

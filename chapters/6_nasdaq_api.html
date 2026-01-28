@@ -1,115 +1,180 @@
 
 <!DOCTYPE html>
 
-<html>
+
+<html lang="en" data-content_root="../" >
+
   <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
     <title>Using APIs for Data Imports &#8212; Data Analysis in Finance</title>
-    
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
+  </script>
+  
   <!-- Loaded before other Sphinx assets -->
-  <link href="../_static/styles/theme.css?digest=1999514e3f237ded88cf" rel="stylesheet">
-<link href="../_static/styles/pydata-sphinx-theme.css?digest=1999514e3f237ded88cf" rel="stylesheet">
+  <link href="../_static/styles/theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="../_static/styles/bootstrap.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="../_static/styles/pydata-sphinx-theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
 
-    
-  <link rel="stylesheet"
-    href="../_static/vendor/fontawesome/5.13.0/css/all.min.css">
-  <link rel="preload" as="font" type="font/woff2" crossorigin
-    href="../_static/vendor/fontawesome/5.13.0/webfonts/fa-solid-900.woff2">
-  <link rel="preload" as="font" type="font/woff2" crossorigin
-    href="../_static/vendor/fontawesome/5.13.0/webfonts/fa-brands-400.woff2">
+  
+  <link href="../_static/vendor/fontawesome/6.5.2/css/all.min.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.2/webfonts/fa-solid-900.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.2/webfonts/fa-brands-400.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.2/webfonts/fa-regular-400.woff2" />
 
-    <link rel="stylesheet" type="text/css" href="../_static/pygments.css" />
-    <link rel="stylesheet" href="../_static/styles/sphinx-book-theme.css?digest=5115cc725059bd94278eecd172e13a965bf8f5a9" type="text/css" />
-    <link rel="stylesheet" type="text/css" href="../_static/togglebutton.css" />
-    <link rel="stylesheet" type="text/css" href="../_static/copybutton.css" />
-    <link rel="stylesheet" type="text/css" href="../_static/mystnb.css" />
-    <link rel="stylesheet" type="text/css" href="../_static/sphinx-thebe.css" />
-    <link rel="stylesheet" type="text/css" href="../_static/custom.css" />
-    <link rel="stylesheet" type="text/css" href="../_static/custom.css" />
-    <link rel="stylesheet" type="text/css" href="../_static/design-style.b7bb847fb20b106c3d81b95245e65545.min.css" />
-    
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=03e43079" />
+    <link rel="stylesheet" type="text/css" href="../_static/styles/sphinx-book-theme.css?v=eba8b062" />
+    <link rel="stylesheet" type="text/css" href="../_static/togglebutton.css?v=9c3e77be" />
+    <link rel="stylesheet" type="text/css" href="../_static/copybutton.css?v=76b2166b" />
+    <link rel="stylesheet" type="text/css" href="../_static/mystnb.8ecb98da25f57f5357bf6f572d296f466b2cfe2517ffebfabe82451661e28f02.css?v=6644e6bb" />
+    <link rel="stylesheet" type="text/css" href="../_static/sphinx-thebe.css?v=4fa983c6" />
+    <link rel="stylesheet" type="text/css" href="../_static/sphinx-design.min.css?v=95c83b7e" />
+    <link rel="stylesheet" type="text/css" href="../_static/custom.css?v=b747247e" />
+  
   <!-- Pre-loaded scripts that we'll load fully later -->
-  <link rel="preload" as="script" href="../_static/scripts/pydata-sphinx-theme.js?digest=1999514e3f237ded88cf">
+  <link rel="preload" as="script" href="../_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b" />
+<link rel="preload" as="script" href="../_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b" />
+  <script src="../_static/vendor/fontawesome/6.5.2/js/all.min.js?digest=dfe6caa3a7d634c4db9b"></script>
 
-    <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
-    <script src="../_static/jquery.js"></script>
-    <script src="../_static/underscore.js"></script>
-    <script src="../_static/doctools.js"></script>
-    <script src="../_static/clipboard.min.js"></script>
-    <script src="../_static/copybutton.js"></script>
-    <script src="../_static/scripts/sphinx-book-theme.js?digest=9c920249402e914e316237a7dbc6769907cce411"></script>
+    <script src="../_static/documentation_options.js?v=9eb32ce0"></script>
+    <script src="../_static/doctools.js?v=9a2dae69"></script>
+    <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../_static/clipboard.min.js?v=a7894cd8"></script>
+    <script src="../_static/copybutton.js?v=f281be69"></script>
+    <script src="../_static/scripts/sphinx-book-theme.js?v=887ef09a"></script>
     <script>let toggleHintShow = 'Click to show';</script>
     <script>let toggleHintHide = 'Click to hide';</script>
     <script>let toggleOpenOnPrint = 'true';</script>
-    <script src="../_static/togglebutton.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
-    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown, .tag_hide_input div.cell_input, .tag_hide-input div.cell_input, .tag_hide_output div.cell_output, .tag_hide-output div.cell_output, .tag_hide_cell.cell, .tag_hide-cell.cell';</script>
-    <script src="../_static/design-tabs.js"></script>
-    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"
-const thebe_selector = ".thebe,.cell"
-const thebe_selector_input = "pre"
-const thebe_selector_output = ".output, .cell_output"
-</script>
-    <script async="async" src="../_static/sphinx-thebe.js"></script>
+    <script src="../_static/togglebutton.js?v=1ae7504c"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script src="../_static/design-tabs.js?v=36754332"></script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script async="async" src="../_static/sphinx-thebe.js?v=c100c467"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
     <script>window.MathJax = {"options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
     <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'chapters/6_nasdaq_api';</script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
     <link rel="next" title="Financial time series" href="7_financial_ts.html" />
     <link rel="prev" title="plotly" href="5_2_plotly.html" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <meta name="docsearch:language" content="None">
-    
-
-    <!-- Google Analytics -->
-    
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
   </head>
-  <body data-spy="scroll" data-target="#bd-toc-nav" data-offset="60">
-<!-- Checkboxes to toggle the left sidebar -->
-<input type="checkbox" class="sidebar-toggle" name="__navigation" id="__navigation" aria-label="Toggle navigation sidebar">
-<label class="overlay overlay-navbar" for="__navigation">
-    <div class="visually-hidden">Toggle navigation sidebar</div>
-</label>
-<!-- Checkboxes to toggle the in-page toc -->
-<input type="checkbox" class="sidebar-toggle" name="__page-toc" id="__page-toc" aria-label="Toggle in-page Table of Contents">
-<label class="overlay overlay-pagetoc" for="__page-toc">
-    <div class="visually-hidden">Toggle in-page Table of Contents</div>
-</label>
-<!-- Headers at the top -->
-<div class="announcement header-item noprint"></div>
-<div class="header header-item noprint"></div>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
 
-    
-    <div class="container-fluid" id="banner"></div>
+  
+  
+  <div id="pst-skip-link" class="skip-link d-print-none"><a href="#main-content">Skip to main content</a></div>
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>Back to top</button>
 
-    
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-primary-sidebar-checkbox"/>
+  <label class="overlay overlay-primary" for="pst-primary-sidebar-checkbox"></label>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-secondary-sidebar-checkbox"/>
+  <label class="overlay overlay-secondary" for="pst-secondary-sidebar-checkbox"></label>
+  
+  <div class="search-button__wrapper">
+    <div class="search-button__overlay"></div>
+    <div class="search-button__search-container">
+<form class="bd-search d-flex align-items-center"
+      action="../search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         id="search-input"
+         placeholder="Search this book..."
+         aria-label="Search this book..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form></div>
+  </div>
 
-    <div class="container-xl">
-      <div class="row">
-          
-<!-- Sidebar -->
-<div class="bd-sidebar noprint" id="site-navigation">
-    <div class="bd-sidebar__content">
-        <div class="bd-sidebar__top"><div class="navbar-brand-box">
-    <a class="navbar-brand text-wrap" href="../index.html">
+  <div class="pst-async-banner-revealer d-none">
+  <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
+</div>
+
+  
+    <header class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
+    </header>
+  
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
       
-        <!-- `logo` is deprecated in Sphinx 4.0, so remove this when we stop supporting 3 -->
+      
+      
+      <div class="bd-sidebar-primary bd-sidebar">
         
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+    
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+
+  
+    
+  
+
+<a class="navbar-brand logo" href="../intro.html">
+  
+  
+  
+  
+  
+    
+    
       
-      
-      <img src="../_static/cat.png" class="logo" alt="logo">
-      
-      
-      <h1 class="site-logo" id="site-title">Data Analysis in Finance</h1>
-      
-    </a>
-</div><form class="bd-search d-flex align-items-center" action="../search.html" method="get">
-  <i class="icon fas fa-search"></i>
-  <input type="search" class="form-control" name="q" id="search-input" placeholder="Search this book..." aria-label="Search this book..." autocomplete="off" >
-</form><nav class="bd-links" id="bd-docs-nav" aria-label="Main">
-    <div class="bd-toc-item active">
+    
+    
+    <img src="../_static/cat.png" class="logo__image only-light" alt="Data Analysis in Finance - Home"/>
+    <script>document.write(`<img src="../_static/cat.png" class="logo__image only-dark" alt="Data Analysis in Finance - Home"/>`);</script>
+  
+  
+</a></div>
+        <div class="sidebar-primary-item">
+
+ <script>
+ document.write(`
+   <button class="btn search-button-field search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass"></i>
+    <span class="search-button__default-text">Search</span>
+    <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+   </button>
+ `);
+ </script></div>
+        <div class="sidebar-primary-item"><nav class="bd-links bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item navbar-nav active">
         
         <ul class="nav bd-sidenav bd-sidenav__home-link">
             <li class="toctree-l1">
@@ -118,514 +183,243 @@ const thebe_selector_output = ".output, .cell_output"
                 </a>
             </li>
         </ul>
-        <p aria-level="2" class="caption" role="heading">
- <span class="caption-text">
-  Getting Started
- </span>
-</p>
+        <p aria-level="2" class="caption" role="heading"><span class="caption-text">Getting Started</span></p>
 <ul class="nav bd-sidenav">
- <li class="toctree-l1">
-  <a class="reference internal" href="1_finpyth.html">
-   Why Python and finance?
-  </a>
- </li>
- <li class="toctree-l1 has-children">
-  <a class="reference internal" href="2_intro.html">
-   Python set-up
-   <a id="python_set-up">
-   </a>
-  </a>
-  <input class="toctree-checkbox" id="toctree-checkbox-1" name="toctree-checkbox-1" type="checkbox"/>
-  <label for="toctree-checkbox-1">
-   <i class="fas fa-chevron-down">
-   </i>
-  </label>
-  <ul>
-   <li class="toctree-l2">
-    <a class="reference internal" href="2_0_git.html">
-     Using Github and Github Codespaces
-    </a>
-   </li>
-   <li class="toctree-l2">
-    <a class="reference internal" href="2_1_markdown.html">
-     Markdown
-    </a>
-   </li>
-   <li class="toctree-l2">
-    <a class="reference internal" href="2_2_packages.html">
-     Packages
-    </a>
-   </li>
-   <li class="toctree-l2">
-    <a class="reference internal" href="2_3_style.html">
-     Code style, PEP8, and linting
-    </a>
-   </li>
-   <li class="toctree-l2">
-    <a class="reference internal" href="2_4_using_ai.html">
-     Using AI Coding Tools
-    </a>
-   </li>
-  </ul>
- </li>
+<li class="toctree-l1"><a class="reference internal" href="1_finpyth.html">Why Python and finance?</a></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="2_intro.html">Python set-up <a id="python_set-up"></a></a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="2_0_git.html">Using Github and Github Codespaces</a></li>
+<li class="toctree-l2"><a class="reference internal" href="2_1_markdown.html">Markdown</a></li>
+<li class="toctree-l2"><a class="reference internal" href="2_2_packages.html">Packages</a></li>
+<li class="toctree-l2"><a class="reference internal" href="2_3_style.html">Code style, PEP8, and linting</a></li>
+<li class="toctree-l2"><a class="reference internal" href="2_4_using_ai.html">Using AI Coding Tools</a></li>
 </ul>
-<p aria-level="2" class="caption" role="heading">
- <span class="caption-text">
-  The Basics
- </span>
-</p>
+</details></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">The Basics</span></p>
 <ul class="current nav bd-sidenav">
- <li class="toctree-l1 has-children">
-  <a class="reference internal" href="3_intro.html">
-   CompSci 101: Types, control, and numpy arrays
-  </a>
-  <input class="toctree-checkbox" id="toctree-checkbox-2" name="toctree-checkbox-2" type="checkbox"/>
-  <label for="toctree-checkbox-2">
-   <i class="fas fa-chevron-down">
-   </i>
-  </label>
-  <ul>
-   <li class="toctree-l2">
-    <a class="reference internal" href="3_0_comp101.html">
-     The Basics
-    </a>
-   </li>
-   <li class="toctree-l2">
-    <a class="reference internal" href="3_1_numpy.html">
-     Numpy and arrays
-    </a>
-   </li>
-  </ul>
- </li>
- <li class="toctree-l1 has-children">
-  <a class="reference internal" href="4_intro.html">
-   Working with data
-  </a>
-  <input class="toctree-checkbox" id="toctree-checkbox-3" name="toctree-checkbox-3" type="checkbox"/>
-  <label for="toctree-checkbox-3">
-   <i class="fas fa-chevron-down">
-   </i>
-  </label>
-  <ul>
-   <li class="toctree-l2">
-    <a class="reference internal" href="4_0_dataframes.html">
-     Importing data
-    </a>
-   </li>
-   <li class="toctree-l2">
-    <a class="reference internal" href="4_1_pandas.html">
-     pandas
-    </a>
-   </li>
-   <li class="toctree-l2">
-    <a class="reference internal" href="4_2_cleaning_data.html">
-     Cleaning our data
-    </a>
-   </li>
-   <li class="toctree-l2">
-    <a class="reference internal" href="4_3_eda.html">
-     Exploratory data analysis (EDA)
-    </a>
-   </li>
-   <li class="toctree-l2">
-    <a class="reference internal" href="4_4_merge_shape.html">
-     Merging and reshaping data
-    </a>
-   </li>
-   <li class="toctree-l2">
-    <a class="reference internal" href="4_5_sql.html">
-     Using SQL in Python
-    </a>
-   </li>
-   <li class="toctree-l2">
-    <a class="reference internal" href="4_6_polar.html">
-     polars: A fast, fancy pandas alternative
-    </a>
-   </li>
-  </ul>
- </li>
- <li class="toctree-l1 has-children">
-  <a class="reference internal" href="5_intro.html">
-   Data visualization
-  </a>
-  <input class="toctree-checkbox" id="toctree-checkbox-4" name="toctree-checkbox-4" type="checkbox"/>
-  <label for="toctree-checkbox-4">
-   <i class="fas fa-chevron-down">
-   </i>
-  </label>
-  <ul>
-   <li class="toctree-l2">
-    <a class="reference internal" href="5_0_seaborn.html">
-     seaborn
-    </a>
-   </li>
-   <li class="toctree-l2">
-    <a class="reference internal" href="5_1_matplotlib.html">
-     matplotlib
-    </a>
-   </li>
-   <li class="toctree-l2">
-    <a class="reference internal" href="5_2_plotly.html">
-     plotly
-    </a>
-   </li>
-  </ul>
- </li>
- <li class="toctree-l1 current active">
-  <a class="current reference internal" href="#">
-   Using APIs for Data Imports
-   <a id="btc-sim">
-   </a>
-  </a>
- </li>
- <li class="toctree-l1">
-  <a class="reference internal" href="7_financial_ts.html">
-   Financial time series
-   <a id="financial-time-series">
-   </a>
-  </a>
- </li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="3_intro.html">CompSci 101: Types, control, and numpy arrays</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="3_0_comp101.html">The Basics</a></li>
+<li class="toctree-l2"><a class="reference internal" href="3_1_numpy.html">Numpy and arrays</a></li>
 </ul>
-<p aria-level="2" class="caption" role="heading">
- <span class="caption-text">
-  Applications
- </span>
-</p>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="4_intro.html">Working with data</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="4_0_dataframes.html">Importing data</a></li>
+<li class="toctree-l2"><a class="reference internal" href="4_1_pandas.html">pandas</a></li>
+<li class="toctree-l2"><a class="reference internal" href="4_2_cleaning_data.html">Cleaning our data</a></li>
+<li class="toctree-l2"><a class="reference internal" href="4_3_eda.html">Exploratory data analysis (EDA)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="4_4_merge_shape.html">Merging and reshaping data</a></li>
+<li class="toctree-l2"><a class="reference internal" href="4_5_sql.html">Using SQL in Python</a></li>
+<li class="toctree-l2"><a class="reference internal" href="4_6_polar.html">polars: A fast, fancy pandas alternative</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="5_intro.html">Data visualization</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="5_0_seaborn.html">seaborn</a></li>
+<li class="toctree-l2"><a class="reference internal" href="5_1_matplotlib.html">matplotlib</a></li>
+<li class="toctree-l2"><a class="reference internal" href="5_2_plotly.html">plotly</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 current active"><a class="current reference internal" href="#">Using APIs for Data Imports <a id="btc-sim"></a></a></li>
+<li class="toctree-l1"><a class="reference internal" href="7_financial_ts.html">Financial time series <a id="financial-time-series"></a></a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Applications</span></p>
 <ul class="nav bd-sidenav">
- <li class="toctree-l1">
-  <a class="reference internal" href="8_port_math.html">
-   Essential portfolio math
-  </a>
- </li>
- <li class="toctree-l1">
-  <a class="reference internal" href="9_portfolio_opt.html">
-   Portfolio optimization
-  </a>
- </li>
- <li class="toctree-l1">
-  <a class="reference internal" href="10_unsupervised_learning.html">
-   Machine learning and unsupervised learning
-   <a id="unsupervised_learning">
-   </a>
-  </a>
- </li>
- <li class="toctree-l1">
-  <a class="reference internal" href="11_factor_models.html">
-   Factor models
-   <a id="factor_models">
-   </a>
-  </a>
- </li>
- <li class="toctree-l1">
-  <a class="reference internal" href="12_regression_topics.html">
-   Supervised machine learning and regression topics
-   <a id="regression">
-   </a>
-  </a>
- </li>
- <li class="toctree-l1">
-  <a class="reference internal" href="13_logit_credit.html">
-   Logit models
-  </a>
- </li>
- <li class="toctree-l1">
-  <a class="reference internal" href="14_risk_mang.html">
-   Risk management
-  </a>
- </li>
- <li class="toctree-l1">
-  <a class="reference internal" href="15_monte_carlo.html">
-   Monte Carlo and portfolios
-  </a>
- </li>
- <li class="toctree-l1">
-  <a class="reference internal" href="16_decision_trees.html">
-   Decision Trees
-  </a>
- </li>
- <li class="toctree-l1">
-  <a class="reference internal" href="17_options.html">
-   Option basics
-  </a>
- </li>
- <li class="toctree-l1">
-  <a class="reference internal" href="18_trading_bt.html">
-   Trading Strategies and the BT Package
-  </a>
- </li>
+<li class="toctree-l1"><a class="reference internal" href="8_port_math.html">Essential portfolio math</a></li>
+<li class="toctree-l1"><a class="reference internal" href="9_portfolio_opt.html">Portfolio optimization</a></li>
+<li class="toctree-l1"><a class="reference internal" href="10_unsupervised_learning.html">Machine learning and unsupervised learning <a id="unsupervised_learning"></a></a></li>
+<li class="toctree-l1"><a class="reference internal" href="11_factor_models.html">Factor models <a id="factor_models"></a></a></li>
+<li class="toctree-l1"><a class="reference internal" href="12_regression_topics.html">Supervised machine learning and regression topics <a id="regression"></a></a></li>
+<li class="toctree-l1"><a class="reference internal" href="13_logit_credit.html">Logit models</a></li>
+<li class="toctree-l1"><a class="reference internal" href="14_risk_mang.html">Risk management</a></li>
+<li class="toctree-l1"><a class="reference internal" href="15_monte_carlo.html">Monte Carlo and portfolios</a></li>
+<li class="toctree-l1"><a class="reference internal" href="16_decision_trees.html">Decision Trees</a></li>
+<li class="toctree-l1"><a class="reference internal" href="17_options.html">Option basics</a></li>
+<li class="toctree-l1"><a class="reference internal" href="18_trading_bt.html">Trading Strategies and the BT Package</a></li>
 </ul>
 
     </div>
 </nav></div>
-        <div class="bd-sidebar__bottom">
-             <!-- To handle the deprecated key -->
-            
-            <div class="navbar_extra_footer">
-            Powered by <a href="https://jupyterbook.org">Jupyter Book</a>
-            </div>
-            
-        </div>
     </div>
-    <div id="rtd-footer-container"></div>
-</div>
-
-
-          
-
-
-          
-<!-- A tiny helper pixel to detect if we've scrolled -->
-<div class="sbt-scroll-pixel-helper"></div>
-<!-- Main content -->
-<div class="col py-0 content-container">
-    
-    <div class="header-article row sticky-top noprint">
-        
-
-
-
-<div class="col py-1 d-flex header-article-main">
-    <div class="header-article__left">
-        
-        <label for="__navigation"
-  class="headerbtn"
-  data-toggle="tooltip"
-data-placement="right"
-title="Toggle navigation"
->
   
-
-<span class="headerbtn__icon-container">
-  <i class="fas fa-bars"></i>
-  </span>
-
-</label>
-
-        
-    </div>
-    <div class="header-article__right">
-<div class="menu-dropdown menu-dropdown-launch-buttons">
-  <button class="headerbtn menu-dropdown__trigger"
-      aria-label="Launch interactive content">
-      <i class="fas fa-rocket"></i>
-  </button>
-  <div class="menu-dropdown__content">
-    <ul>
-      <li>
-        <a href="https://mybinder.org/v2/gh/executablebooks/jupyter-book/master?urlpath=tree/docs/chapters/6_nasdaq_api.ipynb"
-   class="headerbtn"
-   data-toggle="tooltip"
-data-placement="left"
-title="Launch on Binder"
->
   
-
-<span class="headerbtn__icon-container">
-  
-    <img src="../_static/images/logo_binder.svg">
-  </span>
-<span class="headerbtn__text-container">Binder</span>
-</a>
-
-      </li>
-      
-    </ul>
+  <div class="sidebar-primary-items__end sidebar-primary__section">
   </div>
-</div>
+  
+  <div id="rtd-footer-container"></div>
 
-<button onclick="toggleFullScreen()"
-  class="headerbtn"
-  data-toggle="tooltip"
-data-placement="bottom"
-title="Fullscreen mode"
+
+      </div>
+      
+      <main id="main-content" class="bd-main" role="main">
+        
+        
+
+<div class="sbt-scroll-pixel-helper"></div>
+
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article d-print-none">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item"><button class="sidebar-toggle primary-toggle btn btn-sm" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <span class="fa-solid fa-bars"></span>
+</button></div>
+      
+    </div>
+  
+  
+    <div class="header-article-items__end">
+      
+        <div class="header-article-item">
+
+<div class="article-header-buttons">
+
+
+<a href="https://github.com/executablebooks/jupyter-book" target="_blank"
+   class="btn btn-sm btn-source-repository-button"
+   title="Source repository"
+   data-bs-placement="bottom" data-bs-toggle="tooltip"
 >
   
 
-<span class="headerbtn__icon-container">
-  <i class="fas fa-expand"></i>
-  </span>
-
-</button>
-<a href="https://github.com/executablebooks/jupyter-book"
-   class="headerbtn"
-   data-toggle="tooltip"
-data-placement="bottom"
-title="Source repository"
->
-  
-
-<span class="headerbtn__icon-container">
+<span class="btn__icon-container">
   <i class="fab fa-github"></i>
   </span>
 
 </a>
 
-<div class="menu-dropdown menu-dropdown-download-buttons">
-  <button class="headerbtn menu-dropdown__trigger"
-      aria-label="Download this page">
-      <i class="fas fa-download"></i>
+
+
+
+
+
+<div class="dropdown dropdown-download-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Download this page">
+    <i class="fas fa-download"></i>
   </button>
-  <div class="menu-dropdown__content">
-    <ul>
-      <li>
-        <a href="../_sources/chapters/6_nasdaq_api.ipynb"
-   class="headerbtn"
-   data-toggle="tooltip"
-data-placement="left"
-title="Download source file"
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="../_sources/chapters/6_nasdaq_api.ipynb" target="_blank"
+   class="btn btn-sm btn-download-source-button dropdown-item"
+   title="Download source file"
+   data-bs-placement="left" data-bs-toggle="tooltip"
 >
   
 
-<span class="headerbtn__icon-container">
+<span class="btn__icon-container">
   <i class="fas fa-file"></i>
   </span>
-<span class="headerbtn__text-container">.ipynb</span>
+<span class="btn__text-container">.ipynb</span>
 </a>
-
-      </li>
+</li>
+      
+      
+      
       
       <li>
-        
-<button onclick="printPdf(this)"
-  class="headerbtn"
-  data-toggle="tooltip"
-data-placement="left"
-title="Print to PDF"
+<button onclick="window.print()"
+  class="btn btn-sm btn-download-pdf-button dropdown-item"
+  title="Print to PDF"
+  data-bs-placement="left" data-bs-toggle="tooltip"
 >
   
 
-<span class="headerbtn__icon-container">
+<span class="btn__icon-container">
   <i class="fas fa-file-pdf"></i>
   </span>
-<span class="headerbtn__text-container">.pdf</span>
+<span class="btn__text-container">.pdf</span>
 </button>
-
-      </li>
+</li>
       
-    </ul>
-  </div>
+  </ul>
 </div>
-<label for="__page-toc"
-  class="headerbtn headerbtn-page-toc"
-  
+
+
+
+
+<button onclick="toggleFullScreen()"
+  class="btn btn-sm btn-fullscreen-button"
+  title="Fullscreen mode"
+  data-bs-placement="bottom" data-bs-toggle="tooltip"
 >
   
 
-<span class="headerbtn__icon-container">
-  <i class="fas fa-list"></i>
+<span class="btn__icon-container">
+  <i class="fas fa-expand"></i>
   </span>
 
-</label>
+</button>
 
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="theme-switch fa-solid fa-sun fa-lg" data-mode="light"></i>
+    <i class="theme-switch fa-solid fa-moon fa-lg" data-mode="dark"></i>
+    <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"></i>
+  </button>
+`);
+</script>
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm pst-navbar-icon search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass fa-lg"></i>
+  </button>
+`);
+</script>
+<button class="sidebar-toggle secondary-toggle btn btn-sm" title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="fa-solid fa-list"></span>
+</button>
+</div></div>
+      
     </div>
+  
 </div>
-
-<!-- Table of contents -->
-<div class="col-md-3 bd-toc show noprint">
-    <div class="tocsection onthispage pt-5 pb-3">
-        <i class="fas fa-list"></i> Contents
-    </div>
-    <nav id="bd-toc-nav" aria-label="Page">
-        <ul class="visible nav section-nav flex-column">
- <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#fred-example">
-   FRED Example
-  </a>
-  <ul class="nav section-nav flex-column">
-   <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#a-btc-simulation">
-     A BTC Simulation
-    </a>
-   </li>
-  </ul>
- </li>
- <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#pandas-datareader">
-   pandas-datareader
-  </a>
- </li>
- <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#nasdaq-api">
-   NASDAQ API
-  </a>
- </li>
- <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#using-rapid-api">
-   Using Rapid API
-  </a>
-  <ul class="nav section-nav flex-column">
-   <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#data-on-kaggle">
-     Data on Kaggle
-    </a>
-   </li>
-  </ul>
- </li>
-</ul>
-
-    </nav>
 </div>
-    </div>
-    <div class="article row">
-        <div class="col pl-md-3 pl-lg-5 content-container">
-            <!-- Table of contents that is only displayed when printing the page -->
-            <div id="jb-print-docs-body" class="onlyprint">
-                <h1>Using APIs for Data Imports <a id='btc-sim'></a></h1>
-                <!-- Table of contents -->
-                <div id="print-main-content">
-                    <div id="jb-print-toc">
-                        
-                        <div>
-                            <h2> Contents </h2>
-                        </div>
-                        <nav aria-label="Page">
-                            <ul class="visible nav section-nav flex-column">
- <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#fred-example">
-   FRED Example
-  </a>
-  <ul class="nav section-nav flex-column">
-   <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#a-btc-simulation">
-     A BTC Simulation
-    </a>
-   </li>
-  </ul>
- </li>
- <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#pandas-datareader">
-   pandas-datareader
-  </a>
- </li>
- <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#nasdaq-api">
-   NASDAQ API
-  </a>
- </li>
- <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#using-rapid-api">
-   Using Rapid API
-  </a>
-  <ul class="nav section-nav flex-column">
-   <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#data-on-kaggle">
-     Data on Kaggle
-    </a>
-   </li>
-  </ul>
- </li>
-</ul>
+              
+              
 
-                        </nav>
-                    </div>
-                </div>
+<div id="jb-print-docs-body" class="onlyprint">
+    <h1>Using APIs for Data Imports <a id='btc-sim'></a></h1>
+    <!-- Table of contents -->
+    <div id="print-main-content">
+        <div id="jb-print-toc">
+            
+            <div>
+                <h2> Contents </h2>
             </div>
-            <main id="main-content" role="main">
+            <nav aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#fred-example">FRED Example</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#a-btc-simulation">A BTC Simulation</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#pandas-datareader">pandas-datareader</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#nasdaq-api">NASDAQ API</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#using-rapid-api">Using Rapid API</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#data-on-kaggle">Data on Kaggle</a></li>
+</ul>
+</li>
+</ul>
+            </nav>
+        </div>
+    </div>
+</div>
+
+              
                 
-              <div>
-                
-  <section class="tex2jax_ignore mathjax_ignore" id="using-apis-for-data-imports-a-id-btc-sim-a">
-<h1>Using APIs for Data Imports <a id='btc-sim'></a><a class="headerlink" href="#using-apis-for-data-imports-a-id-btc-sim-a" title="Permalink to this headline">#</a></h1>
+<div id="searchbox"></div>
+                <article class="bd-article">
+                  
+  <section class="tex2jax_ignore mathjax_ignore" id="using-apis-for-data-imports">
+<h1>Using APIs for Data Imports <a id='btc-sim'></a><a class="headerlink" href="#using-apis-for-data-imports" title="Link to this heading">#</a></h1>
 <p>This chapter starts by using the <a class="reference external" href="https://fred.stlouisfed.org/docs/api/api_key.html">FRED API</a> with the package <a class="reference external" href="https://pypi.org/project/fredapi/">fredapi</a>. We’ll also see our first set of <strong>simulations</strong>. I’ll then show you how to use <a class="reference external" href="https://pandas-datareader.readthedocs.io/en/latest/">Pandas Data Reader</a>.</p>
 <p>This is also our first time using an <strong>API</strong>. Their API, or Application Programming Interface, lets us talk to a remote data storage system and pull in what we need. APIs are more general, though, and are used whenever you need one application to talk to another.</p>
 <p>We can again use <code class="docutils literal notranslate"><span class="pre">pip</span></code> to install packages via the command line or in your Jupyter notebook. You can type this directly into a code cell in a notebook in Github Codespaces. Run that cell.</p>
@@ -645,38 +439,30 @@ title="Print to PDF"
 </pre></div>
 </div>
 <section id="fred-example">
-<h2>FRED Example<a class="headerlink" href="#fred-example" title="Permalink to this headline">#</a></h2>
+<h2>FRED Example<a class="headerlink" href="#fred-example" title="Link to this heading">#</a></h2>
 <p>Let’s do our usual sort of set-up code.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Set-up</span>
 
-<span class="kn">from</span> <span class="nn">fredapi</span> <span class="kn">import</span> <span class="n">Fred</span>
-<span class="kn">import</span> <span class="nn">nasdaqdatalink</span> <span class="c1"># You could also do something like: import nasdaqdatalink as ndl</span>
-<span class="kn">import</span> <span class="nn">pandas_datareader</span> <span class="k">as</span> <span class="nn">pdr</span>
-<span class="kn">import</span> <span class="nn">os</span>
-<span class="kn">from</span> <span class="nn">dotenv</span> <span class="kn">import</span> <span class="n">load_dotenv</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">fredapi</span><span class="w"> </span><span class="kn">import</span> <span class="n">Fred</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">nasdaqdatalink</span> <span class="c1"># You could also do something like: import nasdaqdatalink as ndl</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">pandas_datareader</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">pdr</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">os</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">dotenv</span><span class="w"> </span><span class="kn">import</span> <span class="n">load_dotenv</span>
 
 
 
-<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
-<span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
-<span class="kn">import</span> <span class="nn">datetime</span> <span class="k">as</span> <span class="nn">dt</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">pandas</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">pd</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">datetime</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">dt</span>
 
-<span class="kn">import</span> <span class="nn">matplotlib</span> <span class="k">as</span> <span class="nn">mpl</span> 
+<span class="kn">import</span><span class="w"> </span><span class="nn">matplotlib</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">mpl</span> 
 
-<span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">matplotlib.pyplot</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">plt</span>
 
 <span class="c1"># Include this to have plots show up in your Jupyter notebook.</span>
 <span class="o">%</span><span class="k">matplotlib</span> inline 
-</pre></div>
-</div>
-</div>
-<div class="cell_output docutils container">
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>/opt/anaconda3/lib/python3.9/site-packages/pandas/core/computation/expressions.py:21: UserWarning: Pandas requires version &#39;2.8.4&#39; or newer of &#39;numexpr&#39; (version &#39;2.8.3&#39; currently installed).
-  from pandas.core.computation.check import NUMEXPR_INSTALLED
-/opt/anaconda3/lib/python3.9/site-packages/pandas/core/arrays/masked.py:60: UserWarning: Pandas requires version &#39;1.3.6&#39; or newer of &#39;bottleneck&#39; (version &#39;1.3.5&#39; currently installed).
-  from pandas.core import (
 </pre></div>
 </div>
 </div>
@@ -713,7 +499,7 @@ title="Print to PDF"
 </figure>
 <p>You’ll now see that secret in the main Codespace settings page. You can refer to the name of that secret in your Codespace now, like I do below. Note that you need to import the <code class="docutils literal notranslate"><span class="pre">os</span></code> package to access this <strong>environment</strong> variable. An environment variable is a variable defined for all of the work in this particular repo. My secret is named <code class="docutils literal notranslate"><span class="pre">NASDAQ</span></code>, so I can refer to that.</p>
 <p>If you had your <strong>Codespace running</strong> in another tab before adding the secret, you’ll need to <strong>restart</strong> it:</p>
-<ol class="simple">
+<ol class="arabic simple">
 <li><p>Click on the <strong>Codespaces</strong> tab in your GitHub repository.</p></li>
 <li><p>Select your active Codespace.</p></li>
 <li><p>Click <strong>Stop Codespace</strong> and then <strong>Restart</strong> it.
@@ -721,8 +507,8 @@ This refreshes your environment, allowing the secret to be accessed.</p></li>
 </ol>
 <p>This is the code for accessing your <code class="docutils literal notranslate"><span class="pre">FRED</span></code> secret, which contains the API key.</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="c1"># ✅ Secure way (Recommended)</span>
-<span class="kn">from</span> <span class="nn">fredapi</span> <span class="kn">import</span> <span class="n">Fred</span>
-<span class="kn">import</span> <span class="nn">os</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">fredapi</span><span class="w"> </span><span class="kn">import</span> <span class="n">Fred</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">os</span>
 
 <span class="c1"># My Secret for this Repo is called FRED</span>
 <span class="n">FRED_API_KEY</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">environ</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;FRED&#39;</span><span class="p">)</span>
@@ -854,7 +640,7 @@ dtype: float64
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>/var/folders/kx/y8vj3n6n5kq_d74vj24jsnh40000gn/T/ipykernel_81749/623421051.py:1: SettingWithCopyWarning: 
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>/var/folders/kx/y8vj3n6n5kq_d74vj24jsnh40000gn/T/ipykernel_92333/623421051.py:1: SettingWithCopyWarning: 
 A value is trying to be set on a copy of a slice from a DataFrame.
 Try using .loc[row_indexer,col_indexer] = value instead
 
@@ -872,16 +658,16 @@ See the caveats in the documentation: https://pandas.pydata.org/pandas-docs/stab
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;AxesSubplot:xlabel=&#39;date&#39;&gt;
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;Axes: xlabel=&#39;date&#39;&gt;
 </pre></div>
 </div>
-<img alt="../_images/6_nasdaq_api_12_1.png" src="../_images/6_nasdaq_api_12_1.png" />
+<img alt="../_images/e84f62cf171faf92914e9fc50017337a1a9cab779bf3d8c0b0a43985597ae7f8.png" src="../_images/e84f62cf171faf92914e9fc50017337a1a9cab779bf3d8c0b0a43985597ae7f8.png" />
 </div>
 </div>
 <p>Well, that’s not a very good graph. The returns and price levels are in different units. Let’s use an <code class="docutils literal notranslate"><span class="pre">f</span> <span class="pre">print</span></code> to show and format the average BTC return.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;Average return: </span><span class="si">{</span><span class="mi">100</span> <span class="o">*</span> <span class="n">btc</span><span class="o">.</span><span class="n">ret</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span><span class="si">:</span><span class="s1">.2f</span><span class="si">}</span><span class="s1">%&#39;</span><span class="p">)</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;Average return: </span><span class="si">{</span><span class="mi">100</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">btc</span><span class="o">.</span><span class="n">ret</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span><span class="si">:</span><span class="s1">.2f</span><span class="si">}</span><span class="s1">%&#39;</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
@@ -1032,7 +818,7 @@ See the caveats in the documentation: https://pandas.pydata.org/pandas-docs/stab
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../_images/6_nasdaq_api_18_0.png" src="../_images/6_nasdaq_api_18_0.png" />
+<img alt="../_images/7bddff7ebe52f66318d5a8c7cdab7d165659639a896b67bacf07fa32a5da82b5.png" src="../_images/7bddff7ebe52f66318d5a8c7cdab7d165659639a896b67bacf07fa32a5da82b5.png" />
 </div>
 </div>
 <p>I can make the same graph using the <code class="docutils literal notranslate"><span class="pre">.add_subplot()</span></code> syntax. The method above gives you some more flexibility, since you can give both plots the same x-axis.</p>
@@ -1057,22 +843,22 @@ See the caveats in the documentation: https://pandas.pydata.org/pandas-docs/stab
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../_images/6_nasdaq_api_20_0.png" src="../_images/6_nasdaq_api_20_0.png" />
+<img alt="../_images/c4d5a50d15b9431612a2e2243d4ffd9c9a20984653d5e5782643123005c8fb3d.png" src="../_images/c4d5a50d15b9431612a2e2243d4ffd9c9a20984653d5e5782643123005c8fb3d.png" />
 </div>
 </div>
 <section id="a-btc-simulation">
-<h3>A BTC Simulation<a class="headerlink" href="#a-btc-simulation" title="Permalink to this headline">#</a></h3>
+<h3>A BTC Simulation<a class="headerlink" href="#a-btc-simulation" title="Link to this heading">#</a></h3>
 <p>Let’s put together some ideas, write a function, and run a simulation. We’ll use something called <strong>geometric brownian motion</strong> (GBM). What is GBM? It is a particular <a class="reference external" href="https://arxiv.org/pdf/1504.05309.pdf">stochastic differential equation</a>. But, what’s important for us is the idea, which is fairly simple. Here’s the formula:</p>
-<div class="amsmath math notranslate nohighlight" id="equation-15460f89-b15f-43d6-9f63-90c6075b0837">
-<span class="eqno">(1)<a class="headerlink" href="#equation-15460f89-b15f-43d6-9f63-90c6075b0837" title="Permalink to this equation">#</a></span>\[\begin{align}
+<div class="amsmath math notranslate nohighlight" id="equation-a99ce715-c3a4-4f76-b9d9-3d1e5274f2cf">
+<span class="eqno">(1)<a class="headerlink" href="#equation-a99ce715-c3a4-4f76-b9d9-3d1e5274f2cf" title="Permalink to this equation">#</a></span>\[\begin{align}
 dS = \mu S dt + \sigma S dW_t
 \end{align}\]</div>
 <p>This says that the change in the stock price has two components - a <strong>drift</strong>, or average increase over time, and a <strong>shock</strong> that it is random at each point in time. The shock is scaled by the standard deviation of returns that you use. So, larger standard deviation, the bigger the shocks can be. This is basically the simplest way that you can model an asset price.</p>
 <p>The shocks are what make the price wiggle around around, or else it would just go up over time, based on the drift value that we use.</p>
 <p>And, I’ll stress - we aren’t predicting here, so to speak. We are trying to capture some basic reality about how an asset moves and then seeing what is possible in the future. We aren’t making a statement about whether we think an asset is overvalued or undervalued, will go up or down, etc.</p>
 <p>You can solve this equation to get the value of the asset at any point in time t. You just need to know the total of all of the shocks at time t.</p>
-<div class="amsmath math notranslate nohighlight" id="equation-ec288e0b-b692-480f-b890-95787c77b347">
-<span class="eqno">(2)<a class="headerlink" href="#equation-ec288e0b-b692-480f-b890-95787c77b347" title="Permalink to this equation">#</a></span>\[\begin{align}
+<div class="amsmath math notranslate nohighlight" id="equation-9baece05-e8cc-4780-bec6-174501d77cf1">
+<span class="eqno">(2)<a class="headerlink" href="#equation-9baece05-e8cc-4780-bec6-174501d77cf1" title="Permalink to this equation">#</a></span>\[\begin{align}
 S(t) = S(0) \exp \left(\left(\mu - \frac{1}{2}\sigma^2\right)t + \sigma W(t)\right)
 \end{align}\]</div>
 <div class="cell docutils container">
@@ -1087,7 +873,7 @@ S(t) = S(0) \exp \left(\left(\mu - \frac{1}{2}\sigma^2\right)t + \sigma W(t)\rig
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>/var/folders/kx/y8vj3n6n5kq_d74vj24jsnh40000gn/T/ipykernel_81749/160269624.py:3: FutureWarning: Series.__getitem__ treating keys as positions is deprecated. In a future version, integer keys will always be treated as labels (consistent with DataFrame behavior). To access a value by position, use `ser.iloc[pos]`
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>/var/folders/kx/y8vj3n6n5kq_d74vj24jsnh40000gn/T/ipykernel_92333/160269624.py:3: FutureWarning: Series.__getitem__ treating keys as positions is deprecated. In a future version, integer keys will always be treated as labels (consistent with DataFrame behavior). To access a value by position, use `ser.iloc[pos]`
   S_0 = btc.btc[-1] # initial BTC price
 </pre></div>
 </div>
@@ -1096,7 +882,7 @@ S(t) = S(0) \exp \left(\left(\mu - \frac{1}{2}\sigma^2\right)t + \sigma W(t)\rig
 <p>This is the basic syntax for writing a function in Python. We saw this earlier, back when doing “Comp 101”. Remember, in Python, <strong>indentation matters</strong>!</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">simulate_gbm</span><span class="p">(</span><span class="n">s_0</span><span class="p">,</span> <span class="n">mu</span><span class="p">,</span> <span class="n">sigma</span><span class="p">,</span> <span class="n">n_sims</span><span class="p">,</span> <span class="n">T</span><span class="p">,</span> <span class="n">N</span><span class="p">):</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span><span class="w"> </span><span class="nf">simulate_gbm</span><span class="p">(</span><span class="n">s_0</span><span class="p">,</span> <span class="n">mu</span><span class="p">,</span> <span class="n">sigma</span><span class="p">,</span> <span class="n">n_sims</span><span class="p">,</span> <span class="n">T</span><span class="p">,</span> <span class="n">N</span><span class="p">):</span>
     <span class="n">dt</span> <span class="o">=</span> <span class="n">T</span><span class="o">/</span><span class="n">N</span> <span class="c1"># One day</span>
     <span class="n">dW</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">normal</span><span class="p">(</span><span class="n">scale</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="n">dt</span><span class="p">),</span> 
         <span class="n">size</span><span class="o">=</span><span class="p">(</span><span class="n">n_sims</span><span class="p">,</span> <span class="n">N</span><span class="p">))</span>  <span class="c1"># The random part</span>
@@ -1144,19 +930,19 @@ S(t) = S(0) \exp \left(\left(\mu - \frac{1}{2}\sigma^2\right)t + \sigma W(t)\rig
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>array([[ 0.25846575,  0.21439205, -0.90007245, ...,  0.93251147,
-        -0.92975543, -0.82352081],
-       [ 1.70020644, -0.71321019, -0.95538906, ..., -0.21315645,
-        -2.41191361,  0.38115677],
-       [-2.30401431,  1.05094515, -2.92488298, ...,  1.70411849,
-        -0.18682808, -1.01319038],
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>array([[-0.51415727,  0.64640239,  0.26304161, ...,  0.60074503,
+        -0.35513236,  0.92317012],
+       [ 0.57588983,  0.71660748, -0.21805328, ...,  0.50021996,
+         0.0555394 ,  0.27953851],
+       [-0.73259017,  0.7459783 , -1.98973389, ...,  0.42546462,
+         1.27397257, -1.92507708],
        ...,
-       [ 0.22368589,  0.27130122,  0.74510819, ..., -0.87741032,
-        -0.25179827, -0.03522041],
-       [ 0.69194317,  0.95110324,  0.47174301, ..., -0.095117  ,
-         0.18464386, -0.72975307],
-       [ 0.71681547,  0.81013739,  0.82105049, ..., -0.34280018,
-         0.26584576, -0.37499531]])
+       [ 0.85474183,  1.03598246, -0.13168892, ...,  0.21996823,
+         1.03398855, -0.56526192],
+       [ 0.12500966,  0.52180365,  1.99873911, ...,  0.20435795,
+        -0.22103291, -0.90601427],
+       [ 0.25017656,  0.68952037,  0.54090948, ..., -1.92274009,
+        -0.24729361,  0.23328838]])
 </pre></div>
 </div>
 </div>
@@ -1225,14 +1011,14 @@ S(t) = S(0) \exp \left(\left(\mu - \frac{1}{2}\sigma^2\right)t + \sigma W(t)\rig
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../_images/6_nasdaq_api_35_0.png" src="../_images/6_nasdaq_api_35_0.png" />
+<img alt="../_images/a0380addf338114b3f5df6a6bc27758c31d79da0155b48d3102c76900c469bbe.png" src="../_images/a0380addf338114b3f5df6a6bc27758c31d79da0155b48d3102c76900c469bbe.png" />
 </div>
 </div>
 <p>The y-axis has a very wide range, since some extreme values are possible, given this simulation.</p>
 </section>
 </section>
 <section id="pandas-datareader">
-<h2>pandas-datareader<a class="headerlink" href="#pandas-datareader" title="Permalink to this headline">#</a></h2>
+<h2>pandas-datareader<a class="headerlink" href="#pandas-datareader" title="Link to this heading">#</a></h2>
 <p>The <a class="reference external" href="https://pydata.github.io/pandas-datareader/">pandas data-reader</a> API lets us access additional data sources, such as <a class="reference external" href="https://fred.stlouisfed.org">FRED</a>.</p>
 <p>There are also API that let you access the same data. For example, Yahoo! Finance has several, like <a class="reference external" href="https://pypi.org/project/yfinance/">yfinance</a>. I find accessing Yahoo! Finance via an API to be very buggy - Yahoo! actively tries to stop it. So, you can try those instructions, but they may or may not work.</p>
 <p>Lots of developers have written APIs to access different data sources.</p>
@@ -1306,14 +1092,14 @@ S(t) = S(0) \exp \left(\left(\mu - \frac{1}{2}\sigma^2\right)t + \sigma W(t)\rig
 </div>
 </section>
 <section id="nasdaq-api">
-<h2>NASDAQ API<a class="headerlink" href="#nasdaq-api" title="Permalink to this headline">#</a></h2>
+<h2>NASDAQ API<a class="headerlink" href="#nasdaq-api" title="Link to this heading">#</a></h2>
 <p>Let’s look at the <a class="reference external" href="https://www.nasdaq.com/nasdaq-data-link">NASDAQ Datalink API</a>. You’ll need to create an account and then get the API key. You can set up an account <a class="reference external" href="https://data.nasdaq.com/sign-up">here</a>. Choose an <strong>Academic</strong> account. You will also be asked to set-up an <strong>authentication method</strong>. I used Google Authenticator on my phone. When you try to log in, you’ll need to go to the app and get the six-digit number.</p>
 <p>Once you log in, you might see a <strong>My Apps</strong> dashboard. Click the icon in the middle - you’ll be able to go to this page: <a class="reference external" href="https://data.nasdaq.com">https://data.nasdaq.com</a>.</p>
 <p>That’s the main data API page. There’s a <strong>SEARCH FOR DATA</strong> box at the top.</p>
 <figure class="align-center" id="nasdaq-home-png">
 <img alt="../_images/07-nasdaq-home.png" src="../_images/07-nasdaq-home.png" />
 <figcaption>
-<p><span class="caption-number">Fig. 35 </span><span class="caption-text">NASDAQ API homepage.</span><a class="headerlink" href="#nasdaq-home-png" title="Permalink to this image">#</a></p>
+<p><span class="caption-number">Fig. 35 </span><span class="caption-text">NASDAQ API homepage.</span><a class="headerlink" href="#nasdaq-home-png" title="Link to this image">#</a></p>
 </figcaption>
 </figure>
 <p>You can go to your <strong>account profile</strong> to get your API key: <a class="reference external" href="https://data.nasdaq.com/account/profile">https://data.nasdaq.com/account/profile</a>. You should create a <strong>Github Secret</strong> for this key and then assign it to your repo. As a reminder, you do this by going to your Github account, clicking on your image in the upper-right, going to <strong>Settings</strong>, and then <strong>Codespaces</strong>. You can then add a new secret and aassign it to your repo. I’d call the secret <code class="docutils literal notranslate"><span class="pre">NASDAQ</span></code>.</p>
@@ -1323,14 +1109,14 @@ S(t) = S(0) \exp \left(\left(\mu - \frac{1}{2}\sigma^2\right)t + \sigma W(t)\rig
 <figure class="align-center" id="nasdaq-explore-png">
 <img alt="../_images/07-nasdaq-explore.png" src="../_images/07-nasdaq-explore.png" />
 <figcaption>
-<p><span class="caption-number">Fig. 36 </span><span class="caption-text">Exploring NASDAQ data options.</span><a class="headerlink" href="#nasdaq-explore-png" title="Permalink to this image">#</a></p>
+<p><span class="caption-number">Fig. 36 </span><span class="caption-text">Exploring NASDAQ data options.</span><a class="headerlink" href="#nasdaq-explore-png" title="Link to this image">#</a></p>
 </figcaption>
 </figure>
 <p>Let’s look at the Zillow data. You can find that data <a class="reference external" href="https://data.nasdaq.com/databases/ZILLOW">here</a>.</p>
 <figure class="align-center" id="nasdaq-zillow-png">
 <img alt="../_images/07-nasdaq-zillow.png" src="../_images/07-nasdaq-zillow.png" />
 <figcaption>
-<p><span class="caption-number">Fig. 37 </span><span class="caption-text">NASDAQ has an API for Zillow housing data.</span><a class="headerlink" href="#nasdaq-zillow-png" title="Permalink to this image">#</a></p>
+<p><span class="caption-number">Fig. 37 </span><span class="caption-text">NASDAQ has an API for Zillow housing data.</span><a class="headerlink" href="#nasdaq-zillow-png" title="Link to this image">#</a></p>
 </figcaption>
 </figure>
 <p>Each the data APIs shows you samples of what you can access. So, we see an example table with data for a particular indicator, region, date and value. There’s a dropdown menu that lets you select one of three data sets available to see a preview.</p>
@@ -1347,8 +1133,8 @@ S(t) = S(0) \exp \left(\left(\mu - \frac{1}{2}\sigma^2\right)t + \sigma W(t)\rig
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="c1"># ✅ Secure way (Recommended)</span>
 <span class="o">%</span><span class="n">pip</span> <span class="n">install</span> <span class="n">nasdaq</span><span class="o">-</span><span class="n">data</span><span class="o">-</span><span class="n">link</span>
 
-<span class="kn">import</span> <span class="nn">nasdaqdatalink</span> <span class="k">as</span> <span class="nn">ndl</span>
-<span class="kn">import</span> <span class="nn">os</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">nasdaqdatalink</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">ndl</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">os</span>
 
 <span class="c1"># My Secret for this Repo is called NASDAQ</span>
 <span class="n">NASDAQ_API_KEY</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">environ</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;NASDAQ&#39;</span><span class="p">)</span>
@@ -1365,7 +1151,7 @@ S(t) = S(0) \exp \left(\left(\mu - \frac{1}{2}\sigma^2\right)t + \sigma W(t)\rig
 
 <span class="c1"># Bring in nasdaqdatalink for downloading data. Note how you don&#39;t have the dashes in the package name.</span>
 
-<span class="kn">import</span> <span class="nn">nasdaqdatalink</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">nasdaqdatalink</span>
 
 <span class="n">NASDAQ_API_KEY</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">getenv</span><span class="p">(</span><span class="s1">&#39;NASDAQ_API_KEY&#39;</span><span class="p">)</span>
 
@@ -1920,12 +1706,12 @@ memory usage: 3.1+ KB
 <p>Now you can filter by <em>date</em> if you like. And, you could pull down multiple states this way, change the variable type, etc. You could also merge in the region names using <em>region_id</em> as your key.</p>
 </section>
 <section id="using-rapid-api">
-<h2>Using Rapid API<a class="headerlink" href="#using-rapid-api" title="Permalink to this headline">#</a></h2>
+<h2>Using Rapid API<a class="headerlink" href="#using-rapid-api" title="Link to this heading">#</a></h2>
 <p>Another data option is <a class="reference external" href="https://rapidapi.com/hub">Rapid API</a>. There’s all types of data here - markets, sports, gambling, housing, etc. People will write their own APIs, perhaps interfacing with the websites that contain the information. They can then publish their APIs on this webpage. Many have free options, some you have to pay for. There are thousands here, so you’ll have to dig around.</p>
 <figure class="align-center" id="rapidapi-png">
 <img alt="../_images/07-rapidapi.png" src="../_images/07-rapidapi.png" />
 <figcaption>
-<p><span class="caption-number">Fig. 38 </span><span class="caption-text">Main Rapid API webpage</span><a class="headerlink" href="#rapidapi-png" title="Permalink to this image">#</a></p>
+<p><span class="caption-number">Fig. 38 </span><span class="caption-text">Main Rapid API webpage</span><a class="headerlink" href="#rapidapi-png" title="Link to this image">#</a></p>
 </figcaption>
 </figure>
 <p>One you have an account, you’ll be able to subscribe to different APIs. You probably want the data to have a free option.</p>
@@ -1937,7 +1723,7 @@ memory usage: 3.1+ KB
 <figure class="align-center" id="rapidapi-endpoint-png">
 <img alt="../_images/07-rapidapi-endpoint.png" src="../_images/07-rapidapi-endpoint.png" />
 <figcaption>
-<p><span class="caption-number">Fig. 39 </span><span class="caption-text">Pinnacle Odds endpoint page. I’ve blocked my API key with two different windows.</span><a class="headerlink" href="#rapidapi-endpoint-png" title="Permalink to this image">#</a></p>
+<p><span class="caption-number">Fig. 39 </span><span class="caption-text">Pinnacle Odds endpoint page. I’ve blocked my API key with two different windows.</span><a class="headerlink" href="#rapidapi-endpoint-png" title="Link to this image">#</a></p>
 </figcaption>
 </figure>
 <p>At the top, you’ll see Endpoints, About, Tutorials, Discussions, and Pricing. Click around to read more about the API.</p>
@@ -2004,7 +1790,7 @@ memory usage: 3.1+ KB
 <figure class="align-center" id="rapidapi-nba-png">
 <img alt="../_images/07-rapidapi-nba.png" src="../_images/07-rapidapi-nba.png" />
 <figcaption>
-<p><span class="caption-number">Fig. 40 </span><span class="caption-text">Some NBA odds for this weekend.</span><a class="headerlink" href="#rapidapi-nba-png" title="Permalink to this image">#</a></p>
+<p><span class="caption-number">Fig. 40 </span><span class="caption-text">Some NBA odds for this weekend.</span><a class="headerlink" href="#rapidapi-nba-png" title="Link to this image">#</a></p>
 </figcaption>
 </figure>
 <p>We can expand the result and look at the data structure. This is a more complicated one. I see 8 items under events. These correspond to the 8 games this weekend. Then, under each event, you can keep drilling down. The <em>level 0</em> is kind of like the header for that event. It has the game, the start time, the teams, etc. You’ll see 4 more keys under <em>periods</em>. Each of these is a different betting line, with money lines, spreads, what I think are over/under point totals, etc.</p>
@@ -2053,7 +1839,7 @@ memory usage: 3.1+ KB
 <figure class="align-center" id="json-png">
 <img alt="../_images/07-json.png" src="../_images/07-json.png" />
 <figcaption>
-<p><span class="caption-number">Fig. 41 </span><span class="caption-text">JSON structure. Source: https://towardsdatascience.com/all-pandas-json-normalize-you-should-know-for-flattening-json-13eae1dfb7dd</span><a class="headerlink" href="#json-png" title="Permalink to this image">#</a></p>
+<p><span class="caption-number">Fig. 41 </span><span class="caption-text">JSON structure. Source: https://towardsdatascience.com/all-pandas-json-normalize-you-should-know-for-flattening-json-13eae1dfb7dd</span><a class="headerlink" href="#json-png" title="Link to this image">#</a></p>
 </figcaption>
 </figure>
 <p>JSON files are like dictionaries, as you can see in the picture above. There’s a key and a value. However, they can get complicated where there’s a list of dictionaries embedded in the same data structure. You can think of navigating them like working through the branches of a tree. Which branch do you want?</p>
@@ -2078,7 +1864,7 @@ memory usage: 3.1+ KB
 <p>That’s a lot of columns! Do you see what it did? When I flattened the file, it worked its way through the dictionary and key values. So, periods to num_0 to totals to the various over/under values, etc. It then combined those permutations to create new columns, where each value is separated by a period. Then value at the end of the chain is what goes into the DataFrame.</p>
 <p>That’s a quick introduction to Rapid API and dealing with its JSON output. Every API is different - you’ll have to play around.</p>
 <section id="data-on-kaggle">
-<h3>Data on Kaggle<a class="headerlink" href="#data-on-kaggle" title="Permalink to this headline">#</a></h3>
+<h3>Data on Kaggle<a class="headerlink" href="#data-on-kaggle" title="Link to this heading">#</a></h3>
 <p><a class="reference external" href="https://www.kaggle.com">Kaggle</a> is also a great source for data. You can search their <a class="reference external" href="https://www.kaggle.com/datasets">data sets here</a>.</p>
 <p>Searching for finance, I see one on <a class="reference external" href="https://www.kaggle.com/datasets/kaggle/us-consumer-finance-complaints">consumer finance complaints</a> that looks interesting. The Kaggle page describes the data, gives you a data dictionary, and some examples.</p>
 <p>The data for Kaggle contests is usually pretty clean already. That said, you’ll usually have to do at least some work to get it ready to look at.</p>
@@ -2098,7 +1884,7 @@ memory usage: 3.1+ KB
             mode: "python"
         },
         kernelOptions: {
-            kernelName: "python3",
+            name: "python3",
             path: "./chapters"
         },
         predefinedOutput: true
@@ -2106,49 +1892,105 @@ memory usage: 3.1+ KB
     </script>
     <script>kernelName = 'python3'</script>
 
-              </div>
+                </article>
               
-            </main>
-            <footer class="footer-article noprint">
-                
-    <!-- Previous / next buttons -->
-<div class='prev-next-area'>
-    <a class='left-prev' id="prev-link" href="5_2_plotly.html" title="previous page">
-        <i class="fas fa-angle-left"></i>
-        <div class="prev-next-info">
-            <p class="prev-next-subtitle">previous</p>
-            <p class="prev-next-title">plotly</p>
-        </div>
+
+              
+              
+              
+              
+                <footer class="prev-next-footer d-print-none">
+                  
+<div class="prev-next-area">
+    <a class="left-prev"
+       href="5_2_plotly.html"
+       title="previous page">
+      <i class="fa-solid fa-angle-left"></i>
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">previous</p>
+        <p class="prev-next-title">plotly</p>
+      </div>
     </a>
-    <a class='right-next' id="next-link" href="7_financial_ts.html" title="next page">
-    <div class="prev-next-info">
+    <a class="right-next"
+       href="7_financial_ts.html"
+       title="next page">
+      <div class="prev-next-info">
         <p class="prev-next-subtitle">next</p>
         <p class="prev-next-title">Financial time series <a id='financial-time-series'></a></p>
-    </div>
-    <i class="fas fa-angle-right"></i>
+      </div>
+      <i class="fa-solid fa-angle-right"></i>
     </a>
 </div>
-            </footer>
-        </div>
-    </div>
-    <div class="footer-content row">
-        <footer class="col footer"><p>
+                </footer>
+              
+            </div>
+            
+            
+              
+                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+
+  <div class="sidebar-secondary-item">
+  <div class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> Contents
+  </div>
+  <nav class="bd-toc-nav page-toc">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#fred-example">FRED Example</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#a-btc-simulation">A BTC Simulation</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#pandas-datareader">pandas-datareader</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#nasdaq-api">NASDAQ API</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#using-rapid-api">Using Rapid API</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#data-on-kaggle">Data on Kaggle</a></li>
+</ul>
+</li>
+</ul>
+  </nav></div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+<div class="bd-footer-content__inner container">
   
-    By Prof. Adam Aiken<br/>
-  
-</p>
-        </footer>
-    </div>
+  <div class="footer-item">
     
+<p class="component-author">
+By Prof. Adam Aiken
+</p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
 </div>
+          </footer>
+        
 
-
-      </div>
+      </main>
     </div>
+  </div>
   
   <!-- Scripts loaded after <body> so the DOM is not blocked -->
-  <script src="../_static/scripts/pydata-sphinx-theme.js?digest=1999514e3f237ded88cf"></script>
+  <script src="../_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b"></script>
+<script src="../_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b"></script>
 
-
+  <footer class="bd-footer">
+  </footer>
   </body>
 </html>

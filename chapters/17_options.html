@@ -1,115 +1,180 @@
 
 <!DOCTYPE html>
 
-<html>
+
+<html lang="en" data-content_root="../" >
+
   <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
     <title>Option basics &#8212; Data Analysis in Finance</title>
-    
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
+  </script>
+  
   <!-- Loaded before other Sphinx assets -->
-  <link href="../_static/styles/theme.css?digest=1999514e3f237ded88cf" rel="stylesheet">
-<link href="../_static/styles/pydata-sphinx-theme.css?digest=1999514e3f237ded88cf" rel="stylesheet">
+  <link href="../_static/styles/theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="../_static/styles/bootstrap.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="../_static/styles/pydata-sphinx-theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
 
-    
-  <link rel="stylesheet"
-    href="../_static/vendor/fontawesome/5.13.0/css/all.min.css">
-  <link rel="preload" as="font" type="font/woff2" crossorigin
-    href="../_static/vendor/fontawesome/5.13.0/webfonts/fa-solid-900.woff2">
-  <link rel="preload" as="font" type="font/woff2" crossorigin
-    href="../_static/vendor/fontawesome/5.13.0/webfonts/fa-brands-400.woff2">
+  
+  <link href="../_static/vendor/fontawesome/6.5.2/css/all.min.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.2/webfonts/fa-solid-900.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.2/webfonts/fa-brands-400.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.2/webfonts/fa-regular-400.woff2" />
 
-    <link rel="stylesheet" type="text/css" href="../_static/pygments.css" />
-    <link rel="stylesheet" href="../_static/styles/sphinx-book-theme.css?digest=5115cc725059bd94278eecd172e13a965bf8f5a9" type="text/css" />
-    <link rel="stylesheet" type="text/css" href="../_static/togglebutton.css" />
-    <link rel="stylesheet" type="text/css" href="../_static/copybutton.css" />
-    <link rel="stylesheet" type="text/css" href="../_static/mystnb.css" />
-    <link rel="stylesheet" type="text/css" href="../_static/sphinx-thebe.css" />
-    <link rel="stylesheet" type="text/css" href="../_static/custom.css" />
-    <link rel="stylesheet" type="text/css" href="../_static/custom.css" />
-    <link rel="stylesheet" type="text/css" href="../_static/design-style.b7bb847fb20b106c3d81b95245e65545.min.css" />
-    
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=03e43079" />
+    <link rel="stylesheet" type="text/css" href="../_static/styles/sphinx-book-theme.css?v=eba8b062" />
+    <link rel="stylesheet" type="text/css" href="../_static/togglebutton.css?v=9c3e77be" />
+    <link rel="stylesheet" type="text/css" href="../_static/copybutton.css?v=76b2166b" />
+    <link rel="stylesheet" type="text/css" href="../_static/mystnb.8ecb98da25f57f5357bf6f572d296f466b2cfe2517ffebfabe82451661e28f02.css?v=6644e6bb" />
+    <link rel="stylesheet" type="text/css" href="../_static/sphinx-thebe.css?v=4fa983c6" />
+    <link rel="stylesheet" type="text/css" href="../_static/sphinx-design.min.css?v=95c83b7e" />
+    <link rel="stylesheet" type="text/css" href="../_static/custom.css?v=b747247e" />
+  
   <!-- Pre-loaded scripts that we'll load fully later -->
-  <link rel="preload" as="script" href="../_static/scripts/pydata-sphinx-theme.js?digest=1999514e3f237ded88cf">
+  <link rel="preload" as="script" href="../_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b" />
+<link rel="preload" as="script" href="../_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b" />
+  <script src="../_static/vendor/fontawesome/6.5.2/js/all.min.js?digest=dfe6caa3a7d634c4db9b"></script>
 
-    <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
-    <script src="../_static/jquery.js"></script>
-    <script src="../_static/underscore.js"></script>
-    <script src="../_static/doctools.js"></script>
-    <script src="../_static/clipboard.min.js"></script>
-    <script src="../_static/copybutton.js"></script>
-    <script src="../_static/scripts/sphinx-book-theme.js?digest=9c920249402e914e316237a7dbc6769907cce411"></script>
+    <script src="../_static/documentation_options.js?v=9eb32ce0"></script>
+    <script src="../_static/doctools.js?v=9a2dae69"></script>
+    <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../_static/clipboard.min.js?v=a7894cd8"></script>
+    <script src="../_static/copybutton.js?v=f281be69"></script>
+    <script src="../_static/scripts/sphinx-book-theme.js?v=887ef09a"></script>
     <script>let toggleHintShow = 'Click to show';</script>
     <script>let toggleHintHide = 'Click to hide';</script>
     <script>let toggleOpenOnPrint = 'true';</script>
-    <script src="../_static/togglebutton.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
-    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown, .tag_hide_input div.cell_input, .tag_hide-input div.cell_input, .tag_hide_output div.cell_output, .tag_hide-output div.cell_output, .tag_hide_cell.cell, .tag_hide-cell.cell';</script>
-    <script src="../_static/design-tabs.js"></script>
-    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"
-const thebe_selector = ".thebe,.cell"
-const thebe_selector_input = "pre"
-const thebe_selector_output = ".output, .cell_output"
-</script>
-    <script async="async" src="../_static/sphinx-thebe.js"></script>
+    <script src="../_static/togglebutton.js?v=1ae7504c"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script src="../_static/design-tabs.js?v=36754332"></script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script async="async" src="../_static/sphinx-thebe.js?v=c100c467"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
     <script>window.MathJax = {"options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
     <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'chapters/17_options';</script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
     <link rel="next" title="Trading Strategies and the BT Package" href="18_trading_bt.html" />
     <link rel="prev" title="Decision Trees" href="16_decision_trees.html" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <meta name="docsearch:language" content="None">
-    
-
-    <!-- Google Analytics -->
-    
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
   </head>
-  <body data-spy="scroll" data-target="#bd-toc-nav" data-offset="60">
-<!-- Checkboxes to toggle the left sidebar -->
-<input type="checkbox" class="sidebar-toggle" name="__navigation" id="__navigation" aria-label="Toggle navigation sidebar">
-<label class="overlay overlay-navbar" for="__navigation">
-    <div class="visually-hidden">Toggle navigation sidebar</div>
-</label>
-<!-- Checkboxes to toggle the in-page toc -->
-<input type="checkbox" class="sidebar-toggle" name="__page-toc" id="__page-toc" aria-label="Toggle in-page Table of Contents">
-<label class="overlay overlay-pagetoc" for="__page-toc">
-    <div class="visually-hidden">Toggle in-page Table of Contents</div>
-</label>
-<!-- Headers at the top -->
-<div class="announcement header-item noprint"></div>
-<div class="header header-item noprint"></div>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
 
-    
-    <div class="container-fluid" id="banner"></div>
+  
+  
+  <div id="pst-skip-link" class="skip-link d-print-none"><a href="#main-content">Skip to main content</a></div>
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>Back to top</button>
 
-    
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-primary-sidebar-checkbox"/>
+  <label class="overlay overlay-primary" for="pst-primary-sidebar-checkbox"></label>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-secondary-sidebar-checkbox"/>
+  <label class="overlay overlay-secondary" for="pst-secondary-sidebar-checkbox"></label>
+  
+  <div class="search-button__wrapper">
+    <div class="search-button__overlay"></div>
+    <div class="search-button__search-container">
+<form class="bd-search d-flex align-items-center"
+      action="../search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         id="search-input"
+         placeholder="Search this book..."
+         aria-label="Search this book..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form></div>
+  </div>
 
-    <div class="container-xl">
-      <div class="row">
-          
-<!-- Sidebar -->
-<div class="bd-sidebar noprint" id="site-navigation">
-    <div class="bd-sidebar__content">
-        <div class="bd-sidebar__top"><div class="navbar-brand-box">
-    <a class="navbar-brand text-wrap" href="../index.html">
+  <div class="pst-async-banner-revealer d-none">
+  <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
+</div>
+
+  
+    <header class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
+    </header>
+  
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
       
-        <!-- `logo` is deprecated in Sphinx 4.0, so remove this when we stop supporting 3 -->
+      
+      
+      <div class="bd-sidebar-primary bd-sidebar">
         
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+    
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+
+  
+    
+  
+
+<a class="navbar-brand logo" href="../intro.html">
+  
+  
+  
+  
+  
+    
+    
       
-      
-      <img src="../_static/cat.png" class="logo" alt="logo">
-      
-      
-      <h1 class="site-logo" id="site-title">Data Analysis in Finance</h1>
-      
-    </a>
-</div><form class="bd-search d-flex align-items-center" action="../search.html" method="get">
-  <i class="icon fas fa-search"></i>
-  <input type="search" class="form-control" name="q" id="search-input" placeholder="Search this book..." aria-label="Search this book..." autocomplete="off" >
-</form><nav class="bd-links" id="bd-docs-nav" aria-label="Main">
-    <div class="bd-toc-item active">
+    
+    
+    <img src="../_static/cat.png" class="logo__image only-light" alt="Data Analysis in Finance - Home"/>
+    <script>document.write(`<img src="../_static/cat.png" class="logo__image only-dark" alt="Data Analysis in Finance - Home"/>`);</script>
+  
+  
+</a></div>
+        <div class="sidebar-primary-item">
+
+ <script>
+ document.write(`
+   <button class="btn search-button-field search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass"></i>
+    <span class="search-button__default-text">Search</span>
+    <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+   </button>
+ `);
+ </script></div>
+        <div class="sidebar-primary-item"><nav class="bd-links bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item navbar-nav active">
         
         <ul class="nav bd-sidenav bd-sidenav__home-link">
             <li class="toctree-l1">
@@ -118,476 +183,242 @@ const thebe_selector_output = ".output, .cell_output"
                 </a>
             </li>
         </ul>
-        <p aria-level="2" class="caption" role="heading">
- <span class="caption-text">
-  Getting Started
- </span>
-</p>
+        <p aria-level="2" class="caption" role="heading"><span class="caption-text">Getting Started</span></p>
 <ul class="nav bd-sidenav">
- <li class="toctree-l1">
-  <a class="reference internal" href="1_finpyth.html">
-   Why Python and finance?
-  </a>
- </li>
- <li class="toctree-l1 has-children">
-  <a class="reference internal" href="2_intro.html">
-   Python set-up
-   <a id="python_set-up">
-   </a>
-  </a>
-  <input class="toctree-checkbox" id="toctree-checkbox-1" name="toctree-checkbox-1" type="checkbox"/>
-  <label for="toctree-checkbox-1">
-   <i class="fas fa-chevron-down">
-   </i>
-  </label>
-  <ul>
-   <li class="toctree-l2">
-    <a class="reference internal" href="2_0_git.html">
-     Using Github and Github Codespaces
-    </a>
-   </li>
-   <li class="toctree-l2">
-    <a class="reference internal" href="2_1_markdown.html">
-     Markdown
-    </a>
-   </li>
-   <li class="toctree-l2">
-    <a class="reference internal" href="2_2_packages.html">
-     Packages
-    </a>
-   </li>
-   <li class="toctree-l2">
-    <a class="reference internal" href="2_3_style.html">
-     Code style, PEP8, and linting
-    </a>
-   </li>
-   <li class="toctree-l2">
-    <a class="reference internal" href="2_4_using_ai.html">
-     Using AI Coding Tools
-    </a>
-   </li>
-  </ul>
- </li>
+<li class="toctree-l1"><a class="reference internal" href="1_finpyth.html">Why Python and finance?</a></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="2_intro.html">Python set-up <a id="python_set-up"></a></a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="2_0_git.html">Using Github and Github Codespaces</a></li>
+<li class="toctree-l2"><a class="reference internal" href="2_1_markdown.html">Markdown</a></li>
+<li class="toctree-l2"><a class="reference internal" href="2_2_packages.html">Packages</a></li>
+<li class="toctree-l2"><a class="reference internal" href="2_3_style.html">Code style, PEP8, and linting</a></li>
+<li class="toctree-l2"><a class="reference internal" href="2_4_using_ai.html">Using AI Coding Tools</a></li>
 </ul>
-<p aria-level="2" class="caption" role="heading">
- <span class="caption-text">
-  The Basics
- </span>
-</p>
+</details></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">The Basics</span></p>
 <ul class="nav bd-sidenav">
- <li class="toctree-l1 has-children">
-  <a class="reference internal" href="3_intro.html">
-   CompSci 101: Types, control, and numpy arrays
-  </a>
-  <input class="toctree-checkbox" id="toctree-checkbox-2" name="toctree-checkbox-2" type="checkbox"/>
-  <label for="toctree-checkbox-2">
-   <i class="fas fa-chevron-down">
-   </i>
-  </label>
-  <ul>
-   <li class="toctree-l2">
-    <a class="reference internal" href="3_0_comp101.html">
-     The Basics
-    </a>
-   </li>
-   <li class="toctree-l2">
-    <a class="reference internal" href="3_1_numpy.html">
-     Numpy and arrays
-    </a>
-   </li>
-  </ul>
- </li>
- <li class="toctree-l1 has-children">
-  <a class="reference internal" href="4_intro.html">
-   Working with data
-  </a>
-  <input class="toctree-checkbox" id="toctree-checkbox-3" name="toctree-checkbox-3" type="checkbox"/>
-  <label for="toctree-checkbox-3">
-   <i class="fas fa-chevron-down">
-   </i>
-  </label>
-  <ul>
-   <li class="toctree-l2">
-    <a class="reference internal" href="4_0_dataframes.html">
-     Importing data
-    </a>
-   </li>
-   <li class="toctree-l2">
-    <a class="reference internal" href="4_1_pandas.html">
-     pandas
-    </a>
-   </li>
-   <li class="toctree-l2">
-    <a class="reference internal" href="4_2_cleaning_data.html">
-     Cleaning our data
-    </a>
-   </li>
-   <li class="toctree-l2">
-    <a class="reference internal" href="4_3_eda.html">
-     Exploratory data analysis (EDA)
-    </a>
-   </li>
-   <li class="toctree-l2">
-    <a class="reference internal" href="4_4_merge_shape.html">
-     Merging and reshaping data
-    </a>
-   </li>
-   <li class="toctree-l2">
-    <a class="reference internal" href="4_5_sql.html">
-     Using SQL in Python
-    </a>
-   </li>
-   <li class="toctree-l2">
-    <a class="reference internal" href="4_6_polar.html">
-     polars: A fast, fancy pandas alternative
-    </a>
-   </li>
-  </ul>
- </li>
- <li class="toctree-l1 has-children">
-  <a class="reference internal" href="5_intro.html">
-   Data visualization
-  </a>
-  <input class="toctree-checkbox" id="toctree-checkbox-4" name="toctree-checkbox-4" type="checkbox"/>
-  <label for="toctree-checkbox-4">
-   <i class="fas fa-chevron-down">
-   </i>
-  </label>
-  <ul>
-   <li class="toctree-l2">
-    <a class="reference internal" href="5_0_seaborn.html">
-     seaborn
-    </a>
-   </li>
-   <li class="toctree-l2">
-    <a class="reference internal" href="5_1_matplotlib.html">
-     matplotlib
-    </a>
-   </li>
-   <li class="toctree-l2">
-    <a class="reference internal" href="5_2_plotly.html">
-     plotly
-    </a>
-   </li>
-  </ul>
- </li>
- <li class="toctree-l1">
-  <a class="reference internal" href="6_nasdaq_api.html">
-   Using APIs for Data Imports
-   <a id="btc-sim">
-   </a>
-  </a>
- </li>
- <li class="toctree-l1">
-  <a class="reference internal" href="7_financial_ts.html">
-   Financial time series
-   <a id="financial-time-series">
-   </a>
-  </a>
- </li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="3_intro.html">CompSci 101: Types, control, and numpy arrays</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="3_0_comp101.html">The Basics</a></li>
+<li class="toctree-l2"><a class="reference internal" href="3_1_numpy.html">Numpy and arrays</a></li>
 </ul>
-<p aria-level="2" class="caption" role="heading">
- <span class="caption-text">
-  Applications
- </span>
-</p>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="4_intro.html">Working with data</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="4_0_dataframes.html">Importing data</a></li>
+<li class="toctree-l2"><a class="reference internal" href="4_1_pandas.html">pandas</a></li>
+<li class="toctree-l2"><a class="reference internal" href="4_2_cleaning_data.html">Cleaning our data</a></li>
+<li class="toctree-l2"><a class="reference internal" href="4_3_eda.html">Exploratory data analysis (EDA)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="4_4_merge_shape.html">Merging and reshaping data</a></li>
+<li class="toctree-l2"><a class="reference internal" href="4_5_sql.html">Using SQL in Python</a></li>
+<li class="toctree-l2"><a class="reference internal" href="4_6_polar.html">polars: A fast, fancy pandas alternative</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="5_intro.html">Data visualization</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="5_0_seaborn.html">seaborn</a></li>
+<li class="toctree-l2"><a class="reference internal" href="5_1_matplotlib.html">matplotlib</a></li>
+<li class="toctree-l2"><a class="reference internal" href="5_2_plotly.html">plotly</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="6_intro.html">Data APIs</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="6_1_fred.html">FRED API and pandas-datareader</a></li>
+<li class="toctree-l2"><a class="reference internal" href="6_2_nasdaq.html">NASDAQ Data Link</a></li>
+<li class="toctree-l2"><a class="reference internal" href="6_3_databento.html">Databento</a></li>
+<li class="toctree-l2"><a class="reference internal" href="6_4_wrds.html">WRDS (Wharton Research Data Services)</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1"><a class="reference internal" href="7_financial_ts.html">Financial time series <a id="financial-time-series"></a></a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Applications</span></p>
 <ul class="current nav bd-sidenav">
- <li class="toctree-l1">
-  <a class="reference internal" href="8_port_math.html">
-   Essential portfolio math
-  </a>
- </li>
- <li class="toctree-l1">
-  <a class="reference internal" href="9_portfolio_opt.html">
-   Portfolio optimization
-  </a>
- </li>
- <li class="toctree-l1">
-  <a class="reference internal" href="10_unsupervised_learning.html">
-   Machine learning and unsupervised learning
-   <a id="unsupervised_learning">
-   </a>
-  </a>
- </li>
- <li class="toctree-l1">
-  <a class="reference internal" href="11_factor_models.html">
-   Factor models
-   <a id="factor_models">
-   </a>
-  </a>
- </li>
- <li class="toctree-l1">
-  <a class="reference internal" href="12_regression_topics.html">
-   Supervised machine learning and regression topics
-   <a id="regression">
-   </a>
-  </a>
- </li>
- <li class="toctree-l1">
-  <a class="reference internal" href="13_logit_credit.html">
-   Logit models
-  </a>
- </li>
- <li class="toctree-l1">
-  <a class="reference internal" href="14_risk_mang.html">
-   Risk management
-  </a>
- </li>
- <li class="toctree-l1">
-  <a class="reference internal" href="15_monte_carlo.html">
-   Monte Carlo and portfolios
-  </a>
- </li>
- <li class="toctree-l1">
-  <a class="reference internal" href="16_decision_trees.html">
-   Decision Trees
-  </a>
- </li>
- <li class="toctree-l1 current active">
-  <a class="current reference internal" href="#">
-   Option basics
-  </a>
- </li>
- <li class="toctree-l1">
-  <a class="reference internal" href="18_trading_bt.html">
-   Trading Strategies and the BT Package
-  </a>
- </li>
+<li class="toctree-l1"><a class="reference internal" href="8_port_math.html">Essential portfolio math</a></li>
+<li class="toctree-l1"><a class="reference internal" href="9_portfolio_opt.html">Portfolio optimization</a></li>
+<li class="toctree-l1"><a class="reference internal" href="10_unsupervised_learning.html">Machine learning and unsupervised learning <a id="unsupervised_learning"></a></a></li>
+<li class="toctree-l1"><a class="reference internal" href="11_factor_models.html">Factor models <a id="factor_models"></a></a></li>
+<li class="toctree-l1"><a class="reference internal" href="12_regression_topics.html">Supervised machine learning and regression topics <a id="regression"></a></a></li>
+<li class="toctree-l1"><a class="reference internal" href="13_logit_credit.html">Logit models</a></li>
+<li class="toctree-l1"><a class="reference internal" href="14_risk_mang.html">Risk management</a></li>
+<li class="toctree-l1"><a class="reference internal" href="15_monte_carlo.html">Monte Carlo and portfolios</a></li>
+<li class="toctree-l1"><a class="reference internal" href="16_decision_trees.html">Decision Trees</a></li>
+<li class="toctree-l1 current active"><a class="current reference internal" href="#">Option basics</a></li>
+<li class="toctree-l1"><a class="reference internal" href="18_trading_bt.html">Trading Strategies and the BT Package</a></li>
 </ul>
 
     </div>
 </nav></div>
-        <div class="bd-sidebar__bottom">
-             <!-- To handle the deprecated key -->
-            
-            <div class="navbar_extra_footer">
-            Powered by <a href="https://jupyterbook.org">Jupyter Book</a>
-            </div>
-            
-        </div>
     </div>
-    <div id="rtd-footer-container"></div>
-</div>
-
-
-          
-
-
-          
-<!-- A tiny helper pixel to detect if we've scrolled -->
-<div class="sbt-scroll-pixel-helper"></div>
-<!-- Main content -->
-<div class="col py-0 content-container">
-    
-    <div class="header-article row sticky-top noprint">
-        
-
-
-
-<div class="col py-1 d-flex header-article-main">
-    <div class="header-article__left">
-        
-        <label for="__navigation"
-  class="headerbtn"
-  data-toggle="tooltip"
-data-placement="right"
-title="Toggle navigation"
->
   
-
-<span class="headerbtn__icon-container">
-  <i class="fas fa-bars"></i>
-  </span>
-
-</label>
-
-        
-    </div>
-    <div class="header-article__right">
-<div class="menu-dropdown menu-dropdown-launch-buttons">
-  <button class="headerbtn menu-dropdown__trigger"
-      aria-label="Launch interactive content">
-      <i class="fas fa-rocket"></i>
-  </button>
-  <div class="menu-dropdown__content">
-    <ul>
-      <li>
-        <a href="https://mybinder.org/v2/gh/executablebooks/jupyter-book/master?urlpath=tree/docs/chapters/17_options.ipynb"
-   class="headerbtn"
-   data-toggle="tooltip"
-data-placement="left"
-title="Launch on Binder"
->
   
-
-<span class="headerbtn__icon-container">
-  
-    <img src="../_static/images/logo_binder.svg">
-  </span>
-<span class="headerbtn__text-container">Binder</span>
-</a>
-
-      </li>
-      
-    </ul>
+  <div class="sidebar-primary-items__end sidebar-primary__section">
   </div>
-</div>
+  
+  <div id="rtd-footer-container"></div>
 
-<button onclick="toggleFullScreen()"
-  class="headerbtn"
-  data-toggle="tooltip"
-data-placement="bottom"
-title="Fullscreen mode"
+
+      </div>
+      
+      <main id="main-content" class="bd-main" role="main">
+        
+        
+
+<div class="sbt-scroll-pixel-helper"></div>
+
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article d-print-none">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item"><button class="sidebar-toggle primary-toggle btn btn-sm" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <span class="fa-solid fa-bars"></span>
+</button></div>
+      
+    </div>
+  
+  
+    <div class="header-article-items__end">
+      
+        <div class="header-article-item">
+
+<div class="article-header-buttons">
+
+
+<a href="https://github.com/executablebooks/jupyter-book" target="_blank"
+   class="btn btn-sm btn-source-repository-button"
+   title="Source repository"
+   data-bs-placement="bottom" data-bs-toggle="tooltip"
 >
   
 
-<span class="headerbtn__icon-container">
-  <i class="fas fa-expand"></i>
-  </span>
-
-</button>
-<a href="https://github.com/executablebooks/jupyter-book"
-   class="headerbtn"
-   data-toggle="tooltip"
-data-placement="bottom"
-title="Source repository"
->
-  
-
-<span class="headerbtn__icon-container">
+<span class="btn__icon-container">
   <i class="fab fa-github"></i>
   </span>
 
 </a>
 
-<div class="menu-dropdown menu-dropdown-download-buttons">
-  <button class="headerbtn menu-dropdown__trigger"
-      aria-label="Download this page">
-      <i class="fas fa-download"></i>
+
+
+
+
+
+<div class="dropdown dropdown-download-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Download this page">
+    <i class="fas fa-download"></i>
   </button>
-  <div class="menu-dropdown__content">
-    <ul>
-      <li>
-        <a href="../_sources/chapters/17_options.ipynb"
-   class="headerbtn"
-   data-toggle="tooltip"
-data-placement="left"
-title="Download source file"
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="../_sources/chapters/17_options.ipynb" target="_blank"
+   class="btn btn-sm btn-download-source-button dropdown-item"
+   title="Download source file"
+   data-bs-placement="left" data-bs-toggle="tooltip"
 >
   
 
-<span class="headerbtn__icon-container">
+<span class="btn__icon-container">
   <i class="fas fa-file"></i>
   </span>
-<span class="headerbtn__text-container">.ipynb</span>
+<span class="btn__text-container">.ipynb</span>
 </a>
-
-      </li>
+</li>
+      
+      
+      
       
       <li>
-        
-<button onclick="printPdf(this)"
-  class="headerbtn"
-  data-toggle="tooltip"
-data-placement="left"
-title="Print to PDF"
+<button onclick="window.print()"
+  class="btn btn-sm btn-download-pdf-button dropdown-item"
+  title="Print to PDF"
+  data-bs-placement="left" data-bs-toggle="tooltip"
 >
   
 
-<span class="headerbtn__icon-container">
+<span class="btn__icon-container">
   <i class="fas fa-file-pdf"></i>
   </span>
-<span class="headerbtn__text-container">.pdf</span>
+<span class="btn__text-container">.pdf</span>
 </button>
-
-      </li>
+</li>
       
-    </ul>
-  </div>
+  </ul>
 </div>
-<label for="__page-toc"
-  class="headerbtn headerbtn-page-toc"
-  
+
+
+
+
+<button onclick="toggleFullScreen()"
+  class="btn btn-sm btn-fullscreen-button"
+  title="Fullscreen mode"
+  data-bs-placement="bottom" data-bs-toggle="tooltip"
 >
   
 
-<span class="headerbtn__icon-container">
-  <i class="fas fa-list"></i>
+<span class="btn__icon-container">
+  <i class="fas fa-expand"></i>
   </span>
 
-</label>
+</button>
 
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="theme-switch fa-solid fa-sun fa-lg" data-mode="light"></i>
+    <i class="theme-switch fa-solid fa-moon fa-lg" data-mode="dark"></i>
+    <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"></i>
+  </button>
+`);
+</script>
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm pst-navbar-icon search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass fa-lg"></i>
+  </button>
+`);
+</script>
+<button class="sidebar-toggle secondary-toggle btn btn-sm" title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="fa-solid fa-list"></span>
+</button>
+</div></div>
+      
     </div>
+  
 </div>
-
-<!-- Table of contents -->
-<div class="col-md-3 bd-toc show noprint">
-    <div class="tocsection onthispage pt-5 pb-3">
-        <i class="fas fa-list"></i> Contents
-    </div>
-    <nav id="bd-toc-nav" aria-label="Page">
-        <ul class="visible nav section-nav flex-column">
- <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#payoff-diagrams">
-   Payoff Diagrams
-  </a>
- </li>
- <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#black-scholes-merton">
-   Black-Scholes-Merton
-  </a>
- </li>
- <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#py-vollib-library">
-   py_vollib library
-  </a>
- </li>
-</ul>
-
-    </nav>
 </div>
-    </div>
-    <div class="article row">
-        <div class="col pl-md-3 pl-lg-5 content-container">
-            <!-- Table of contents that is only displayed when printing the page -->
-            <div id="jb-print-docs-body" class="onlyprint">
-                <h1>Option basics</h1>
-                <!-- Table of contents -->
-                <div id="print-main-content">
-                    <div id="jb-print-toc">
-                        
-                        <div>
-                            <h2> Contents </h2>
-                        </div>
-                        <nav aria-label="Page">
-                            <ul class="visible nav section-nav flex-column">
- <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#payoff-diagrams">
-   Payoff Diagrams
-  </a>
- </li>
- <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#black-scholes-merton">
-   Black-Scholes-Merton
-  </a>
- </li>
- <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#py-vollib-library">
-   py_vollib library
-  </a>
- </li>
-</ul>
+              
+              
 
-                        </nav>
-                    </div>
-                </div>
+<div id="jb-print-docs-body" class="onlyprint">
+    <h1>Option basics</h1>
+    <!-- Table of contents -->
+    <div id="print-main-content">
+        <div id="jb-print-toc">
+            
+            <div>
+                <h2> Contents </h2>
             </div>
-            <main id="main-content" role="main">
+            <nav aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#payoff-diagrams">Payoff Diagrams</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#black-scholes-merton">Black-Scholes-Merton</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#py-vollib-library">py_vollib library</a></li>
+</ul>
+            </nav>
+        </div>
+    </div>
+</div>
+
+              
                 
-              <div>
-                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                  
   <section class="tex2jax_ignore mathjax_ignore" id="option-basics">
-<h1>Option basics<a class="headerlink" href="#option-basics" title="Permalink to this headline">#</a></h1>
+<h1>Option basics<a class="headerlink" href="#option-basics" title="Link to this heading">#</a></h1>
 <p>This chapter introduces option payoffs and the <a class="reference external" href="https://www.investopedia.com/terms/b/blackscholes.asp">Black-Scholes-Merton model (BSM)</a> for pricing <strong>European options</strong>. We will see <strong>call</strong> options and <strong>put</strong> options. Call options give the owner the right, but not the obligation to purchase a stock at a certain price, <strong>X</strong>, or the strike price.</p>
 <p>What makes options and other derivatives interesting? How do we value stocks and bonds? We think about the present value of cash flows. These values, especially for stocks, contain a great deal of uncertainty - we don’t know the future! But, options and other derivatives are different. Their value is <strong>based on the value of another security</strong>. It turns out that we can come up with prices for them based on <strong>arbitrage principles</strong>, or the idea that we can “recreate” the derivative from other assets. And, if we know the prices of the other assets, then the derivative <strong>must have a certain price</strong>, or else there’s free money to be made.</p>
 <p>We’ll start with <strong>payoff diagrams</strong>. These tell us what payoff of exercising the option would be, based on the current value of the underlying security, like a stock. When we do this, we’ll assume a certain price is paid for the option.</p>
@@ -601,34 +432,38 @@ title="Print to PDF"
 <p>Here are some libraries to help us out.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
-<span class="kn">import</span> <span class="nn">scipy.stats</span> <span class="k">as</span> <span class="nn">stats</span>
-<span class="kn">from</span> <span class="nn">pylab</span> <span class="kn">import</span> <span class="n">cm</span><span class="p">,</span> <span class="n">mpl</span><span class="p">,</span> <span class="n">plt</span>
-<span class="kn">from</span> <span class="nn">mpl_toolkits.mplot3d</span> <span class="kn">import</span> <span class="n">Axes3D</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">scipy.stats</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">stats</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">pylab</span><span class="w"> </span><span class="kn">import</span> <span class="n">cm</span><span class="p">,</span> <span class="n">mpl</span><span class="p">,</span> <span class="n">plt</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">mpl_toolkits.mplot3d</span><span class="w"> </span><span class="kn">import</span> <span class="n">Axes3D</span>
 </pre></div>
 </div>
 </div>
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">opstrat</span> <span class="k">as</span> <span class="nn">op</span>
-<span class="kn">import</span> <span class="nn">py_vollib.black_scholes_merton</span> <span class="k">as</span> <span class="nn">pyv_bsm</span>
-<span class="kn">import</span> <span class="nn">py_vollib.black_scholes_merton.implied_volatility</span> <span class="k">as</span> <span class="nn">pyv_bsm_iv</span>
-<span class="kn">import</span> <span class="nn">py_vollib.black_scholes_merton.greeks.analytical</span> <span class="k">as</span> <span class="nn">pyv_bsm_greeks_analytic</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">opstrat</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">op</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">py_vollib.black_scholes_merton</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">pyv_bsm</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">py_vollib.black_scholes_merton.implied_volatility</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">pyv_bsm_iv</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">py_vollib.black_scholes_merton.greeks.analytical</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">pyv_bsm_greeks_analytic</span>
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>/opt/anaconda3/lib/python3.9/site-packages/pandas/core/computation/expressions.py:21: UserWarning: Pandas requires version &#39;2.8.4&#39; or newer of &#39;numexpr&#39; (version &#39;2.8.3&#39; currently installed).
-  from pandas.core.computation.check import NUMEXPR_INSTALLED
-/opt/anaconda3/lib/python3.9/site-packages/pandas/core/arrays/masked.py:60: UserWarning: Pandas requires version &#39;1.3.6&#39; or newer of &#39;bottleneck&#39; (version &#39;1.3.5&#39; currently installed).
-  from pandas.core import (
+<div class="output traceback highlight-ipythontb notranslate"><div class="highlight"><pre><span></span><span class="gt">---------------------------------------------------------------------------</span>
+<span class="ne">ModuleNotFoundError</span><span class="g g-Whitespace">                       </span>Traceback (most recent call last)
+<span class="n">Cell</span> <span class="n">In</span><span class="p">[</span><span class="mi">2</span><span class="p">],</span> <span class="n">line</span> <span class="mi">1</span>
+<span class="ne">----&gt; </span><span class="mi">1</span> <span class="kn">import</span><span class="w"> </span><span class="nn">opstrat</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">op</span>
+<span class="g g-Whitespace">      </span><span class="mi">2</span> <span class="kn">import</span><span class="w"> </span><span class="nn">py_vollib.black_scholes_merton</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">pyv_bsm</span>
+<span class="g g-Whitespace">      </span><span class="mi">3</span> <span class="kn">import</span><span class="w"> </span><span class="nn">py_vollib.black_scholes_merton.implied_volatility</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">pyv_bsm_iv</span>
+
+<span class="ne">ModuleNotFoundError</span>: No module named &#39;opstrat&#39;
 </pre></div>
 </div>
 </div>
 </div>
 <section id="payoff-diagrams">
-<h2>Payoff Diagrams<a class="headerlink" href="#payoff-diagrams" title="Permalink to this headline">#</a></h2>
+<h2>Payoff Diagrams<a class="headerlink" href="#payoff-diagrams" title="Link to this heading">#</a></h2>
 <p>Let’s start with the basic “hockey stick” payoff diagrams that you see in every investments class. We could draw these ourselves using <code class="docutils literal notranslate"><span class="pre">matplotlib</span></code>, but let’s use that <code class="docutils literal notranslate"><span class="pre">opstrat</span></code> library instead. After all, one of the reasons for using Python is to get access to the work other people have done for us!</p>
 <p>An <strong>option payoff</strong> is defined by:</p>
 <ul class="simple">
@@ -651,8 +486,8 @@ title="Print to PDF"
 <p>For example, suppose that K = 100 and the stock ends up at 101 at the call options maturity. You will exercise the option, with a payoff of 1 and a profit of 1 - C. But, if the stock ends up at 99, you just lose C. If you buy a stock at 100 and it ends up at 99, you still have 99 worth of stock.</p>
 <p><strong>European options</strong> can only be exercised on the maturity date of the option. <strong>American options</strong> can be exercised early. The terms don’t have anything to do with where the options are traded.</p>
 <p>Finally, there is an important relationship between the call price, the put price, the current stock price, and the borrowing needed to form the portfolio called <a class="reference external" href="https://en.wikipedia.org/wiki/Put%E2%80%93call_parity">put-call parity</a>.</p>
-<div class="amsmath math notranslate nohighlight" id="equation-d8ba3145-aa54-42bb-b8c4-03327a0a1502">
-<span class="eqno">(25)<a class="headerlink" href="#equation-d8ba3145-aa54-42bb-b8c4-03327a0a1502" title="Permalink to this equation">#</a></span>\[\begin{align}
+<div class="amsmath math notranslate nohighlight" id="equation-74ea1244-56b7-45db-a83f-c621dcdc069a">
+<span class="eqno">(23)<a class="headerlink" href="#equation-74ea1244-56b7-45db-a83f-c621dcdc069a" title="Permalink to this equation">#</a></span>\[\begin{align}
 C - P = S - Ke^{-rt}
 \end{align}\]</div>
 <p>This is an <strong>arbitrage relationship</strong>, as there is free money to be had if it doesn’t hold. If you think you observe a situation where it isn’t true, it is likely because <strong>transactions costs</strong> (i.e. the costs associated with trading) are preventing market participants from exploiting the difference.</p>
@@ -665,92 +500,7 @@ C - P = S - Ke^{-rt}
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output traceback highlight-ipythontb notranslate"><div class="highlight"><pre><span></span><span class="gt">---------------------------------------------------------------------------</span>
-<span class="ne">OptionError</span><span class="g g-Whitespace">                               </span>Traceback (most recent call last)
-<span class="n">Cell</span> <span class="n">In</span><span class="p">[</span><span class="mi">3</span><span class="p">],</span> <span class="n">line</span> <span class="mi">1</span>
-<span class="ne">----&gt; </span><span class="mi">1</span> <span class="n">op</span><span class="o">.</span><span class="n">single_plotter</span><span class="p">(</span><span class="n">spot</span><span class="o">=</span><span class="mi">125</span><span class="p">,</span> <span class="n">strike</span><span class="o">=</span><span class="mi">125</span><span class="p">,</span> <span class="n">op_type</span><span class="o">=</span><span class="s1">&#39;c&#39;</span><span class="p">,</span> <span class="n">tr_type</span><span class="o">=</span><span class="s1">&#39;b&#39;</span><span class="p">,</span> <span class="n">op_pr</span><span class="o">=</span><span class="mf">7.5</span><span class="p">)</span>
-
-<span class="nn">File /opt/anaconda3/lib/python3.9/site-packages/opstrat/basic_single.py:89,</span> in <span class="ni">single_plotter</span><span class="nt">(op_type, spot, spot_range, strike, tr_type, op_pr, save, file)</span>
-<span class="g g-Whitespace">     </span><span class="mi">86</span>         <span class="n">plt</span><span class="o">.</span><span class="n">savefig</span><span class="p">(</span><span class="n">file</span><span class="p">)</span>
-<span class="g g-Whitespace">     </span><span class="mi">87</span>     <span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
-<span class="ne">---&gt; </span><span class="mi">89</span> <span class="n">plotter</span><span class="p">(</span><span class="n">x</span><span class="p">,</span><span class="n">y</span><span class="p">)</span>
-
-<span class="nn">File /opt/anaconda3/lib/python3.9/site-packages/opstrat/basic_single.py:77,</span> in <span class="ni">single_plotter.&lt;locals&gt;.plotter</span><span class="nt">(x, y)</span>
-<span class="g g-Whitespace">     </span><span class="mi">75</span> <span class="k">def</span> <span class="nf">plotter</span><span class="p">(</span><span class="n">x</span><span class="p">,</span><span class="n">y</span><span class="p">):</span>
-<span class="g g-Whitespace">     </span><span class="mi">76</span>     <span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span><span class="mi">6</span><span class="p">))</span>
-<span class="ne">---&gt; </span><span class="mi">77</span>     <span class="n">sns</span><span class="o">.</span><span class="n">lineplot</span><span class="p">(</span><span class="n">x</span><span class="o">=</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="n">y</span><span class="p">)</span>
-<span class="g g-Whitespace">     </span><span class="mi">78</span>     <span class="n">plt</span><span class="o">.</span><span class="n">axhline</span><span class="p">(</span><span class="n">color</span><span class="o">=</span><span class="s1">&#39;k&#39;</span><span class="p">,</span> <span class="n">linestyle</span><span class="o">=</span><span class="s1">&#39;--&#39;</span><span class="p">)</span>
-<span class="g g-Whitespace">     </span><span class="mi">79</span>     <span class="n">plt</span><span class="o">.</span><span class="n">axvline</span><span class="p">(</span><span class="n">x</span><span class="o">=</span><span class="n">spot</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;r&#39;</span><span class="p">,</span> <span class="n">linestyle</span><span class="o">=</span><span class="s1">&#39;--&#39;</span><span class="p">)</span>
-
-<span class="nn">File /opt/anaconda3/lib/python3.9/site-packages/seaborn/_decorators.py:46,</span> in <span class="ni">_deprecate_positional_args.&lt;locals&gt;.inner_f</span><span class="nt">(*args, **kwargs)</span>
-<span class="g g-Whitespace">     </span><span class="mi">36</span>     <span class="n">warnings</span><span class="o">.</span><span class="n">warn</span><span class="p">(</span>
-<span class="g g-Whitespace">     </span><span class="mi">37</span>         <span class="s2">&quot;Pass the following variable</span><span class="si">{}</span><span class="s2"> as </span><span class="si">{}</span><span class="s2">keyword arg</span><span class="si">{}</span><span class="s2">: </span><span class="si">{}</span><span class="s2">. &quot;</span>
-<span class="g g-Whitespace">     </span><span class="mi">38</span>         <span class="s2">&quot;From version 0.12, the only valid positional argument &quot;</span>
-   <span class="p">(</span><span class="o">...</span><span class="p">)</span>
-<span class="g g-Whitespace">     </span><span class="mi">43</span>         <span class="ne">FutureWarning</span>
-<span class="g g-Whitespace">     </span><span class="mi">44</span>     <span class="p">)</span>
-<span class="nn">     45 kwargs.update({k: arg for k, arg</span> in <span class="ni">zip</span><span class="nt">(sig.parameters, args)})</span>
-<span class="ne">---&gt; </span><span class="mi">46</span> <span class="k">return</span> <span class="n">f</span><span class="p">(</span><span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
-
-<span class="nn">File /opt/anaconda3/lib/python3.9/site-packages/seaborn/relational.py:710,</span> in <span class="ni">lineplot</span><span class="nt">(x, y, hue, size, style, data, palette, hue_order, hue_norm, sizes, size_order, size_norm, dashes, markers, style_order, units, estimator, ci, n_boot, seed, sort, err_style, err_kws, legend, ax, **kwargs)</span>
-<span class="g g-Whitespace">    </span><span class="mi">706</span>     <span class="k">return</span> <span class="n">ax</span>
-<span class="g g-Whitespace">    </span><span class="mi">708</span> <span class="n">p</span><span class="o">.</span><span class="n">_attach</span><span class="p">(</span><span class="n">ax</span><span class="p">)</span>
-<span class="ne">--&gt; </span><span class="mi">710</span> <span class="n">p</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">ax</span><span class="p">,</span> <span class="n">kwargs</span><span class="p">)</span>
-<span class="g g-Whitespace">    </span><span class="mi">711</span> <span class="k">return</span> <span class="n">ax</span>
-
-<span class="nn">File /opt/anaconda3/lib/python3.9/site-packages/seaborn/relational.py:471,</span> in <span class="ni">_LinePlotter.plot</span><span class="nt">(self, ax, kws)</span>
-<span class="g g-Whitespace">    </span><span class="mi">469</span> <span class="c1"># Loop over the semantic subsets and add to the plot</span>
-<span class="g g-Whitespace">    </span><span class="mi">470</span> <span class="n">grouping_vars</span> <span class="o">=</span> <span class="s2">&quot;hue&quot;</span><span class="p">,</span> <span class="s2">&quot;size&quot;</span><span class="p">,</span> <span class="s2">&quot;style&quot;</span>
-<span class="ne">--&gt; </span><span class="mi">471</span> <span class="k">for</span> <span class="n">sub_vars</span><span class="p">,</span> <span class="n">sub_data</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">iter_data</span><span class="p">(</span><span class="n">grouping_vars</span><span class="p">,</span> <span class="n">from_comp_data</span><span class="o">=</span><span class="kc">True</span><span class="p">):</span>
-<span class="g g-Whitespace">    </span><span class="mi">473</span>     <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">sort</span><span class="p">:</span>
-<span class="g g-Whitespace">    </span><span class="mi">474</span>         <span class="n">sort_vars</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;units&quot;</span><span class="p">,</span> <span class="s2">&quot;x&quot;</span><span class="p">,</span> <span class="s2">&quot;y&quot;</span><span class="p">]</span>
-
-<span class="nn">File /opt/anaconda3/lib/python3.9/site-packages/seaborn/_core.py:983,</span> in <span class="ni">VectorPlotter.iter_data</span><span class="nt">(self, grouping_vars, reverse, from_comp_data)</span>
-<span class="g g-Whitespace">    </span><span class="mi">978</span> <span class="n">grouping_vars</span> <span class="o">=</span> <span class="p">[</span>
-<span class="g g-Whitespace">    </span><span class="mi">979</span>     <span class="n">var</span> <span class="k">for</span> <span class="n">var</span> <span class="ow">in</span> <span class="n">grouping_vars</span> <span class="k">if</span> <span class="n">var</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">variables</span>
-<span class="g g-Whitespace">    </span><span class="mi">980</span> <span class="p">]</span>
-<span class="g g-Whitespace">    </span><span class="mi">982</span> <span class="k">if</span> <span class="n">from_comp_data</span><span class="p">:</span>
-<span class="ne">--&gt; </span><span class="mi">983</span>     <span class="n">data</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">comp_data</span>
-<span class="g g-Whitespace">    </span><span class="mi">984</span> <span class="k">else</span><span class="p">:</span>
-<span class="g g-Whitespace">    </span><span class="mi">985</span>     <span class="n">data</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">plot_data</span>
-
-<span class="nn">File /opt/anaconda3/lib/python3.9/site-packages/seaborn/_core.py:1054,</span> in <span class="ni">VectorPlotter.comp_data</span><span class="nt">(self)</span>
-<span class="g g-Whitespace">   </span><span class="mi">1050</span> <span class="n">axis</span> <span class="o">=</span> <span class="nb">getattr</span><span class="p">(</span><span class="n">ax</span><span class="p">,</span> <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">var</span><span class="si">}</span><span class="s2">axis&quot;</span><span class="p">)</span>
-<span class="g g-Whitespace">   </span><span class="mi">1052</span> <span class="c1"># Use the converter assigned to the axis to get a float representation</span>
-<span class="g g-Whitespace">   </span><span class="mi">1053</span> <span class="c1"># of the data, passing np.nan or pd.NA through (pd.NA becomes np.nan)</span>
-<span class="ne">-&gt; </span><span class="mi">1054</span> <span class="k">with</span> <span class="n">pd</span><span class="o">.</span><span class="n">option_context</span><span class="p">(</span><span class="s1">&#39;mode.use_inf_as_null&#39;</span><span class="p">,</span> <span class="kc">True</span><span class="p">):</span>
-<span class="g g-Whitespace">   </span><span class="mi">1055</span>     <span class="n">orig</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">plot_data</span><span class="p">[</span><span class="n">var</span><span class="p">]</span><span class="o">.</span><span class="n">dropna</span><span class="p">()</span>
-<span class="g g-Whitespace">   </span><span class="mi">1056</span> <span class="n">comp_col</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">Series</span><span class="p">(</span><span class="n">index</span><span class="o">=</span><span class="n">orig</span><span class="o">.</span><span class="n">index</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="nb">float</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="n">var</span><span class="p">)</span>
-
-<span class="nn">File /opt/anaconda3/lib/python3.9/site-packages/pandas/_config/config.py:480,</span> in <span class="ni">option_context.__enter__</span><span class="nt">(self)</span>
-<span class="g g-Whitespace">    </span><span class="mi">479</span> <span class="k">def</span> <span class="fm">__enter__</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
-<span class="ne">--&gt; </span><span class="mi">480</span>     <span class="bp">self</span><span class="o">.</span><span class="n">undo</span> <span class="o">=</span> <span class="p">[(</span><span class="n">pat</span><span class="p">,</span> <span class="n">_get_option</span><span class="p">(</span><span class="n">pat</span><span class="p">))</span> <span class="k">for</span> <span class="n">pat</span><span class="p">,</span> <span class="n">val</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">ops</span><span class="p">]</span>
-<span class="g g-Whitespace">    </span><span class="mi">482</span>     <span class="k">for</span> <span class="n">pat</span><span class="p">,</span> <span class="n">val</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">ops</span><span class="p">:</span>
-<span class="g g-Whitespace">    </span><span class="mi">483</span>         <span class="n">_set_option</span><span class="p">(</span><span class="n">pat</span><span class="p">,</span> <span class="n">val</span><span class="p">,</span> <span class="n">silent</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
-
-<span class="nn">File /opt/anaconda3/lib/python3.9/site-packages/pandas/_config/config.py:480,</span> in <span class="ni">&lt;listcomp&gt;</span><span class="nt">(.0)</span>
-<span class="g g-Whitespace">    </span><span class="mi">479</span> <span class="k">def</span> <span class="fm">__enter__</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
-<span class="ne">--&gt; </span><span class="mi">480</span>     <span class="bp">self</span><span class="o">.</span><span class="n">undo</span> <span class="o">=</span> <span class="p">[(</span><span class="n">pat</span><span class="p">,</span> <span class="n">_get_option</span><span class="p">(</span><span class="n">pat</span><span class="p">))</span> <span class="k">for</span> <span class="n">pat</span><span class="p">,</span> <span class="n">val</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">ops</span><span class="p">]</span>
-<span class="g g-Whitespace">    </span><span class="mi">482</span>     <span class="k">for</span> <span class="n">pat</span><span class="p">,</span> <span class="n">val</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">ops</span><span class="p">:</span>
-<span class="g g-Whitespace">    </span><span class="mi">483</span>         <span class="n">_set_option</span><span class="p">(</span><span class="n">pat</span><span class="p">,</span> <span class="n">val</span><span class="p">,</span> <span class="n">silent</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
-
-<span class="nn">File /opt/anaconda3/lib/python3.9/site-packages/pandas/_config/config.py:146,</span> in <span class="ni">_get_option</span><span class="nt">(pat, silent)</span>
-<span class="g g-Whitespace">    </span><span class="mi">145</span> <span class="k">def</span> <span class="nf">_get_option</span><span class="p">(</span><span class="n">pat</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">silent</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Any</span><span class="p">:</span>
-<span class="ne">--&gt; </span><span class="mi">146</span>     <span class="n">key</span> <span class="o">=</span> <span class="n">_get_single_key</span><span class="p">(</span><span class="n">pat</span><span class="p">,</span> <span class="n">silent</span><span class="p">)</span>
-<span class="g g-Whitespace">    </span><span class="mi">148</span>     <span class="c1"># walk the nested dict</span>
-<span class="g g-Whitespace">    </span><span class="mi">149</span>     <span class="n">root</span><span class="p">,</span> <span class="n">k</span> <span class="o">=</span> <span class="n">_get_root</span><span class="p">(</span><span class="n">key</span><span class="p">)</span>
-
-<span class="nn">File /opt/anaconda3/lib/python3.9/site-packages/pandas/_config/config.py:132,</span> in <span class="ni">_get_single_key</span><span class="nt">(pat, silent)</span>
-<span class="g g-Whitespace">    </span><span class="mi">130</span>     <span class="k">if</span> <span class="ow">not</span> <span class="n">silent</span><span class="p">:</span>
-<span class="g g-Whitespace">    </span><span class="mi">131</span>         <span class="n">_warn_if_deprecated</span><span class="p">(</span><span class="n">pat</span><span class="p">)</span>
-<span class="ne">--&gt; </span><span class="mi">132</span>     <span class="k">raise</span> <span class="n">OptionError</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;No such keys(s): </span><span class="si">{</span><span class="nb">repr</span><span class="p">(</span><span class="n">pat</span><span class="p">)</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
-<span class="g g-Whitespace">    </span><span class="mi">133</span> <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">keys</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">1</span><span class="p">:</span>
-<span class="g g-Whitespace">    </span><span class="mi">134</span>     <span class="k">raise</span> <span class="n">OptionError</span><span class="p">(</span><span class="s2">&quot;Pattern matched multiple keys&quot;</span><span class="p">)</span>
-
-<span class="ne">OptionError</span>: &quot;No such keys(s): &#39;mode.use_inf_as_null&#39;&quot;
-</pre></div>
-</div>
-<img alt="../_images/17_options_6_1.png" src="../_images/17_options_6_1.png" />
+<img alt="../_images/8ef3edfb45d59fb01038b962821ccbaacef92999bdb2b782ce7c8120334d4886.png" src="../_images/8ef3edfb45d59fb01038b962821ccbaacef92999bdb2b782ce7c8120334d4886.png" />
 </div>
 </div>
 <p>See how the blue line starts going up at 125? This is where the strike price is. So, if the stock price is above the strike (S&gt;K), then the option is <strong>in-the-money</strong> and would have a positive <strong>payoff</strong> if exercised. However, the <strong>profit</strong> is negative, because you are paying 7.5 for the option. The blue line crosses the x-axis when you have recovered the 7.5 at 132.5.</p>
@@ -762,7 +512,7 @@ C - P = S - Ke^{-rt}
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../_images/17_options_8_0.png" src="../_images/17_options_8_0.png" />
+<img alt="../_images/924d357d4f2495ca3f639817dc13d8e0514c6161b4ecbe2cf5a3b7f688b28674.png" src="../_images/924d357d4f2495ca3f639817dc13d8e0514c6161b4ecbe2cf5a3b7f688b28674.png" />
 </div>
 </div>
 <div class="cell docutils container">
@@ -772,7 +522,7 @@ C - P = S - Ke^{-rt}
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../_images/17_options_9_0.png" src="../_images/17_options_9_0.png" />
+<img alt="../_images/a507b8d31d1c6025d7ce121b709ec4090db6a3f8f6f394f50da0f4ee3714d960.png" src="../_images/a507b8d31d1c6025d7ce121b709ec4090db6a3f8f6f394f50da0f4ee3714d960.png" />
 </div>
 </div>
 <div class="cell docutils container">
@@ -782,7 +532,7 @@ C - P = S - Ke^{-rt}
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../_images/17_options_10_0.png" src="../_images/17_options_10_0.png" />
+<img alt="../_images/f40c9ea0fa481d35772c285f37b42082deef3c40d911f57344735e0fc74ee14f.png" src="../_images/f40c9ea0fa481d35772c285f37b42082deef3c40d911f57344735e0fc74ee14f.png" />
 </div>
 </div>
 <p>The <code class="docutils literal notranslate"><span class="pre">opstrat</span></code> library also lets you <strong>combine</strong> options into various payoffs and strategies. This is one of the features of options that makes them interesting. You can combine them into various payoff structures that let you express complex views about an asset, or hedge complex risks.</p>
@@ -804,17 +554,17 @@ C - P = S - Ke^{-rt}
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../_images/17_options_12_0.png" src="../_images/17_options_12_0.png" />
+<img alt="../_images/79ed71598f0a37a62c427ea44a1cc4ffeae58da003f6098e4b9b3bb3e2b3de09.png" src="../_images/79ed71598f0a37a62c427ea44a1cc4ffeae58da003f6098e4b9b3bb3e2b3de09.png" />
 </div>
 </div>
 </section>
 <section id="black-scholes-merton">
-<h2>Black-Scholes-Merton<a class="headerlink" href="#black-scholes-merton" title="Permalink to this headline">#</a></h2>
+<h2>Black-Scholes-Merton<a class="headerlink" href="#black-scholes-merton" title="Link to this heading">#</a></h2>
 <p>Let’s write a <strong>function</strong> that takes the inputs into the BSM model and values a <strong>call option</strong>. You would do something very similar for a <strong>put option</strong>. Again, we are trying to find the <strong>price</strong> that you would pay for the right to buy or sell a stock at a certain price in the future. This price is going to depend on the option contract parameters and, crucially, an assumption about the <strong>volatility</strong> of the asset.</p>
 <p>Notice what <strong>does not</strong> appear in the BSM formula - the expected return on the stock! This is the magic. We don’t need to have any expectations for Apple’s return in order to price their options.</p>
 <p>The BSM formula for a call option price at time 0 (today) is:</p>
-<div class="amsmath math notranslate nohighlight" id="equation-69536989-adaa-4d94-afc3-5050b64e98e7">
-<span class="eqno">(26)<a class="headerlink" href="#equation-69536989-adaa-4d94-afc3-5050b64e98e7" title="Permalink to this equation">#</a></span>\[\begin{align}
+<div class="amsmath math notranslate nohighlight" id="equation-6da20775-0e0d-4d4c-a2b8-e63819abf540">
+<span class="eqno">(24)<a class="headerlink" href="#equation-6da20775-0e0d-4d4c-a2b8-e63819abf540" title="Permalink to this equation">#</a></span>\[\begin{align}
 C_0 = S_0N(d_1) - e^{-rT}KN(d_2)
 \end{align}\]</div>
 <p>where <span class="math notranslate nohighlight">\(C_0\)</span> is the call price, <span class="math notranslate nohighlight">\(S_0\)</span> is the stock price today, <span class="math notranslate nohighlight">\(K\)</span> is the strike price, <span class="math notranslate nohighlight">\(r\)</span> is the risk-free rate, and <span class="math notranslate nohighlight">\(T\)</span> is the time-to-maturity. You’ll also see <span class="math notranslate nohighlight">\(T-t\)</span>, where <span class="math notranslate nohighlight">\(T\)</span> is the maturity date and <span class="math notranslate nohighlight">\(t\)</span> is today’s date. We’re using <span class="math notranslate nohighlight">\(T\)</span> as the number of years (fractional) until the maturity date.</p>
@@ -822,18 +572,18 @@ C_0 = S_0N(d_1) - e^{-rT}KN(d_2)
 <p>One of the <strong>key ideas</strong> with option pricing is the idea of <strong>risk neutral pricing</strong>. This comes from the idea of the arbitrage relationship and allows us to discount payoffs at a known risk-free rate, rather than something more difficult to calculate, like the required return on equity for a stock based on the CAPM.</p>
 <p>Now, what is <span class="math notranslate nohighlight">\(N()\)</span>? This is the <strong>cumulative density function (CDF)</strong> for the standard normal distribution with a mean of 0 and a standard deviation of 1. What is a <strong>CDF</strong>? Put a number into this function. The CDF gives the probability that a random draw from that distribution will be less than or equal to that number (i.e. the area under the curve of the distribution up to that number on the x-axis). So, N(0) = 0.5, since half of the distribution is to the left of the mean.</p>
 <p>Finally, what are <span class="math notranslate nohighlight">\(d_1\)</span> and <span class="math notranslate nohighlight">\(d_2\)</span>? They are defined as:</p>
-<div class="amsmath math notranslate nohighlight" id="equation-25481fde-5236-4cf4-8622-36ef988fd90d">
-<span class="eqno">(27)<a class="headerlink" href="#equation-25481fde-5236-4cf4-8622-36ef988fd90d" title="Permalink to this equation">#</a></span>\[\begin{align}
+<div class="amsmath math notranslate nohighlight" id="equation-bd97cb08-c339-4d40-9614-381cbc768ff3">
+<span class="eqno">(25)<a class="headerlink" href="#equation-bd97cb08-c339-4d40-9614-381cbc768ff3" title="Permalink to this equation">#</a></span>\[\begin{align}
 d_1 = \frac{log\frac{S_0}{K} + (r + \frac{1}{2} \sigma^2)T}{\sigma\sqrt(T)}
 \end{align}\]</div>
-<div class="amsmath math notranslate nohighlight" id="equation-d6833b60-e0a8-40cb-ab20-3e488137f652">
-<span class="eqno">(28)<a class="headerlink" href="#equation-d6833b60-e0a8-40cb-ab20-3e488137f652" title="Permalink to this equation">#</a></span>\[\begin{align}
+<div class="amsmath math notranslate nohighlight" id="equation-d03dac93-1077-4870-b28f-aa66437bbdc8">
+<span class="eqno">(26)<a class="headerlink" href="#equation-d03dac93-1077-4870-b28f-aa66437bbdc8" title="Permalink to this equation">#</a></span>\[\begin{align}
 d_2 = d_1 - \sigma\sqrt(T) = \frac{log\frac{S_0}{K} + (r - \frac{1}{2} \sigma^2)T}{\sigma\sqrt(T)}
 \end{align}\]</div>
 <p>You see how there’s some more <span class="math notranslate nohighlight">\(\frac{1}{2}\sigma^2\)</span>, logs, <span class="math notranslate nohighlight">\(T\)</span>, and <span class="math notranslate nohighlight">\(\sqrt(T)\)</span>, like with our simulations? The underlying math (Brownian motion) is the same. <span class="math notranslate nohighlight">\(\sigma^2\)</span> is the variance of the continuously compounded rate of return (log returns) for the asset. Note that we do need to calculate this using data, or some other set of assumptions.</p>
 <p>How can we interpret these formulas? Let’s re-write the BSM formula:</p>
-<div class="amsmath math notranslate nohighlight" id="equation-294f590a-dcd1-47c1-921b-a114ccc0f0e7">
-<span class="eqno">(29)<a class="headerlink" href="#equation-294f590a-dcd1-47c1-921b-a114ccc0f0e7" title="Permalink to this equation">#</a></span>\[\begin{align}
+<div class="amsmath math notranslate nohighlight" id="equation-939f5e33-8987-4192-9abe-95eb2357afb8">
+<span class="eqno">(27)<a class="headerlink" href="#equation-939f5e33-8987-4192-9abe-95eb2357afb8" title="Permalink to this equation">#</a></span>\[\begin{align}
 C_0 = e^{-rT}(S_0e^{rT}N(d_1) - KN(d_2))
 \end{align}\]</div>
 <p>The BSM formula has two pieces. The pieces represent this idea of an <strong>arbitrage</strong> relationship. In other words, we can create an option from other securities. For a call option, we can <strong>replicate the option</strong> by purchasing the stock and then financing that purchase by borrowing the money needed. Like we say with put-call parity, the option is a combination of the stock and borrowing.</p>
@@ -841,9 +591,9 @@ C_0 = e^{-rT}(S_0e^{rT}N(d_1) - KN(d_2))
 <p><span class="math notranslate nohighlight">\(S_0e^{rT}N(d_1)\)</span> represents the future value of the underlying asset conditional on the end stock value S_T being greater than the strike price K (S &gt; K). The second term in the brackets, <span class="math notranslate nohighlight">\(KN(d_2)\)</span>, is the value of the payment K (also the strike price) times the probability that the strike price will be paid, <span class="math notranslate nohighlight">\(N(d_2)\)</span>. So, <span class="math notranslate nohighlight">\(N(d_1)\)</span> represents the number of shares of stock you’d need to own to replicate the option. <span class="math notranslate nohighlight">\(N(d_2)\)</span> is the probability that the option ends up <strong>in-the-money</strong>.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">bsm_call_value</span><span class="p">(</span><span class="n">S</span><span class="p">,</span> <span class="n">K</span><span class="p">,</span> <span class="n">T</span><span class="p">,</span> <span class="n">r</span><span class="p">,</span> <span class="n">sigma</span><span class="p">):</span>
-    
-    <span class="sd">&#39;&#39;&#39; Valuation of European call option in BSM model.</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span><span class="w"> </span><span class="nf">bsm_call_value</span><span class="p">(</span><span class="n">S</span><span class="p">,</span> <span class="n">K</span><span class="p">,</span> <span class="n">T</span><span class="p">,</span> <span class="n">r</span><span class="p">,</span> <span class="n">sigma</span><span class="p">):</span>
+<span class="w">    </span>
+<span class="w">    </span><span class="sd">&#39;&#39;&#39; Valuation of European call option in BSM model.</span>
 <span class="sd">    Analytical formula.</span>
 <span class="sd">    Parameters</span>
 <span class="sd">    ==========</span>
@@ -862,8 +612,8 @@ C_0 = e^{-rT}(S_0e^{rT}N(d_1) - KN(d_2))
 <span class="sd">    present value of the European call option</span>
 <span class="sd">    &#39;&#39;&#39;</span>
     
-    <span class="kn">from</span> <span class="nn">math</span> <span class="kn">import</span> <span class="n">log</span><span class="p">,</span> <span class="n">sqrt</span><span class="p">,</span> <span class="n">exp</span>
-    <span class="kn">from</span> <span class="nn">scipy</span> <span class="kn">import</span> <span class="n">stats</span>
+    <span class="kn">from</span><span class="w"> </span><span class="nn">math</span><span class="w"> </span><span class="kn">import</span> <span class="n">log</span><span class="p">,</span> <span class="n">sqrt</span><span class="p">,</span> <span class="n">exp</span>
+    <span class="kn">from</span><span class="w"> </span><span class="nn">scipy</span><span class="w"> </span><span class="kn">import</span> <span class="n">stats</span>
     
     <span class="n">S</span> <span class="o">=</span> <span class="nb">float</span><span class="p">(</span><span class="n">S</span><span class="p">)</span> <span class="c1"># This is the current stock price. float() just makes sure that it is that type of number, and not in integer.</span>
     <span class="n">d1</span> <span class="o">=</span> <span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">log</span><span class="p">(</span><span class="n">S</span> <span class="o">/</span> <span class="n">K</span><span class="p">)</span> <span class="o">+</span> <span class="p">(</span><span class="n">r</span> <span class="o">+</span> <span class="mf">0.5</span> <span class="o">*</span> <span class="n">sigma</span> <span class="o">**</span> <span class="mi">2</span><span class="p">)</span> <span class="o">*</span> <span class="n">T</span><span class="p">)</span> <span class="o">/</span> <span class="p">(</span><span class="n">sigma</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="n">T</span><span class="p">))</span>
@@ -898,8 +648,8 @@ C_0 = e^{-rT}(S_0e^{rT}N(d_1) - KN(d_2))
 <p>Anyway, things work out fine in the math the way we are using it. We are again using the standard normal distribution.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">bsm_vega</span><span class="p">(</span><span class="n">S</span><span class="p">,</span> <span class="n">K</span><span class="p">,</span> <span class="n">T</span><span class="p">,</span> <span class="n">r</span><span class="p">,</span> <span class="n">sigma</span><span class="p">):</span>
-    <span class="sd">&#39;&#39;&#39; Vega of European option in BSM model.</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span><span class="w"> </span><span class="nf">bsm_vega</span><span class="p">(</span><span class="n">S</span><span class="p">,</span> <span class="n">K</span><span class="p">,</span> <span class="n">T</span><span class="p">,</span> <span class="n">r</span><span class="p">,</span> <span class="n">sigma</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&#39;&#39;&#39; Vega of European option in BSM model.</span>
 <span class="sd">    Parameters</span>
 <span class="sd">    ==========</span>
 <span class="sd">    S0: float</span>
@@ -918,8 +668,8 @@ C_0 = e^{-rT}(S_0e^{rT}N(d_1) - KN(d_2))
 <span class="sd">    partial derivative of BSM formula with respect</span>
 <span class="sd">    to sigma, i.e. vega</span>
 <span class="sd">    &#39;&#39;&#39;</span>
-    <span class="kn">from</span> <span class="nn">math</span> <span class="kn">import</span> <span class="n">log</span><span class="p">,</span> <span class="n">sqrt</span>
-    <span class="kn">from</span> <span class="nn">scipy</span> <span class="kn">import</span> <span class="n">stats</span>
+    <span class="kn">from</span><span class="w"> </span><span class="nn">math</span><span class="w"> </span><span class="kn">import</span> <span class="n">log</span><span class="p">,</span> <span class="n">sqrt</span>
+    <span class="kn">from</span><span class="w"> </span><span class="nn">scipy</span><span class="w"> </span><span class="kn">import</span> <span class="n">stats</span>
     <span class="n">S0</span> <span class="o">=</span> <span class="nb">float</span><span class="p">(</span><span class="n">S</span><span class="p">)</span>
     <span class="n">d1</span> <span class="o">=</span> <span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">log</span><span class="p">(</span><span class="n">S</span> <span class="o">/</span> <span class="n">K</span><span class="p">)</span> <span class="o">+</span> <span class="p">(</span><span class="n">r</span> <span class="o">+</span> <span class="mf">0.5</span> <span class="o">*</span> <span class="n">sigma</span> <span class="o">**</span> <span class="mi">2</span><span class="p">)</span> <span class="o">*</span> <span class="n">T</span><span class="p">)</span> <span class="o">/</span> <span class="p">(</span><span class="n">sigma</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="n">T</span><span class="p">))</span>
     <span class="n">vega</span> <span class="o">=</span> <span class="n">S</span> <span class="o">*</span> <span class="n">stats</span><span class="o">.</span><span class="n">norm</span><span class="o">.</span><span class="n">pdf</span><span class="p">(</span><span class="n">d1</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">,</span> <span class="mf">1.0</span><span class="p">)</span> <span class="o">*</span> <span class="n">sqrt</span><span class="p">(</span><span class="n">T</span><span class="p">)</span>
@@ -944,7 +694,7 @@ C_0 = e^{-rT}(S_0e^{rT}N(d_1) - KN(d_2))
 <p>Here’s a function to find <strong>delta</strong>. Again, delta tells us the <strong>moneyness</strong> of the option. How much is the call option actually like the stock?</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">bsm_delta_call</span><span class="p">(</span><span class="n">S</span><span class="p">,</span> <span class="n">K</span><span class="p">,</span> <span class="n">T</span><span class="p">,</span> <span class="n">r</span><span class="p">,</span> <span class="n">sigma</span><span class="p">):</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span><span class="w"> </span><span class="nf">bsm_delta_call</span><span class="p">(</span><span class="n">S</span><span class="p">,</span> <span class="n">K</span><span class="p">,</span> <span class="n">T</span><span class="p">,</span> <span class="n">r</span><span class="p">,</span> <span class="n">sigma</span><span class="p">):</span>
     <span class="n">d1</span> <span class="o">=</span> <span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">log</span><span class="p">(</span><span class="n">S</span> <span class="o">/</span> <span class="n">K</span><span class="p">)</span> <span class="o">+</span> <span class="p">(</span><span class="n">r</span> <span class="o">+</span> <span class="mf">0.5</span> <span class="o">*</span> <span class="n">sigma</span> <span class="o">**</span> <span class="mi">2</span><span class="p">)</span> <span class="o">*</span> <span class="n">T</span><span class="p">)</span> <span class="o">/</span> <span class="p">(</span><span class="n">sigma</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="n">T</span><span class="p">))</span>
     <span class="n">delta</span> <span class="o">=</span> <span class="n">stats</span><span class="o">.</span><span class="n">norm</span><span class="o">.</span><span class="n">cdf</span><span class="p">(</span><span class="n">d1</span><span class="p">)</span>
     <span class="k">return</span> <span class="n">delta</span> 
@@ -969,8 +719,8 @@ C_0 = e^{-rT}(S_0e^{rT}N(d_1) - KN(d_2))
 <p>Here’s a function that does that. I’ll give it the call price from above and we can see if it finds the volatility we assumed (0.25, or 25%).</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">bsm_call_imp_vol</span><span class="p">(</span><span class="n">S</span><span class="p">,</span> <span class="n">K</span><span class="p">,</span> <span class="n">T</span><span class="p">,</span> <span class="n">r</span><span class="p">,</span> <span class="n">C</span><span class="p">,</span> <span class="n">sigma_est</span><span class="p">,</span> <span class="n">tol</span><span class="o">=</span><span class="mf">0.0001</span><span class="p">,</span> <span class="n">max_iterations</span><span class="o">=</span><span class="mi">100</span><span class="p">):</span>
-    <span class="sd">&#39;&#39;&#39;</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span><span class="w"> </span><span class="nf">bsm_call_imp_vol</span><span class="p">(</span><span class="n">S</span><span class="p">,</span> <span class="n">K</span><span class="p">,</span> <span class="n">T</span><span class="p">,</span> <span class="n">r</span><span class="p">,</span> <span class="n">C</span><span class="p">,</span> <span class="n">sigma_est</span><span class="p">,</span> <span class="n">tol</span><span class="o">=</span><span class="mf">0.0001</span><span class="p">,</span> <span class="n">max_iterations</span><span class="o">=</span><span class="mi">100</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&#39;&#39;&#39;</span>
 
 <span class="sd">    :param C: Observed call price</span>
 <span class="sd">    :param S: Asset price</span>
@@ -1026,7 +776,7 @@ difference is equal to 9.009966106532374e-10
 <p>And it does! It’s beyond the scope of what we’re doing, but this code is using <a class="reference external" href="https://www.codearmo.com/blog/implied-volatility-european-call-python">numerical methods</a> to search for and find the “correct” volatility. Specifically, it is using the <a class="reference external" href="https://en.wikipedia.org/wiki/Newton%27s_method">Newton-Rapshon method</a>. Yeah, that Newton! He didn’t come up with option pricing formulas, but it is fitting that we use approaches he developed, since he <a class="reference external" href="https://www.smithsonianmag.com/smart-news/market-crash-cost-newton-fortune-180961655/">loved to speculate and lost a fortune trading stocks</a>.</p>
 </section>
 <section id="py-vollib-library">
-<h2>py_vollib library<a class="headerlink" href="#py-vollib-library" title="Permalink to this headline">#</a></h2>
+<h2>py_vollib library<a class="headerlink" href="#py-vollib-library" title="Link to this heading">#</a></h2>
 <p>The <a class="reference external" href="http://vollib.org/documentation/python/1.0.2/index.html">py_vollib</a> library has a lot of useful functions for option pricing.</p>
 <p>For example, we can find the BSM price and implied volatility for our call option. Note that there is another parameter, <span class="math notranslate nohighlight">\(q\)</span>, which is the annualized continuous dividend rate. We’ve been ignoring dividends.</p>
 <div class="cell docutils container">
@@ -1074,7 +824,7 @@ difference is equal to 9.009966106532374e-10
             mode: "python"
         },
         kernelOptions: {
-            kernelName: "python3",
+            name: "python3",
             path: "./chapters"
         },
         predefinedOutput: true
@@ -1082,49 +832,98 @@ difference is equal to 9.009966106532374e-10
     </script>
     <script>kernelName = 'python3'</script>
 
-              </div>
+                </article>
               
-            </main>
-            <footer class="footer-article noprint">
-                
-    <!-- Previous / next buttons -->
-<div class='prev-next-area'>
-    <a class='left-prev' id="prev-link" href="16_decision_trees.html" title="previous page">
-        <i class="fas fa-angle-left"></i>
-        <div class="prev-next-info">
-            <p class="prev-next-subtitle">previous</p>
-            <p class="prev-next-title">Decision Trees</p>
-        </div>
+
+              
+              
+              
+              
+                <footer class="prev-next-footer d-print-none">
+                  
+<div class="prev-next-area">
+    <a class="left-prev"
+       href="16_decision_trees.html"
+       title="previous page">
+      <i class="fa-solid fa-angle-left"></i>
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">previous</p>
+        <p class="prev-next-title">Decision Trees</p>
+      </div>
     </a>
-    <a class='right-next' id="next-link" href="18_trading_bt.html" title="next page">
-    <div class="prev-next-info">
+    <a class="right-next"
+       href="18_trading_bt.html"
+       title="next page">
+      <div class="prev-next-info">
         <p class="prev-next-subtitle">next</p>
         <p class="prev-next-title">Trading Strategies and the BT Package</p>
-    </div>
-    <i class="fas fa-angle-right"></i>
+      </div>
+      <i class="fa-solid fa-angle-right"></i>
     </a>
 </div>
-            </footer>
-        </div>
-    </div>
-    <div class="footer-content row">
-        <footer class="col footer"><p>
+                </footer>
+              
+            </div>
+            
+            
+              
+                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+
+  <div class="sidebar-secondary-item">
+  <div class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> Contents
+  </div>
+  <nav class="bd-toc-nav page-toc">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#payoff-diagrams">Payoff Diagrams</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#black-scholes-merton">Black-Scholes-Merton</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#py-vollib-library">py_vollib library</a></li>
+</ul>
+  </nav></div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+<div class="bd-footer-content__inner container">
   
-    By Prof. Adam Aiken<br/>
-  
-</p>
-        </footer>
-    </div>
+  <div class="footer-item">
     
+<p class="component-author">
+By Prof. Adam Aiken
+</p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
 </div>
+          </footer>
+        
 
-
-      </div>
+      </main>
     </div>
+  </div>
   
   <!-- Scripts loaded after <body> so the DOM is not blocked -->
-  <script src="../_static/scripts/pydata-sphinx-theme.js?digest=1999514e3f237ded88cf"></script>
+  <script src="../_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b"></script>
+<script src="../_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b"></script>
 
-
+  <footer class="bd-footer">
+  </footer>
   </body>
 </html>

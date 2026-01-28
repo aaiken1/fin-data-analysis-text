@@ -85,6 +85,8 @@ You can install it and get started at [claude.ai/download](https://claude.ai/dow
 4. **Verify the output** - AI tools hallucinate. They confidently suggest functions that don't exist and approaches that won't work. Always test.
 5. **Use AI to learn, not to avoid learning** - The goal is fluency. If you can't explain what your code does, you don't understand it yet.
 
+It is absolutely possible to do many tasks without truly understanding the code that you're using. But - be careful. Sometimes it doesn't matter much. I made an internal dashboard without knowing Javascript. But, I knew what I wanted and could visually see my work. However, no one is going to hire me to write Javascript for them. I want employers to hire you to solve problems. Understanding coding, data work, and financial theory can help you go deeper and solve more complex problems.
+
 ### More Resources on AI for Coding
 
 - [Datacamp - ChatGPT prompts for data science](https://www.datacamp.com/cheat-sheet/chatgpt-cheat-sheet-data-science)
@@ -101,9 +103,7 @@ AI tools are great, but sometimes you need other resources:
 - **Stack Overflow** - Search for error messages and common problems. Millions of questions already answered.
 - **Official documentation** - [Pandas docs](https://pandas.pydata.org/docs/), [NumPy docs](https://numpy.org/doc/), [Matplotlib docs](https://matplotlib.org/stable/contents.html). Learn to read the docs.
 - **Your classmates** - Talking through a problem often solves it.
-- **Office hours** - When you're truly stuck.
-
-The key to learning to code: go slowly, line by line, and think like a computer. They do exactly what you tell them to do. No more, no less.
+- **Office hours** - AI codes better than I do. But, I can help you understand concepts and workflows.
 
 ## Sources
 
