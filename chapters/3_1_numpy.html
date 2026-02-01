@@ -30,12 +30,12 @@
 
     <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=03e43079" />
     <link rel="stylesheet" type="text/css" href="../_static/styles/sphinx-book-theme.css?v=eba8b062" />
-    <link rel="stylesheet" type="text/css" href="../_static/togglebutton.css?v=9c3e77be" />
+    <link rel="stylesheet" type="text/css" href="../_static/togglebutton.css?v=13237357" />
     <link rel="stylesheet" type="text/css" href="../_static/copybutton.css?v=76b2166b" />
-    <link rel="stylesheet" type="text/css" href="../_static/mystnb.8ecb98da25f57f5357bf6f572d296f466b2cfe2517ffebfabe82451661e28f02.css?v=6644e6bb" />
+    <link rel="stylesheet" type="text/css" href="../_static/mystnb.8ecb98da25f57f5357bf6f572d296f466b2cfe2517ffebfabe82451661e28f02.css" />
     <link rel="stylesheet" type="text/css" href="../_static/sphinx-thebe.css?v=4fa983c6" />
     <link rel="stylesheet" type="text/css" href="../_static/sphinx-design.min.css?v=95c83b7e" />
-    <link rel="stylesheet" type="text/css" href="../_static/custom.css?v=b747247e" />
+    <link rel="stylesheet" type="text/css" href="../_static/custom.css?v=b98a1dfa" />
   
   <!-- Pre-loaded scripts that we'll load fully later -->
   <link rel="preload" as="script" href="../_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b" />
@@ -46,14 +46,14 @@
     <script src="../_static/doctools.js?v=9a2dae69"></script>
     <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
     <script src="../_static/clipboard.min.js?v=a7894cd8"></script>
-    <script src="../_static/copybutton.js?v=f281be69"></script>
+    <script src="../_static/copybutton.js?v=5eb1bb1e"></script>
     <script src="../_static/scripts/sphinx-book-theme.js?v=887ef09a"></script>
     <script>let toggleHintShow = 'Click to show';</script>
     <script>let toggleHintHide = 'Click to hide';</script>
     <script>let toggleOpenOnPrint = 'true';</script>
-    <script src="../_static/togglebutton.js?v=1ae7504c"></script>
+    <script src="../_static/togglebutton.js?v=4a39c7ea"></script>
     <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
-    <script src="../_static/design-tabs.js?v=36754332"></script>
+    <script src="../_static/design-tabs.js?v=f930bc37"></script>
     <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
     <script async="async" src="../_static/sphinx-thebe.js?v=c100c467"></script>
     <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
@@ -191,7 +191,7 @@
 <li class="toctree-l2"><a class="reference internal" href="2_1_markdown.html">Markdown</a></li>
 <li class="toctree-l2"><a class="reference internal" href="2_2_packages.html">Packages</a></li>
 <li class="toctree-l2"><a class="reference internal" href="2_3_style.html">Code style, PEP8, and linting</a></li>
-<li class="toctree-l2"><a class="reference internal" href="2_4_using_ai.html">Using AI Coding Tools</a></li>
+<li class="toctree-l2"><a class="reference internal" href="2_4_using_ai.html">AI Coding Assistants</a></li>
 </ul>
 </details></li>
 </ul>
@@ -413,6 +413,7 @@ document.write(`
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#indexing-and-slicing">Indexing and slicing</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#vectorization">Vectorization</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#broadcasting">Broadcasting</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#handling-missing-data">Handling Missing Data</a></li>
 </ul>
             </nav>
         </div>
@@ -442,15 +443,19 @@ document.write(`
 <p>This set of <a class="reference external" href="https://www.w3schools.com/python/numpy/default.asp">notes from W3</a> is also a good resource.</p>
 <section id="getting-started">
 <h2>Getting started<a class="headerlink" href="#getting-started" title="Link to this heading">#</a></h2>
-<p>NumPy stands for <strong>Numerical Python</strong> and is a crucial package for data work in Python. The <code class="docutils literal notranslate"><span class="pre">numpy</span></code> array object is used in essentially all data work, so we need to understand their propoerties and how to manipulate them. Arrays are “n-dimensional” data structures that can contain all the basic Python data types, e.g., floats, integers, strings, etc. However, we are going to use them mainly for <strong>numerical data</strong>. NumPy arrays (“ndarrays”) are homogenous, which means that items in the array should be of the same type - no mixing of integers and strings, for example.</p>
+<p>NumPy stands for <strong>Numerical Python</strong> and is a crucial package for data work in Python. The <code class="docutils literal notranslate"><span class="pre">numpy</span></code> array object is used in essentially all data work, so we need to understand their properties and how to manipulate them. Arrays are “n-dimensional” data structures that can contain all the basic Python data types, e.g., floats, integers, strings, etc. However, we are going to use them mainly for <strong>numerical data</strong>. NumPy arrays (“ndarrays”) are homogenous, which means that items in the array should be of the same type - no mixing of integers and strings, for example.</p>
 <figure class="align-center" id="numpy-arrays-png">
 <img alt="../_images/03-numpy_arrays.png" src="../_images/03-numpy_arrays.png" />
 <figcaption>
-<p><span class="caption-number">Fig. 31 </span><span class="caption-text">A graphical representation of arrays. You’re probably most familiar with the two-dimensional version, a matrix. Source: <a class="reference external" href="https://www.tomasbeuzen.com/python-programming-for-data-science/chapters/chapter5-numpy.html">Chapter 5 of Python for Data Science</a></span><a class="headerlink" href="#numpy-arrays-png" title="Link to this image">#</a></p>
+<p><span class="caption-number">Fig. 32 </span><span class="caption-text">A graphical representation of arrays. You’re probably most familiar with the two-dimensional version, a matrix. Source: <a class="reference external" href="https://www.tomasbeuzen.com/python-programming-for-data-science/chapters/chapter5-numpy.html">Chapter 5 of Python for Data Science</a></span><a class="headerlink" href="#numpy-arrays-png" title="Link to this image">#</a></p>
 </figcaption>
 </figure>
 <p>We need to import the <code class="docutils literal notranslate"><span class="pre">numpy</span></code> package in order to use <code class="docutils literal notranslate"><span class="pre">narrays</span></code>. Here’s the syntax for bringing in a package to our code. We’re going to type this at the start of basically all of our code. We are going to use the <em>np</em> part to tell Python where to look for a function/method in the <code class="docutils literal notranslate"><span class="pre">numpy</span></code> package. This is important, as <code class="docutils literal notranslate"><span class="pre">numpy</span></code> contains functions like <code class="docutils literal notranslate"><span class="pre">min</span></code> or <code class="docutils literal notranslate"><span class="pre">max</span></code> that are also built-in the standard Python. If you just write <code class="docutils literal notranslate"><span class="pre">max(x)</span></code>, Python is going to wonder what <code class="docutils literal notranslate"><span class="pre">max</span></code> you mean!</p>
 <p>You only need to import once per Python session. But, if you restart your Python kernel, you’ll need to run the import again.</p>
+<div class="admonition tip">
+<p class="admonition-title">Tip</p>
+<p>NumPy can be confusing at first — reshaping, broadcasting, and axis numbers take practice. AI tools like Claude and Copilot are excellent at explaining array operations. Try asking: “Why does my array have shape (3,) instead of (3,1)?” or “How do I reshape this array to multiply it correctly?”</p>
+</div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
@@ -486,8 +491,8 @@ document.write(`
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>array([[-1.15797646, -0.53805635, -0.07303219],
-       [ 1.77759417,  0.46675894,  0.34096515]])
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>array([[ 1.94637658, -0.71076121,  0.65783467],
+       [-0.91802886, -1.07235976,  1.63855122]])
 </pre></div>
 </div>
 </div>
@@ -553,16 +558,16 @@ document.write(`
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>array([[-1.07814477, -1.92000283,  1.1688006 ,  1.06656081, -0.29523132],
-       [-0.31512126, -0.84252486,  0.60882058, -1.28426973, -0.00604238],
-       [ 1.64643346,  0.45654262,  0.55813145,  1.60888119,  0.37608501],
-       [ 0.83296434,  0.10116814,  0.27536482,  1.278533  , -0.55187157],
-       [ 1.46305094,  0.21184517, -1.39695192,  0.0814609 ,  0.8178572 ],
-       [ 1.14971622,  0.15950561, -0.74672511,  0.77307503, -0.42720862],
-       [ 0.19674695, -0.51587641, -1.31049442, -0.26809807, -1.36653438],
-       [-0.94061645, -2.18887981, -0.62416008, -0.99166462, -0.22570946],
-       [ 0.05410297,  0.0780151 ,  1.64573229,  0.98204827, -0.7608575 ],
-       [-0.05953692,  0.90664693,  0.20166651,  0.34350761,  0.03122047]])
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>array([[ 1.04220691, -0.25557318,  0.70324282, -2.4414105 , -0.12447882],
+       [ 0.17139166,  0.08798666,  1.40342371, -0.23975817,  0.13879817],
+       [-0.7844745 , -2.25332151, -0.47023101,  1.29375966, -1.31780492],
+       [-0.00483014, -0.89378162, -0.49219038,  0.47345471,  0.68261064],
+       [-2.36103684,  1.23072874,  1.31431662, -1.06802008, -0.79076931],
+       [ 0.34279895,  0.45006   ,  0.09464376, -1.76435849,  0.25498656],
+       [ 0.61219476, -1.15998901, -0.83520673, -0.53157452,  0.60053365],
+       [ 1.78661889,  0.88424825, -1.69283074,  0.93295185,  0.61597739],
+       [-0.37861276,  1.16989195, -1.0231057 , -0.36468933,  0.74568971],
+       [ 0.4928755 , -0.92907795,  0.65692844, -1.70779368,  0.12085247]])
 </pre></div>
 </div>
 </div>
@@ -728,11 +733,11 @@ document.write(`
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>array([[0.62065917, 0.66681375],
-       [0.14479254, 0.59114185],
-       [0.38294662, 0.51656203],
-       [0.26487094, 0.57844998],
-       [0.15014062, 0.64253283]])
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>array([[0.39252461, 0.37925625],
+       [0.77098713, 0.30901361],
+       [0.4999141 , 0.63697434],
+       [0.82914736, 0.53235819],
+       [0.38746842, 0.94532495]])
 </pre></div>
 </div>
 </div>
@@ -745,8 +750,8 @@ document.write(`
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>array([[0.62065917, 0.14479254, 0.38294662, 0.26487094, 0.15014062],
-       [0.66681375, 0.59114185, 0.51656203, 0.57844998, 0.64253283]])
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>array([[0.39252461, 0.77098713, 0.4999141 , 0.82914736, 0.38746842],
+       [0.37925625, 0.30901361, 0.63697434, 0.53235819, 0.94532495]])
 </pre></div>
 </div>
 </div>
@@ -761,12 +766,12 @@ document.write(`
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>array([[0.28543038, 0.08074133],
-       [0.1795249 , 0.81187765],
-       [0.60763593, 0.17198579],
-       [0.21811829, 0.13008167],
-       [0.19038796, 0.55597255],
-       [0.97357801, 0.16774853]])
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>array([[0.99632435, 0.91642262],
+       [0.80281973, 0.40962904],
+       [0.81041103, 0.14757646],
+       [0.93529659, 0.2003083 ],
+       [0.4805889 , 0.56039432],
+       [0.75296467, 0.01863941]])
 </pre></div>
 </div>
 </div>
@@ -778,9 +783,9 @@ document.write(`
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>array([[0.28543038, 0.08074133, 0.1795249 , 0.81187765],
-       [0.60763593, 0.17198579, 0.21811829, 0.13008167],
-       [0.19038796, 0.55597255, 0.97357801, 0.16774853]])
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>array([[0.99632435, 0.91642262, 0.80281973, 0.40962904],
+       [0.81041103, 0.14757646, 0.93529659, 0.2003083 ],
+       [0.4805889 , 0.56039432, 0.75296467, 0.01863941]])
 </pre></div>
 </div>
 </div>
@@ -792,10 +797,10 @@ document.write(`
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>array([[0.28543038, 0.1795249 , 0.60763593, 0.21811829, 0.19038796,
-        0.97357801],
-       [0.08074133, 0.81187765, 0.17198579, 0.13008167, 0.55597255,
-        0.16774853]])
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>array([[0.99632435, 0.80281973, 0.81041103, 0.93529659, 0.4805889 ,
+        0.75296467],
+       [0.91642262, 0.40962904, 0.14757646, 0.2003083 , 0.56039432,
+        0.01863941]])
 </pre></div>
 </div>
 </div>
@@ -809,12 +814,12 @@ document.write(`
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>array([[0.37315004, 0.95602028],
-       [0.27363756, 0.60442428],
-       [0.15392836, 0.83375081],
-       [0.59558843, 0.13458636],
-       [0.53553975, 0.76647434],
-       [0.174501  , 0.54100874]])
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>array([[0.62665634, 0.50691726],
+       [0.45994111, 0.45250371],
+       [0.53597318, 0.6125256 ],
+       [0.23657943, 0.4285648 ],
+       [0.37016382, 0.05475603],
+       [0.24377322, 0.27722262]])
 </pre></div>
 </div>
 </div>
@@ -827,7 +832,7 @@ document.write(`
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>array([[0.37315004, 0.95602028]])
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>array([[0.62665634, 0.50691726]])
 </pre></div>
 </div>
 </div>
@@ -840,18 +845,18 @@ document.write(`
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>array([[0.37315004, 0.95602028],
-       [0.27363756, 0.60442428],
-       [0.15392836, 0.83375081],
-       [0.59558843, 0.13458636],
-       [0.53553975, 0.76647434],
-       [0.174501  , 0.54100874],
-       [0.37315004, 0.95602028],
-       [0.27363756, 0.60442428],
-       [0.15392836, 0.83375081],
-       [0.59558843, 0.13458636],
-       [0.53553975, 0.76647434],
-       [0.174501  , 0.54100874]])
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>array([[0.62665634, 0.50691726],
+       [0.45994111, 0.45250371],
+       [0.53597318, 0.6125256 ],
+       [0.23657943, 0.4285648 ],
+       [0.37016382, 0.05475603],
+       [0.24377322, 0.27722262],
+       [0.62665634, 0.50691726],
+       [0.45994111, 0.45250371],
+       [0.53597318, 0.6125256 ],
+       [0.23657943, 0.4285648 ],
+       [0.37016382, 0.05475603],
+       [0.24377322, 0.27722262]])
 </pre></div>
 </div>
 </div>
@@ -869,12 +874,12 @@ document.write(`
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>array([[0.51264775, 0.35768428],
-       [0.04629852, 0.70677251],
-       [0.78071891, 0.07335545],
-       [0.06084082, 0.05944322],
-       [0.11279488, 0.56683419],
-       [0.98726167, 0.12024902]])
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>array([[0.06326024, 0.44544853],
+       [0.60557597, 0.57434246],
+       [0.70888679, 0.64937941],
+       [0.33220814, 0.34614743],
+       [0.76559405, 0.00716752],
+       [0.80115243, 0.70995093]])
 </pre></div>
 </div>
 </div>
@@ -891,9 +896,9 @@ document.write(`
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>array([[0.51264775, 0.35768428, 0.04629852, 0.70677251],
-       [0.78071891, 0.07335545, 0.06084082, 0.05944322],
-       [0.11279488, 0.56683419, 0.98726167, 0.12024902]])
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>array([[0.06326024, 0.44544853, 0.60557597, 0.57434246],
+       [0.70888679, 0.64937941, 0.33220814, 0.34614743],
+       [0.76559405, 0.00716752, 0.80115243, 0.70995093]])
 </pre></div>
 </div>
 </div>
@@ -906,9 +911,9 @@ document.write(`
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>array([[0.51264775, 0.35768428, 0.04629852, 0.70677251],
-       [0.78071891, 0.07335545, 0.06084082, 0.05944322],
-       [0.11279488, 0.56683419, 0.98726167, 0.12024902]])
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>array([[0.06326024, 0.44544853, 0.60557597, 0.57434246],
+       [0.70888679, 0.64937941, 0.33220814, 0.34614743],
+       [0.76559405, 0.00716752, 0.80115243, 0.70995093]])
 </pre></div>
 </div>
 </div>
@@ -1440,6 +1445,89 @@ document.write(`
 <p>Python is <strong>broadcasting</strong>, which means that it is doing that <code class="docutils literal notranslate"><span class="pre">.repeat()</span></code> for us to get the multiplication to work out. We now have the correct revenue for each product by day!</p>
 <p>We’ll go over <a class="reference external" href="https://www.datacamp.com/community/tutorials/python-scipy-tutorial#linear">matrix multiplication in Python</a> more when we get to some portfolio mathematics and using <a class="reference external" href="https://www.datacamp.com/community/blog/python-scipy-cheat-sheet">SciPy</a>.</p>
 </section>
+<section id="handling-missing-data">
+<h2>Handling Missing Data<a class="headerlink" href="#handling-missing-data" title="Link to this heading">#</a></h2>
+<p>Real-world data, especially financial data, often has <strong>missing values</strong>. In NumPy, missing values are represented as <code class="docutils literal notranslate"><span class="pre">np.nan</span></code> (Not a Number). This is crucial to understand because you’ll encounter it constantly when working with financial time series.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>When you get to pandas DataFrames and financial data, missing values will be everywhere — holidays when markets are closed, stocks that weren’t trading yet, data that failed to download. Knowing how to handle <code class="docutils literal notranslate"><span class="pre">np.nan</span></code> is essential.</p>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Create an array with missing values</span>
+<span class="n">returns</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mf">0.02</span><span class="p">,</span> <span class="mf">0.01</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">nan</span><span class="p">,</span> <span class="o">-</span><span class="mf">0.03</span><span class="p">,</span> <span class="mf">0.04</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">nan</span><span class="p">,</span> <span class="mf">0.01</span><span class="p">])</span>
+<span class="n">returns</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>The problem with <code class="docutils literal notranslate"><span class="pre">np.nan</span></code> is that it “poisons” calculations. If you take the mean of an array with NaN, you get NaN back:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># This doesn&#39;t work - NaN poisons the calculation</span>
+<span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">returns</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>NumPy provides special functions that ignore NaN values. Just add <code class="docutils literal notranslate"><span class="pre">nan</span></code> to the beginning of the function name:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Use np.nanmean to ignore NaN values</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Mean (ignoring NaN): </span><span class="si">{</span><span class="n">np</span><span class="o">.</span><span class="n">nanmean</span><span class="p">(</span><span class="n">returns</span><span class="p">)</span><span class="si">:</span><span class="s2">.4f</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Std (ignoring NaN):  </span><span class="si">{</span><span class="n">np</span><span class="o">.</span><span class="n">nanstd</span><span class="p">(</span><span class="n">returns</span><span class="p">)</span><span class="si">:</span><span class="s2">.4f</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Sum (ignoring NaN):  </span><span class="si">{</span><span class="n">np</span><span class="o">.</span><span class="n">nansum</span><span class="p">(</span><span class="n">returns</span><span class="p">)</span><span class="si">:</span><span class="s2">.4f</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>You can also check for and count missing values:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Check which values are NaN</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Is NaN?: </span><span class="si">{</span><span class="n">np</span><span class="o">.</span><span class="n">isnan</span><span class="p">(</span><span class="n">returns</span><span class="p">)</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Number of NaN values: </span><span class="si">{</span><span class="n">np</span><span class="o">.</span><span class="n">isnan</span><span class="p">(</span><span class="n">returns</span><span class="p">)</span><span class="o">.</span><span class="n">sum</span><span class="p">()</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Number of valid values: </span><span class="si">{</span><span class="p">(</span><span class="o">~</span><span class="n">np</span><span class="o">.</span><span class="n">isnan</span><span class="p">(</span><span class="n">returns</span><span class="p">))</span><span class="o">.</span><span class="n">sum</span><span class="p">()</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="pst-scrollable-table-container"><table class="table">
+<thead>
+<tr class="row-odd"><th class="head"><p>Function</p></th>
+<th class="head"><p>NaN-safe Version</p></th>
+<th class="head"><p>What It Does</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">np.mean()</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">np.nanmean()</span></code></p></td>
+<td><p>Average, ignoring NaN</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">np.std()</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">np.nanstd()</span></code></p></td>
+<td><p>Standard deviation, ignoring NaN</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">np.sum()</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">np.nansum()</span></code></p></td>
+<td><p>Sum, ignoring NaN</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">np.min()</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">np.nanmin()</span></code></p></td>
+<td><p>Minimum, ignoring NaN</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">np.max()</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">np.nanmax()</span></code></p></td>
+<td><p>Maximum, ignoring NaN</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="admonition tip">
+<p class="admonition-title">Tip</p>
+<p>When working with financial data, always check for missing values first with <code class="docutils literal notranslate"><span class="pre">np.isnan().sum()</span></code>. Then decide: do you want to ignore them (use <code class="docutils literal notranslate"><span class="pre">nanmean</span></code>, etc.), fill them with something (like the previous value), or drop them entirely? This decision depends on your analysis.</p>
+</div>
+</section>
 </section>
 
     <script type="text/x-thebe-config">
@@ -1516,6 +1604,7 @@ document.write(`
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#indexing-and-slicing">Indexing and slicing</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#vectorization">Vectorization</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#broadcasting">Broadcasting</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#handling-missing-data">Handling Missing Data</a></li>
 </ul>
   </nav></div>
 

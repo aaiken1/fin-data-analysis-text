@@ -30,12 +30,12 @@
 
     <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=03e43079" />
     <link rel="stylesheet" type="text/css" href="../_static/styles/sphinx-book-theme.css?v=eba8b062" />
-    <link rel="stylesheet" type="text/css" href="../_static/togglebutton.css?v=9c3e77be" />
+    <link rel="stylesheet" type="text/css" href="../_static/togglebutton.css?v=13237357" />
     <link rel="stylesheet" type="text/css" href="../_static/copybutton.css?v=76b2166b" />
-    <link rel="stylesheet" type="text/css" href="../_static/mystnb.8ecb98da25f57f5357bf6f572d296f466b2cfe2517ffebfabe82451661e28f02.css?v=6644e6bb" />
+    <link rel="stylesheet" type="text/css" href="../_static/mystnb.8ecb98da25f57f5357bf6f572d296f466b2cfe2517ffebfabe82451661e28f02.css" />
     <link rel="stylesheet" type="text/css" href="../_static/sphinx-thebe.css?v=4fa983c6" />
     <link rel="stylesheet" type="text/css" href="../_static/sphinx-design.min.css?v=95c83b7e" />
-    <link rel="stylesheet" type="text/css" href="../_static/custom.css?v=b747247e" />
+    <link rel="stylesheet" type="text/css" href="../_static/custom.css?v=b98a1dfa" />
   
   <!-- Pre-loaded scripts that we'll load fully later -->
   <link rel="preload" as="script" href="../_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b" />
@@ -46,14 +46,14 @@
     <script src="../_static/doctools.js?v=9a2dae69"></script>
     <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
     <script src="../_static/clipboard.min.js?v=a7894cd8"></script>
-    <script src="../_static/copybutton.js?v=f281be69"></script>
+    <script src="../_static/copybutton.js?v=5eb1bb1e"></script>
     <script src="../_static/scripts/sphinx-book-theme.js?v=887ef09a"></script>
     <script>let toggleHintShow = 'Click to show';</script>
     <script>let toggleHintHide = 'Click to hide';</script>
     <script>let toggleOpenOnPrint = 'true';</script>
-    <script src="../_static/togglebutton.js?v=1ae7504c"></script>
+    <script src="../_static/togglebutton.js?v=4a39c7ea"></script>
     <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
-    <script src="../_static/design-tabs.js?v=36754332"></script>
+    <script src="../_static/design-tabs.js?v=f930bc37"></script>
     <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
     <script async="async" src="../_static/sphinx-thebe.js?v=c100c467"></script>
     <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
@@ -189,7 +189,7 @@
 <li class="toctree-l2"><a class="reference internal" href="2_1_markdown.html">Markdown</a></li>
 <li class="toctree-l2"><a class="reference internal" href="2_2_packages.html">Packages</a></li>
 <li class="toctree-l2"><a class="reference internal" href="2_3_style.html">Code style, PEP8, and linting</a></li>
-<li class="toctree-l2"><a class="reference internal" href="2_4_using_ai.html">Using AI Coding Tools</a></li>
+<li class="toctree-l2"><a class="reference internal" href="2_4_using_ai.html">AI Coding Assistants</a></li>
 </ul>
 </details></li>
 </ul>
@@ -408,6 +408,8 @@ document.write(`
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#using-iloc">Using iloc</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#comparing-four-selection-methods">Comparing four selection methods</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#filtering">Filtering</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#the-query-method">The query() method</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#method-chaining">Method chaining</a></li>
 </ul>
 </li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#first-look-at-an-index">First look at an index</a></li>
@@ -428,6 +430,10 @@ document.write(`
 <p>The data frame we will be working with contains data from Zillow.com, the housing web site, on the number of homes, the median value of homes, etc. at-risk for flooding due to rising sea levels.</p>
 <p>You can find many different Zillow data sets <a class="reference external" href="https://www.zillow.com/research/data/">here</a>. The “uw” here stands for “under water” in a very literal sense. I first thought they were talking about mortgages!</p>
 <p>As mentioned, take a look at <a class="reference external" href="https://wesmckinney.com/book/pandas-basics.html">Chapter 5</a> of <em>Python for Data Analysis</em> for an introduction to <code class="docutils literal notranslate"><span class="pre">pandas</span></code>.</p>
+<div class="admonition tip">
+<p class="admonition-title">Tip</p>
+<p><strong>AI is your pandas syntax partner.</strong> There are many ways to select, filter, and transform data in pandas. When you’re stuck, describe what you want in plain English: “I want to keep only rows where the state is North Carolina and the region type is MSA.” Claude will give you the exact syntax - often showing multiple approaches so you can pick the one that makes the most sense to you.</p>
+</div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
@@ -538,7 +544,7 @@ memory usage: 489.5+ KB
 <figure class="align-center" id="tidy-png">
 <img alt="../_images/04-tidy.png" src="../_images/04-tidy.png" />
 <figcaption>
-<p><span class="caption-number">Fig. 32 </span><span class="caption-text">Tidy data.</span><a class="headerlink" href="#tidy-png" title="Link to this image">#</a></p>
+<p><span class="caption-number">Fig. 33 </span><span class="caption-text">Tidy data.</span><a class="headerlink" href="#tidy-png" title="Link to this image">#</a></p>
 </figcaption>
 </figure>
 <p>The first thing to note about this data is that there are several tiers. Some numbers are at the national level, some at the region, some at the state, and some at the MSA. <strong>Tidy data</strong> refers to one row, one observation, across different variables (columns) and, possibly, across time. When you have multiple observations of the same firm, state, person, etc. over time, we call that panel data. Panel data is tidy too.</p>
@@ -3934,6 +3940,209 @@ True
 </div></div></div>
 </div>
 </section>
+<section id="the-query-method">
+<h3>The query() method<a class="headerlink" href="#the-query-method" title="Link to this heading">#</a></h3>
+<p>There’s another way to filter that AI often generates: the <code class="docutils literal notranslate"><span class="pre">.query()</span></code> method. It lets you write filter conditions as a string, which some people find more readable.</p>
+<p>Here’s the same filter as above, but using <code class="docutils literal notranslate"><span class="pre">.query()</span></code>:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Using query() - notice how readable this is!</span>
+<span class="n">uw</span><span class="o">.</span><span class="n">query</span><span class="p">(</span><span class="s1">&#39;RegionType == &quot;MSA&quot; and StateName == &quot;North Carolina&quot;&#39;</span><span class="p">)[[</span><span class="s1">&#39;RegionType&#39;</span><span class="p">,</span> <span class="s1">&#39;RegionName&#39;</span><span class="p">,</span> <span class="s1">&#39;MSAName&#39;</span><span class="p">,</span> <span class="s1">&#39;AllHomes_Tier1&#39;</span><span class="p">]]</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>RegionType</th>
+      <th>RegionName</th>
+      <th>MSAName</th>
+      <th>AllHomes_Tier1</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>274</th>
+      <td>MSA</td>
+      <td>Elizabeth City, NC</td>
+      <td>Elizabeth City, NC</td>
+      <td>5887.0</td>
+    </tr>
+    <tr>
+      <th>277</th>
+      <td>MSA</td>
+      <td>Greenville, NC</td>
+      <td>Greenville, NC</td>
+      <td>22042.0</td>
+    </tr>
+    <tr>
+      <th>288</th>
+      <td>MSA</td>
+      <td>Jacksonville, NC</td>
+      <td>Jacksonville, NC</td>
+      <td>17623.0</td>
+    </tr>
+    <tr>
+      <th>292</th>
+      <td>MSA</td>
+      <td>Kill Devil Hills, NC</td>
+      <td>Kill Devil Hills, NC</td>
+      <td>3194.0</td>
+    </tr>
+    <tr>
+      <th>297</th>
+      <td>MSA</td>
+      <td>Morehead City, NC</td>
+      <td>Morehead City, NC</td>
+      <td>13555.0</td>
+    </tr>
+    <tr>
+      <th>302</th>
+      <td>MSA</td>
+      <td>New Bern, NC</td>
+      <td>New Bern, NC</td>
+      <td>13637.0</td>
+    </tr>
+    <tr>
+      <th>334</th>
+      <td>MSA</td>
+      <td>Washington, NC</td>
+      <td>Washington, NC</td>
+      <td>1289.0</td>
+    </tr>
+    <tr>
+      <th>336</th>
+      <td>MSA</td>
+      <td>Wilmington, NC</td>
+      <td>Wilmington, NC</td>
+      <td>37100.0</td>
+    </tr>
+  </tbody>
+</table>
+</div></div></div>
+</div>
+<p>The <code class="docutils literal notranslate"><span class="pre">.query()</span></code> method is particularly nice when you have many conditions, since you don’t need all those parentheses. You’ll see AI use both styles - just know they do the same thing.</p>
+</section>
+<section id="method-chaining">
+<h3>Method chaining<a class="headerlink" href="#method-chaining" title="Link to this heading">#</a></h3>
+<p>One more thing you’ll see in AI-generated pandas code: <strong>method chaining</strong>. This is when you string multiple operations together with dots, each one transforming the result of the previous one.</p>
+<p>Here’s a simple example. Instead of writing:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Step by step approach</span>
+<span class="n">df_filtered</span> <span class="o">=</span> <span class="n">uw</span><span class="p">[</span><span class="n">uw</span><span class="p">[</span><span class="s1">&#39;RegionType&#39;</span><span class="p">]</span> <span class="o">==</span> <span class="s1">&#39;State&#39;</span><span class="p">]</span>
+<span class="n">df_sorted</span> <span class="o">=</span> <span class="n">df_filtered</span><span class="o">.</span><span class="n">sort_values</span><span class="p">(</span><span class="s1">&#39;AllHomes_AllTiers&#39;</span><span class="p">,</span> <span class="n">ascending</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+<span class="n">df_final</span> <span class="o">=</span> <span class="n">df_sorted</span><span class="p">[[</span><span class="s1">&#39;StateName&#39;</span><span class="p">,</span> <span class="s1">&#39;AllHomes_AllTiers&#39;</span><span class="p">]]</span><span class="o">.</span><span class="n">head</span><span class="p">(</span><span class="mi">10</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>AI might write it as a chain:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Method chaining example - filter, sort, select, and limit in one go</span>
+<span class="p">(</span><span class="n">uw</span>
+ <span class="o">.</span><span class="n">query</span><span class="p">(</span><span class="s1">&#39;RegionType == &quot;State&quot;&#39;</span><span class="p">)</span>
+ <span class="o">.</span><span class="n">sort_values</span><span class="p">(</span><span class="s1">&#39;AllHomes_AllTiers&#39;</span><span class="p">,</span> <span class="n">ascending</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+ <span class="p">[[</span><span class="s1">&#39;StateName&#39;</span><span class="p">,</span> <span class="s1">&#39;AllHomes_AllTiers&#39;</span><span class="p">]]</span>
+ <span class="o">.</span><span class="n">head</span><span class="p">(</span><span class="mi">10</span><span class="p">)</span>
+<span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>StateName</th>
+      <th>AllHomes_AllTiers</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>2</th>
+      <td>California</td>
+      <td>9305993.0</td>
+    </tr>
+    <tr>
+      <th>21</th>
+      <td>Texas</td>
+      <td>7289651.0</td>
+    </tr>
+    <tr>
+      <th>5</th>
+      <td>Florida</td>
+      <td>7283703.0</td>
+    </tr>
+    <tr>
+      <th>16</th>
+      <td>New York</td>
+      <td>4136766.0</td>
+    </tr>
+    <tr>
+      <th>18</th>
+      <td>Pennsylvania</td>
+      <td>4096196.0</td>
+    </tr>
+    <tr>
+      <th>13</th>
+      <td>North Carolina</td>
+      <td>3235224.0</td>
+    </tr>
+    <tr>
+      <th>6</th>
+      <td>Georgia</td>
+      <td>2911149.0</td>
+    </tr>
+    <tr>
+      <th>15</th>
+      <td>New Jersey</td>
+      <td>2549099.0</td>
+    </tr>
+    <tr>
+      <th>22</th>
+      <td>Virginia</td>
+      <td>2462693.0</td>
+    </tr>
+    <tr>
+      <th>23</th>
+      <td>Washington</td>
+      <td>2268742.0</td>
+    </tr>
+  </tbody>
+</table>
+</div></div></div>
+</div>
+<p>Notice how the parentheses <code class="docutils literal notranslate"><span class="pre">()</span></code> wrap the whole chain? That lets us break it across multiple lines for readability. The chain is read top to bottom: start with <code class="docutils literal notranslate"><span class="pre">uw</span></code>, then query for States, then sort, then select columns, then take the first 10.</p>
+<p>Method chaining can look intimidating at first, but once you understand it, you’ll see that each line does one thing. When AI generates chained code, read it one step at a time.</p>
+</section>
 </section>
 <section id="first-look-at-an-index">
 <h2>First look at an index<a class="headerlink" href="#first-look-at-an-index" title="Link to this heading">#</a></h2>
@@ -4182,6 +4391,8 @@ True
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#using-iloc">Using iloc</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#comparing-four-selection-methods">Comparing four selection methods</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#filtering">Filtering</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#the-query-method">The query() method</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#method-chaining">Method chaining</a></li>
 </ul>
 </li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#first-look-at-an-index">First look at an index</a></li>

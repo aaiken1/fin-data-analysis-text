@@ -30,12 +30,12 @@
 
     <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=03e43079" />
     <link rel="stylesheet" type="text/css" href="../_static/styles/sphinx-book-theme.css?v=eba8b062" />
-    <link rel="stylesheet" type="text/css" href="../_static/togglebutton.css?v=9c3e77be" />
+    <link rel="stylesheet" type="text/css" href="../_static/togglebutton.css?v=13237357" />
     <link rel="stylesheet" type="text/css" href="../_static/copybutton.css?v=76b2166b" />
-    <link rel="stylesheet" type="text/css" href="../_static/mystnb.8ecb98da25f57f5357bf6f572d296f466b2cfe2517ffebfabe82451661e28f02.css?v=6644e6bb" />
+    <link rel="stylesheet" type="text/css" href="../_static/mystnb.8ecb98da25f57f5357bf6f572d296f466b2cfe2517ffebfabe82451661e28f02.css" />
     <link rel="stylesheet" type="text/css" href="../_static/sphinx-thebe.css?v=4fa983c6" />
     <link rel="stylesheet" type="text/css" href="../_static/sphinx-design.min.css?v=95c83b7e" />
-    <link rel="stylesheet" type="text/css" href="../_static/custom.css?v=b747247e" />
+    <link rel="stylesheet" type="text/css" href="../_static/custom.css?v=b98a1dfa" />
   
   <!-- Pre-loaded scripts that we'll load fully later -->
   <link rel="preload" as="script" href="../_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b" />
@@ -46,14 +46,14 @@
     <script src="../_static/doctools.js?v=9a2dae69"></script>
     <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
     <script src="../_static/clipboard.min.js?v=a7894cd8"></script>
-    <script src="../_static/copybutton.js?v=f281be69"></script>
+    <script src="../_static/copybutton.js?v=5eb1bb1e"></script>
     <script src="../_static/scripts/sphinx-book-theme.js?v=887ef09a"></script>
     <script>let toggleHintShow = 'Click to show';</script>
     <script>let toggleHintHide = 'Click to hide';</script>
     <script>let toggleOpenOnPrint = 'true';</script>
-    <script src="../_static/togglebutton.js?v=1ae7504c"></script>
+    <script src="../_static/togglebutton.js?v=4a39c7ea"></script>
     <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
-    <script src="../_static/design-tabs.js?v=36754332"></script>
+    <script src="../_static/design-tabs.js?v=f930bc37"></script>
     <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
     <script async="async" src="../_static/sphinx-thebe.js?v=c100c467"></script>
     <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
@@ -189,7 +189,7 @@
 <li class="toctree-l2"><a class="reference internal" href="2_1_markdown.html">Markdown</a></li>
 <li class="toctree-l2"><a class="reference internal" href="2_2_packages.html">Packages</a></li>
 <li class="toctree-l2"><a class="reference internal" href="2_3_style.html">Code style, PEP8, and linting</a></li>
-<li class="toctree-l2"><a class="reference internal" href="2_4_using_ai.html">Using AI Coding Tools</a></li>
+<li class="toctree-l2"><a class="reference internal" href="2_4_using_ai.html">AI Coding Assistants</a></li>
 </ul>
 </details></li>
 </ul>
@@ -409,7 +409,7 @@ document.write(`
 <p>Here’s the <a class="reference external" href="https://pola-rs.github.io/polars-book/user-guide/">user’s guide</a>. I’m not going to go through every command here. As always, think about what you want to do. Sketch it out. Then, look for the syntax to do the job.</p>
 <p>Why not use <code class="docutils literal notranslate"><span class="pre">pandas</span></code>? Here’s the <a class="reference external" href="https://wesmckinney.com/blog/apache-arrow-pandas-internals/">author of pandas</a> on why <code class="docutils literal notranslate"><span class="pre">pandas</span></code> isn’t always the best tool for data manipulation. We’re getting more advanced here, worrying about speed, being closer to the “metal”, etc.</p>
 <p><a class="reference external" href="https://www.emilyriederer.com/post/py-rgo/">Some people</a>, especially those coming to Python from other languages, are suggesting that you just start with <code class="docutils literal notranslate"><span class="pre">polars</span></code> instead.</p>
-<p>[Coding for Economists] discusses alternatives to <code class="docutils literal notranslate"><span class="pre">pandas</span></code>, like <code class="docutils literal notranslate"><span class="pre">polars</span></code>.</p>
+<p><a class="reference external" href="https://aeturrell.github.io/coding-for-economists/data-advanced.html">Coding for Economists</a> discusses alternatives to <code class="docutils literal notranslate"><span class="pre">pandas</span></code>, like <code class="docutils literal notranslate"><span class="pre">polars</span></code>.</p>
 <p>We can insall <code class="docutils literal notranslate"><span class="pre">polars</span></code> using <code class="docutils literal notranslate"><span class="pre">pip</span></code> the usual way. Don’t forget to use <code class="docutils literal notranslate"><span class="pre">!</span> <span class="pre">pip</span></code> in Google Colab.</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">pip</span> <span class="n">install</span> <span class="n">polars</span>
 </pre></div>
@@ -510,20 +510,24 @@ document.write(`
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">df</span><span class="o">.</span><span class="n">groupby</span><span class="p">(</span><span class="s2">&quot;Type&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">count</span><span class="p">()</span><span class="o">.</span><span class="n">sort</span><span class="p">(</span><span class="n">by</span><span class="o">=</span><span class="s2">&quot;count&quot;</span><span class="p">,</span> <span class="n">descending</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Note: In newer versions of polars, use group_by() instead of groupby()</span>
+<span class="n">df</span><span class="o">.</span><span class="n">group_by</span><span class="p">(</span><span class="s2">&quot;Type&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">count</span><span class="p">()</span><span class="o">.</span><span class="n">sort</span><span class="p">(</span><span class="n">by</span><span class="o">=</span><span class="s2">&quot;count&quot;</span><span class="p">,</span> <span class="n">descending</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output traceback highlight-ipythontb notranslate"><div class="highlight"><pre><span></span><span class="gt">---------------------------------------------------------------------------</span>
-<span class="ne">AttributeError</span><span class="g g-Whitespace">                            </span>Traceback (most recent call last)
-<span class="n">Cell</span> <span class="n">In</span><span class="p">[</span><span class="mi">6</span><span class="p">],</span> <span class="n">line</span> <span class="mi">1</span>
-<span class="ne">----&gt; </span><span class="mi">1</span> <span class="n">df</span><span class="o">.</span><span class="n">groupby</span><span class="p">(</span><span class="s2">&quot;Type&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">count</span><span class="p">()</span><span class="o">.</span><span class="n">sort</span><span class="p">(</span><span class="n">by</span><span class="o">=</span><span class="s2">&quot;count&quot;</span><span class="p">,</span> <span class="n">descending</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
-
-<span class="ne">AttributeError</span>: &#39;DataFrame&#39; object has no attribute &#39;groupby&#39;
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>/var/folders/kx/y8vj3n6n5kq_d74vj24jsnh40000gn/T/ipykernel_22314/3753008177.py:2: DeprecationWarning: `GroupBy.count` was renamed; use `GroupBy.len` instead
+  df.group_by(&quot;Type&quot;).count().sort(by=&quot;count&quot;, descending=True)
 </pre></div>
 </div>
-</div>
+<div class="output text_html"><div><style>
+.dataframe > thead > tr,
+.dataframe > tbody > tr {
+  text-align: right;
+  white-space: pre-wrap;
+}
+</style>
+<small>shape: (5, 2)</small><table border="1" class="dataframe"><thead><tr><th>Type</th><th>count</th></tr><tr><td>str</td><td>u32</td></tr></thead><tbody><tr><td>&quot;Microbrewery&quot;</td><td>165</td></tr><tr><td>&quot;Brewpub/Brewery&quot;</td><td>41</td></tr><tr><td>&quot;Brewpub&quot;</td><td>33</td></tr><tr><td>&quot;Client Brewer&quot;</td><td>9</td></tr><tr><td>&quot;Commercial Brewery&quot;</td><td>3</td></tr></tbody></table></div></div></div>
 </div>
 <p>Not bad!</p>
 </section>

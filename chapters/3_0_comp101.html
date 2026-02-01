@@ -30,12 +30,12 @@
 
     <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=03e43079" />
     <link rel="stylesheet" type="text/css" href="../_static/styles/sphinx-book-theme.css?v=eba8b062" />
-    <link rel="stylesheet" type="text/css" href="../_static/togglebutton.css?v=9c3e77be" />
+    <link rel="stylesheet" type="text/css" href="../_static/togglebutton.css?v=13237357" />
     <link rel="stylesheet" type="text/css" href="../_static/copybutton.css?v=76b2166b" />
-    <link rel="stylesheet" type="text/css" href="../_static/mystnb.8ecb98da25f57f5357bf6f572d296f466b2cfe2517ffebfabe82451661e28f02.css?v=6644e6bb" />
+    <link rel="stylesheet" type="text/css" href="../_static/mystnb.8ecb98da25f57f5357bf6f572d296f466b2cfe2517ffebfabe82451661e28f02.css" />
     <link rel="stylesheet" type="text/css" href="../_static/sphinx-thebe.css?v=4fa983c6" />
     <link rel="stylesheet" type="text/css" href="../_static/sphinx-design.min.css?v=95c83b7e" />
-    <link rel="stylesheet" type="text/css" href="../_static/custom.css?v=b747247e" />
+    <link rel="stylesheet" type="text/css" href="../_static/custom.css?v=b98a1dfa" />
   
   <!-- Pre-loaded scripts that we'll load fully later -->
   <link rel="preload" as="script" href="../_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b" />
@@ -46,14 +46,14 @@
     <script src="../_static/doctools.js?v=9a2dae69"></script>
     <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
     <script src="../_static/clipboard.min.js?v=a7894cd8"></script>
-    <script src="../_static/copybutton.js?v=f281be69"></script>
+    <script src="../_static/copybutton.js?v=5eb1bb1e"></script>
     <script src="../_static/scripts/sphinx-book-theme.js?v=887ef09a"></script>
     <script>let toggleHintShow = 'Click to show';</script>
     <script>let toggleHintHide = 'Click to hide';</script>
     <script>let toggleOpenOnPrint = 'true';</script>
-    <script src="../_static/togglebutton.js?v=1ae7504c"></script>
+    <script src="../_static/togglebutton.js?v=4a39c7ea"></script>
     <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
-    <script src="../_static/design-tabs.js?v=36754332"></script>
+    <script src="../_static/design-tabs.js?v=f930bc37"></script>
     <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
     <script async="async" src="../_static/sphinx-thebe.js?v=c100c467"></script>
     <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
@@ -189,7 +189,7 @@
 <li class="toctree-l2"><a class="reference internal" href="2_1_markdown.html">Markdown</a></li>
 <li class="toctree-l2"><a class="reference internal" href="2_2_packages.html">Packages</a></li>
 <li class="toctree-l2"><a class="reference internal" href="2_3_style.html">Code style, PEP8, and linting</a></li>
-<li class="toctree-l2"><a class="reference internal" href="2_4_using_ai.html">Using AI Coding Tools</a></li>
+<li class="toctree-l2"><a class="reference internal" href="2_4_using_ai.html">AI Coding Assistants</a></li>
 </ul>
 </details></li>
 </ul>
@@ -419,7 +419,17 @@ document.write(`
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#syntax-in-python">Syntax in Python</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#control-structures">Control structures</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#functions-and-functional-programming">Functions and functional programming</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#printing-and-formatting">Printing and formatting</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#printing-and-f-strings">Printing and f-strings</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#reading-ai-generated-code">Reading AI-Generated Code</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#list-comprehensions">List Comprehensions</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#docstrings">Docstrings</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#enumerate-and-zip">enumerate() and zip()</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#reading-error-messages">Reading Error Messages</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#type-hints-optional">Type Hints (Optional)</a></li>
+</ul>
+</li>
 </ul>
             </nav>
         </div>
@@ -453,7 +463,7 @@ document.write(`
 </aside>
 <section id="data-types">
 <h2>Data types<a class="headerlink" href="#data-types" title="Link to this heading">#</a></h2>
-<p>Computers think of data, or a <strong>value</strong>, as a <strong>type</strong>. For example, in Python, there are three types of numbers: integers, floats, and complex. A <strong>variable</strong> is a name that refers to a value. Python let’s you create any variable name as long as it begins with a letter or an underscore, so no numbers to start. It should also not be what is called a r<a class="reference external" href="https://docs.python.org/3.3/reference/lexical_analysis.html#keywords">eserved word</a> in Python such as <code class="docutils literal notranslate"><span class="pre">for</span></code>, <code class="docutils literal notranslate"><span class="pre">while</span></code>, or <code class="docutils literal notranslate"><span class="pre">class</span></code>. All programming languages have special, reserved words that they don’t want us using as variable names. It would get confused.</p>
+<p>Computers think of data, or a <strong>value</strong>, as a <strong>type</strong>. For example, in Python, there are three types of numbers: integers, floats, and complex. A <strong>variable</strong> is a name that refers to a value. Python let’s you create any variable name as long as it begins with a letter or an underscore, so no numbers to start. It should also not be what is called a <a class="reference external" href="https://docs.python.org/3.3/reference/lexical_analysis.html#keywords">reserved word</a> in Python such as <code class="docutils literal notranslate"><span class="pre">for</span></code>, <code class="docutils literal notranslate"><span class="pre">while</span></code>, or <code class="docutils literal notranslate"><span class="pre">class</span></code>. All programming languages have special, reserved words that they don’t want us using as variable names. It would get confused.</p>
 <p>A common metaphor is to think of a variable as a box that holds some information (like a number, a vector, or a string). We use the <strong>assignment operator</strong> <code class="docutils literal notranslate"><span class="pre">=</span></code> to assign a value to a variable.</p>
 <section id="common-built-in-python-data-types-and-structures">
 <h3>Common built-in Python data types and structures<a class="headerlink" href="#common-built-in-python-data-types-and-structures" title="Link to this heading">#</a></h3>
@@ -1129,7 +1139,7 @@ document.write(`
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>{&#39;Elon&#39;, &#39;Aiken&#39;, &#39;Arizona State&#39;, &#39;Adam&#39;}
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>{&#39;Elon&#39;, &#39;Arizona State&#39;, &#39;Adam&#39;, &#39;Aiken&#39;}
 </pre></div>
 </div>
 </div>
@@ -1158,6 +1168,10 @@ document.write(`
 <p>We will also see two types of <strong>loops</strong>. You can create <a class="reference external" href="https://www.datacamp.com/community/tutorials/for-loop-python">a loop using <code class="docutils literal notranslate"><span class="pre">for</span></code></a> that will run the code included in the loop only for values contained in a list. There are also <a class="reference external" href="https://www.datacamp.com/community/tutorials/loops-python-tutorial"><code class="docutils literal notranslate"><span class="pre">while</span></code> loops</a>, where the loop will run until a certain criteria, specified by the code, is met. There are subtle differences between the two. <code class="docutils literal notranslate"><span class="pre">While</span></code> loops need to check boolean conditions to see if a condition is <code class="docutils literal notranslate"><span class="pre">True</span></code> or <code class="docutils literal notranslate"><span class="pre">False</span></code> in order to keep going. <code class="docutils literal notranslate"><span class="pre">For</span></code> loops go until the end range is reached. This makes <code class="docutils literal notranslate"><span class="pre">for</span></code> loops faster than <code class="docutils literal notranslate"><span class="pre">while</span></code> loops – the Python compiler doesn’t have to work as hard.</p>
 <p>In general, loops can slow down your code. <strong>Functional programming</strong> can speed things up. The book mentions this. We will get to it later.</p>
 <p>You can find more on control structures in the <a class="reference external" href="https://docs.python.org/3/tutorial/controlflow.html">Python tutorial</a>.</p>
+<div class="admonition tip">
+<p class="admonition-title">Tip</p>
+<p>Control structures are where AI tools really shine. If you’re confused about what a loop or conditional is doing, paste it into Claude and ask: “Trace through this code step by step and show me the value of each variable at each iteration.” This is exactly how programmers debug — and AI can do it instantly.</p>
+</div>
 <p>Let’s start with conditional statements and the humble <code class="docutils literal notranslate"><span class="pre">if</span></code>.</p>
 <p><strong>Conditional statements</strong> introduce <em>if/then/else-style</em> logic. The main points to notice:</p>
 <ul class="simple">
@@ -1197,7 +1211,7 @@ document.write(`
 <figure class="align-center" id="loop-png">
 <img alt="../_images/03-loop.png" src="../_images/03-loop.png" />
 <figcaption>
-<p><span class="caption-number">Fig. 30 </span><span class="caption-text">The difference between a <code class="docutils literal notranslate"><span class="pre">for</span></code> loop and a <code class="docutils literal notranslate"><span class="pre">while</span></code> loop. They do very similar things, but the logic is different. Try to follow the logic of each.</span><a class="headerlink" href="#loop-png" title="Link to this image">#</a></p>
+<p><span class="caption-number">Fig. 31 </span><span class="caption-text">The difference between a <code class="docutils literal notranslate"><span class="pre">for</span></code> loop and a <code class="docutils literal notranslate"><span class="pre">while</span></code> loop. They do very similar things, but the logic is different. Try to follow the logic of each.</span><a class="headerlink" href="#loop-png" title="Link to this image">#</a></p>
 </figcaption>
 </figure>
 <p>Each line of code has some logic. For example, we are using <code class="docutils literal notranslate"><span class="pre">for</span> <span class="pre">element</span> <span class="pre">in</span> <span class="pre">num_list[0:3]:</span></code> below in our first example. Let’s parse that:</p>
@@ -1382,13 +1396,17 @@ The number 4 is even
 <p><a class="reference external" href="https://realpython.com/python-functional-programming/">Functional programming</a> is a way of telling the computer what to do in an efficient manner. This is the world of <strong>lambda functions</strong>, and <code class="docutils literal notranslate"><span class="pre">map()</span></code>, <code class="docutils literal notranslate"><span class="pre">filter()</span></code>, <code class="docutils literal notranslate"><span class="pre">reduce()</span></code>.</p>
 <p><a class="reference external" href="https://support.microsoft.com/en-us/office/lambda-function-bd212d27-1cd1-4321-a34a-ccbf254b8b67">Excel can even use lambda functions now</a>.</p>
 </section>
-<section id="printing-and-formatting">
-<h2>Printing and formatting<a class="headerlink" href="#printing-and-formatting" title="Link to this heading">#</a></h2>
-<p>We’ve used the <code class="docutils literal notranslate"><span class="pre">print</span></code> function a few times now. Something like this:</p>
+<section id="printing-and-f-strings">
+<h2>Printing and f-strings<a class="headerlink" href="#printing-and-f-strings" title="Link to this heading">#</a></h2>
+<p>We’ve used the <code class="docutils literal notranslate"><span class="pre">print</span></code> function a few times now. In modern Python, the preferred way to format output is with <strong>f-strings</strong> (formatted string literals). These are strings that start with <code class="docutils literal notranslate"><span class="pre">f</span></code> before the opening quote and allow you to embed variables directly inside curly braces <code class="docutils literal notranslate"><span class="pre">{}</span></code>.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>AI tools almost always generate f-strings. You’ll see them constantly in AI-generated code, so it’s important to understand how they work.</p>
+</div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">i</span> <span class="o">=</span> <span class="mi">3</span>
-<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;</span><span class="si">%d</span><span class="s2"> is odd&quot;</span> <span class="o">%</span> <span class="n">i</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">i</span><span class="si">}</span><span class="s2"> is odd&quot;</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
@@ -1398,22 +1416,299 @@ The number 4 is even
 </div>
 </div>
 </div>
-<p>This code is printing text inside of the quotes. The <code class="docutils literal notranslate"><span class="pre">%</span></code> is a placeholder for a variable. What variable? The one that comes after the <code class="docutils literal notranslate"><span class="pre">%</span></code> inside of the <code class="docutils literal notranslate"><span class="pre">print</span></code> function. In this case, that variable is called <em>i</em>.</p>
-<p>What is the <code class="docutils literal notranslate"><span class="pre">d</span></code> doing next to the <code class="docutils literal notranslate"><span class="pre">%</span></code>? This is <strong>not</strong> a variable. This is telling Python how to <strong>format</strong> the variable inside of the string. <code class="docutils literal notranslate"><span class="pre">d</span></code> stands for <strong>integer</strong>. We can also format numbers as <strong>floats</strong> and specify decimal places. For example,</p>
+<p>The <code class="docutils literal notranslate"><span class="pre">f</span></code> before the string tells Python this is an f-string. The variable <code class="docutils literal notranslate"><span class="pre">i</span></code> inside the curly braces gets replaced with its value. This is much cleaner than older formatting methods!</p>
+<p>You can also format numbers. Use <code class="docutils literal notranslate"><span class="pre">:.2f</span></code> to show 2 decimal places for a float:</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">i</span> <span class="o">=</span> <span class="mf">42.23456</span>
-<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;</span><span class="si">%.2f</span><span class="s2"> is a float&quot;</span> <span class="o">%</span> <span class="n">i</span><span class="p">)</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">price</span> <span class="o">=</span> <span class="mf">42.23456</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;The stock price is $</span><span class="si">{</span><span class="n">price</span><span class="si">:</span><span class="s2">.2f</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>42.23 is a float
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>The stock price is $42.23
 </pre></div>
 </div>
 </div>
 </div>
-<p>The <a class="reference external" href="https://docs.python.org/3/tutorial/inputoutput.html">Python tutorial</a> has much more on how to format output.</p>
+<p>Here are more f-string formatting options you’ll see in AI-generated code:</p>
+<div class="pst-scrollable-table-container"><table class="table">
+<thead>
+<tr class="row-odd"><th class="head"><p>Format</p></th>
+<th class="head"><p>Example</p></th>
+<th class="head"><p>Output</p></th>
+<th class="head"><p>Use Case</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">{x}</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">f&quot;{price}&quot;</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">42.23456</span></code></p></td>
+<td><p>Basic insertion</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">{x:.2f}</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">f&quot;{price:.2f}&quot;</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">42.23</span></code></p></td>
+<td><p>2 decimal places</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">{x:.0f}</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">f&quot;{price:.0f}&quot;</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">42</span></code></p></td>
+<td><p>No decimals</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">{x:.2%}</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">f&quot;{0.0523:.2%}&quot;</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">5.23%</span></code></p></td>
+<td><p>Percentage</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">{x:,}</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">f&quot;{1000000:,}&quot;</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">1,000,000</span></code></p></td>
+<td><p>Thousands separator</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">{x:&gt;10}</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">f&quot;{price:&gt;10}&quot;</span></code></p></td>
+<td><p><code class="docutils literal notranslate">&#160; <span class="pre">42.23456</span></code></p></td>
+<td><p>Right-align, width 10</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<p>You can also do calculations inside f-strings:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">shares</span> <span class="o">=</span> <span class="mi">100</span>
+<span class="n">price</span> <span class="o">=</span> <span class="mf">42.50</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Total value: $</span><span class="si">{</span><span class="n">shares</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">price</span><span class="si">:</span><span class="s2">,.2f</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Total value: $4,250.00
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="reading-ai-generated-code">
+<h2>Reading AI-Generated Code<a class="headerlink" href="#reading-ai-generated-code" title="Link to this heading">#</a></h2>
+<p>AI tools like Claude and Copilot generate code that uses modern Python patterns. This section covers the patterns you’ll see most often. Understanding these will help you read and modify AI-generated code.</p>
+<section id="list-comprehensions">
+<h3>List Comprehensions<a class="headerlink" href="#list-comprehensions" title="Link to this heading">#</a></h3>
+<p>A <strong>list comprehension</strong> is a compact way to create a list. AI loves these because they’re concise and “Pythonic”. You’ll see them constantly.</p>
+<p>Here’s a regular loop that creates a list of squared numbers:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># The loop way (what you might write)</span>
+<span class="n">squares</span> <span class="o">=</span> <span class="p">[]</span>
+<span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">5</span><span class="p">]:</span>
+    <span class="n">squares</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">x</span> <span class="o">**</span> <span class="mi">2</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">squares</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[1, 4, 9, 16, 25]
+</pre></div>
+</div>
+</div>
+</div>
+<p>Here’s the same thing as a list comprehension (what AI will generate):</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># The list comprehension way (what AI generates)</span>
+<span class="n">squares</span> <span class="o">=</span> <span class="p">[</span><span class="n">x</span> <span class="o">**</span> <span class="mi">2</span> <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">5</span><span class="p">]]</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">squares</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[1, 4, 9, 16, 25]
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Only keep positive numbers and square them</span>
+<span class="n">numbers</span> <span class="o">=</span> <span class="p">[</span><span class="o">-</span><span class="mi">2</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">]</span>
+<span class="n">positive_squares</span> <span class="o">=</span> <span class="p">[</span><span class="n">x</span> <span class="o">**</span> <span class="mi">2</span> <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="n">numbers</span> <span class="k">if</span> <span class="n">x</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">]</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">positive_squares</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[1, 4, 9, 16]
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="docstrings">
+<h3>Docstrings<a class="headerlink" href="#docstrings" title="Link to this heading">#</a></h3>
+<p>A <strong>docstring</strong> is a special string at the beginning of a function that documents what it does. AI always generates these. They’re enclosed in triple quotes <code class="docutils literal notranslate"><span class="pre">&quot;&quot;&quot;</span></code> and follow a standard format.</p>
+<p>Here’s a function with a proper docstring:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span><span class="w"> </span><span class="nf">calculate_return</span><span class="p">(</span><span class="n">price_today</span><span class="p">,</span> <span class="n">price_yesterday</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Calculate the simple return between two prices.</span>
+<span class="sd">    </span>
+<span class="sd">    Parameters:</span>
+<span class="sd">    -----------</span>
+<span class="sd">    price_today : float</span>
+<span class="sd">        The current price</span>
+<span class="sd">    price_yesterday : float</span>
+<span class="sd">        The previous price</span>
+<span class="sd">        </span>
+<span class="sd">    Returns:</span>
+<span class="sd">    --------</span>
+<span class="sd">    float</span>
+<span class="sd">        The simple return as a decimal (e.g., 0.05 for 5%)</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">return</span> <span class="p">(</span><span class="n">price_today</span> <span class="o">-</span> <span class="n">price_yesterday</span><span class="p">)</span> <span class="o">/</span> <span class="n">price_yesterday</span>
+
+<span class="c1"># Test it</span>
+<span class="n">calculate_return</span><span class="p">(</span><span class="mi">105</span><span class="p">,</span> <span class="mi">100</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>0.05
+</pre></div>
+</div>
+</div>
+</div>
+<p>When you see a docstring, you know:</p>
+<ul class="simple">
+<li><p>What the function does (the first line)</p></li>
+<li><p>What inputs it expects (Parameters section)</p></li>
+<li><p>What it returns (Returns section)</p></li>
+</ul>
+<p>This makes AI-generated code much easier to understand!</p>
+</section>
+<section id="enumerate-and-zip">
+<h3>enumerate() and zip()<a class="headerlink" href="#enumerate-and-zip" title="Link to this heading">#</a></h3>
+<p>AI often uses <code class="docutils literal notranslate"><span class="pre">enumerate()</span></code> and <code class="docutils literal notranslate"><span class="pre">zip()</span></code> instead of index-based loops. These are cleaner and less error-prone.</p>
+<p><strong>enumerate()</strong> gives you both the index and the value:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">stocks</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;AAPL&#39;</span><span class="p">,</span> <span class="s1">&#39;MSFT&#39;</span><span class="p">,</span> <span class="s1">&#39;GOOG&#39;</span><span class="p">]</span>
+
+<span class="c1"># Instead of this (old way):</span>
+<span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">stocks</span><span class="p">)):</span>
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">i</span><span class="si">}</span><span class="s2">: </span><span class="si">{</span><span class="n">stocks</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;---&quot;</span><span class="p">)</span>
+
+<span class="c1"># AI generates this (better way):</span>
+<span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">stock</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">stocks</span><span class="p">):</span>
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">i</span><span class="si">}</span><span class="s2">: </span><span class="si">{</span><span class="n">stock</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>0: AAPL
+1: MSFT
+2: GOOG
+---
+0: AAPL
+1: MSFT
+2: GOOG
+</pre></div>
+</div>
+</div>
+</div>
+<p><strong>zip()</strong> lets you loop through multiple lists at the same time:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">stocks</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;AAPL&#39;</span><span class="p">,</span> <span class="s1">&#39;MSFT&#39;</span><span class="p">,</span> <span class="s1">&#39;GOOG&#39;</span><span class="p">]</span>
+<span class="n">prices</span> <span class="o">=</span> <span class="p">[</span><span class="mf">150.25</span><span class="p">,</span> <span class="mf">310.50</span><span class="p">,</span> <span class="mf">140.75</span><span class="p">]</span>
+
+<span class="c1"># Loop through both lists together</span>
+<span class="k">for</span> <span class="n">stock</span><span class="p">,</span> <span class="n">price</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="n">stocks</span><span class="p">,</span> <span class="n">prices</span><span class="p">):</span>
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">stock</span><span class="si">}</span><span class="s2">: $</span><span class="si">{</span><span class="n">price</span><span class="si">:</span><span class="s2">.2f</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>AAPL: $150.25
+MSFT: $310.50
+GOOG: $140.75
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+</section>
+<section id="reading-error-messages">
+<h2>Reading Error Messages<a class="headerlink" href="#reading-error-messages" title="Link to this heading">#</a></h2>
+<p>When code breaks — yours or AI-generated — you’ll see an error message called a <strong>traceback</strong>. Learning to read these is essential. Here’s what to know:</p>
+<ol class="arabic simple">
+<li><p><strong>Read from the bottom up.</strong> The actual error is at the bottom.</p></li>
+<li><p><strong>The error type tells you what went wrong.</strong> Common ones:</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">SyntaxError</span></code> — You typed something Python doesn’t understand</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">NameError</span></code> — You used a variable that doesn’t exist</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">TypeError</span></code> — You used the wrong type (e.g., adding a string and number)</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">IndexError</span></code> — You tried to access an index that doesn’t exist</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">KeyError</span></code> — You tried to access a dictionary key that doesn’t exist</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">ValueError</span></code> — The value is wrong (e.g., converting “abc” to an integer)</p></li>
+</ul>
+</li>
+<li><p><strong>The line number tells you where.</strong> Look for the arrow <code class="docutils literal notranslate"><span class="pre">--&gt;</span></code> pointing to the problem line.</p></li>
+</ol>
+<p>Let’s see an example:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># This will cause an error - run it to see the traceback!</span>
+<span class="n">my_list</span> <span class="o">=</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">]</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">my_list</span><span class="p">[</span><span class="mi">10</span><span class="p">])</span>  <span class="c1"># There&#39;s no index 10!</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output traceback highlight-ipythontb notranslate"><div class="highlight"><pre><span></span><span class="gt">---------------------------------------------------------------------------</span>
+<span class="ne">IndexError</span><span class="g g-Whitespace">                                </span>Traceback (most recent call last)
+<span class="n">Cell</span> <span class="n">In</span><span class="p">[</span><span class="mi">58</span><span class="p">],</span> <span class="n">line</span> <span class="mi">3</span>
+<span class="g g-Whitespace">      </span><span class="mi">1</span> <span class="c1"># This will cause an error - run it to see the traceback!</span>
+<span class="g g-Whitespace">      </span><span class="mi">2</span> <span class="n">my_list</span> <span class="o">=</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">]</span>
+<span class="ne">----&gt; </span><span class="mi">3</span> <span class="nb">print</span><span class="p">(</span><span class="n">my_list</span><span class="p">[</span><span class="mi">10</span><span class="p">])</span>  <span class="c1"># There&#39;s no index 10!</span>
+
+<span class="ne">IndexError</span>: list index out of range
+</pre></div>
+</div>
+</div>
+</div>
+<p>When you run that, you’ll see something like:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="ne">IndexError</span><span class="p">:</span> <span class="nb">list</span> <span class="n">index</span> <span class="n">out</span> <span class="n">of</span> <span class="nb">range</span>
+</pre></div>
+</div>
+<p>The error type (<code class="docutils literal notranslate"><span class="pre">IndexError</span></code>) tells you what happened. The message (“list index out of range”) gives more detail. The traceback shows you exactly which line caused the problem.</p>
+<div class="admonition tip">
+<p class="admonition-title">Tip</p>
+<p><strong>When you get an error, copy the entire traceback and paste it into Claude.</strong> Ask “What does this error mean and how do I fix it?” This is one of the most valuable ways to use AI for learning — it can explain errors in plain English and suggest fixes.</p>
+</div>
+<section id="type-hints-optional">
+<h3>Type Hints (Optional)<a class="headerlink" href="#type-hints-optional" title="Link to this heading">#</a></h3>
+<p>You may also see <strong>type hints</strong> in AI-generated code. These are optional annotations that tell you what types a function expects:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Type hints show expected types (the code works the same without them)</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">calculate_return</span><span class="p">(</span><span class="n">price_today</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span> <span class="n">price_yesterday</span><span class="p">:</span> <span class="nb">float</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">float</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Calculate simple return between two prices.&quot;&quot;&quot;</span>
+    <span class="k">return</span> <span class="p">(</span><span class="n">price_today</span> <span class="o">-</span> <span class="n">price_yesterday</span><span class="p">)</span> <span class="o">/</span> <span class="n">price_yesterday</span>
+
+<span class="c1"># The &#39;: float&#39; after parameters means &quot;this should be a float&quot;</span>
+<span class="c1"># The &#39;-&gt; float&#39; means &quot;this function returns a float&quot;</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>The pattern is: <code class="docutils literal notranslate"><span class="pre">[expression</span> <span class="pre">for</span> <span class="pre">item</span> <span class="pre">in</span> <span class="pre">iterable]</span></code></p>
+<p>Read it as: “Give me <code class="docutils literal notranslate"><span class="pre">expression</span></code> for each <code class="docutils literal notranslate"><span class="pre">item</span></code> in <code class="docutils literal notranslate"><span class="pre">iterable</span></code>.”</p>
+<p>You can also add conditions to filter:</p>
+</section>
 </section>
 </section>
 
@@ -1499,7 +1794,17 @@ The number 4 is even
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#syntax-in-python">Syntax in Python</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#control-structures">Control structures</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#functions-and-functional-programming">Functions and functional programming</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#printing-and-formatting">Printing and formatting</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#printing-and-f-strings">Printing and f-strings</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#reading-ai-generated-code">Reading AI-Generated Code</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#list-comprehensions">List Comprehensions</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#docstrings">Docstrings</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#enumerate-and-zip">enumerate() and zip()</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#reading-error-messages">Reading Error Messages</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#type-hints-optional">Type Hints (Optional)</a></li>
+</ul>
+</li>
 </ul>
   </nav></div>
 

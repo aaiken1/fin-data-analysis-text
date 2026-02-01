@@ -1,8 +1,12 @@
 # Using Github and Github Codespaces
 
-We are going to be using **Github Classroom** and **Github Codespaces** to do our work. We will go through how to get set-up in class. This means signing-up for a Github account, accessing assignments (i.e. forking repositories) via Github Classroom, working on these assignments in Github Codespaces, and then, finally, submitting your assignments back to Github Classroom using **git commands**. 
+We are going to be using **Github Classroom** and **Github Codespaces** to do our work. We will go through how to get set-up in class. This means signing-up for a Github account, accessing assignments (i.e. forking repositories) via Github Classroom, working on these assignments in Github Codespaces, and then, finally, submitting your assignments back to Github Classroom using **git commands**.
 
 Github Codespaces will allow us to use the VS Code developer environment in a browser, without doing a local install. We'll need to understand how it works.
+
+```{note}
+The **DataCamp** courses **Intro to Git** and **Intro to GitHub Concepts** cover many of the topics in this chapter. I'll note where specific concepts are discussed in more depth in those courses. You don't need to know everything in those courses, but they provide helpful background on version control and Git terminology.
+```
 
 ## Setting up Github
 
@@ -22,7 +26,7 @@ After signing-up for Github, you will get a Github page, like mine: <https://git
 
 Or, my fake student page I use to test our workflow: <https://github.com/aaiken1student/>.
 
-Let's start by creating a **repository** for your main page. **Repos** are like folders. Each lab, exam, and project for this course will have it's own repo. You can create your own as well.
+Let's start by creating a **repository** for your main page. **Repos** are like folders. Each lab, exam, and project for this course will have its own repo. You can create your own as well. The DataCamp **Intro to GitHub Concepts** course (Chapters 1-2) covers navigating the GitHub website and creating repositories if you want a more detailed walkthrough.
 
 Go to the upper-left of your main Github.com page and **click on the green button**. That icon is the repo icon.
 
@@ -63,6 +67,10 @@ This is the lab to help us get started. You'll be asked to **find your name from
 When you **accept** an assignment, you'll **fork** (copy) the **repository** (folder) with that assignment. You'll then work in this new repository, which will be linked to your Github account. For example, you'll see a new repository named something like **lab00-getting-started-git-aaiken1student**, where your Github username will replace my name.
 
 These are ideas from **git**, which is used for **version control**. More on that in a second.
+
+```{tip}
+The DataCamp **Intro to GitHub Concepts** course covers forking and cloning in detail in Chapter 3. Forking creates your own copy of a repository, which is exactly what happens when you accept an assignment. The course also explains the difference between forking (an independent copy) and cloning (a linked copy).
+```
 
 ```{figure} ../images/22-roster.png
 ---
@@ -157,7 +165,7 @@ We are going to use our Codespace as **VS Code in the cloud**. VS Code is a plac
 
 Notice that Codespaces can be associated with **repositories**. You can also just create new ones and start working on something. Github provides some ready-made templates, like the Jupyter Notebook one.
 
-Each Codespace that you create is an example of an **environment**. A Codespace is like a virtual machine that comes preloaded with tools and dependencies for development. You can upload files to it. You can download from it. You can install things. It's like having a mini-computer running in the cloud. You can have multiple codepsaces at a time, though there are memory and data limits. Keep these in mind - if you aren't careful about you're codespaces, you'll get asked to delete some by Github, possibly losing unsaved work. 
+Each Codespace that you create is an example of an **environment**. A Codespace is like a virtual machine that comes preloaded with tools and dependencies for development. You can upload files to it. You can download from it. You can install things. It's like having a mini-computer running in the cloud. You can have multiple codespaces at a time, though there are memory and data limits. Keep these in mind - if you aren't careful about you're codespaces, you'll get asked to delete some by Github, possibly losing unsaved work. 
 
 For Python, this includes interpreters, package managers like **pip**, and the ability to **install libraries and frameworks**. We'll get to that.
 
@@ -289,8 +297,12 @@ When you run a Markdown cell, you'll get formatted text. Double-click in the cel
 
 Both above and in our class videos, I mention add/commit/push. These are examples of [git commands](https://code.visualstudio.com/docs/sourcecontrol/intro-to-git). Git is a framework for doing **version control**. In other words, keeping track of files and file changes. This is actually a tough problem! Most software development of any kind is being done by multiple people in different places. Someone might want to add a new feature, but you don't want to break the entire project. How do you keep track of everything? Git lets us do that.
 
+```{note}
+The DataCamp **Intro to Git** course (Chapter 1) covers version control fundamentals: why it matters, what Git is, and how it tracks changes over time. Chapter 2 covers viewing your version history with `git log` and understanding the commit structure. We won't use most of these command-line tools directly since Codespaces gives us a visual interface, but understanding the concepts helps when things go wrong.
+```
 
-[Github](https://code.visualstudio.com/docs/sourcecontrol/github) is a particular "flavor" of git and is owned by Microsoft. You can use git at the command line of your computer, typing in different commands. You can also "point and click". In my videos, I show you some point and click methods.
+
+[Github](https://code.visualstudio.com/docs/sourcecontrol/github) is a particular "flavor" of git and is owned by Microsoft. You can use git at the command line of your computer, typing in different commands. You can also "point and click". In my videos, I show you some point and click methods. The DataCamp **Intro to GitHub Concepts** course (Chapter 1) explains the difference between Git (the version control software) and GitHub (the cloud-based hosting service that uses Git).
 
 There are a million git and Github tutorials around. We just need to know the basics to keep track of our files and to work together. It's kind of like using Google Docs (kind of!), but going to the next level.
 
@@ -307,6 +319,77 @@ Here are two videos on using git and Github with a local VS Code install: <https
 You'll see how they are using **bash** commands in the **terminal** on a Mac. Windows has a similar command line. If you want to create your own repositories and get to work, watch these videos. By using Github Codespaces, with a repository created from each assignment, you can use the Codespace interface to do a lot of the same things. Codespaces does have a terminal interface, though, so you can also use the bash commands.
 
 The important thing, though, are the **git ideas**. Version control. Repositories. Snapshots. Git add, commit, push. Readme files. These are the backbone of modern computing!
+
+### Where do my files live?
+
+This is the most important concept to understand. When you're working in a Codespace, your files exist in **two different places**, and it's crucial to know which is which.
+
+```
+┌─────────────────────────────────────────────────────────────────┐
+│                      YOUR CODESPACE                             │
+│         (Your workspace - like a scratch pad)                   │
+│                                                                 │
+│  This is where you write code and save files. But these files   │
+│  only exist in this temporary environment. If you delete the    │
+│  Codespace without pushing, YOUR WORK IS GONE.                  │
+│                                                                 │
+│  [Edit files] → [Save] → [Stage] → [Commit] → [Push] ────────┐ │
+└──────────────────────────────────────────────────────────────│──┘
+                                                               │
+                                                               ▼
+┌─────────────────────────────────────────────────────────────────┐
+│                    GITHUB REPOSITORY                            │
+│         (Permanent storage - in the cloud)                      │
+│                                                                 │
+│  This is where your files live permanently. This is what I can  │
+│  see. This is what you'll have access to from any computer.     │
+│  Files only get here after you PUSH them.                       │
+└─────────────────────────────────────────────────────────────────┘
+```
+
+Think of it like writing a paper:
+- **Saving** (Cmd+S) is like writing words on a piece of paper
+- **Staging** is like putting that paper in an envelope
+- **Committing** is like sealing the envelope and writing a note on it
+- **Pushing** is like actually putting the envelope in the mailbox
+
+Until you push, your work is not safely stored on GitHub. I cannot see it, and if something happens to your Codespace, it could be lost.
+
+```{warning}
+**The #1 mistake students make**: Saving a file (Cmd+S) and thinking it's submitted. Saving only saves to your Codespace. You must **commit AND push** for your work to reach GitHub!
+```
+
+### Understanding the Source Control panel
+
+When you click on **Source Control** in the left sidebar (the icon that looks like a branch), you'll see a list of files that have changed. Each file has a letter next to it. Here's what they mean:
+
+| Letter | Meaning | What's happening | What to do |
+|--------|---------|------------------|------------|
+| **U** | **Untracked** | This is a new file that Git doesn't know about yet. You created it, but Git isn't tracking it. | Click the **+** to start tracking it |
+| **M** | **Modified** | You've made changes to this file since your last commit. Git sees the changes but hasn't recorded them yet. | Click the **+** to stage your changes |
+| **A** | **Added** | The file is staged and ready to be committed. It's "in the envelope" waiting to be sealed. | Write a commit message and click Commit |
+| **D** | **Deleted** | You deleted this file. Git noticed it's gone. | Stage it if you want to confirm the deletion in your repo |
+
+When you stage a file (click the +), it moves from the "Changes" section to the "Staged Changes" section. Only staged files will be included in your next commit.
+
+### Writing good commit messages
+
+Every time you commit, you need to write a message. This message is a note to yourself (and me) about what you did. Good commit messages make it easy to understand the history of your project. The DataCamp **Intro to GitHub Concepts** course (Chapter 2) walks through committing files on the GitHub website, including writing commit messages.
+
+**Bad commit messages:**
+- "stuff"
+- "asdfasdf"
+- "done"
+- "update"
+- "fixed it"
+
+**Good commit messages:**
+- "Added scatter plot for portfolio returns"
+- "Completed Q1-Q3 of Lab 2"
+- "Fixed calculation error in Sharpe ratio"
+- "Added markdown explanations to analysis"
+
+A good commit message answers the question: "What did I do?" Keep it short (under 50 characters is ideal) but descriptive. When you look back at your commit history weeks later, you'll thank yourself for writing clear messages.
 
 ### Our workflow
 
@@ -345,9 +428,97 @@ You'll want the Readme instructions in your **forked copy** of my main repo to r
 
 The file list in the repo should now reflect this update. For example, the commit message next to the Readme.md file should say "Merge branch 'elon-fin-data:main' into main".
 
-**Go back to your Codespace** for this assignment and repo. **Click on the Source Control button** on the right. Do you see the **blue Synch Changes button** with a down arrow now? Click that to bring the update files down into your Codespace. 
+**Go back to your Codespace** for this assignment and repo. **Click on the Source Control button** on the right. Do you see the **blue Synch Changes button** with a down arrow now? Click that to bring the update files down into your Codespace.
 
 
+### When things go wrong
+
+Git can be confusing at first, and you will encounter situations where something doesn't work as expected. Don't panic! Here are the most common issues students face and how to fix them.
+
+#### "I closed my browser and my work is gone!"
+
+First, don't panic. Your Codespace might still be running.
+
+1. Go to <https://github.com/codespaces/>
+2. Look for your Codespace in the list - it might still be there
+3. Click on it to reopen
+
+If your Codespace is still there, your unsaved work should still be there too. Codespaces don't immediately disappear when you close the browser tab.
+
+However, if too much time has passed or the Codespace was deleted, and you never committed and pushed, then unfortunately the work is lost. This is why we commit and push frequently!
+
+```{tip}
+**Get in the habit**: Every time you finish a section of work or take a break, do a quick commit and push. It takes 30 seconds and protects all your work.
+```
+
+#### "It says my branch is ahead by X commits"
+
+This message means you've committed changes, but you haven't pushed them to GitHub yet. Your commits are saved locally in your Codespace, but they haven't been sent to the cloud.
+
+**The fix**: Click the **Sync Changes** button. This will push your commits to GitHub.
+
+#### "It says my branch is behind by X commits"
+
+This means there are changes on GitHub that you don't have in your Codespace. Maybe I updated the assignment, or you worked from a different computer.
+
+**The fix**: Click the **Sync Changes** button. This will pull the new changes down to your Codespace.
+
+#### "I made changes to a file but I want to undo them"
+
+If you've edited a file and want to go back to the last committed version:
+
+1. Go to **Source Control** in the left sidebar
+2. Find the file with the **M** (modified) next to it
+3. Click the **curved arrow** (↩️) next to the file name - this is the "Discard Changes" button
+4. Confirm that you want to discard changes
+
+```{warning}
+This permanently removes your changes to that file since the last commit. Make sure you really want to undo!
+```
+
+#### "I accidentally committed something I didn't mean to"
+
+If you committed but haven't pushed yet, you have options. However, this can get complicated. For now, the easiest solution is:
+
+1. Make the changes you need to fix the mistake
+2. Stage those changes
+3. Create a new commit with a message like "Fixed mistake from previous commit"
+4. Push both commits
+
+Git keeps a history of everything, so "fixing" a mistake usually means making a new commit that corrects it, not erasing the old one.
+
+#### "It says 'merge conflict'"
+
+A merge conflict happens when Git can't automatically combine two different versions of a file. This usually occurs when:
+- You and I both edited the same part of a file
+- You worked on two different computers and made different changes
+
+When you see a merge conflict, **don't panic**. The file will show you both versions with some special markers:
+
+```
+<<<<<<< HEAD
+Your version of the code
+=======
+The other version of the code
+>>>>>>> other-branch
+```
+
+For this class, the easiest solution is:
+1. Open the file
+2. Look for the `<<<<<<<`, `=======`, and `>>>>>>>` markers
+3. Decide which version you want to keep (or combine them)
+4. Delete the markers
+5. Save, stage, commit, and push
+
+If you're confused, reach out for help! Merge conflicts are a normal part of working with Git, and they get easier with practice.
+
+#### "The Sync button shows both up and down arrows"
+
+This means you have commits to push AND there are commits to pull. This is normal! Just click Sync Changes and Git will:
+1. First pull the remote changes down
+2. Then push your local changes up
+
+If there are no conflicts, this all happens automatically.
 
 
 
@@ -395,3 +566,71 @@ align: center
 When you create a new Codespace, you'll get your new repository as an option.
 ```
 
+
+## Git Quick Reference
+
+Here's a condensed reference you can come back to. Bookmark this section!
+
+### The essential workflow (do this every time!)
+
+```{admonition} Save Your Work Checklist
+:class: tip
+
+1. **Save your file**: `Cmd+S` (Mac) or `Ctrl+S` (Windows)
+2. **Open Source Control**: Click the branch icon in the left sidebar
+3. **Stage your changes**: Click the `+` next to each file (or stage all)
+4. **Write a commit message**: Describe what you did
+5. **Commit**: Click the ✓ checkmark or "Commit" button
+6. **Push**: Click "Sync Changes"
+
+**Your work is not on GitHub until you complete ALL of these steps!**
+```
+
+### Keyboard shortcuts in Codespaces
+
+| Action | Mac | Windows |
+|--------|-----|---------|
+| Save file | `Cmd + S` | `Ctrl + S` |
+| Open Command Palette | `Cmd + Shift + P` | `Ctrl + Shift + P` |
+| Open Source Control | `Ctrl + Shift + G` | `Ctrl + Shift + G` |
+| Open Explorer (file browser) | `Cmd + Shift + E` | `Ctrl + Shift + E` |
+| New file | `Cmd + N` | `Ctrl + N` |
+| Close file | `Cmd + W` | `Ctrl + W` |
+
+### Source Control icons
+
+| Icon | Meaning |
+|------|---------|
+| **U** | Untracked - new file, not yet tracked by Git |
+| **M** | Modified - file has changes since last commit |
+| **A** | Added - file is staged and ready to commit |
+| **D** | Deleted - file was deleted |
+| **+** | Stage this file (add to commit) |
+| **↩️** | Discard changes (undo edits) |
+| **✓** | Commit staged changes |
+
+### Common Git vocabulary
+
+Most of these terms are covered in the DataCamp **Intro to Git** and **Intro to GitHub Concepts** courses if you want more background on any of them.
+
+| Term | What it means |
+|------|---------------|
+| **Repository (repo)** | A folder that Git is tracking - contains your project files and history |
+| **Commit** | A snapshot of your files at a point in time - like a save point in a video game |
+| **Push** | Send your commits from Codespace up to GitHub |
+| **Pull** | Download commits from GitHub down to your Codespace |
+| **Sync** | Push and pull at the same time |
+| **Stage** | Mark files to be included in the next commit |
+| **Branch** | A parallel version of your code (we'll mostly use `main`) |
+| **Fork** | Your personal copy of someone else's repository |
+| **Clone** | Download a repository to work on it locally |
+| **Merge** | Combine changes from different sources |
+
+### When you're stuck
+
+1. **Read the message** - Git usually tells you what's wrong and suggests a fix
+2. **Check Source Control** - Are there uncommitted changes? Unsynced commits?
+3. **Check github.com** - Go to your repo on GitHub. What files are there? When was the last commit?
+4. **Ask for help** - Git can be confusing! Bring your questions to class or office hours
+
+Remember: almost everything in Git can be fixed or undone. Don't be afraid to experiment!

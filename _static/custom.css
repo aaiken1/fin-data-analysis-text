@@ -20,6 +20,18 @@
     /* Derived colors for UI */
     --elon-maroon-transparent: rgba(115, 0, 10, 0.1);
     --elon-gold-transparent: rgba(181, 154, 87, 0.15);
+
+    /* Override PyData theme blue colors */
+    --pst-color-link: var(--elon-maroon);
+    --pst-color-link-hover: var(--elon-maroon-dark);
+    --pst-color-primary: var(--elon-maroon);
+    --pst-color-secondary: var(--elon-gold);
+    --pst-color-accent: var(--elon-gold);
+    --pst-color-info: var(--elon-gold);
+    --pst-color-border: var(--elon-gold-light);
+
+    /* Sidebar-specific overrides */
+    --pst-sidebar-font-size: 0.95rem;
 }
 
 /* ============================================
@@ -31,18 +43,86 @@
     border-right: 3px solid var(--elon-maroon);
 }
 
+/* ALL navigation links in sidebar - default state (fixes blue text) */
+.bd-sidebar-primary .nav-link,
+.bd-sidebar-primary a,
+.bd-sidebar .nav-link,
+.bd-sidebar a,
+nav.bd-links .nav-link,
+.bd-toc-item a,
+.toc-entry a {
+    color: #333 !important;
+    text-decoration: none !important;
+}
+
 /* Active navigation item */
 .bd-sidebar-primary .nav-link.active,
-.bd-sidebar-primary .toc-entry a.nav-link.active {
+.bd-sidebar-primary .toc-entry a.nav-link.active,
+.bd-sidebar .nav-link.active,
+nav.bd-links .nav-link.active,
+.toc-entry a.active {
     color: var(--elon-maroon) !important;
     font-weight: 600;
     border-left: 3px solid var(--elon-gold);
     padding-left: 0.5rem;
+    background-color: var(--elon-gold-transparent) !important;
 }
 
 /* Navigation hover state */
-.bd-sidebar-primary .nav-link:hover {
-    color: var(--elon-maroon-light) !important;
+.bd-sidebar-primary .nav-link:hover,
+.bd-sidebar .nav-link:hover,
+nav.bd-links .nav-link:hover,
+.bd-toc-item a:hover,
+.toc-entry a:hover {
+    color: var(--elon-maroon) !important;
+    background-color: var(--elon-gold-transparent) !important;
+}
+
+/* Navigation focus state (keyboard navigation) */
+.bd-sidebar-primary .nav-link:focus,
+.bd-sidebar .nav-link:focus,
+nav.bd-links .nav-link:focus {
+    color: var(--elon-maroon) !important;
+    outline: 2px solid var(--elon-gold);
+    outline-offset: 2px;
+}
+
+/* Current page in left sidebar */
+.bd-sidebar-primary .current > a,
+.bd-sidebar .current > a {
+    color: var(--elon-maroon) !important;
+    font-weight: 600;
+}
+
+/* ============================================
+   Right Sidebar / "On This Page" TOC
+   ============================================ */
+
+/* All links in right sidebar TOC */
+.bd-sidebar-secondary a,
+.bd-toc a,
+.toc-h2 a,
+.toc-h3 a,
+.toc-h4 a,
+nav.onthispage a,
+.section-nav a {
+    color: #555 !important;
+    text-decoration: none !important;
+}
+
+/* Active item in right TOC */
+.bd-sidebar-secondary a.active,
+.bd-toc a.active,
+nav.onthispage a.active {
+    color: var(--elon-maroon) !important;
+    font-weight: 600;
+}
+
+/* Hover in right TOC */
+.bd-sidebar-secondary a:hover,
+.bd-toc a:hover,
+nav.onthispage a:hover {
+    color: var(--elon-maroon) !important;
 }
 
 /* ============================================
@@ -269,12 +349,98 @@ table tbody tr:nth-child(even) {
     font-weight: 600;
 }
 
+/* Header navigation links */
+.bd-header a,
+.bd-header .nav-link {
+    color: var(--elon-maroon) !important;
+}
+
+.bd-header a:hover,
+.bd-header .nav-link:hover {
+    color: var(--elon-maroon-dark) !important;
+}
+
+/* ============================================
+   Breadcrumbs
+   ============================================ */
+
+.breadcrumb a,
+.breadcrumb-item a,
+nav[aria-label="Breadcrumb"] a {
+    color: var(--elon-maroon) !important;
+}
+
+.breadcrumb a:hover,
+.breadcrumb-item a:hover {
+    color: var(--elon-maroon-dark) !important;
+}
+
+/* ============================================
+   Search
+   ============================================ */
+
+/* Search box focus state */
+.bd-search input:focus,
+#search-input:focus,
+.search-button:focus {
+    border-color: var(--elon-gold) !important;
+    box-shadow: 0 0 0 3px var(--elon-gold-transparent) !important;
+}
+
+/* Search results links */
+.search-result a,
+.search-results a {
+    color: var(--elon-maroon) !important;
+}
+
+.search-result a:hover,
+.search-results a:hover {
+    color: var(--elon-maroon-dark) !important;
+}
+
+/* ============================================
+   Prev/Next Navigation
+   ============================================ */
+
+/* Previous and Next page links */
+.prev-next-area a,
+.prev-next-bottom a,
+a.prev-page,
+a.next-page {
+    color: var(--elon-maroon) !important;
+    border-color: var(--elon-gold) !important;
+}
+
+.prev-next-area a:hover,
+.prev-next-bottom a:hover,
+a.prev-page:hover,
+a.next-page:hover {
+    color: white !important;
+    background-color: var(--elon-maroon) !important;
+    border-color: var(--elon-maroon) !important;
+}
+
+/* Page title in prev/next */
+.prev-next-area .page-info .title,
+.prev-next-bottom .page-info .title {
+    color: var(--elon-maroon) !important;
+}
+
 /* ============================================
    Footer
    ============================================ */
 
 .bd-footer {
     border-top: 2px solid var(--elon-maroon);
+}
+
+/* Footer links */
+.bd-footer a {
+    color: var(--elon-maroon) !important;
+}
+
+.bd-footer a:hover {
+    color: var(--elon-maroon-dark) !important;
 }
 
 /* ============================================

@@ -9,10 +9,67 @@ Our **Day One Set-Up**:
 3. Linking your Github account to our Github Classroom using the link on Moodle by accepting Lab00.
 4. Open a VS Code instance in Github Codespaces. Make sure that we can see files associated with the lab. Learn about the layout of VS Code, including how to install packages.
 5. Learn about git. Where are our files when we work in a Codespace? What are repos? How can we move files around and submit assignments? How can you download your work to your local drive?
-6. Learn about Jupyter Notebooks. Jupytor Notebooks let you mix Python and Markdown and are what we will do our work in.
-
+6. Learn about Jupyter Notebooks. Jupyter Notebooks let you mix Python and Markdown and are what we will do our work in.
+7. Set up AI coding assistants. We'll use GitHub Copilot (built into Codespaces), Claude, and Claude Code to help us write and debug code.
 
 See the next few sections for more on each of these topics.
+
+
+## AI coding assistants
+
+AI tools have transformed how we write code. But not all AI coding tools work the same way. Understanding the difference is crucial for using them effectively.
+
+### The Old Way: Autocomplete
+
+The first wave of AI coding tools — like GitHub Copilot — work like very smart autocomplete. As you type, they suggest what might come next. You're still in control. You're still writing the code. The AI just finishes your sentences.
+
+This is useful. It speeds up typing, helps with syntax you've forgotten, and fills in boilerplate. But fundamentally, **you're still doing the work line by line**.
+
+### The New Way: Agentic Coding
+
+**Agentic AI** is fundamentally different. Instead of suggesting completions, it **takes actions**. You describe what you want in plain English, and the AI:
+
+- Reads your files to understand the project
+- Plans what needs to be done
+- Writes the code across multiple files
+- Runs it to check for errors
+- Iterates until it works
+- Asks for your approval before saving changes
+
+This is a paradigm shift. You're no longer typing code — you're **directing an AI that writes code for you**. Tools like Claude Code, Cursor, and GitHub Copilot's new Agent Mode work this way.
+
+### Why This Matters
+
+Agentic coding changes what skills are valuable:
+
+| Less Important | More Important |
+|----------------|----------------|
+| Memorizing syntax | Knowing what to build |
+| Typing speed | Evaluating AI output |
+| Writing boilerplate | Domain expertise |
+| Looking up function arguments | Project management |
+
+The programmer's job is shifting from "person who writes code" to "person who directs AI to write code and verifies the results." This is happening **right now**, and the pace of change is accelerating.
+
+```{tip}
+Learning to use agentic AI tools effectively might be the most valuable skill you develop in this course. The students who figure this out early will have a significant advantage — not just in this class, but in their careers.
+```
+
+### What We'll Use
+
+In this class, you have access to three AI coding assistants:
+
+| Tool | Style | Where | Best For |
+|------|-------|-------|----------|
+| **GitHub Copilot** | Autocomplete | Inside Codespaces | Quick suggestions as you type |
+| **Claude** (browser) | Conversational | claude.ai | Explaining concepts, planning, debugging |
+| **Claude Code** | Agentic | Desktop app | Complex tasks, multi-file projects |
+
+You'll likely use all three. Copilot keeps you productive while typing. Claude in the browser helps you understand concepts and plan your approach. Claude Code handles the big tasks where you'd rather describe what you want than write every line yourself.
+
+These tools can help you write code faster, debug errors, and learn new techniques. But they're not magic — you still need to understand what you're asking for and verify that the output is correct. A human is still responsible for the output, even if a machine wrote every line. 
+
+See the [AI Coding Assistants](2_4_using_ai.ipynb) section for setup instructions, detailed examples, and best practices.
 
 
 

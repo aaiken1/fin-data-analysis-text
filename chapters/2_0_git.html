@@ -30,12 +30,12 @@
 
     <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=03e43079" />
     <link rel="stylesheet" type="text/css" href="../_static/styles/sphinx-book-theme.css?v=eba8b062" />
-    <link rel="stylesheet" type="text/css" href="../_static/togglebutton.css?v=9c3e77be" />
+    <link rel="stylesheet" type="text/css" href="../_static/togglebutton.css?v=13237357" />
     <link rel="stylesheet" type="text/css" href="../_static/copybutton.css?v=76b2166b" />
-    <link rel="stylesheet" type="text/css" href="../_static/mystnb.8ecb98da25f57f5357bf6f572d296f466b2cfe2517ffebfabe82451661e28f02.css?v=6644e6bb" />
+    <link rel="stylesheet" type="text/css" href="../_static/mystnb.8ecb98da25f57f5357bf6f572d296f466b2cfe2517ffebfabe82451661e28f02.css" />
     <link rel="stylesheet" type="text/css" href="../_static/sphinx-thebe.css?v=4fa983c6" />
     <link rel="stylesheet" type="text/css" href="../_static/sphinx-design.min.css?v=95c83b7e" />
-    <link rel="stylesheet" type="text/css" href="../_static/custom.css?v=b747247e" />
+    <link rel="stylesheet" type="text/css" href="../_static/custom.css?v=b98a1dfa" />
   
   <!-- Pre-loaded scripts that we'll load fully later -->
   <link rel="preload" as="script" href="../_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b" />
@@ -46,14 +46,14 @@
     <script src="../_static/doctools.js?v=9a2dae69"></script>
     <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
     <script src="../_static/clipboard.min.js?v=a7894cd8"></script>
-    <script src="../_static/copybutton.js?v=f281be69"></script>
+    <script src="../_static/copybutton.js?v=5eb1bb1e"></script>
     <script src="../_static/scripts/sphinx-book-theme.js?v=887ef09a"></script>
     <script>let toggleHintShow = 'Click to show';</script>
     <script>let toggleHintHide = 'Click to hide';</script>
     <script>let toggleOpenOnPrint = 'true';</script>
-    <script src="../_static/togglebutton.js?v=1ae7504c"></script>
+    <script src="../_static/togglebutton.js?v=4a39c7ea"></script>
     <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
-    <script src="../_static/design-tabs.js?v=36754332"></script>
+    <script src="../_static/design-tabs.js?v=f930bc37"></script>
     <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
     <script async="async" src="../_static/sphinx-thebe.js?v=c100c467"></script>
     <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
@@ -189,7 +189,7 @@
 <li class="toctree-l2"><a class="reference internal" href="2_1_markdown.html">Markdown</a></li>
 <li class="toctree-l2"><a class="reference internal" href="2_2_packages.html">Packages</a></li>
 <li class="toctree-l2"><a class="reference internal" href="2_3_style.html">Code style, PEP8, and linting</a></li>
-<li class="toctree-l2"><a class="reference internal" href="2_4_using_ai.html">Using AI Coding Tools</a></li>
+<li class="toctree-l2"><a class="reference internal" href="2_4_using_ai.html">AI Coding Assistants</a></li>
 </ul>
 </details></li>
 </ul>
@@ -408,12 +408,33 @@ document.write(`
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#working-inside-a-codespace-in-vs-code">Working inside a Codespace in VS Code</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#jupyter-notebooks-inside-of-a-codespace">Jupyter notebooks inside of a Codespace</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#using-git-to-submit-your-work">Using git to submit your work</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#where-do-my-files-live">Where do my files live?</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#understanding-the-source-control-panel">Understanding the Source Control panel</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#writing-good-commit-messages">Writing good commit messages</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#our-workflow">Our workflow</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#moving-files-locally">Moving files locally</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#how-to-update-an-assignment">How to update an assignment</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#when-things-go-wrong">When things go wrong</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#i-closed-my-browser-and-my-work-is-gone">“I closed my browser and my work is gone!”</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#it-says-my-branch-is-ahead-by-x-commits">“It says my branch is ahead by X commits”</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#it-says-my-branch-is-behind-by-x-commits">“It says my branch is behind by X commits”</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#i-made-changes-to-a-file-but-i-want-to-undo-them">“I made changes to a file but I want to undo them”</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#i-accidentally-committed-something-i-didn-t-mean-to">“I accidentally committed something I didn’t mean to”</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#it-says-merge-conflict">“It says ‘merge conflict’”</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#the-sync-button-shows-both-up-and-down-arrows">“The Sync button shows both up and down arrows”</a></li>
+</ul>
+</li>
 </ul>
 </li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#create-a-github-repository-for-our-class">Create a Github repository for our class</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#git-quick-reference">Git Quick Reference</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#the-essential-workflow-do-this-every-time">The essential workflow (do this every time!)</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#keyboard-shortcuts-in-codespaces">Keyboard shortcuts in Codespaces</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#source-control-icons">Source Control icons</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#common-git-vocabulary">Common Git vocabulary</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#when-you-re-stuck">When you’re stuck</a></li>
+</ul>
+</li>
 </ul>
             </nav>
         </div>
@@ -429,6 +450,10 @@ document.write(`
 <h1>Using Github and Github Codespaces<a class="headerlink" href="#using-github-and-github-codespaces" title="Link to this heading">#</a></h1>
 <p>We are going to be using <strong>Github Classroom</strong> and <strong>Github Codespaces</strong> to do our work. We will go through how to get set-up in class. This means signing-up for a Github account, accessing assignments (i.e. forking repositories) via Github Classroom, working on these assignments in Github Codespaces, and then, finally, submitting your assignments back to Github Classroom using <strong>git commands</strong>.</p>
 <p>Github Codespaces will allow us to use the VS Code developer environment in a browser, without doing a local install. We’ll need to understand how it works.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>The <strong>DataCamp</strong> courses <strong>Intro to Git</strong> and <strong>Intro to GitHub Concepts</strong> cover many of the topics in this chapter. I’ll note where specific concepts are discussed in more depth in those courses. You don’t need to know everything in those courses, but they provide helpful background on version control and Git terminology.</p>
+</div>
 <section id="setting-up-github">
 <h2>Setting up Github<a class="headerlink" href="#setting-up-github" title="Link to this heading">#</a></h2>
 <p>Sign-up for a Github account: <a class="github reference external" href="https://github.com/signup">signup</a>. Use your <strong>Elon email address</strong>. Pick a username that you’ll want others to see! I suggest using your name in some form. If you plan on applying for data jobs, you’ll want to share your Github page.</p>
@@ -441,7 +466,7 @@ document.write(`
 </figure>
 <p>After signing-up for Github, you will get a Github page, like mine: <a class="github reference external" href="https://github.com/aaiken1">aaiken1</a>.</p>
 <p>Or, my fake student page I use to test our workflow: <a class="github reference external" href="https://github.com/aaiken1student/">aaiken1student/</a>.</p>
-<p>Let’s start by creating a <strong>repository</strong> for your main page. <strong>Repos</strong> are like folders. Each lab, exam, and project for this course will have it’s own repo. You can create your own as well.</p>
+<p>Let’s start by creating a <strong>repository</strong> for your main page. <strong>Repos</strong> are like folders. Each lab, exam, and project for this course will have its own repo. You can create your own as well. The DataCamp <strong>Intro to GitHub Concepts</strong> course (Chapters 1-2) covers navigating the GitHub website and creating repositories if you want a more detailed walkthrough.</p>
 <p>Go to the upper-left of your main Github.com page and <strong>click on the green button</strong>. That icon is the repo icon.</p>
 <p>This will take you to the create a repo page. <strong>Give your new repo the same name as your user name.</strong> This will create a <strong>special repo</strong>, as Github tells you. This is where you can <strong>create a readme file</strong> that tells folks who visit your page who you are. <strong>Make sure that option is checked</strong> near the bottom of the page before you create the repo.</p>
 <figure class="align-center" id="readme-repo-png">
@@ -466,6 +491,10 @@ document.write(`
 <p>This is the lab to help us get started. You’ll be asked to <strong>find your name from the class roster and then link your Github account to our Github Classroom</strong>. Our Github Classroom is how you will access and submit assignments and is called <strong>elon-fin-data</strong>.</p>
 <p>When you <strong>accept</strong> an assignment, you’ll <strong>fork</strong> (copy) the <strong>repository</strong> (folder) with that assignment. You’ll then work in this new repository, which will be linked to your Github account. For example, you’ll see a new repository named something like <strong>lab00-getting-started-git-aaiken1student</strong>, where your Github username will replace my name.</p>
 <p>These are ideas from <strong>git</strong>, which is used for <strong>version control</strong>. More on that in a second.</p>
+<div class="admonition tip">
+<p class="admonition-title">Tip</p>
+<p>The DataCamp <strong>Intro to GitHub Concepts</strong> course covers forking and cloning in detail in Chapter 3. Forking creates your own copy of a repository, which is exactly what happens when you accept an assignment. The course also explains the difference between forking (an independent copy) and cloning (a linked copy).</p>
+</div>
 <figure class="align-center" id="roster-png">
 <img alt="../_images/22-roster.png" src="../_images/22-roster.png" />
 <figcaption>
@@ -531,7 +560,7 @@ document.write(`
 <p>You can create new Codespaces, as well as see all of you recent ones by going to the main Codespace page: <a class="github reference external" href="https://github.com/codespaces/">codespaces/</a>.</p>
 <p>We are going to use our Codespace as <strong>VS Code in the cloud</strong>. VS Code is a place to… code. But, what kind of code? VS Code can be used for just about any programming language. We’ll be using two types of files: regular Python scripts (.py) and Jupyter notebooks (.ipynb). The latter lets us mix Python and Markdown to create integrated reports.</p>
 <p>Notice that Codespaces can be associated with <strong>repositories</strong>. You can also just create new ones and start working on something. Github provides some ready-made templates, like the Jupyter Notebook one.</p>
-<p>Each Codespace that you create is an example of an <strong>environment</strong>. A Codespace is like a virtual machine that comes preloaded with tools and dependencies for development. You can upload files to it. You can download from it. You can install things. It’s like having a mini-computer running in the cloud. You can have multiple codepsaces at a time, though there are memory and data limits. Keep these in mind - if you aren’t careful about you’re codespaces, you’ll get asked to delete some by Github, possibly losing unsaved work.</p>
+<p>Each Codespace that you create is an example of an <strong>environment</strong>. A Codespace is like a virtual machine that comes preloaded with tools and dependencies for development. You can upload files to it. You can download from it. You can install things. It’s like having a mini-computer running in the cloud. You can have multiple codespaces at a time, though there are memory and data limits. Keep these in mind - if you aren’t careful about you’re codespaces, you’ll get asked to delete some by Github, possibly losing unsaved work.</p>
 <p>For Python, this includes interpreters, package managers like <strong>pip</strong>, and the ability to <strong>install libraries and frameworks</strong>. We’ll get to that.</p>
 <p>Codespace instances will keep running, even if you close your browser. You can log out and then log into them from another computer. Think of them like a Google Doc.</p>
 <p>But, like a Google Doc, the files in the Codespace are not on your computer. I’ll discuss this more below when covering git commands and submitting your work. It’s crucial to understand where your files live!</p>
@@ -614,7 +643,11 @@ document.write(`
 <section id="using-git-to-submit-your-work">
 <h2>Using git to submit your work<a class="headerlink" href="#using-git-to-submit-your-work" title="Link to this heading">#</a></h2>
 <p>Both above and in our class videos, I mention add/commit/push. These are examples of <a class="reference external" href="https://code.visualstudio.com/docs/sourcecontrol/intro-to-git">git commands</a>. Git is a framework for doing <strong>version control</strong>. In other words, keeping track of files and file changes. This is actually a tough problem! Most software development of any kind is being done by multiple people in different places. Someone might want to add a new feature, but you don’t want to break the entire project. How do you keep track of everything? Git lets us do that.</p>
-<p><a class="reference external" href="https://code.visualstudio.com/docs/sourcecontrol/github">Github</a> is a particular “flavor” of git and is owned by Microsoft. You can use git at the command line of your computer, typing in different commands. You can also “point and click”. In my videos, I show you some point and click methods.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>The DataCamp <strong>Intro to Git</strong> course (Chapter 1) covers version control fundamentals: why it matters, what Git is, and how it tracks changes over time. Chapter 2 covers viewing your version history with <code class="docutils literal notranslate"><span class="pre">git</span> <span class="pre">log</span></code> and understanding the commit structure. We won’t use most of these command-line tools directly since Codespaces gives us a visual interface, but understanding the concepts helps when things go wrong.</p>
+</div>
+<p><a class="reference external" href="https://code.visualstudio.com/docs/sourcecontrol/github">Github</a> is a particular “flavor” of git and is owned by Microsoft. You can use git at the command line of your computer, typing in different commands. You can also “point and click”. In my videos, I show you some point and click methods. The DataCamp <strong>Intro to GitHub Concepts</strong> course (Chapter 1) explains the difference between Git (the version control software) and GitHub (the cloud-based hosting service that uses Git).</p>
 <p>There are a million git and Github tutorials around. We just need to know the basics to keep track of our files and to work together. It’s kind of like using Google Docs (kind of!), but going to the next level.</p>
 <p>Here’s an intro video discussing what Github is: <a class="reference external" href="https://www.youtube.com/watch?v=pBy1zgt0XPc">https://www.youtube.com/watch?v=pBy1zgt0XPc</a>.</p>
 <p>This is the best introduction that I’ve found: <a class="reference external" href="https://aeturrell.github.io/coding-for-economists/wrkflow-version-control.html">https://aeturrell.github.io/coding-for-economists/wrkflow-version-control.html</a>. All of material in this book is great for this class.</p>
@@ -623,6 +656,101 @@ document.write(`
 <p>Here are two videos on using git and Github with a local VS Code install: <a class="reference external" href="https://www.youtube.com/watch?v=i_23KUAEtUM">https://www.youtube.com/watch?v=i_23KUAEtUM</a> and <a class="reference external" href="https://www.youtube.com/watch?v=CvUiKWv2-C0">https://www.youtube.com/watch?v=CvUiKWv2-C0</a>. We are going to mainly be doing things in Github Codespaces, but many of the ideas are going to carryover.</p>
 <p>You’ll see how they are using <strong>bash</strong> commands in the <strong>terminal</strong> on a Mac. Windows has a similar command line. If you want to create your own repositories and get to work, watch these videos. By using Github Codespaces, with a repository created from each assignment, you can use the Codespace interface to do a lot of the same things. Codespaces does have a terminal interface, though, so you can also use the bash commands.</p>
 <p>The important thing, though, are the <strong>git ideas</strong>. Version control. Repositories. Snapshots. Git add, commit, push. Readme files. These are the backbone of modern computing!</p>
+<section id="where-do-my-files-live">
+<h3>Where do my files live?<a class="headerlink" href="#where-do-my-files-live" title="Link to this heading">#</a></h3>
+<p>This is the most important concept to understand. When you’re working in a Codespace, your files exist in <strong>two different places</strong>, and it’s crucial to know which is which.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>┌─────────────────────────────────────────────────────────────────┐
+│                      YOUR CODESPACE                             │
+│         (Your workspace - like a scratch pad)                   │
+│                                                                 │
+│  This is where you write code and save files. But these files   │
+│  only exist in this temporary environment. If you delete the    │
+│  Codespace without pushing, YOUR WORK IS GONE.                  │
+│                                                                 │
+│  [Edit files] → [Save] → [Stage] → [Commit] → [Push] ────────┐ │
+└──────────────────────────────────────────────────────────────│──┘
+                                                               │
+                                                               ▼
+┌─────────────────────────────────────────────────────────────────┐
+│                    GITHUB REPOSITORY                            │
+│         (Permanent storage - in the cloud)                      │
+│                                                                 │
+│  This is where your files live permanently. This is what I can  │
+│  see. This is what you&#39;ll have access to from any computer.     │
+│  Files only get here after you PUSH them.                       │
+└─────────────────────────────────────────────────────────────────┘
+</pre></div>
+</div>
+<p>Think of it like writing a paper:</p>
+<ul class="simple">
+<li><p><strong>Saving</strong> (Cmd+S) is like writing words on a piece of paper</p></li>
+<li><p><strong>Staging</strong> is like putting that paper in an envelope</p></li>
+<li><p><strong>Committing</strong> is like sealing the envelope and writing a note on it</p></li>
+<li><p><strong>Pushing</strong> is like actually putting the envelope in the mailbox</p></li>
+</ul>
+<p>Until you push, your work is not safely stored on GitHub. I cannot see it, and if something happens to your Codespace, it could be lost.</p>
+<div class="admonition warning">
+<p class="admonition-title">Warning</p>
+<p><strong>The #1 mistake students make</strong>: Saving a file (Cmd+S) and thinking it’s submitted. Saving only saves to your Codespace. You must <strong>commit AND push</strong> for your work to reach GitHub!</p>
+</div>
+</section>
+<section id="understanding-the-source-control-panel">
+<h3>Understanding the Source Control panel<a class="headerlink" href="#understanding-the-source-control-panel" title="Link to this heading">#</a></h3>
+<p>When you click on <strong>Source Control</strong> in the left sidebar (the icon that looks like a branch), you’ll see a list of files that have changed. Each file has a letter next to it. Here’s what they mean:</p>
+<div class="pst-scrollable-table-container"><table class="table">
+<thead>
+<tr class="row-odd"><th class="head"><p>Letter</p></th>
+<th class="head"><p>Meaning</p></th>
+<th class="head"><p>What’s happening</p></th>
+<th class="head"><p>What to do</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><strong>U</strong></p></td>
+<td><p><strong>Untracked</strong></p></td>
+<td><p>This is a new file that Git doesn’t know about yet. You created it, but Git isn’t tracking it.</p></td>
+<td><p>Click the <strong>+</strong> to start tracking it</p></td>
+</tr>
+<tr class="row-odd"><td><p><strong>M</strong></p></td>
+<td><p><strong>Modified</strong></p></td>
+<td><p>You’ve made changes to this file since your last commit. Git sees the changes but hasn’t recorded them yet.</p></td>
+<td><p>Click the <strong>+</strong> to stage your changes</p></td>
+</tr>
+<tr class="row-even"><td><p><strong>A</strong></p></td>
+<td><p><strong>Added</strong></p></td>
+<td><p>The file is staged and ready to be committed. It’s “in the envelope” waiting to be sealed.</p></td>
+<td><p>Write a commit message and click Commit</p></td>
+</tr>
+<tr class="row-odd"><td><p><strong>D</strong></p></td>
+<td><p><strong>Deleted</strong></p></td>
+<td><p>You deleted this file. Git noticed it’s gone.</p></td>
+<td><p>Stage it if you want to confirm the deletion in your repo</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<p>When you stage a file (click the +), it moves from the “Changes” section to the “Staged Changes” section. Only staged files will be included in your next commit.</p>
+</section>
+<section id="writing-good-commit-messages">
+<h3>Writing good commit messages<a class="headerlink" href="#writing-good-commit-messages" title="Link to this heading">#</a></h3>
+<p>Every time you commit, you need to write a message. This message is a note to yourself (and me) about what you did. Good commit messages make it easy to understand the history of your project. The DataCamp <strong>Intro to GitHub Concepts</strong> course (Chapter 2) walks through committing files on the GitHub website, including writing commit messages.</p>
+<p><strong>Bad commit messages:</strong></p>
+<ul class="simple">
+<li><p>“stuff”</p></li>
+<li><p>“asdfasdf”</p></li>
+<li><p>“done”</p></li>
+<li><p>“update”</p></li>
+<li><p>“fixed it”</p></li>
+</ul>
+<p><strong>Good commit messages:</strong></p>
+<ul class="simple">
+<li><p>“Added scatter plot for portfolio returns”</p></li>
+<li><p>“Completed Q1-Q3 of Lab 2”</p></li>
+<li><p>“Fixed calculation error in Sharpe ratio”</p></li>
+<li><p>“Added markdown explanations to analysis”</p></li>
+</ul>
+<p>A good commit message answers the question: “What did I do?” Keep it short (under 50 characters is ideal) but descriptive. When you look back at your commit history weeks later, you’ll thank yourself for writing clear messages.</p>
+</section>
 <section id="our-workflow">
 <h3>Our workflow<a class="headerlink" href="#our-workflow" title="Link to this heading">#</a></h3>
 <p>Here’s the workflow for each lab and exam. I can not see your files unless you do these steps!</p>
@@ -650,6 +778,94 @@ document.write(`
 <p><strong>Click the green Update Branch button</strong>.</p>
 <p>The file list in the repo should now reflect this update. For example, the commit message next to the Readme.md file should say “Merge branch ‘elon-fin-data:main’ into main”.</p>
 <p><strong>Go back to your Codespace</strong> for this assignment and repo. <strong>Click on the Source Control button</strong> on the right. Do you see the <strong>blue Synch Changes button</strong> with a down arrow now? Click that to bring the update files down into your Codespace.</p>
+</section>
+<section id="when-things-go-wrong">
+<h3>When things go wrong<a class="headerlink" href="#when-things-go-wrong" title="Link to this heading">#</a></h3>
+<p>Git can be confusing at first, and you will encounter situations where something doesn’t work as expected. Don’t panic! Here are the most common issues students face and how to fix them.</p>
+<section id="i-closed-my-browser-and-my-work-is-gone">
+<h4>“I closed my browser and my work is gone!”<a class="headerlink" href="#i-closed-my-browser-and-my-work-is-gone" title="Link to this heading">#</a></h4>
+<p>First, don’t panic. Your Codespace might still be running.</p>
+<ol class="arabic simple">
+<li><p>Go to <a class="github reference external" href="https://github.com/codespaces/">codespaces/</a></p></li>
+<li><p>Look for your Codespace in the list - it might still be there</p></li>
+<li><p>Click on it to reopen</p></li>
+</ol>
+<p>If your Codespace is still there, your unsaved work should still be there too. Codespaces don’t immediately disappear when you close the browser tab.</p>
+<p>However, if too much time has passed or the Codespace was deleted, and you never committed and pushed, then unfortunately the work is lost. This is why we commit and push frequently!</p>
+<div class="admonition tip">
+<p class="admonition-title">Tip</p>
+<p><strong>Get in the habit</strong>: Every time you finish a section of work or take a break, do a quick commit and push. It takes 30 seconds and protects all your work.</p>
+</div>
+</section>
+<section id="it-says-my-branch-is-ahead-by-x-commits">
+<h4>“It says my branch is ahead by X commits”<a class="headerlink" href="#it-says-my-branch-is-ahead-by-x-commits" title="Link to this heading">#</a></h4>
+<p>This message means you’ve committed changes, but you haven’t pushed them to GitHub yet. Your commits are saved locally in your Codespace, but they haven’t been sent to the cloud.</p>
+<p><strong>The fix</strong>: Click the <strong>Sync Changes</strong> button. This will push your commits to GitHub.</p>
+</section>
+<section id="it-says-my-branch-is-behind-by-x-commits">
+<h4>“It says my branch is behind by X commits”<a class="headerlink" href="#it-says-my-branch-is-behind-by-x-commits" title="Link to this heading">#</a></h4>
+<p>This means there are changes on GitHub that you don’t have in your Codespace. Maybe I updated the assignment, or you worked from a different computer.</p>
+<p><strong>The fix</strong>: Click the <strong>Sync Changes</strong> button. This will pull the new changes down to your Codespace.</p>
+</section>
+<section id="i-made-changes-to-a-file-but-i-want-to-undo-them">
+<h4>“I made changes to a file but I want to undo them”<a class="headerlink" href="#i-made-changes-to-a-file-but-i-want-to-undo-them" title="Link to this heading">#</a></h4>
+<p>If you’ve edited a file and want to go back to the last committed version:</p>
+<ol class="arabic simple">
+<li><p>Go to <strong>Source Control</strong> in the left sidebar</p></li>
+<li><p>Find the file with the <strong>M</strong> (modified) next to it</p></li>
+<li><p>Click the <strong>curved arrow</strong> (↩️) next to the file name - this is the “Discard Changes” button</p></li>
+<li><p>Confirm that you want to discard changes</p></li>
+</ol>
+<div class="admonition warning">
+<p class="admonition-title">Warning</p>
+<p>This permanently removes your changes to that file since the last commit. Make sure you really want to undo!</p>
+</div>
+</section>
+<section id="i-accidentally-committed-something-i-didn-t-mean-to">
+<h4>“I accidentally committed something I didn’t mean to”<a class="headerlink" href="#i-accidentally-committed-something-i-didn-t-mean-to" title="Link to this heading">#</a></h4>
+<p>If you committed but haven’t pushed yet, you have options. However, this can get complicated. For now, the easiest solution is:</p>
+<ol class="arabic simple">
+<li><p>Make the changes you need to fix the mistake</p></li>
+<li><p>Stage those changes</p></li>
+<li><p>Create a new commit with a message like “Fixed mistake from previous commit”</p></li>
+<li><p>Push both commits</p></li>
+</ol>
+<p>Git keeps a history of everything, so “fixing” a mistake usually means making a new commit that corrects it, not erasing the old one.</p>
+</section>
+<section id="it-says-merge-conflict">
+<h4>“It says ‘merge conflict’”<a class="headerlink" href="#it-says-merge-conflict" title="Link to this heading">#</a></h4>
+<p>A merge conflict happens when Git can’t automatically combine two different versions of a file. This usually occurs when:</p>
+<ul class="simple">
+<li><p>You and I both edited the same part of a file</p></li>
+<li><p>You worked on two different computers and made different changes</p></li>
+</ul>
+<p>When you see a merge conflict, <strong>don’t panic</strong>. The file will show you both versions with some special markers:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="o">&lt;&lt;&lt;&lt;&lt;&lt;&lt;</span> <span class="n">HEAD</span>
+<span class="n">Your</span> <span class="n">version</span> <span class="n">of</span> <span class="n">the</span> <span class="n">code</span>
+<span class="o">=======</span>
+<span class="n">The</span> <span class="n">other</span> <span class="n">version</span> <span class="n">of</span> <span class="n">the</span> <span class="n">code</span>
+<span class="o">&gt;&gt;&gt;&gt;&gt;&gt;&gt;</span> <span class="n">other</span><span class="o">-</span><span class="n">branch</span>
+</pre></div>
+</div>
+<p>For this class, the easiest solution is:</p>
+<ol class="arabic simple">
+<li><p>Open the file</p></li>
+<li><p>Look for the <code class="docutils literal notranslate"><span class="pre">&lt;&lt;&lt;&lt;&lt;&lt;&lt;</span></code>, <code class="docutils literal notranslate"><span class="pre">=======</span></code>, and <code class="docutils literal notranslate"><span class="pre">&gt;&gt;&gt;&gt;&gt;&gt;&gt;</span></code> markers</p></li>
+<li><p>Decide which version you want to keep (or combine them)</p></li>
+<li><p>Delete the markers</p></li>
+<li><p>Save, stage, commit, and push</p></li>
+</ol>
+<p>If you’re confused, reach out for help! Merge conflicts are a normal part of working with Git, and they get easier with practice.</p>
+</section>
+<section id="the-sync-button-shows-both-up-and-down-arrows">
+<h4>“The Sync button shows both up and down arrows”<a class="headerlink" href="#the-sync-button-shows-both-up-and-down-arrows" title="Link to this heading">#</a></h4>
+<p>This means you have commits to push AND there are commits to pull. This is normal! Just click Sync Changes and Git will:</p>
+<ol class="arabic simple">
+<li><p>First pull the remote changes down</p></li>
+<li><p>Then push your local changes up</p></li>
+</ol>
+<p>If there are no conflicts, this all happens automatically.</p>
+</section>
 </section>
 </section>
 <section id="create-a-github-repository-for-our-class">
@@ -683,6 +899,151 @@ document.write(`
 <p><span class="caption-number">Fig. 23 </span><span class="caption-text">When you create a new Codespace, you’ll get your new repository as an option.</span><a class="headerlink" href="#my-class-repository-png" title="Link to this image">#</a></p>
 </figcaption>
 </figure>
+</section>
+<section id="git-quick-reference">
+<h2>Git Quick Reference<a class="headerlink" href="#git-quick-reference" title="Link to this heading">#</a></h2>
+<p>Here’s a condensed reference you can come back to. Bookmark this section!</p>
+<section id="the-essential-workflow-do-this-every-time">
+<h3>The essential workflow (do this every time!)<a class="headerlink" href="#the-essential-workflow-do-this-every-time" title="Link to this heading">#</a></h3>
+<div class="tip admonition">
+<p class="admonition-title">Save Your Work Checklist</p>
+<ol class="arabic simple">
+<li><p><strong>Save your file</strong>: <code class="docutils literal notranslate"><span class="pre">Cmd+S</span></code> (Mac) or <code class="docutils literal notranslate"><span class="pre">Ctrl+S</span></code> (Windows)</p></li>
+<li><p><strong>Open Source Control</strong>: Click the branch icon in the left sidebar</p></li>
+<li><p><strong>Stage your changes</strong>: Click the <code class="docutils literal notranslate"><span class="pre">+</span></code> next to each file (or stage all)</p></li>
+<li><p><strong>Write a commit message</strong>: Describe what you did</p></li>
+<li><p><strong>Commit</strong>: Click the ✓ checkmark or “Commit” button</p></li>
+<li><p><strong>Push</strong>: Click “Sync Changes”</p></li>
+</ol>
+<p><strong>Your work is not on GitHub until you complete ALL of these steps!</strong></p>
+</div>
+</section>
+<section id="keyboard-shortcuts-in-codespaces">
+<h3>Keyboard shortcuts in Codespaces<a class="headerlink" href="#keyboard-shortcuts-in-codespaces" title="Link to this heading">#</a></h3>
+<div class="pst-scrollable-table-container"><table class="table">
+<thead>
+<tr class="row-odd"><th class="head"><p>Action</p></th>
+<th class="head"><p>Mac</p></th>
+<th class="head"><p>Windows</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>Save file</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">Cmd</span> <span class="pre">+</span> <span class="pre">S</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">Ctrl</span> <span class="pre">+</span> <span class="pre">S</span></code></p></td>
+</tr>
+<tr class="row-odd"><td><p>Open Command Palette</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">Cmd</span> <span class="pre">+</span> <span class="pre">Shift</span> <span class="pre">+</span> <span class="pre">P</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">Ctrl</span> <span class="pre">+</span> <span class="pre">Shift</span> <span class="pre">+</span> <span class="pre">P</span></code></p></td>
+</tr>
+<tr class="row-even"><td><p>Open Source Control</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">Ctrl</span> <span class="pre">+</span> <span class="pre">Shift</span> <span class="pre">+</span> <span class="pre">G</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">Ctrl</span> <span class="pre">+</span> <span class="pre">Shift</span> <span class="pre">+</span> <span class="pre">G</span></code></p></td>
+</tr>
+<tr class="row-odd"><td><p>Open Explorer (file browser)</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">Cmd</span> <span class="pre">+</span> <span class="pre">Shift</span> <span class="pre">+</span> <span class="pre">E</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">Ctrl</span> <span class="pre">+</span> <span class="pre">Shift</span> <span class="pre">+</span> <span class="pre">E</span></code></p></td>
+</tr>
+<tr class="row-even"><td><p>New file</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">Cmd</span> <span class="pre">+</span> <span class="pre">N</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">Ctrl</span> <span class="pre">+</span> <span class="pre">N</span></code></p></td>
+</tr>
+<tr class="row-odd"><td><p>Close file</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">Cmd</span> <span class="pre">+</span> <span class="pre">W</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">Ctrl</span> <span class="pre">+</span> <span class="pre">W</span></code></p></td>
+</tr>
+</tbody>
+</table>
+</div>
+</section>
+<section id="source-control-icons">
+<h3>Source Control icons<a class="headerlink" href="#source-control-icons" title="Link to this heading">#</a></h3>
+<div class="pst-scrollable-table-container"><table class="table">
+<thead>
+<tr class="row-odd"><th class="head"><p>Icon</p></th>
+<th class="head"><p>Meaning</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><strong>U</strong></p></td>
+<td><p>Untracked - new file, not yet tracked by Git</p></td>
+</tr>
+<tr class="row-odd"><td><p><strong>M</strong></p></td>
+<td><p>Modified - file has changes since last commit</p></td>
+</tr>
+<tr class="row-even"><td><p><strong>A</strong></p></td>
+<td><p>Added - file is staged and ready to commit</p></td>
+</tr>
+<tr class="row-odd"><td><p><strong>D</strong></p></td>
+<td><p>Deleted - file was deleted</p></td>
+</tr>
+<tr class="row-even"><td><p><strong>+</strong></p></td>
+<td><p>Stage this file (add to commit)</p></td>
+</tr>
+<tr class="row-odd"><td><p><strong>↩️</strong></p></td>
+<td><p>Discard changes (undo edits)</p></td>
+</tr>
+<tr class="row-even"><td><p><strong>✓</strong></p></td>
+<td><p>Commit staged changes</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+</section>
+<section id="common-git-vocabulary">
+<h3>Common Git vocabulary<a class="headerlink" href="#common-git-vocabulary" title="Link to this heading">#</a></h3>
+<p>Most of these terms are covered in the DataCamp <strong>Intro to Git</strong> and <strong>Intro to GitHub Concepts</strong> courses if you want more background on any of them.</p>
+<div class="pst-scrollable-table-container"><table class="table">
+<thead>
+<tr class="row-odd"><th class="head"><p>Term</p></th>
+<th class="head"><p>What it means</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><strong>Repository (repo)</strong></p></td>
+<td><p>A folder that Git is tracking - contains your project files and history</p></td>
+</tr>
+<tr class="row-odd"><td><p><strong>Commit</strong></p></td>
+<td><p>A snapshot of your files at a point in time - like a save point in a video game</p></td>
+</tr>
+<tr class="row-even"><td><p><strong>Push</strong></p></td>
+<td><p>Send your commits from Codespace up to GitHub</p></td>
+</tr>
+<tr class="row-odd"><td><p><strong>Pull</strong></p></td>
+<td><p>Download commits from GitHub down to your Codespace</p></td>
+</tr>
+<tr class="row-even"><td><p><strong>Sync</strong></p></td>
+<td><p>Push and pull at the same time</p></td>
+</tr>
+<tr class="row-odd"><td><p><strong>Stage</strong></p></td>
+<td><p>Mark files to be included in the next commit</p></td>
+</tr>
+<tr class="row-even"><td><p><strong>Branch</strong></p></td>
+<td><p>A parallel version of your code (we’ll mostly use <code class="docutils literal notranslate"><span class="pre">main</span></code>)</p></td>
+</tr>
+<tr class="row-odd"><td><p><strong>Fork</strong></p></td>
+<td><p>Your personal copy of someone else’s repository</p></td>
+</tr>
+<tr class="row-even"><td><p><strong>Clone</strong></p></td>
+<td><p>Download a repository to work on it locally</p></td>
+</tr>
+<tr class="row-odd"><td><p><strong>Merge</strong></p></td>
+<td><p>Combine changes from different sources</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+</section>
+<section id="when-you-re-stuck">
+<h3>When you’re stuck<a class="headerlink" href="#when-you-re-stuck" title="Link to this heading">#</a></h3>
+<ol class="arabic simple">
+<li><p><strong>Read the message</strong> - Git usually tells you what’s wrong and suggests a fix</p></li>
+<li><p><strong>Check Source Control</strong> - Are there uncommitted changes? Unsynced commits?</p></li>
+<li><p><strong>Check github.com</strong> - Go to your repo on GitHub. What files are there? When was the last commit?</p></li>
+<li><p><strong>Ask for help</strong> - Git can be confusing! Bring your questions to class or office hours</p></li>
+</ol>
+<p>Remember: almost everything in Git can be fixed or undone. Don’t be afraid to experiment!</p>
+</section>
 </section>
 </section>
 
@@ -757,12 +1118,33 @@ document.write(`
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#working-inside-a-codespace-in-vs-code">Working inside a Codespace in VS Code</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#jupyter-notebooks-inside-of-a-codespace">Jupyter notebooks inside of a Codespace</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#using-git-to-submit-your-work">Using git to submit your work</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#where-do-my-files-live">Where do my files live?</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#understanding-the-source-control-panel">Understanding the Source Control panel</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#writing-good-commit-messages">Writing good commit messages</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#our-workflow">Our workflow</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#moving-files-locally">Moving files locally</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#how-to-update-an-assignment">How to update an assignment</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#when-things-go-wrong">When things go wrong</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#i-closed-my-browser-and-my-work-is-gone">“I closed my browser and my work is gone!”</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#it-says-my-branch-is-ahead-by-x-commits">“It says my branch is ahead by X commits”</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#it-says-my-branch-is-behind-by-x-commits">“It says my branch is behind by X commits”</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#i-made-changes-to-a-file-but-i-want-to-undo-them">“I made changes to a file but I want to undo them”</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#i-accidentally-committed-something-i-didn-t-mean-to">“I accidentally committed something I didn’t mean to”</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#it-says-merge-conflict">“It says ‘merge conflict’”</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#the-sync-button-shows-both-up-and-down-arrows">“The Sync button shows both up and down arrows”</a></li>
+</ul>
+</li>
 </ul>
 </li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#create-a-github-repository-for-our-class">Create a Github repository for our class</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#git-quick-reference">Git Quick Reference</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#the-essential-workflow-do-this-every-time">The essential workflow (do this every time!)</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#keyboard-shortcuts-in-codespaces">Keyboard shortcuts in Codespaces</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#source-control-icons">Source Control icons</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#common-git-vocabulary">Common Git vocabulary</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#when-you-re-stuck">When you’re stuck</a></li>
+</ul>
+</li>
 </ul>
   </nav></div>
 

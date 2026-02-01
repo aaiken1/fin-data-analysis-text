@@ -30,12 +30,12 @@
 
     <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=03e43079" />
     <link rel="stylesheet" type="text/css" href="../_static/styles/sphinx-book-theme.css?v=eba8b062" />
-    <link rel="stylesheet" type="text/css" href="../_static/togglebutton.css?v=9c3e77be" />
+    <link rel="stylesheet" type="text/css" href="../_static/togglebutton.css?v=13237357" />
     <link rel="stylesheet" type="text/css" href="../_static/copybutton.css?v=76b2166b" />
-    <link rel="stylesheet" type="text/css" href="../_static/mystnb.8ecb98da25f57f5357bf6f572d296f466b2cfe2517ffebfabe82451661e28f02.css?v=6644e6bb" />
+    <link rel="stylesheet" type="text/css" href="../_static/mystnb.8ecb98da25f57f5357bf6f572d296f466b2cfe2517ffebfabe82451661e28f02.css" />
     <link rel="stylesheet" type="text/css" href="../_static/sphinx-thebe.css?v=4fa983c6" />
     <link rel="stylesheet" type="text/css" href="../_static/sphinx-design.min.css?v=95c83b7e" />
-    <link rel="stylesheet" type="text/css" href="../_static/custom.css?v=b747247e" />
+    <link rel="stylesheet" type="text/css" href="../_static/custom.css?v=b98a1dfa" />
   
   <!-- Pre-loaded scripts that we'll load fully later -->
   <link rel="preload" as="script" href="../_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b" />
@@ -46,14 +46,14 @@
     <script src="../_static/doctools.js?v=9a2dae69"></script>
     <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
     <script src="../_static/clipboard.min.js?v=a7894cd8"></script>
-    <script src="../_static/copybutton.js?v=f281be69"></script>
+    <script src="../_static/copybutton.js?v=5eb1bb1e"></script>
     <script src="../_static/scripts/sphinx-book-theme.js?v=887ef09a"></script>
     <script>let toggleHintShow = 'Click to show';</script>
     <script>let toggleHintHide = 'Click to hide';</script>
     <script>let toggleOpenOnPrint = 'true';</script>
-    <script src="../_static/togglebutton.js?v=1ae7504c"></script>
+    <script src="../_static/togglebutton.js?v=4a39c7ea"></script>
     <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
-    <script src="../_static/design-tabs.js?v=36754332"></script>
+    <script src="../_static/design-tabs.js?v=f930bc37"></script>
     <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
     <script async="async" src="../_static/sphinx-thebe.js?v=c100c467"></script>
     <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
@@ -191,7 +191,7 @@
 <li class="toctree-l2"><a class="reference internal" href="2_1_markdown.html">Markdown</a></li>
 <li class="toctree-l2"><a class="reference internal" href="2_2_packages.html">Packages</a></li>
 <li class="toctree-l2"><a class="reference internal" href="2_3_style.html">Code style, PEP8, and linting</a></li>
-<li class="toctree-l2"><a class="reference internal" href="2_4_using_ai.html">Using AI Coding Tools</a></li>
+<li class="toctree-l2"><a class="reference internal" href="2_4_using_ai.html">AI Coding Assistants</a></li>
 </ul>
 </details></li>
 </ul>
@@ -426,15 +426,15 @@ document.write(`
 <p>However, when we start to form portfolios, we are going to care about the correlations across assets. We’ve already seen this when looking at portfolio math. When simulating the Bitcoin prices, we took random numbers from the standard normal distribution and then scaled them by our estimate for the volatility of BTC. This allowed us to capture the randomness of the returns.</p>
 <p>However, when dealing with more than one asset, we can’t do that, since the assets are <strong>not independent</strong> from one another. If Apple goes up, Google is more likely to have gone up as well. The two stocks are <strong>correlated</strong>. How can we account for this in our simulation? We will create <strong>correlated random shocks</strong> (<span class="math notranslate nohighlight">\(W\)</span>), where the random movement of one asset depends on another assets movement.</p>
 <p>Let’s try a simulation to see what’s going on. I’ll draw two random variables from the standard normal distribution, N(0,1). The random part of the return for Asset 1, <span class="math notranslate nohighlight">\(W_1\)</span>, is simply the random draw, <span class="math notranslate nohighlight">\(x_1\)</span>. However, the random part of the return for Asset 2, <span class="math notranslate nohighlight">\(W_2\)</span>, is correlated with whatever <span class="math notranslate nohighlight">\(x_1\)</span> ends up being. Mathematically, this dependent random movement is given as:</p>
-<div class="amsmath math notranslate nohighlight" id="equation-1373085d-33e4-482a-8648-6f952dbf5b06">
-<span class="eqno">(21)<a class="headerlink" href="#equation-1373085d-33e4-482a-8648-6f952dbf5b06" title="Permalink to this equation">#</a></span>\[\begin{align}
+<div class="amsmath math notranslate nohighlight" id="equation-2aa99ede-04c5-481b-852e-23e26fa8029a">
+<span class="eqno">(21)<a class="headerlink" href="#equation-2aa99ede-04c5-481b-852e-23e26fa8029a" title="Permalink to this equation">#</a></span>\[\begin{align}
 W_2 = \rho x_1 + (1 - \sqrt{\rho^2}) x_2
 \end{align}\]</div>
 <p>I’ll set the correlation, <span class="math notranslate nohighlight">\(\rho\)</span>, to be -0.80. These two assets are negatively correlated, so they should move in opposite directions. We’ll set each asset to have the same mean return and same volatility. I’ll set the starting price of each of these assets to 1.</p>
 <p>We’ll bring in our usual packages and try this out. This code should look a lot like the Bitcoin code, except that I now have two assets. I am only doing one simulation for each asset, so two total simulations.</p>
 <p>How do we simulative prices? Let me remind you of a formula:</p>
-<div class="amsmath math notranslate nohighlight" id="equation-8ac1d5b5-b4da-4de0-aade-a6003737c951">
-<span class="eqno">(22)<a class="headerlink" href="#equation-8ac1d5b5-b4da-4de0-aade-a6003737c951" title="Permalink to this equation">#</a></span>\[\begin{align}
+<div class="amsmath math notranslate nohighlight" id="equation-1a59d246-ada6-4171-bf1d-f1fc7719b8fa">
+<span class="eqno">(22)<a class="headerlink" href="#equation-1a59d246-ada6-4171-bf1d-f1fc7719b8fa" title="Permalink to this equation">#</a></span>\[\begin{align}
 S(t) = S(0) \exp \left(\left(\mu - \frac{1}{2}\sigma^2\right)t + \sigma W(t)\right)
 \end{align}\]</div>
 <p>Take a starting price <span class="math notranslate nohighlight">\(S_0\)</span>. We use <code class="docutils literal notranslate"><span class="pre">exp</span></code> for continuous compounding. Then, the price today, <span class="math notranslate nohighlight">\(S_t\)</span> is a function of two return sources. The first source is called <strong>drift</strong>: <span class="math notranslate nohighlight">\(\mu - \frac{1}{2}\sigma^2\)</span>. This is what an asset returns on average over some period, like a day. This is the <strong>deterministic</strong> piece of the return and would be related to risk. <span class="math notranslate nohighlight">\(\mu\)</span> is the <strong>arithmetic average</strong> and <span class="math notranslate nohighlight">\(\sigma\)</span> is the volatility (standard deviation). They should be in the same units (e.g. daily).</p>
@@ -506,7 +506,7 @@ S(t) = S(0) \exp \left(\left(\mu - \frac{1}{2}\sigma^2\right)t + \sigma W(t)\rig
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../_images/330606f8ef98f887f819e551de700c4dbf8efef15746b1979eaa8bf4585cbbd2.png" src="../_images/330606f8ef98f887f819e551de700c4dbf8efef15746b1979eaa8bf4585cbbd2.png" />
+<img alt="../_images/35d626421f7e16992508c5a42c2133089c6db29e81c19c1cfaf6b9e7c6aaa4f2.png" src="../_images/35d626421f7e16992508c5a42c2133089c6db29e81c19c1cfaf6b9e7c6aaa4f2.png" />
 </div>
 </div>
 <p>You can really see the negative correlation!</p>
