@@ -30,8 +30,54 @@
     --pst-color-info: var(--elon-gold);
     --pst-color-border: var(--elon-gold-light);
 
+    /* Additional PyData theme overrides for active states */
+    --pst-color-active: var(--elon-maroon);
+    --pst-color-active-color: var(--elon-maroon);
+    --pst-sidebar-active-color: var(--elon-maroon);
+    --pst-sidebar-active-bg: var(--elon-gold-transparent);
+    --pst-color-inline-code: var(--elon-maroon-dark);
+
+    /* Override any blue color variables */
+    --color-link: var(--elon-maroon);
+    --color-link-underline: var(--elon-gold);
+    --sd-color-primary: var(--elon-maroon);
+    --sd-color-secondary: var(--elon-gold);
+
+    /* PyData Sphinx Theme specific overrides */
+    --pst-color-text-base: #333;
+    --pst-color-on-surface: #333;
+    --pst-color-target: var(--elon-gold-transparent);
+    --pst-color-link-active: var(--elon-maroon);
+
+    /* Override Sphinx Design colors */
+    --sd-color-primary-highlight: var(--elon-maroon);
+    --sd-color-primary-text: var(--elon-maroon);
+
     /* Sidebar-specific overrides */
     --pst-sidebar-font-size: 0.95rem;
+
+    /* Bootstrap overrides */
+    --bs-link-color: var(--elon-maroon);
+    --bs-link-hover-color: var(--elon-maroon-dark);
+    --bs-primary: var(--elon-maroon);
+    --bs-primary-rgb: 115, 0, 10;
+    --bs-secondary: var(--elon-gold);
+    --bs-secondary-rgb: 181, 154, 87;
+
+    /* Admonition color overrides */
+    --pst-color-success: var(--elon-maroon);
+    --pst-color-success-bg: var(--elon-maroon-transparent);
+    --pst-admonition-tip-color: var(--elon-maroon);
+    --pst-admonition-hint-color: var(--elon-maroon);
+    --pst-color-warning: var(--elon-maroon-dark);
+    --pst-color-warning-bg: var(--elon-maroon-transparent);
+    --pst-admonition-warning-color: var(--elon-maroon-dark);
+    --pst-color-danger: var(--elon-maroon-dark);
+    --pst-color-attention: var(--elon-maroon-dark);
+    --pst-color-note: var(--elon-gold);
+    --pst-color-note-bg: var(--elon-gold-transparent);
+    --pst-admonition-note-color: var(--elon-gold);
+    --pst-color-info-bg: var(--elon-gold-transparent);
 }
 
 /* ============================================
@@ -105,23 +151,62 @@ nav.bd-links .nav-link:focus {
 .toc-h3 a,
 .toc-h4 a,
 nav.onthispage a,
-.section-nav a {
+.section-nav a,
+.toc-tree a,
+nav.page-toc a,
+.bd-toc-nav a {
     color: #555 !important;
     text-decoration: none !important;
 }
 
-/* Active item in right TOC */
+/* Active item in right TOC - comprehensive selectors */
 .bd-sidebar-secondary a.active,
 .bd-toc a.active,
-nav.onthispage a.active {
+nav.onthispage a.active,
+.toc-tree a.active,
+nav.page-toc a.active,
+.bd-toc-nav a.active,
+.bd-sidebar-secondary .active > a,
+.toc-tree .active > a,
+nav.page-toc .current > a,
+.bd-toc-nav .current > a,
+#bd-toc-nav a.active,
+.bd-sidebar-secondary nav a.active,
+.bd-sidebar-secondary li.active > a,
+.bd-sidebar-secondary a[aria-current="true"],
+.bd-sidebar-secondary a[aria-current="page"],
+aside.bd-sidebar-secondary a.active,
+aside.bd-sidebar-secondary .active a,
+.toctree-wrapper a.active,
+.toctree-wrapper .current > a {
     color: var(--elon-maroon) !important;
     font-weight: 600;
+    background-color: var(--elon-gold-transparent) !important;
+}
+
+/* Force override any blue/purple colors in right TOC */
+.bd-sidebar-secondary a,
+.bd-sidebar-secondary a:visited,
+.bd-sidebar-secondary a:link,
+aside.bd-sidebar-secondary a,
+aside.bd-sidebar-secondary a:visited {
+    color: #555 !important;
+}
+
+.bd-sidebar-secondary a.active,
+.bd-sidebar-secondary a.active:visited,
+aside.bd-sidebar-secondary a.active {
+    color: var(--elon-maroon) !important;
+    background: var(--elon-gold-transparent) !important;
 }
 
 /* Hover in right TOC */
 .bd-sidebar-secondary a:hover,
 .bd-toc a:hover,
-nav.onthispage a:hover {
+nav.onthispage a:hover,
+.toc-tree a:hover,
+nav.page-toc a:hover,
+.bd-toc-nav a:hover {
     color: var(--elon-maroon) !important;
 }
 
@@ -170,21 +255,35 @@ h3, h4, h5, h6 {
    ============================================ */
 
 /* Note boxes - Elon gold accent */
-div.admonition.note {
+div.admonition.note,
+.admonition.note,
+.note {
     border-left: 4px solid var(--elon-gold) !important;
     border-top: none !important;
     border-right: none !important;
     border-bottom: none !important;
     background-color: var(--elon-gold-transparent) !important;
+    background: var(--elon-gold-transparent) !important;
 }
 
-div.admonition.note > .admonition-title {
+div.admonition.note > .admonition-title,
+.admonition.note > .admonition-title,
+.note > .admonition-title,
+.admonition.note .admonition-title {
     background-color: var(--elon-gold) !important;
+    background: var(--elon-gold) !important;
     color: #333 !important;
 }
 
-div.admonition.note > .admonition-title::before {
+div.admonition.note > .admonition-title::before,
+.admonition.note .admonition-title::before {
     color: #333 !important;
+}
+
+/* PyData theme specific note overrides */
+.admonition.note {
+    --pst-color-admonition-default: var(--elon-gold) !important;
+    --pst-color-admonition-default-bg: var(--elon-gold-transparent) !important;
 }
 
 /* Hint boxes - Elon maroon accent */
@@ -208,22 +307,81 @@ div.admonition.tip > .admonition-title::before {
     color: white !important;
 }
 
+/* Override green tip styling from Sphinx */
+.admonition.tip,
+div.admonition.tip {
+    border-color: var(--elon-maroon) !important;
+    background-color: var(--elon-maroon-transparent) !important;
+}
+
+.admonition.tip > .admonition-title,
+div.admonition.tip > .admonition-title {
+    background-color: var(--elon-maroon) !important;
+}
+
+/* Fix the icon/emoji color in tip boxes */
+.admonition.tip .admonition-title::before,
+.admonition.tip > p:first-of-type::before {
+    color: white !important;
+}
+
+/* PyData theme specific tip overrides */
+.admonition.tip {
+    --pst-color-admonition-default: var(--elon-maroon) !important;
+    --pst-color-admonition-default-bg: var(--elon-maroon-transparent) !important;
+}
+
+.admonition.tip > .admonition-title {
+    --pst-color-admonition-default: var(--elon-maroon) !important;
+}
+
+/* Force override any green backgrounds */
+div.tip,
+.tip,
+.admonition.tip {
+    background: var(--elon-maroon-transparent) !important;
+    border-left-color: var(--elon-maroon) !important;
+}
+
+div.tip > .admonition-title,
+.tip > .admonition-title,
+.admonition.tip > .admonition-title,
+p.admonition-title {
+    background: var(--elon-maroon) !important;
+    color: white !important;
+}
+
 /* Warning boxes - maroon dark for visibility */
-div.admonition.warning {
+div.admonition.warning,
+.admonition.warning,
+.warning {
     border-left: 4px solid var(--elon-maroon-dark) !important;
     border-top: none !important;
     border-right: none !important;
     border-bottom: none !important;
     background-color: var(--elon-maroon-transparent) !important;
+    background: var(--elon-maroon-transparent) !important;
 }
 
-div.admonition.warning > .admonition-title {
+div.admonition.warning > .admonition-title,
+.admonition.warning > .admonition-title,
+.warning > .admonition-title,
+.admonition.warning .admonition-title,
+p.admonition-title.warning {
     background-color: var(--elon-maroon-dark) !important;
+    background: var(--elon-maroon-dark) !important;
     color: white !important;
 }
 
-div.admonition.warning > .admonition-title::before {
+div.admonition.warning > .admonition-title::before,
+.admonition.warning .admonition-title::before {
     color: white !important;
+}
+
+/* PyData theme specific warning overrides */
+.admonition.warning {
+    --pst-color-admonition-default: var(--elon-maroon-dark) !important;
+    --pst-color-admonition-default-bg: var(--elon-maroon-transparent) !important;
 }
 
 /* Important boxes - gold dark */
@@ -505,4 +663,131 @@ a.next-page:hover {
     a {
         color: var(--elon-maroon) !important;
     }
+}
+
+/* ============================================
+   NUCLEAR OPTION: Override ALL remaining blue
+   ============================================ */
+
+/* Override the blue box-shadow highlight on active TOC items */
+.bd-sidebar-secondary .current > a,
+.bd-sidebar-secondary li.current > a,
+.bd-sidebar-secondary .active > a,
+.bd-sidebar-secondary li.active > a,
+.bd-sidebar-secondary a.current,
+.bd-sidebar-secondary a.active,
+.toctree-l1.current > a,
+.toctree-l2.current > a,
+.toctree-l1.active > a,
+.toctree-l2.active > a,
+nav.bd-links .current > a,
+nav.bd-links li.current > a,
+.bd-sidebar-primary .current > a,
+.bd-sidebar-primary li.current > a {
+    box-shadow: inset 3px 0 0 0 var(--elon-maroon) !important;
+    color: var(--elon-maroon) !important;
+    background-color: var(--elon-gold-transparent) !important;
+}
+
+/* Force maroon on any active/current state anywhere */
+a.active,
+a:active,
+.active > a,
+.current > a,
+li.active > a,
+li.current > a,
+[aria-current="true"],
+[aria-current="page"] {
+    color: var(--elon-maroon) !important;
+}
+
+/* Override specific PyData theme TOC highlight */
+.bd-sidebar-secondary .nav-link.active,
+.bd-sidebar-secondary nav li.active > a,
+.bd-sidebar-secondary .toc-h1.active > a,
+.bd-sidebar-secondary .toc-h2.active > a,
+.bd-sidebar-secondary .toc-h3.active > a,
+nav#bd-toc-nav a.active,
+nav#bd-toc-nav .active > a,
+#TableOfContents a.active,
+#TableOfContents .active > a {
+    color: var(--elon-maroon) !important;
+    background-color: var(--elon-gold-transparent) !important;
+    border-left-color: var(--elon-gold) !important;
+}
+
+/* Remove any blue backgrounds */
+.bd-sidebar-secondary .active,
+.bd-sidebar-secondary a.active {
+    background: var(--elon-gold-transparent) !important;
+    border-color: var(--elon-gold) !important;
+}
+
+/* Override visited link purple */
+a:visited {
+    color: var(--elon-maroon-dark) !important;
+}
+
+.bd-sidebar-secondary a:visited {
+    color: #555 !important;
+}
+
+.bd-sidebar-secondary a.active:visited {
+    color: var(--elon-maroon) !important;
+}
+
+/* Additional aggressive TOC overrides */
+.bd-toc .nav-link,
+.bd-toc .nav-link.active,
+#bd-toc-nav .nav-link,
+#bd-toc-nav .nav-link.active,
+.onthispage .nav-link,
+.onthispage .nav-link.active,
+.bd-sidebar-secondary .nav-link,
+.bd-sidebar-secondary .nav-link.active {
+    color: #555 !important;
+    background: transparent !important;
+}
+
+.bd-toc .nav-link.active,
+#bd-toc-nav .nav-link.active,
+.onthispage .nav-link.active,
+.bd-sidebar-secondary .nav-link.active {
+    color: var(--elon-maroon) !important;
+    background: var(--elon-gold-transparent) !important;
+    font-weight: 600 !important;
+}
+
+/* Target any blue background directly */
+.bd-sidebar-secondary *[style*="background"],
+.bd-toc *[style*="background"] {
+    background: var(--elon-gold-transparent) !important;
+}
+
+/* Override ALL box-shadows that might be blue */
+.bd-sidebar-secondary .current,
+.bd-sidebar-secondary .active,
+.bd-sidebar-secondary li.current,
+.bd-sidebar-secondary li.active,
+.bd-sidebar-primary .current,
+.bd-sidebar-primary .active,
+.bd-sidebar-primary li.current,
+.bd-sidebar-primary li.active,
+nav.bd-links .current,
+nav.bd-links li.current,
+.toctree-l1.current,
+.toctree-l2.current,
+.toctree-l3.current {
+    box-shadow: none !important;
+}
+
+.bd-sidebar-secondary .current > a,
+.bd-sidebar-secondary .active > a,
+.bd-sidebar-primary .current > a,
+.bd-sidebar-primary .active > a,
+nav.bd-links .current > a,
+.current.reference.internal,
+a.current.reference.internal {
+    box-shadow: inset 3px 0 0 0 var(--elon-maroon) !important;
+    color: var(--elon-maroon) !important;
 }

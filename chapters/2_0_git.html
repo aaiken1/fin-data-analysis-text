@@ -32,10 +32,10 @@
     <link rel="stylesheet" type="text/css" href="../_static/styles/sphinx-book-theme.css?v=eba8b062" />
     <link rel="stylesheet" type="text/css" href="../_static/togglebutton.css?v=13237357" />
     <link rel="stylesheet" type="text/css" href="../_static/copybutton.css?v=76b2166b" />
-    <link rel="stylesheet" type="text/css" href="../_static/mystnb.8ecb98da25f57f5357bf6f572d296f466b2cfe2517ffebfabe82451661e28f02.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/mystnb.8ecb98da25f57f5357bf6f572d296f466b2cfe2517ffebfabe82451661e28f02.css?v=6644e6bb" />
     <link rel="stylesheet" type="text/css" href="../_static/sphinx-thebe.css?v=4fa983c6" />
     <link rel="stylesheet" type="text/css" href="../_static/sphinx-design.min.css?v=95c83b7e" />
-    <link rel="stylesheet" type="text/css" href="../_static/custom.css?v=b98a1dfa" />
+    <link rel="stylesheet" type="text/css" href="../_static/custom.css?v=b00ee380" />
   
   <!-- Pre-loaded scripts that we'll load fully later -->
   <link rel="preload" as="script" href="../_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b" />
@@ -401,6 +401,11 @@ document.write(`
             </div>
             <nav aria-label="Page">
                 <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#what-is-git-what-is-github">What is Git? What is GitHub?</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#the-two-location-reality">The Two-Location Reality</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#key-git-terminology">Key Git Terminology</a></li>
+</ul>
+</li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#setting-up-github">Setting up Github</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#accepting-assignments-in-github-classroom">Accepting assignments in Github Classroom</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#repositories-are-like-folders">Repositories are Like Folders</a></li>
@@ -408,7 +413,7 @@ document.write(`
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#working-inside-a-codespace-in-vs-code">Working inside a Codespace in VS Code</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#jupyter-notebooks-inside-of-a-codespace">Jupyter notebooks inside of a Codespace</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#using-git-to-submit-your-work">Using git to submit your work</a><ul class="nav section-nav flex-column">
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#where-do-my-files-live">Where do my files live?</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#where-do-my-files-live-a-reminder">Where do my files live? (A reminder)</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#understanding-the-source-control-panel">Understanding the Source Control panel</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#writing-good-commit-messages">Writing good commit messages</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#our-workflow">Our workflow</a></li>
@@ -454,6 +459,73 @@ document.write(`
 <p class="admonition-title">Note</p>
 <p>The <strong>DataCamp</strong> courses <strong>Intro to Git</strong> and <strong>Intro to GitHub Concepts</strong> cover many of the topics in this chapter. I’ll note where specific concepts are discussed in more depth in those courses. You don’t need to know everything in those courses, but they provide helpful background on version control and Git terminology.</p>
 </div>
+<section id="what-is-git-what-is-github">
+<h2>What is Git? What is GitHub?<a class="headerlink" href="#what-is-git-what-is-github" title="Link to this heading">#</a></h2>
+<p>Before we get into the step-by-step procedures, let’s understand what these tools actually are.</p>
+<p><strong>Git</strong> is version control software that tracks changes to your files over time. It keeps a history of every change you make, so you can go back to previous versions if needed. You can use Git for any kind of work, not just code. Google Docs, Office, and Dropbox all do version control too - Git is just more powerful.</p>
+<p><strong>GitHub</strong> is a cloud-based hosting service that uses Git. It’s where your repositories live online. GitHub is owned by Microsoft and is the standard platform for sharing and collaborating on code.</p>
+<p><strong>Key distinction:</strong> Git is the tool. GitHub is the website/service that stores your Git repositories in the cloud.</p>
+<section id="the-two-location-reality">
+<h3>The Two-Location Reality<a class="headerlink" href="#the-two-location-reality" title="Link to this heading">#</a></h3>
+<p>This is the most important concept to understand. When you’re working in a Codespace, your files exist in <strong>two places</strong>:</p>
+<div class="pst-scrollable-table-container"><table class="table">
+<thead>
+<tr class="row-odd"><th class="head"><p>Location</p></th>
+<th class="head"><p>Description</p></th>
+<th class="head"><p>What Happens If Lost</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><strong>Codespace</strong></p></td>
+<td><p>Your temporary workspace in the cloud where you edit files</p></td>
+<td><p>Work is lost if you haven’t pushed</p></td>
+</tr>
+<tr class="row-odd"><td><p><strong>GitHub Repository</strong></p></td>
+<td><p>Permanent storage on GitHub’s servers</p></td>
+<td><p>Accessible from any computer, anytime</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<p><strong>This is the #1 student mistake:</strong> Saving a file (<code class="docutils literal notranslate"><span class="pre">Cmd+S</span></code> or <code class="docutils literal notranslate"><span class="pre">Ctrl+S</span></code>) only saves it in your Codespace. Your instructor cannot see it, and if something happens to your Codespace, that work could be lost.</p>
+<p><strong>Your work is not submitted until you push it to your repository.</strong></p>
+</section>
+<section id="key-git-terminology">
+<h3>Key Git Terminology<a class="headerlink" href="#key-git-terminology" title="Link to this heading">#</a></h3>
+<div class="pst-scrollable-table-container"><table class="table">
+<thead>
+<tr class="row-odd"><th class="head"><p>Term</p></th>
+<th class="head"><p>Definition</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><strong>Repository (Repo)</strong></p></td>
+<td><p>A folder that Git tracks, containing your project files and their change history</p></td>
+</tr>
+<tr class="row-odd"><td><p><strong>Commit</strong></p></td>
+<td><p>A snapshot of your files at a specific moment - like a save point in a video game</p></td>
+</tr>
+<tr class="row-even"><td><p><strong>Stage</strong></p></td>
+<td><p>Mark files to be included in the next commit - like putting papers in an envelope</p></td>
+</tr>
+<tr class="row-odd"><td><p><strong>Push</strong></p></td>
+<td><p>Send your committed changes from your Codespace up to GitHub</p></td>
+</tr>
+<tr class="row-even"><td><p><strong>Pull</strong></p></td>
+<td><p>Download changes from GitHub down to your Codespace</p></td>
+</tr>
+<tr class="row-odd"><td><p><strong>Sync</strong></p></td>
+<td><p>Push and pull at the same time</p></td>
+</tr>
+<tr class="row-even"><td><p><strong>Fork</strong></p></td>
+<td><p>Create your personal copy of someone else’s repository</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<p>Now let’s get you set up.</p>
+</section>
+</section>
 <section id="setting-up-github">
 <h2>Setting up Github<a class="headerlink" href="#setting-up-github" title="Link to this heading">#</a></h2>
 <p>Sign-up for a Github account: <a class="github reference external" href="https://github.com/signup">signup</a>. Use your <strong>Elon email address</strong>. Pick a username that you’ll want others to see! I suggest using your name in some form. If you plan on applying for data jobs, you’ll want to share your Github page.</p>
@@ -656,34 +728,15 @@ document.write(`
 <p>Here are two videos on using git and Github with a local VS Code install: <a class="reference external" href="https://www.youtube.com/watch?v=i_23KUAEtUM">https://www.youtube.com/watch?v=i_23KUAEtUM</a> and <a class="reference external" href="https://www.youtube.com/watch?v=CvUiKWv2-C0">https://www.youtube.com/watch?v=CvUiKWv2-C0</a>. We are going to mainly be doing things in Github Codespaces, but many of the ideas are going to carryover.</p>
 <p>You’ll see how they are using <strong>bash</strong> commands in the <strong>terminal</strong> on a Mac. Windows has a similar command line. If you want to create your own repositories and get to work, watch these videos. By using Github Codespaces, with a repository created from each assignment, you can use the Codespace interface to do a lot of the same things. Codespaces does have a terminal interface, though, so you can also use the bash commands.</p>
 <p>The important thing, though, are the <strong>git ideas</strong>. Version control. Repositories. Snapshots. Git add, commit, push. Readme files. These are the backbone of modern computing!</p>
-<section id="where-do-my-files-live">
-<h3>Where do my files live?<a class="headerlink" href="#where-do-my-files-live" title="Link to this heading">#</a></h3>
-<p>This is the most important concept to understand. When you’re working in a Codespace, your files exist in <strong>two different places</strong>, and it’s crucial to know which is which.</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>┌─────────────────────────────────────────────────────────────────┐
-│                      YOUR CODESPACE                             │
-│         (Your workspace - like a scratch pad)                   │
-│                                                                 │
-│  This is where you write code and save files. But these files   │
-│  only exist in this temporary environment. If you delete the    │
-│  Codespace without pushing, YOUR WORK IS GONE.                  │
-│                                                                 │
-│  [Edit files] → [Save] → [Stage] → [Commit] → [Push] ────────┐ │
-└──────────────────────────────────────────────────────────────│──┘
-                                                               │
-                                                               ▼
-┌─────────────────────────────────────────────────────────────────┐
-│                    GITHUB REPOSITORY                            │
-│         (Permanent storage - in the cloud)                      │
-│                                                                 │
-│  This is where your files live permanently. This is what I can  │
-│  see. This is what you&#39;ll have access to from any computer.     │
-│  Files only get here after you PUSH them.                       │
-└─────────────────────────────────────────────────────────────────┘
+<section id="where-do-my-files-live-a-reminder">
+<h3>Where do my files live? (A reminder)<a class="headerlink" href="#where-do-my-files-live-a-reminder" title="Link to this heading">#</a></h3>
+<p>Remember the two-location reality from the start of this chapter: your Codespace is temporary, your GitHub repository is permanent. Here’s how to think about the workflow:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>[Edit files] → [Save] → [Stage] → [Commit] → [Push] → GitHub Repository
 </pre></div>
 </div>
 <p>Think of it like writing a paper:</p>
 <ul class="simple">
-<li><p><strong>Saving</strong> (Cmd+S) is like writing words on a piece of paper</p></li>
+<li><p><strong>Saving</strong> (<code class="docutils literal notranslate"><span class="pre">Cmd+S</span></code>) is like writing words on a piece of paper</p></li>
 <li><p><strong>Staging</strong> is like putting that paper in an envelope</p></li>
 <li><p><strong>Committing</strong> is like sealing the envelope and writing a note on it</p></li>
 <li><p><strong>Pushing</strong> is like actually putting the envelope in the mailbox</p></li>
@@ -691,7 +744,7 @@ document.write(`
 <p>Until you push, your work is not safely stored on GitHub. I cannot see it, and if something happens to your Codespace, it could be lost.</p>
 <div class="admonition warning">
 <p class="admonition-title">Warning</p>
-<p><strong>The #1 mistake students make</strong>: Saving a file (Cmd+S) and thinking it’s submitted. Saving only saves to your Codespace. You must <strong>commit AND push</strong> for your work to reach GitHub!</p>
+<p><strong>The #1 mistake students make</strong>: Saving a file (<code class="docutils literal notranslate"><span class="pre">Cmd+S</span></code>) and thinking it’s submitted. Saving only saves to your Codespace. You must <strong>commit AND push</strong> for your work to reach GitHub!</p>
 </div>
 </section>
 <section id="understanding-the-source-control-panel">
@@ -992,47 +1045,7 @@ document.write(`
 </section>
 <section id="common-git-vocabulary">
 <h3>Common Git vocabulary<a class="headerlink" href="#common-git-vocabulary" title="Link to this heading">#</a></h3>
-<p>Most of these terms are covered in the DataCamp <strong>Intro to Git</strong> and <strong>Intro to GitHub Concepts</strong> courses if you want more background on any of them.</p>
-<div class="pst-scrollable-table-container"><table class="table">
-<thead>
-<tr class="row-odd"><th class="head"><p>Term</p></th>
-<th class="head"><p>What it means</p></th>
-</tr>
-</thead>
-<tbody>
-<tr class="row-even"><td><p><strong>Repository (repo)</strong></p></td>
-<td><p>A folder that Git is tracking - contains your project files and history</p></td>
-</tr>
-<tr class="row-odd"><td><p><strong>Commit</strong></p></td>
-<td><p>A snapshot of your files at a point in time - like a save point in a video game</p></td>
-</tr>
-<tr class="row-even"><td><p><strong>Push</strong></p></td>
-<td><p>Send your commits from Codespace up to GitHub</p></td>
-</tr>
-<tr class="row-odd"><td><p><strong>Pull</strong></p></td>
-<td><p>Download commits from GitHub down to your Codespace</p></td>
-</tr>
-<tr class="row-even"><td><p><strong>Sync</strong></p></td>
-<td><p>Push and pull at the same time</p></td>
-</tr>
-<tr class="row-odd"><td><p><strong>Stage</strong></p></td>
-<td><p>Mark files to be included in the next commit</p></td>
-</tr>
-<tr class="row-even"><td><p><strong>Branch</strong></p></td>
-<td><p>A parallel version of your code (we’ll mostly use <code class="docutils literal notranslate"><span class="pre">main</span></code>)</p></td>
-</tr>
-<tr class="row-odd"><td><p><strong>Fork</strong></p></td>
-<td><p>Your personal copy of someone else’s repository</p></td>
-</tr>
-<tr class="row-even"><td><p><strong>Clone</strong></p></td>
-<td><p>Download a repository to work on it locally</p></td>
-</tr>
-<tr class="row-odd"><td><p><strong>Merge</strong></p></td>
-<td><p>Combine changes from different sources</p></td>
-</tr>
-</tbody>
-</table>
-</div>
+<p>See the <strong>Key Git Terminology</strong> table at the start of this chapter for definitions. The DataCamp <strong>Intro to Git</strong> and <strong>Intro to GitHub Concepts</strong> courses cover these terms in more depth.</p>
 </section>
 <section id="when-you-re-stuck">
 <h3>When you’re stuck<a class="headerlink" href="#when-you-re-stuck" title="Link to this heading">#</a></h3>
@@ -1111,6 +1124,11 @@ document.write(`
   </div>
   <nav class="bd-toc-nav page-toc">
     <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#what-is-git-what-is-github">What is Git? What is GitHub?</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#the-two-location-reality">The Two-Location Reality</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#key-git-terminology">Key Git Terminology</a></li>
+</ul>
+</li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#setting-up-github">Setting up Github</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#accepting-assignments-in-github-classroom">Accepting assignments in Github Classroom</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#repositories-are-like-folders">Repositories are Like Folders</a></li>
@@ -1118,7 +1136,7 @@ document.write(`
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#working-inside-a-codespace-in-vs-code">Working inside a Codespace in VS Code</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#jupyter-notebooks-inside-of-a-codespace">Jupyter notebooks inside of a Codespace</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#using-git-to-submit-your-work">Using git to submit your work</a><ul class="nav section-nav flex-column">
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#where-do-my-files-live">Where do my files live?</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#where-do-my-files-live-a-reminder">Where do my files live? (A reminder)</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#understanding-the-source-control-panel">Understanding the Source Control panel</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#writing-good-commit-messages">Writing good commit messages</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#our-workflow">Our workflow</a></li>

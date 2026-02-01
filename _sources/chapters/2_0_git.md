@@ -8,6 +8,43 @@ Github Codespaces will allow us to use the VS Code developer environment in a br
 The **DataCamp** courses **Intro to Git** and **Intro to GitHub Concepts** cover many of the topics in this chapter. I'll note where specific concepts are discussed in more depth in those courses. You don't need to know everything in those courses, but they provide helpful background on version control and Git terminology.
 ```
 
+## What is Git? What is GitHub?
+
+Before we get into the step-by-step procedures, let's understand what these tools actually are.
+
+**Git** is version control software that tracks changes to your files over time. It keeps a history of every change you make, so you can go back to previous versions if needed. You can use Git for any kind of work, not just code. Google Docs, Office, and Dropbox all do version control too - Git is just more powerful.
+
+**GitHub** is a cloud-based hosting service that uses Git. It's where your repositories live online. GitHub is owned by Microsoft and is the standard platform for sharing and collaborating on code.
+
+**Key distinction:** Git is the tool. GitHub is the website/service that stores your Git repositories in the cloud.
+
+### The Two-Location Reality
+
+This is the most important concept to understand. When you're working in a Codespace, your files exist in **two places**:
+
+| Location | Description | What Happens If Lost |
+|----------|-------------|---------------------|
+| **Codespace** | Your temporary workspace in the cloud where you edit files | Work is lost if you haven't pushed |
+| **GitHub Repository** | Permanent storage on GitHub's servers | Accessible from any computer, anytime |
+
+**This is the #1 student mistake:** Saving a file (`Cmd+S` or `Ctrl+S`) only saves it in your Codespace. Your instructor cannot see it, and if something happens to your Codespace, that work could be lost.
+
+**Your work is not submitted until you push it to your repository.**
+
+### Key Git Terminology
+
+| Term | Definition |
+|------|------------|
+| **Repository (Repo)** | A folder that Git tracks, containing your project files and their change history |
+| **Commit** | A snapshot of your files at a specific moment - like a save point in a video game |
+| **Stage** | Mark files to be included in the next commit - like putting papers in an envelope |
+| **Push** | Send your committed changes from your Codespace up to GitHub |
+| **Pull** | Download changes from GitHub down to your Codespace |
+| **Sync** | Push and pull at the same time |
+| **Fork** | Create your personal copy of someone else's repository |
+
+Now let's get you set up.
+
 ## Setting up Github
 
 Sign-up for a Github account: <https://github.com/signup>. Use your **Elon email address**. Pick a username that you'll want others to see! I suggest using your name in some form. If you plan on applying for data jobs, you'll want to share your Github page.
@@ -320,35 +357,16 @@ You'll see how they are using **bash** commands in the **terminal** on a Mac. Wi
 
 The important thing, though, are the **git ideas**. Version control. Repositories. Snapshots. Git add, commit, push. Readme files. These are the backbone of modern computing!
 
-### Where do my files live?
+### Where do my files live? (A reminder)
 
-This is the most important concept to understand. When you're working in a Codespace, your files exist in **two different places**, and it's crucial to know which is which.
+Remember the two-location reality from the start of this chapter: your Codespace is temporary, your GitHub repository is permanent. Here's how to think about the workflow:
 
 ```
-┌─────────────────────────────────────────────────────────────────┐
-│                      YOUR CODESPACE                             │
-│         (Your workspace - like a scratch pad)                   │
-│                                                                 │
-│  This is where you write code and save files. But these files   │
-│  only exist in this temporary environment. If you delete the    │
-│  Codespace without pushing, YOUR WORK IS GONE.                  │
-│                                                                 │
-│  [Edit files] → [Save] → [Stage] → [Commit] → [Push] ────────┐ │
-└──────────────────────────────────────────────────────────────│──┘
-                                                               │
-                                                               ▼
-┌─────────────────────────────────────────────────────────────────┐
-│                    GITHUB REPOSITORY                            │
-│         (Permanent storage - in the cloud)                      │
-│                                                                 │
-│  This is where your files live permanently. This is what I can  │
-│  see. This is what you'll have access to from any computer.     │
-│  Files only get here after you PUSH them.                       │
-└─────────────────────────────────────────────────────────────────┘
+[Edit files] → [Save] → [Stage] → [Commit] → [Push] → GitHub Repository
 ```
 
 Think of it like writing a paper:
-- **Saving** (Cmd+S) is like writing words on a piece of paper
+- **Saving** (`Cmd+S`) is like writing words on a piece of paper
 - **Staging** is like putting that paper in an envelope
 - **Committing** is like sealing the envelope and writing a note on it
 - **Pushing** is like actually putting the envelope in the mailbox
@@ -356,7 +374,7 @@ Think of it like writing a paper:
 Until you push, your work is not safely stored on GitHub. I cannot see it, and if something happens to your Codespace, it could be lost.
 
 ```{warning}
-**The #1 mistake students make**: Saving a file (Cmd+S) and thinking it's submitted. Saving only saves to your Codespace. You must **commit AND push** for your work to reach GitHub!
+**The #1 mistake students make**: Saving a file (`Cmd+S`) and thinking it's submitted. Saving only saves to your Codespace. You must **commit AND push** for your work to reach GitHub!
 ```
 
 ### Understanding the Source Control panel
@@ -611,20 +629,7 @@ Here's a condensed reference you can come back to. Bookmark this section!
 
 ### Common Git vocabulary
 
-Most of these terms are covered in the DataCamp **Intro to Git** and **Intro to GitHub Concepts** courses if you want more background on any of them.
-
-| Term | What it means |
-|------|---------------|
-| **Repository (repo)** | A folder that Git is tracking - contains your project files and history |
-| **Commit** | A snapshot of your files at a point in time - like a save point in a video game |
-| **Push** | Send your commits from Codespace up to GitHub |
-| **Pull** | Download commits from GitHub down to your Codespace |
-| **Sync** | Push and pull at the same time |
-| **Stage** | Mark files to be included in the next commit |
-| **Branch** | A parallel version of your code (we'll mostly use `main`) |
-| **Fork** | Your personal copy of someone else's repository |
-| **Clone** | Download a repository to work on it locally |
-| **Merge** | Combine changes from different sources |
+See the **Key Git Terminology** table at the start of this chapter for definitions. The DataCamp **Intro to Git** and **Intro to GitHub Concepts** courses cover these terms in more depth.
 
 ### When you're stuck
 
