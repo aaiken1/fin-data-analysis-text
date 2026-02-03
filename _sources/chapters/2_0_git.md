@@ -78,6 +78,9 @@ align: center
 This is the screen that you'll see when creating a repo for your readme file.
 ```
 
+```{tip}
+**Forgot to check the readme box?** If you created the repo without adding a readme file, you'll have an empty repository with no files in it. You won't be able to open a Codespace from an empty repo. To fix this, click the link on the repo page that says **creating a new file**. Name the file `README.md`, add some text about yourself, and then scroll down and click **Commit new file**. Your repo now has a file in it, and you can open a Codespace or edit the readme directly in the browser.
+```
 
 Go back to your main page. Do you see the pencil in the upper-right hand corner of your readme box? Click that to edit the readme file directly in the browser. You could also do this via a Codespace or locally, once you see more about how files and repos work on Github.
 
@@ -419,6 +422,10 @@ Here's the workflow for each lab and exam. I can not see your files unless you d
 4. You can keep track of all of your commits at the bottom of the Source Control window.
 
 These tools help us keep track of our files, where they live, when they were updated.
+
+```{note}
+Sometimes the blue **Sync Changes** button doesn't appear after you commit. Don't worry — there's another way to push your files. Look at the **bottom-left corner** of your VS Code window, in the status bar. You'll see your branch name (usually `main`) along with small **up and down arrows** with numbers next to them. The up arrow shows how many commits you need to push; the down arrow shows how many you need to pull. **Click on those arrows** to sync your changes. This does the same thing as the Sync Changes button — it pushes your commits up to GitHub and pulls any new changes down.
+```
 
 
 ### Moving files locally
