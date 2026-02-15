@@ -414,6 +414,14 @@ document.write(`
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#connecting-to-wrds">Connecting to WRDS</a></li>
 </ul>
 </li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#the-wrds-cloud">The WRDS Cloud</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#why-use-the-wrds-cloud">Why Use the WRDS Cloud?</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#connecting-via-ssh">Connecting via SSH</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#running-python-interactively">Running Python Interactively</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#creating-the-pgpass-file">Creating the pgpass File</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#running-batch-jobs">Running Batch Jobs</a></li>
+</ul>
+</li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#exploring-available-data">Exploring Available Data</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#example-crsp-stock-data">Example: CRSP Stock Data</a><ul class="nav section-nav flex-column">
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#daily-stock-file-dsf">Daily Stock File (DSF)</a></li>
@@ -506,6 +514,87 @@ document.write(`
 </pre></div>
 </div>
 <p>After your first connection, credentials are stored locally and you won’t need to enter them again.</p>
+</section>
+</section>
+<section id="the-wrds-cloud">
+<h2>The WRDS Cloud<a class="headerlink" href="#the-wrds-cloud" title="Link to this heading">#</a></h2>
+<p>For computationally intensive research, WRDS offers a <strong>high-performance computing cluster</strong> called the WRDS Cloud. This gives you direct access to all WRDS data without downloading it to your computer.</p>
+<div class="admonition warning">
+<p class="admonition-title">Warning</p>
+<p>The WRDS Cloud requires a <strong>valid individual WRDS account</strong>. Class accounts and day passes cannot access the WRDS Cloud.</p>
+</div>
+<section id="why-use-the-wrds-cloud">
+<h3>Why Use the WRDS Cloud?<a class="headerlink" href="#why-use-the-wrds-cloud" title="Link to this heading">#</a></h3>
+<ul class="simple">
+<li><p><strong>Speed</strong>: Data stays on WRDS servers—no downloading large datasets</p></li>
+<li><p><strong>Power</strong>: Access to high-performance compute nodes for big data analysis</p></li>
+<li><p><strong>Storage</strong>: Your programs and results are stored in your WRDS home directory</p></li>
+<li><p><strong>Batch jobs</strong>: Run long programs (hours or days) without tying up your computer</p></li>
+</ul>
+</section>
+<section id="connecting-via-ssh">
+<h3>Connecting via SSH<a class="headerlink" href="#connecting-via-ssh" title="Link to this heading">#</a></h3>
+<p>To use the WRDS Cloud, you connect via SSH (Secure Shell):</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>ssh<span class="w"> </span>your_username@wrds-cloud.wharton.upenn.edu
+</pre></div>
+</div>
+<p>Your home directory is located at <code class="docutils literal notranslate"><span class="pre">/home/[institution]/[username]</span></code>. For example:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="o">/</span><span class="n">home</span><span class="o">/</span><span class="n">elon</span><span class="o">/</span><span class="n">jsmith</span>
+</pre></div>
+</div>
+</section>
+<section id="running-python-interactively">
+<h3>Running Python Interactively<a class="headerlink" href="#running-python-interactively" title="Link to this heading">#</a></h3>
+<p>Once connected, you can start an interactive Python session:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="c1"># Request an interactive compute node</span>
+qrsh
+
+<span class="c1"># Start Python</span>
+ipython3
+</pre></div>
+</div>
+<p>Then use the <code class="docutils literal notranslate"><span class="pre">wrds</span></code> module as usual:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">wrds</span>
+<span class="n">db</span> <span class="o">=</span> <span class="n">wrds</span><span class="o">.</span><span class="n">Connection</span><span class="p">()</span>
+<span class="n">db</span><span class="o">.</span><span class="n">raw_sql</span><span class="p">(</span><span class="s2">&quot;SELECT date, dji FROM djones.djdaily&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</section>
+<section id="creating-the-pgpass-file">
+<h3>Creating the pgpass File<a class="headerlink" href="#creating-the-pgpass-file" title="Link to this heading">#</a></h3>
+<p>For batch jobs (unattended programs), you need a <code class="docutils literal notranslate"><span class="pre">.pgpass</span></code> file that stores your credentials:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">wrds</span>
+<span class="n">db</span> <span class="o">=</span> <span class="n">wrds</span><span class="o">.</span><span class="n">Connection</span><span class="p">()</span>  <span class="c1"># Enter username/password when prompted</span>
+<span class="n">db</span><span class="o">.</span><span class="n">create_pgpass_file</span><span class="p">()</span>  <span class="c1"># Saves credentials for future use</span>
+<span class="n">db</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
+</pre></div>
+</div>
+</section>
+<section id="running-batch-jobs">
+<h3>Running Batch Jobs<a class="headerlink" href="#running-batch-jobs" title="Link to this heading">#</a></h3>
+<p>For longer programs, create a Python script and a wrapper shell script:</p>
+<p><strong>myProgram.py</strong>:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">wrds</span>
+<span class="n">db</span> <span class="o">=</span> <span class="n">wrds</span><span class="o">.</span><span class="n">Connection</span><span class="p">()</span>
+<span class="n">data</span> <span class="o">=</span> <span class="n">db</span><span class="o">.</span><span class="n">raw_sql</span><span class="p">(</span><span class="s2">&quot;SELECT date, dji FROM djones.djdaily&quot;</span><span class="p">)</span>
+<span class="n">data</span><span class="o">.</span><span class="n">to_csv</span><span class="p">(</span><span class="s1">&#39;myProgram.csv&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+<p><strong>myProgram.sh</strong> (wrapper script):</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="ch">#!/bin/bash</span>
+<span class="c1">#$ -cwd</span>
+python3<span class="w"> </span>myProgram.py
+</pre></div>
+</div>
+<p>Submit the job to the Grid Engine:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>qsub<span class="w"> </span>myProgram.sh
+</pre></div>
+</div>
+<p>Check job status with <code class="docutils literal notranslate"><span class="pre">qstat</span></code>. When complete, your results appear in your working directory.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>For most coursework, connecting from your own computer (as shown above) is sufficient. The WRDS Cloud is best for large-scale research projects with datasets too big to download.</p>
+</div>
 </section>
 </section>
 <section id="exploring-available-data">
@@ -722,6 +811,14 @@ document.write(`
 </li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#set-up">Set-up</a><ul class="nav section-nav flex-column">
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#connecting-to-wrds">Connecting to WRDS</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#the-wrds-cloud">The WRDS Cloud</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#why-use-the-wrds-cloud">Why Use the WRDS Cloud?</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#connecting-via-ssh">Connecting via SSH</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#running-python-interactively">Running Python Interactively</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#creating-the-pgpass-file">Creating the pgpass File</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#running-batch-jobs">Running Batch Jobs</a></li>
 </ul>
 </li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#exploring-available-data">Exploring Available Data</a></li>
