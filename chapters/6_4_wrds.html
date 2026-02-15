@@ -439,11 +439,7 @@ document.write(`
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#key-compustat-variables">Key Compustat Variables</a></li>
 </ul>
 </li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#joining-datasets">Joining Datasets</a><ul class="nav section-nav flex-column">
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#joining-within-the-same-library">Joining Within the Same Library</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#linking-crsp-and-compustat">Linking CRSP and Compustat</a></li>
-</ul>
-</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#joining-tables">Joining Tables</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#passing-python-variables-to-sql">Passing Python Variables to SQL</a><ul class="nav section-nav flex-column">
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#another-example">Another Example</a></li>
 </ul>
@@ -883,11 +879,9 @@ document.write(`
 </div>
 </section>
 </section>
-<section id="joining-datasets">
-<h2>Joining Datasets<a class="headerlink" href="#joining-datasets" title="Link to this heading">#</a></h2>
-<p>You can join multiple tables in a single query. This is common when combining stock returns with financial data.</p>
-<section id="joining-within-the-same-library">
-<h3>Joining Within the Same Library<a class="headerlink" href="#joining-within-the-same-library" title="Link to this heading">#</a></h3>
+<section id="joining-tables">
+<h2>Joining Tables<a class="headerlink" href="#joining-tables" title="Link to this heading">#</a></h2>
+<p>You can join multiple tables within the same library in a single query:</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Join Compustat fundamentals with monthly pricing</span>
 <span class="n">query</span> <span class="o">=</span> <span class="s2">&quot;&quot;&quot;</span>
 <span class="s2">SELECT a.gvkey, a.datadate, a.tic, a.conm, a.at, a.lt, </span>
@@ -905,34 +899,14 @@ document.write(`
 <span class="n">ibm_data</span> <span class="o">=</span> <span class="n">db</span><span class="o">.</span><span class="n">raw_sql</span><span class="p">(</span><span class="n">query</span><span class="p">,</span> <span class="n">date_cols</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;datadate&#39;</span><span class="p">])</span>
 </pre></div>
 </div>
-</section>
-<section id="linking-crsp-and-compustat">
-<h3>Linking CRSP and Compustat<a class="headerlink" href="#linking-crsp-and-compustat" title="Link to this heading">#</a></h3>
-<p>WRDS provides a linking table (<code class="docutils literal notranslate"><span class="pre">ccmxpf_linktable</span></code>) to connect CRSP and Compustat:</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Merge stock returns with financial data</span>
-<span class="n">query</span> <span class="o">=</span> <span class="s2">&quot;&quot;&quot;</span>
-<span class="s2">SELECT a.permno, a.date, a.ret, b.at, b.ni</span>
-<span class="s2">FROM crsp.dsf a</span>
-<span class="s2">INNER JOIN crsp.ccmxpf_linktable l</span>
-<span class="s2">    ON a.permno = l.lpermno</span>
-<span class="s2">INNER JOIN comp.funda b</span>
-<span class="s2">    ON l.gvkey = b.gvkey</span>
-<span class="s2">WHERE a.date BETWEEN &#39;2020-01-01&#39; AND &#39;2020-12-31&#39;</span>
-<span class="s2">AND b.datafmt = &#39;STD&#39;</span>
-<span class="s2">AND b.indfmt = &#39;INDL&#39;</span>
-<span class="s2">AND b.consol = &#39;C&#39;</span>
-<span class="s2">AND b.popsrc = &#39;D&#39;</span>
-<span class="s2">LIMIT 1000</span>
-<span class="s2">&quot;&quot;&quot;</span>
-
-<span class="n">merged_data</span> <span class="o">=</span> <span class="n">db</span><span class="o">.</span><span class="n">raw_sql</span><span class="p">(</span><span class="n">query</span><span class="p">,</span> <span class="n">date_cols</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;date&#39;</span><span class="p">])</span>
-</pre></div>
-</div>
 <div class="admonition warning">
 <p class="admonition-title">Warning</p>
 <p>Joining large datasets can be slow. Always filter by date range or specific securities.</p>
 </div>
-</section>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Some institutions subscribe to the <strong>CRSP/Compustat Merged</strong> database, which provides a linking table to connect stock returns (CRSP) with financial statements (Compustat). Check with your instructor about which databases are available through your class subscription.</p>
+</div>
 </section>
 <section id="passing-python-variables-to-sql">
 <h2>Passing Python Variables to SQL<a class="headerlink" href="#passing-python-variables-to-sql" title="Link to this heading">#</a></h2>
@@ -1133,11 +1107,7 @@ document.write(`
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#key-compustat-variables">Key Compustat Variables</a></li>
 </ul>
 </li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#joining-datasets">Joining Datasets</a><ul class="nav section-nav flex-column">
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#joining-within-the-same-library">Joining Within the Same Library</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#linking-crsp-and-compustat">Linking CRSP and Compustat</a></li>
-</ul>
-</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#joining-tables">Joining Tables</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#passing-python-variables-to-sql">Passing Python Variables to SQL</a><ul class="nav section-nav flex-column">
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#another-example">Another Example</a></li>
 </ul>
