@@ -410,6 +410,14 @@ document.write(`
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#need-help">Need Help?</a></li>
 </ul>
 </li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#data-strategy-what-s-available-and-how-to-combine-it">Data Strategy: What’s Available and How to Combine It</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#elon-s-wrds-subscriptions">Elon’s WRDS Subscriptions</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#the-identifier-problem">The Identifier Problem</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#combining-wrds-with-other-data-sources">Combining WRDS with Other Data Sources</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#practical-workflow">Practical Workflow</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#what-to-ask-claude-code">What to Ask Claude Code</a></li>
+</ul>
+</li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#set-up">Set-up</a><ul class="nav section-nav flex-column">
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#connecting-to-wrds">Connecting to WRDS</a></li>
 </ul>
@@ -516,6 +524,172 @@ document.write(`
 <section id="need-help">
 <h3>Need Help?<a class="headerlink" href="#need-help" title="Link to this heading">#</a></h3>
 <p>If you have trouble setting up your account, contact <a class="reference external" href="https://wrds-www.wharton.upenn.edu/contact-support/">WRDS Support</a>. Use the email associated with your WRDS account when opening a support ticket.</p>
+</section>
+</section>
+<section id="data-strategy-what-s-available-and-how-to-combine-it">
+<h2>Data Strategy: What’s Available and How to Combine It<a class="headerlink" href="#data-strategy-what-s-available-and-how-to-combine-it" title="Link to this heading">#</a></h2>
+<p>Before diving into code, think about <strong>what data you need</strong> and <strong>where to get it</strong>. WRDS is powerful, but it’s just one piece of your data toolkit. With Claude Code, you don’t need to memorize SQL syntax—focus on understanding what data exists and how to link it together.</p>
+<section id="elon-s-wrds-subscriptions">
+<h3>Elon’s WRDS Subscriptions<a class="headerlink" href="#elon-s-wrds-subscriptions" title="Link to this heading">#</a></h3>
+<div class="pst-scrollable-table-container"><table class="table">
+<thead>
+<tr class="row-odd"><th class="head"><p>Database</p></th>
+<th class="head"><p>Library</p></th>
+<th class="head"><p>What It Contains</p></th>
+<th class="head"><p>Key Identifiers</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><strong>CRSP</strong></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">crsp</span></code></p></td>
+<td><p>Stock prices, returns, volume (back to 1926)</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">permno</span></code>, <code class="docutils literal notranslate"><span class="pre">cusip</span></code></p></td>
+</tr>
+<tr class="row-odd"><td><p><strong>Compustat</strong></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">comp</span></code></p></td>
+<td><p>Financial statements (income, balance sheet, cash flow)</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">gvkey</span></code>, <code class="docutils literal notranslate"><span class="pre">tic</span></code> (ticker)</p></td>
+</tr>
+<tr class="row-even"><td><p><strong>IBES</strong></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">ibes</span></code></p></td>
+<td><p>Analyst earnings forecasts and recommendations</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">ticker</span></code></p></td>
+</tr>
+<tr class="row-odd"><td><p><strong>Dow Jones</strong></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">djones</span></code></p></td>
+<td><p>Dow Jones Index historical data</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">date</span></code></p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>WRDS also offers many <strong>free datasets</strong> including Dow Jones Averages, Penn World Tables, and others. Use <code class="docutils literal notranslate"><span class="pre">db.list_libraries()</span></code> to see everything available.</p>
+</div>
+</section>
+<section id="the-identifier-problem">
+<h3>The Identifier Problem<a class="headerlink" href="#the-identifier-problem" title="Link to this heading">#</a></h3>
+<p>Different databases use different identifiers for the same company:</p>
+<div class="pst-scrollable-table-container"><table class="table">
+<thead>
+<tr class="row-odd"><th class="head"><p>Source</p></th>
+<th class="head"><p>Identifier</p></th>
+<th class="head"><p>Example (Apple)</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>CRSP</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">permno</span></code></p></td>
+<td><p>14593</p></td>
+</tr>
+<tr class="row-odd"><td><p>Compustat</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">gvkey</span></code></p></td>
+<td><p>1690</p></td>
+</tr>
+<tr class="row-even"><td><p>Compustat</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">tic</span></code></p></td>
+<td><p>AAPL</p></td>
+</tr>
+<tr class="row-odd"><td><p>Bloomberg</p></td>
+<td><p>Ticker</p></td>
+<td><p>AAPL US Equity</p></td>
+</tr>
+<tr class="row-even"><td><p>Yahoo Finance</p></td>
+<td><p>Ticker</p></td>
+<td><p>AAPL</p></td>
+</tr>
+<tr class="row-odd"><td><p>SEC EDGAR</p></td>
+<td><p>CIK</p></td>
+<td><p>0000320193</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<p><strong>Ticker symbols are the easiest way to link datasets</strong>, but be careful:</p>
+<ul class="simple">
+<li><p>Tickers change (Google was <code class="docutils literal notranslate"><span class="pre">GOOG</span></code>, then added <code class="docutils literal notranslate"><span class="pre">GOOGL</span></code>)</p></li>
+<li><p>Tickers get reused (old companies’ tickers assigned to new ones)</p></li>
+<li><p>Different sources format tickers differently</p></li>
+</ul>
+</section>
+<section id="combining-wrds-with-other-data-sources">
+<h3>Combining WRDS with Other Data Sources<a class="headerlink" href="#combining-wrds-with-other-data-sources" title="Link to this heading">#</a></h3>
+<p>You’ll often need to combine WRDS data with other sources:</p>
+<div class="pst-scrollable-table-container"><table class="table">
+<thead>
+<tr class="row-odd"><th class="head"><p>Data Need</p></th>
+<th class="head"><p>WRDS Source</p></th>
+<th class="head"><p>External Source</p></th>
+<th class="head"><p>Link By</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>Stock returns + financials</p></td>
+<td><p>CRSP + Compustat</p></td>
+<td><p>—</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">tic</span></code> (ticker) in pandas</p></td>
+</tr>
+<tr class="row-odd"><td><p>Fundamentals + real-time prices</p></td>
+<td><p>Compustat</p></td>
+<td><p>Yahoo Finance, Bloomberg</p></td>
+<td><p>Ticker symbol</p></td>
+</tr>
+<tr class="row-even"><td><p>Historical returns + ESG scores</p></td>
+<td><p>CRSP</p></td>
+<td><p>Bloomberg, Refinitiv</p></td>
+<td><p>Ticker symbol</p></td>
+</tr>
+<tr class="row-odd"><td><p>Analyst forecasts + stock performance</p></td>
+<td><p>IBES + CRSP</p></td>
+<td><p>—</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">ticker</span></code> → <code class="docutils literal notranslate"><span class="pre">tic</span></code></p></td>
+</tr>
+<tr class="row-even"><td><p>Macro data + stock returns</p></td>
+<td><p>CRSP</p></td>
+<td><p>FRED API</p></td>
+<td><p>Date alignment</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+</section>
+<section id="practical-workflow">
+<h3>Practical Workflow<a class="headerlink" href="#practical-workflow" title="Link to this heading">#</a></h3>
+<p>Since you have <strong>Claude Code</strong>, here’s a realistic workflow:</p>
+<ol class="arabic simple">
+<li><p><strong>Pull historical data from WRDS</strong> (CRSP for returns, Compustat for financials)</p></li>
+<li><p><strong>Export to CSV or keep in DataFrame</strong></p></li>
+<li><p><strong>Pull complementary data</strong> from Bloomberg, Yahoo Finance, or FRED</p></li>
+<li><p><strong>Merge in pandas using ticker symbol and date</strong></p></li>
+</ol>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Example: Merge WRDS data with Yahoo Finance data</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">yfinance</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">yf</span>
+
+<span class="c1"># Get fundamentals from Compustat (via WRDS)</span>
+<span class="n">compustat_data</span> <span class="o">=</span> <span class="n">db</span><span class="o">.</span><span class="n">raw_sql</span><span class="p">(</span><span class="s2">&quot;&quot;&quot;</span>
+<span class="s2">    SELECT tic, datadate, at, ni, sale</span>
+<span class="s2">    FROM comp.funda</span>
+<span class="s2">    WHERE tic = &#39;AAPL&#39; AND datafmt = &#39;STD&#39;</span>
+<span class="s2">&quot;&quot;&quot;</span><span class="p">)</span>
+
+<span class="c1"># Get recent prices from Yahoo Finance</span>
+<span class="n">aapl</span> <span class="o">=</span> <span class="n">yf</span><span class="o">.</span><span class="n">download</span><span class="p">(</span><span class="s1">&#39;AAPL&#39;</span><span class="p">,</span> <span class="n">start</span><span class="o">=</span><span class="s1">&#39;2023-01-01&#39;</span><span class="p">)</span>
+
+<span class="c1"># Now you have both historical fundamentals AND current prices</span>
+</pre></div>
+</div>
+</section>
+<section id="what-to-ask-claude-code">
+<h3>What to Ask Claude Code<a class="headerlink" href="#what-to-ask-claude-code" title="Link to this heading">#</a></h3>
+<p>When working with WRDS, tell Claude Code:</p>
+<ul class="simple">
+<li><p><strong>What data you need</strong> (e.g., “daily stock returns for Apple from 2020-2023”)</p></li>
+<li><p><strong>Which database to use</strong> (e.g., “use CRSP for returns, Compustat for financials”)</p></li>
+<li><p><strong>What identifiers you have</strong> (e.g., “I have ticker symbols” or “I have permno values”)</p></li>
+<li><p><strong>How you want to combine data</strong> (e.g., “merge with Yahoo Finance data by ticker”)</p></li>
+</ul>
+<p>Claude Code will handle the SQL syntax—you focus on the research question.</p>
 </section>
 </section>
 <section id="set-up">
@@ -1076,6 +1250,14 @@ document.write(`
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#new-to-wrds-how-to-enroll">New to WRDS? How to Enroll</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#already-have-a-wrds-account">Already Have a WRDS Account?</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#need-help">Need Help?</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#data-strategy-what-s-available-and-how-to-combine-it">Data Strategy: What’s Available and How to Combine It</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#elon-s-wrds-subscriptions">Elon’s WRDS Subscriptions</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#the-identifier-problem">The Identifier Problem</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#combining-wrds-with-other-data-sources">Combining WRDS with Other Data Sources</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#practical-workflow">Practical Workflow</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#what-to-ask-claude-code">What to Ask Claude Code</a></li>
 </ul>
 </li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#set-up">Set-up</a><ul class="nav section-nav flex-column">
