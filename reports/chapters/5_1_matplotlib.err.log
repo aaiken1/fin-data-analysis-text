@@ -1,0 +1,86 @@
+Traceback (most recent call last):
+  File "/Users/adamaiken/Documents/fin-data-analysis-text/.venv/lib/python3.9/site-packages/jupyter_core/utils/__init__.py", line 154, in wrapped
+    asyncio.get_running_loop()
+RuntimeError: no running event loop
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/Users/adamaiken/Documents/fin-data-analysis-text/.venv/lib/python3.9/site-packages/jupyter_cache/executors/utils.py", line 58, in single_nb_execution
+    executenb(
+  File "/Users/adamaiken/Documents/fin-data-analysis-text/.venv/lib/python3.9/site-packages/nbclient/client.py", line 1319, in execute
+    return NotebookClient(nb=nb, resources=resources, km=km, **kwargs).execute()
+  File "/Users/adamaiken/Documents/fin-data-analysis-text/.venv/lib/python3.9/site-packages/jupyter_core/utils/__init__.py", line 158, in wrapped
+    return loop.run_until_complete(inner)
+  File "/opt/anaconda3/lib/python3.9/asyncio/base_events.py", line 647, in run_until_complete
+    return future.result()
+  File "/Users/adamaiken/Documents/fin-data-analysis-text/.venv/lib/python3.9/site-packages/nbclient/client.py", line 709, in async_execute
+    await self.async_execute_cell(
+  File "/Users/adamaiken/Documents/fin-data-analysis-text/.venv/lib/python3.9/site-packages/nbclient/client.py", line 1062, in async_execute_cell
+    await self._check_raise_for_error(cell, cell_index, exec_reply)
+  File "/Users/adamaiken/Documents/fin-data-analysis-text/.venv/lib/python3.9/site-packages/nbclient/client.py", line 918, in _check_raise_for_error
+    raise CellExecutionError.from_cell_and_msg(cell, exec_reply_content)
+nbclient.exceptions.CellExecutionError: An error occurred while executing the following cell:
+------------------
+# Create returns for multiple assets
+stocks['spy_ret'] = np.log(stocks.spy / stocks.spy.shift(1))
+stocks['gld_ret'] = np.log(stocks.gld / stocks.gld.shift(1))
+
+# Calculate correlation matrix
+returns = stocks[['aapl_ret', 'msft_ret', 'spy_ret', 'gld_ret']].dropna()
+corr = returns.corr()
+
+# Create the heatmap
+fig, ax = plt.subplots(figsize=(8, 6))
+im = ax.imshow(corr, cmap='RdYlGn', vmin=-1, vmax=1)
+
+# Add labels
+ax.set_xticks(range(len(corr.columns)))
+ax.set_yticks(range(len(corr.columns)))
+ax.set_xticklabels(['AAPL', 'MSFT', 'SPY', 'GLD'])
+ax.set_yticklabels(['AAPL', 'MSFT', 'SPY', 'GLD'])
+
+# Add the correlation values as text
+for i in range(len(corr)):
+    for j in range(len(corr)):
+        text = ax.text(j, i, f'{corr.iloc[i, j]:.2f}',
+                       ha='center', va='center', color='black')
+
+# Add colorbar and title
+plt.colorbar(im)
+plt.title('Correlation Matrix of Daily Returns')
+plt.show()
+------------------
+
+
+[0;31m---------------------------------------------------------------------------[0m
+[0;31mKeyError[0m                                  Traceback (most recent call last)
+Cell [0;32mIn[18], line 6[0m
+[1;32m      3[0m stocks[[38;5;124m'[39m[38;5;124mgld_ret[39m[38;5;124m'[39m] [38;5;241m=[39m np[38;5;241m.[39mlog(stocks[38;5;241m.[39mgld [38;5;241m/[39m stocks[38;5;241m.[39mgld[38;5;241m.[39mshift([38;5;241m1[39m))
+[1;32m      5[0m [38;5;66;03m# Calculate correlation matrix[39;00m
+[0;32m----> 6[0m returns [38;5;241m=[39m [43mstocks[49m[43m[[49m[43m[[49m[38;5;124;43m'[39;49m[38;5;124;43maapl_ret[39;49m[38;5;124;43m'[39;49m[43m,[49m[43m [49m[38;5;124;43m'[39;49m[38;5;124;43mmsft_ret[39;49m[38;5;124;43m'[39;49m[43m,[49m[43m [49m[38;5;124;43m'[39;49m[38;5;124;43mspy_ret[39;49m[38;5;124;43m'[39;49m[43m,[49m[43m [49m[38;5;124;43m'[39;49m[38;5;124;43mgld_ret[39;49m[38;5;124;43m'[39;49m[43m][49m[43m][49m[38;5;241m.[39mdropna()
+[1;32m      7[0m corr [38;5;241m=[39m returns[38;5;241m.[39mcorr()
+[1;32m      9[0m [38;5;66;03m# Create the heatmap[39;00m
+
+File [0;32m~/Documents/fin-data-analysis-text/.venv/lib/python3.9/site-packages/pandas/core/frame.py:4119[0m, in [0;36mDataFrame.__getitem__[0;34m(self, key)[0m
+[1;32m   4117[0m     [38;5;28;01mif[39;00m is_iterator(key):
+[1;32m   4118[0m         key [38;5;241m=[39m [38;5;28mlist[39m(key)
+[0;32m-> 4119[0m     indexer [38;5;241m=[39m [38;5;28;43mself[39;49m[38;5;241;43m.[39;49m[43mcolumns[49m[38;5;241;43m.[39;49m[43m_get_indexer_strict[49m[43m([49m[43mkey[49m[43m,[49m[43m [49m[38;5;124;43m"[39;49m[38;5;124;43mcolumns[39;49m[38;5;124;43m"[39;49m[43m)[49m[[38;5;241m1[39m]
+[1;32m   4121[0m [38;5;66;03m# take() does not accept boolean indexers[39;00m
+[1;32m   4122[0m [38;5;28;01mif[39;00m [38;5;28mgetattr[39m(indexer, [38;5;124m"[39m[38;5;124mdtype[39m[38;5;124m"[39m, [38;5;28;01mNone[39;00m) [38;5;241m==[39m [38;5;28mbool[39m:
+
+File [0;32m~/Documents/fin-data-analysis-text/.venv/lib/python3.9/site-packages/pandas/core/indexes/base.py:6212[0m, in [0;36mIndex._get_indexer_strict[0;34m(self, key, axis_name)[0m
+[1;32m   6209[0m [38;5;28;01melse[39;00m:
+[1;32m   6210[0m     keyarr, indexer, new_indexer [38;5;241m=[39m [38;5;28mself[39m[38;5;241m.[39m_reindex_non_unique(keyarr)
+[0;32m-> 6212[0m [38;5;28;43mself[39;49m[38;5;241;43m.[39;49m[43m_raise_if_missing[49m[43m([49m[43mkeyarr[49m[43m,[49m[43m [49m[43mindexer[49m[43m,[49m[43m [49m[43maxis_name[49m[43m)[49m
+[1;32m   6214[0m keyarr [38;5;241m=[39m [38;5;28mself[39m[38;5;241m.[39mtake(indexer)
+[1;32m   6215[0m [38;5;28;01mif[39;00m [38;5;28misinstance[39m(key, Index):
+[1;32m   6216[0m     [38;5;66;03m# GH 42790 - Preserve name from an Index[39;00m
+
+File [0;32m~/Documents/fin-data-analysis-text/.venv/lib/python3.9/site-packages/pandas/core/indexes/base.py:6264[0m, in [0;36mIndex._raise_if_missing[0;34m(self, key, indexer, axis_name)[0m
+[1;32m   6261[0m     [38;5;28;01mraise[39;00m [38;5;167;01mKeyError[39;00m([38;5;124mf[39m[38;5;124m"[39m[38;5;124mNone of [[39m[38;5;132;01m{[39;00mkey[38;5;132;01m}[39;00m[38;5;124m] are in the [[39m[38;5;132;01m{[39;00maxis_name[38;5;132;01m}[39;00m[38;5;124m][39m[38;5;124m"[39m)
+[1;32m   6263[0m not_found [38;5;241m=[39m [38;5;28mlist[39m(ensure_index(key)[missing_mask[38;5;241m.[39mnonzero()[[38;5;241m0[39m]][38;5;241m.[39munique())
+[0;32m-> 6264[0m [38;5;28;01mraise[39;00m [38;5;167;01mKeyError[39;00m([38;5;124mf[39m[38;5;124m"[39m[38;5;132;01m{[39;00mnot_found[38;5;132;01m}[39;00m[38;5;124m not in index[39m[38;5;124m"[39m)
+
+[0;31mKeyError[0m: "['aapl_ret', 'msft_ret'] not in index"
+
