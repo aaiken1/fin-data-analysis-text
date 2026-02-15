@@ -422,7 +422,16 @@ document.write(`
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#running-batch-jobs">Running Batch Jobs</a></li>
 </ul>
 </li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#exploring-available-data">Exploring Available Data</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#exploring-available-data-metadata">Exploring Available Data (Metadata)</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#discovering-libraries-and-tables">Discovering Libraries and Tables</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#querying-wrds-data">Querying WRDS Data</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#using-get-table">Using get_table()</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#using-raw-sql">Using raw_sql()</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#limiting-results-during-development">Limiting Results During Development</a></li>
+</ul>
+</li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#example-crsp-stock-data">Example: CRSP Stock Data</a><ul class="nav section-nav flex-column">
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#daily-stock-file-dsf">Daily Stock File (DSF)</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#key-crsp-variables">Key CRSP Variables</a></li>
@@ -432,8 +441,25 @@ document.write(`
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#key-compustat-variables">Key Compustat Variables</a></li>
 </ul>
 </li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#merging-crsp-and-compustat">Merging CRSP and Compustat</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#resources">Resources</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#merging-crsp-and-compustat">Merging CRSP and Compustat</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#joining-compustat-tables">Joining Compustat Tables</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#passing-parameters-to-sql">Passing Parameters to SQL</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#common-use-cases">Common Use Cases</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#managing-connections">Managing Connections</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#using-context-managers">Using Context Managers</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#resources">Resources</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#wrds-documentation">WRDS Documentation</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#dataset-manuals">Dataset Manuals</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#python-resources">Python Resources</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#getting-help">Getting Help</a></li>
+</ul>
+</li>
 </ul>
             </nav>
         </div>
@@ -597,18 +623,132 @@ python3<span class="w"> </span>myProgram.py
 </div>
 </section>
 </section>
-<section id="exploring-available-data">
-<h2>Exploring Available Data<a class="headerlink" href="#exploring-available-data" title="Link to this heading">#</a></h2>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># List available libraries (databases)</span>
-<span class="n">db</span><span class="o">.</span><span class="n">list_libraries</span><span class="p">()</span>
+<section id="exploring-available-data-metadata">
+<h2>Exploring Available Data (Metadata)<a class="headerlink" href="#exploring-available-data-metadata" title="Link to this heading">#</a></h2>
+<p>Data at WRDS is organized hierarchically:</p>
+<ul class="simple">
+<li><p><strong>Libraries</strong> - Top-level vendors (e.g., <code class="docutils literal notranslate"><span class="pre">crsp</span></code>, <code class="docutils literal notranslate"><span class="pre">comp</span></code>)</p></li>
+<li><p><strong>Tables</strong> - Datasets within each library (e.g., <code class="docutils literal notranslate"><span class="pre">dsf</span></code>, <code class="docutils literal notranslate"><span class="pre">funda</span></code>)</p></li>
+<li><p><strong>Variables</strong> - Column headers within each table (e.g., <code class="docutils literal notranslate"><span class="pre">date</span></code>, <code class="docutils literal notranslate"><span class="pre">ret</span></code>, <code class="docutils literal notranslate"><span class="pre">prc</span></code>)</p></li>
+</ul>
+<section id="discovering-libraries-and-tables">
+<h3>Discovering Libraries and Tables<a class="headerlink" href="#discovering-libraries-and-tables" title="Link to this heading">#</a></h3>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">wrds</span>
+<span class="n">db</span> <span class="o">=</span> <span class="n">wrds</span><span class="o">.</span><span class="n">Connection</span><span class="p">()</span>
 
-<span class="c1"># List tables in a library</span>
+<span class="c1"># List all available libraries</span>
+<span class="nb">sorted</span><span class="p">(</span><span class="n">db</span><span class="o">.</span><span class="n">list_libraries</span><span class="p">())</span>
+
+<span class="c1"># List tables in a specific library</span>
 <span class="n">db</span><span class="o">.</span><span class="n">list_tables</span><span class="p">(</span><span class="n">library</span><span class="o">=</span><span class="s1">&#39;crsp&#39;</span><span class="p">)</span>
 
-<span class="c1"># Describe a table&#39;s columns</span>
+<span class="c1"># Describe a table&#39;s columns (variables)</span>
 <span class="n">db</span><span class="o">.</span><span class="n">describe_table</span><span class="p">(</span><span class="n">library</span><span class="o">=</span><span class="s1">&#39;crsp&#39;</span><span class="p">,</span> <span class="n">table</span><span class="o">=</span><span class="s1">&#39;dsf&#39;</span><span class="p">)</span>
+
+<span class="c1"># Get the row count for a table</span>
+<span class="n">db</span><span class="o">.</span><span class="n">get_row_count</span><span class="p">(</span><span class="n">library</span><span class="o">=</span><span class="s1">&#39;djones&#39;</span><span class="p">,</span> <span class="n">table</span><span class="o">=</span><span class="s1">&#39;djdaily&#39;</span><span class="p">)</span>
 </pre></div>
 </div>
+<div class="admonition tip">
+<p class="admonition-title">Tip</p>
+<p>You can also browse the <a class="reference external" href="https://wrds-www.wharton.upenn.edu/pages/get-data/">WRDS Dataset List</a> online to explore available data without writing code.</p>
+</div>
+<div class="admonition warning">
+<p class="admonition-title">Warning</p>
+<p>Library and table names must be <strong>all lowercase</strong>. Using <code class="docutils literal notranslate"><span class="pre">CRSP</span></code> instead of <code class="docutils literal notranslate"><span class="pre">crsp</span></code> will cause errors.</p>
+</div>
+</section>
+</section>
+<section id="querying-wrds-data">
+<h2>Querying WRDS Data<a class="headerlink" href="#querying-wrds-data" title="Link to this heading">#</a></h2>
+<p>The <code class="docutils literal notranslate"><span class="pre">wrds</span></code> module provides two main methods for retrieving data:</p>
+<div class="pst-scrollable-table-container"><table class="table">
+<thead>
+<tr class="row-odd"><th class="head"><p>Method</p></th>
+<th class="head"><p>Best For</p></th>
+<th class="head"><p>Flexibility</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">get_table()</span></code></p></td>
+<td><p>Simple queries, quick data pulls</p></td>
+<td><p>Lower</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">raw_sql()</span></code></p></td>
+<td><p>Complex queries, joins, filters</p></td>
+<td><p>Higher</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<p>All query results are returned as <strong>pandas DataFrames</strong>, ready for analysis.</p>
+<section id="using-get-table">
+<h3>Using get_table()<a class="headerlink" href="#using-get-table" title="Link to this heading">#</a></h3>
+<p>The simplest way to retrieve data. Good for exploring datasets:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Basic usage: get first 10 rows of Dow Jones data</span>
+<span class="n">data</span> <span class="o">=</span> <span class="n">db</span><span class="o">.</span><span class="n">get_table</span><span class="p">(</span><span class="n">library</span><span class="o">=</span><span class="s1">&#39;djones&#39;</span><span class="p">,</span> <span class="n">table</span><span class="o">=</span><span class="s1">&#39;djdaily&#39;</span><span class="p">,</span> <span class="n">obs</span><span class="o">=</span><span class="mi">10</span><span class="p">)</span>
+
+<span class="c1"># Select specific columns</span>
+<span class="n">data</span> <span class="o">=</span> <span class="n">db</span><span class="o">.</span><span class="n">get_table</span><span class="p">(</span><span class="s1">&#39;djones&#39;</span><span class="p">,</span> <span class="s1">&#39;djdaily&#39;</span><span class="p">,</span> 
+                    <span class="n">columns</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;date&#39;</span><span class="p">,</span> <span class="s1">&#39;dji&#39;</span><span class="p">],</span> 
+                    <span class="n">obs</span><span class="o">=</span><span class="mi">10</span><span class="p">)</span>
+</pre></div>
+</div>
+<p><strong>Parameters:</strong></p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">library</span></code> - The library to query (required)</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">table</span></code> - The dataset to query (required)</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">columns</span></code> - List of columns to include (optional)</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">obs</span></code> - Number of observations to return (optional)</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">offset</span></code> - Starting row for the query (optional)</p></li>
+</ul>
+</section>
+<section id="using-raw-sql">
+<h3>Using raw_sql()<a class="headerlink" href="#using-raw-sql" title="Link to this heading">#</a></h3>
+<p>For more control, write SQL queries directly. This is the most common approach for research:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Basic SQL query</span>
+<span class="n">data</span> <span class="o">=</span> <span class="n">db</span><span class="o">.</span><span class="n">raw_sql</span><span class="p">(</span><span class="s2">&quot;&quot;&quot;</span>
+<span class="s2">    SELECT date, dji </span>
+<span class="s2">    FROM djones.djdaily </span>
+<span class="s2">    LIMIT 10</span>
+<span class="s2">&quot;&quot;&quot;</span><span class="p">,</span> <span class="n">date_cols</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;date&#39;</span><span class="p">])</span>
+
+<span class="c1"># Query with filters</span>
+<span class="n">data</span> <span class="o">=</span> <span class="n">db</span><span class="o">.</span><span class="n">raw_sql</span><span class="p">(</span><span class="s2">&quot;&quot;&quot;</span>
+<span class="s2">    SELECT permno, date, prc, ret</span>
+<span class="s2">    FROM crsp.dsf</span>
+<span class="s2">    WHERE permno = 14593</span>
+<span class="s2">    AND date BETWEEN &#39;2023-01-01&#39; AND &#39;2023-12-31&#39;</span>
+<span class="s2">&quot;&quot;&quot;</span><span class="p">,</span> <span class="n">date_cols</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;date&#39;</span><span class="p">])</span>
+</pre></div>
+</div>
+<p><strong>Parameters:</strong></p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">sql</span></code> - The SQL query string (required)</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">date_cols</span></code> - List of columns to parse as dates (optional but recommended)</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">index_col</span></code> - Column(s) to set as the DataFrame index (optional)</p></li>
+</ul>
+<div class="admonition important">
+<p class="admonition-title">Important</p>
+<p><strong>SQL Syntax</strong>: Use <code class="docutils literal notranslate"><span class="pre">library.table</span></code> notation (e.g., <code class="docutils literal notranslate"><span class="pre">crsp.dsf</span></code>, <code class="docutils literal notranslate"><span class="pre">comp.funda</span></code>). The <code class="docutils literal notranslate"><span class="pre">SELECT</span></code> statement specifies columns, <code class="docutils literal notranslate"><span class="pre">FROM</span></code> specifies the data source, and <code class="docutils literal notranslate"><span class="pre">WHERE</span></code> filters rows.</p>
+</div>
+</section>
+<section id="limiting-results-during-development">
+<h3>Limiting Results During Development<a class="headerlink" href="#limiting-results-during-development" title="Link to this heading">#</a></h3>
+<p>WRDS datasets can be <strong>huge</strong>. Always limit your results while developing code:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># With get_table(): use obs parameter</span>
+<span class="n">data</span> <span class="o">=</span> <span class="n">db</span><span class="o">.</span><span class="n">get_table</span><span class="p">(</span><span class="s1">&#39;crsp&#39;</span><span class="p">,</span> <span class="s1">&#39;dsf&#39;</span><span class="p">,</span> <span class="n">obs</span><span class="o">=</span><span class="mi">100</span><span class="p">)</span>
+
+<span class="c1"># With raw_sql(): use LIMIT clause</span>
+<span class="n">data</span> <span class="o">=</span> <span class="n">db</span><span class="o">.</span><span class="n">raw_sql</span><span class="p">(</span><span class="s2">&quot;SELECT * FROM crsp.dsf LIMIT 100&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>Once your query is working correctly, remove the limit to get the full dataset.</p>
+<div class="admonition warning">
+<p class="admonition-title">Warning</p>
+<p>Running queries without limits on large tables (like <code class="docutils literal notranslate"><span class="pre">crsp.dsf</span></code>) can take a very long time and may timeout. Start small!</p>
+</div>
+</section>
 </section>
 <section id="example-crsp-stock-data">
 <h2>Example: CRSP Stock Data<a class="headerlink" href="#example-crsp-stock-data" title="Link to this heading">#</a></h2>
@@ -709,8 +849,8 @@ python3<span class="w"> </span>myProgram.py
 </section>
 <section id="merging-crsp-and-compustat">
 <h2>Merging CRSP and Compustat<a class="headerlink" href="#merging-crsp-and-compustat" title="Link to this heading">#</a></h2>
-<p>A common task is linking stock returns (CRSP) to financial data (Compustat). WRDS provides a linking table:</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># CRSP-Compustat merged data</span>
+<p>A common task is linking stock returns (CRSP) to financial data (Compustat). WRDS provides a linking table called <code class="docutils literal notranslate"><span class="pre">ccmxpf_linktable</span></code>:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># CRSP-Compustat merged query</span>
 <span class="n">query</span> <span class="o">=</span> <span class="s2">&quot;&quot;&quot;</span>
 <span class="s2">SELECT a.permno, a.date, a.ret, b.at, b.ni</span>
 <span class="s2">FROM crsp.dsf a</span>
@@ -718,23 +858,151 @@ python3<span class="w"> </span>myProgram.py
 <span class="s2">    ON a.permno = l.lpermno</span>
 <span class="s2">INNER JOIN comp.funda b</span>
 <span class="s2">    ON l.gvkey = b.gvkey</span>
-<span class="s2">WHERE ...</span>
+<span class="s2">WHERE a.date BETWEEN &#39;2020-01-01&#39; AND &#39;2020-12-31&#39;</span>
+<span class="s2">    AND b.datafmt = &#39;STD&#39;</span>
+<span class="s2">    AND b.indfmt = &#39;INDL&#39;</span>
+<span class="s2">    AND b.consol = &#39;C&#39;</span>
+<span class="s2">    AND b.popsrc = &#39;D&#39;</span>
+<span class="s2">LIMIT 1000</span>
 <span class="s2">&quot;&quot;&quot;</span>
+
+<span class="n">merged_data</span> <span class="o">=</span> <span class="n">db</span><span class="o">.</span><span class="n">raw_sql</span><span class="p">(</span><span class="n">query</span><span class="p">,</span> <span class="n">date_cols</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;date&#39;</span><span class="p">])</span>
+</pre></div>
+</div>
+<section id="joining-compustat-tables">
+<h3>Joining Compustat Tables<a class="headerlink" href="#joining-compustat-tables" title="Link to this heading">#</a></h3>
+<p>You can also join datasets within the same library:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Join Compustat fundamentals with pricing</span>
+<span class="n">query</span> <span class="o">=</span> <span class="s2">&quot;&quot;&quot;</span>
+<span class="s2">SELECT a.gvkey, a.datadate, a.tic, a.conm, a.at, a.lt, </span>
+<span class="s2">       b.prccm, b.cshoq</span>
+<span class="s2">FROM comp.funda a</span>
+<span class="s2">JOIN comp.secm b </span>
+<span class="s2">    ON a.gvkey = b.gvkey </span>
+<span class="s2">    AND a.datadate = b.datadate</span>
+<span class="s2">WHERE a.tic = &#39;IBM&#39; </span>
+<span class="s2">    AND a.datafmt = &#39;STD&#39; </span>
+<span class="s2">    AND a.consol = &#39;C&#39; </span>
+<span class="s2">    AND a.indfmt = &#39;INDL&#39;</span>
+<span class="s2">&quot;&quot;&quot;</span>
+
+<span class="n">ibm_data</span> <span class="o">=</span> <span class="n">db</span><span class="o">.</span><span class="n">raw_sql</span><span class="p">(</span><span class="n">query</span><span class="p">,</span> <span class="n">date_cols</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;datadate&#39;</span><span class="p">])</span>
+</pre></div>
+</div>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Joining large datasets requires significant memory and time. Always filter by date range or specific securities when possible.</p>
+</div>
+</section>
+</section>
+<section id="passing-parameters-to-sql">
+<h2>Passing Parameters to SQL<a class="headerlink" href="#passing-parameters-to-sql" title="Link to this heading">#</a></h2>
+<p>You can pass Python variables to your SQL queries using parameterized SQL. This is useful when you have a list of tickers, dates, or identifiers:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Define parameters as a dictionary</span>
+<span class="n">params</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="s2">&quot;tickers&quot;</span><span class="p">:</span> <span class="p">(</span><span class="s2">&quot;AAPL&quot;</span><span class="p">,</span> <span class="s2">&quot;MSFT&quot;</span><span class="p">,</span> <span class="s2">&quot;GOOGL&quot;</span><span class="p">,</span> <span class="s2">&quot;AMZN&quot;</span><span class="p">,</span> <span class="s2">&quot;META&quot;</span><span class="p">)</span>
+<span class="p">}</span>
+
+<span class="c1"># Use %(param_name)s syntax in SQL</span>
+<span class="n">data</span> <span class="o">=</span> <span class="n">db</span><span class="o">.</span><span class="n">raw_sql</span><span class="p">(</span><span class="s2">&quot;&quot;&quot;</span>
+<span class="s2">    SELECT gvkey, datadate, tic, at, ni</span>
+<span class="s2">    FROM comp.funda</span>
+<span class="s2">    WHERE tic IN </span><span class="si">%(tickers)s</span>
+<span class="s2">    AND datafmt = &#39;STD&#39;</span>
+<span class="s2">    AND datadate &gt;= &#39;2020-01-01&#39;</span>
+<span class="s2">&quot;&quot;&quot;</span><span class="p">,</span> <span class="n">params</span><span class="o">=</span><span class="n">params</span><span class="p">,</span> <span class="n">date_cols</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;datadate&#39;</span><span class="p">])</span>
+</pre></div>
+</div>
+<p>This approach is cleaner than building SQL strings manually and helps prevent errors.</p>
+<section id="common-use-cases">
+<h3>Common Use Cases<a class="headerlink" href="#common-use-cases" title="Link to this heading">#</a></h3>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Pass a date range</span>
+<span class="n">params</span> <span class="o">=</span> <span class="p">{</span><span class="s2">&quot;start_date&quot;</span><span class="p">:</span> <span class="s2">&quot;2023-01-01&quot;</span><span class="p">,</span> <span class="s2">&quot;end_date&quot;</span><span class="p">:</span> <span class="s2">&quot;2023-12-31&quot;</span><span class="p">}</span>
+<span class="n">data</span> <span class="o">=</span> <span class="n">db</span><span class="o">.</span><span class="n">raw_sql</span><span class="p">(</span><span class="s2">&quot;&quot;&quot;</span>
+<span class="s2">    SELECT date, dji FROM djones.djdaily</span>
+<span class="s2">    WHERE date BETWEEN </span><span class="si">%(start_date)s</span><span class="s2"> AND </span><span class="si">%(end_date)s</span>
+<span class="s2">&quot;&quot;&quot;</span><span class="p">,</span> <span class="n">params</span><span class="o">=</span><span class="n">params</span><span class="p">,</span> <span class="n">date_cols</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;date&#39;</span><span class="p">])</span>
+
+<span class="c1"># Pass a list of company identifiers</span>
+<span class="n">params</span> <span class="o">=</span> <span class="p">{</span><span class="s2">&quot;permnos&quot;</span><span class="p">:</span> <span class="p">(</span><span class="mi">14593</span><span class="p">,</span> <span class="mi">10107</span><span class="p">,</span> <span class="mi">93436</span><span class="p">)}</span>  <span class="c1"># AAPL, MSFT, AMZN</span>
+<span class="n">data</span> <span class="o">=</span> <span class="n">db</span><span class="o">.</span><span class="n">raw_sql</span><span class="p">(</span><span class="s2">&quot;&quot;&quot;</span>
+<span class="s2">    SELECT permno, date, ret FROM crsp.dsf</span>
+<span class="s2">    WHERE permno IN </span><span class="si">%(permnos)s</span>
+<span class="s2">&quot;&quot;&quot;</span><span class="p">,</span> <span class="n">params</span><span class="o">=</span><span class="n">params</span><span class="p">,</span> <span class="n">date_cols</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;date&#39;</span><span class="p">])</span>
 </pre></div>
 </div>
 </section>
+</section>
+<section id="managing-connections">
+<h2>Managing Connections<a class="headerlink" href="#managing-connections" title="Link to this heading">#</a></h2>
+<p>WRDS allows up to <strong>5 simultaneous connections</strong> per user. Always close your connection when you’re done:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">wrds</span>
+
+<span class="c1"># Connect</span>
+<span class="n">db</span> <span class="o">=</span> <span class="n">wrds</span><span class="o">.</span><span class="n">Connection</span><span class="p">()</span>
+
+<span class="c1"># Do your work</span>
+<span class="n">data</span> <span class="o">=</span> <span class="n">db</span><span class="o">.</span><span class="n">raw_sql</span><span class="p">(</span><span class="s2">&quot;SELECT date, dji FROM djones.djdaily LIMIT 10&quot;</span><span class="p">)</span>
+
+<span class="c1"># Close the connection when done</span>
+<span class="n">db</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
+</pre></div>
+</div>
+<p>You can still use your <code class="docutils literal notranslate"><span class="pre">data</span></code> DataFrame after closing the connection—only the database link is severed.</p>
+<div class="admonition tip">
+<p class="admonition-title">Tip</p>
+<p>If you get an error about too many connections, try:</p>
+<ol class="arabic simple">
+<li><p>Close any open connections with <code class="docutils literal notranslate"><span class="pre">db.close()</span></code></p></li>
+<li><p>Wait a few minutes for connections to timeout</p></li>
+<li><p>Contact <a class="reference external" href="https://wrds-www.wharton.upenn.edu/contact-support/">WRDS Support</a> if the problem persists</p></li>
+</ol>
+</div>
+<section id="using-context-managers">
+<h3>Using Context Managers<a class="headerlink" href="#using-context-managers" title="Link to this heading">#</a></h3>
+<p>For cleaner code, use Python’s <code class="docutils literal notranslate"><span class="pre">with</span></code> statement to automatically close connections:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">wrds</span>
+
+<span class="k">with</span> <span class="n">wrds</span><span class="o">.</span><span class="n">Connection</span><span class="p">()</span> <span class="k">as</span> <span class="n">db</span><span class="p">:</span>
+    <span class="n">data</span> <span class="o">=</span> <span class="n">db</span><span class="o">.</span><span class="n">raw_sql</span><span class="p">(</span><span class="s2">&quot;SELECT date, dji FROM djones.djdaily&quot;</span><span class="p">)</span>
+<span class="c1"># Connection automatically closes when exiting the &#39;with&#39; block</span>
+</pre></div>
+</div>
+</section>
+</section>
 <section id="resources">
 <h2>Resources<a class="headerlink" href="#resources" title="Link to this heading">#</a></h2>
+<section id="wrds-documentation">
+<h3>WRDS Documentation<a class="headerlink" href="#wrds-documentation" title="Link to this heading">#</a></h3>
 <ul class="simple">
-<li><p><a class="reference external" href="https://wrds-www.wharton.upenn.edu/pages/support/">WRDS Documentation</a></p></li>
-<li><p><a class="reference external" href="https://wrds-www.wharton.upenn.edu/pages/support/programming-wrds/programming-python/">WRDS Python Tutorial</a></p></li>
-<li><p><a class="reference external" href="https://wrds-www.wharton.upenn.edu/documents/396/CRSP_US_Stock_Indices_Data_Descriptions.pdf">CRSP Manual</a></p></li>
-<li><p><a class="reference external" href="https://wrds-www.wharton.upenn.edu/documents/1583/Compustat_Data_Guide.pdf">Compustat Manual</a></p></li>
+<li><p><a class="reference external" href="https://wrds-www.wharton.upenn.edu/pages/support/">WRDS Support Home</a></p></li>
+<li><p><a class="reference external" href="https://wrds-www.wharton.upenn.edu/pages/support/programming-wrds/programming-python/">Python at WRDS</a></p></li>
+<li><p><a class="reference external" href="https://wrds-www.wharton.upenn.edu/pages/get-data/">WRDS Dataset List</a></p></li>
+<li><p><a class="reference external" href="https://wrds-www.wharton.upenn.edu/pages/support/the-wrds-cloud/introduction-wrds-cloud/">WRDS Cloud Introduction</a></p></li>
 </ul>
-<div class="admonition note">
-<p class="admonition-title">Note</p>
-<p>This section will be expanded with working examples once WRDS access is confirmed. Check back for updates!</p>
-</div>
+</section>
+<section id="dataset-manuals">
+<h3>Dataset Manuals<a class="headerlink" href="#dataset-manuals" title="Link to this heading">#</a></h3>
+<ul class="simple">
+<li><p><a class="reference external" href="https://wrds-www.wharton.upenn.edu/documents/396/CRSP_US_Stock_Indices_Data_Descriptions.pdf">CRSP Stock Data Guide</a></p></li>
+<li><p><a class="reference external" href="https://wrds-www.wharton.upenn.edu/documents/1583/Compustat_Data_Guide.pdf">Compustat Data Guide</a></p></li>
+</ul>
+</section>
+<section id="python-resources">
+<h3>Python Resources<a class="headerlink" href="#python-resources" title="Link to this heading">#</a></h3>
+<ul class="simple">
+<li><p><a class="reference external" href="https://pandas.pydata.org/docs/user_guide/10min.html">10 Minutes to Pandas</a></p></li>
+<li><p><a class="reference external" href="https://pandas.pydata.org/docs/user_guide/basics.html">Pandas Essential Functionality</a></p></li>
+<li><p><a class="reference external" href="https://numpy.org/doc/stable/user/quickstart.html">NumPy Quickstart</a></p></li>
+</ul>
+</section>
+<section id="getting-help">
+<h3>Getting Help<a class="headerlink" href="#getting-help" title="Link to this heading">#</a></h3>
+<ul class="simple">
+<li><p><a class="reference external" href="https://wrds-www.wharton.upenn.edu/contact-support/">WRDS Support Contact</a></p></li>
+<li><p>Use the inline help in Python: <code class="docutils literal notranslate"><span class="pre">help(db.raw_sql)</span></code> or <code class="docutils literal notranslate"><span class="pre">help(db.get_table)</span></code></p></li>
+</ul>
+</section>
 </section>
 </section>
 
@@ -821,7 +1089,16 @@ python3<span class="w"> </span>myProgram.py
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#running-batch-jobs">Running Batch Jobs</a></li>
 </ul>
 </li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#exploring-available-data">Exploring Available Data</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#exploring-available-data-metadata">Exploring Available Data (Metadata)</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#discovering-libraries-and-tables">Discovering Libraries and Tables</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#querying-wrds-data">Querying WRDS Data</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#using-get-table">Using get_table()</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#using-raw-sql">Using raw_sql()</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#limiting-results-during-development">Limiting Results During Development</a></li>
+</ul>
+</li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#example-crsp-stock-data">Example: CRSP Stock Data</a><ul class="nav section-nav flex-column">
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#daily-stock-file-dsf">Daily Stock File (DSF)</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#key-crsp-variables">Key CRSP Variables</a></li>
@@ -831,8 +1108,25 @@ python3<span class="w"> </span>myProgram.py
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#key-compustat-variables">Key Compustat Variables</a></li>
 </ul>
 </li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#merging-crsp-and-compustat">Merging CRSP and Compustat</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#resources">Resources</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#merging-crsp-and-compustat">Merging CRSP and Compustat</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#joining-compustat-tables">Joining Compustat Tables</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#passing-parameters-to-sql">Passing Parameters to SQL</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#common-use-cases">Common Use Cases</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#managing-connections">Managing Connections</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#using-context-managers">Using Context Managers</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#resources">Resources</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#wrds-documentation">WRDS Documentation</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#dataset-manuals">Dataset Manuals</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#python-resources">Python Resources</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#getting-help">Getting Help</a></li>
+</ul>
+</li>
 </ul>
   </nav></div>
 
