@@ -8,7 +8,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
-    <title>FRED API and pandas-datareader &#8212; Data Analysis in Finance</title>
+    <title>FRED API &#8212; Data Analysis in Finance</title>
   
   
   
@@ -32,7 +32,7 @@
     <link rel="stylesheet" type="text/css" href="../_static/styles/sphinx-book-theme.css?v=eba8b062" />
     <link rel="stylesheet" type="text/css" href="../_static/togglebutton.css?v=9c3e77be" />
     <link rel="stylesheet" type="text/css" href="../_static/copybutton.css?v=76b2166b" />
-    <link rel="stylesheet" type="text/css" href="../_static/mystnb.8ecb98da25f57f5357bf6f572d296f466b2cfe2517ffebfabe82451661e28f02.css?v=6644e6bb" />
+    <link rel="stylesheet" type="text/css" href="../_static/mystnb.8ecb98da25f57f5357bf6f572d296f466b2cfe2517ffebfabe82451661e28f02.css" />
     <link rel="stylesheet" type="text/css" href="../_static/sphinx-thebe.css?v=4fa983c6" />
     <link rel="stylesheet" type="text/css" href="../_static/sphinx-design.min.css?v=95c83b7e" />
     <link rel="stylesheet" type="text/css" href="../_static/custom.css?v=b00ee380" />
@@ -219,7 +219,7 @@
 </ul>
 </details></li>
 <li class="toctree-l1 current active has-children"><a class="reference internal" href="6_intro.html">Data APIs</a><details open="open"><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul class="current">
-<li class="toctree-l2 current active"><a class="current reference internal" href="#">FRED API and pandas-datareader</a></li>
+<li class="toctree-l2 current active"><a class="current reference internal" href="#">FRED API</a></li>
 <li class="toctree-l2"><a class="reference internal" href="6_2_nasdaq.html">NASDAQ Data Link</a></li>
 <li class="toctree-l2"><a class="reference internal" href="6_3_databento.html">Databento</a></li>
 <li class="toctree-l2"><a class="reference internal" href="6_4_wrds.html">WRDS (Wharton Research Data Services)</a></li>
@@ -395,7 +395,7 @@ document.write(`
               
 
 <div id="jb-print-docs-body" class="onlyprint">
-    <h1>FRED API and pandas-datareader</h1>
+    <h1>FRED API</h1>
     <!-- Table of contents -->
     <div id="print-main-content">
         <div id="jb-print-toc">
@@ -405,10 +405,10 @@ document.write(`
             </div>
             <nav aria-label="Page">
                 <ul class="visible nav section-nav flex-column">
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#what-is-fred">What is FRED?</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#getting-started-with-fred">Getting Started with FRED</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#set-up">Set-up</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#secure-api-key-storage">Secure API Key Storage</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#using-a-env-file-recommended-for-local-development">Using a <code class="docutils literal notranslate"><span class="pre">.env</span></code> File (Recommended for Local Development)</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#using-github-secrets-recommended-for-codespaces">Using GitHub Secrets (Recommended for Codespaces)</a></li>
 </ul>
 </li>
@@ -418,7 +418,7 @@ document.write(`
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#what-is-gbm">What is GBM?</a></li>
 </ul>
 </li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#pandas-datareader">pandas-datareader</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#fred-example-gdp-data">FRED Example: GDP Data</a></li>
 </ul>
             </nav>
         </div>
@@ -430,15 +430,8 @@ document.write(`
 <div id="searchbox"></div>
                 <article class="bd-article">
                   
-  <section class="tex2jax_ignore mathjax_ignore" id="fred-api-and-pandas-datareader">
-<h1>FRED API and pandas-datareader<a class="headerlink" href="#fred-api-and-pandas-datareader" title="Link to this heading">#</a></h1>
-<p>This section covers two powerful tools for accessing economic and financial data:</p>
-<ul class="simple">
-<li><p><strong>FRED API</strong> via the <code class="docutils literal notranslate"><span class="pre">fredapi</span></code> package</p></li>
-<li><p><strong>pandas-datareader</strong> for accessing multiple data sources</p></li>
-</ul>
-<section id="what-is-fred">
-<h2>What is FRED?<a class="headerlink" href="#what-is-fred" title="Link to this heading">#</a></h2>
+  <section class="tex2jax_ignore mathjax_ignore" id="fred-api">
+<h1>FRED API<a class="headerlink" href="#fred-api" title="Link to this heading">#</a></h1>
 <p>The <a class="reference external" href="https://fred.stlouisfed.org/">Federal Reserve Economic Data (FRED)</a> is maintained by the Federal Reserve Bank of St. Louis. It contains over 800,000 economic time series from dozens of sources, including:</p>
 <ul class="simple">
 <li><p>GDP and economic growth indicators</p></li>
@@ -448,7 +441,6 @@ document.write(`
 <li><p>International economic data</p></li>
 <li><p>Cryptocurrency prices</p></li>
 </ul>
-</section>
 <section id="getting-started-with-fred">
 <h2>Getting Started with FRED<a class="headerlink" href="#getting-started-with-fred" title="Link to this heading">#</a></h2>
 <p>To use the FRED API, you need to:</p>
@@ -468,7 +460,6 @@ document.write(`
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Core packages</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">fredapi</span><span class="w"> </span><span class="kn">import</span> <span class="n">Fred</span>
-<span class="kn">import</span><span class="w"> </span><span class="nn">pandas_datareader</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">pdr</span>
 <span class="kn">import</span><span class="w"> </span><span class="nn">os</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">dotenv</span><span class="w"> </span><span class="kn">import</span> <span class="n">load_dotenv</span>
 
@@ -481,82 +472,6 @@ document.write(`
 
 <span class="c1"># Include this to have plots show up in your Jupyter notebook.</span>
 <span class="o">%</span><span class="k">matplotlib</span> inline 
-</pre></div>
-</div>
-</div>
-<div class="cell_output docutils container">
-<div class="output traceback highlight-ipythontb notranslate"><div class="highlight"><pre><span></span><span class="gt">---------------------------------------------------------------------------</span>
-<span class="ne">TypeError</span><span class="g g-Whitespace">                                 </span>Traceback (most recent call last)
-<span class="n">Cell</span> <span class="n">In</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">line</span> <span class="mi">3</span>
-<span class="g g-Whitespace">      </span><span class="mi">1</span> <span class="c1"># Core packages</span>
-<span class="g g-Whitespace">      </span><span class="mi">2</span> <span class="kn">from</span><span class="w"> </span><span class="nn">fredapi</span><span class="w"> </span><span class="kn">import</span> <span class="n">Fred</span>
-<span class="ne">----&gt; </span><span class="mi">3</span> <span class="kn">import</span><span class="w"> </span><span class="nn">pandas_datareader</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">pdr</span>
-<span class="g g-Whitespace">      </span><span class="mi">4</span> <span class="kn">import</span><span class="w"> </span><span class="nn">os</span>
-<span class="g g-Whitespace">      </span><span class="mi">5</span> <span class="kn">from</span><span class="w"> </span><span class="nn">dotenv</span><span class="w"> </span><span class="kn">import</span> <span class="n">load_dotenv</span>
-
-<span class="n">File</span> <span class="o">~/</span><span class="n">Documents</span><span class="o">/</span><span class="n">fin</span><span class="o">-</span><span class="n">data</span><span class="o">-</span><span class="n">analysis</span><span class="o">-</span><span class="n">text</span><span class="o">/.</span><span class="n">venv</span><span class="o">/</span><span class="n">lib</span><span class="o">/</span><span class="n">python3</span><span class="mf">.12</span><span class="o">/</span><span class="n">site</span><span class="o">-</span><span class="n">packages</span><span class="o">/</span><span class="n">pandas_datareader</span><span class="o">/</span><span class="fm">__init__</span><span class="o">.</span><span class="n">py</span><span class="p">:</span><span class="mi">5</span>
-<span class="g g-Whitespace">      </span><span class="mi">2</span> <span class="kn">import</span><span class="w"> </span><span class="nn">sys</span>
-<span class="g g-Whitespace">      </span><span class="mi">4</span> <span class="kn">from</span><span class="w"> </span><span class="nn">._version</span><span class="w"> </span><span class="kn">import</span> <span class="n">get_versions</span>
-<span class="ne">----&gt; </span><span class="mi">5</span> <span class="kn">from</span><span class="w"> </span><span class="nn">.data</span><span class="w"> </span><span class="kn">import</span> <span class="p">(</span>
-<span class="g g-Whitespace">      </span><span class="mi">6</span>     <span class="n">DataReader</span><span class="p">,</span>
-<span class="g g-Whitespace">      </span><span class="mi">7</span>     <span class="n">Options</span><span class="p">,</span>
-<span class="g g-Whitespace">      </span><span class="mi">8</span>     <span class="n">get_components_yahoo</span><span class="p">,</span>
-<span class="g g-Whitespace">      </span><span class="mi">9</span>     <span class="n">get_dailysummary_iex</span><span class="p">,</span>
-<span class="g g-Whitespace">     </span><span class="mi">10</span>     <span class="n">get_data_alphavantage</span><span class="p">,</span>
-<span class="g g-Whitespace">     </span><span class="mi">11</span>     <span class="n">get_data_enigma</span><span class="p">,</span>
-<span class="g g-Whitespace">     </span><span class="mi">12</span>     <span class="n">get_data_famafrench</span><span class="p">,</span>
-<span class="g g-Whitespace">     </span><span class="mi">13</span>     <span class="n">get_data_fred</span><span class="p">,</span>
-<span class="g g-Whitespace">     </span><span class="mi">14</span>     <span class="n">get_data_moex</span><span class="p">,</span>
-<span class="g g-Whitespace">     </span><span class="mi">15</span>     <span class="n">get_data_quandl</span><span class="p">,</span>
-<span class="g g-Whitespace">     </span><span class="mi">16</span>     <span class="n">get_data_stooq</span><span class="p">,</span>
-<span class="g g-Whitespace">     </span><span class="mi">17</span>     <span class="n">get_data_tiingo</span><span class="p">,</span>
-<span class="g g-Whitespace">     </span><span class="mi">18</span>     <span class="n">get_data_yahoo</span><span class="p">,</span>
-<span class="g g-Whitespace">     </span><span class="mi">19</span>     <span class="n">get_data_yahoo_actions</span><span class="p">,</span>
-<span class="g g-Whitespace">     </span><span class="mi">20</span>     <span class="n">get_iex_book</span><span class="p">,</span>
-<span class="g g-Whitespace">     </span><span class="mi">21</span>     <span class="n">get_iex_data_tiingo</span><span class="p">,</span>
-<span class="g g-Whitespace">     </span><span class="mi">22</span>     <span class="n">get_iex_symbols</span><span class="p">,</span>
-<span class="g g-Whitespace">     </span><span class="mi">23</span>     <span class="n">get_last_iex</span><span class="p">,</span>
-<span class="g g-Whitespace">     </span><span class="mi">24</span>     <span class="n">get_markets_iex</span><span class="p">,</span>
-<span class="g g-Whitespace">     </span><span class="mi">25</span>     <span class="n">get_nasdaq_symbols</span><span class="p">,</span>
-<span class="g g-Whitespace">     </span><span class="mi">26</span>     <span class="n">get_quote_yahoo</span><span class="p">,</span>
-<span class="g g-Whitespace">     </span><span class="mi">27</span>     <span class="n">get_recent_iex</span><span class="p">,</span>
-<span class="g g-Whitespace">     </span><span class="mi">28</span>     <span class="n">get_records_iex</span><span class="p">,</span>
-<span class="g g-Whitespace">     </span><span class="mi">29</span>     <span class="n">get_summary_iex</span><span class="p">,</span>
-<span class="g g-Whitespace">     </span><span class="mi">30</span>     <span class="n">get_tops_iex</span><span class="p">,</span>
-<span class="g g-Whitespace">     </span><span class="mi">31</span> <span class="p">)</span>
-<span class="g g-Whitespace">     </span><span class="mi">33</span> <span class="n">PKG</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">dirname</span><span class="p">(</span><span class="vm">__file__</span><span class="p">)</span>
-<span class="g g-Whitespace">     </span><span class="mi">35</span> <span class="n">__version__</span> <span class="o">=</span> <span class="n">get_versions</span><span class="p">()[</span><span class="s2">&quot;version&quot;</span><span class="p">]</span>
-
-<span class="n">File</span> <span class="o">~/</span><span class="n">Documents</span><span class="o">/</span><span class="n">fin</span><span class="o">-</span><span class="n">data</span><span class="o">-</span><span class="n">analysis</span><span class="o">-</span><span class="n">text</span><span class="o">/.</span><span class="n">venv</span><span class="o">/</span><span class="n">lib</span><span class="o">/</span><span class="n">python3</span><span class="mf">.12</span><span class="o">/</span><span class="n">site</span><span class="o">-</span><span class="n">packages</span><span class="o">/</span><span class="n">pandas_datareader</span><span class="o">/</span><span class="n">data</span><span class="o">.</span><span class="n">py</span><span class="p">:</span><span class="mi">273</span>
-<span class="g g-Whitespace">    </span><span class="mi">246</span><span class="w">     </span><span class="sd">&quot;&quot;&quot;</span>
-<span class="g g-Whitespace">    </span><span class="mi">247</span><span class="sd">     Returns an array of dictionaries with depth of book data from IEX for up to</span>
-<span class="g g-Whitespace">    </span><span class="mi">248</span><span class="sd">     10 securities at a time. Returns a dictionary of the bid and ask books.</span>
-<span class="sd">   (...)    268     DataFrame</span>
-<span class="g g-Whitespace">    </span><span class="mi">269</span><span class="sd">     &quot;&quot;&quot;</span>
-<span class="g g-Whitespace">    </span><span class="mi">270</span>     <span class="k">return</span> <span class="n">IEXDeep</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span><span class="o">.</span><span class="n">read</span><span class="p">()</span>
-<span class="ne">--&gt; </span><span class="mi">273</span> <span class="nd">@deprecate_kwarg</span><span class="p">(</span><span class="s2">&quot;access_key&quot;</span><span class="p">,</span> <span class="s2">&quot;api_key&quot;</span><span class="p">)</span>
-<span class="g g-Whitespace">    </span><span class="mi">274</span> <span class="k">def</span><span class="w"> </span><span class="nf">DataReader</span><span class="p">(</span>
-<span class="g g-Whitespace">    </span><span class="mi">275</span>     <span class="n">name</span><span class="p">,</span>
-<span class="g g-Whitespace">    </span><span class="mi">276</span>     <span class="n">data_source</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
-<span class="g g-Whitespace">    </span><span class="mi">277</span>     <span class="n">start</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
-<span class="g g-Whitespace">    </span><span class="mi">278</span>     <span class="n">end</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
-<span class="g g-Whitespace">    </span><span class="mi">279</span>     <span class="n">retry_count</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span>
-<span class="g g-Whitespace">    </span><span class="mi">280</span>     <span class="n">pause</span><span class="o">=</span><span class="mf">0.1</span><span class="p">,</span>
-<span class="g g-Whitespace">    </span><span class="mi">281</span>     <span class="n">session</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
-<span class="g g-Whitespace">    </span><span class="mi">282</span>     <span class="n">api_key</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
-<span class="g g-Whitespace">    </span><span class="mi">283</span> <span class="p">):</span>
-<span class="g g-Whitespace">    </span><span class="mi">284</span><span class="w">     </span><span class="sd">&quot;&quot;&quot;</span>
-<span class="g g-Whitespace">    </span><span class="mi">285</span><span class="sd">     Imports data from a number of online sources.</span>
-<span class="g g-Whitespace">    </span><span class="mi">286</span><span class="sd"> </span>
-<span class="sd">   (...)    330     ff = DataReader(&quot;F-F_ST_Reversal_Factor&quot;, &quot;famafrench&quot;)</span>
-<span class="g g-Whitespace">    </span><span class="mi">331</span><span class="sd">     &quot;&quot;&quot;</span>
-<span class="g g-Whitespace">    </span><span class="mi">332</span>     <span class="n">expected_source</span> <span class="o">=</span> <span class="p">[</span>
-<span class="g g-Whitespace">    </span><span class="mi">333</span>         <span class="s2">&quot;yahoo&quot;</span><span class="p">,</span>
-<span class="g g-Whitespace">    </span><span class="mi">334</span>         <span class="s2">&quot;iex&quot;</span><span class="p">,</span>
-   <span class="p">(</span><span class="o">...</span><span class="p">)</span>    <span class="mi">362</span>         <span class="s2">&quot;naver&quot;</span><span class="p">,</span>
-<span class="g g-Whitespace">    </span><span class="mi">363</span>     <span class="p">]</span>
-
-<span class="ne">TypeError</span>: deprecate_kwarg() missing 1 required positional argument: &#39;new_arg_name&#39;
 </pre></div>
 </div>
 </div>
@@ -584,15 +499,44 @@ document.write(`
 </pre></div>
 </div>
 <p>If you push this code to GitHub, your key is exposed to the world!</p>
+<section id="using-a-env-file-recommended-for-local-development">
+<h3>Using a <code class="docutils literal notranslate"><span class="pre">.env</span></code> File (Recommended for Local Development)<a class="headerlink" href="#using-a-env-file-recommended-for-local-development" title="Link to this heading">#</a></h3>
+<p>A <code class="docutils literal notranslate"><span class="pre">.env</span></code> file is a simple text file that stores your API keys as key-value pairs. It lives in your project folder but is <strong>never</strong> committed to GitHub.</p>
+<p><strong>Step 1</strong>: Create a file called <code class="docutils literal notranslate"><span class="pre">.env</span></code> in your project’s root folder (the same folder as your notebooks). You can do this in VS Code or any text editor. The file contents look like this:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">FRED_API_KEY</span><span class="o">=</span><span class="n">your_actual_key_here</span>
+</pre></div>
+</div>
+<p>No quotes, no spaces around the <code class="docutils literal notranslate"><span class="pre">=</span></code>. Just the variable name and the key.</p>
+<p><strong>Step 2</strong>: Make sure <code class="docutils literal notranslate"><span class="pre">.env</span></code> is in your <code class="docutils literal notranslate"><span class="pre">.gitignore</span></code> file so it doesn’t get pushed to GitHub:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="c1"># .gitignore</span>
+<span class="o">.</span><span class="n">env</span>
+</pre></div>
+</div>
+<p><strong>Step 3</strong>: In your Python code, use <code class="docutils literal notranslate"><span class="pre">python-dotenv</span></code> to load the key:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">dotenv</span><span class="w"> </span><span class="kn">import</span> <span class="n">load_dotenv</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">os</span>
+
+<span class="n">load_dotenv</span><span class="p">()</span>  <span class="c1"># Reads the .env file and loads variables into the environment</span>
+<span class="n">FRED_API_KEY</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">getenv</span><span class="p">(</span><span class="s1">&#39;FRED_API_KEY&#39;</span><span class="p">)</span>
+
+<span class="n">fred</span> <span class="o">=</span> <span class="n">Fred</span><span class="p">(</span><span class="n">api_key</span><span class="o">=</span><span class="n">FRED_API_KEY</span><span class="p">)</span>
+</pre></div>
+</div>
+<p><code class="docutils literal notranslate"><span class="pre">load_dotenv()</span></code> reads the <code class="docutils literal notranslate"><span class="pre">.env</span></code> file and makes its variables available through <code class="docutils literal notranslate"><span class="pre">os.getenv()</span></code>. This is exactly what our set-up cell above does.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Install <code class="docutils literal notranslate"><span class="pre">python-dotenv</span></code> if you don’t have it: <code class="docutils literal notranslate"><span class="pre">pip</span> <span class="pre">install</span> <span class="pre">python-dotenv</span></code></p>
+</div>
+</section>
 <section id="using-github-secrets-recommended-for-codespaces">
 <h3>Using GitHub Secrets (Recommended for Codespaces)<a class="headerlink" href="#using-github-secrets-recommended-for-codespaces" title="Link to this heading">#</a></h3>
-<p>If you’re using GitHub Codespaces:</p>
+<p>If you’re using GitHub Codespaces, you can store keys as <strong>Codespace Secrets</strong> instead of a <code class="docutils literal notranslate"><span class="pre">.env</span></code> file:</p>
 <ol class="arabic simple">
 <li><p>Go to your <strong>main GitHub page</strong> at GitHub.com</p></li>
 <li><p>Click your profile image (upper-right) → <strong>Settings</strong></p></li>
 <li><p>Click <strong>Codespaces</strong> under “Code, planning, and automation”</p></li>
 <li><p>Click <strong>New Secret</strong> under “Codespaces Secrets”</p></li>
-<li><p>Name it (e.g., <code class="docutils literal notranslate"><span class="pre">FRED</span></code>) and paste your API key</p></li>
+<li><p>Name it (e.g., <code class="docutils literal notranslate"><span class="pre">FRED_API_KEY</span></code>) and paste your API key</p></li>
 <li><p>Select the repo(s) to associate with this secret</p></li>
 </ol>
 <figure class="align-center" id="secrets1-png">
@@ -607,15 +551,12 @@ document.write(`
 <p><span class="caption-number">Fig. 38 </span><span class="caption-text">Adding a new secret.</span><a class="headerlink" href="#secrets2-png" title="Link to this image">#</a></p>
 </figcaption>
 </figure>
-<p>Then access it in your code:</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Secure way (Recommended)</span>
-<span class="kn">from</span><span class="w"> </span><span class="nn">fredapi</span><span class="w"> </span><span class="kn">import</span> <span class="n">Fred</span>
-<span class="kn">import</span><span class="w"> </span><span class="nn">os</span>
-
-<span class="n">FRED_API_KEY</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">environ</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;FRED&#39;</span><span class="p">)</span>
+<p>Codespace Secrets are automatically available as environment variables, so you can access them the same way:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">FRED_API_KEY</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">getenv</span><span class="p">(</span><span class="s1">&#39;FRED_API_KEY&#39;</span><span class="p">)</span>
 <span class="n">fred</span> <span class="o">=</span> <span class="n">Fred</span><span class="p">(</span><span class="n">api_key</span><span class="o">=</span><span class="n">FRED_API_KEY</span><span class="p">)</span>
 </pre></div>
 </div>
+<p>You don’t need <code class="docutils literal notranslate"><span class="pre">load_dotenv()</span></code> for Codespace Secrets, but it doesn’t hurt to include it — if no <code class="docutils literal notranslate"><span class="pre">.env</span></code> file exists, it just does nothing.</p>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
 <p>If you add a secret while your Codespace is running, you’ll need to <strong>restart</strong> it for the secret to be available.</p>
@@ -634,11 +575,11 @@ document.write(`
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>2026-01-23    89365.99
-2026-01-24    89155.13
-2026-01-25    86978.89
-2026-01-26    88136.48
-2026-01-27    89296.00
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>2026-02-18    66533.36
+2026-02-19    67214.29
+2026-02-20    67885.32
+2026-02-21    67969.48
+2026-02-22    66238.90
 dtype: float64
 </pre></div>
 </div>
@@ -705,28 +646,28 @@ dtype: float64
       <td>...</td>
     </tr>
     <tr>
-      <th>2026-01-23</th>
-      <td>89365.99</td>
+      <th>2026-02-18</th>
+      <td>66533.36</td>
     </tr>
     <tr>
-      <th>2026-01-24</th>
-      <td>89155.13</td>
+      <th>2026-02-19</th>
+      <td>67214.29</td>
     </tr>
     <tr>
-      <th>2026-01-25</th>
-      <td>86978.89</td>
+      <th>2026-02-20</th>
+      <td>67885.32</td>
     </tr>
     <tr>
-      <th>2026-01-26</th>
-      <td>88136.48</td>
+      <th>2026-02-21</th>
+      <td>67969.48</td>
     </tr>
     <tr>
-      <th>2026-01-27</th>
-      <td>89296.00</td>
+      <th>2026-02-22</th>
+      <td>66238.90</td>
     </tr>
   </tbody>
 </table>
-<p>4076 rows × 1 columns</p>
+<p>4102 rows × 1 columns</p>
 </div></div></div>
 </div>
 <div class="cell docutils container">
@@ -744,16 +685,6 @@ dtype: float64
 </pre></div>
 </div>
 </div>
-<div class="cell_output docutils container">
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>/var/folders/kx/y8vj3n6n5kq_d74vj24jsnh40000gn/T/ipykernel_84807/1503532820.py:2: SettingWithCopyWarning: 
-A value is trying to be set on a copy of a slice from a DataFrame.
-Try using .loc[row_indexer,col_indexer] = value instead
-
-See the caveats in the documentation: https://pandas.pydata.org/pandas-docs/stable/user_guide/indexing.html#returning-a-view-versus-a-copy
-  btc[&#39;ret&#39;] = btc[&#39;btc&#39;].pct_change()
-</pre></div>
-</div>
-</div>
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -766,7 +697,7 @@ See the caveats in the documentation: https://pandas.pydata.org/pandas-docs/stab
 <div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;Axes: xlabel=&#39;date&#39;&gt;
 </pre></div>
 </div>
-<img alt="../_images/9c91a00307cdc0b571a52d56871e7919ad0f22542838736fc6d2b9359f906cf2.png" src="../_images/9c91a00307cdc0b571a52d56871e7919ad0f22542838736fc6d2b9359f906cf2.png" />
+<img alt="../_images/72b98933a39750dd42e53a5735dcbef494ddf40ede96fedff7b2121265707e23.png" src="../_images/72b98933a39750dd42e53a5735dcbef494ddf40ede96fedff7b2121265707e23.png" />
 </div>
 </div>
 <p>That’s not a very good graph - the returns and price levels are in different units. Let’s format the average return nicely:</p>
@@ -777,7 +708,7 @@ See the caveats in the documentation: https://pandas.pydata.org/pandas-docs/stab
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Average return: 0.21%
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Average return: 0.20%
 </pre></div>
 </div>
 </div>
@@ -870,43 +801,43 @@ See the caveats in the documentation: https://pandas.pydata.org/pandas-docs/stab
       <td>...</td>
     </tr>
     <tr>
-      <th>2026-01-23</th>
-      <td>89365.99</td>
-      <td>-0.001746</td>
-      <td>0.998254</td>
-      <td>261.841147</td>
+      <th>2026-02-18</th>
+      <td>66533.36</td>
+      <td>-0.009793</td>
+      <td>0.990207</td>
+      <td>194.686353</td>
     </tr>
     <tr>
-      <th>2026-01-24</th>
-      <td>89155.13</td>
-      <td>-0.002360</td>
-      <td>0.997640</td>
-      <td>261.220971</td>
+      <th>2026-02-19</th>
+      <td>67214.29</td>
+      <td>0.010234</td>
+      <td>1.010234</td>
+      <td>196.689088</td>
     </tr>
     <tr>
-      <th>2026-01-25</th>
-      <td>86978.89</td>
-      <td>-0.024410</td>
-      <td>0.975590</td>
-      <td>254.820265</td>
+      <th>2026-02-20</th>
+      <td>67885.32</td>
+      <td>0.009983</td>
+      <td>1.009983</td>
+      <td>198.662706</td>
     </tr>
     <tr>
-      <th>2026-01-26</th>
-      <td>88136.48</td>
-      <td>0.013309</td>
-      <td>1.013309</td>
-      <td>258.224941</td>
+      <th>2026-02-21</th>
+      <td>67969.48</td>
+      <td>0.001240</td>
+      <td>1.001240</td>
+      <td>198.910235</td>
     </tr>
     <tr>
-      <th>2026-01-27</th>
-      <td>89296.00</td>
-      <td>0.013156</td>
-      <td>1.013156</td>
-      <td>261.635294</td>
+      <th>2026-02-22</th>
+      <td>66238.90</td>
+      <td>-0.025461</td>
+      <td>0.974539</td>
+      <td>193.820294</td>
     </tr>
   </tbody>
 </table>
-<p>4032 rows × 4 columns</p>
+<p>4058 rows × 4 columns</p>
 </div></div></div>
 </div>
 <div class="cell docutils container">
@@ -925,7 +856,7 @@ See the caveats in the documentation: https://pandas.pydata.org/pandas-docs/stab
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../_images/817c4f334daf514f980c9246292767bc812c0c5b4e287abca04c568b8f5877ad.png" src="../_images/817c4f334daf514f980c9246292767bc812c0c5b4e287abca04c568b8f5877ad.png" />
+<img alt="../_images/ef7716c8acd11114f1eb2f7c9ea3686891aef3d9f5eaf37b89b7005e95baa13e.png" src="../_images/ef7716c8acd11114f1eb2f7c9ea3686891aef3d9f5eaf37b89b7005e95baa13e.png" />
 </div>
 </div>
 </section>
@@ -954,16 +885,10 @@ See the caveats in the documentation: https://pandas.pydata.org/pandas-docs/stab
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Simulation parameters</span>
 <span class="n">T</span> <span class="o">=</span> <span class="mi">30</span>        <span class="c1"># Time horizon (days)</span>
 <span class="n">N</span> <span class="o">=</span> <span class="mi">30</span>        <span class="c1"># Number of time steps</span>
-<span class="n">S_0</span> <span class="o">=</span> <span class="n">btc</span><span class="o">.</span><span class="n">btc</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>  <span class="c1"># Initial BTC price</span>
+<span class="n">S_0</span> <span class="o">=</span> <span class="n">btc</span><span class="o">.</span><span class="n">btc</span><span class="o">.</span><span class="n">iloc</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>  <span class="c1"># Initial BTC price</span>
 <span class="n">N_SIM</span> <span class="o">=</span> <span class="mi">100</span>   <span class="c1"># Number of simulations</span>
 <span class="n">mu</span> <span class="o">=</span> <span class="n">btc</span><span class="o">.</span><span class="n">ret</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span>
 <span class="n">sigma</span> <span class="o">=</span> <span class="n">btc</span><span class="o">.</span><span class="n">ret</span><span class="o">.</span><span class="n">std</span><span class="p">()</span>
-</pre></div>
-</div>
-</div>
-<div class="cell_output docutils container">
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>/var/folders/kx/y8vj3n6n5kq_d74vj24jsnh40000gn/T/ipykernel_84807/3399872927.py:4: FutureWarning: Series.__getitem__ treating keys as positions is deprecated. In a future version, integer keys will always be treated as labels (consistent with DataFrame behavior). To access a value by position, use `ser.iloc[pos]`
-  S_0 = btc.btc[-1]  # Initial BTC price
 </pre></div>
 </div>
 </div>
@@ -1005,30 +930,19 @@ See the caveats in the documentation: https://pandas.pydata.org/pandas-docs/stab
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../_images/d4bccc6c9ec3fbe5023cfe823b27fc4474ad1e86da65726aa16a6fe555c036cb.png" src="../_images/d4bccc6c9ec3fbe5023cfe823b27fc4474ad1e86da65726aa16a6fe555c036cb.png" />
+<img alt="../_images/745aa65df474807369a0ab2aabb027ae87cf9f6e404e570e0f8bbc513002723e.png" src="../_images/745aa65df474807369a0ab2aabb027ae87cf9f6e404e570e0f8bbc513002723e.png" />
 </div>
 </div>
 <p>The y-axis has a wide range because some extreme values are possible given Bitcoin’s high volatility.</p>
 </section>
 </section>
-<section id="pandas-datareader">
-<h2>pandas-datareader<a class="headerlink" href="#pandas-datareader" title="Link to this heading">#</a></h2>
-<p>The <a class="reference external" href="https://pydata.github.io/pandas-datareader/">pandas-datareader</a> package provides a unified interface to multiple data sources, including FRED.</p>
-<p>Install it:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">pip</span> <span class="n">install</span> <span class="n">pandas</span><span class="o">-</span><span class="n">datareader</span>
-</pre></div>
-</div>
-<div class="admonition note">
-<p class="admonition-title">Note</p>
-<p>Different data sources might require API keys. Always read the documentation.</p>
-</div>
+<section id="fred-example-gdp-data">
+<h2>FRED Example: GDP Data<a class="headerlink" href="#fred-example-gdp-data" title="Link to this heading">#</a></h2>
+<p>Let’s pull another common series - U.S. GDP. The series code is <code class="docutils literal notranslate"><span class="pre">GDP</span></code>.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Example: Pull GDP data from FRED using pandas-datareader</span>
-<span class="n">start</span> <span class="o">=</span> <span class="n">dt</span><span class="o">.</span><span class="n">datetime</span><span class="p">(</span><span class="mi">2010</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
-<span class="n">end</span> <span class="o">=</span> <span class="n">dt</span><span class="o">.</span><span class="n">datetime</span><span class="p">(</span><span class="mi">2023</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">27</span><span class="p">)</span>
-
-<span class="n">gdp</span> <span class="o">=</span> <span class="n">pdr</span><span class="o">.</span><span class="n">DataReader</span><span class="p">(</span><span class="s1">&#39;GDP&#39;</span><span class="p">,</span> <span class="s1">&#39;fred&#39;</span><span class="p">,</span> <span class="n">start</span><span class="p">,</span> <span class="n">end</span><span class="p">)</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">gdp</span> <span class="o">=</span> <span class="n">fred</span><span class="o">.</span><span class="n">get_series</span><span class="p">(</span><span class="s1">&#39;GDP&#39;</span><span class="p">,</span> <span class="n">observation_start</span><span class="o">=</span><span class="s1">&#39;2010-01-01&#39;</span><span class="p">,</span> <span class="n">observation_end</span><span class="o">=</span><span class="s1">&#39;2023-01-27&#39;</span><span class="p">)</span>
+<span class="n">gdp</span> <span class="o">=</span> <span class="n">gdp</span><span class="o">.</span><span class="n">to_frame</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="s1">&#39;GDP&#39;</span><span class="p">)</span>
 <span class="n">gdp</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
 </pre></div>
 </div>
@@ -1053,10 +967,6 @@ See the caveats in the documentation: https://pandas.pydata.org/pandas-docs/stab
     <tr style="text-align: right;">
       <th></th>
       <th>GDP</th>
-    </tr>
-    <tr>
-      <th>DATE</th>
-      <th></th>
     </tr>
   </thead>
   <tbody>
@@ -1084,7 +994,7 @@ See the caveats in the documentation: https://pandas.pydata.org/pandas-docs/stab
 </table>
 </div></div></div>
 </div>
-<p>The advantage of pandas-datareader is the consistent interface across different data sources. Check the <a class="reference external" href="https://pydata.github.io/pandas-datareader/remote_data.html">documentation</a> for all available sources.</p>
+<p>You can browse available series on the <a class="reference external" href="https://fred.stlouisfed.org/">FRED website</a> and use their series codes with <code class="docutils literal notranslate"><span class="pre">fred.get_series()</span></code>. Check the <a class="reference external" href="https://github.com/mortada/fredapi">fredapi documentation</a> for more options, like searching for series by keyword.</p>
 </section>
 </section>
 
@@ -1152,10 +1062,10 @@ See the caveats in the documentation: https://pandas.pydata.org/pandas-docs/stab
   </div>
   <nav class="bd-toc-nav page-toc">
     <ul class="visible nav section-nav flex-column">
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#what-is-fred">What is FRED?</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#getting-started-with-fred">Getting Started with FRED</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#set-up">Set-up</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#secure-api-key-storage">Secure API Key Storage</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#using-a-env-file-recommended-for-local-development">Using a <code class="docutils literal notranslate"><span class="pre">.env</span></code> File (Recommended for Local Development)</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#using-github-secrets-recommended-for-codespaces">Using GitHub Secrets (Recommended for Codespaces)</a></li>
 </ul>
 </li>
@@ -1165,7 +1075,7 @@ See the caveats in the documentation: https://pandas.pydata.org/pandas-docs/stab
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#what-is-gbm">What is GBM?</a></li>
 </ul>
 </li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#pandas-datareader">pandas-datareader</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#fred-example-gdp-data">FRED Example: GDP Data</a></li>
 </ul>
   </nav></div>
 

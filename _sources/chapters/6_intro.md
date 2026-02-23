@@ -42,9 +42,9 @@ This chapter covers several important data APIs for finance:
 ```{tableofcontents}
 ```
 
-### FRED and pandas-datareader
+### FRED
 
-The **Federal Reserve Economic Data (FRED)** API provides access to hundreds of thousands of economic time series - GDP, inflation, interest rates, employment data, and more. We'll also explore **pandas-datareader**, which provides a unified interface to multiple data sources.
+The **Federal Reserve Economic Data (FRED)** API provides access to hundreds of thousands of economic time series - GDP, inflation, interest rates, employment data, and more.
 
 ### NASDAQ Data Link
 
