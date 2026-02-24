@@ -410,6 +410,7 @@ document.write(`
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#secure-api-key-storage">Secure API Key Storage</a><ul class="nav section-nav flex-column">
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#using-a-env-file-recommended-for-local-development">Using a <code class="docutils literal notranslate"><span class="pre">.env</span></code> File (Recommended for Local Development)</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#using-github-secrets-recommended-for-codespaces">Using GitHub Secrets (Recommended for Codespaces)</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#troubleshooting-github-secrets">Troubleshooting GitHub Secrets</a></li>
 </ul>
 </li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#fred-example-bitcoin-data">FRED Example: Bitcoin Data</a></li>
@@ -530,14 +531,17 @@ document.write(`
 </section>
 <section id="using-github-secrets-recommended-for-codespaces">
 <h3>Using GitHub Secrets (Recommended for Codespaces)<a class="headerlink" href="#using-github-secrets-recommended-for-codespaces" title="Link to this heading">#</a></h3>
-<p>If you’re using GitHub Codespaces, you can store keys as <strong>Codespace Secrets</strong> instead of a <code class="docutils literal notranslate"><span class="pre">.env</span></code> file:</p>
+<p>If you’re using GitHub Codespaces, you can store keys as <strong>Codespace Secrets</strong> instead of a <code class="docutils literal notranslate"><span class="pre">.env</span></code> file. These are encrypted and automatically available as environment variables inside your Codespace.</p>
+<p>Here’s how to add a secret:</p>
 <ol class="arabic simple">
-<li><p>Go to your <strong>main GitHub page</strong> at GitHub.com</p></li>
-<li><p>Click your profile image (upper-right) → <strong>Settings</strong></p></li>
-<li><p>Click <strong>Codespaces</strong> under “Code, planning, and automation”</p></li>
-<li><p>Click <strong>New Secret</strong> under “Codespaces Secrets”</p></li>
-<li><p>Name it (e.g., <code class="docutils literal notranslate"><span class="pre">FRED_API_KEY</span></code>) and paste your API key</p></li>
-<li><p>Select the repo(s) to associate with this secret</p></li>
+<li><p>Go to <a class="reference external" href="https://github.com">github.com</a> and click your <strong>profile picture</strong> in the upper-right corner</p></li>
+<li><p>Click <strong>Settings</strong></p></li>
+<li><p>In the left sidebar, scroll down to the <strong>“Code, planning, and automation”</strong> section and click <strong>Codespaces</strong></p></li>
+<li><p>Next to <strong>“Codespaces secrets”</strong>, click <strong>New secret</strong></p></li>
+<li><p>In the <strong>Name</strong> field, type your secret name (e.g., <code class="docutils literal notranslate"><span class="pre">FRED_API_KEY</span></code>)</p></li>
+<li><p>In the <strong>Value</strong> field, paste your API key</p></li>
+<li><p>Click the <strong>Repository access</strong> dropdown and select the repo(s) that should have access to this secret</p></li>
+<li><p>Click <strong>Add secret</strong></p></li>
 </ol>
 <figure class="align-center" id="secrets1-png">
 <img alt="../_images/07-secrets1.png" src="../_images/07-secrets1.png" />
@@ -556,11 +560,29 @@ document.write(`
 <span class="n">fred</span> <span class="o">=</span> <span class="n">Fred</span><span class="p">(</span><span class="n">api_key</span><span class="o">=</span><span class="n">FRED_API_KEY</span><span class="p">)</span>
 </pre></div>
 </div>
-<p>You don’t need <code class="docutils literal notranslate"><span class="pre">load_dotenv()</span></code> for Codespace Secrets, but it doesn’t hurt to include it — if no <code class="docutils literal notranslate"><span class="pre">.env</span></code> file exists, it just does nothing.</p>
-<div class="admonition note">
-<p class="admonition-title">Note</p>
-<p>If you add a secret while your Codespace is running, you’ll need to <strong>restart</strong> it for the secret to be available.</p>
+<p>You don’t need <code class="docutils literal notranslate"><span class="pre">load_dotenv()</span></code> for Codespace Secrets, but it doesn’t hurt to include it – if no <code class="docutils literal notranslate"><span class="pre">.env</span></code> file exists, it just does nothing.</p>
+</section>
+<section id="troubleshooting-github-secrets">
+<h3>Troubleshooting GitHub Secrets<a class="headerlink" href="#troubleshooting-github-secrets" title="Link to this heading">#</a></h3>
+<p>If your code can’t find your API key (e.g., you get an error like <code class="docutils literal notranslate"><span class="pre">ValueError</span></code> or <code class="docutils literal notranslate"><span class="pre">None</span></code> when you try to use it), work through this checklist:</p>
+<p><strong>1. Check your secret name for typos.</strong> The name you use in <code class="docutils literal notranslate"><span class="pre">os.getenv('FRED_API_KEY')</span></code> must <strong>exactly match</strong> the name you entered on GitHub. Secret names are not case-sensitive on GitHub’s side, but it’s good practice to keep them consistent. Only letters, numbers, and underscores are allowed – no spaces or special characters.</p>
+<p><strong>2. Check the API key value itself.</strong> When you paste your key into the <strong>Value</strong> field on GitHub, make sure you haven’t accidentally copied extra spaces or characters before or after the key. A trailing space or newline character will silently break things.</p>
+<p><strong>3. Make sure you granted repository access.</strong> When you created the secret, you needed to select which repositories can use it. If you forgot to add your lab repo, the secret won’t be available in that Codespace. Go back to <strong>Settings &gt; Codespaces &gt; Codespaces secrets</strong>, click on the secret name, and make sure your repo is listed under repository access.</p>
+<p><strong>4. Stop and restart your Codespace.</strong> Secrets are loaded when a Codespace starts up. If you added or changed a secret while your Codespace was already running, it won’t pick up the change automatically. You need to <strong>stop</strong> the Codespace and then reopen it. Here’s how:</p>
+<ol class="arabic simple">
+<li><p><strong>Save your work first.</strong> Do a <code class="docutils literal notranslate"><span class="pre">git</span> <span class="pre">add</span></code>, <code class="docutils literal notranslate"><span class="pre">git</span> <span class="pre">commit</span></code>, and <code class="docutils literal notranslate"><span class="pre">git</span> <span class="pre">push</span></code> (or use the Source Control panel in VS Code to sync) so your files are backed up to GitHub.</p></li>
+<li><p><strong>Close the Codespace browser tab</strong> (or VS Code window). Note that closing the tab alone does <strong>not</strong> stop the Codespace – it keeps running in the background.</p></li>
+<li><p>Go to <a class="reference external" href="https://github.com/codespaces">github.com/codespaces</a>. This page lists all of your Codespaces.</p></li>
+<li><p>Find the Codespace you want to restart. Click the <strong>three dots</strong> (<code class="docutils literal notranslate"><span class="pre">...</span></code>) to the right of it.</p></li>
+<li><p>Click <strong>Stop codespace</strong>.</p></li>
+<li><p>Once it has stopped, go back to your lab repository on GitHub and click the green <strong>Code</strong> button, then <strong>Codespaces</strong>, and open your existing Codespace. It will restart with the updated secrets.</p></li>
+</ol>
+<p><strong>5. Verify the secret is loaded.</strong> You can add a quick check in your notebook to make sure the key was found (without printing the actual key!):</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">FRED_API_KEY</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">getenv</span><span class="p">(</span><span class="s1">&#39;FRED_API_KEY&#39;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="nb">type</span><span class="p">(</span><span class="n">FRED_API_KEY</span><span class="p">))</span>  <span class="c1"># Should print &lt;class &#39;str&#39;&gt;, not &lt;class &#39;NoneType&#39;&gt;</span>
+</pre></div>
 </div>
+<p>If it prints <code class="docutils literal notranslate"><span class="pre">&lt;class</span> <span class="pre">'NoneType'&gt;</span></code>, the secret isn’t being found. Go back through the steps above.</p>
 </section>
 </section>
 <section id="fred-example-bitcoin-data">
@@ -575,11 +597,11 @@ document.write(`
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>2026-02-18    66533.36
-2026-02-19    67214.29
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>2026-02-19    67214.29
 2026-02-20    67885.32
 2026-02-21    67969.48
 2026-02-22    66238.90
+2026-02-23    64743.99
 dtype: float64
 </pre></div>
 </div>
@@ -646,10 +668,6 @@ dtype: float64
       <td>...</td>
     </tr>
     <tr>
-      <th>2026-02-18</th>
-      <td>66533.36</td>
-    </tr>
-    <tr>
       <th>2026-02-19</th>
       <td>67214.29</td>
     </tr>
@@ -665,9 +683,13 @@ dtype: float64
       <th>2026-02-22</th>
       <td>66238.90</td>
     </tr>
+    <tr>
+      <th>2026-02-23</th>
+      <td>64743.99</td>
+    </tr>
   </tbody>
 </table>
-<p>4102 rows × 1 columns</p>
+<p>4103 rows × 1 columns</p>
 </div></div></div>
 </div>
 <div class="cell docutils container">
@@ -697,7 +719,7 @@ dtype: float64
 <div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;Axes: xlabel=&#39;date&#39;&gt;
 </pre></div>
 </div>
-<img alt="../_images/72b98933a39750dd42e53a5735dcbef494ddf40ede96fedff7b2121265707e23.png" src="../_images/72b98933a39750dd42e53a5735dcbef494ddf40ede96fedff7b2121265707e23.png" />
+<img alt="../_images/ce2f3e86349888a452399a2f5f07aaf881246fa723fbfbb7c0098bd03f179acb.png" src="../_images/ce2f3e86349888a452399a2f5f07aaf881246fa723fbfbb7c0098bd03f179acb.png" />
 </div>
 </div>
 <p>That’s not a very good graph - the returns and price levels are in different units. Let’s format the average return nicely:</p>
@@ -801,13 +823,6 @@ dtype: float64
       <td>...</td>
     </tr>
     <tr>
-      <th>2026-02-18</th>
-      <td>66533.36</td>
-      <td>-0.009793</td>
-      <td>0.990207</td>
-      <td>194.686353</td>
-    </tr>
-    <tr>
       <th>2026-02-19</th>
       <td>67214.29</td>
       <td>0.010234</td>
@@ -835,9 +850,16 @@ dtype: float64
       <td>0.974539</td>
       <td>193.820294</td>
     </tr>
+    <tr>
+      <th>2026-02-23</th>
+      <td>64743.99</td>
+      <td>-0.022568</td>
+      <td>0.977432</td>
+      <td>189.423500</td>
+    </tr>
   </tbody>
 </table>
-<p>4058 rows × 4 columns</p>
+<p>4059 rows × 4 columns</p>
 </div></div></div>
 </div>
 <div class="cell docutils container">
@@ -856,7 +878,7 @@ dtype: float64
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../_images/ef7716c8acd11114f1eb2f7c9ea3686891aef3d9f5eaf37b89b7005e95baa13e.png" src="../_images/ef7716c8acd11114f1eb2f7c9ea3686891aef3d9f5eaf37b89b7005e95baa13e.png" />
+<img alt="../_images/db0676607791a01169a5015dd62d715a4d217fa598e320158f4074b61d8e490a.png" src="../_images/db0676607791a01169a5015dd62d715a4d217fa598e320158f4074b61d8e490a.png" />
 </div>
 </div>
 </section>
@@ -930,7 +952,7 @@ dtype: float64
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../_images/745aa65df474807369a0ab2aabb027ae87cf9f6e404e570e0f8bbc513002723e.png" src="../_images/745aa65df474807369a0ab2aabb027ae87cf9f6e404e570e0f8bbc513002723e.png" />
+<img alt="../_images/7c171332f1997875bf82ce5d0f609f64f2426cfcef42b32195a45173892641f5.png" src="../_images/7c171332f1997875bf82ce5d0f609f64f2426cfcef42b32195a45173892641f5.png" />
 </div>
 </div>
 <p>The y-axis has a wide range because some extreme values are possible given Bitcoin’s high volatility.</p>
@@ -1067,6 +1089,7 @@ dtype: float64
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#secure-api-key-storage">Secure API Key Storage</a><ul class="nav section-nav flex-column">
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#using-a-env-file-recommended-for-local-development">Using a <code class="docutils literal notranslate"><span class="pre">.env</span></code> File (Recommended for Local Development)</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#using-github-secrets-recommended-for-codespaces">Using GitHub Secrets (Recommended for Codespaces)</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#troubleshooting-github-secrets">Troubleshooting GitHub Secrets</a></li>
 </ul>
 </li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#fred-example-bitcoin-data">FRED Example: Bitcoin Data</a></li>
