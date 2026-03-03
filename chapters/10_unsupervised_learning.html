@@ -32,7 +32,7 @@
     <link rel="stylesheet" type="text/css" href="../_static/styles/sphinx-book-theme.css?v=eba8b062" />
     <link rel="stylesheet" type="text/css" href="../_static/togglebutton.css?v=9c3e77be" />
     <link rel="stylesheet" type="text/css" href="../_static/copybutton.css?v=76b2166b" />
-    <link rel="stylesheet" type="text/css" href="../_static/mystnb.8ecb98da25f57f5357bf6f572d296f466b2cfe2517ffebfabe82451661e28f02.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/mystnb.8ecb98da25f57f5357bf6f572d296f466b2cfe2517ffebfabe82451661e28f02.css?v=6644e6bb" />
     <link rel="stylesheet" type="text/css" href="../_static/sphinx-thebe.css?v=4fa983c6" />
     <link rel="stylesheet" type="text/css" href="../_static/sphinx-design.min.css?v=95c83b7e" />
     <link rel="stylesheet" type="text/css" href="../_static/custom.css?v=b00ee380" />
@@ -410,7 +410,10 @@ document.write(`
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#additional-materials-on-feature-engineering">Additional materials on feature engineering</a></li>
 </ul>
 </li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#k-means-algorithm">K-means Algorithm</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#k-means-algorithm">K-means Algorithm</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#the-intuition">The intuition</a></li>
+</ul>
+</li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#an-example-with-country-risk">An example with country risk</a><ul class="nav section-nav flex-column">
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#simple-exploratory-analysis">Simple exploratory analysis</a><ul class="nav section-nav flex-column">
 <li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#print-summary-statistics">Print summary statistics</a></li>
@@ -473,18 +476,18 @@ document.write(`
 <p>Instead, you need to change your variables. Scale or normalize them. Create categories. Take logs. All to help with interpretation and create better models.</p>
 <p>The purpose of feature scaling is to ensure that the features are given equal importance in a model. You’re trying to capture how different a variable is from its typical value and whether or not this relates to some other value, the one that you’re trying to predict.</p>
 <p>The text discusses <strong>normalization</strong>. You’ve probably seen this calculation in your stats class.</p>
-<div class="amsmath math notranslate nohighlight" id="equation-4f8333bc-4393-44d7-8ad2-55ebd4f45cc4">
-<span class="eqno">(7)<a class="headerlink" href="#equation-4f8333bc-4393-44d7-8ad2-55ebd4f45cc4" title="Permalink to this equation">#</a></span>\[\begin{align}
+<div class="amsmath math notranslate nohighlight" id="equation-35b86d17-b922-4621-bb02-6e536609c3d7">
+<span class="eqno">(7)<a class="headerlink" href="#equation-35b86d17-b922-4621-bb02-6e536609c3d7" title="Permalink to this equation">#</a></span>\[\begin{align}
 \text{Scaled Feature Value} = \frac{V - \mu}{\sigma}
 \end{align}\]</div>
 <p>where V is the value of an observation, <span class="math notranslate nohighlight">\(\mu\)</span> is the mean of all of the observations, and <span class="math notranslate nohighlight">\(\sigma\)</span> is the standard deviation of the values. This is called a <strong>Z-score normalization</strong>.</p>
 <p>You can also do <strong>min-max scaling</strong>.</p>
-<div class="amsmath math notranslate nohighlight" id="equation-b04a6c9e-3a00-4715-a8b4-8b000ba1d019">
-<span class="eqno">(8)<a class="headerlink" href="#equation-b04a6c9e-3a00-4715-a8b4-8b000ba1d019" title="Permalink to this equation">#</a></span>\[\begin{align}
+<div class="amsmath math notranslate nohighlight" id="equation-ae509420-b206-4492-8211-7ad3b41cc8ac">
+<span class="eqno">(8)<a class="headerlink" href="#equation-ae509420-b206-4492-8211-7ad3b41cc8ac" title="Permalink to this equation">#</a></span>\[\begin{align}
 \text{Scaled Feature Value} = \frac{V - min(V)}{max(V) - min(V)}
 \end{align}\]</div>
-<p>Finally, note that use of <strong>training set</strong> and <strong>validation set</strong>. We are going to start splitting our data up as we use <strong>machine learning</strong> techniques to make predictions. We use these data sets to build our model and, in particular, look for <strong>hyperparameters</strong>, a subject we’ll get to when discussing regression and logit in Chapter 3 of Hull. We’l also create a <strong>testing set</strong> where we take the trained model and see how well it <strong>predicts values</strong> using data we’ve <strong>pulled out</strong> and not used.</p>
-<p>Hull points out that, when scaling your data, you should <strong>pull the means and standard deviations that you need from the training data</strong>. Then, you <strong>scale your testing data using the means and standard deviations from the training data</strong>. That way, you’re testing data never touches your training data. If you use the means and standard deviations from all of your data to scale your variables, then observations in your testing data set are altering observations in your training data set, and vice-versa.</p>
+<p>Finally, note that use of <strong>training set</strong> and <strong>validation set</strong>. We are going to start splitting our data up as we use <strong>machine learning</strong> techniques to make predictions. We use these data sets to build our model and, in particular, look for <strong>hyperparameters</strong>, a subject we’ll get to when discussing regression and logit in Chapter 3 of Hull. We’ll also create a <strong>testing set</strong> where we take the trained model and see how well it <strong>predicts values</strong> using data we’ve <strong>pulled out</strong> and not used.</p>
+<p>Hull points out that, when scaling your data, you should <strong>pull the means and standard deviations that you need from the training data</strong>. Then, you <strong>scale your testing data using the means and standard deviations from the training data</strong>. That way, your testing data never touches your training data. If you use the means and standard deviations from all of your data to scale your variables, then observations in your testing data set are altering observations in your training data set, and vice-versa.</p>
 <section id="additional-materials-on-feature-engineering">
 <h3>Additional materials on feature engineering<a class="headerlink" href="#additional-materials-on-feature-engineering" title="Link to this heading">#</a></h3>
 <p>Here are some examples from Datacamp on <a class="reference external" href="https://www.datacamp.com/tutorial/feature-engineering-kaggle">feature engineering for a Kaggle competition</a>. Again, this is all about variable transformation and, more generally, <strong>data engineering</strong>. For example, see the example on <strong>binning data</strong>? This is like when we created some categories for house sizes in our problem sets.</p>
@@ -494,7 +497,7 @@ document.write(`
 </section>
 <section id="k-means-algorithm">
 <h2>K-means Algorithm<a class="headerlink" href="#k-means-algorithm" title="Link to this heading">#</a></h2>
-<p><strong>Clustering</strong> is about grouping our data. How some observations like others? To do this, we are going to use the concept of a <strong>distance</strong> between observations. Are some observations closer to others, in some sense?</p>
+<p><strong>Clustering</strong> is about grouping our data. How are some observations like others? To do this, we are going to use the concept of a <strong>distance</strong> between observations. Are some observations closer to others, in some sense?</p>
 <p>We are going to use <a class="reference external" href="https://scikit-learn.org/stable/modules/generated/sklearn.cluster.KMeans.html">Kmeans from scikit-learn</a>.</p>
 <p>Our text discusses <strong>Euclidean distance</strong> on pgs. 25 and 26. This is like measuring the length of a line, except that you can do this in any number of dimensions.</p>
 <p>There is also the concept of a <strong>center</strong> of a cluster. Suppose that a certain set of observations is regarded as a cluster. The center is calculated by averaging the values of each of the features for the observations in the cluster.</p>
@@ -505,8 +508,8 @@ document.write(`
 </figcaption>
 </figure>
 <p>How do you know if your clustering method is any good? A measure of the performance of a clustering algorithm is the within-cluster sum of squares, also known as the <strong>inertia</strong>. Define <span class="math notranslate nohighlight">\(d_i\)</span> as the  distance of the ith observation from the center of the cluster to which it belongs.</p>
-<div class="amsmath math notranslate nohighlight" id="equation-328649c4-e2a6-4a5a-a938-6c2efa5c922e">
-<span class="eqno">(9)<a class="headerlink" href="#equation-328649c4-e2a6-4a5a-a938-6c2efa5c922e" title="Permalink to this equation">#</a></span>\[\begin{align}
+<div class="amsmath math notranslate nohighlight" id="equation-f9fbf27b-3e1c-4017-8b86-3dc6c0f2d3ac">
+<span class="eqno">(9)<a class="headerlink" href="#equation-f9fbf27b-3e1c-4017-8b86-3dc6c0f2d3ac" title="Permalink to this equation">#</a></span>\[\begin{align}
 \text{Inertia} = \sum_{i=1}^{N} d_i
 \end{align}\]</div>
 <p>The larger the inertia value, the worse the fit. Now, you can always get smaller inertia by adding more clusters. In fact, each observation could be its own cluster! But, that defeats the purpose. At some point, there’s an “optimal” number of clusters to try and divide your data into.</p>
@@ -514,6 +517,19 @@ document.write(`
 <p>The text also discusses the <strong>silhouette method</strong> and <strong>gap method</strong> for choosing the optimal number of clusters. You want larger silhouette scores as you vary the number of clusters, k. You’ll also see an example of this below.</p>
 <p>Finally, the text discusses the <strong>curse of dimensionality</strong>. Basically, as you have more and more features, forming clusters gets difficult. There are other ways to cluster your data, beyond Euclidean Distance. For example, the text mentions <strong>cosine similarity</strong>.</p>
 <p>In the example below, we’ll start with four features. But, two of them are highly correlated, so we drop one. This is where <strong>looking at and understanding your data first is crucial</strong>.</p>
+<section id="the-intuition">
+<h3>The intuition<a class="headerlink" href="#the-intuition" title="Link to this heading">#</a></h3>
+<p>Here is a simple way to think about K-means. Imagine you’re sorting countries into groups based on their risk characteristics. You don’t know ahead of time which countries belong together — you just have the data and a guess about how many groups (k) there should be.</p>
+<p>K-means works like this:</p>
+<ol class="arabic simple">
+<li><p><strong>Start</strong>: Drop k pins randomly in the space of your data. These are the initial cluster <strong>centroids</strong>.</p></li>
+<li><p><strong>Assign</strong>: Each country looks at all k centroids and says “I belong to the one closest to me.”</p></li>
+<li><p><strong>Update</strong>: Each centroid moves to the average position of all the countries assigned to it.</p></li>
+<li><p><strong>Repeat</strong>: Keep assigning and updating until no country switches groups.</p></li>
+</ol>
+<p>The algorithm converges when the centroids stop moving. The result is k groups where each member is closer to its own group’s center than to any other group’s center.</p>
+<p>The challenge is choosing k — how many clusters? We’ll use the <strong>elbow method</strong> and <strong>silhouette scores</strong> below to help with this decision.</p>
+</section>
 </section>
 <section id="an-example-with-country-risk">
 <h2>An example with country risk<a class="headerlink" href="#an-example-with-country-risk" title="Link to this heading">#</a></h2>
@@ -586,7 +602,7 @@ First 5 rows
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># print summary statistics</span>
 <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">Summary statistics</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">,</span> <span class="n">raw</span><span class="o">.</span><span class="n">describe</span><span class="p">())</span>
-<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">Correlation matrix</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">,</span> <span class="n">raw</span><span class="o">.</span><span class="n">corr</span><span class="p">())</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">Correlation matrix</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">,</span> <span class="n">raw</span><span class="o">.</span><span class="n">corr</span><span class="p">(</span><span class="n">numeric_only</span><span class="o">=</span><span class="kc">True</span><span class="p">))</span>
 </pre></div>
 </div>
 </div>
@@ -601,59 +617,13 @@ min     15.000000    1.072000    2.671000   -9.459000
 50%     41.000000    1.939000    5.455000    2.600000
 75%     60.000000    2.294000    6.488000    4.000000
 max     87.000000    3.369000    8.712000    7.800000
-</pre></div>
-</div>
-<div class="output traceback highlight-ipythontb notranslate"><div class="highlight"><pre><span></span><span class="gt">---------------------------------------------------------------------------</span>
-<span class="ne">ValueError</span><span class="g g-Whitespace">                                </span>Traceback (most recent call last)
-<span class="n">Cell</span> <span class="n">In</span><span class="p">[</span><span class="mi">3</span><span class="p">],</span> <span class="n">line</span> <span class="mi">3</span>
-<span class="g g-Whitespace">      </span><span class="mi">1</span> <span class="c1"># print summary statistics</span>
-<span class="g g-Whitespace">      </span><span class="mi">2</span> <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">Summary statistics</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">,</span> <span class="n">raw</span><span class="o">.</span><span class="n">describe</span><span class="p">())</span>
-<span class="ne">----&gt; </span><span class="mi">3</span> <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">Correlation matrix</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">,</span> <span class="n">raw</span><span class="o">.</span><span class="n">corr</span><span class="p">())</span>
 
-<span class="nn">File ~/Documents/fin-data-analysis-text/.venv/lib/python3.12/site-packages/pandas/core/frame.py:13117,</span> in <span class="ni">DataFrame.corr</span><span class="nt">(self, method, min_periods, numeric_only)</span>
-<span class="g g-Whitespace">  </span><span class="mi">13115</span> <span class="n">cols</span> <span class="o">=</span> <span class="n">data</span><span class="o">.</span><span class="n">columns</span>
-<span class="g g-Whitespace">  </span><span class="mi">13116</span> <span class="n">idx</span> <span class="o">=</span> <span class="n">cols</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
-<span class="ne">&gt; </span><span class="mi">13117</span> <span class="n">mat</span> <span class="o">=</span> <span class="n">data</span><span class="o">.</span><span class="n">to_numpy</span><span class="p">(</span><span class="n">dtype</span><span class="o">=</span><span class="nb">float</span><span class="p">,</span> <span class="n">na_value</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">nan</span><span class="p">,</span> <span class="n">copy</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
-<span class="g g-Whitespace">  </span><span class="mi">13119</span> <span class="k">if</span> <span class="n">method</span> <span class="o">==</span> <span class="s2">&quot;pearson&quot;</span><span class="p">:</span>
-<span class="g g-Whitespace">  </span><span class="mi">13120</span>     <span class="n">correl</span> <span class="o">=</span> <span class="n">libalgos</span><span class="o">.</span><span class="n">nancorr</span><span class="p">(</span><span class="n">mat</span><span class="p">,</span> <span class="n">minp</span><span class="o">=</span><span class="n">min_periods</span><span class="p">)</span>
-
-<span class="nn">File ~/Documents/fin-data-analysis-text/.venv/lib/python3.12/site-packages/pandas/core/frame.py:2081,</span> in <span class="ni">DataFrame.to_numpy</span><span class="nt">(self, dtype, copy, na_value)</span>
-<span class="g g-Whitespace">   </span><span class="mi">2079</span> <span class="k">if</span> <span class="n">dtype</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
-<span class="g g-Whitespace">   </span><span class="mi">2080</span>     <span class="n">dtype</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">dtype</span><span class="p">(</span><span class="n">dtype</span><span class="p">)</span>
-<span class="ne">-&gt; </span><span class="mi">2081</span> <span class="n">result</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_mgr</span><span class="o">.</span><span class="n">as_array</span><span class="p">(</span><span class="n">dtype</span><span class="o">=</span><span class="n">dtype</span><span class="p">,</span> <span class="n">copy</span><span class="o">=</span><span class="n">copy</span><span class="p">,</span> <span class="n">na_value</span><span class="o">=</span><span class="n">na_value</span><span class="p">)</span>
-<span class="g g-Whitespace">   </span><span class="mi">2082</span> <span class="k">if</span> <span class="n">result</span><span class="o">.</span><span class="n">dtype</span> <span class="ow">is</span> <span class="ow">not</span> <span class="n">dtype</span><span class="p">:</span>
-<span class="g g-Whitespace">   </span><span class="mi">2083</span>     <span class="n">result</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">asarray</span><span class="p">(</span><span class="n">result</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="n">dtype</span><span class="p">)</span>
-
-<span class="nn">File ~/Documents/fin-data-analysis-text/.venv/lib/python3.12/site-packages/pandas/core/internals/managers.py:1847,</span> in <span class="ni">BlockManager.as_array</span><span class="nt">(self, dtype, copy, na_value)</span>
-<span class="g g-Whitespace">   </span><span class="mi">1845</span>         <span class="n">arr</span><span class="o">.</span><span class="n">flags</span><span class="o">.</span><span class="n">writeable</span> <span class="o">=</span> <span class="kc">False</span>
-<span class="g g-Whitespace">   </span><span class="mi">1846</span> <span class="k">else</span><span class="p">:</span>
-<span class="ne">-&gt; </span><span class="mi">1847</span>     <span class="n">arr</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_interleave</span><span class="p">(</span><span class="n">dtype</span><span class="o">=</span><span class="n">dtype</span><span class="p">,</span> <span class="n">na_value</span><span class="o">=</span><span class="n">na_value</span><span class="p">)</span>
-<span class="g g-Whitespace">   </span><span class="mi">1848</span>     <span class="c1"># The underlying data was copied within _interleave, so no need</span>
-<span class="g g-Whitespace">   </span><span class="mi">1849</span>     <span class="c1"># to further copy if copy=True or setting na_value</span>
-<span class="g g-Whitespace">   </span><span class="mi">1851</span> <span class="k">if</span> <span class="n">na_value</span> <span class="ow">is</span> <span class="n">lib</span><span class="o">.</span><span class="n">no_default</span><span class="p">:</span>
-
-<span class="nn">File ~/Documents/fin-data-analysis-text/.venv/lib/python3.12/site-packages/pandas/core/internals/managers.py:1900,</span> in <span class="ni">BlockManager._interleave</span><span class="nt">(self, dtype, na_value)</span>
-<span class="g g-Whitespace">   </span><span class="mi">1894</span> <span class="n">rl</span> <span class="o">=</span> <span class="n">blk</span><span class="o">.</span><span class="n">mgr_locs</span>
-<span class="g g-Whitespace">   </span><span class="mi">1895</span> <span class="k">if</span> <span class="n">blk</span><span class="o">.</span><span class="n">is_extension</span><span class="p">:</span>
-<span class="g g-Whitespace">   </span><span class="mi">1896</span>     <span class="c1"># Avoid implicit conversion of extension blocks to object</span>
-<span class="g g-Whitespace">   </span><span class="mi">1897</span> 
-<span class="g g-Whitespace">   </span><span class="mi">1898</span>     <span class="c1"># error: Item &quot;ndarray&quot; of &quot;Union[ndarray, ExtensionArray]&quot; has no</span>
-<span class="g g-Whitespace">   </span><span class="mi">1899</span>     <span class="c1"># attribute &quot;to_numpy&quot;</span>
-<span class="ne">-&gt; </span><span class="mi">1900</span>     <span class="n">arr</span> <span class="o">=</span> <span class="n">blk</span><span class="o">.</span><span class="n">values</span><span class="o">.</span><span class="n">to_numpy</span><span class="p">(</span>  <span class="c1"># type: ignore[union-attr]</span>
-<span class="g g-Whitespace">   </span><span class="mi">1901</span>         <span class="n">dtype</span><span class="o">=</span><span class="n">dtype</span><span class="p">,</span>
-<span class="g g-Whitespace">   </span><span class="mi">1902</span>         <span class="n">na_value</span><span class="o">=</span><span class="n">na_value</span><span class="p">,</span>
-<span class="g g-Whitespace">   </span><span class="mi">1903</span>     <span class="p">)</span>
-<span class="g g-Whitespace">   </span><span class="mi">1904</span> <span class="k">else</span><span class="p">:</span>
-<span class="g g-Whitespace">   </span><span class="mi">1905</span>     <span class="n">arr</span> <span class="o">=</span> <span class="n">blk</span><span class="o">.</span><span class="n">get_values</span><span class="p">(</span><span class="n">dtype</span><span class="p">)</span>
-
-<span class="nn">File ~/Documents/fin-data-analysis-text/.venv/lib/python3.12/site-packages/pandas/core/arrays/numpy_.py:589,</span> in <span class="ni">NumpyExtensionArray.to_numpy</span><span class="nt">(self, dtype, copy, na_value)</span>
-<span class="g g-Whitespace">    </span><span class="mi">586</span>         <span class="n">result</span> <span class="o">=</span> <span class="n">result</span><span class="o">.</span><span class="n">view</span><span class="p">()</span>
-<span class="g g-Whitespace">    </span><span class="mi">587</span>         <span class="n">result</span><span class="o">.</span><span class="n">flags</span><span class="o">.</span><span class="n">writeable</span> <span class="o">=</span> <span class="kc">False</span>
-<span class="ne">--&gt; </span><span class="mi">589</span> <span class="n">result</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">asarray</span><span class="p">(</span><span class="n">result</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="n">dtype</span><span class="p">)</span>
-<span class="g g-Whitespace">    </span><span class="mi">591</span> <span class="k">if</span> <span class="n">copy</span> <span class="ow">and</span> <span class="n">result</span> <span class="ow">is</span> <span class="bp">self</span><span class="o">.</span><span class="n">_ndarray</span><span class="p">:</span>
-<span class="g g-Whitespace">    </span><span class="mi">592</span>     <span class="n">result</span> <span class="o">=</span> <span class="n">result</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
-
-<span class="ne">ValueError</span>: could not convert string to float: &#39;Albania&#39;
+Correlation matrix
+             Corruption     Peace     Legal  GDP Growth
+Corruption    1.000000 -0.705002  0.938512   -0.123545
+Peace        -0.705002  1.000000 -0.662233   -0.004428
+Legal         0.938512 -0.662233  1.000000   -0.150369
+GDP Growth   -0.123545 -0.004428 -0.150369    1.000000
 </pre></div>
 </div>
 </div>
@@ -661,31 +631,24 @@ max     87.000000    3.369000    8.712000    7.800000
 </section>
 <section id="plot-histogram">
 <h4>Plot histogram<a class="headerlink" href="#plot-histogram" title="Link to this heading">#</a></h4>
-<p>Note that distributions for GDP Growth is quite skewed.</p>
+<p>Note that the distribution for GDP Growth is quite skewed.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># plot histograms</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
-<span class="n">raw</span><span class="p">[</span><span class="s1">&#39;Corruption&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">kind</span> <span class="o">=</span> <span class="s1">&#39;hist&#39;</span><span class="p">,</span> <span class="n">title</span> <span class="o">=</span> <span class="s1">&#39;Corruption&#39;</span><span class="p">,</span> <span class="n">alpha</span> <span class="o">=</span> <span class="mf">0.5</span><span class="p">)</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># plot histograms in a 2x2 grid</span>
+<span class="n">fig</span><span class="p">,</span> <span class="n">axes</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span> <span class="mi">8</span><span class="p">))</span>
 
-<span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span>
-<span class="n">raw</span><span class="p">[</span><span class="s1">&#39;Peace&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">kind</span> <span class="o">=</span> <span class="s1">&#39;hist&#39;</span><span class="p">,</span> <span class="n">title</span> <span class="o">=</span> <span class="s1">&#39;Peace&#39;</span><span class="p">,</span> <span class="n">alpha</span> <span class="o">=</span> <span class="mf">0.5</span><span class="p">)</span>
+<span class="n">raw</span><span class="p">[</span><span class="s1">&#39;Corruption&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">kind</span><span class="o">=</span><span class="s1">&#39;hist&#39;</span><span class="p">,</span> <span class="n">title</span><span class="o">=</span><span class="s1">&#39;Corruption&#39;</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.6</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;steelblue&#39;</span><span class="p">,</span> <span class="n">edgecolor</span><span class="o">=</span><span class="s1">&#39;white&#39;</span><span class="p">,</span> <span class="n">ax</span><span class="o">=</span><span class="n">axes</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">])</span>
+<span class="n">raw</span><span class="p">[</span><span class="s1">&#39;Peace&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">kind</span><span class="o">=</span><span class="s1">&#39;hist&#39;</span><span class="p">,</span> <span class="n">title</span><span class="o">=</span><span class="s1">&#39;Peace&#39;</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.6</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;steelblue&#39;</span><span class="p">,</span> <span class="n">edgecolor</span><span class="o">=</span><span class="s1">&#39;white&#39;</span><span class="p">,</span> <span class="n">ax</span><span class="o">=</span><span class="n">axes</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">])</span>
+<span class="n">raw</span><span class="p">[</span><span class="s1">&#39;Legal&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">kind</span><span class="o">=</span><span class="s1">&#39;hist&#39;</span><span class="p">,</span> <span class="n">title</span><span class="o">=</span><span class="s1">&#39;Legal&#39;</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.6</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;steelblue&#39;</span><span class="p">,</span> <span class="n">edgecolor</span><span class="o">=</span><span class="s1">&#39;white&#39;</span><span class="p">,</span> <span class="n">ax</span><span class="o">=</span><span class="n">axes</span><span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">])</span>
+<span class="n">raw</span><span class="p">[</span><span class="s1">&#39;GDP Growth&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">kind</span><span class="o">=</span><span class="s1">&#39;hist&#39;</span><span class="p">,</span> <span class="n">title</span><span class="o">=</span><span class="s1">&#39;GDP Growth&#39;</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.6</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;steelblue&#39;</span><span class="p">,</span> <span class="n">edgecolor</span><span class="o">=</span><span class="s1">&#39;white&#39;</span><span class="p">,</span> <span class="n">ax</span><span class="o">=</span><span class="n">axes</span><span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">])</span>
 
-<span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="mi">3</span><span class="p">)</span>
-<span class="n">raw</span><span class="p">[</span><span class="s1">&#39;Legal&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">kind</span> <span class="o">=</span> <span class="s1">&#39;hist&#39;</span><span class="p">,</span> <span class="n">title</span> <span class="o">=</span> <span class="s1">&#39;Legal&#39;</span><span class="p">,</span> <span class="n">alpha</span> <span class="o">=</span> <span class="mf">0.5</span><span class="p">)</span>
-
-<span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="mi">4</span><span class="p">)</span>
-<span class="n">raw</span><span class="p">[</span><span class="s1">&#39;GDP Growth&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">kind</span> <span class="o">=</span> <span class="s1">&#39;hist&#39;</span><span class="p">,</span> <span class="n">title</span> <span class="o">=</span> <span class="s1">&#39;GDP Growth&#39;</span><span class="p">,</span> <span class="n">alpha</span> <span class="o">=</span> <span class="mf">0.5</span><span class="p">)</span>
-
+<span class="n">plt</span><span class="o">.</span><span class="n">tight_layout</span><span class="p">()</span>
 <span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../_images/1148ea5609bb61b9e1ac64a8fba6ee9a692061139ccb769313565614253e48cd.png" src="../_images/1148ea5609bb61b9e1ac64a8fba6ee9a692061139ccb769313565614253e48cd.png" />
-<img alt="../_images/c6ca130698339fb5575194fab484216b08a925a43b9233ba3ad59e37cb543fe8.png" src="../_images/c6ca130698339fb5575194fab484216b08a925a43b9233ba3ad59e37cb543fe8.png" />
-<img alt="../_images/a6f2357e97d6ad00ec58263735b755620b2f3900f3fc5f5bdd94e14494e679a6.png" src="../_images/a6f2357e97d6ad00ec58263735b755620b2f3900f3fc5f5bdd94e14494e679a6.png" />
-<img alt="../_images/9504c2ebf305c2594e101b75e887533aab9e47a981d5e4b7064f578fabddf9c4.png" src="../_images/9504c2ebf305c2594e101b75e887533aab9e47a981d5e4b7064f578fabddf9c4.png" />
+<img alt="../_images/73b5bca379d4711f47e93c252ead948de737a87900b5a43cc3d441fa632d4294.png" src="../_images/73b5bca379d4711f47e93c252ead948de737a87900b5a43cc3d441fa632d4294.png" />
 </div>
 </div>
 </section>
@@ -778,7 +741,7 @@ max     87.000000    3.369000    8.712000    7.800000
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;class &#39;pandas.core.frame.DataFrame&#39;&gt;
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;class &#39;pandas.DataFrame&#39;&gt;
 RangeIndex: 121 entries, 0 to 120
 Data columns (total 3 columns):
  #   Column      Non-Null Count  Dtype  
@@ -818,21 +781,23 @@ memory usage: 3.0 KB
 <p>Ref. <a class="reference external" href="https://en.wikipedia.org/wiki/Determining_the_number_of_clusters_in_a_data_set">Determining the number of clusters in a dataset.</a></p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># https://stackoverflow.com/questions/41540751/sklearn-kmeans-equivalent-of-elbow-method</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">Ks</span> <span class="o">=</span> <span class="nb">range</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">10</span><span class="p">)</span>
+<span class="n">inertia</span> <span class="o">=</span> <span class="p">[</span><span class="n">KMeans</span><span class="p">(</span><span class="n">n_clusters</span><span class="o">=</span><span class="n">i</span><span class="p">,</span> <span class="n">n_init</span><span class="o">=</span><span class="s1">&#39;auto&#39;</span><span class="p">,</span> <span class="n">random_state</span><span class="o">=</span><span class="mi">42</span><span class="p">)</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">df_features_scaled</span><span class="p">)</span><span class="o">.</span><span class="n">inertia_</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">Ks</span><span class="p">]</span>
 
-<span class="n">Ks</span> <span class="o">=</span> <span class="nb">range</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">10</span><span class="p">)</span>
-<span class="n">inertia</span> <span class="o">=</span> <span class="p">[</span><span class="n">KMeans</span><span class="p">(</span><span class="n">i</span><span class="p">)</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">df_features_scaled</span><span class="p">)</span><span class="o">.</span><span class="n">inertia_</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">Ks</span><span class="p">]</span>
+<span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">8</span><span class="p">,</span> <span class="mi">5</span><span class="p">))</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">Ks</span><span class="p">,</span> <span class="n">inertia</span><span class="p">,</span> <span class="s1">&#39;-bo&#39;</span><span class="p">,</span> <span class="n">markersize</span><span class="o">=</span><span class="mi">8</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s1">&#39;Number of Clusters (k)&#39;</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s1">&#39;Inertia (Within-Cluster Sum of Squares)&#39;</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s1">&#39;Elbow Method: Choosing the Number of Clusters&#39;</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set_xticks</span><span class="p">(</span><span class="nb">range</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">10</span><span class="p">))</span>
 
-<span class="n">fig</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">()</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">Ks</span><span class="p">,</span> <span class="n">inertia</span><span class="p">,</span> <span class="s1">&#39;-bo&#39;</span><span class="p">)</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s1">&#39;Number of clusters&#39;</span><span class="p">)</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s1">&#39;Inertia (within-cluster sum of squares)&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">tight_layout</span><span class="p">()</span>
 <span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../_images/0aee59ab394217345c0e823ca80712f5e0a9f0c9a50c85099ef202284da21d9e.png" src="../_images/0aee59ab394217345c0e823ca80712f5e0a9f0c9a50c85099ef202284da21d9e.png" />
+<img alt="../_images/a74fd13195eabe2d59ce8068041b7d04f65e5b5634d9c56551fa99dd747c7328.png" src="../_images/a74fd13195eabe2d59ce8068041b7d04f65e5b5634d9c56551fa99dd747c7328.png" />
 </div>
 </div>
 </section>
@@ -842,7 +807,7 @@ memory usage: 3.0 KB
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">k</span> <span class="o">=</span> <span class="mi">3</span>
-<span class="n">kmeans</span> <span class="o">=</span> <span class="n">KMeans</span><span class="p">(</span><span class="n">n_clusters</span><span class="o">=</span><span class="n">k</span><span class="p">,</span> <span class="n">random_state</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+<span class="n">kmeans</span> <span class="o">=</span> <span class="n">KMeans</span><span class="p">(</span><span class="n">n_clusters</span><span class="o">=</span><span class="n">k</span><span class="p">,</span> <span class="n">n_init</span><span class="o">=</span><span class="s1">&#39;auto&#39;</span><span class="p">,</span> <span class="n">random_state</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
 <span class="n">kmeans</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">df_features_scaled</span><span class="p">)</span>
 
 <span class="c1"># print inertia &amp; cluster center</span>
@@ -876,52 +841,54 @@ cluster labels:  [1 1 0 1 2 2 1 0 1 2 1 1 1 2 0 1 0 1 2 0 2 1 0 2 1 2 2 0 2 1 0 
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># set up the color</span>
-<span class="n">norm</span> <span class="o">=</span> <span class="n">clrs</span><span class="o">.</span><span class="n">Normalize</span><span class="p">(</span><span class="n">vmin</span><span class="o">=</span><span class="mf">0.</span><span class="p">,</span><span class="n">vmax</span><span class="o">=</span><span class="n">y</span><span class="o">.</span><span class="n">max</span><span class="p">()</span> <span class="o">+</span> <span class="mf">0.8</span><span class="p">)</span>
+<span class="n">norm</span> <span class="o">=</span> <span class="n">clrs</span><span class="o">.</span><span class="n">Normalize</span><span class="p">(</span><span class="n">vmin</span><span class="o">=</span><span class="mf">0.</span><span class="p">,</span> <span class="n">vmax</span><span class="o">=</span><span class="n">y</span><span class="o">.</span><span class="n">max</span><span class="p">()</span> <span class="o">+</span> <span class="mf">0.8</span><span class="p">)</span>
 <span class="n">cmap</span> <span class="o">=</span> <span class="n">cm</span><span class="o">.</span><span class="n">viridis</span>
 
-<span class="n">fig</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">()</span>
+<span class="n">fig</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">9</span><span class="p">,</span> <span class="mi">7</span><span class="p">))</span>
 <span class="n">ax</span> <span class="o">=</span> <span class="n">fig</span><span class="o">.</span><span class="n">add_subplot</span><span class="p">(</span><span class="mi">111</span><span class="p">,</span> <span class="n">projection</span><span class="o">=</span><span class="s1">&#39;3d&#39;</span><span class="p">)</span>
 
-<span class="n">ax</span><span class="o">.</span><span class="n">scatter</span><span class="p">(</span><span class="n">df_features_scaled</span><span class="o">.</span><span class="n">iloc</span><span class="p">[:,</span><span class="mi">0</span><span class="p">],</span> <span class="n">df_features_scaled</span><span class="o">.</span><span class="n">iloc</span><span class="p">[:,</span><span class="mi">1</span><span class="p">],</span> <span class="n">df_features_scaled</span><span class="o">.</span><span class="n">iloc</span><span class="p">[:,</span><span class="mi">2</span><span class="p">],</span> <span class="n">c</span><span class="o">=</span><span class="n">cmap</span><span class="p">(</span><span class="n">norm</span><span class="p">(</span><span class="n">y</span><span class="p">)),</span> <span class="n">marker</span><span class="o">=</span><span class="s1">&#39;o&#39;</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">scatter</span><span class="p">(</span><span class="n">df_features_scaled</span><span class="o">.</span><span class="n">iloc</span><span class="p">[:,</span> <span class="mi">0</span><span class="p">],</span> <span class="n">df_features_scaled</span><span class="o">.</span><span class="n">iloc</span><span class="p">[:,</span> <span class="mi">1</span><span class="p">],</span> <span class="n">df_features_scaled</span><span class="o">.</span><span class="n">iloc</span><span class="p">[:,</span> <span class="mi">2</span><span class="p">],</span>
+           <span class="n">c</span><span class="o">=</span><span class="n">cmap</span><span class="p">(</span><span class="n">norm</span><span class="p">(</span><span class="n">y</span><span class="p">)),</span> <span class="n">marker</span><span class="o">=</span><span class="s1">&#39;o&#39;</span><span class="p">,</span> <span class="n">s</span><span class="o">=</span><span class="mi">40</span><span class="p">)</span>
 
 <span class="n">centers</span> <span class="o">=</span> <span class="n">kmeans</span><span class="o">.</span><span class="n">cluster_centers_</span>
-<span class="n">ax</span><span class="o">.</span><span class="n">scatter</span><span class="p">(</span><span class="n">centers</span><span class="p">[:,</span> <span class="mi">0</span><span class="p">],</span> <span class="n">centers</span><span class="p">[:,</span> <span class="mi">1</span><span class="p">],</span> <span class="n">c</span><span class="o">=</span><span class="s1">&#39;black&#39;</span><span class="p">,</span> <span class="n">s</span><span class="o">=</span><span class="mi">100</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.5</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">scatter</span><span class="p">(</span><span class="n">centers</span><span class="p">[:,</span> <span class="mi">0</span><span class="p">],</span> <span class="n">centers</span><span class="p">[:,</span> <span class="mi">1</span><span class="p">],</span> <span class="n">centers</span><span class="p">[:,</span> <span class="mi">2</span><span class="p">],</span> <span class="n">c</span><span class="o">=</span><span class="s1">&#39;black&#39;</span><span class="p">,</span> <span class="n">s</span><span class="o">=</span><span class="mi">150</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.7</span><span class="p">,</span> <span class="n">marker</span><span class="o">=</span><span class="s1">&#39;X&#39;</span><span class="p">)</span>
 
 <span class="n">ax</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s1">&#39;Peace&#39;</span><span class="p">)</span>
 <span class="n">ax</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s1">&#39;Legal&#39;</span><span class="p">)</span>
 <span class="n">ax</span><span class="o">.</span><span class="n">set_zlabel</span><span class="p">(</span><span class="s1">&#39;GDP Growth&#39;</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s1">&#39;K-Means Clusters (k=3) in 3D&#39;</span><span class="p">)</span>
 
+<span class="n">plt</span><span class="o">.</span><span class="n">tight_layout</span><span class="p">()</span>
 <span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../_images/017d0fc6f0536b6c1524464f16258bdaed59d752cecb2d5eeb74ca200ba2c341.png" src="../_images/017d0fc6f0536b6c1524464f16258bdaed59d752cecb2d5eeb74ca200ba2c341.png" />
+<img alt="../_images/a4ea466781b45dc0aa55d8fbbb3d02a8dd8ad85237379720a6068b6a1bd82262.png" src="../_images/a4ea466781b45dc0aa55d8fbbb3d02a8dd8ad85237379720a6068b6a1bd82262.png" />
 </div>
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">%</span><span class="k">matplotlib</span> inline
-<span class="kn">import</span><span class="w"> </span><span class="nn">matplotlib.pyplot</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">plt</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">fig</span><span class="p">,</span> <span class="n">axes</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">16</span><span class="p">,</span> <span class="mi">5</span><span class="p">))</span>
 
 <span class="n">figs</span> <span class="o">=</span> <span class="p">[(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">),</span> <span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">2</span><span class="p">),</span> <span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">)]</span>
 <span class="n">labels</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;Peace&#39;</span><span class="p">,</span> <span class="s1">&#39;Legal&#39;</span><span class="p">,</span> <span class="s1">&#39;GDP Growth&#39;</span><span class="p">]</span>
 
-<span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">3</span><span class="p">):</span>
-    <span class="n">fig</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">i</span><span class="p">)</span>
-    <span class="n">plt</span><span class="o">.</span><span class="n">scatter</span><span class="p">(</span><span class="n">df_features_scaled</span><span class="o">.</span><span class="n">iloc</span><span class="p">[:,</span><span class="n">figs</span><span class="p">[</span><span class="n">i</span><span class="p">][</span><span class="mi">0</span><span class="p">]],</span> <span class="n">df_features_scaled</span><span class="o">.</span><span class="n">iloc</span><span class="p">[:,</span><span class="n">figs</span><span class="p">[</span><span class="n">i</span><span class="p">][</span><span class="mi">1</span><span class="p">]],</span> <span class="n">c</span><span class="o">=</span><span class="n">cmap</span><span class="p">(</span><span class="n">norm</span><span class="p">(</span><span class="n">y</span><span class="p">)),</span> <span class="n">s</span><span class="o">=</span><span class="mi">50</span><span class="p">)</span>
-    <span class="n">plt</span><span class="o">.</span><span class="n">scatter</span><span class="p">(</span><span class="n">centers</span><span class="p">[:,</span> <span class="n">figs</span><span class="p">[</span><span class="n">i</span><span class="p">][</span><span class="mi">0</span><span class="p">]],</span> <span class="n">centers</span><span class="p">[:,</span> <span class="n">figs</span><span class="p">[</span><span class="n">i</span><span class="p">][</span><span class="mi">1</span><span class="p">]],</span> <span class="n">c</span><span class="o">=</span><span class="s1">&#39;black&#39;</span><span class="p">,</span> <span class="n">s</span><span class="o">=</span><span class="mi">200</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.5</span><span class="p">)</span>
-    <span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="n">labels</span><span class="p">[</span><span class="n">figs</span><span class="p">[</span><span class="n">i</span><span class="p">][</span><span class="mi">0</span><span class="p">]])</span>
-    <span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="n">labels</span><span class="p">[</span><span class="n">figs</span><span class="p">[</span><span class="n">i</span><span class="p">][</span><span class="mi">1</span><span class="p">]])</span>
+<span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">ax</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">axes</span><span class="p">):</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">scatter</span><span class="p">(</span><span class="n">df_features_scaled</span><span class="o">.</span><span class="n">iloc</span><span class="p">[:,</span> <span class="n">figs</span><span class="p">[</span><span class="n">i</span><span class="p">][</span><span class="mi">0</span><span class="p">]],</span> <span class="n">df_features_scaled</span><span class="o">.</span><span class="n">iloc</span><span class="p">[:,</span> <span class="n">figs</span><span class="p">[</span><span class="n">i</span><span class="p">][</span><span class="mi">1</span><span class="p">]],</span>
+               <span class="n">c</span><span class="o">=</span><span class="n">cmap</span><span class="p">(</span><span class="n">norm</span><span class="p">(</span><span class="n">y</span><span class="p">)),</span> <span class="n">s</span><span class="o">=</span><span class="mi">50</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.7</span><span class="p">)</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">scatter</span><span class="p">(</span><span class="n">centers</span><span class="p">[:,</span> <span class="n">figs</span><span class="p">[</span><span class="n">i</span><span class="p">][</span><span class="mi">0</span><span class="p">]],</span> <span class="n">centers</span><span class="p">[:,</span> <span class="n">figs</span><span class="p">[</span><span class="n">i</span><span class="p">][</span><span class="mi">1</span><span class="p">]],</span> <span class="n">c</span><span class="o">=</span><span class="s1">&#39;black&#39;</span><span class="p">,</span> <span class="n">s</span><span class="o">=</span><span class="mi">200</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.5</span><span class="p">,</span> <span class="n">marker</span><span class="o">=</span><span class="s1">&#39;X&#39;</span><span class="p">)</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="n">labels</span><span class="p">[</span><span class="n">figs</span><span class="p">[</span><span class="n">i</span><span class="p">][</span><span class="mi">0</span><span class="p">]])</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="n">labels</span><span class="p">[</span><span class="n">figs</span><span class="p">[</span><span class="n">i</span><span class="p">][</span><span class="mi">1</span><span class="p">]])</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="n">labels</span><span class="p">[</span><span class="n">figs</span><span class="p">[</span><span class="n">i</span><span class="p">][</span><span class="mi">0</span><span class="p">]]</span><span class="si">}</span><span class="s1"> vs </span><span class="si">{</span><span class="n">labels</span><span class="p">[</span><span class="n">figs</span><span class="p">[</span><span class="n">i</span><span class="p">][</span><span class="mi">1</span><span class="p">]]</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
 
+<span class="n">plt</span><span class="o">.</span><span class="n">tight_layout</span><span class="p">()</span>
 <span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../_images/bd41bd7596dcb941e399fea4be54b72a61f598c4fb973856704e12c98b5d688c.png" src="../_images/bd41bd7596dcb941e399fea4be54b72a61f598c4fb973856704e12c98b5d688c.png" />
-<img alt="../_images/51281f6fa718f072d30ea9af7152d727773bd5367eb4ced801906475b2fc17e7.png" src="../_images/51281f6fa718f072d30ea9af7152d727773bd5367eb4ced801906475b2fc17e7.png" />
-<img alt="../_images/d323bb1c36804132c2bb8cd76eb5133be33017a9a559daf20b106aa8553235ae.png" src="../_images/d323bb1c36804132c2bb8cd76eb5133be33017a9a559daf20b106aa8553235ae.png" />
+<img alt="../_images/6567492a13758dc48177bf5828891b76a82e71ffd2e02d15ef19e31c47592129.png" src="../_images/6567492a13758dc48177bf5828891b76a82e71ffd2e02d15ef19e31c47592129.png" />
 </div>
 </div>
 </section>
@@ -930,33 +897,33 @@ cluster labels:  [1 1 0 1 2 2 1 0 1 2 1 1 1 2 0 1 0 1 2 0 2 1 0 2 1 2 2 0 2 1 0 
 <p>Let’s plot country abbreviations instead of dots. By being careful with our graphic design, we can show dimensionality a variety of ways.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">%</span><span class="k">matplotlib</span> inline
-<span class="kn">import</span><span class="w"> </span><span class="nn">matplotlib.pyplot</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">plt</span>
-
-<span class="n">figs</span> <span class="o">=</span> <span class="p">[(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">),</span> <span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">2</span><span class="p">),</span> <span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">)]</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">figs</span> <span class="o">=</span> <span class="p">[(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">),</span> <span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">2</span><span class="p">),</span> <span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">)]</span>
 <span class="n">labels</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;Peace&#39;</span><span class="p">,</span> <span class="s1">&#39;Legal&#39;</span><span class="p">,</span> <span class="s1">&#39;GDP Growth&#39;</span><span class="p">]</span>
-<span class="n">colors</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;blue&#39;</span><span class="p">,</span><span class="s1">&#39;green&#39;</span><span class="p">,</span> <span class="s1">&#39;red&#39;</span><span class="p">]</span>
+<span class="n">colors</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;blue&#39;</span><span class="p">,</span> <span class="s1">&#39;green&#39;</span><span class="p">,</span> <span class="s1">&#39;red&#39;</span><span class="p">]</span>
 
 <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">3</span><span class="p">):</span>
-    <span class="n">fig</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">i</span><span class="p">,</span> <span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">8</span><span class="p">,</span> <span class="mi">8</span><span class="p">))</span>
+    <span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">8</span><span class="p">,</span> <span class="mi">8</span><span class="p">))</span>
     <span class="n">x_1</span> <span class="o">=</span> <span class="n">figs</span><span class="p">[</span><span class="n">i</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span>
     <span class="n">x_2</span> <span class="o">=</span> <span class="n">figs</span><span class="p">[</span><span class="n">i</span><span class="p">][</span><span class="mi">1</span><span class="p">]</span>
-    <span class="n">plt</span><span class="o">.</span><span class="n">scatter</span><span class="p">(</span><span class="n">df_features_scaled</span><span class="o">.</span><span class="n">iloc</span><span class="p">[:,</span> <span class="n">x_1</span><span class="p">],</span> <span class="n">df_features_scaled</span><span class="o">.</span><span class="n">iloc</span><span class="p">[:,</span> <span class="n">x_2</span><span class="p">],</span> <span class="n">c</span><span class="o">=</span><span class="n">y</span><span class="p">,</span> <span class="n">s</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
-    <span class="n">plt</span><span class="o">.</span><span class="n">scatter</span><span class="p">(</span><span class="n">centers</span><span class="p">[:,</span> <span class="n">x_1</span><span class="p">],</span> <span class="n">centers</span><span class="p">[:,</span> <span class="n">x_2</span><span class="p">],</span> <span class="n">c</span><span class="o">=</span><span class="s1">&#39;black&#39;</span><span class="p">,</span> <span class="n">s</span><span class="o">=</span><span class="mi">200</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.5</span><span class="p">)</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">scatter</span><span class="p">(</span><span class="n">df_features_scaled</span><span class="o">.</span><span class="n">iloc</span><span class="p">[:,</span> <span class="n">x_1</span><span class="p">],</span> <span class="n">df_features_scaled</span><span class="o">.</span><span class="n">iloc</span><span class="p">[:,</span> <span class="n">x_2</span><span class="p">],</span> <span class="n">c</span><span class="o">=</span><span class="n">y</span><span class="p">,</span> <span class="n">s</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">scatter</span><span class="p">(</span><span class="n">centers</span><span class="p">[:,</span> <span class="n">x_1</span><span class="p">],</span> <span class="n">centers</span><span class="p">[:,</span> <span class="n">x_2</span><span class="p">],</span> <span class="n">c</span><span class="o">=</span><span class="s1">&#39;black&#39;</span><span class="p">,</span> <span class="n">s</span><span class="o">=</span><span class="mi">200</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.5</span><span class="p">,</span> <span class="n">marker</span><span class="o">=</span><span class="s1">&#39;X&#39;</span><span class="p">)</span>
     <span class="k">for</span> <span class="n">j</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">df_features_scaled</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]):</span>
-        <span class="n">plt</span><span class="o">.</span><span class="n">text</span><span class="p">(</span><span class="n">df_features_scaled</span><span class="o">.</span><span class="n">iloc</span><span class="p">[</span><span class="n">j</span><span class="p">,</span> <span class="n">x_1</span><span class="p">],</span> <span class="n">df_features_scaled</span><span class="o">.</span><span class="n">iloc</span><span class="p">[</span><span class="n">j</span><span class="p">,</span> <span class="n">x_2</span><span class="p">],</span> <span class="n">raw</span><span class="p">[</span><span class="s1">&#39;Abbrev&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">iloc</span><span class="p">[</span><span class="n">j</span><span class="p">],</span> 
-                 <span class="n">color</span><span class="o">=</span><span class="n">colors</span><span class="p">[</span><span class="n">y</span><span class="p">[</span><span class="n">j</span><span class="p">]],</span> <span class="n">weight</span><span class="o">=</span><span class="s1">&#39;semibold&#39;</span><span class="p">,</span> <span class="n">horizontalalignment</span> <span class="o">=</span> <span class="s1">&#39;center&#39;</span><span class="p">,</span> <span class="n">verticalalignment</span> <span class="o">=</span> <span class="s1">&#39;center&#39;</span><span class="p">)</span>
-    <span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="n">labels</span><span class="p">[</span><span class="n">x_1</span><span class="p">])</span>
-    <span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="n">labels</span><span class="p">[</span><span class="n">x_2</span><span class="p">])</span>
+        <span class="n">ax</span><span class="o">.</span><span class="n">text</span><span class="p">(</span><span class="n">df_features_scaled</span><span class="o">.</span><span class="n">iloc</span><span class="p">[</span><span class="n">j</span><span class="p">,</span> <span class="n">x_1</span><span class="p">],</span> <span class="n">df_features_scaled</span><span class="o">.</span><span class="n">iloc</span><span class="p">[</span><span class="n">j</span><span class="p">,</span> <span class="n">x_2</span><span class="p">],</span> <span class="n">raw</span><span class="p">[</span><span class="s1">&#39;Abbrev&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">iloc</span><span class="p">[</span><span class="n">j</span><span class="p">],</span>
+                <span class="n">color</span><span class="o">=</span><span class="n">colors</span><span class="p">[</span><span class="n">y</span><span class="p">[</span><span class="n">j</span><span class="p">]],</span> <span class="n">weight</span><span class="o">=</span><span class="s1">&#39;semibold&#39;</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">8</span><span class="p">,</span>
+                <span class="n">horizontalalignment</span><span class="o">=</span><span class="s1">&#39;center&#39;</span><span class="p">,</span> <span class="n">verticalalignment</span><span class="o">=</span><span class="s1">&#39;center&#39;</span><span class="p">)</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="n">labels</span><span class="p">[</span><span class="n">x_1</span><span class="p">])</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="n">labels</span><span class="p">[</span><span class="n">x_2</span><span class="p">])</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;Country Clusters: </span><span class="si">{</span><span class="n">labels</span><span class="p">[</span><span class="n">x_1</span><span class="p">]</span><span class="si">}</span><span class="s1"> vs </span><span class="si">{</span><span class="n">labels</span><span class="p">[</span><span class="n">x_2</span><span class="p">]</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">tight_layout</span><span class="p">()</span>
 
 <span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../_images/a78be70829d64059098ce5abccceb78c0ebfe7066aaa5cd5f180c75093f1c0ef.png" src="../_images/a78be70829d64059098ce5abccceb78c0ebfe7066aaa5cd5f180c75093f1c0ef.png" />
-<img alt="../_images/4645c37a32f0fa1c54678ed40c6d0c7a327106f9d1e52816b935ed938634c487.png" src="../_images/4645c37a32f0fa1c54678ed40c6d0c7a327106f9d1e52816b935ed938634c487.png" />
-<img alt="../_images/708b33991694d409d66e60fc345b7f0ad3a2fd6e7f814d56f90f731dc21507ba.png" src="../_images/708b33991694d409d66e60fc345b7f0ad3a2fd6e7f814d56f90f731dc21507ba.png" />
+<img alt="../_images/bd39c3154d8cad767933a2e4bbbfce6b3a85f76962709661f50295dee78ccef8.png" src="../_images/bd39c3154d8cad767933a2e4bbbfce6b3a85f76962709661f50295dee78ccef8.png" />
+<img alt="../_images/dacab3d4fa349caa3dc5cfd934071570f8ba07015b136f8c8a305207b3779be3.png" src="../_images/dacab3d4fa349caa3dc5cfd934071570f8ba07015b136f8c8a305207b3779be3.png" />
+<img alt="../_images/485e6e88e4c324700b4ea848514e1561011bfa6f18965d0aa86a98d3a5d4e566.png" src="../_images/485e6e88e4c324700b4ea848514e1561011bfa6f18965d0aa86a98d3a5d4e566.png" />
 </div>
 </div>
 </section>
@@ -1105,42 +1072,59 @@ cluster labels:  [1 1 0 1 2 2 1 0 1 2 1 1 1 2 0 1 0 1 2 0 2 1 0 2 1 2 2 0 2 1 0 
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Silhouette Analysis</span>
-<span class="n">range_n_clusters</span><span class="o">=</span><span class="p">[</span><span class="mi">2</span><span class="p">,</span><span class="mi">3</span><span class="p">,</span><span class="mi">4</span><span class="p">,</span><span class="mi">5</span><span class="p">,</span><span class="mi">6</span><span class="p">,</span><span class="mi">7</span><span class="p">,</span><span class="mi">8</span><span class="p">,</span><span class="mi">9</span><span class="p">,</span><span class="mi">10</span><span class="p">]</span>
+<span class="n">range_n_clusters</span> <span class="o">=</span> <span class="p">[</span><span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="mi">6</span><span class="p">,</span> <span class="mi">7</span><span class="p">,</span> <span class="mi">8</span><span class="p">,</span> <span class="mi">9</span><span class="p">,</span> <span class="mi">10</span><span class="p">]</span>
+
 <span class="k">for</span> <span class="n">n_clusters</span> <span class="ow">in</span> <span class="n">range_n_clusters</span><span class="p">:</span>
-    <span class="n">clusterer</span><span class="o">=</span><span class="n">KMeans</span><span class="p">(</span><span class="n">n_clusters</span><span class="o">=</span><span class="n">n_clusters</span><span class="p">,</span> <span class="n">random_state</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
-    <span class="n">cluster_labels</span><span class="o">=</span><span class="n">clusterer</span><span class="o">.</span><span class="n">fit_predict</span><span class="p">(</span><span class="n">df_features_scaled</span><span class="p">)</span>
-    <span class="n">silhouette_avg</span><span class="o">=</span><span class="n">silhouette_score</span><span class="p">(</span><span class="n">df_features_scaled</span><span class="p">,</span><span class="n">cluster_labels</span><span class="p">)</span>
-    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;For n_clusters=&quot;</span><span class="p">,</span> <span class="n">n_clusters</span><span class="p">,</span>
-          <span class="s2">&quot;The average silhouette_score is :&quot;</span><span class="p">,</span> <span class="n">silhouette_avg</span><span class="p">)</span>
+    <span class="n">clusterer</span> <span class="o">=</span> <span class="n">KMeans</span><span class="p">(</span><span class="n">n_clusters</span><span class="o">=</span><span class="n">n_clusters</span><span class="p">,</span> <span class="n">n_init</span><span class="o">=</span><span class="s1">&#39;auto&#39;</span><span class="p">,</span> <span class="n">random_state</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+    <span class="n">cluster_labels</span> <span class="o">=</span> <span class="n">clusterer</span><span class="o">.</span><span class="n">fit_predict</span><span class="p">(</span><span class="n">df_features_scaled</span><span class="p">)</span>
+    <span class="n">silhouette_avg</span> <span class="o">=</span> <span class="n">silhouette_score</span><span class="p">(</span><span class="n">df_features_scaled</span><span class="p">,</span> <span class="n">cluster_labels</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;For n_clusters = </span><span class="si">{</span><span class="n">n_clusters</span><span class="si">}</span><span class="s2">, the average silhouette score is: </span><span class="si">{</span><span class="n">silhouette_avg</span><span class="si">:</span><span class="s2">.4f</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>For n_clusters= 2 The average silhouette_score is : 0.35091395238521605
-For n_clusters= 3 The average silhouette_score is : 0.35287972873953516
-For n_clusters= 4 The average silhouette_score is : 0.3162677855568406
-For n_clusters= 5 The average silhouette_score is : 0.2769522059777643
-For n_clusters= 6 The average silhouette_score is : 0.33582504378732997
-For n_clusters= 7 The average silhouette_score is : 0.311002099095008
-For n_clusters= 8 The average silhouette_score is : 0.35010275097023785
-For n_clusters= 9 The average silhouette_score is : 0.3459688066178027
-For n_clusters= 10 The average silhouette_score is : 0.31726760014278527
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>For n_clusters = 2, the average silhouette score is: 0.3509
+For n_clusters = 3, the average silhouette score is: 0.3529
+For n_clusters = 4, the average silhouette score is: 0.3163
+For n_clusters = 5, the average silhouette score is: 0.2770
+For n_clusters = 6, the average silhouette score is: 0.3358
+For n_clusters = 7, the average silhouette score is: 0.3110
+For n_clusters = 8, the average silhouette score is: 0.3501
+For n_clusters = 9, the average silhouette score is: 0.3460
+For n_clusters = 10, the average silhouette score is: 0.3173
 </pre></div>
 </div>
 </div>
 </div>
+<p>The silhouette scores are relatively flat across different values of k, hovering around 0.31-0.35. This tells us that the data doesn’t have dramatically distinct clusters — the boundaries between groups are somewhat fuzzy. That’s actually common with real-world data, especially country-level economic indicators where there’s a continuum from low-risk to high-risk.</p>
+<p>The highest silhouette score is at k=3, which is consistent with our elbow method choice. A silhouette score ranges from -1 to 1:</p>
+<ul class="simple">
+<li><p><strong>Close to 1</strong>: The observation is well-matched to its own cluster and poorly matched to neighboring clusters</p></li>
+<li><p><strong>Close to 0</strong>: The observation is on the border between two clusters</p></li>
+<li><p><strong>Negative</strong>: The observation may have been assigned to the wrong cluster</p></li>
+</ul>
+<p>A score around 0.35 is moderate — it suggests meaningful but not perfectly separated clusters. In finance, perfectly separated clusters are rare. Markets and economies exist on a spectrum.</p>
 </section>
 </section>
 </section>
 <section id="principal-component-analysis-pca">
 <h2>Principal Component Analysis (PCA)<a class="headerlink" href="#principal-component-analysis-pca" title="Link to this heading">#</a></h2>
-<p>Chapter 2 ends with some alternative clustering methods, including <strong>principal component analysis (PCA)</strong>.</p>
+<p>Chapter 2 ends with a discussion of <strong>principal component analysis (PCA)</strong>. PCA is one of the most important tools in data analysis, especially in finance.</p>
 <p>PCA takes the data features and creates <strong>factors</strong> from the data that are <strong>uncorrelated</strong> with each other. From pg. 42:</p>
 <blockquote>
 <div><p>PCA works best on normalized data. The first factor accounts for as  much of the variability in the data as possible. Each succeeding factor  then accounts for as much of the remaining variability in the data subject to the condition that it is uncorrelated to preceding factors. The  quantity of a particular factor in a particular observation is the factor score.</p>
 </div></blockquote>
+<p><strong>What’s the intuition?</strong> Imagine you have a cloud of data points in 3D space, shaped like a football (an American football — elongated). If you wanted to summarize the shape of that cloud with just one direction, you’d pick the long axis — that’s where the data spreads out the most. That direction is your first principal component. The second component points across the width, capturing the next most variation while being perpendicular (uncorrelated) to the first. The third captures whatever’s left.</p>
+<p>PCA does exactly this, but in any number of dimensions. It finds the directions (called <strong>principal components</strong> or <strong>eigenvectors</strong>) along which your data varies the most. The amount of variation captured by each component is the <strong>explained variance</strong>.</p>
+<p><strong>Why is this useful in finance?</strong> Suppose you have returns for 50 stocks. That’s 50 dimensions of data. PCA might reveal that just 3-4 principal components explain 80-90% of the variation in returns. Those components often correspond to interpretable factors — the overall market, sector rotation, value vs. growth. Instead of tracking 50 correlated stocks, you can focus on a few uncorrelated components that capture the essential behavior.</p>
+<p>The key outputs from PCA are:</p>
+<ul class="simple">
+<li><p><strong>Components (loadings)</strong>: The weights that define each principal component as a linear combination of the original features. They tell you what each component “means.”</p></li>
+<li><p><strong>Explained variance ratio</strong>: The fraction of total variance captured by each component. This tells you how important each component is.</p></li>
+<li><p><strong>Principal component scores</strong>: The transformed data — each observation’s coordinates in the new principal component space.</p></li>
+</ul>
 <p>You can read more about how to do this with <a class="reference external" href="https://scikit-learn.org/stable/modules/generated/sklearn.decomposition.PCA.html">Scikit-learn PCA</a>.</p>
-<p>What is PCA really doing? Well, you need some <a class="reference external" href="https://brilliant.org/wiki/principal-component-analysis/">matrix algebra for that</a>. Here’s <a class="reference external" href="https://www.avenga.com/magazine/pca-in-finance/">another explainer</a>, with the bare-minimum of math.</p>
+<p>What is PCA really doing mathematically? You need some <a class="reference external" href="https://brilliant.org/wiki/principal-component-analysis/">matrix algebra for that</a>. Here’s <a class="reference external" href="https://www.avenga.com/magazine/pca-in-finance/">another explainer</a>, with the bare-minimum of math.</p>
 <p>This video was recommended by <a class="reference external" href="https://www.quantymacro.com">QuantyMacro</a>.</p>
 <p><a class="reference external" href="https://www.youtube.com/watch?v=fkf4IBRSeEc"><img alt="PCA Explained" src="https://img.youtube.com/vi/fkf4IBRSeEc/0.jpg" /></a></p>
 <p>Let’s start with some simple PCA code using our scaled features.</p>
@@ -1231,7 +1215,8 @@ For n_clusters= 10 The average silhouette_score is : 0.31726760014278527
 <div class="cell_output docutils container">
 <div class="output text_html"><style>#sk-container-id-1 {
   /* Definition of color scheme common for light and dark mode */
-  --sklearn-color-text: black;
+  --sklearn-color-text: #000;
+  --sklearn-color-text-muted: #666;
   --sklearn-color-line: gray;
   /* Definition of color scheme for unfitted estimators */
   --sklearn-color-unfitted-level-0: #fff5e6;
@@ -1243,20 +1228,21 @@ For n_clusters= 10 The average silhouette_score is : 0.31726760014278527
   --sklearn-color-fitted-level-1: #d4ebff;
   --sklearn-color-fitted-level-2: #b3dbfd;
   --sklearn-color-fitted-level-3: cornflowerblue;
+}
 
+#sk-container-id-1.light {
   /* Specific color for light theme */
-  --sklearn-color-text-on-default-background: var(--sg-text-color, var(--theme-code-foreground, var(--jp-content-font-color1, black)));
-  --sklearn-color-background: var(--sg-background-color, var(--theme-background, var(--jp-layout-color0, white)));
-  --sklearn-color-border-box: var(--sg-text-color, var(--theme-code-foreground, var(--jp-content-font-color1, black)));
+  --sklearn-color-text-on-default-background: black;
+  --sklearn-color-background: white;
+  --sklearn-color-border-box: black;
   --sklearn-color-icon: #696969;
+}
 
-  @media (prefers-color-scheme: dark) {
-    /* Redefinition of color scheme for dark theme */
-    --sklearn-color-text-on-default-background: var(--sg-text-color, var(--theme-code-foreground, var(--jp-content-font-color1, white)));
-    --sklearn-color-background: var(--sg-background-color, var(--theme-background, var(--jp-layout-color0, #111)));
-    --sklearn-color-border-box: var(--sg-text-color, var(--theme-code-foreground, var(--jp-content-font-color1, white)));
-    --sklearn-color-icon: #878787;
-  }
+#sk-container-id-1.dark {
+  --sklearn-color-text-on-default-background: white;
+  --sklearn-color-background: #111;
+  --sklearn-color-border-box: white;
+  --sklearn-color-icon: #878787;
 }
 
 #sk-container-id-1 {
@@ -1376,12 +1362,21 @@ clickable and can be expanded/collapsed.
 /* Toggleable label */
 #sk-container-id-1 label.sk-toggleable__label {
   cursor: pointer;
-  display: block;
+  display: flex;
   width: 100%;
   margin-bottom: 0;
   padding: 0.5em;
   box-sizing: border-box;
   text-align: center;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5em;
+}
+
+#sk-container-id-1 label.sk-toggleable__label .caption {
+  font-size: 0.6rem;
+  font-weight: lighter;
+  color: var(--sklearn-color-text-muted);
 }
 
 #sk-container-id-1 label.sk-toggleable__label-arrow:before {
@@ -1399,9 +1394,7 @@ clickable and can be expanded/collapsed.
 /* Toggleable content - dropdown */
 
 #sk-container-id-1 div.sk-toggleable__content {
-  max-height: 0;
-  max-width: 0;
-  overflow: hidden;
+  display: none;
   text-align: left;
   /* unfitted */
   background-color: var(--sklearn-color-unfitted-level-0);
@@ -1427,9 +1420,9 @@ clickable and can be expanded/collapsed.
 
 #sk-container-id-1 input.sk-toggleable__control:checked~div.sk-toggleable__content {
   /* Expand drop-down */
-  max-height: 200px;
-  max-width: 100%;
-  overflow: auto;
+  display: block;
+  width: 100%;
+  overflow: visible;
 }
 
 #sk-container-id-1 input.sk-toggleable__control:checked~label.sk-toggleable__label-arrow:before {
@@ -1483,7 +1476,6 @@ clickable and can be expanded/collapsed.
 #sk-container-id-1 div.sk-label label {
   font-family: monospace;
   font-weight: bold;
-  display: inline-block;
   line-height: 1.2em;
 }
 
@@ -1529,23 +1521,25 @@ a:visited.sk-estimator-doc-link {
   font-size: smaller;
   line-height: 1em;
   font-family: monospace;
-  background-color: var(--sklearn-color-background);
+  background-color: var(--sklearn-color-unfitted-level-0);
   border-radius: 1em;
   height: 1em;
   width: 1em;
   text-decoration: none !important;
-  margin-left: 1ex;
+  margin-left: 0.5em;
+  text-align: center;
   /* unfitted */
-  border: var(--sklearn-color-unfitted-level-1) 1pt solid;
-  color: var(--sklearn-color-unfitted-level-1);
+  border: var(--sklearn-color-unfitted-level-3) 1pt solid;
+  color: var(--sklearn-color-unfitted-level-3);
 }
 
 .sk-estimator-doc-link.fitted,
 a:link.sk-estimator-doc-link.fitted,
 a:visited.sk-estimator-doc-link.fitted {
   /* fitted */
-  border: var(--sklearn-color-fitted-level-1) 1pt solid;
-  color: var(--sklearn-color-fitted-level-1);
+  background-color: var(--sklearn-color-fitted-level-0);
+  border: var(--sklearn-color-fitted-level-3) 1pt solid;
+  color: var(--sklearn-color-fitted-level-3);
 }
 
 /* On hover */
@@ -1555,7 +1549,8 @@ div.sk-label-container:hover .sk-estimator-doc-link:hover,
 .sk-estimator-doc-link:hover {
   /* unfitted */
   background-color: var(--sklearn-color-unfitted-level-3);
-  color: var(--sklearn-color-background);
+  border: var(--sklearn-color-fitted-level-0) 1pt solid;
+  color: var(--sklearn-color-unfitted-level-0);
   text-decoration: none;
 }
 
@@ -1565,7 +1560,8 @@ div.sk-label-container:hover .sk-estimator-doc-link.fitted:hover,
 .sk-estimator-doc-link.fitted:hover {
   /* fitted */
   background-color: var(--sklearn-color-fitted-level-3);
-  color: var(--sklearn-color-background);
+  border: var(--sklearn-color-fitted-level-0) 1pt solid;
+  color: var(--sklearn-color-fitted-level-0);
   text-decoration: none;
 }
 
@@ -1605,7 +1601,7 @@ div.sk-label-container:hover .sk-estimator-doc-link.fitted:hover,
   font-size: 1rem;
   line-height: 1em;
   font-family: monospace;
-  background-color: var(--sklearn-color-background);
+  background-color: var(--sklearn-color-unfitted-level-0);
   border-radius: 1rem;
   height: 1rem;
   width: 1rem;
@@ -1617,6 +1613,7 @@ div.sk-label-container:hover .sk-estimator-doc-link.fitted:hover,
 
 #sk-container-id-1 a.estimator_doc_link.fitted {
   /* fitted */
+  background-color: var(--sklearn-color-fitted-level-0);
   border: var(--sklearn-color-fitted-level-1) 1pt solid;
   color: var(--sklearn-color-fitted-level-1);
 }
@@ -1633,38 +1630,526 @@ div.sk-label-container:hover .sk-estimator-doc-link.fitted:hover,
   /* fitted */
   background-color: var(--sklearn-color-fitted-level-3);
 }
-</style><div id="sk-container-id-1" class="sk-top-container"><div class="sk-text-repr-fallback"><pre>PCA(n_components=4)</pre><b>In a Jupyter environment, please rerun this cell to show the HTML representation or trust the notebook. <br />On GitHub, the HTML representation is unable to render, please try loading this page with nbviewer.org.</b></div><div class="sk-container" hidden><div class="sk-item"><div class="sk-estimator fitted sk-toggleable"><input class="sk-toggleable__control sk-hidden--visually" id="sk-estimator-id-1" type="checkbox" checked><label for="sk-estimator-id-1" class="sk-toggleable__label fitted sk-toggleable__label-arrow fitted">&nbsp;&nbsp;PCA<a class="sk-estimator-doc-link fitted" rel="noreferrer" target="_blank" href="https://scikit-learn.org/1.4/modules/generated/sklearn.decomposition.PCA.html">?<span>Documentation for PCA</span></a><span class="sk-estimator-doc-link fitted">i<span>Fitted</span></span></label><div class="sk-toggleable__content fitted"><pre>PCA(n_components=4)</pre></div> </div></div></div></div></div></div>
+
+.estimator-table {
+    font-family: monospace;
+}
+
+.estimator-table summary {
+    padding: .5rem;
+    cursor: pointer;
+}
+
+.estimator-table summary::marker {
+    font-size: 0.7rem;
+}
+
+.estimator-table details[open] {
+    padding-left: 0.1rem;
+    padding-right: 0.1rem;
+    padding-bottom: 0.3rem;
+}
+
+.estimator-table .parameters-table {
+    margin-left: auto !important;
+    margin-right: auto !important;
+    margin-top: 0;
+}
+
+.estimator-table .parameters-table tr:nth-child(odd) {
+    background-color: #fff;
+}
+
+.estimator-table .parameters-table tr:nth-child(even) {
+    background-color: #f6f6f6;
+}
+
+.estimator-table .parameters-table tr:hover {
+    background-color: #e0e0e0;
+}
+
+.estimator-table table td {
+    border: 1px solid rgba(106, 105, 104, 0.232);
+}
+
+/*
+    `table td`is set in notebook with right text-align.
+    We need to overwrite it.
+*/
+.estimator-table table td.param {
+    text-align: left;
+    position: relative;
+    padding: 0;
+}
+
+.user-set td {
+    color:rgb(255, 94, 0);
+    text-align: left !important;
+}
+
+.user-set td.value {
+    color:rgb(255, 94, 0);
+    background-color: transparent;
+}
+
+.default td {
+    color: black;
+    text-align: left !important;
+}
+
+.user-set td i,
+.default td i {
+    color: black;
+}
+
+/*
+    Styles for parameter documentation links
+    We need styling for visited so jupyter doesn't overwrite it
+*/
+a.param-doc-link,
+a.param-doc-link:link,
+a.param-doc-link:visited {
+    text-decoration: underline dashed;
+    text-underline-offset: .3em;
+    color: inherit;
+    display: block;
+    padding: .5em;
+}
+
+/* "hack" to make the entire area of the cell containing the link clickable */
+a.param-doc-link::before {
+    position: absolute;
+    content: "";
+    inset: 0;
+}
+
+.param-doc-description {
+    display: none;
+    position: absolute;
+    z-index: 9999;
+    left: 0;
+    padding: .5ex;
+    margin-left: 1.5em;
+    color: var(--sklearn-color-text);
+    box-shadow: .3em .3em .4em #999;
+    width: max-content;
+    text-align: left;
+    max-height: 10em;
+    overflow-y: auto;
+
+    /* unfitted */
+    background: var(--sklearn-color-unfitted-level-0);
+    border: thin solid var(--sklearn-color-unfitted-level-3);
+}
+
+/* Fitted state for parameter tooltips */
+.fitted .param-doc-description {
+    /* fitted */
+    background: var(--sklearn-color-fitted-level-0);
+    border: thin solid var(--sklearn-color-fitted-level-3);
+}
+
+.param-doc-link:hover .param-doc-description {
+    display: block;
+}
+
+.copy-paste-icon {
+    background-image: url(data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCA0NDggNTEyIj48IS0tIUZvbnQgQXdlc29tZSBGcmVlIDYuNy4yIGJ5IEBmb250YXdlc29tZSAtIGh0dHBzOi8vZm9udGF3ZXNvbWUuY29tIExpY2Vuc2UgLSBodHRwczovL2ZvbnRhd2Vzb21lLmNvbS9saWNlbnNlL2ZyZWUgQ29weXJpZ2h0IDIwMjUgRm9udGljb25zLCBJbmMuLS0+PHBhdGggZD0iTTIwOCAwTDMzMi4xIDBjMTIuNyAwIDI0LjkgNS4xIDMzLjkgMTQuMWw2Ny45IDY3LjljOSA5IDE0LjEgMjEuMiAxNC4xIDMzLjlMNDQ4IDMzNmMwIDI2LjUtMjEuNSA0OC00OCA0OGwtMTkyIDBjLTI2LjUgMC00OC0yMS41LTQ4LTQ4bDAtMjg4YzAtMjYuNSAyMS41LTQ4IDQ4LTQ4ek00OCAxMjhsODAgMCAwIDY0LTY0IDAgMCAyNTYgMTkyIDAgMC0zMiA2NCAwIDAgNDhjMCAyNi41LTIxLjUgNDgtNDggNDhMNDggNTEyYy0yNi41IDAtNDgtMjEuNS00OC00OEwwIDE3NmMwLTI2LjUgMjEuNS00OCA0OC00OHoiLz48L3N2Zz4=);
+    background-repeat: no-repeat;
+    background-size: 14px 14px;
+    background-position: 0;
+    display: inline-block;
+    width: 14px;
+    height: 14px;
+    cursor: pointer;
+}
+</style><body><div id="sk-container-id-1" class="sk-top-container"><div class="sk-text-repr-fallback"><pre>PCA(n_components=4)</pre><b>In a Jupyter environment, please rerun this cell to show the HTML representation or trust the notebook. <br />On GitHub, the HTML representation is unable to render, please try loading this page with nbviewer.org.</b></div><div class="sk-container" hidden><div class="sk-item"><div class="sk-estimator fitted sk-toggleable"><input class="sk-toggleable__control sk-hidden--visually" id="sk-estimator-id-1" type="checkbox" checked><label for="sk-estimator-id-1" class="sk-toggleable__label fitted sk-toggleable__label-arrow"><div><div>PCA</div></div><div><a class="sk-estimator-doc-link fitted" rel="noreferrer" target="_blank" href="https://scikit-learn.org/1.8/modules/generated/sklearn.decomposition.PCA.html">?<span>Documentation for PCA</span></a><span class="sk-estimator-doc-link fitted">i<span>Fitted</span></span></div></label><div class="sk-toggleable__content fitted" data-param-prefix="">
+        <div class="estimator-table">
+            <details>
+                <summary>Parameters</summary>
+                <table class="parameters-table">
+                  <tbody>
+                    
+        <tr class="user-set">
+            <td><i class="copy-paste-icon"
+                 onclick="copyToClipboard('n_components',
+                          this.parentElement.nextElementSibling)"
+            ></i></td>
+            <td class="param">
+        <a class="param-doc-link"
+            rel="noreferrer" target="_blank" href="https://scikit-learn.org/1.8/modules/generated/sklearn.decomposition.PCA.html#:~:text=n_components,-int%2C%20float%20or%20%27mle%27%2C%20default%3DNone">
+            n_components
+            <span class="param-doc-description">n_components: int, float or 'mle', default=None<br><br>Number of components to keep.<br>if n_components is not set all components are kept::<br><br>    n_components == min(n_samples, n_features)<br><br>If ``n_components == 'mle'`` and ``svd_solver == 'full'``, Minka's<br>MLE is used to guess the dimension. Use of ``n_components == 'mle'``<br>will interpret ``svd_solver == 'auto'`` as ``svd_solver == 'full'``.<br><br>If ``0 < n_components < 1`` and ``svd_solver == 'full'``, select the<br>number of components such that the amount of variance that needs to be<br>explained is greater than the percentage specified by n_components.<br><br>If ``svd_solver == 'arpack'``, the number of components must be<br>strictly less than the minimum of n_features and n_samples.<br><br>Hence, the None case results in::<br><br>    n_components == min(n_samples, n_features) - 1</span>
+        </a>
+    </td>
+            <td class="value">4</td>
+        </tr>
+    
+
+        <tr class="default">
+            <td><i class="copy-paste-icon"
+                 onclick="copyToClipboard('copy',
+                          this.parentElement.nextElementSibling)"
+            ></i></td>
+            <td class="param">
+        <a class="param-doc-link"
+            rel="noreferrer" target="_blank" href="https://scikit-learn.org/1.8/modules/generated/sklearn.decomposition.PCA.html#:~:text=copy,-bool%2C%20default%3DTrue">
+            copy
+            <span class="param-doc-description">copy: bool, default=True<br><br>If False, data passed to fit are overwritten and running<br>fit(X).transform(X) will not yield the expected results,<br>use fit_transform(X) instead.</span>
+        </a>
+    </td>
+            <td class="value">True</td>
+        </tr>
+    
+
+        <tr class="default">
+            <td><i class="copy-paste-icon"
+                 onclick="copyToClipboard('whiten',
+                          this.parentElement.nextElementSibling)"
+            ></i></td>
+            <td class="param">
+        <a class="param-doc-link"
+            rel="noreferrer" target="_blank" href="https://scikit-learn.org/1.8/modules/generated/sklearn.decomposition.PCA.html#:~:text=whiten,-bool%2C%20default%3DFalse">
+            whiten
+            <span class="param-doc-description">whiten: bool, default=False<br><br>When True (False by default) the `components_` vectors are multiplied<br>by the square root of n_samples and then divided by the singular values<br>to ensure uncorrelated outputs with unit component-wise variances.<br><br>Whitening will remove some information from the transformed signal<br>(the relative variance scales of the components) but can sometime<br>improve the predictive accuracy of the downstream estimators by<br>making their data respect some hard-wired assumptions.</span>
+        </a>
+    </td>
+            <td class="value">False</td>
+        </tr>
+    
+
+        <tr class="default">
+            <td><i class="copy-paste-icon"
+                 onclick="copyToClipboard('svd_solver',
+                          this.parentElement.nextElementSibling)"
+            ></i></td>
+            <td class="param">
+        <a class="param-doc-link"
+            rel="noreferrer" target="_blank" href="https://scikit-learn.org/1.8/modules/generated/sklearn.decomposition.PCA.html#:~:text=svd_solver,-%7B%27auto%27%2C%20%27full%27%2C%20%27covariance_eigh%27%2C%20%27arpack%27%2C%20%27randomized%27%7D%2C%20%20%20%20%20%20%20%20%20%20%20%20default%3D%27auto%27">
+            svd_solver
+            <span class="param-doc-description">svd_solver: {'auto', 'full', 'covariance_eigh', 'arpack', 'randomized'},            default='auto'<br><br>"auto" :<br>    The solver is selected by a default 'auto' policy is based on `X.shape` and<br>    `n_components`: if the input data has fewer than 1000 features and<br>    more than 10 times as many samples, then the "covariance_eigh"<br>    solver is used. Otherwise, if the input data is larger than 500x500<br>    and the number of components to extract is lower than 80% of the<br>    smallest dimension of the data, then the more efficient<br>    "randomized" method is selected. Otherwise the exact "full" SVD is<br>    computed and optionally truncated afterwards.<br>"full" :<br>    Run exact full SVD calling the standard LAPACK solver via<br>    `scipy.linalg.svd` and select the components by postprocessing<br>"covariance_eigh" :<br>    Precompute the covariance matrix (on centered data), run a<br>    classical eigenvalue decomposition on the covariance matrix<br>    typically using LAPACK and select the components by postprocessing.<br>    This solver is very efficient for n_samples >> n_features and small<br>    n_features. It is, however, not tractable otherwise for large<br>    n_features (large memory footprint required to materialize the<br>    covariance matrix). Also note that compared to the "full" solver,<br>    this solver effectively doubles the condition number and is<br>    therefore less numerical stable (e.g. on input data with a large<br>    range of singular values).<br>"arpack" :<br>    Run SVD truncated to `n_components` calling ARPACK solver via<br>    `scipy.sparse.linalg.svds`. It requires strictly<br>    `0 < n_components < min(X.shape)`<br>"randomized" :<br>    Run randomized SVD by the method of Halko et al.<br><br>.. versionadded:: 0.18.0<br><br>.. versionchanged:: 1.5<br>    Added the 'covariance_eigh' solver.</span>
+        </a>
+    </td>
+            <td class="value">&#x27;auto&#x27;</td>
+        </tr>
+    
+
+        <tr class="default">
+            <td><i class="copy-paste-icon"
+                 onclick="copyToClipboard('tol',
+                          this.parentElement.nextElementSibling)"
+            ></i></td>
+            <td class="param">
+        <a class="param-doc-link"
+            rel="noreferrer" target="_blank" href="https://scikit-learn.org/1.8/modules/generated/sklearn.decomposition.PCA.html#:~:text=tol,-float%2C%20default%3D0.0">
+            tol
+            <span class="param-doc-description">tol: float, default=0.0<br><br>Tolerance for singular values computed by svd_solver == 'arpack'.<br>Must be of range [0.0, infinity).<br><br>.. versionadded:: 0.18.0</span>
+        </a>
+    </td>
+            <td class="value">0.0</td>
+        </tr>
+    
+
+        <tr class="default">
+            <td><i class="copy-paste-icon"
+                 onclick="copyToClipboard('iterated_power',
+                          this.parentElement.nextElementSibling)"
+            ></i></td>
+            <td class="param">
+        <a class="param-doc-link"
+            rel="noreferrer" target="_blank" href="https://scikit-learn.org/1.8/modules/generated/sklearn.decomposition.PCA.html#:~:text=iterated_power,-int%20or%20%27auto%27%2C%20default%3D%27auto%27">
+            iterated_power
+            <span class="param-doc-description">iterated_power: int or 'auto', default='auto'<br><br>Number of iterations for the power method computed by<br>svd_solver == 'randomized'.<br>Must be of range [0, infinity).<br><br>.. versionadded:: 0.18.0</span>
+        </a>
+    </td>
+            <td class="value">&#x27;auto&#x27;</td>
+        </tr>
+    
+
+        <tr class="default">
+            <td><i class="copy-paste-icon"
+                 onclick="copyToClipboard('n_oversamples',
+                          this.parentElement.nextElementSibling)"
+            ></i></td>
+            <td class="param">
+        <a class="param-doc-link"
+            rel="noreferrer" target="_blank" href="https://scikit-learn.org/1.8/modules/generated/sklearn.decomposition.PCA.html#:~:text=n_oversamples,-int%2C%20default%3D10">
+            n_oversamples
+            <span class="param-doc-description">n_oversamples: int, default=10<br><br>This parameter is only relevant when `svd_solver="randomized"`.<br>It corresponds to the additional number of random vectors to sample the<br>range of `X` so as to ensure proper conditioning. See<br>:func:`~sklearn.utils.extmath.randomized_svd` for more details.<br><br>.. versionadded:: 1.1</span>
+        </a>
+    </td>
+            <td class="value">10</td>
+        </tr>
+    
+
+        <tr class="default">
+            <td><i class="copy-paste-icon"
+                 onclick="copyToClipboard('power_iteration_normalizer',
+                          this.parentElement.nextElementSibling)"
+            ></i></td>
+            <td class="param">
+        <a class="param-doc-link"
+            rel="noreferrer" target="_blank" href="https://scikit-learn.org/1.8/modules/generated/sklearn.decomposition.PCA.html#:~:text=power_iteration_normalizer,-%7B%27auto%27%2C%20%27QR%27%2C%20%27LU%27%2C%20%27none%27%7D%2C%20default%3D%27auto%27">
+            power_iteration_normalizer
+            <span class="param-doc-description">power_iteration_normalizer: {'auto', 'QR', 'LU', 'none'}, default='auto'<br><br>Power iteration normalizer for randomized SVD solver.<br>Not used by ARPACK. See :func:`~sklearn.utils.extmath.randomized_svd`<br>for more details.<br><br>.. versionadded:: 1.1</span>
+        </a>
+    </td>
+            <td class="value">&#x27;auto&#x27;</td>
+        </tr>
+    
+
+        <tr class="default">
+            <td><i class="copy-paste-icon"
+                 onclick="copyToClipboard('random_state',
+                          this.parentElement.nextElementSibling)"
+            ></i></td>
+            <td class="param">
+        <a class="param-doc-link"
+            rel="noreferrer" target="_blank" href="https://scikit-learn.org/1.8/modules/generated/sklearn.decomposition.PCA.html#:~:text=random_state,-int%2C%20RandomState%20instance%20or%20None%2C%20default%3DNone">
+            random_state
+            <span class="param-doc-description">random_state: int, RandomState instance or None, default=None<br><br>Used when the 'arpack' or 'randomized' solvers are used. Pass an int<br>for reproducible results across multiple function calls.<br>See :term:`Glossary <random_state>`.<br><br>.. versionadded:: 0.18.0</span>
+        </a>
+    </td>
+            <td class="value">None</td>
+        </tr>
+    
+                  </tbody>
+                </table>
+            </details>
+        </div>
+    </div></div></div></div></div><script>function copyToClipboard(text, element) {
+    // Get the parameter prefix from the closest toggleable content
+    const toggleableContent = element.closest('.sk-toggleable__content');
+    const paramPrefix = toggleableContent ? toggleableContent.dataset.paramPrefix : '';
+    const fullParamName = paramPrefix ? `${paramPrefix}${text}` : text;
+
+    const originalStyle = element.style;
+    const computedStyle = window.getComputedStyle(element);
+    const originalWidth = computedStyle.width;
+    const originalHTML = element.innerHTML.replace('Copied!', '');
+
+    navigator.clipboard.writeText(fullParamName)
+        .then(() => {
+            element.style.width = originalWidth;
+            element.style.color = 'green';
+            element.innerHTML = "Copied!";
+
+            setTimeout(() => {
+                element.innerHTML = originalHTML;
+                element.style = originalStyle;
+            }, 2000);
+        })
+        .catch(err => {
+            console.error('Failed to copy:', err);
+            element.style.color = 'red';
+            element.innerHTML = "Failed!";
+            setTimeout(() => {
+                element.innerHTML = originalHTML;
+                element.style = originalStyle;
+            }, 2000);
+        });
+    return false;
+}
+
+document.querySelectorAll('.copy-paste-icon').forEach(function(element) {
+    const toggleableContent = element.closest('.sk-toggleable__content');
+    const paramPrefix = toggleableContent ? toggleableContent.dataset.paramPrefix : '';
+    const paramName = element.parentElement.nextElementSibling
+        .textContent.trim().split(' ')[0];
+    const fullParamName = paramPrefix ? `${paramPrefix}${paramName}` : paramName;
+
+    element.setAttribute('title', fullParamName);
+});
+
+
+/**
+ * Adapted from Skrub
+ * https://github.com/skrub-data/skrub/blob/403466d1d5d4dc76a7ef569b3f8228db59a31dc3/skrub/_reporting/_data/templates/report.js#L789
+ * @returns "light" or "dark"
+ */
+function detectTheme(element) {
+    const body = document.querySelector('body');
+
+    // Check VSCode theme
+    const themeKindAttr = body.getAttribute('data-vscode-theme-kind');
+    const themeNameAttr = body.getAttribute('data-vscode-theme-name');
+
+    if (themeKindAttr && themeNameAttr) {
+        const themeKind = themeKindAttr.toLowerCase();
+        const themeName = themeNameAttr.toLowerCase();
+
+        if (themeKind.includes("dark") || themeName.includes("dark")) {
+            return "dark";
+        }
+        if (themeKind.includes("light") || themeName.includes("light")) {
+            return "light";
+        }
+    }
+
+    // Check Jupyter theme
+    if (body.getAttribute('data-jp-theme-light') === 'false') {
+        return 'dark';
+    } else if (body.getAttribute('data-jp-theme-light') === 'true') {
+        return 'light';
+    }
+
+    // Guess based on a parent element's color
+    const color = window.getComputedStyle(element.parentNode, null).getPropertyValue('color');
+    const match = color.match(/^rgb\s*\(\s*(\d+)\s*,\s*(\d+)\s*,\s*(\d+)\s*\)\s*$/i);
+    if (match) {
+        const [r, g, b] = [
+            parseFloat(match[1]),
+            parseFloat(match[2]),
+            parseFloat(match[3])
+        ];
+
+        // https://en.wikipedia.org/wiki/HSL_and_HSV#Lightness
+        const luma = 0.299 * r + 0.587 * g + 0.114 * b;
+
+        if (luma > 180) {
+            // If the text is very bright we have a dark theme
+            return 'dark';
+        }
+        if (luma < 75) {
+            // If the text is very dark we have a light theme
+            return 'light';
+        }
+        // Otherwise fall back to the next heuristic.
+    }
+
+    // Fallback to system preference
+    return window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
+}
+
+
+function forceTheme(elementId) {
+    const estimatorElement = document.querySelector(`#${elementId}`);
+    if (estimatorElement === null) {
+        console.error(`Element with id ${elementId} not found.`);
+    } else {
+        const theme = detectTheme(estimatorElement);
+        estimatorElement.classList.add(theme);
+    }
+}
+
+forceTheme('sk-container-id-1');</script></body></div></div>
 </div>
-<p>I can then look at the output. This is called the <strong>attributes</strong> of the model.</p>
-<p>For example, <code class="docutils literal notranslate"><span class="pre">pca.components</span></code> prints the four principle components for the four features in our data. These match up with pg. 44 of the text. Note how the signs can be reversed and it doesn’t matter, as Hull mentions.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="n">pca</span><span class="o">.</span><span class="n">explained_variance_ratio_</span><span class="p">)</span>
-<span class="nb">print</span><span class="p">(</span><span class="n">pca</span><span class="o">.</span><span class="n">singular_values_</span><span class="p">)</span>
-<span class="nb">print</span><span class="p">(</span><span class="n">pca</span><span class="o">.</span><span class="n">components_</span><span class="p">)</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Explained variance ratio:&quot;</span><span class="p">,</span> <span class="n">pca</span><span class="o">.</span><span class="n">explained_variance_ratio_</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">Cumulative explained variance:&quot;</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">cumsum</span><span class="p">(</span><span class="n">pca</span><span class="o">.</span><span class="n">explained_variance_ratio_</span><span class="p">))</span>
+
+<span class="c1"># Create a loadings DataFrame for easier interpretation</span>
+<span class="n">features</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;Corruption&#39;</span><span class="p">,</span> <span class="s1">&#39;Peace&#39;</span><span class="p">,</span> <span class="s1">&#39;Legal&#39;</span><span class="p">,</span> <span class="s1">&#39;GDP Growth&#39;</span><span class="p">]</span>
+<span class="n">loadings</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span>
+    <span class="n">pca</span><span class="o">.</span><span class="n">components_</span><span class="o">.</span><span class="n">T</span><span class="p">,</span>
+    <span class="n">columns</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;PC1&#39;</span><span class="p">,</span> <span class="s1">&#39;PC2&#39;</span><span class="p">,</span> <span class="s1">&#39;PC3&#39;</span><span class="p">,</span> <span class="s1">&#39;PC4&#39;</span><span class="p">],</span>
+    <span class="n">index</span><span class="o">=</span><span class="n">features</span>
+<span class="p">)</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">PCA Loadings (how each feature contributes to each component):</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">loadings</span><span class="o">.</span><span class="n">round</span><span class="p">(</span><span class="mi">3</span><span class="p">))</span>
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[0.64020312 0.25059185 0.09438808 0.01481695]
-[17.52990289 10.96741031  6.73099393  2.66685887]
-[[-0.60188457  0.52361257 -0.59403386  0.10338576]
- [-0.01512074  0.20084677  0.02192676 -0.97926051]
- [ 0.32824929  0.82539386  0.42519586  0.17374078]
- [ 0.72784526  0.06492634 -0.68253313 -0.01320492]]
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Explained variance ratio: [0.64020312 0.25059185 0.09438808 0.01481695]
+
+Cumulative explained variance: [0.64020312 0.89079497 0.98518305 1.        ]
+
+PCA Loadings (how each feature contributes to each component):
+
+              PC1    PC2    PC3    PC4
+Corruption  0.602  0.015  0.328  0.728
+Peace      -0.524 -0.201  0.825  0.065
+Legal       0.594 -0.022  0.425 -0.683
+GDP Growth -0.103  0.979  0.174 -0.013
 </pre></div>
 </div>
 </div>
 </div>
+<p>Let’s interpret these results:</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">explained_variance_ratio_</span></code> tells us how much of the total variance each component captures. The first component explains about 64% of the variance, and the first two together explain about 89%. This means we could reduce our four features to just two principal components and still retain most of the information.</p></li>
+<li><p>The <strong>loadings</strong> show how each original feature contributes to each principal component. PC1 loads heavily (negatively) on Corruption and Legal, and positively on Peace. Countries with high corruption tend to have weak legal systems, so PC1 is essentially a “governance quality” factor.</p></li>
+<li><p>PC2 loads almost entirely on GDP Growth (loading of -0.98). This component captures economic dynamism, independent of governance.</p></li>
+</ul>
+<p>Note how the signs can be reversed and it doesn’t matter, as Hull mentions. What matters is the relative magnitude and direction of the loadings.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Visualize explained variance</span>
+<span class="n">fig</span><span class="p">,</span> <span class="p">(</span><span class="n">ax1</span><span class="p">,</span> <span class="n">ax2</span><span class="p">)</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">12</span><span class="p">,</span> <span class="mi">5</span><span class="p">))</span>
+
+<span class="c1"># Bar chart of individual explained variance</span>
+<span class="n">ax1</span><span class="o">.</span><span class="n">bar</span><span class="p">(</span><span class="nb">range</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">5</span><span class="p">),</span> <span class="n">pca</span><span class="o">.</span><span class="n">explained_variance_ratio_</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.7</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;steelblue&#39;</span><span class="p">)</span>
+<span class="n">ax1</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s1">&#39;Principal Component&#39;</span><span class="p">)</span>
+<span class="n">ax1</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s1">&#39;Explained Variance Ratio&#39;</span><span class="p">)</span>
+<span class="n">ax1</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s1">&#39;Variance Explained by Each Component&#39;</span><span class="p">)</span>
+<span class="n">ax1</span><span class="o">.</span><span class="n">set_xticks</span><span class="p">(</span><span class="nb">range</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">5</span><span class="p">))</span>
+
+<span class="c1"># Cumulative explained variance</span>
+<span class="n">cumulative</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">cumsum</span><span class="p">(</span><span class="n">pca</span><span class="o">.</span><span class="n">explained_variance_ratio_</span><span class="p">)</span>
+<span class="n">ax2</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="nb">range</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">5</span><span class="p">),</span> <span class="n">cumulative</span><span class="p">,</span> <span class="s1">&#39;-bo&#39;</span><span class="p">)</span>
+<span class="n">ax2</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s1">&#39;Number of Components&#39;</span><span class="p">)</span>
+<span class="n">ax2</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s1">&#39;Cumulative Explained Variance&#39;</span><span class="p">)</span>
+<span class="n">ax2</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s1">&#39;Cumulative Variance Explained&#39;</span><span class="p">)</span>
+<span class="n">ax2</span><span class="o">.</span><span class="n">set_xticks</span><span class="p">(</span><span class="nb">range</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">5</span><span class="p">))</span>
+<span class="n">ax2</span><span class="o">.</span><span class="n">axhline</span><span class="p">(</span><span class="n">y</span><span class="o">=</span><span class="mf">0.9</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;r&#39;</span><span class="p">,</span> <span class="n">linestyle</span><span class="o">=</span><span class="s1">&#39;--&#39;</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.5</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;90% threshold&#39;</span><span class="p">)</span>
+<span class="n">ax2</span><span class="o">.</span><span class="n">legend</span><span class="p">()</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">tight_layout</span><span class="p">()</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../_images/e7066e9bc8211f9ac5f36b58d170fdaca48448055710db1927937bac51fbaa00.png" src="../_images/e7066e9bc8211f9ac5f36b58d170fdaca48448055710db1927937bac51fbaa00.png" />
+</div>
+</div>
+<p>The left chart is a <strong>scree plot</strong> — a bar chart of how much variance each principal component explains. PC1 dominates, capturing about 64% of the total variance. PC2 adds another 25%. Together, the first two components explain about 89% of the variation in our four features.</p>
+<p>The right chart shows the cumulative explained variance. The red dashed line marks 90%. Two components get us very close to that threshold. In practice, you look at this chart and decide how many components to keep. A common rule of thumb is to keep enough components to explain 80-90% of the variance.</p>
+<p>Let’s also visualize the countries in this reduced principal component space.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Transform data to principal component space</span>
+<span class="n">pc_scores</span> <span class="o">=</span> <span class="n">pca</span><span class="o">.</span><span class="n">transform</span><span class="p">(</span><span class="n">df_features_scaled_pca</span><span class="p">)</span>
+
+<span class="c1"># Plot first two principal components</span>
+<span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span> <span class="mi">7</span><span class="p">))</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">scatter</span><span class="p">(</span><span class="n">pc_scores</span><span class="p">[:,</span> <span class="mi">0</span><span class="p">],</span> <span class="n">pc_scores</span><span class="p">[:,</span> <span class="mi">1</span><span class="p">],</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.5</span><span class="p">)</span>
+
+<span class="c1"># Label selected countries for context</span>
+<span class="n">highlight</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;US&#39;</span><span class="p">,</span> <span class="s1">&#39;CN&#39;</span><span class="p">,</span> <span class="s1">&#39;RU&#39;</span><span class="p">,</span> <span class="s1">&#39;BR&#39;</span><span class="p">,</span> <span class="s1">&#39;IN&#39;</span><span class="p">,</span> <span class="s1">&#39;JP&#39;</span><span class="p">,</span> <span class="s1">&#39;DE&#39;</span><span class="p">,</span> <span class="s1">&#39;GB&#39;</span><span class="p">,</span> <span class="s1">&#39;AU&#39;</span><span class="p">,</span> <span class="s1">&#39;ZW&#39;</span><span class="p">,</span> <span class="s1">&#39;YE&#39;</span><span class="p">,</span> <span class="s1">&#39;CH&#39;</span><span class="p">,</span> <span class="s1">&#39;SG&#39;</span><span class="p">,</span> <span class="s1">&#39;CD&#39;</span><span class="p">]</span>
+<span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">raw</span><span class="p">)):</span>
+    <span class="k">if</span> <span class="n">raw</span><span class="p">[</span><span class="s1">&#39;Abbrev&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">iloc</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="ow">in</span> <span class="n">highlight</span><span class="p">:</span>
+        <span class="n">ax</span><span class="o">.</span><span class="n">annotate</span><span class="p">(</span><span class="n">raw</span><span class="p">[</span><span class="s1">&#39;Abbrev&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">iloc</span><span class="p">[</span><span class="n">i</span><span class="p">],</span> <span class="p">(</span><span class="n">pc_scores</span><span class="p">[</span><span class="n">i</span><span class="p">,</span> <span class="mi">0</span><span class="p">],</span> <span class="n">pc_scores</span><span class="p">[</span><span class="n">i</span><span class="p">,</span> <span class="mi">1</span><span class="p">]),</span>
+                     <span class="n">fontsize</span><span class="o">=</span><span class="mi">9</span><span class="p">,</span> <span class="n">fontweight</span><span class="o">=</span><span class="s1">&#39;bold&#39;</span><span class="p">)</span>
+
+<span class="n">ax</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;PC1 (</span><span class="si">{</span><span class="n">pca</span><span class="o">.</span><span class="n">explained_variance_ratio_</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="si">:</span><span class="s1">.1%</span><span class="si">}</span><span class="s1"> variance explained)&#39;</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;PC2 (</span><span class="si">{</span><span class="n">pca</span><span class="o">.</span><span class="n">explained_variance_ratio_</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="si">:</span><span class="s1">.1%</span><span class="si">}</span><span class="s1"> variance explained)&#39;</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s1">&#39;Countries in Principal Component Space&#39;</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">axhline</span><span class="p">(</span><span class="n">y</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;grey&#39;</span><span class="p">,</span> <span class="n">linestyle</span><span class="o">=</span><span class="s1">&#39;--&#39;</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.3</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">axvline</span><span class="p">(</span><span class="n">x</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;grey&#39;</span><span class="p">,</span> <span class="n">linestyle</span><span class="o">=</span><span class="s1">&#39;--&#39;</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.3</span><span class="p">)</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">tight_layout</span><span class="p">()</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../_images/cf0fb39a42affd235e20c6659732a831cb71f6d36dcc1217fadf858cc47ff3d4.png" src="../_images/cf0fb39a42affd235e20c6659732a831cb71f6d36dcc1217fadf858cc47ff3d4.png" />
+</div>
+</div>
+<p>This scatter plot shows each country positioned by its first two principal component scores. PC1 (the x-axis) is mostly about governance quality — countries on the left have higher corruption and weaker legal systems, while countries on the right have better governance. PC2 (the y-axis) is mostly about GDP growth — countries lower on the plot are growing faster.</p>
+<p>You can see natural groupings emerge. The developed nations (US, GB, JP, AU, CH, SG, DE) cluster on the right — strong governance but varying growth rates. Countries like Zimbabwe (ZW), Yemen (YE), and DR Congo (CD) are on the left — weaker governance. China (CN) and India (IN) sit in the middle on governance but tend toward higher GDP growth.</p>
+<p>This is the power of PCA: by reducing four dimensions to two, we can <strong>visualize</strong> the essential structure of the data and see relationships that would be hard to spot in the raw numbers.</p>
 <p>Hull notes when PCA is used. In particular, we can use it to shrink the number of features in our models. It can combine features together.</p>
 <blockquote>
 <div><p>PCA is sometimes used in supervised learning as well as unsupervised learning. We can use it to replace a long list of features by a much smaller list of manufactured features derived from a PCA. The manufactured features are chosen so that they account for most of the variability in the data we are using for prediction and have the nice property that they are uncorrelated.</p>
 </div></blockquote>
-<p>In other words, PCA can be used to take thousands or millions of columns (variables or features) and reduce them to just a few that contain the <strong>important</strong> variation in our data.</p>
-<p>One example, often cited, is using PCA to <strong>shrink</strong> the number of factors in a <a class="reference external" href="https://www.ocean.washington.edu/courses/ess522/lectures/14_covarianceandPCA.pdf">variance-covariance matrix</a>. From the linked lecture note from the University of Washington:</p>
-<blockquote>
-<div><p>Principal component analysis is a tool that is commonly used in exploratory data analysis and predictive analysis, which seeks to explain the bulk of the variation in demeaned data in terms of a smaller number of uncorrelated derived variables (principal components).</p>
-</div></blockquote>
+<p>In our country risk example, PCA reduced four correlated features into four uncorrelated components. But the first two components capture about 89% of the total variance. This means we could represent each country with just two numbers (their PC1 and PC2 scores) instead of four, while losing very little information.</p>
+<p>This <strong>dimensionality reduction</strong> becomes even more powerful with larger datasets. Imagine working with hundreds of financial variables — PCA can boil them down to a manageable number of uncorrelated factors that capture the essential patterns.</p>
+<p>One common application is using PCA to <strong>shrink</strong> the number of factors in a <a class="reference external" href="https://www.ocean.washington.edu/courses/ess522/lectures/14_covarianceandPCA.pdf">variance-covariance matrix</a>. This is especially relevant in portfolio risk management, where estimating a large covariance matrix directly is unreliable with limited data.</p>
 </section>
 </section>
 
@@ -1737,7 +2222,10 @@ div.sk-label-container:hover .sk-estimator-doc-link.fitted:hover,
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#additional-materials-on-feature-engineering">Additional materials on feature engineering</a></li>
 </ul>
 </li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#k-means-algorithm">K-means Algorithm</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#k-means-algorithm">K-means Algorithm</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#the-intuition">The intuition</a></li>
+</ul>
+</li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#an-example-with-country-risk">An example with country risk</a><ul class="nav section-nav flex-column">
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#simple-exploratory-analysis">Simple exploratory analysis</a><ul class="nav section-nav flex-column">
 <li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#print-summary-statistics">Print summary statistics</a></li>
