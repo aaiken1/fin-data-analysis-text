@@ -440,12 +440,19 @@ document.write(`
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#prediction-workflow-with-sklearn">Prediction workflow with sklearn</a><ul class="nav section-nav flex-column">
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#splitting-your-data">Splitting your data</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#standardizing-your-data">Standardizing your data</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#cross-validation-and-hyperparamters">Cross-validation and hyperparamters</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#cross-validation-and-hyperparameters">Cross-validation and hyperparameters</a></li>
 </ul>
 </li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#pipelines">Pipelines</a><ul class="nav section-nav flex-column">
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#hyperparamters-and-model-overfit">Hyperparamters and model overfit</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#hyperparameters-and-model-overfit">Hyperparameters and model overfit</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#some-worked-examples">Some worked examples</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#from-regression-to-prediction-can-ml-beat-the-market">From Regression to Prediction: Can ML Beat the Market?</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#the-model-horse-race">The model horse race</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#what-52-accuracy-actually-looks-like">What ~52% accuracy actually looks like</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#what-the-smart-money-actually-does">What the smart money actually does</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#position-sizing-prediction-accuracy">Position sizing &gt; prediction accuracy</a></li>
 </ul>
 </li>
 </ul>
@@ -463,15 +470,15 @@ document.write(`
 <h1>Supervised machine learning and regression topics <a id='regression'></a><a class="headerlink" href="#supervised-machine-learning-and-regression-topics" title="Link to this heading">#</a></h1>
 <p>We’ve looked at <strong>unsupervised machine learning</strong>, clustering, and dimension reduction. We saw a few ideas related to <strong>feature engineering</strong>. We are going to look at our first example of <strong>supervised machine learning</strong>. This is where we have a target variable that we are trying to predict. We have some features that we think are related to the target.</p>
 <p>We’ll start with <strong>linear regression</strong>. This is a very common model in econometrics and finance. It is also a very common model in machine learning.</p>
-<p>This section will go into more detail on running regressions in Python. We already saw an example using <a class="reference internal" href="#10_factor_models.html#factor_models"><span class="xref myst">factor models</span></a>, like the CAPM and Fama-French 3-factor models.</p>
+<p>This section will go into more detail on running regressions in Python. We already saw an example using <a class="reference internal" href="11_factor_models.html"><span class="doc std std-doc">factor models</span></a>, like the CAPM and Fama-French 3-factor models.</p>
 <p>We could spend an entire semester going over linear regression, how to put together models, how to interpret models, and all of the adjustments that we can make. In fact, this is basically what a first-semester Econometrics class is!</p>
 <p>This chapter is divided into two parts. I start by following code examples from <a class="reference external" href="https://aeturrell.github.io/coding-for-economists/econmt-regression.html">Coding for Economists</a>, which has just about everything you need to know to do basic linear regression (OLS) in Python. This gets us our first look at a linear model and some output.</p>
-<p>I then turn to <strong>supervised machine learning</strong> and <strong>Chapters 3 and 10 from our Hull textbook</strong>. These chapters also focus on linear regression and how to interpret these types of model. However, we’ll also see some newer regression topics from the machine learning perspective, such as <strong>regularization, Ridge regression, and LASSO regression</strong>.  They also discuss logit models, something that we get into in the next set of notes.</p>
+<p>I then turn to <strong>supervised machine learning</strong> and <strong>Chapters 3 and 10 from our Hull textbook</strong>. These chapters also focus on linear regression and how to interpret these types of models. However, we’ll also see some newer regression topics from the machine learning perspective, such as <strong>regularization, Ridge regression, and LASSO regression</strong>.  They also discuss logit models, something that we get into in the next set of notes.</p>
 <p><a class="reference external" href="https://theeffectbook.net">The Effect</a> is a great book for getting starting with econometrics, regression, and how to add meaning to the regressions that we’re running. <a class="reference external" href="https://theeffectbook.net/ch-StatisticalAdjustment.html">Chapter 13</a> of that book covers regression (with code in R). Like most econometrics, that book is focused on <strong>causality</strong> - did some intervention or change <strong>cause</strong> a change in behavior or another outcome? These tools are beyond the scope of this course, but we have a new course on Causal Inference if you’re interested.</p>
 <p>You’ll also see categorical variables and logs. Thinking about how to define our variables is an example of <strong>feature engineering</strong> in the machine learning world.</p>
 <section id="supervised-learning-and-the-machine-learning-process-hull-chapter-1">
 <h2>Supervised learning and the machine learning process. Hull, Chapter 1.<a class="headerlink" href="#supervised-learning-and-the-machine-learning-process-hull-chapter-1" title="Link to this heading">#</a></h2>
-<p>Chapter 1 of Hull starts us the Hull book starts our discussion of machine learning. Traditional econometrics is about <strong>explaining</strong>. Machine learning is about <strong>predicting</strong>. Roughly speaking.</p>
+<p>Chapter 1 of the Hull book starts our discussion of machine learning. Traditional econometrics is about <strong>explaining</strong>. Machine learning is about <strong>predicting</strong>. Roughly speaking.</p>
 <p>We saw <strong>unsupervised learning</strong> when looking at clustering. Regression gets us into <strong>supervised learning</strong>. From Hull, Chapter 1:</p>
 <blockquote>
 <div><p>Supervised learning is concerned with using data to make <strong>predictions</strong>. In the next section, we will show how a simple regression model can be used to predict salaries. This is an example of supervised learning. In Chapter 3, we will consider how a similar model can be used to  predict house prices. We can distinguish between supervised learning models used to predict a variable that can take a continuum of values (such as an individual’s salary or the price of a house) and supervised learning models that are used for classification.</p>
@@ -500,7 +507,7 @@ document.write(`
 <p>Hull often provides data that is already cleaned, split, and standardized. But, we need to know how to do this. He mentions in the text that he standardizes the testing data using the means and standard deviations from the training data. But, we don’t see this when using data that is already cleaned up.</p>
 <ul class="simple">
 <li><p><strong>Train your model.</strong> Use your training data to fit your model. Use a validation data set or something like cross-fold validation to look for the optimal hyperparameter(s), if needed.</p></li>
-<li><p><strong>Predict your target.</strong> Take the fitted model that uses the optimal hyperparamter(s) and use it to fit your testing data. Get predicted values and compare to the actual y targets in your testing sample.</p></li>
+<li><p><strong>Predict your target.</strong> Take the fitted model that uses the optimal hyperparameter(s) and use it to fit your testing data. Get predicted values and compare to the actual y targets in your testing sample.</p></li>
 <li><p><strong>Evaluate your model.</strong> How good a job did it do? See Hull for more on the numbers you might use to evaluate a model. I like to make a scatter plot of actual vs. predicted values.</p></li>
 </ul>
 </section>
@@ -515,7 +522,7 @@ document.write(`
 <p>This is an excellent overview: <a class="reference external" href="https://aeturrell.github.io/coding-for-economists/econmt-regression.html">https://aeturrell.github.io/coding-for-economists/econmt-regression.html</a>. Some important concepts covered:</p>
 <ul class="simple">
 <li><p>Notation and assumptions behind regression.</p></li>
-<li><p>Using the <code class="docutils literal notranslate"><span class="pre">pyfest</span></code> package. We’ll use a different package below, but this one is nice.</p></li>
+<li><p>Using the <code class="docutils literal notranslate"><span class="pre">pyfixest</span></code> package. We’ll use a different package below, but this one is nice.</p></li>
 <li><p>Standard errors. They determine the <strong>significance level</strong> of your coefficients and often <strong>need to be fixed</strong>.</p></li>
 <li><p>Fixed effects and categorical variables.</p></li>
 <li><p>Transforming your variables with things like logs. Our textbook talks about this when discussing <strong>defining our features</strong>.</p></li>
@@ -551,7 +558,7 @@ document.write(`
 <figure class="align-center" id="ols1-png">
 <img alt="../_images/12-ols1.png" class="with-border" src="../_images/12-ols1.png" />
 <figcaption>
-<p><span class="caption-number">Fig. 72 </span><span class="caption-text">You want to understand when some tools are appropriate. But, don’t over-complicate things.</span><a class="headerlink" href="#ols1-png" title="Link to this image">#</a></p>
+<p><span class="caption-number">Fig. 89 </span><span class="caption-text">You want to understand when some tools are appropriate. But, don’t over-complicate things.</span><a class="headerlink" href="#ols1-png" title="Link to this image">#</a></p>
 </figcaption>
 </figure>
 <p>But, you still want to understand the assumptions. OLS isn’t magic. It’s just some math. OLS <strong>doesn’t tell you if a relationship is causal</strong>, that one of the X variables causes the Y variable. For all OLS cares, you could switch the Y and X variables around and the math would still work. It’s really just telling you <strong>conditional correlations</strong>.</p>
@@ -573,7 +580,7 @@ document.write(`
 <figure class="align-center" id="ols2-png">
 <img alt="../_images/12-ols2.png" class="with-border" src="../_images/12-ols2.png" />
 <figcaption>
-<p><span class="caption-number">Fig. 73 </span><span class="caption-text">Regression is great.</span><a class="headerlink" href="#ols2-png" title="Link to this image">#</a></p>
+<p><span class="caption-number">Fig. 90 </span><span class="caption-text">Regression is great.</span><a class="headerlink" href="#ols2-png" title="Link to this image">#</a></p>
 </figcaption>
 </figure>
 <p>In practice, it’s important to consider:
@@ -694,7 +701,7 @@ document.write(`
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>/var/folders/kx/y8vj3n6n5kq_d74vj24jsnh40000gn/T/ipykernel_61463/4278326240.py:1: DtypeWarning: Columns (0: fireplaceflag) have mixed types. Specify dtype option on import or set low_memory=False.
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>/var/folders/kx/y8vj3n6n5kq_d74vj24jsnh40000gn/T/ipykernel_60387/4278326240.py:1: DtypeWarning: Columns (0: fireplaceflag) have mixed types. Specify dtype option on import or set low_memory=False.
   housing = pd.read_csv(&#39;https://raw.githubusercontent.com/aaiken1/fin-data-analysis-python/main/data/properties_2016_sample10_1.csv&#39;)
 </pre></div>
 </div>
@@ -1286,8 +1293,8 @@ document.write(`
 Dep. Variable:               logerror   R-squared:                       0.001
 Model:                            OLS   Adj. R-squared:                  0.001
 Method:                 Least Squares   F-statistic:                     13.30
-Date:                Tue, 03 Mar 2026   Prob (F-statistic):           0.000267
-Time:                        07:47:35   Log-Likelihood:                 3831.8
+Date:                Mon, 09 Mar 2026   Prob (F-statistic):           0.000267
+Time:                        10:44:35   Log-Likelihood:                 3831.8
 No. Observations:                9001   AIC:                            -7660.
 Df Residuals:                    8999   BIC:                            -7645.
 Df Model:                           1                                         
@@ -1313,7 +1320,7 @@ Notes:
 <p>One y variable and one X variable. That’s the full summary of the regression. This is a “log-log” model, so we can say that a 1% change in square footage leads to a 1.39% increase in pricing error. Not price! Pricing error. The coefficient is positive and statistically significant at conventional levels (e.g. 1%).</p>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
-<p>You’ll see terms like log-log`, log-linear, and linear-log. These are all different ways of transforming your variables. The log-log model is the most common. It means that both the dependent and independent variables are in logs. A log-linear model means that the dependent variable is in logs, but the independent variable is not. A linear-log model means that the dependent variable is not in logs, but the independent variable is. For example, are example was log-linear, we would get the percentage change in pricing error for a one-unit change in square footage.</p>
+<p>You’ll see terms like log-log, log-linear, and linear-log. These are all different ways of transforming your variables. The log-log model is the most common. It means that both the dependent and independent variables are in logs. A log-linear model means that the dependent variable is in logs, but the independent variable is not. A linear-log model means that the dependent variable is not in logs, but the independent variable is. For example, if our example was log-linear, we would get the percentage change in pricing error for a one-unit change in square footage.</p>
 </div>
 <p>And, the Y and X variables are not arbitrary. We are trying to explain the pricing error (Y) using the size of the house (X). You could swap them - the math doesn’t care. But, we do! However, just because you do some math doesn’t mean that you have a good model of causality. That requires <strong>design</strong>.<br />
 We can pull out just a piece of this full result if we like.</p>
@@ -1337,7 +1344,7 @@ We can pull out just a piece of this full result if we like.</p>
 </table></div></div>
 </div>
 <p>We can, of course, include multiple <strong>X</strong> variables in a regression. I’ll add bathroom and bedroom counts to the regression model.</p>
-<p>Pay attention to the <strong>syntax</strong> here. I am giving <code class="docutils literal notranslate"><span class="pre">smf.ols</span></code> the name of my data frame. I can then <strong>write the formula</strong> for my regression using the names of my columns (variabes or features).</p>
+<p>Pay attention to the <strong>syntax</strong> here. I am giving <code class="docutils literal notranslate"><span class="pre">smf.ols</span></code> the name of my data frame. I can then <strong>write the formula</strong> for my regression using the names of my columns (variables or features).</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">results</span> <span class="o">=</span> <span class="n">smf</span><span class="o">.</span><span class="n">ols</span><span class="p">(</span><span class="s2">&quot;logerror ~ ln_calculatedfinishedsquarefeet + bathroomcnt + bedroomcnt&quot;</span><span class="p">,</span> <span class="n">data</span><span class="o">=</span><span class="n">zillow_data</span><span class="p">)</span><span class="o">.</span><span class="n">fit</span><span class="p">()</span>
@@ -1351,8 +1358,8 @@ We can pull out just a piece of this full result if we like.</p>
 Dep. Variable:               logerror   R-squared:                       0.002
 Model:                            OLS   Adj. R-squared:                  0.002
 Method:                 Least Squares   F-statistic:                     6.718
-Date:                Tue, 03 Mar 2026   Prob (F-statistic):           0.000159
-Time:                        07:47:35   Log-Likelihood:                 3835.2
+Date:                Mon, 09 Mar 2026   Prob (F-statistic):           0.000159
+Time:                        10:44:35   Log-Likelihood:                 3835.2
 No. Observations:                9001   AIC:                            -7662.
 Df Residuals:                    8997   BIC:                            -7634.
 Df Model:                           3                                         
@@ -1393,8 +1400,8 @@ Notes:
 Dep. Variable:               logerror   R-squared:                       0.002
 Model:                            OLS   Adj. R-squared:                  0.002
 Method:                 Least Squares   F-statistic:                     21.69
-Date:                Tue, 03 Mar 2026   Prob (F-statistic):           3.24e-06
-Time:                        07:47:36   Log-Likelihood:                 3856.7
+Date:                Mon, 09 Mar 2026   Prob (F-statistic):           3.24e-06
+Time:                        10:44:35   Log-Likelihood:                 3856.7
 No. Observations:                9071   AIC:                            -7709.
 Df Residuals:                    9069   BIC:                            -7695.
 Df Model:                           1                                         
@@ -1446,7 +1453,7 @@ Name: poolcnt, dtype: float64
 <p>This is an example of making the indicator variable <strong>by hand</strong>. I’ll use <code class="docutils literal notranslate"><span class="pre">pd.get_dummies</span></code> below in a second.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">zillow_data</span><span class="p">[</span><span class="s1">&#39;pool_d&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">where</span><span class="p">(</span><span class="n">zillow_data</span><span class="o">.</span><span class="n">poolcnt</span><span class="o">.</span><span class="n">isnull</span><span class="p">(),</span> <span class="mi">0</span><span class="p">,</span> <span class="n">zillow_data</span><span class="o">.</span><span class="n">poolcnt</span> <span class="o">&gt;=</span> <span class="mi">1</span><span class="p">)</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">zillow_data</span><span class="p">[</span><span class="s1">&#39;pool_d&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">where</span><span class="p">(</span><span class="n">zillow_data</span><span class="o">.</span><span class="n">poolcnt</span><span class="o">.</span><span class="n">isna</span><span class="p">(),</span> <span class="mi">0</span><span class="p">,</span> <span class="n">zillow_data</span><span class="o">.</span><span class="n">poolcnt</span> <span class="o">&gt;=</span> <span class="mi">1</span><span class="p">)</span>
 <span class="n">zillow_data</span><span class="p">[</span><span class="s1">&#39;pool_d&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">describe</span><span class="p">()</span>
 </pre></div>
 </div>
@@ -1479,8 +1486,8 @@ Name: pool_d, dtype: float64
 Dep. Variable:               logerror   R-squared:                       0.001
 Model:                            OLS   Adj. R-squared:                  0.001
 Method:                 Least Squares   F-statistic:                     6.684
-Date:                Tue, 03 Mar 2026   Prob (F-statistic):            0.00126
-Time:                        07:47:36   Log-Likelihood:                 3831.8
+Date:                Mon, 09 Mar 2026   Prob (F-statistic):            0.00126
+Time:                        10:44:35   Log-Likelihood:                 3831.8
 No. Observations:                9001   AIC:                            -7658.
 Df Residuals:                    8998   BIC:                            -7636.
 Df Model:                           2                                         
@@ -1521,8 +1528,8 @@ Notes:
 Dep. Variable:               logerror   R-squared:                       0.004
 Model:                            OLS   Adj. R-squared:                  0.003
 Method:                 Least Squares   F-statistic:                     3.118
-Date:                Tue, 03 Mar 2026   Prob (F-statistic):           0.000196
-Time:                        07:47:36   Log-Likelihood:                 3843.8
+Date:                Mon, 09 Mar 2026   Prob (F-statistic):           0.000196
+Time:                        10:44:35   Log-Likelihood:                 3843.8
 No. Observations:                9001   AIC:                            -7662.
 Df Residuals:                    8988   BIC:                            -7569.
 Df Model:                          12                                         
@@ -1570,8 +1577,8 @@ Notes:
 Dep. Variable:               logerror   R-squared:                       0.054
 Model:                            OLS   Adj. R-squared:                  0.012
 Method:                 Least Squares   F-statistic:                     1.300
-Date:                Tue, 03 Mar 2026   Prob (F-statistic):           0.000104
-Time:                        07:47:36   Log-Likelihood:                 4075.3
+Date:                Mon, 09 Mar 2026   Prob (F-statistic):           0.000104
+Time:                        10:44:36   Log-Likelihood:                 4075.3
 No. Observations:                9001   AIC:                            -7391.
 Df Residuals:                    8621   BIC:                            -4691.
 Df Model:                         379                                         
@@ -1974,11 +1981,11 @@ strong multicollinearity or other numerical problems.
 </div>
 </div>
 </div>
-<p><strong>Think about these categorical variables as switches</strong>. We also call them <strong>dummy or indicator variables</strong> when they are constructed in a 1/0 manner. If the variable is 1, then that observation has that characteristic. The predicted value changes by the coefficient if the indicator is 1. The switch is “turned on”./</p>
+<p><strong>Think about these categorical variables as switches</strong>. We also call them <strong>dummy or indicator variables</strong> when they are constructed in a 1/0 manner. If the variable is 1, then that observation has that characteristic. The predicted value changes by the coefficient if the indicator is 1. The switch is “turned on”.</p>
 </section>
 <section id="using-get-dummies">
 <h3>Using get_dummies<a class="headerlink" href="#using-get-dummies" title="Link to this heading">#</a></h3>
-<p><code class="docutils literal notranslate"><span class="pre">pandas</span></code> also has a method called <code class="docutils literal notranslate"><span class="pre">pd.get_dummies</span></code>. Here’s description from Claude (my emphasis):</p>
+<p><code class="docutils literal notranslate"><span class="pre">pandas</span></code> also has a method called <code class="docutils literal notranslate"><span class="pre">pd.get_dummies</span></code>. Here’s a description from Claude (my emphasis):</p>
 <p>pd.get_dummies() is a function in the Pandas library that is used to transform categorical variables into a format that can be used in machine learning models.</p>
 <p>The function takes a Pandas DataFrame or Series as input and creates a new DataFrame where each unique categorical value is represented as a new column. The new columns are binary, with a value of 1 if the observation had that categorical value, and 0 otherwise.</p>
 <p>This is a common preprocessing step for many machine learning algorithms that require numeric input features. By converting categorical variables into this dummy or one-hot encoded format, the machine learning model can better understand and incorporate the information from those categorical variables.</p>
@@ -1988,7 +1995,7 @@ strong multicollinearity or other numerical problems.
 <p>Here’s some code, also using <em>bedroomcnt</em>.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Create categorical variable based on LotShape</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Create categorical variable based on bedroomcnt</span>
 <span class="n">bedroomcnt_categorical</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">get_dummies</span><span class="p">(</span><span class="n">zillow_data</span><span class="p">[</span><span class="s1">&#39;bedroomcnt&#39;</span><span class="p">],</span> <span class="n">prefix</span><span class="o">=</span><span class="s1">&#39;bedroomcnt&#39;</span><span class="p">)</span>
 
 <span class="c1"># Concatenate the categorical variable with the original DataFrame</span>
@@ -3011,8 +3018,8 @@ strong multicollinearity or other numerical problems.
 <p>As you’ll see, sometimes we only use two separate data sets, training and test data. We’ll validate the model within the training data.</p>
 <p><code class="docutils literal notranslate"><span class="pre">sklearn</span></code> has many built-in features to help, like ways to automatically split your data, though the textbook tends to do things manually.</p>
 <p>Chapter 3.2 introduces <strong>multiple features</strong>. Again, this just means multiple explanatory X variables. Eq. 3.1 gives us the general form of a linear regression model:</p>
-<div class="amsmath math notranslate nohighlight" id="equation-d3491790-c480-4868-8afa-b87bb5b4dc09">
-<span class="eqno">(13)<a class="headerlink" href="#equation-d3491790-c480-4868-8afa-b87bb5b4dc09" title="Permalink to this equation">#</a></span>\[\begin{align}
+<div class="amsmath math notranslate nohighlight" id="equation-d1a527d9-ec59-4a3c-96d5-7b518e1fd942">
+<span class="eqno">(15)<a class="headerlink" href="#equation-d1a527d9-ec59-4a3c-96d5-7b518e1fd942" title="Permalink to this equation">#</a></span>\[\begin{align}
 Y = a + b_1 X_1 + b_2 X_2 + \cdots + b_m X_m + \varepsilon
 \end{align}\]</div>
 <p>The <a class="reference external" href="https://www.statsmodels.org/dev/examples/notebooks/generated/ols.html">statsmodel</a> page for linear regression has helpful code examples, including how to generate dummy variables (see below).</p>
@@ -3023,13 +3030,13 @@ Y = a + b_1 X_1 + b_2 X_2 + \cdots + b_m X_m + \varepsilon
 <p>In short, the linear regression algorithm selects values for <span class="math notranslate nohighlight">\(a\)</span> and each <span class="math notranslate nohighlight">\(b\)</span> above that minimize the sum of the squared differences between each Y and its predicted value (i.e. the right-hand side of the equation). This is shown in Eq. 3.2. Why do we square the differences? The direction of the error doesn’t matter - we want predicted values to be close to the actual value.</p>
 <p>The text notes that <span class="math notranslate nohighlight">\(a\)</span> is called the model <strong>bias</strong> and the <span class="math notranslate nohighlight">\(b\)</span> values are called the model <strong>weights</strong>. In econometrics, we call <span class="math notranslate nohighlight">\(a\)</span> the <strong>intercept</strong> and the <span class="math notranslate nohighlight">\(b\)</span> values <strong>coefficients</strong>.</p>
 <p>Machine learning techniques are all about <strong>prediction</strong>. How well does the model predict or fit the data? To measure this, we can use the <strong>R-Squared</strong> value for the model.</p>
-<div class="amsmath math notranslate nohighlight" id="equation-60093107-a603-419b-981d-8ef16df4c1ef">
-<span class="eqno">(14)<a class="headerlink" href="#equation-60093107-a603-419b-981d-8ef16df4c1ef" title="Permalink to this equation">#</a></span>\[\begin{align}
+<div class="amsmath math notranslate nohighlight" id="equation-8e0ec3f8-141a-41ce-ab9b-fac83ba1909d">
+<span class="eqno">(16)<a class="headerlink" href="#equation-8e0ec3f8-141a-41ce-ab9b-fac83ba1909d" title="Permalink to this equation">#</a></span>\[\begin{align}
 R^2 = 1 - \frac{\sum_{i=1}^{n} (y_i - \hat{y}_i)^2}{\sum_{i=1}^{n} (y_i - \bar{y})^2}
 \end{align}\]</div>
 <p>We can also put this into words:</p>
-<div class="amsmath math notranslate nohighlight" id="equation-55a09f7c-35ab-48c9-a5c4-ba2220199f23">
-<span class="eqno">(15)<a class="headerlink" href="#equation-55a09f7c-35ab-48c9-a5c4-ba2220199f23" title="Permalink to this equation">#</a></span>\[\begin{align}
+<div class="amsmath math notranslate nohighlight" id="equation-8a48a88c-3a7f-4d93-8c71-27d7702b487e">
+<span class="eqno">(17)<a class="headerlink" href="#equation-8a48a88c-3a7f-4d93-8c71-27d7702b487e" title="Permalink to this equation">#</a></span>\[\begin{align}
 R^2 = 1 - \frac{\text{Variance of the errors } \epsilon}{\text{Variation of the observations on the target Y}}
 \end{align}\]</div>
 <p>As noted by the text:</p>
@@ -3071,8 +3078,8 @@ R^2 = 1 - \frac{\text{Variance of the errors } \epsilon}{\text{Variation of the 
 <div><p>Feature scaling through standardization, also called Z-score normalization, is an important preprocessing step for many machine learning algorithms. It involves rescaling each feature such that it has a standard deviation of 1 and a mean of 0.</p>
 </div></blockquote>
 <p>One way to regularize our model is to use a <strong>Ridge regression</strong>. This algorithm chooses <span class="math notranslate nohighlight">\(a\)</span> and <span class="math notranslate nohighlight">\(b\)</span> parameters to minimize this function:</p>
-<div class="amsmath math notranslate nohighlight" id="equation-4ff3e108-fbfe-45c3-ad7b-5b46036c157b">
-<span class="eqno">(16)<a class="headerlink" href="#equation-4ff3e108-fbfe-45c3-ad7b-5b46036c157b" title="Permalink to this equation">#</a></span>\[\begin{align}
+<div class="amsmath math notranslate nohighlight" id="equation-b81f452e-e785-4cac-a3c8-ff347879a638">
+<span class="eqno">(18)<a class="headerlink" href="#equation-b81f452e-e785-4cac-a3c8-ff347879a638" title="Permalink to this equation">#</a></span>\[\begin{align}
 \frac{1}{n}\sum_{i=1}^{n}(Y_i - a - b_1X_{i1} - b_2X_{i2} - \cdots - b_mX_{im})^2 + \lambda\sum_{j=1}^{m}b_j^2
 \end{align}\]</div>
 <p>Note that this looks a lot like a normal regression, except that we now have the last term with <span class="math notranslate nohighlight">\(\lambda\)</span> and <span class="math notranslate nohighlight">\(b^2\)</span>. From the text:</p>
@@ -3097,21 +3104,21 @@ R^2 = 1 - \frac{\text{Variance of the errors } \epsilon}{\text{Variation of the 
 <div><p>In Ridge, we added a constant times the sum of the squared weights to the objective function. In LASSO, we add a constant times the sum of the <strong>absolute weights</strong>.</p>
 </div></blockquote>
 <p>LASSO is also called <strong>L1 regularization</strong>. This changes the last term in the equation that we are trying to minimize:</p>
-<div class="amsmath math notranslate nohighlight" id="equation-a9768621-257d-4f7a-9f76-9e96db35a1d6">
-<span class="eqno">(17)<a class="headerlink" href="#equation-a9768621-257d-4f7a-9f76-9e96db35a1d6" title="Permalink to this equation">#</a></span>\[\begin{align}
+<div class="amsmath math notranslate nohighlight" id="equation-25aa2694-99d4-4fed-8619-af0660f0e1a1">
+<span class="eqno">(19)<a class="headerlink" href="#equation-25aa2694-99d4-4fed-8619-af0660f0e1a1" title="Permalink to this equation">#</a></span>\[\begin{align}
 \frac{1}{n}\sum_{i=1}^{n}(Y_i - a - b_1X_{i1} - b_2X_{i2} - \cdots - b_mX_{im})^2 + \lambda\sum_{j=1}^{m}|b_j|
 \end{align}\]</div>
-<p>I asked the Claude GPT to explain this equation:</p>
+<p>I asked Claude to explain this equation:</p>
 <p>This equation represents the objective function for LASSO (Least Absolute Shrinkage and Selection Operator) regression. LASSO is a type of linear regression that uses L1 regularization to add a penalty term to the cost function. This penalty term encourages sparse solutions, driving some coefficient estimates to exactly zero, effectively performing variable selection and improving interpretability of the model. The first term is the regular least squares error term that measures the model’s fit to the data. The second term is the L1 regularization penalty on the sum of the absolute values of the coefficients (<span class="math notranslate nohighlight">\(|b_j|\)</span>), multiplied by a tuning parameter lambda that controls the strength of the penalty.</p>
 <p>By minimizing this objective function, LASSO regression aims to find the best fit linear model while also promoting sparsity in the coefficients, making it useful for scenarios with many potential predictor variables.</p>
 <p>Using LASSO is going to mean having more <span class="math notranslate nohighlight">\(b = 0\)</span> values. In other words, some features are “kicked out of the model” in order to simplify things. This is going to happen when <strong>certain features explain the same variation in the Y variable</strong>.</p>
-<p>Again, check out footnote 4 for some details on how lASSO works in <code class="docutils literal notranslate"><span class="pre">sklearn</span></code>.</p>
+<p>Again, check out footnote 4 for some details on how LASSO works in <code class="docutils literal notranslate"><span class="pre">sklearn</span></code>.</p>
 </section>
 <section id="elastic-net-regression">
 <h3>Elastic net regression<a class="headerlink" href="#elastic-net-regression" title="Link to this heading">#</a></h3>
 <p>Elastic Net regression is a <strong>mixture of Ridge and LASSO</strong>. The function to be minimized includes both a constant times the sum of the squared weights and a different constant times the sum of the absolute values of the weights.</p>
-<div class="amsmath math notranslate nohighlight" id="equation-0f5ef385-a85c-4358-8d98-11383c54c0b5">
-<span class="eqno">(18)<a class="headerlink" href="#equation-0f5ef385-a85c-4358-8d98-11383c54c0b5" title="Permalink to this equation">#</a></span>\[\begin{align}
+<div class="amsmath math notranslate nohighlight" id="equation-5a985b60-399e-45f2-b089-1860b2f11dce">
+<span class="eqno">(20)<a class="headerlink" href="#equation-5a985b60-399e-45f2-b089-1860b2f11dce" title="Permalink to this equation">#</a></span>\[\begin{align}
 \frac{1}{n}\sum_{i=1}^{n}(Y_i - a - b_1X_{i1} - b_2X_{i2} - \cdots - b_mX_{im})^2 + \lambda_1\sum_{j=1}^{m}b_j^2 + \lambda_2\sum_{j=1}^{m}|b_j|
 \end{align}\]</div>
 <p>From the text:</p>
@@ -4628,8 +4635,8 @@ forceTheme('sk-container-id-1');</script></body></div></div>
 Dep. Variable:             Sale Price   R-squared:                       0.886
 Model:                            OLS   Adj. R-squared:                  0.883
 Method:                 Least Squares   F-statistic:                     295.9
-Date:                Tue, 03 Mar 2026   Prob (F-statistic):               0.00
-Time:                        07:47:37   Log-Likelihood:                -599.81
+Date:                Mon, 09 Mar 2026   Prob (F-statistic):               0.00
+Time:                        10:44:37   Log-Likelihood:                -599.81
 No. Observations:                1800   AIC:                             1294.
 Df Residuals:                    1753   BIC:                             1552.
 Df Model:                          46                                         
@@ -4700,7 +4707,7 @@ strong multicollinearity problems or that the design matrix is singular.
 </div>
 </div>
 </div>
-<p>I hope that output likes this is familiar! <span class="math notranslate nohighlight">\(LotArea\)</span>, <span class="math notranslate nohighlight">\(OverallQual\)</span>, <span class="math notranslate nohighlight">\(OverallCond\)</span>, and <span class="math notranslate nohighlight">\(YearBuilt\)</span> all of strong positive relationships with sale price. That makes sense. However, note that there are some strange negative relationships, like <span class="math notranslate nohighlight">\(BedroomAbvGr\)</span>. The book notes some of these negative coefficients. This is because “kitchen sink” models like this, where you use everything to predict something, end up with a lot of <strong>multicollinearity</strong>. Our variables are related to each other. This can lead to strange coefficient values.</p>
+<p>I hope that output like this is familiar! <span class="math notranslate nohighlight">\(LotArea\)</span>, <span class="math notranslate nohighlight">\(OverallQual\)</span>, <span class="math notranslate nohighlight">\(OverallCond\)</span>, and <span class="math notranslate nohighlight">\(YearBuilt\)</span> all have strong positive relationships with sale price. That makes sense. However, note that there are some strange negative relationships, like <span class="math notranslate nohighlight">\(BedroomAbvGr\)</span>. The book notes some of these negative coefficients. This is because “kitchen sink” models like this, where you use everything to predict something, end up with a lot of <strong>multicollinearity</strong>. Our variables are related to each other. This can lead to strange coefficient values.</p>
 <section id="making-predictions">
 <h3>Making predictions<a class="headerlink" href="#making-predictions" title="Link to this heading">#</a></h3>
 <p>Now, let’s use these model parameters (<span class="math notranslate nohighlight">\(a\)</span> and <span class="math notranslate nohighlight">\(b\)</span> values) to <strong>predict</strong> prices in the <strong>validation</strong> data set. To do this, we are going go back to <code class="docutils literal notranslate"><span class="pre">sklearn</span></code> and use <code class="docutils literal notranslate"><span class="pre">predict</span></code>. I am taking my linear regression object <strong>lr</strong>. This object contains the model that I estimated using my <strong>training</strong> data. It has all of the coefficients and the intercept.</p>
@@ -4816,13 +4823,15 @@ Coefficient of determination: 0.90
 0.11710797319752984
 0.11723952924901117
 0.11741457158889508
-0.1176238406871146
-0.11825709631198014
 </pre></div>
 </div>
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>0.11900057469147927
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>0.1176238406871146
+0.11825709631198014
+0.11900057469147927
 0.1225464999629295
-0.13073599680747128
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>0.13073599680747128
 </pre></div>
 </div>
 </div>
@@ -4839,7 +4848,7 @@ Coefficient of determination: 0.90
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[&lt;matplotlib.lines.Line2D at 0x1345d77a0&gt;]
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[&lt;matplotlib.lines.Line2D at 0x136c28e00&gt;]
 </pre></div>
 </div>
 <img alt="../_images/0ff0cf9ebe136d8ce916bf6faef9730b711c925b6f515c635148448a59e08e39.png" src="../_images/0ff0cf9ebe136d8ce916bf6faef9730b711c925b6f515c635148448a59e08e39.png" />
@@ -5957,9 +5966,7 @@ forceTheme('sk-container-id-2');</script></body></div></div>
 </div>
 <div class="cell_output docutils container">
 <div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>0.11654751909608793
-</pre></div>
-</div>
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>0.11682687945311095
+0.11682687945311095
 0.11803348353132033
 0.12012836764958999
 0.12301536903084047
@@ -5981,7 +5988,7 @@ forceTheme('sk-container-id-2');</script></body></div></div>
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[&lt;matplotlib.lines.Line2D at 0x13463fe60&gt;]
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[&lt;matplotlib.lines.Line2D at 0x136cb0350&gt;]
 </pre></div>
 </div>
 <img alt="../_images/a7925b922e4c3c837e97cb0d5c7d50715003e6aadfe09ed8eaffc32bc2394abc.png" src="../_images/a7925b922e4c3c837e97cb0d5c7d50715003e6aadfe09ed8eaffc32bc2394abc.png" />
@@ -8198,7 +8205,7 @@ forceTheme('sk-container-id-4');</script></body></div></div>
 </section>
 <section id="prediction-workflow-with-sklearn">
 <h2>Prediction workflow with sklearn<a class="headerlink" href="#prediction-workflow-with-sklearn" title="Link to this heading">#</a></h2>
-<p>The Hull textbook often does things “by hand”. For example, he splits the data into training, validation, and test samples by using <code class="docutils literal notranslate"><span class="pre">.iloc</span></code> and manually slicing the data frame. This is problem if the data aren’t sorted randomly! He standardizes the variables by using he z-score formula. He searches for optimal hyperparameters by making a graph.</p>
+<p>The Hull textbook often does things “by hand”. For example, he splits the data into training, validation, and test samples by using <code class="docutils literal notranslate"><span class="pre">.iloc</span></code> and manually slicing the data frame. This is a problem if the data aren’t sorted randomly! He standardizes the variables by using the z-score formula. He searches for optimal hyperparameters by making a graph.</p>
 <p>It turns out the <code class="docutils literal notranslate"><span class="pre">sklearn</span></code> can do a lot of this for us. In fact, <strong>if you use tools like Copilot or ChatGPT</strong> you’re likely to get code that uses the <code class="docutils literal notranslate"><span class="pre">sklearn</span></code> workflow. So, we should understand how to use these tools. The fact that ChatGPT wants to use them means that they are extremely common.</p>
 <p>This chapter starts off with a discussion of the general workflow, so I’m assuming that you’ve already done your basic data cleaning.</p>
 <section id="splitting-your-data">
@@ -8717,8 +8724,8 @@ forceTheme('sk-container-id-4');</script></body></div></div>
 </div>
 </div>
 </section>
-<section id="cross-validation-and-hyperparamters">
-<h3>Cross-validation and hyperparamters<a class="headerlink" href="#cross-validation-and-hyperparamters" title="Link to this heading">#</a></h3>
+<section id="cross-validation-and-hyperparameters">
+<h3>Cross-validation and hyperparameters<a class="headerlink" href="#cross-validation-and-hyperparameters" title="Link to this heading">#</a></h3>
 <p>Let’s discuss an idea called <a class="reference external" href="https://scikit-learn.org/stable/auto_examples/linear_model/plot_lasso_model_selection.html">cross validation</a>. We’ve already see this a bit when we split our data into <strong>training</strong> and <strong>validation</strong> samples. From Claude:</p>
 <blockquote>
 <div><p>Cross-validation is a technique used in machine learning to evaluate the performance of a model and tune its hyperparameters. It helps to estimate how well the model will generalize to unseen data, and it is particularly useful when the available data is limited. The main idea behind cross-validation is to split the dataset into two parts: a training set and a validation set. The model is trained on the training set and evaluated on the validation set. This process is repeated multiple times, with different portions of the data being used for training and validation in each iteration.</p>
@@ -8753,7 +8760,7 @@ forceTheme('sk-container-id-4');</script></body></div></div>
 </div>
 </div>
 </div>
-<p>I will now search for the optimal hyperparamter (i.e. alpha) value for a LASSO model using <strong>cross-validation</strong>. I am going to take each alpha (e.g. 0.001) and try it five times in my training data. Each time, I will “hold out” 20% of my training data, estimate a model on 80% of the data using that alpha value. I’ll save my R-Square value from that model as a measure of fit. I’ll then do that four more times for that alpha parameter, holding out a different 20% of my training data each time. That will give me five different R-Square values for each alpha. I’ll then take an average of those R-Square values as my estimate for how well that alpha value performs. Remember, a larger R-Square means that the model “fits” the data better - the model is better able to use your features to explain your targets.</p>
+<p>I will now search for the optimal hyperparameter (i.e. alpha) value for a LASSO model using <strong>cross-validation</strong>. I am going to take each alpha (e.g. 0.001) and try it five times in my training data. Each time, I will “hold out” 20% of my training data, estimate a model on 80% of the data using that alpha value. I’ll save my R-Square value from that model as a measure of fit. I’ll then do that four more times for that alpha parameter, holding out a different 20% of my training data each time. That will give me five different R-Square values for each alpha. I’ll then take an average of those R-Square values as my estimate for how well that alpha value performs. Remember, a larger R-Square means that the model “fits” the data better - the model is better able to use your features to explain your targets.</p>
 <p>This process is repeated for each alpha value.</p>
 <p>We are going to use <code class="docutils literal notranslate"><span class="pre">GridSearchCV</span></code> to do this. From Claude:</p>
 <p>GridSearchCV is a class in scikit-learn that helps you perform an exhaustive search over specified parameter values for an estimator (a machine learning model or algorithm). It is used to find the optimal combination of hyperparameters that maximizes the performance of a machine learning model on a given dataset.</p>
@@ -8761,7 +8768,7 @@ forceTheme('sk-container-id-4');</script></body></div></div>
 <figure class="align-center" id="cross-validation-png">
 <img alt="../_images/12-cross-validation.png" src="../_images/12-cross-validation.png" />
 <figcaption>
-<p><span class="caption-number">Fig. 74 </span><span class="caption-text">Holding out different parts of our training data in order to search for optimal hyperparameters. Source:Justintodata.com</span><a class="headerlink" href="#cross-validation-png" title="Link to this image">#</a></p>
+<p><span class="caption-number">Fig. 91 </span><span class="caption-text">Holding out different parts of our training data in order to search for optimal hyperparameters. Source:Justintodata.com</span><a class="headerlink" href="#cross-validation-png" title="Link to this image">#</a></p>
 </figcaption>
 </figure>
 <div class="cell docutils container">
@@ -9750,7 +9757,7 @@ Name: logerror, Length: 1815, dtype: float64
 </div>
 </div>
 </div>
-<p>Time to make the <code class="docutils literal notranslate"><span class="pre">pipeline</span></code>. This is going to use the standard scaler on my training data and run a Lasso model, here the hyperparamter is selected using the AIC criteria.</p>
+<p>Time to make the <code class="docutils literal notranslate"><span class="pre">pipeline</span></code>. This is going to use the standard scaler on my training data and run a Lasso model, here the hyperparameter is selected using the AIC criteria.</p>
 <p>Again, note how the X features set is are data frames, while the y target set are series.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -9795,16 +9802,16 @@ Name: logerror, Length: 1815, dtype: float64
 </div>
 <div class="cell_output docutils container">
 <div class="output text_html"><style type="text/css">
-#T_e50c7_row0_col1, #T_e50c7_row9_col0 {
+#T_6f2ab_row0_col1, #T_6f2ab_row9_col0 {
   font-weight: bold;
 }
 </style>
-<table id="T_e50c7">
+<table id="T_6f2ab">
   <thead>
     <tr>
       <th class="blank level0" >&nbsp;</th>
-      <th id="T_e50c7_level0_col0" class="col_heading level0 col0" >AIC criterion</th>
-      <th id="T_e50c7_level0_col1" class="col_heading level0 col1" >BIC criterion</th>
+      <th id="T_6f2ab_level0_col0" class="col_heading level0 col0" >AIC criterion</th>
+      <th id="T_6f2ab_level0_col1" class="col_heading level0 col1" >BIC criterion</th>
     </tr>
     <tr>
       <th class="index_name level0" >alphas</th>
@@ -9814,79 +9821,79 @@ Name: logerror, Length: 1815, dtype: float64
   </thead>
   <tbody>
     <tr>
-      <th id="T_e50c7_level0_row0" class="row_heading level0 row0" >0.008193</th>
-      <td id="T_e50c7_row0_col0" class="data row0 col0" >-6566.197538</td>
-      <td id="T_e50c7_row0_col1" class="data row0 col1" >-6566.197538</td>
+      <th id="T_6f2ab_level0_row0" class="row_heading level0 row0" >0.008193</th>
+      <td id="T_6f2ab_row0_col0" class="data row0 col0" >-6566.197538</td>
+      <td id="T_6f2ab_row0_col1" class="data row0 col1" >-6566.197538</td>
     </tr>
     <tr>
-      <th id="T_e50c7_level0_row1" class="row_heading level0 row1" >0.006502</th>
-      <td id="T_e50c7_row1_col0" class="data row1 col0" >-6571.833764</td>
-      <td id="T_e50c7_row1_col1" class="data row1 col1" >-6564.944180</td>
+      <th id="T_6f2ab_level0_row1" class="row_heading level0 row1" >0.006502</th>
+      <td id="T_6f2ab_row1_col0" class="data row1 col0" >-6571.833764</td>
+      <td id="T_6f2ab_row1_col1" class="data row1 col1" >-6564.944180</td>
     </tr>
     <tr>
-      <th id="T_e50c7_level0_row2" class="row_heading level0 row2" >0.006250</th>
-      <td id="T_e50c7_row2_col0" class="data row2 col0" >-6570.829907</td>
-      <td id="T_e50c7_row2_col1" class="data row2 col1" >-6557.050739</td>
+      <th id="T_6f2ab_level0_row2" class="row_heading level0 row2" >0.006250</th>
+      <td id="T_6f2ab_row2_col0" class="data row2 col0" >-6570.829907</td>
+      <td id="T_6f2ab_row2_col1" class="data row2 col1" >-6557.050739</td>
     </tr>
     <tr>
-      <th id="T_e50c7_level0_row3" class="row_heading level0 row3" >0.006217</th>
-      <td id="T_e50c7_row3_col0" class="data row3 col0" >-6568.983921</td>
-      <td id="T_e50c7_row3_col1" class="data row3 col1" >-6548.315169</td>
+      <th id="T_6f2ab_level0_row3" class="row_heading level0 row3" >0.006217</th>
+      <td id="T_6f2ab_row3_col0" class="data row3 col0" >-6568.983921</td>
+      <td id="T_6f2ab_row3_col1" class="data row3 col1" >-6548.315169</td>
     </tr>
     <tr>
-      <th id="T_e50c7_level0_row4" class="row_heading level0 row4" >0.005552</th>
-      <td id="T_e50c7_row4_col0" class="data row4 col0" >-6572.082467</td>
-      <td id="T_e50c7_row4_col1" class="data row4 col1" >-6551.413715</td>
+      <th id="T_6f2ab_level0_row4" class="row_heading level0 row4" >0.005552</th>
+      <td id="T_6f2ab_row4_col0" class="data row4 col0" >-6572.082467</td>
+      <td id="T_6f2ab_row4_col1" class="data row4 col1" >-6551.413715</td>
     </tr>
     <tr>
-      <th id="T_e50c7_level0_row5" class="row_heading level0 row5" >0.004159</th>
-      <td id="T_e50c7_row5_col0" class="data row5 col0" >-6577.437720</td>
-      <td id="T_e50c7_row5_col1" class="data row5 col1" >-6556.768968</td>
+      <th id="T_6f2ab_level0_row5" class="row_heading level0 row5" >0.004159</th>
+      <td id="T_6f2ab_row5_col0" class="data row5 col0" >-6577.437720</td>
+      <td id="T_6f2ab_row5_col1" class="data row5 col1" >-6556.768968</td>
     </tr>
     <tr>
-      <th id="T_e50c7_level0_row6" class="row_heading level0 row6" >0.004015</th>
-      <td id="T_e50c7_row6_col0" class="data row6 col0" >-6576.114858</td>
-      <td id="T_e50c7_row6_col1" class="data row6 col1" >-6548.556522</td>
+      <th id="T_6f2ab_level0_row6" class="row_heading level0 row6" >0.004015</th>
+      <td id="T_6f2ab_row6_col0" class="data row6 col0" >-6576.114858</td>
+      <td id="T_6f2ab_row6_col1" class="data row6 col1" >-6548.556522</td>
     </tr>
     <tr>
-      <th id="T_e50c7_level0_row7" class="row_heading level0 row7" >0.002618</th>
-      <td id="T_e50c7_row7_col0" class="data row7 col0" >-6581.223880</td>
-      <td id="T_e50c7_row7_col1" class="data row7 col1" >-6546.775960</td>
+      <th id="T_6f2ab_level0_row7" class="row_heading level0 row7" >0.002618</th>
+      <td id="T_6f2ab_row7_col0" class="data row7 col0" >-6581.223880</td>
+      <td id="T_6f2ab_row7_col1" class="data row7 col1" >-6546.775960</td>
     </tr>
     <tr>
-      <th id="T_e50c7_level0_row8" class="row_heading level0 row8" >0.002365</th>
-      <td id="T_e50c7_row8_col0" class="data row8 col0" >-6580.648359</td>
-      <td id="T_e50c7_row8_col1" class="data row8 col1" >-6539.310855</td>
+      <th id="T_6f2ab_level0_row8" class="row_heading level0 row8" >0.002365</th>
+      <td id="T_6f2ab_row8_col0" class="data row8 col0" >-6580.648359</td>
+      <td id="T_6f2ab_row8_col1" class="data row8 col1" >-6539.310855</td>
     </tr>
     <tr>
-      <th id="T_e50c7_level0_row9" class="row_heading level0 row9" >0.000653</th>
-      <td id="T_e50c7_row9_col0" class="data row9 col0" >-6587.044949</td>
-      <td id="T_e50c7_row9_col1" class="data row9 col1" >-6538.817861</td>
+      <th id="T_6f2ab_level0_row9" class="row_heading level0 row9" >0.000653</th>
+      <td id="T_6f2ab_row9_col0" class="data row9 col0" >-6587.044949</td>
+      <td id="T_6f2ab_row9_col1" class="data row9 col1" >-6538.817861</td>
     </tr>
     <tr>
-      <th id="T_e50c7_level0_row10" class="row_heading level0 row10" >0.000577</th>
-      <td id="T_e50c7_row10_col0" class="data row10 col0" >-6585.219803</td>
-      <td id="T_e50c7_row10_col1" class="data row10 col1" >-6530.103131</td>
+      <th id="T_6f2ab_level0_row10" class="row_heading level0 row10" >0.000577</th>
+      <td id="T_6f2ab_row10_col0" class="data row10 col0" >-6585.219803</td>
+      <td id="T_6f2ab_row10_col1" class="data row10 col1" >-6530.103131</td>
     </tr>
     <tr>
-      <th id="T_e50c7_level0_row11" class="row_heading level0 row11" >0.000412</th>
-      <td id="T_e50c7_row11_col0" class="data row11 col0" >-6583.581262</td>
-      <td id="T_e50c7_row11_col1" class="data row11 col1" >-6521.575006</td>
+      <th id="T_6f2ab_level0_row11" class="row_heading level0 row11" >0.000412</th>
+      <td id="T_6f2ab_row11_col0" class="data row11 col0" >-6583.581262</td>
+      <td id="T_6f2ab_row11_col1" class="data row11 col1" >-6521.575006</td>
     </tr>
     <tr>
-      <th id="T_e50c7_level0_row12" class="row_heading level0 row12" >0.000239</th>
-      <td id="T_e50c7_row12_col0" class="data row12 col0" >-6582.063000</td>
-      <td id="T_e50c7_row12_col1" class="data row12 col1" >-6513.167160</td>
+      <th id="T_6f2ab_level0_row12" class="row_heading level0 row12" >0.000239</th>
+      <td id="T_6f2ab_row12_col0" class="data row12 col0" >-6582.063000</td>
+      <td id="T_6f2ab_row12_col1" class="data row12 col1" >-6513.167160</td>
     </tr>
     <tr>
-      <th id="T_e50c7_level0_row13" class="row_heading level0 row13" >0.000168</th>
-      <td id="T_e50c7_row13_col0" class="data row13 col0" >-6580.302964</td>
-      <td id="T_e50c7_row13_col1" class="data row13 col1" >-6504.517540</td>
+      <th id="T_6f2ab_level0_row13" class="row_heading level0 row13" >0.000168</th>
+      <td id="T_6f2ab_row13_col0" class="data row13 col0" >-6580.302964</td>
+      <td id="T_6f2ab_row13_col1" class="data row13 col1" >-6504.517540</td>
     </tr>
     <tr>
-      <th id="T_e50c7_level0_row14" class="row_heading level0 row14" >0.000000</th>
-      <td id="T_e50c7_row14_col0" class="data row14 col0" >-6580.414299</td>
-      <td id="T_e50c7_row14_col1" class="data row14 col1" >-6497.739291</td>
+      <th id="T_6f2ab_level0_row14" class="row_heading level0 row14" >0.000000</th>
+      <td id="T_6f2ab_row14_col0" class="data row14 col0" >-6580.414299</td>
+      <td id="T_6f2ab_row14_col1" class="data row14 col1" >-6497.739291</td>
     </tr>
   </tbody>
 </table>
@@ -11875,7 +11882,7 @@ forceTheme('sk-container-id-6');</script></body></div></div>
 </div>
 </div>
 </div>
-<p>I can also pull out the hyperparamter that the eventually choose using cross-validation.</p>
+<p>I can also pull out the hyperparameter that was eventually chosen using cross-validation.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">lasso</span><span class="o">.</span><span class="n">alpha_</span>
@@ -12078,9 +12085,20 @@ forceTheme('sk-container-id-6');</script></body></div></div>
 </div>
 </div>
 <p>Still bad! I guess if you squint, it’s a little better than what we did in the training data.</p>
-<section id="hyperparamters-and-model-overfit">
-<h3>Hyperparamters and model overfit<a class="headerlink" href="#hyperparamters-and-model-overfit" title="Link to this heading">#</a></h3>
-<p>Again, what’s the point of all of this? We’re trying to find our model <strong>hyperparameters</strong> that we can then take to data outside of our training set. We are trying to avoid <strong>overfitting</strong>. This is a problem in machine learning and, especially, in financial applications. It is easy to look at past financial and fit a model that will predict returns <strong>in sample</strong>, in the data we are using. But, will this work on new data? If you overfit your model, you risk making precisely incorrect predictions.</p>
+<section id="hyperparameters-and-model-overfit">
+<h3>Hyperparameters and model overfit<a class="headerlink" href="#hyperparameters-and-model-overfit" title="Link to this heading">#</a></h3>
+<p>Again, what’s the point of all of this? We’re trying to find our model <strong>hyperparameters</strong> that we can then take to data outside of our training set. We are trying to avoid <strong>overfitting</strong>. This is a problem in machine learning and, especially, in financial applications. It is easy to look at past financial data and fit a model that will predict returns <strong>in sample</strong>, in the data we are using. But, will this work on new data? If you overfit your model, you risk making precisely incorrect predictions.</p>
+<p>The figure below shows this problem clearly. As model complexity increases, training accuracy skyrockets – the model is memorizing the data. But test accuracy (on data the model has never seen) flatlines or even drops. The gap between the two curves <em>is</em> the overfitting.</p>
+<figure class="align-center" id="overfitting-curve-png">
+<img alt="../_images/12-overfitting-curve.png" class="with-border" src="../_images/12-overfitting-curve.png" />
+<figcaption>
+<p><span class="caption-number">Fig. 92 </span><span class="caption-text">The overfitting trap: more complexity does not mean better predictions. Training accuracy rises, but test accuracy stays flat. The “sweet spot” (if any) is where test accuracy peaks before declining. Source: Professor Jonathan Hersh, BUS 696: Generative AI in Finance, Chapman University, Spring 2026.</span><a class="headerlink" href="#overfitting-curve-png" title="Link to this image">#</a></p>
+</figcaption>
+</figure>
+<div class="admonition warning">
+<p class="admonition-title">Warning</p>
+<p><strong>The in-sample vs. out-of-sample trap.</strong> This is the single most important concept when applying machine learning to finance. Getting 70% accuracy in your training data means almost nothing – the model may have simply memorized noise. The real test is predicting data the model has never seen, and this is where most financial ML models fail. Financial data has a very low signal-to-noise ratio, patterns are non-stationary (what worked last year may not work this year), and if others discover the same pattern, it gets arbitraged away.</p>
+</div>
 <p>Here’s a <a class="reference external" href="https://scikit-learn.org/stable/modules/cross_validation.html">nice explanation</a> on what is going on. This is all part of a much larger discussion on <a class="reference external" href="https://scikit-learn.org/stable/model_selection.html">model selection</a></p>
 </section>
 <section id="some-worked-examples">
@@ -12095,6 +12113,75 @@ forceTheme('sk-container-id-6');</script></body></div></div>
 </ul>
 <p><a class="reference external" href="https://www.kaggle.com/code/erick5/predicting-house-prices-with-machine-learning/notebook">Example One.</a></p>
 <p><a class="reference external" href="https://www.dataquest.io/blog/kaggle-getting-started/">Example Two.</a></p>
+</section>
+</section>
+<section id="from-regression-to-prediction-can-ml-beat-the-market">
+<h2>From Regression to Prediction: Can ML Beat the Market?<a class="headerlink" href="#from-regression-to-prediction-can-ml-beat-the-market" title="Link to this heading">#</a></h2>
+<p>We have now covered OLS regression, Lasso, Ridge, and Elastic Net. We have learned about train/test splits, cross-validation, and hyperparameter tuning. The natural next question: <strong>can we use these tools to predict stock returns?</strong></p>
+<p>The short answer is humbling. Let’s walk through what actually happens when you take these models to financial markets.</p>
+<section id="the-model-horse-race">
+<h3>The model horse race<a class="headerlink" href="#the-model-horse-race" title="Link to this heading">#</a></h3>
+<p>A common exercise in machine learning is the <strong>model horse race</strong> – train several models on the same data and compare their performance. When researchers do this with stock market data (e.g., predicting whether the S&amp;P 500 goes up or down), a striking pattern emerges.</p>
+<figure class="align-center" id="model-horse-race-png">
+<img alt="../_images/12-model-horse-race.png" class="with-border" src="../_images/12-model-horse-race.png" />
+<figcaption>
+<p><span class="caption-number">Fig. 93 </span><span class="caption-text">The model horse race: predicting S&amp;P 500 direction. Complex models look great in-sample but collapse out-of-sample. Source: Professor Jonathan Hersh, BUS 696: Generative AI in Finance, Chapman University, Spring 2026.</span><a class="headerlink" href="#model-horse-race-png" title="Link to this image">#</a></p>
+</figcaption>
+</figure>
+<p>Look at the pattern in the figure. In-sample (training data), more complex models do better – Lasso beats logistic regression, and tree-based models beat Lasso. XGBoost can hit 97% accuracy in the training data! But out-of-sample (test data), <strong>they all collapse to roughly 50%</strong> – no better than a coin flip.</p>
+<p>The more complex the model, the larger the gap between training and test accuracy. This gap <em>is</em> the overfitting. XGBoost memorized the training data perfectly, but learned nothing that generalizes to new data.</p>
+<div class="admonition important">
+<p class="admonition-title">Important</p>
+<p>This is the most important empirical result in financial ML: <strong>model complexity alone does not solve the problem when the signal is weak.</strong> Financial returns have an extremely low signal-to-noise ratio. No amount of model sophistication can extract a signal that isn’t there.</p>
+</div>
+</section>
+<section id="what-52-accuracy-actually-looks-like">
+<h3>What ~52% accuracy actually looks like<a class="headerlink" href="#what-52-accuracy-actually-looks-like" title="Link to this heading">#</a></h3>
+<p>Even the best academic models for predicting market direction tend to land around 51-53% accuracy. That sounds close to 50%, but is it meaningfully different? Let’s look at what this means in practice.</p>
+<figure class="align-center" id="pct-accuracy-png">
+<img alt="../_images/12-52pct-accuracy.png" class="with-border" src="../_images/12-52pct-accuracy.png" />
+<figcaption>
+<p><span class="caption-number">Fig. 94 </span><span class="caption-text">What ~52% accuracy actually looks like compared to a coin flip. The confusion matrices are nearly identical. Source: Professor Jonathan Hersh, BUS 696: Generative AI in Finance, Chapman University, Spring 2026.</span><a class="headerlink" href="#pct-accuracy-png" title="Link to this image">#</a></p>
+</figcaption>
+</figure>
+<p>The figure compares an ML model at 52% accuracy to a random coin flip at ~47%. The confusion matrices look almost identical. The bar chart on the right makes it even clearer – the ML model gets just a handful of extra correct predictions compared to pure randomness.</p>
+<p>This is a sobering result. After all of the modeling effort – feature engineering, cross-validation, hyperparameter tuning – you end up barely distinguishable from a coin flip. But here is the key insight: <strong>in finance, even a tiny edge can be enormously valuable if you know how to exploit it</strong>. The question is not just <em>can you predict?</em> but <em>what do you do with that prediction?</em></p>
+</section>
+<section id="what-the-smart-money-actually-does">
+<h3>What the smart money actually does<a class="headerlink" href="#what-the-smart-money-actually-does" title="Link to this heading">#</a></h3>
+<p>If model complexity alone doesn’t work, how does anyone make money with ML in finance? The answer is that successful quantitative firms approach the problem very differently from a standard Kaggle competition.</p>
+<figure class="align-center" id="smart-money-strategies-png">
+<img alt="../_images/12-smart-money-strategies.png" class="with-border" src="../_images/12-smart-money-strategies.png" />
+<figcaption>
+<p><span class="caption-number">Fig. 95 </span><span class="caption-text">How quantitative firms actually use ML in practice. Source: Professor Jonathan Hersh, BUS 696: Generative AI in Finance, Chapman University, Spring 2026.</span><a class="headerlink" href="#smart-money-strategies-png" title="Link to this image">#</a></p>
+</figcaption>
+</figure>
+<p>Here are the key lessons:</p>
+<p><strong>Better features, not better models.</strong> The alpha comes from unique data, not fancier algorithms. A Lasso on satellite parking lot data beats XGBoost on price history. This is why hedge funds spend millions on alternative data.</p>
+<p><strong>Predict something easier.</strong> Volatility is far more predictable than returns. Relative rankings (cross-sectional: “which stocks outperform others?”) are easier than absolute predictions (“will AAPL go up?”). Longer horizons (weekly, monthly) have better signal-to-noise than daily.</p>
+<p><strong>Ensemble many weak signals.</strong> One model at 51% accuracy is useless after transaction costs. But combine 100 weakly correlated 51% signals, and you get something real. This is the business model behind firms like Numerai, which crowdsources signals from thousands of data scientists.</p>
+<p><strong>Build in transaction costs.</strong> A signal that says “trade every day” but the bid-ask spread eats your profit is worthless. The best shops optimize <em>net-of-cost</em> returns.</p>
+<p><strong>Walk-forward validation.</strong> Don’t just split train/test once. Retrain the model every month on a rolling window. Markets are non-stationary: a model trained on 2020 data may be useless in 2025.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>ML works in finance, but not the way you’d naively expect. It’s about finding unique data, asking the right question, and managing risk – not about finding the most complex model.</p>
+</div>
+</section>
+<section id="position-sizing-prediction-accuracy">
+<h3>Position sizing &gt; prediction accuracy<a class="headerlink" href="#position-sizing-prediction-accuracy" title="Link to this heading">#</a></h3>
+<p>Perhaps the most surprising lesson from quantitative finance is this: <strong>how much you bet matters more than how often you’re right.</strong> This is where the <a class="reference external" href="https://en.wikipedia.org/wiki/Kelly_criterion">Kelly Criterion</a> comes in.</p>
+<figure class="align-center" id="position-sizing-png">
+<img alt="../_images/12-position-sizing.png" class="with-border" src="../_images/12-position-sizing.png" />
+<figcaption>
+<p><span class="caption-number">Fig. 96 </span><span class="caption-text">Position sizing with a 52% win rate. Same edge, very different outcomes depending on bet size. The Kelly Criterion identifies the optimal bet size. Source: Professor Jonathan Hersh, BUS 696: Generative AI in Finance, Chapman University, Spring 2026.</span><a class="headerlink" href="#position-sizing-png" title="Link to this image">#</a></p>
+</figcaption>
+</figure>
+<p>The figure tells a powerful story. Both lines in the left panel start with the same 52% edge. But the Kelly-optimal strategy (betting ~4% of capital) grows steadily, while betting 20% or 50% of capital leads to ruin. The right panel shows the Kelly Curve – there is an optimal bet size, and betting too much is catastrophic.</p>
+<p>The takeaway: the prediction model is only half the system. Portfolio construction – how you size positions, manage risk, and control for transaction costs – matters just as much, if not more. A mediocre model with excellent risk management will beat a great model with poor risk management every time.</p>
+<div class="admonition tip">
+<p class="admonition-title">Tip</p>
+<p>This is why finance programs teach portfolio theory alongside data science. The prediction is just the input. What you <em>do</em> with that prediction – how you size the trade, when you exit, how you hedge – determines whether you make or lose money.</p>
+</div>
 </section>
 </section>
 </section>
@@ -12198,12 +12285,19 @@ forceTheme('sk-container-id-6');</script></body></div></div>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#prediction-workflow-with-sklearn">Prediction workflow with sklearn</a><ul class="nav section-nav flex-column">
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#splitting-your-data">Splitting your data</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#standardizing-your-data">Standardizing your data</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#cross-validation-and-hyperparamters">Cross-validation and hyperparamters</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#cross-validation-and-hyperparameters">Cross-validation and hyperparameters</a></li>
 </ul>
 </li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#pipelines">Pipelines</a><ul class="nav section-nav flex-column">
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#hyperparamters-and-model-overfit">Hyperparamters and model overfit</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#hyperparameters-and-model-overfit">Hyperparameters and model overfit</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#some-worked-examples">Some worked examples</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#from-regression-to-prediction-can-ml-beat-the-market">From Regression to Prediction: Can ML Beat the Market?</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#the-model-horse-race">The model horse race</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#what-52-accuracy-actually-looks-like">What ~52% accuracy actually looks like</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#what-the-smart-money-actually-does">What the smart money actually does</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#position-sizing-prediction-accuracy">Position sizing &gt; prediction accuracy</a></li>
 </ul>
 </li>
 </ul>

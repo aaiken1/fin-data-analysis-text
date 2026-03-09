@@ -450,6 +450,11 @@ document.write(`
 </ul>
 </li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#comparing-the-tools">Comparing the Tools</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#prompt-engineering-for-finance">Prompt Engineering for Finance</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#five-principles-for-better-prompts">Five Principles for Better Prompts</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#finance-specific-prompt-patterns">Finance-Specific Prompt Patterns</a></li>
+</ul>
+</li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#example-ai-assisted-function-writing">Example: AI-Assisted Function Writing</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#example-ai-assisted-debugging">Example: AI-Assisted Debugging</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#best-practices-for-ai-assisted-coding">Best Practices for AI-Assisted Coding</a><ul class="nav section-nav flex-column">
@@ -1002,6 +1007,16 @@ You:          &quot;Yes&quot; → file is updated
 <p class="admonition-title">Warning</p>
 <p>Claude Code is powerful — it can modify and delete files. Always review proposed changes before accepting them, and consider committing your work to git before asking Claude to make major changes. That way you can always undo if something goes wrong.</p>
 </div>
+<div class="admonition tip">
+<p class="admonition-title">Tip</p>
+<p><strong>Claude Code Output Styles for Learning.</strong> Claude Code has built-in output styles that change how it responds. Run <code class="docutils literal notranslate"><span class="pre">/output-style</span></code> in Claude Code and choose from three options:</p>
+<ul class="simple">
+<li><p><strong>Default</strong> — Standard responses, concise and focused on the task.</p></li>
+<li><p><strong>Explanatory</strong> — Adds educational context about <em>why</em> Claude made particular implementation choices.</p></li>
+<li><p><strong>Learning</strong> — Designed for students. Adds “Insights” as Claude works, highlighting concepts worth understanding. Also inserts <code class="docutils literal notranslate"><span class="pre">TODO(human)</span></code> markers in code where you should try completing a step yourself.</p></li>
+</ul>
+<p><strong>Learning mode</strong> is particularly useful in this course. Instead of just giving you the answer, Claude will pause and explain what’s happening, point out patterns you should recognize, and leave spots for you to practice. You can also create your own custom output styles with <code class="docutils literal notranslate"><span class="pre">/output-style:new</span></code>.</p>
+</div>
 </section>
 </section>
 <section id="comparing-the-tools">
@@ -1051,6 +1066,54 @@ You:          &quot;Yes&quot; → file is updated
 </table>
 </div>
 <p>In practice, you’ll often use multiple tools together. Start with Claude to plan your approach, use Copilot for the actual coding, and come back to Claude when you get stuck.</p>
+</section>
+<section id="prompt-engineering-for-finance">
+<h2>Prompt Engineering for Finance<a class="headerlink" href="#prompt-engineering-for-finance" title="Link to this heading">#</a></h2>
+<p>No matter which AI tool you use – Copilot, Claude in the browser, or Claude Code – the quality of your output depends on the quality of your input. <strong>Prompt engineering</strong> is the skill of crafting effective instructions for AI systems.</p>
+<p>This idea comes up in Professor Jonathan Hersh’s course on Generative AI in Finance at Chapman University (Spring 2026). He frames it simply: a <strong>prompt</strong> is the instruction you give to an AI system, and better instructions produce dramatically better results.</p>
+<figure class="align-center" id="prompt-engineering-what-png">
+<img alt="../_images/24-prompt-engineering-what.png" class="with-border" src="../_images/24-prompt-engineering-what.png" />
+<figcaption>
+<p><span class="caption-number">Fig. 31 </span><span class="caption-text">The difference between a bad and good prompt. A vague request gets a vague response. A specific, structured request gets focused, actionable output. Source: Professor Jonathan Hersh, BUS 696: Generative AI in Finance, Chapman University, Spring 2026.</span><a class="headerlink" href="#prompt-engineering-what-png" title="Link to this image">#</a></p>
+</figcaption>
+</figure>
+<section id="five-principles-for-better-prompts">
+<h3>Five Principles for Better Prompts<a class="headerlink" href="#five-principles-for-better-prompts" title="Link to this heading">#</a></h3>
+<p>Hersh identifies five principles that will improve your interactions with any AI tool. These apply whether you’re using Claude, Copilot Chat, ChatGPT, or any other LLM.</p>
+<figure class="align-center" id="prompt-engineering-principles-png">
+<img alt="../_images/24-prompt-engineering-principles.png" class="with-border" src="../_images/24-prompt-engineering-principles.png" />
+<figcaption>
+<p><span class="caption-number">Fig. 32 </span><span class="caption-text">Five prompt engineering principles. Source: Professor Jonathan Hersh, BUS 696: Generative AI in Finance, Chapman University, Spring 2026.</span><a class="headerlink" href="#prompt-engineering-principles-png" title="Link to this image">#</a></p>
+</figcaption>
+</figure>
+<p>Let’s unpack each one with finance-specific context:</p>
+<p><strong>1. Be Specific.</strong> Don’t say “analyze this data.” Say “calculate the annualized Sharpe Ratio for each stock and compare it to the S&amp;P 500 benchmark over the same period.” The more precise your request, the less you’ll need to go back and forth.</p>
+<p><strong>2. Provide Context.</strong> Tell the AI who you are and what you’re trying to accomplish. “I’m an undergraduate finance student building a portfolio optimization model for a class project” gives the AI very different context than “I’m preparing a risk report for our firm’s investment committee.” The AI adjusts its language, level of detail, and assumptions based on this.</p>
+<p><strong>3. Give Examples.</strong> If you want output in a particular format, show it. “Format the output like this: Ticker: AAPL, Annual Return: 15.2%, Sharpe: 0.82” is much more effective than “give me the results in a nice format.”</p>
+<p><strong>4. Specify Format.</strong> Tell the AI what kind of response you want: bullet points, a table, executable Python code with comments, a one-paragraph summary, etc. This is especially important when asking for code – “give me executable Python code with comments explaining each step” produces much better learning material than just “write the code.”</p>
+<p><strong>5. Iterate Continuously.</strong> Your first prompt rarely produces the perfect result. Treat it as a conversation. If the response isn’t quite right, refine your prompt based on what you got back. This is normal and expected – even experienced users iterate.</p>
+<div class="admonition tip">
+<p class="admonition-title">Tip</p>
+<p>Think of prompt engineering like giving directions. “Go to the store” is vague. “Drive north on Main Street for 2 miles, turn right on Oak, and the store is on the left with a blue awning” gets you there. Same idea with AI – specificity and context are everything.</p>
+</div>
+</section>
+<section id="finance-specific-prompt-patterns">
+<h3>Finance-Specific Prompt Patterns<a class="headerlink" href="#finance-specific-prompt-patterns" title="Link to this heading">#</a></h3>
+<p>Here are three prompt patterns that come up constantly in finance work. These are adapted from examples in Professor Hersh’s course.</p>
+<figure class="align-center" id="prompt-examples-finance-png">
+<img alt="../_images/24-prompt-examples-finance.png" class="with-border" src="../_images/24-prompt-examples-finance.png" />
+<figcaption>
+<p><span class="caption-number">Fig. 33 </span><span class="caption-text">Three categories of finance prompts: explaining concepts, analyzing data, and writing code. Each demonstrates how specificity and structure lead to better AI output. Source: Professor Jonathan Hersh, BUS 696: Generative AI in Finance, Chapman University, Spring 2026.</span><a class="headerlink" href="#prompt-examples-finance-png" title="Link to this image">#</a></p>
+</figcaption>
+</figure>
+<p><strong>Explaining Concepts:</strong> When you need to understand something, tell the AI your level and what kind of explanation you want. For example: <em>“Explain the covariance matrix to someone who has taken intro stats but not linear algebra. Start with the intuition, then show a 2x2 example with real stock data.”</em> This is far better than just asking “what is a covariance matrix?”</p>
+<p><strong>Analyzing Data:</strong> When you have results and need interpretation, give the AI the actual numbers and ask it to put them in context. For example: <em>“I have a portfolio with an annualized return of 12%, annual volatility of 18%, and a max drawdown of -25%. How does this compare to typical equity portfolios? What does the drawdown tell me that the Sharpe Ratio doesn’t?”</em></p>
+<p><strong>Writing Code:</strong> When asking for code, specify the libraries, the data format, and what you want the output to look like. For example: <em>“Write Python code using pandas and yfinance to download 3 years of daily data for AAPL and SPY, calculate rolling 60-day correlations, and plot the result with matplotlib. Include comments explaining each step.”</em></p>
+<div class="admonition important">
+<p class="admonition-title">Important</p>
+<p>These prompt patterns aren’t just about getting better AI output – they’re about developing <strong>analytical thinking</strong>. When you force yourself to be specific about what you want, you’re also forcing yourself to think clearly about what you’re trying to accomplish. That skill transfers well beyond AI tools.</p>
+</div>
+</section>
 </section>
 <section id="example-ai-assisted-function-writing">
 <h2>Example: AI-Assisted Function Writing<a class="headerlink" href="#example-ai-assisted-function-writing" title="Link to this heading">#</a></h2>
@@ -1143,32 +1206,32 @@ You:          &quot;Yes&quot; → file is updated
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>array([  100.        ,   125.90148748,   120.78550203,   142.39518731,
-         160.00152269,   168.25628729,   141.93915285,   145.65866778,
-         185.2113222 ,   186.87996606,   198.50220699,   237.7460388 ,
-         284.41832821,   262.30068672,   279.63035189,   264.51017598,
-         249.18576249,   269.3876929 ,   312.40583191,   316.92011618,
-         311.74895526,   339.18517022,   320.88837554,   340.13969109,
-         357.60338847,   320.04421464,   340.17275136,   316.98820968,
-         277.72105134,   279.04722874,   287.86261383,   276.63994428,
-         233.89834129,   242.02518472,   272.11466218,   254.16478692,
-         274.84731692,   263.21951003,   313.8093213 ,   329.75860583,
-         448.62376331,   411.0495632 ,   523.76667421,   519.05501474,
-         518.97532412,   569.73388092,   716.63882881,   668.53295025,
-         795.10579389,   738.52085125,   749.51367265,   936.22671234,
-         948.71004009,  1022.27786215,  1083.01003161,  1090.95234367,
-        1183.03702124,  1186.51837566,  1298.60354908,  1329.79074969,
-        1236.93027965,  1333.67614003,  1608.47312655,  1505.31351069,
-        1741.95771515,  1852.5897143 ,  2176.786043  ,  1765.03445244,
-        2238.51240474,  2003.75395943,  2169.09276214,  2321.66964968,
-        1871.61632887,  2333.0119067 ,  2415.72309176,  2592.17932595,
-        2959.48615191,  3277.76662699,  3623.96514804,  3589.68762678,
-        3641.69537124,  3034.43260384,  3152.52926292,  3520.79765316,
-        3862.7295988 ,  4214.00480337,  3932.54746255,  4142.24715778,
-        4247.90472793,  5356.98588529,  5089.48934035,  5726.04643554,
-        6694.68720928,  6134.93905038,  6554.40437696,  6030.98923035,
-        5910.613727  ,  6544.98944339,  7300.90736365,  9212.49038846,
-       11303.98535528])
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>array([ 100.        ,  101.5293802 ,  102.5430423 ,  110.87596539,
+        111.6662098 ,   91.0788105 ,   99.42657939,  104.63275086,
+        128.61878879,  123.66903436,  185.22538895,  200.70888229,
+        223.84599538,  264.70902617,  328.22032336,  345.56022106,
+        425.61650957,  415.52903175,  358.64841187,  372.88415353,
+        406.96722265,  440.20786263,  454.224503  ,  427.50751446,
+        382.95217257,  407.99241916,  420.08550342,  455.09943069,
+        392.53119349,  429.76366341,  403.54051329,  432.08839829,
+        535.96498329,  573.70349972,  641.74972521,  691.38893147,
+        660.50496011,  583.8325974 ,  623.3003334 ,  669.98264752,
+        756.4938142 ,  686.47143669,  614.45215298,  697.959772  ,
+        639.8407585 ,  731.88247292,  786.82482588,  714.45920132,
+        876.34441267,  946.10114156,  974.84689713, 1032.22843348,
+       1053.30474603, 1080.98888312, 1038.47200065, 1044.56940884,
+       1044.41189911, 1068.20045898,  959.84559987, 1058.02830078,
+       1213.49768124, 1289.37069115, 1362.03514122, 1250.6001948 ,
+       1379.01675393, 1647.33162698, 1608.89936873, 1686.49763225,
+       1653.45437805, 1465.55231212, 1432.92878796, 1604.51369546,
+       1620.11318189, 1613.1983301 , 1564.78402181, 1586.28128896,
+       1852.37814913, 2027.2138224 , 2155.05453954, 1873.90762765,
+       2159.17252447, 2400.84570184, 2427.00654591, 2456.7128495 ,
+       2611.23260857, 2905.75096506, 2657.45021262, 3094.96984469,
+       3294.38998069, 3502.47800056, 3857.59074292, 3665.48587997,
+       4232.99191107, 4288.64982923, 4985.25622074, 5001.79277594,
+       5504.19426174, 5686.29918964, 6313.39443593, 7237.80251604,
+       6900.14845814])
 </pre></div>
 </div>
 </div>
@@ -1236,7 +1299,7 @@ You:          &quot;Yes&quot; → file is updated
 <figure class="align-center" id="gpt-find-error-png">
 <img alt="../_images/17-gpt-find-error.png" class="with-border" src="../_images/17-gpt-find-error.png" />
 <figcaption>
-<p><span class="caption-number">Fig. 31 </span><span class="caption-text">AI tools can quickly identify bugs that might take you hours to find.</span><a class="headerlink" href="#gpt-find-error-png" title="Link to this image">#</a></p>
+<p><span class="caption-number">Fig. 34 </span><span class="caption-text">AI tools can quickly identify bugs that might take you hours to find.</span><a class="headerlink" href="#gpt-find-error-png" title="Link to this image">#</a></p>
 </figcaption>
 </figure>
 <p>Claude immediately identified the typo. These are exactly the kinds of errors that can waste hours of your time — and AI finds them in seconds.</p>
@@ -1485,6 +1548,11 @@ You:          &quot;Yes&quot; → file is updated
 </ul>
 </li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#comparing-the-tools">Comparing the Tools</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#prompt-engineering-for-finance">Prompt Engineering for Finance</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#five-principles-for-better-prompts">Five Principles for Better Prompts</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#finance-specific-prompt-patterns">Finance-Specific Prompt Patterns</a></li>
+</ul>
+</li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#example-ai-assisted-function-writing">Example: AI-Assisted Function Writing</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#example-ai-assisted-debugging">Example: AI-Assisted Debugging</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#best-practices-for-ai-assisted-coding">Best Practices for AI-Assisted Coding</a><ul class="nav section-nav flex-column">

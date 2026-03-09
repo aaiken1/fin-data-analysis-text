@@ -425,18 +425,18 @@ document.write(`
   <section class="tex2jax_ignore mathjax_ignore" id="essential-portfolio-math">
 <h1>Essential portfolio math<a class="headerlink" href="#essential-portfolio-math" title="Link to this heading">#</a></h1>
 <p>This brief chapter will cover the type of statistics that we often see when looking at <strong>portfolios</strong>. Parts of the material, such as skewness and kurtosis, are also covered in <strong>Chapter 13</strong> of <a class="reference external" href="https://www.oreilly.com/library/view/python-for-finance/9781492024323/">Python for Finance, 2e</a></p>
-<p>This material will have us thinking about <strong>portfolio construction</strong>. This type of portfolio construction is, typically, most helpful in a quantitative, or “quant”, strategy. If you’re picking 20 stocks to buy, you aren’t going to run an optimizer. You’ll probably just 1/n, or equally-weight, the positions.</p>
+<p>This material will have us thinking about <strong>portfolio construction</strong>. This type of portfolio construction is, typically, most helpful in a quantitative, or “quant”, strategy. If you’re picking 20 stocks to buy, you aren’t going to run an optimizer. You’ll probably just 1/n, or equal-weight, the positions.</p>
 <p>But, what if you have a lot of positions, probably chosen by some kind of quant or algorithmic strategy? You will be choosing and sizing the various trades (or, assets, more generally) to achieve a good trade-off between risk and expected return. What should you consider?</p>
 <ol class="arabic simple">
 <li><p>Diversification! Quant strategies might have 1000’s of positions.</p></li>
 <li><p>Position limits and risk limits: At the level of securities, asset classes, and overall portfolio.</p></li>
-<li><p>Larger bets on higher conviction trade. You can weight a position based on the strength of your signal.</p></li>
+<li><p>Larger bets on higher conviction trades. You can weight a position based on the strength of your signal.</p></li>
 <li><p>Size bets in terms of risk.</p></li>
 <li><p>Correlations matter: For a long position, correlation with other longs is bad, corr. with shorts is good. Powerful to go long/short within each industry, diversify across industries. Can use ETFs and futures to “hedge” out sector and market exposure.</p></li>
 <li><p>Resize positions according to forward-looking risk and conviction.</p></li>
 </ol>
 <p>We won’t start with full-on quantitative-based strategies though. Let’s look at a few, basic return series.</p>
-<p>We’ll start by bringing in some <strong>monthly hedge fund return data</strong>. We’ll calculate some portfolio returns, using assumed weights. We’ll then move on to portfolio-level <strong>variance and standard deviation</strong>. We’ll see how to <strong>annualize returns and volatility</strong>. We’ll look at other risk measures, like <strong>skewness</strong> and <strong>kurtosis</strong>. We’ll see <strong>Sharpe</strong> and <strong>Sortino</strong> ratios. Finally, we’ll make a graph showing the <strong>drawdown</strong>, or worse loss, of our portfolio.</p>
+<p>We’ll start by bringing in some <strong>monthly hedge fund return data</strong>. We’ll calculate some portfolio returns, using assumed weights. We’ll then move on to portfolio-level <strong>variance and standard deviation</strong>. We’ll see how to <strong>annualize returns and volatility</strong>. We’ll look at other risk measures, like <strong>skewness</strong> and <strong>kurtosis</strong>. We’ll see <strong>Sharpe</strong> and <strong>Sortino</strong> ratios. Finally, we’ll make a graph showing the <strong>drawdown</strong>, or worst loss, of our portfolio.</p>
 <p>These ideas will get us thinking about portfolios, trading strategies, risk management, and portfolio optimization. We’ll go into more detail in later chapters.</p>
 <p>The formulas are <strong>must knows</strong> for finance folks! For example, you need these on CFA Level 1.</p>
 <div class="cell docutils container">
@@ -796,11 +796,15 @@ document.write(`
 <div><p>However, the variance drain on a sequence of volatile returns still matters when financial advisors use Monte Carlo analysis, which by design actually projects sequences of random volatile returns (based on the probability that they will occur) to determine the outcome of particular retirement strategies. Because the fact that volatility drag is already part of a Monte Carlo analysis means that the return assumption plugged into a Monte Carlo projection should actually be the (higher) arithmetic return, and not the investment’s long-term compound average growth rate. Otherwise, the impact of volatility drag is effectively counted twice, which can understate long-term returns and overstate the actual risk of the prospective retirement plan!</p>
 </div></blockquote>
 <p>We can put that reasoning into a simple, but important formula.</p>
-<div class="amsmath math notranslate nohighlight" id="equation-ee3a4225-db87-44b4-8003-4537d1e8e2cd">
-<span class="eqno">(4)<a class="headerlink" href="#equation-ee3a4225-db87-44b4-8003-4537d1e8e2cd" title="Permalink to this equation">#</a></span>\[\begin{align}
-\text{Compound Return}_i = E[R_p] - \frac{1}{2}\sigma^2_p
+<div class="amsmath math notranslate nohighlight" id="equation-7a44c2d6-e114-455f-8552-e5e1499f9bb2">
+<span class="eqno">(4)<a class="headerlink" href="#equation-7a44c2d6-e114-455f-8552-e5e1499f9bb2" title="Permalink to this equation">#</a></span>\[\begin{align}
+\text{Geometric Return} \approx E[R] - \frac{1}{2}\sigma^2
 \end{align}\]</div>
-<p>where <span class="math notranslate nohighlight">\(E[R_i]\)</span> is the arithmetic mean of the portfolio (i.e. the expected return) and <span class="math notranslate nohighlight">\(\sigma^2_p\)</span> is the variance of the portfolio. Note that this math works for single assets, too. It isn’t portfolio specific.</p>
+<p>where <span class="math notranslate nohighlight">\(E[R]\)</span> is the arithmetic mean return (i.e. the expected return) and <span class="math notranslate nohighlight">\(\sigma^2\)</span> is the variance. Note that this math works for single assets and portfolios alike.</p>
+<div class="admonition important">
+<p class="admonition-title">Important</p>
+<p>The geometric return is <strong>always</strong> less than or equal to the arithmetic return. The difference is the <strong>volatility drag</strong>, approximately <span class="math notranslate nohighlight">\(\frac{1}{2}\sigma^2\)</span>. More volatile assets have a bigger gap between their arithmetic and geometric averages. This is why two investments with the same arithmetic average return but different volatilities will produce different ending wealth – the less volatile one wins.</p>
+</div>
 <div class="admonition hint">
 <p class="admonition-title">Hint</p>
 <p>This is yet another formula that appears on the CFA and CFP exams.</p>
@@ -845,30 +849,30 @@ document.write(`
 <div class="cell_output docutils container">
 <div class="output text_html"><style type="text/css">
 </style>
-<table id="T_2eca3">
+<table id="T_3a84a">
   <caption>Hedge Fund Style Returns</caption>
   <thead>
     <tr>
       <th class="blank level0" >&nbsp;</th>
-      <th id="T_2eca3_level0_col0" class="col_heading level0 col0" >Monthly Return</th>
+      <th id="T_3a84a_level0_col0" class="col_heading level0 col0" >Monthly Return</th>
     </tr>
   </thead>
   <tbody>
     <tr>
-      <th id="T_2eca3_level0_row0" class="row_heading level0 row0" >L/S Equity</th>
-      <td id="T_2eca3_row0_col0" class="data row0 col0" >0.754%</td>
+      <th id="T_3a84a_level0_row0" class="row_heading level0 row0" >L/S Equity</th>
+      <td id="T_3a84a_row0_col0" class="data row0 col0" >0.754%</td>
     </tr>
     <tr>
-      <th id="T_2eca3_level0_row1" class="row_heading level0 row1" >Equity Market Neutral</th>
-      <td id="T_2eca3_row1_col0" class="data row1 col0" >0.441%</td>
+      <th id="T_3a84a_level0_row1" class="row_heading level0 row1" >Equity Market Neutral</th>
+      <td id="T_3a84a_row1_col0" class="data row1 col0" >0.441%</td>
     </tr>
     <tr>
-      <th id="T_2eca3_level0_row2" class="row_heading level0 row2" >Global Macro</th>
-      <td id="T_2eca3_row2_col0" class="data row2 col0" >0.959%</td>
+      <th id="T_3a84a_level0_row2" class="row_heading level0 row2" >Global Macro</th>
+      <td id="T_3a84a_row2_col0" class="data row2 col0" >0.959%</td>
     </tr>
     <tr>
-      <th id="T_2eca3_level0_row3" class="row_heading level0 row3" >Managed Futures</th>
-      <td id="T_2eca3_row3_col0" class="data row3 col0" >0.511%</td>
+      <th id="T_3a84a_level0_row3" class="row_heading level0 row3" >Managed Futures</th>
+      <td id="T_3a84a_row3_col0" class="data row3 col0" >0.511%</td>
     </tr>
   </tbody>
 </table>
@@ -893,30 +897,30 @@ document.write(`
 <div class="cell_output docutils container">
 <div class="output text_html"><style type="text/css">
 </style>
-<table id="T_dc2de">
+<table id="T_a8f01">
   <caption>Hedge Fund Style Returns</caption>
   <thead>
     <tr>
       <th class="blank level0" >&nbsp;</th>
-      <th id="T_dc2de_level0_col0" class="col_heading level0 col0" >Monthly Return</th>
+      <th id="T_a8f01_level0_col0" class="col_heading level0 col0" >Monthly Return</th>
     </tr>
   </thead>
   <tbody>
     <tr>
-      <th id="T_dc2de_level0_row0" class="row_heading level0 row0" >L/S Equity</th>
-      <td id="T_dc2de_row0_col0" class="data row0 col0" >0.754%</td>
+      <th id="T_a8f01_level0_row0" class="row_heading level0 row0" >L/S Equity</th>
+      <td id="T_a8f01_row0_col0" class="data row0 col0" >0.754%</td>
     </tr>
     <tr>
-      <th id="T_dc2de_level0_row1" class="row_heading level0 row1" >Equity Market Neutral</th>
-      <td id="T_dc2de_row1_col0" class="data row1 col0" >0.441%</td>
+      <th id="T_a8f01_level0_row1" class="row_heading level0 row1" >Equity Market Neutral</th>
+      <td id="T_a8f01_row1_col0" class="data row1 col0" >0.441%</td>
     </tr>
     <tr>
-      <th id="T_dc2de_level0_row2" class="row_heading level0 row2" >Global Macro</th>
-      <td id="T_dc2de_row2_col0" class="data row2 col0" >0.959%</td>
+      <th id="T_a8f01_level0_row2" class="row_heading level0 row2" >Global Macro</th>
+      <td id="T_a8f01_row2_col0" class="data row2 col0" >0.959%</td>
     </tr>
     <tr>
-      <th id="T_dc2de_level0_row3" class="row_heading level0 row3" >Managed Futures</th>
-      <td id="T_dc2de_row3_col0" class="data row3 col0" >0.511%</td>
+      <th id="T_a8f01_level0_row3" class="row_heading level0 row3" >Managed Futures</th>
+      <td id="T_a8f01_row3_col0" class="data row3 col0" >0.511%</td>
     </tr>
   </tbody>
 </table>
@@ -961,12 +965,12 @@ document.write(`
 </div>
 </div>
 </div>
-<p>And, I can calculate cumulative returns and then graph them. As we’ve seen using a function like <code class="docutils literal notranslate"><span class="pre">.cumprod()</span></code> like this is an example of <strong>broadcasting</strong> and <strong>vectorization</strong>. I am adding 1 to every monthly return and then applying the <code class="docutils literal notranslate"><span class="pre">.cumprod()</span></code> function to each observation. Take a look at the result to see what happened.</p>
-<p>I’ll also rename the columns a slightly different way. Notice that I’m using <code class="docutils literal notranslate"><span class="pre">inplace=True</span></code> and have the column names inside of a <strong>dictionary</strong>.</p>
+<p>And, I can calculate cumulative returns and then graph them. As we’ve seen, using a function like <code class="docutils literal notranslate"><span class="pre">.cumprod()</span></code> like this is an example of <strong>broadcasting</strong> and <strong>vectorization</strong>. I am adding 1 to every monthly return and then applying the <code class="docutils literal notranslate"><span class="pre">.cumprod()</span></code> function to each observation. Take a look at the result to see what happened.</p>
+<p>I’ll also rename the columns using <code class="docutils literal notranslate"><span class="pre">.rename()</span></code> with a <strong>dictionary</strong> that maps the old names to new ones.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">monthly_cum_rets</span> <span class="o">=</span> <span class="p">(</span><span class="mi">1</span><span class="o">+</span><span class="n">rets_with_port</span><span class="p">)</span><span class="o">.</span><span class="n">cumprod</span><span class="p">()</span>
-<span class="n">monthly_cum_rets</span><span class="o">.</span><span class="n">rename</span><span class="p">(</span><span class="n">columns</span><span class="o">=</span><span class="p">{</span><span class="s1">&#39;ln_sh_eq_hedge_fund_usd&#39;</span><span class="p">:</span><span class="s1">&#39;L/S Equity&#39;</span><span class="p">,</span> <span class="s1">&#39;eq_mkt_ntr_hedge_fund_usd&#39;</span><span class="p">:</span><span class="s1">&#39;Equity Market Neutral&#39;</span><span class="p">,</span> <span class="s1">&#39;global_mac_hedge_fund_usd&#39;</span><span class="p">:</span><span class="s1">&#39;Global Macro&#39;</span><span class="p">,</span> <span class="s1">&#39;mngd_fut_hedge_fund_usd&#39;</span><span class="p">:</span><span class="s1">&#39;Managed Futures&#39;</span><span class="p">,</span> <span class="s1">&#39;port_ret&#39;</span><span class="p">:</span><span class="s1">&#39;EW Port Ret&#39;</span> <span class="p">},</span> <span class="n">inplace</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="n">monthly_cum_rets</span> <span class="o">=</span> <span class="n">monthly_cum_rets</span><span class="o">.</span><span class="n">rename</span><span class="p">(</span><span class="n">columns</span><span class="o">=</span><span class="p">{</span><span class="s1">&#39;ln_sh_eq_hedge_fund_usd&#39;</span><span class="p">:</span><span class="s1">&#39;L/S Equity&#39;</span><span class="p">,</span> <span class="s1">&#39;eq_mkt_ntr_hedge_fund_usd&#39;</span><span class="p">:</span><span class="s1">&#39;Equity Market Neutral&#39;</span><span class="p">,</span> <span class="s1">&#39;global_mac_hedge_fund_usd&#39;</span><span class="p">:</span><span class="s1">&#39;Global Macro&#39;</span><span class="p">,</span> <span class="s1">&#39;mngd_fut_hedge_fund_usd&#39;</span><span class="p">:</span><span class="s1">&#39;Managed Futures&#39;</span><span class="p">,</span> <span class="s1">&#39;port_ret&#39;</span><span class="p">:</span><span class="s1">&#39;EW Port Ret&#39;</span> <span class="p">})</span>
 </pre></div>
 </div>
 </div>
@@ -986,18 +990,22 @@ document.write(`
 <section id="risk-measures-at-the-portfolio-level">
 <h2>Risk measures at the portfolio-level<a class="headerlink" href="#risk-measures-at-the-portfolio-level" title="Link to this heading">#</a></h2>
 <p>As you know from your investments class, the variance of a portfolio is <strong>not</strong> the average variance of the assets in the portfolio. We need to take into account the effects of <strong>diversification</strong>. For example, here’s the formula for the variance of a portfolio with two assets. We need weights, variances, and the covariance between the two.</p>
-<div class="amsmath math notranslate nohighlight" id="equation-0ec1b5ee-c0a5-4fb5-9304-439cd524724d">
-<span class="eqno">(5)<a class="headerlink" href="#equation-0ec1b5ee-c0a5-4fb5-9304-439cd524724d" title="Permalink to this equation">#</a></span>\[\begin{align}
+<div class="amsmath math notranslate nohighlight" id="equation-617dfa8f-1f62-4a1e-b95c-f61b415574aa">
+<span class="eqno">(5)<a class="headerlink" href="#equation-617dfa8f-1f62-4a1e-b95c-f61b415574aa" title="Permalink to this equation">#</a></span>\[\begin{align}
 \sigma^2_p = w^2_1 \sigma^2_1 + w^2_2 \sigma^2_2 + 2 w_1 w_2 \sigma^2_{1,2}
 \end{align}\]</div>
 <p>That last sigma, <span class="math notranslate nohighlight">\(\sigma^2_{1,2}\)</span>, is the <strong>covariance</strong> between the two assets.</p>
 <p>This formula generalizes for <strong>any number of assets</strong>.</p>
-<div class="amsmath math notranslate nohighlight" id="equation-c3273986-0f36-4b6c-b375-92f8f00195a7">
-<span class="eqno">(6)<a class="headerlink" href="#equation-c3273986-0f36-4b6c-b375-92f8f00195a7" title="Permalink to this equation">#</a></span>\[\begin{align}
+<div class="amsmath math notranslate nohighlight" id="equation-549525dc-e1d9-4c79-94af-8ef10623a496">
+<span class="eqno">(6)<a class="headerlink" href="#equation-549525dc-e1d9-4c79-94af-8ef10623a496" title="Permalink to this equation">#</a></span>\[\begin{align}
 \sigma^2_p = w^T \Sigma w
 \end{align}\]</div>
 <p>where <span class="math notranslate nohighlight">\(w\)</span> is a <strong>vector</strong> containing all of our portfolio weights and sigma is the variance-covariance matrix for our assets. The “T” means the matrix operation <strong>transpose</strong>. This is necessary for the matrix multiplication.</p>
-<p>Let’s use Python to find the variance-covariance matrix. There are variances along with diagonal of the matrix and covariance terms <strong>between assets</strong> in the off-diagonals. Note that upper-right and lower-left of the matrix are identical. This is because the covariance between Asset 1 and Asset 2 is the same as the covariance between Asset 2 and Asset 1.</p>
+<div class="admonition important">
+<p class="admonition-title">Important</p>
+<p>Portfolio variance depends on the <strong>covariances</strong> between assets, not just individual variances. This is the mathematical basis for <strong>diversification</strong> – by combining assets that aren’t perfectly correlated, you can reduce portfolio risk below the weighted average of individual risks.</p>
+</div>
+<p>Let’s use Python to find the variance-covariance matrix. There are variances along the diagonal of the matrix and covariance terms <strong>between assets</strong> in the off-diagonals. Note that the upper-right and lower-left of the matrix are identical. This is because the covariance between Asset 1 and Asset 2 is the same as the covariance between Asset 2 and Asset 1.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">cov_matrix</span> <span class="o">=</span> <span class="n">rets</span><span class="o">.</span><span class="n">cov</span><span class="p">()</span>
@@ -1304,7 +1312,7 @@ dtype: float64
 <figure class="align-center" id="skew-png">
 <img alt="../_images/08-skew.png" src="../_images/08-skew.png" />
 <figcaption>
-<p><span class="caption-number">Fig. 44 </span><span class="caption-text">Some strategies, like selling options, have negative skewness. You make a small profit much of the time – until you don’t. Other investments have positive skewness. You’ll lose money much of the time, but occasionally get a large payoff. Some volatility-protection strategies look like this. Source: DataCamp.</span><a class="headerlink" href="#skew-png" title="Link to this image">#</a></p>
+<p><span class="caption-number">Fig. 54 </span><span class="caption-text">Some strategies, like selling options, have negative skewness. You make a small profit much of the time – until you don’t. Other investments have positive skewness. You’ll lose money much of the time, but occasionally get a large payoff. Some volatility-protection strategies look like this. Source: DataCamp.</span><a class="headerlink" href="#skew-png" title="Link to this image">#</a></p>
 </figcaption>
 </figure>
 <div class="cell docutils container">
@@ -1327,20 +1335,20 @@ dtype: float64
 <figure class="align-center" id="kurt-png">
 <img alt="../_images/08-kurt.png" src="../_images/08-kurt.png" />
 <figcaption>
-<p><span class="caption-number">Fig. 45 </span><span class="caption-text">Many investment strategies have more “rare events” or larger gains and losses than you would expect if returns followed the normal distribution. Source: DataCamp.</span><a class="headerlink" href="#kurt-png" title="Link to this image">#</a></p>
+<p><span class="caption-number">Fig. 55 </span><span class="caption-text">Many investment strategies have more “rare events” or larger gains and losses than you would expect if returns followed the normal distribution. Source: DataCamp.</span><a class="headerlink" href="#kurt-png" title="Link to this image">#</a></p>
 </figcaption>
 </figure>
 </section>
 <section id="annualizing-and-adjusting-for-risk">
 <h2>Annualizing and adjusting for risk<a class="headerlink" href="#annualizing-and-adjusting-for-risk" title="Link to this heading">#</a></h2>
-<p>There are many ways to report returns. We’ve seen discrete vs. log returns. There are returns for specific period, like a day or a month. We can then take that specific period return and <strong>annualize</strong> it. This takes a return over a shorter time frame and asks what are return would be if we earned that return over a year.</p>
+<p>There are many ways to report returns. We’ve seen discrete vs. log returns. There are returns for a specific period, like a day or a month. We can then take that specific period return and <strong>annualize</strong> it. This takes a return over a shorter time frame and asks what our return would be if we earned that return over a year.</p>
 <p>We can also annualize a multi-year return and ask what annual return would have gotten us the same multi-year return.</p>
-<p>Both of these ideas are really the same thing mathematically and take into account <strong>compounding</strong>. They let us compare returns that are different time periods. Fund managers that fall under the SEC ‘40 Act are required to report calculations like this.</p>
+<p>Both of these ideas are really the same thing mathematically and take into account <strong>compounding</strong>. They let us compare returns over different time periods. Fund managers that fall under the SEC ‘40 Act are required to report calculations like this.</p>
 <p>There are also many ways to <strong>adjust for risk</strong>. Why do we need to adjust for risk? Simply put, you can go to a casino and put all of your money on black, get lucky, and double your “investment”. But I don’t want you managing my money! Your risk-adjusted return is zero.</p>
-<p>The same thing is true for trading securities, like stocks, bonds, options, and crypto. You can buy a penny stock, or a Dog coin, or a deep out-of-the-money call option and make a lot of money. And that money is real - you can spend it! But, we need ways to disentangle return, risk, and luck if we’re going to assign skill to someone’s good forture.</p>
-<p>Let’s combine these two ideas, getting our return and risk measures in the same time units and taking risk into account, to calculate to basic risk-adjustment measures: the <strong>Sharpe Ratio</strong> and the <strong>Sortino Ratio</strong>.</p>
+<p>The same thing is true for trading securities, like stocks, bonds, options, and crypto. You can buy a penny stock, or a Dog coin, or a deep out-of-the-money call option and make a lot of money. And that money is real - you can spend it! But, we need ways to disentangle return, risk, and luck if we’re going to assign skill to someone’s good fortune.</p>
+<p>Let’s combine these two ideas, getting our return and risk measures in the same time units and taking risk into account, to calculate two basic risk-adjustment measures: the <strong>Sharpe Ratio</strong> and the <strong>Sortino Ratio</strong>.</p>
 <p>We’ll look at <strong>factor models</strong> in another chapter. This is a more comprehensive way to adjust our returns for the risks that we’re taking in order to see if we have skill.</p>
-<p>Let’s use the monthly portfolio returns that I created above to find our measures of risk/return trade-off. I will first annualize my monthly return. I will then annualize my monthly standard deviation, or volatility as we say in finance. I am “cheating” a bit on my volatility annualization. These are discrete returns. Multiplying by the square root of the number of your time periods in a year (12, because we have montly returns) really only works if you have log returns.</p>
+<p>Let’s use the monthly portfolio returns that I created above to find our measures of risk/return trade-off. I will first annualize my monthly return. I will then annualize my monthly standard deviation, or volatility as we say in finance. I am “cheating” a bit on my volatility annualization. These are discrete returns. Multiplying by the square root of the number of your time periods in a year (12, because we have monthly returns) really only works if you have log returns.</p>
 <p>See your Principles of Finance notes for more on these calculations.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -1375,6 +1383,15 @@ Name: port_ret, dtype: float64
 </div>
 <p>Note that <code class="docutils literal notranslate"><span class="pre">**</span></code> denotes exponent, while <code class="docutils literal notranslate"><span class="pre">*</span></code> is multiplication in Python.</p>
 <p>We can then calculate the <strong>Sharpe Ratio</strong>, which is the ratio of returns above the risk-free rate to the volatility (i.e. the risk) in the portfolio.</p>
+<div class="amsmath math notranslate nohighlight" id="equation-2df529b6-22d4-47fd-9c5d-dee287ef4caf">
+<span class="eqno">(7)<a class="headerlink" href="#equation-2df529b6-22d4-47fd-9c5d-dee287ef4caf" title="Permalink to this equation">#</a></span>\[\begin{align}
+\text{Sharpe Ratio} = \frac{R_p - R_f}{\sigma_p}
+\end{align}\]</div>
+<p>where <span class="math notranslate nohighlight">\(R_p\)</span> is the annualized portfolio return, <span class="math notranslate nohighlight">\(R_f\)</span> is the risk-free rate, and <span class="math notranslate nohighlight">\(\sigma_p\)</span> is the annualized portfolio standard deviation.</p>
+<div class="admonition important">
+<p class="admonition-title">Important</p>
+<p>The Sharpe Ratio tells you how much <strong>excess return</strong> you earn per unit of <strong>total risk</strong>. A Sharpe of 1.0 means you earn 1% of excess return for every 1% of volatility. Higher is better. In practice, a Sharpe above 0.5 is decent, above 1.0 is very good, and sustained Sharpes above 2.0 are exceptional (and rare).</p>
+</div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">sharpe_ratio</span> <span class="o">=</span> <span class="p">(</span><span class="n">annualized_return</span> <span class="o">-</span> <span class="n">risk_free</span><span class="p">)</span> <span class="o">/</span> <span class="n">annualized_vol</span>
@@ -1389,8 +1406,18 @@ Name: port_ret, dtype: float64
 </div>
 </div>
 <p>We have a Sharpe near 1. That’s pretty high! Hedge fund strategies often take risks that are not well-defined by standard deviation. For example, if a strategy has a lot of negative skewness, then we would expect to occasionally have large losses. Volatility doesn’t capture that type of risk.</p>
-<p>Returns that are “too smooth” can also create artificially low Sharpe Ratios. For example, if a strategy holds illiquid securities that are not marked-to-market (or priced) consistently, then the reported returns won’t affect the actual volatility of the positions if they were priced, say, daily. For example, many venture capital and private equity strategies only mark, or change the prices of their investments, quarterly. A mutual fund is going to see their positions market daily. ETFs trade throughout the day. Private equity strategies look less volatile than they really are and, so, have higher Sharpe ratios than they do in reality.</p>
-<p>We can also calculate the <strong>Sortino Ratio</strong>. This looks very similar to the Sharpe Ratio, expect that we only calculate the standard deviation using returns below some target, or threshold. So, we are interesting in volatility during bad times, not just overall volatility. We often use a target of 0 to look at negative returns, but you can choose something else if that’s appropriate.</p>
+<p>Returns that are “too smooth” can also create artificially <strong>high</strong> Sharpe Ratios. For example, if a strategy holds illiquid securities that are not marked-to-market (or priced) consistently, then the reported returns won’t reflect the actual volatility of the positions if they were priced, say, daily. For example, many venture capital and private equity strategies only mark, or change the prices of their investments, quarterly. A mutual fund is going to see their positions marked daily. ETFs trade throughout the day. Private equity strategies look less volatile than they really are and, so, have higher Sharpe Ratios than they do in reality.</p>
+<div class="admonition warning">
+<p class="admonition-title">Warning</p>
+<p>Be skeptical of very high Sharpe Ratios! They can be inflated by illiquid holdings (smoothed returns), negative skewness (selling insurance-like strategies), or short track records. Always look at the full return distribution, not just the Sharpe.</p>
+</div>
+<p>We can also calculate the <strong>Sortino Ratio</strong>. This looks very similar to the Sharpe Ratio, except that we only calculate the standard deviation using returns below some target, or threshold. This measure of risk is called the <strong>downside deviation</strong>. So, we are interested in volatility during bad times, not just overall volatility. We often use a target of 0 to look at negative returns, but you can choose something else if that’s appropriate.</p>
+<div class="amsmath math notranslate nohighlight" id="equation-00632823-9845-4bdc-9dd9-b35f47492744">
+<span class="eqno">(8)<a class="headerlink" href="#equation-00632823-9845-4bdc-9dd9-b35f47492744" title="Permalink to this equation">#</a></span>\[\begin{align}
+\text{Sortino Ratio} = \frac{R_p - R_f}{\sigma_{\text{downside}}}
+\end{align}\]</div>
+<p>where <span class="math notranslate nohighlight">\(\sigma_{\text{downside}}\)</span> is the standard deviation calculated using only returns below the target.</p>
+<p>The Sortino Ratio will generally be higher than the Sharpe Ratio, since downside deviation is typically smaller than total standard deviation. The Sortino is arguably a better measure for strategies with asymmetric return distributions (positive or negative skewness).</p>
 <p>Note that I am masking with <code class="docutils literal notranslate"><span class="pre">.loc</span></code> to get just the negative returns from the <em>port_ret</em> Series.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -1415,7 +1442,12 @@ Name: port_ret, dtype: float64
 </section>
 <section id="drawdowns">
 <h2>Drawdowns<a class="headerlink" href="#drawdowns" title="Link to this heading">#</a></h2>
-<p>We might also be interested in draw-downs, or what the bad times look like, how long they last, and how long it takes to get our money back.</p>
+<p>We might also be interested in drawdowns, or what the bad times look like, how long they last, and how long it takes to get our money back.</p>
+<p>A <strong>drawdown</strong> measures the decline from a previous peak in cumulative returns. The <strong>maximum drawdown</strong> is the largest peak-to-trough decline over the entire period – it tells you the worst loss you would have experienced if you had invested at the worst possible time.</p>
+<div class="admonition important">
+<p class="admonition-title">Important</p>
+<p>Maximum drawdown is one of the most important risk metrics in practice. Investors care deeply about the worst-case scenario. A strategy with a great Sharpe Ratio but a 50% maximum drawdown may be unacceptable for many investors, because it means you lost half your money at some point, even if you eventually recovered.</p>
+</div>
 <p>We will calculate the cumulative portfolio return, the previous maximum cumulative return (often called a <strong>high water mark</strong>), and the percentage below the high water mark at any point.</p>
 <p>I print my index, just to show you that <em>date</em> is the index of the <em>port_drawdown</em> DataFrame. So, my x-axis in my plots can just be <code class="docutils literal notranslate"><span class="pre">port_drawdown.index</span></code>.</p>
 <p>I am using <code class="docutils literal notranslate"><span class="pre">matplotlib</span></code> and <code class="docutils literal notranslate"><span class="pre">plt.plot</span></code> to make two stacked line charts. I find this to be the easiest way, even if it is more verbose. You can really see what you’re doing in each step.</p>
@@ -1444,7 +1476,7 @@ Name: port_ret, dtype: float64
 </div>
 </div>
 </div>
-<p>Let’s make the graph. You’ll see that the Great Financial Crisis was the high water mark, at least in this data.</p>
+<p>Let’s make the graph. You’ll see that the Great Financial Crisis produced the largest drawdown in this data. The portfolio took years to recover back to its previous high water mark.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span> <span class="mi">6</span><span class="p">))</span>

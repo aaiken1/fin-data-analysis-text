@@ -435,13 +435,17 @@ document.write(`
 <h2>Getting started<a class="headerlink" href="#getting-started" title="Link to this heading">#</a></h2>
 <p>Let’s bring in our usual set of prices, pick four assets, calculate <strong>discrete</strong> returns, and plot a histogram of those returns.</p>
 <p>We are going to use <strong>discrete</strong> (or simple, or arithmetic) returns instead of <strong>log</strong> returns, because we are doing <strong>portfolio optimization</strong>. In short, the return of a portfolio is the weighted average of the mean discrete returns. This is not true for mean log returns.</p>
+<div class="admonition important">
+<p class="admonition-title">Important</p>
+<p>Always use <strong>discrete (simple) returns</strong> when doing portfolio optimization. The portfolio return is the weighted sum of the individual asset discrete returns: <span class="math notranslate nohighlight">\(R_p = \sum_i w_i R_i\)</span>. This additive property does <strong>not</strong> hold for log returns, which is why we don’t use them here.</p>
+</div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Read in some eod prices</span>
 <span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
 <span class="kn">import</span><span class="w"> </span><span class="nn">pandas</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">pd</span>
 
-<span class="kn">from</span><span class="w"> </span><span class="nn">pylab</span><span class="w"> </span><span class="kn">import</span> <span class="n">mpl</span><span class="p">,</span> <span class="n">plt</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">matplotlib.pyplot</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">plt</span>
 
 <span class="c1"># Include this to have plots show up in your Jupyter notebook.</span>
 <span class="o">%</span><span class="k">matplotlib</span> inline 
@@ -741,7 +745,7 @@ dtype: float64
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>1.0
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>0.9999999999999998
 </pre></div>
 </div>
 </div>
@@ -754,7 +758,7 @@ dtype: float64
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>0.10553198142152055
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>0.1401010202901976
 </pre></div>
 </div>
 </div>
@@ -767,7 +771,7 @@ dtype: float64
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>0.014860020679498926
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>0.019441330862689322
 </pre></div>
 </div>
 </div>
@@ -780,12 +784,12 @@ dtype: float64
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>0.12190168448179428
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>0.13943217298274213
 </pre></div>
 </div>
 </div>
 </div>
-<p>Ok, all of this was with random weights. Can we do any better than that, if we assume that our expected returns and variance co-variance matrix represent our best guess about how these assets will behave in the future? Note that his is a really big assumption. The past might not tells us much about the future.</p>
+<p>Ok, all of this was with random weights. Can we do any better than that, if we assume that our expected returns and variance-covariance matrix represent our best guess about how these assets will behave in the future? Note that this is a really big assumption. The past might not tell us much about the future.</p>
 </section>
 <section id="plotting-the-efficient-frontier">
 <h2>Plotting the efficient frontier<a class="headerlink" href="#plotting-the-efficient-frontier" title="Link to this heading">#</a></h2>
@@ -793,7 +797,7 @@ dtype: float64
 <figure class="align-center" id="cal-2-png">
 <img alt="../_images/10-cal.png" src="../_images/10-cal.png" />
 <figcaption>
-<p><span class="caption-number">Fig. 46 </span><span class="caption-text">The Capital Allocation Line, or CAL. The mean-variance frontier is the highest return you can get for a given level of risk. The CAL is all possible combinations have the highest Sharpe Ratio portfolio (the tangency portfolio) and the risk-free asset. If all investors have the same beliefs about all underlying assets, then they will all hold the same market portfolio, just in different quantities, depending on their risk preferences. Source: Asset Management by Andrew Ang</span><a class="headerlink" href="#cal-2-png" title="Link to this image">#</a></p>
+<p><span class="caption-number">Fig. 56 </span><span class="caption-text">The Capital Allocation Line, or CAL. The mean-variance frontier is the highest return you can get for a given level of risk. The CAL is all possible combinations have the highest Sharpe Ratio portfolio (the tangency portfolio) and the risk-free asset. If all investors have the same beliefs about all underlying assets, then they will all hold the same market portfolio, just in different quantities, depending on their risk preferences. Source: Asset Management by Andrew Ang</span><a class="headerlink" href="#cal-2-png" title="Link to this image">#</a></p>
 </figcaption>
 </figure>
 <p>What if we picked a bunch of random portfolios, found their risk and return, and then plotted each on a scatter plot? We should see the efficient frontier “emerge” as we essentially throw darts, since some risk-return combinations are not possible for a given set of assets. There’s only so much return you can get for a given level of risk.</p>
@@ -845,21 +849,25 @@ dtype: float64
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../_images/023092e305b6612a832b8d4735eab77898a36fddf8948a0bc21b601e76847600.png" src="../_images/023092e305b6612a832b8d4735eab77898a36fddf8948a0bc21b601e76847600.png" />
+<img alt="../_images/ddc0041779d156b16df6cb0d4e331d33617b7e08f7e28a42d5a8b2ebe9a90b44.png" src="../_images/ddc0041779d156b16df6cb0d4e331d33617b7e08f7e28a42d5a8b2ebe9a90b44.png" />
 </div>
 </div>
 <p>We’ve just generated the <strong>efficient frontier</strong> from a simulation. No “formulas”, per se. Just make 2500 random portfolios and at least some of them are going to be good!</p>
 <p>Each portfolio on the <strong>envelope</strong>, the edge of the shape we see above, is on the efficient frontier. Each of these portfolios has the highest return for a given level of risk (or the lowest risk for a given return).</p>
+<div class="admonition important">
+<p class="admonition-title">Important</p>
+<p>The <strong>efficient frontier</strong> is the set of portfolios that offer the highest expected return for each level of risk. Any portfolio <em>below</em> the frontier is suboptimal – you could get more return for the same risk, or less risk for the same return, by moving to the frontier. Rational investors should only hold portfolios on the efficient frontier.</p>
+</div>
 <p>We’ll draw the efficient frontier below.</p>
 </section>
 <section id="optimizing">
 <h2>Optimizing<a class="headerlink" href="#optimizing" title="Link to this heading">#</a></h2>
-<p>Let’s use an <strong>optimizer</strong> actually find the portfolio with the best Sharpe Ratio. This will be, for a given risk-free rate, the single portfolio with the best risk-reward trade-off.</p>
-<p>We’ll also find the portfolio with the lower volatility (risk). This portfolio is sometimes called the <strong>minimum variance portfolio</strong>.</p>
-<p>We will assume in this example that the risk-free rate is zero. We are not subtracting the risk-free rate from the portfolio return in the numerator. Note that as you change the risk-free rate, then you get different maximum Sharpe Ratio portfolios. What you’re doing, graphically, is <strong>tracing</strong> out the efficient frontier, finding different porfolios that are on the envelope.</p>
+<p>Let’s use an <strong>optimizer</strong> to actually find the portfolio with the best Sharpe Ratio. This will be, for a given risk-free rate, the single portfolio with the best risk-reward trade-off.</p>
+<p>We’ll also find the portfolio with the lowest volatility (risk). This portfolio is sometimes called the <strong>minimum variance portfolio</strong>.</p>
+<p>We will assume in this example that the risk-free rate is zero. We are not subtracting the risk-free rate from the portfolio return in the numerator. Note that as you change the risk-free rate, you get different maximum Sharpe Ratio portfolios. What you’re doing, graphically, is <strong>tracing</strong> out the efficient frontier, finding different portfolios that are on the envelope.</p>
 <section id="finding-the-max-sharpe-portfolio">
 <h3>Finding the max Sharpe portfolio<a class="headerlink" href="#finding-the-max-sharpe-portfolio" title="Link to this heading">#</a></h3>
-<p>We’ll start by defining a new function. This is our <strong>Sharpe Ratio</strong>. The optimization process that we’re going to use wants to find the <strong>minimum</strong> of something. So, we’ll make the Sharpe Ratio negative. This will then be the equivalent of finding the **maximum.</p>
+<p>We’ll start by defining a new function. This is our <strong>Sharpe Ratio</strong>. The optimization process that we’re going to use wants to find the <strong>minimum</strong> of something. So, we’ll make the Sharpe Ratio negative. This will then be the equivalent of finding the <strong>maximum</strong>.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span><span class="w"> </span><span class="nf">min_func_sharpe</span><span class="p">(</span><span class="n">weights</span><span class="p">):</span>  
@@ -869,7 +877,11 @@ dtype: float64
 </div>
 </div>
 <p>That’s the function that we are going to <strong>minimize</strong>. We are going to have Python find the weights that make that function as small as possible. Again, since the function has a negative sign in front, this is like finding the maximum.</p>
-<p>Portfolio optimization always has a <strong>constraint</strong> where your weights must add up to one. To add this constraint, we are now going to set up a <strong>dictionary</strong> that our optimizer is going to be able to understand. The dictionary will say that we are going to give the optimizer something that is type <code class="docutils literal notranslate"><span class="pre">eq</span></code>, or an equation, and that the equation is the sum of all of our weights minus 1. The optimizer is going to know that we want this to be set equal to zero when solving for weights. In other words, all of our weights must add up to one - we are forcing the optimizer to to this.</p>
+<p>Portfolio optimization always has a <strong>constraint</strong> where your weights must add up to one. To add this constraint, we are now going to set up a <strong>dictionary</strong> that our optimizer is going to be able to understand. The dictionary will say that we are going to give the optimizer something that is type <code class="docutils literal notranslate"><span class="pre">eq</span></code>, or an equation, and that the equation is the sum of all of our weights minus 1. The optimizer is going to know that we want this to be set equal to zero when solving for weights. In other words, all of our weights must add up to one - we are forcing the optimizer to do this.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>The optimizer interprets <code class="docutils literal notranslate"><span class="pre">'type':</span> <span class="pre">'eq'</span></code> as “this expression must equal zero.” So <code class="docutils literal notranslate"><span class="pre">np.sum(x)</span> <span class="pre">-</span> <span class="pre">1</span> <span class="pre">=</span> <span class="pre">0</span></code> means that all weights must sum to 1. You could also add inequality constraints with <code class="docutils literal notranslate"><span class="pre">'type':</span> <span class="pre">'ineq'</span></code>, where the expression must be non-negative (greater than or equal to zero).</p>
+</div>
 <p>By the way, see the <code class="docutils literal notranslate"><span class="pre">lambda</span> <span class="pre">x:</span></code>? This is a <strong>lambda</strong>, or anonymous, function. These let us quickly and easily define a simple function. In this case, we have a function that is going to take an argument <em>x</em> and then do something with it. We are adding up all of the elements of <em>x</em> and then subtracting one. When we use this function, <em>x</em> will be our weights.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -901,7 +913,7 @@ dtype: float64
 <p>We’ll start by giving the optimizer an equally-weighted portfolio. It will change these weights to find the ones that minimize that negative Sharpe Ratio. This code will generate an array with equal weights, no matter how many assets you are using.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">eweights</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">noa</span> <span class="o">*</span> <span class="p">[</span><span class="mf">1.</span> <span class="o">/</span> <span class="n">noa</span><span class="p">,])</span>  
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">eweights</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">noa</span> <span class="o">*</span> <span class="p">[</span><span class="mf">1.</span> <span class="o">/</span> <span class="n">noa</span><span class="p">])</span>  
 <span class="n">eweights</span>  
 </pre></div>
 </div>
@@ -978,7 +990,7 @@ dtype: float64
 </div>
 </div>
 </div>
-<p>Let’s pull out just the weights from the object and round to three decimal palces.</p>
+<p>Let’s pull out just the weights from the object and round to three decimal places.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">opts</span><span class="p">[</span><span class="s1">&#39;x&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">round</span><span class="p">(</span><span class="mi">3</span><span class="p">)</span>  
@@ -1079,6 +1091,10 @@ dtype: float64
 <p>Nothing in our first asset, Apple. Since we are just minimizing variance, we don’t care about Apple’s nice return over this period.</p>
 <p>We can find the Sharpe Ratio for the minimum variance portfolio. Note how it is lower!</p>
 <p>Also, finding minimum variance and minimum volatility are the <strong>same thing</strong>, since volatility is just the square root of variance.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>The minimum variance portfolio is interesting because it only depends on the <strong>covariance matrix</strong> – it doesn’t use expected returns at all. Since expected returns are notoriously hard to estimate, some practitioners prefer the minimum variance portfolio precisely because it avoids this estimation problem. Research has shown that minimum variance portfolios often perform surprisingly well out-of-sample.</p>
+</div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">port_vol</span><span class="p">(</span><span class="n">optv</span><span class="p">[</span><span class="s1">&#39;x&#39;</span><span class="p">])</span><span class="o">.</span><span class="n">round</span><span class="p">(</span><span class="mi">3</span><span class="p">)</span>
@@ -1145,7 +1161,7 @@ dtype: float64
 <p>Our bounds again, same as before.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">bnds</span> <span class="o">=</span> <span class="nb">tuple</span><span class="p">((</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span> <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="n">weights</span><span class="p">)</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">bnds</span> <span class="o">=</span> <span class="nb">tuple</span><span class="p">((</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span> <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">noa</span><span class="p">))</span>
 </pre></div>
 </div>
 </div>
@@ -1191,8 +1207,8 @@ dtype: float64
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>CPU times: user 468 ms, sys: 18.3 ms, total: 486 ms
-Wall time: 275 ms
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>CPU times: user 499 ms, sys: 44.6 ms, total: 543 ms
+Wall time: 309 ms
 </pre></div>
 </div>
 </div>
@@ -1215,7 +1231,7 @@ Wall time: 275 ms
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../_images/0d2234d4b52c9778f3e8a714990b5f50b4c9e14fff6ebea6c1aeabe005e9e71e.png" src="../_images/0d2234d4b52c9778f3e8a714990b5f50b4c9e14fff6ebea6c1aeabe005e9e71e.png" />
+<img alt="../_images/43fe053bcc3b46c0a9e05010e312a3883cb7512ad2327449c4d7251379205164.png" src="../_images/43fe053bcc3b46c0a9e05010e312a3883cb7512ad2327449c4d7251379205164.png" />
 </div>
 </div>
 </section>
@@ -1227,7 +1243,7 @@ Wall time: 275 ms
 <figure class="align-center" id="pyport-png">
 <img alt="../_images/09-pyport.png" src="../_images/09-pyport.png" />
 <figcaption>
-<p><span class="caption-number">Fig. 47 </span><span class="caption-text">The portfolio optimization process. Source: PyPortfolioOpt</span><a class="headerlink" href="#pyport-png" title="Link to this image">#</a></p>
+<p><span class="caption-number">Fig. 57 </span><span class="caption-text">The portfolio optimization process. Source: PyPortfolioOpt</span><a class="headerlink" href="#pyport-png" title="Link to this image">#</a></p>
 </figcaption>
 </figure>
 <p>This <a class="reference external" href="https://pyportfolioopt.readthedocs.io/en/latest/UserGuide.html">page</a> takes the explanations on the Github page and provides some nicer formatting.</p>
@@ -1529,6 +1545,10 @@ however the estimates are subject to large uncertainty. This is a problem especi
 context of a mean-variance optimizer, which will maximise the erroneous inputs.</p>
 </div></blockquote>
 <p>In other words, the assets with the largest historical returns are likely the assets with the greatest estimation error. But, the simplest optimization methods, like what we’re doing, will choose those assets! And, the same is true for the worst performing assets. Their negative performance might be exaggerated too.</p>
+<div class="admonition warning">
+<p class="admonition-title">Warning</p>
+<p>Mean-variance optimization is notoriously sensitive to its inputs, especially expected returns. Small changes in expected returns can lead to wildly different optimal portfolios. This is sometimes called the “error maximization” problem. In practice, practitioners use techniques like <strong>shrinkage</strong> (e.g., Ledoit-Wolf), <strong>Black-Litterman</strong> models, or <strong>constraints</strong> on position sizes to produce more stable, reasonable portfolios. The <code class="docutils literal notranslate"><span class="pre">PyPortfolioOpt</span></code> package supports many of these approaches.</p>
+</div>
 <p>Next, we can create and store the <strong>sample variance-covariance matrix</strong>. “Sample” means that we are using sample variance and covariance (as opposed to population variance and covariance).</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -1618,7 +1638,7 @@ context of a mean-variance optimizer, which will maximise the erroneous inputs.<
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;pypfopt.efficient_frontier.efficient_frontier.EfficientFrontier at 0x12f56eed0&gt;
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;pypfopt.efficient_frontier.efficient_frontier.EfficientFrontier at 0x12e46d160&gt;
 </pre></div>
 </div>
 </div>
@@ -1703,7 +1723,11 @@ Sharpe Ratio: 0.91
 </div>
 <p>This package does much more than this. I encourage you to take a look! Here’s one additional example, with two changes. First, I’ve added some weight bounds for the assets added to the <code class="docutils literal notranslate"><span class="pre">EfficientFrontier</span></code> method. Second, instead of finding the max Sharpe portfolio, I’m using <code class="docutils literal notranslate"><span class="pre">ef.efficient_return</span></code> to find the portfolio with the least amount of risk that gives a target return of 18%.</p>
 <p>You can see from the output below that we did indeed hit our target return.</p>
-<p>See how Apple hits the upper limit I set of 50%? Apple did so well during this period that the optimizer really wants us to put most of money in it. Is that a good idea?</p>
+<p>See how Apple hits the upper limit I set of 50%? Apple did so well during this period that the optimizer really wants us to put most of our money in it. Is that a good idea?</p>
+<div class="admonition important">
+<p class="admonition-title">Important</p>
+<p>This is why <strong>weight constraints</strong> are so important in practice. Without them, the optimizer will concentrate your portfolio in whatever asset had the best historical performance. But past performance is not a reliable predictor of future returns. Constraints force diversification and produce more robust portfolios. The <code class="docutils literal notranslate"><span class="pre">weight_bounds</span></code> parameter also allows negative weights (short selling) if you set the lower bound below zero, as I’ve done here with -0.2.</p>
+</div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">ef</span> <span class="o">=</span> <span class="n">EfficientFrontier</span><span class="p">(</span><span class="n">mu</span><span class="p">,</span> <span class="n">S</span><span class="p">,</span> <span class="n">weight_bounds</span><span class="o">=</span><span class="p">(</span><span class="o">-</span><span class="mf">0.2</span><span class="p">,</span> <span class="mf">0.5</span><span class="p">))</span>
