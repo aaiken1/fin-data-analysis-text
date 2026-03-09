@@ -231,7 +231,13 @@
 <li class="toctree-l1"><a class="reference internal" href="9_portfolio_opt.html">Portfolio optimization</a></li>
 <li class="toctree-l1"><a class="reference internal" href="10_unsupervised_learning.html">Machine learning and unsupervised learning <a id="unsupervised_learning"></a></a></li>
 <li class="toctree-l1"><a class="reference internal" href="11_factor_models.html">Factor models <a id="factor_models"></a></a></li>
-<li class="toctree-l1"><a class="reference internal" href="12_regression_topics.html">Supervised machine learning and regression topics <a id="regression"></a></a></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="12_intro.html">Regression and supervised machine learning</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="12_0_ols.html">OLS regression in Python</a></li>
+<li class="toctree-l2"><a class="reference internal" href="12_1_regularization.html">Regularization: Ridge, Lasso, and Elastic Net</a></li>
+<li class="toctree-l2"><a class="reference internal" href="12_2_ml_workflow.html">The machine learning workflow with sklearn</a></li>
+<li class="toctree-l2"><a class="reference internal" href="12_3_ml_markets.html">From Regression to Prediction: Can ML Beat the Market?</a></li>
+</ul>
+</details></li>
 <li class="toctree-l1"><a class="reference internal" href="13_logit_credit.html">Logit models</a></li>
 <li class="toctree-l1"><a class="reference internal" href="14_risk_mang.html">Risk management</a></li>
 <li class="toctree-l1"><a class="reference internal" href="15_monte_carlo.html">Monte Carlo and portfolios</a></li>
@@ -1206,32 +1212,32 @@ You:          &quot;Yes&quot; → file is updated
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>array([ 100.        ,  101.5293802 ,  102.5430423 ,  110.87596539,
-        111.6662098 ,   91.0788105 ,   99.42657939,  104.63275086,
-        128.61878879,  123.66903436,  185.22538895,  200.70888229,
-        223.84599538,  264.70902617,  328.22032336,  345.56022106,
-        425.61650957,  415.52903175,  358.64841187,  372.88415353,
-        406.96722265,  440.20786263,  454.224503  ,  427.50751446,
-        382.95217257,  407.99241916,  420.08550342,  455.09943069,
-        392.53119349,  429.76366341,  403.54051329,  432.08839829,
-        535.96498329,  573.70349972,  641.74972521,  691.38893147,
-        660.50496011,  583.8325974 ,  623.3003334 ,  669.98264752,
-        756.4938142 ,  686.47143669,  614.45215298,  697.959772  ,
-        639.8407585 ,  731.88247292,  786.82482588,  714.45920132,
-        876.34441267,  946.10114156,  974.84689713, 1032.22843348,
-       1053.30474603, 1080.98888312, 1038.47200065, 1044.56940884,
-       1044.41189911, 1068.20045898,  959.84559987, 1058.02830078,
-       1213.49768124, 1289.37069115, 1362.03514122, 1250.6001948 ,
-       1379.01675393, 1647.33162698, 1608.89936873, 1686.49763225,
-       1653.45437805, 1465.55231212, 1432.92878796, 1604.51369546,
-       1620.11318189, 1613.1983301 , 1564.78402181, 1586.28128896,
-       1852.37814913, 2027.2138224 , 2155.05453954, 1873.90762765,
-       2159.17252447, 2400.84570184, 2427.00654591, 2456.7128495 ,
-       2611.23260857, 2905.75096506, 2657.45021262, 3094.96984469,
-       3294.38998069, 3502.47800056, 3857.59074292, 3665.48587997,
-       4232.99191107, 4288.64982923, 4985.25622074, 5001.79277594,
-       5504.19426174, 5686.29918964, 6313.39443593, 7237.80251604,
-       6900.14845814])
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>array([ 100.        ,  102.40455307,  103.68738896,  109.25796562,
+        106.35932941,  106.59425285,   84.13736977,   86.82988439,
+        100.106318  ,   97.39558327,  114.49838656,  102.31781713,
+         97.04300797,   86.59793582,   91.58557893,  102.29391042,
+        100.63226305,  118.90684689,  131.00820919,  143.63246731,
+        153.77538721,  155.53199777,  172.75275109,  164.00368117,
+        192.25734373,  195.15393971,  161.98647601,  143.50977736,
+        147.88569838,  146.66784546,  118.41599915,  111.20683013,
+        110.36482884,  111.66036632,  115.96020088,  127.2229551 ,
+        135.75823542,  152.33625749,  153.09200872,  155.13037294,
+        186.11365458,  207.08155078,  229.97659913,  301.55775236,
+        343.7412443 ,  344.61068316,  361.70076575,  341.29666237,
+        327.90646791,  299.82955374,  338.97769469,  416.22706083,
+        487.65030435,  579.59042094,  613.87015418,  580.33203846,
+        587.8465083 ,  607.15995744,  742.34686284,  643.62821538,
+        619.75530498,  650.13316884,  669.40472373,  677.79675868,
+        720.38577003,  937.43602663, 1095.98257363, 1055.17200666,
+       1457.19790715, 1677.99766187, 1611.51155597, 1568.28453662,
+       1462.85594783, 1498.4664368 , 1643.48814766, 1548.5775616 ,
+       1603.52417139, 1776.48754441, 1869.62205521, 2004.96575316,
+       2291.78966899, 2435.97109446, 2464.6475616 , 2449.38073591,
+       2436.53731445, 2662.00774752, 2620.55209778, 2371.33267961,
+       2489.89261473, 3120.66440869, 2802.4261001 , 2638.842519  ,
+       2585.06892273, 2799.27868789, 3276.85351118, 3715.34080261,
+       3671.02826057, 3521.31240672, 4768.03772718, 4899.2146576 ,
+       4821.46946002])
 </pre></div>
 </div>
 </div>

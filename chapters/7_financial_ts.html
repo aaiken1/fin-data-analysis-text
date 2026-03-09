@@ -233,7 +233,13 @@
 <li class="toctree-l1"><a class="reference internal" href="9_portfolio_opt.html">Portfolio optimization</a></li>
 <li class="toctree-l1"><a class="reference internal" href="10_unsupervised_learning.html">Machine learning and unsupervised learning <a id="unsupervised_learning"></a></a></li>
 <li class="toctree-l1"><a class="reference internal" href="11_factor_models.html">Factor models <a id="factor_models"></a></a></li>
-<li class="toctree-l1"><a class="reference internal" href="12_regression_topics.html">Supervised machine learning and regression topics <a id="regression"></a></a></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="12_intro.html">Regression and supervised machine learning</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="12_0_ols.html">OLS regression in Python</a></li>
+<li class="toctree-l2"><a class="reference internal" href="12_1_regularization.html">Regularization: Ridge, Lasso, and Elastic Net</a></li>
+<li class="toctree-l2"><a class="reference internal" href="12_2_ml_workflow.html">The machine learning workflow with sklearn</a></li>
+<li class="toctree-l2"><a class="reference internal" href="12_3_ml_markets.html">From Regression to Prediction: Can ML Beat the Market?</a></li>
+</ul>
+</details></li>
 <li class="toctree-l1"><a class="reference internal" href="13_logit_credit.html">Logit models</a></li>
 <li class="toctree-l1"><a class="reference internal" href="14_risk_mang.html">Risk management</a></li>
 <li class="toctree-l1"><a class="reference internal" href="15_monte_carlo.html">Monte Carlo and portfolios</a></li>
@@ -1442,14 +1448,14 @@ memory usage: 217.1 KB
 <p>I’m multiplying by 100 just for the display of the data.</p>
 <p>The percent change is called a <strong>linear return</strong>. Or, <strong>simple return</strong>. This is different from <strong>log returns</strong>, or <strong>compounded returns</strong>. Both types of returns are correct and useful. They are just used for different things.</p>
 <p>The formula for simple returns (R) is:</p>
-<div class="amsmath math notranslate nohighlight" id="equation-daf10fd2-0632-426e-bf91-5dab98f61ecb">
-<span class="eqno">(1)<a class="headerlink" href="#equation-daf10fd2-0632-426e-bf91-5dab98f61ecb" title="Permalink to this equation">#</a></span>\[\begin{align}
+<div class="amsmath math notranslate nohighlight" id="equation-96c19a95-e7f9-4f5f-a8d5-73a2297d8c9a">
+<span class="eqno">(1)<a class="headerlink" href="#equation-96c19a95-e7f9-4f5f-a8d5-73a2297d8c9a" title="Permalink to this equation">#</a></span>\[\begin{align}
 R_{t} = \frac{V_t}{V_{t-1}} - 1
 \end{align}\]</div>
 <p>where R is the simple return based on the percent change and V is the cash flow, including price and dividends (if any).</p>
 <p>The formula for log returns (r) is:</p>
-<div class="amsmath math notranslate nohighlight" id="equation-daea6e6d-197c-4329-9a26-8a70df241b04">
-<span class="eqno">(2)<a class="headerlink" href="#equation-daea6e6d-197c-4329-9a26-8a70df241b04" title="Permalink to this equation">#</a></span>\[\begin{align}
+<div class="amsmath math notranslate nohighlight" id="equation-76cf94c9-99ca-4320-bb5a-964c4d7d2a3d">
+<span class="eqno">(2)<a class="headerlink" href="#equation-76cf94c9-99ca-4320-bb5a-964c4d7d2a3d" title="Permalink to this equation">#</a></span>\[\begin{align}
 r_{t} = ln(\frac{V_t}{V_{t-1}}) = ln(1 + R_{t})
 \end{align}\]</div>
 <p>See <a class="reference external" href="https://papers.ssrn.com/sol3/papers.cfm?abstract_id=1586656">this article</a> for more on why this difference is important. In short, we need the mean of simple returns when doing portfolio optimization, as these returns work with a weighted average. Simple returns <strong>aggregate across assets</strong>. Log returns, however, <strong>aggregate across time</strong>. In other words, the cumulative return using log returns is the sum of individual log returns over the time period. You definitely can’t do that with simple returns!</p>
@@ -2837,8 +2843,8 @@ r_{t} = ln(\frac{V_t}{V_{t-1}}) = ln(1 + R_{t})
 </div>
 <p>We can also create return series using <strong>simple returns</strong>. We calculate percent returns, add 1 to each to get (1+R), and then <strong>chain returns together</strong> using <code class="docutils literal notranslate"><span class="pre">.cumprod()</span></code>. We subtract one at the end from the total.</p>
 <p>In other words,</p>
-<div class="amsmath math notranslate nohighlight" id="equation-85d77126-f687-4483-b8f7-30dea71b8863">
-<span class="eqno">(3)<a class="headerlink" href="#equation-85d77126-f687-4483-b8f7-30dea71b8863" title="Permalink to this equation">#</a></span>\[\begin{align}
+<div class="amsmath math notranslate nohighlight" id="equation-5a7f9bc8-f4fc-4388-aabd-10b056a649d5">
+<span class="eqno">(3)<a class="headerlink" href="#equation-5a7f9bc8-f4fc-4388-aabd-10b056a649d5" title="Permalink to this equation">#</a></span>\[\begin{align}
 Total Return = (1 + R_{1})*(1 + R_{2})*(1 + R_{3})*(1 + R_{4})... - 1
 \end{align}\]</div>
 <div class="cell docutils container">
