@@ -443,7 +443,13 @@ document.write(`
 </ul>
 </li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#key-takeaways">Key Takeaways</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#other-tools">Other tools</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#other-tools">Other Tools</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#zipline">Zipline</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#backtrader">Backtrader</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#backtesting-py">Backtesting.py</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#how-do-they-compare">How Do They Compare?</a></li>
+</ul>
+</li>
 </ul>
             </nav>
         </div>
@@ -595,27 +601,27 @@ document.write(`
   <tbody>
     <tr>
       <th>2010-01-04</th>
-      <td>66.067162</td>
-      <td>85.027954</td>
+      <td>66.067131</td>
+      <td>85.027946</td>
     </tr>
     <tr>
       <th>2010-01-05</th>
-      <td>66.367714</td>
-      <td>85.253021</td>
+      <td>66.367722</td>
+      <td>85.253052</td>
     </tr>
     <tr>
       <th>2010-01-06</th>
-      <td>66.329422</td>
-      <td>85.313057</td>
+      <td>66.329376</td>
+      <td>85.313034</td>
     </tr>
     <tr>
       <th>2010-01-07</th>
-      <td>66.252686</td>
-      <td>85.673225</td>
+      <td>66.252640</td>
+      <td>85.673210</td>
     </tr>
     <tr>
       <th>2010-01-08</th>
-      <td>66.291000</td>
+      <td>66.291069</td>
       <td>85.958282</td>
     </tr>
   </tbody>
@@ -725,11 +731,6 @@ document.write(`
       <td>...</td>
     </tr>
     <tr>
-      <th>2026-03-04</th>
-      <td>99.993677</td>
-      <td>688.284597</td>
-    </tr>
-    <tr>
       <th>2026-03-05</th>
       <td>100.007900</td>
       <td>688.298997</td>
@@ -749,9 +750,14 @@ document.write(`
       <td>100.047574</td>
       <td>687.592196</td>
     </tr>
+    <tr>
+      <th>2026-03-11</th>
+      <td>100.045411</td>
+      <td>687.270596</td>
+    </tr>
   </tbody>
 </table>
-<p>4070 rows × 2 columns</p>
+<p>4071 rows × 2 columns</p>
 </div></div></div>
 </div>
 <p>See how the first rows are missing? This is a 50-day moving average, so you don’t get an average until 50 days have passed.</p>
@@ -763,7 +769,7 @@ document.write(`
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../_images/2399ea9bf2fedc6b74f7e264844f70cdd0d6a5061328bd229955df27d7fde224.png" src="../_images/2399ea9bf2fedc6b74f7e264844f70cdd0d6a5061328bd229955df27d7fde224.png" />
+<img alt="../_images/a5fe691fe4669017bca6fda355e032f7cdeaa6b6859743d3f537d1d31e7dec33.png" src="../_images/a5fe691fe4669017bca6fda355e032f7cdeaa6b6859743d3f537d1d31e7dec33.png" />
 </div>
 </div>
 <p>Now, let’s use that <strong>Boolean logic</strong> to create our <strong>signal</strong>. When do we buy? When the price is above the 50-day moving average. Just compare the two DataFrames and get a new one full of <em>True</em> and <em>False</em> values! We’ll call that DataFrame <strong>signal</strong>.</p>
@@ -839,11 +845,6 @@ document.write(`
       <td>...</td>
     </tr>
     <tr>
-      <th>2026-03-04</th>
-      <td>True</td>
-      <td>False</td>
-    </tr>
-    <tr>
       <th>2026-03-05</th>
       <td>True</td>
       <td>False</td>
@@ -863,9 +864,14 @@ document.write(`
       <td>True</td>
       <td>False</td>
     </tr>
+    <tr>
+      <th>2026-03-11</th>
+      <td>False</td>
+      <td>False</td>
+    </tr>
   </tbody>
 </table>
-<p>4070 rows × 2 columns</p>
+<p>4071 rows × 2 columns</p>
 </div></div></div>
 </div>
 <p>We can now create a <strong>new strategy</strong> with that logic. The new strategy is called <strong>above50sma</strong> and is saved in the <strong>sma50</strong> object. Notice the new first line that has the <code class="docutils literal notranslate"><span class="pre">.SelectWhere</span></code> method. This is going to select securities where <code class="docutils literal notranslate"><span class="pre">signal</span> <span class="pre">==</span> <span class="pre">True</span></code>.</p>
@@ -901,13 +907,13 @@ document.write(`
 <div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>  0%|          | 0/2 [00:00&lt;?, ?it/s]
 </pre></div>
 </div>
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span> 50%|█████     | 1/2 [00:01&lt;00:01,  1.47s/it]
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span> 50%|█████     | 1/2 [00:01&lt;00:01,  1.51s/it]
 </pre></div>
 </div>
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>100%|██████████| 2/2 [00:03&lt;00:00,  2.08s/it]
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>100%|██████████| 2/2 [00:03&lt;00:00,  2.02s/it]
 </pre></div>
 </div>
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>100%|██████████| 2/2 [00:03&lt;00:00,  1.99s/it]
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>100%|██████████| 2/2 [00:03&lt;00:00,  1.94s/it]
 </pre></div>
 </div>
 <div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;class &#39;bt.backtest.Result&#39;&gt;
@@ -927,7 +933,7 @@ document.write(`
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../_images/f88308e5ed3912345888ca2ad448eb2bfde35d82412fd1bc6795b9bd368d8b9e.png" src="../_images/f88308e5ed3912345888ca2ad448eb2bfde35d82412fd1bc6795b9bd368d8b9e.png" />
+<img alt="../_images/bd7008731fe03cd38b7819d9e796882eb12818acf7e9d15296474bdb72bbd312.png" src="../_images/bd7008731fe03cd38b7819d9e796882eb12818acf7e9d15296474bdb72bbd312.png" />
 </div>
 </div>
 <div class="cell docutils container">
@@ -940,29 +946,29 @@ document.write(`
 <div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Stat                 ew          above50sma
 -------------------  ----------  ------------
 Start                2010-01-03  2010-01-03
-End                  2026-03-10  2026-03-10
+End                  2026-03-11  2026-03-11
 Risk-free rate       0.00%       0.00%
 
-Total Return         265.17%     114.71%
-Daily Sharpe         0.96        0.65
-Daily Sortino        1.49        0.96
-CAGR                 8.33%       4.84%
+Total Return         263.48%     113.66%
+Daily Sharpe         0.95        0.64
+Daily Sortino        1.48        0.95
+CAGR                 8.30%       4.80%
 Max Drawdown         -19.87%     -21.94%
 Calmar Ratio         0.42        0.22
 
-MTD                  -1.13%      -0.96%
-3m                   -0.27%      -4.59%
-6m                   2.88%       -3.04%
-YTD                  -0.06%      -3.82%
-1Y                   13.40%      7.09%
-3Y (ann.)            13.06%      10.46%
-5Y (ann.)            6.79%       3.93%
-10Y (ann.)           8.49%       5.22%
-Since Incep. (ann.)  8.33%       4.84%
+MTD                  -1.58%      -1.45%
+3m                   -0.86%      -5.18%
+6m                   1.89%       -4.01%
+YTD                  -0.53%      -4.29%
+1Y                   13.55%      6.95%
+3Y (ann.)            12.78%      10.30%
+5Y (ann.)            6.58%       3.62%
+10Y (ann.)           8.36%       5.09%
+Since Incep. (ann.)  8.30%       4.80%
 
-Daily Sharpe         0.96        0.65
-Daily Sortino        1.49        0.96
-Daily Mean (ann.)    8.41%       5.04%
+Daily Sharpe         0.95        0.64
+Daily Sortino        1.48        0.95
+Daily Mean (ann.)    8.38%       5.00%
 Daily Vol (ann.)     8.80%       7.78%
 Daily Skew           -0.54       -0.91
 Daily Kurt           14.30       10.07
@@ -970,27 +976,27 @@ Best Day             5.08%       3.48%
 Worst Day            -6.63%      -4.35%
 
 Monthly Sharpe       1.06        0.63
-Monthly Sortino      1.96        1.06
-Monthly Mean (ann.)  8.48%       5.05%
-Monthly Vol (ann.)   7.96%       7.99%
-Monthly Skew         -0.35       -0.53
-Monthly Kurt         1.07        1.04
+Monthly Sortino      1.95        1.05
+Monthly Mean (ann.)  8.45%       5.02%
+Monthly Vol (ann.)   7.97%       7.99%
+Monthly Skew         -0.35       -0.52
+Monthly Kurt         1.05        1.03
 Best Month           7.57%       6.68%
 Worst Month          -6.68%      -7.97%
 
 Yearly Sharpe        0.94        0.46
-Yearly Sortino       2.13        0.85
-Yearly Mean          8.12%       4.62%
-Yearly Vol           8.62%       9.97%
-Yearly Skew          -1.43       -1.14
-Yearly Kurt          2.46        0.51
+Yearly Sortino       2.12        0.84
+Yearly Mean          8.09%       4.59%
+Yearly Vol           8.65%       9.99%
+Yearly Skew          -1.41       -1.13
+Yearly Kurt          2.37        0.46
 Best Year            19.64%      16.05%
 Worst Year           -15.30%     -17.78%
 
 Avg. Drawdown        -0.86%      -1.22%
 Avg. Drawdown Days   14.86       34.68
 Avg. Up Month        1.88%       1.89%
-Avg. Down Month      -1.92%      -1.71%
+Avg. Down Month      -1.93%      -1.72%
 Win Year %           81.25%      75.00%
 Win 12m %            91.30%      76.63%
 </pre></div>
@@ -1015,7 +1021,7 @@ Win 12m %            91.30%      76.63%
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../_images/15829bfe33d5764053ad5393b3fc657860ae0ac76af3a0c78f0dcb074b0ac926.png" src="../_images/15829bfe33d5764053ad5393b3fc657860ae0ac76af3a0c78f0dcb074b0ac926.png" />
+<img alt="../_images/a746e231912d1e7d05b0fc73642700f12f86570675e37c0067db4b55046d4039.png" src="../_images/a746e231912d1e7d05b0fc73642700f12f86570675e37c0067db4b55046d4039.png" />
 </div>
 </div>
 <p>We can also look at the <strong>security weights over time</strong>. This shows you how the portfolio allocation changes at each rebalance. For the equal-weight strategy, you’ll see it stays roughly 50/50. For the SMA strategy, securities drop out when they fall below their moving average.</p>
@@ -1033,7 +1039,7 @@ Win 12m %            91.30%      76.63%
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../_images/3984894225c558f7f21a91ed591341bd86cc8bea0fe0ed90f02b861fe0901006.png" src="../_images/3984894225c558f7f21a91ed591341bd86cc8bea0fe0ed90f02b861fe0901006.png" />
+<img alt="../_images/5bb813c5e714e454a75d5232404fc8c56304ee7a4830d8c1a81d78be5b9dd28c.png" src="../_images/5bb813c5e714e454a75d5232404fc8c56304ee7a4830d8c1a81d78be5b9dd28c.png" />
 </div>
 </div>
 <p>You’d have been much better off equally weighting the two indices and rebalancing each month! The SMA strategy spent a lot of time out of the market, missing rallies, and that hurt performance.</p>
@@ -1107,16 +1113,16 @@ Win 12m %            91.30%      76.63%
 </pre></div>
 </div>
 <div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[**********            20%                       ]  2 of 10 completed
+[**********            20%                       ]  2 of 10 completed
 </pre></div>
 </div>
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[**************        30%                       ]  3 of 10 completed
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[**********            20%                       ]  2 of 10 completed
 </pre></div>
 </div>
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[*******************   40%                       ]  4 of 10 completed
-[*******************   40%                       ]  4 of 10 completed
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[**********************50%                       ]  5 of 10 completed
 </pre></div>
 </div>
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[*******************   40%                       ]  4 of 10 completed
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[**********************60%****                   ]  6 of 10 completed
 </pre></div>
 </div>
 <div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[**********************70%*********              ]  7 of 10 completed
@@ -1131,11 +1137,11 @@ Win 12m %            91.30%      76.63%
 <div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[*********************100%***********************]  10 of 10 completed
 </pre></div>
 </div>
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>
-</pre></div>
-</div>
 <div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Data shape: (2620, 10)
 Date range: 2015-10-08 to 2026-03-11
+</pre></div>
+</div>
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>
 </pre></div>
 </div>
 <div class="output text_html"><div>
@@ -1185,67 +1191,67 @@ Date range: 2015-10-08 to 2026-03-11
     <tr>
       <th>2015-10-08</th>
       <td>17.947424</td>
-      <td>22.906590</td>
-      <td>15.673991</td>
-      <td>44.282925</td>
-      <td>18.358360</td>
-      <td>37.508652</td>
-      <td>21.185570</td>
-      <td>15.831945</td>
-      <td>57.437996</td>
-      <td>34.710793</td>
+      <td>22.906586</td>
+      <td>15.673992</td>
+      <td>44.282913</td>
+      <td>18.358347</td>
+      <td>37.508648</td>
+      <td>21.185568</td>
+      <td>15.831946</td>
+      <td>57.437988</td>
+      <td>34.710804</td>
     </tr>
     <tr>
       <th>2015-10-09</th>
-      <td>17.939299</td>
-      <td>22.758034</td>
-      <td>15.573474</td>
-      <td>44.432747</td>
-      <td>18.438364</td>
-      <td>37.592266</td>
-      <td>21.150509</td>
-      <td>15.756381</td>
+      <td>17.939306</td>
+      <td>22.758036</td>
+      <td>15.573469</td>
+      <td>44.432739</td>
+      <td>18.438362</td>
+      <td>37.592262</td>
+      <td>21.150505</td>
+      <td>15.756377</td>
       <td>57.699345</td>
       <td>34.751041</td>
     </tr>
     <tr>
       <th>2015-10-12</th>
-      <td>17.784901</td>
-      <td>22.464235</td>
-      <td>15.586878</td>
-      <td>44.441071</td>
-      <td>18.460590</td>
-      <td>37.691074</td>
-      <td>21.283749</td>
-      <td>15.896711</td>
-      <td>57.851109</td>
+      <td>17.784895</td>
+      <td>22.464230</td>
+      <td>15.586871</td>
+      <td>44.441074</td>
+      <td>18.460594</td>
+      <td>37.691071</td>
+      <td>21.283754</td>
+      <td>15.896707</td>
+      <td>57.851086</td>
       <td>34.916481</td>
     </tr>
     <tr>
       <th>2015-10-13</th>
-      <td>17.715822</td>
-      <td>22.229849</td>
-      <td>15.466251</td>
-      <td>43.966606</td>
-      <td>18.420580</td>
-      <td>37.463062</td>
-      <td>21.150509</td>
-      <td>15.860732</td>
-      <td>57.126060</td>
+      <td>17.715818</td>
+      <td>22.229853</td>
+      <td>15.466252</td>
+      <td>43.966614</td>
+      <td>18.420582</td>
+      <td>37.463047</td>
+      <td>21.150505</td>
+      <td>15.860734</td>
+      <td>57.126034</td>
       <td>34.728691</td>
     </tr>
     <tr>
       <th>2015-10-14</th>
-      <td>17.858040</td>
+      <td>17.858032</td>
       <td>22.421316</td>
-      <td>15.338932</td>
-      <td>43.492146</td>
-      <td>18.385021</td>
-      <td>37.029831</td>
-      <td>21.150509</td>
-      <td>15.857130</td>
-      <td>57.016457</td>
-      <td>34.375450</td>
+      <td>15.338930</td>
+      <td>43.492142</td>
+      <td>18.385023</td>
+      <td>37.029827</td>
+      <td>21.150505</td>
+      <td>15.857124</td>
+      <td>57.016445</td>
+      <td>34.375446</td>
     </tr>
   </tbody>
 </table>
@@ -1344,7 +1350,7 @@ Name: XLK, dtype: bool
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../_images/3ee914bc604b5b301b017dbfd656a0df0c41d9ac930798e6b4126d1ea3e23517.png" src="../_images/3ee914bc604b5b301b017dbfd656a0df0c41d9ac930798e6b4126d1ea3e23517.png" />
+<img alt="../_images/949b868c8fecf4a23f841370e3eae3695d31c18e1f1e6bdf40d8a78b13f508b6.png" src="../_images/949b868c8fecf4a23f841370e3eae3695d31c18e1f1e6bdf40d8a78b13f508b6.png" />
 </div>
 </div>
 <p>Now let’s build the <code class="docutils literal notranslate"><span class="pre">bt</span></code> strategy. We’ll rebalance monthly – we don’t need to trade every day just because we have a daily signal. Monthly rebalancing is more realistic and keeps transaction costs lower. The <code class="docutils literal notranslate"><span class="pre">RunMonthly</span></code> algo checks the signal at the end of each month.</p>
@@ -1411,19 +1417,19 @@ Name: XLK, dtype: bool
 <div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>  0%|          | 0/4 [00:00&lt;?, ?it/s]
 </pre></div>
 </div>
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span> 25%|██▌       | 1/4 [00:01&lt;00:03,  1.07s/it]
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span> 25%|██▌       | 1/4 [00:01&lt;00:03,  1.00s/it]
 </pre></div>
 </div>
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span> 50%|█████     | 2/4 [00:02&lt;00:02,  1.49s/it]
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span> 50%|█████     | 2/4 [00:02&lt;00:02,  1.36s/it]
 </pre></div>
 </div>
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span> 75%|███████▌  | 3/4 [00:04&lt;00:01,  1.50s/it]
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span> 75%|███████▌  | 3/4 [00:03&lt;00:01,  1.37s/it]
 </pre></div>
 </div>
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>100%|██████████| 4/4 [00:05&lt;00:00,  1.43s/it]
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>100%|██████████| 4/4 [00:05&lt;00:00,  1.33s/it]
 </pre></div>
 </div>
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>100%|██████████| 4/4 [00:05&lt;00:00,  1.42s/it]
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>100%|██████████| 4/4 [00:05&lt;00:00,  1.31s/it]
 </pre></div>
 </div>
 <div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>
@@ -1438,7 +1444,7 @@ Name: XLK, dtype: bool
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../_images/c054b13e7b7d6bb7523708f4845d3c1a8a195f4a03c2735c165e69f411dd6075.png" src="../_images/c054b13e7b7d6bb7523708f4845d3c1a8a195f4a03c2735c165e69f411dd6075.png" />
+<img alt="../_images/783baf02c6a7517ffc489c5f2369aab1bec82921a1df4912bc6ab1c3b170649a.png" src="../_images/783baf02c6a7517ffc489c5f2369aab1bec82921a1df4912bc6ab1c3b170649a.png" />
 </div>
 </div>
 <div class="cell docutils container">
@@ -1454,47 +1460,47 @@ Start                2015-10-07      2015-10-07    2015-10-07       2015-10-07
 End                  2026-03-11      2026-03-11    2026-03-11       2026-03-11
 Risk-free rate       0.00%           0.00%         0.00%            0.00%
 
-Total Return         229.76%         231.67%       178.57%          183.32%
+Total Return         229.29%         231.25%       178.22%          183.06%
 Daily Sharpe         0.76            0.77          0.69             0.68
 Daily Sortino        1.17            1.18          1.04             1.05
-CAGR                 12.13%          12.19%        10.33%           10.50%
+CAGR                 12.11%          12.17%        10.31%           10.49%
 Max Drawdown         -35.71%         -36.88%       -34.67%          -35.83%
 Calmar Ratio         0.34            0.33          0.30             0.29
 
-MTD                  -2.71%          -3.22%        -3.25%           -3.68%
-3m                   1.84%           4.36%         3.67%            2.45%
-6m                   5.59%           7.13%         5.79%            4.39%
-YTD                  2.65%           4.84%         4.13%            3.24%
-1Y                   20.33%          18.76%        14.85%           15.12%
-3Y (ann.)            17.13%          16.14%        13.28%           13.13%
-5Y (ann.)            11.31%          11.63%        10.13%           9.14%
-10Y (ann.)           12.48%          12.53%        10.79%           10.98%
-Since Incep. (ann.)  12.13%          12.19%        10.33%           10.50%
+MTD                  -2.85%          -3.34%        -3.37%           -3.77%
+3m                   1.70%           4.23%         3.54%            2.35%
+6m                   5.44%           7.00%         5.66%            4.30%
+YTD                  2.51%           4.71%         4.00%            3.14%
+1Y                   20.16%          18.61%        14.70%           15.01%
+3Y (ann.)            17.08%          16.09%        13.23%           13.09%
+5Y (ann.)            11.28%          11.61%        10.10%           9.12%
+10Y (ann.)           12.47%          12.52%        10.78%           10.97%
+Since Incep. (ann.)  12.11%          12.17%        10.31%           10.49%
 
 Daily Sharpe         0.76            0.77          0.69             0.68
 Daily Sortino        1.17            1.18          1.04             1.05
-Daily Mean (ann.)    12.93%          12.96%        11.19%           11.41%
+Daily Mean (ann.)    12.92%          12.95%        11.18%           11.40%
 Daily Vol (ann.)     17.03%          16.83%        16.29%           16.67%
 Daily Skew           -0.49           -0.58         -0.59            -0.45
-Daily Kurt           19.01           19.75         20.40            20.61
+Daily Kurt           19.01           19.74         20.40            20.61
 Best Day             10.04%          10.18%        9.71%            10.62%
 Worst Day            -12.05%         -11.95%       -11.81%          -11.98%
 
 Monthly Sharpe       0.86            0.85          0.79             0.77
-Monthly Sortino      1.49            1.49          1.39             1.37
-Monthly Mean (ann.)  12.31%          12.40%        10.81%           11.06%
-Monthly Vol (ann.)   14.34%          14.55%        13.72%           14.30%
+Monthly Sortino      1.49            1.49          1.38             1.37
+Monthly Mean (ann.)  12.30%          12.39%        10.80%           11.05%
+Monthly Vol (ann.)   14.35%          14.55%        13.73%           14.31%
 Monthly Skew         -0.49           -0.46         -0.28            -0.36
-Monthly Kurt         1.09            1.58          1.49             0.79
+Monthly Kurt         1.09            1.58          1.48             0.79
 Best Month           11.82%          12.99%        13.36%           11.82%
 Worst Month          -13.41%         -14.63%       -12.42%          -12.44%
 
-Yearly Sharpe        0.94            1.00          0.92             1.01
-Yearly Sortino       3.07            4.43          9.27             4.29
-Yearly Mean          12.09%          12.03%        10.26%           10.37%
-Yearly Vol           12.92%          12.00%        11.15%           10.32%
-Yearly Skew          -0.61           -0.14         0.79             -0.06
-Yearly Kurt          -0.00           -0.15         -0.26            0.01
+Yearly Sharpe        0.93            1.00          0.92             1.00
+Yearly Sortino       3.07            4.43          9.25             4.29
+Yearly Mean          12.08%          12.02%        10.24%           10.36%
+Yearly Vol           12.93%          12.01%        11.16%           10.33%
+Yearly Skew          -0.61           -0.14         0.79             -0.05
+Yearly Kurt          -0.02           -0.16         -0.26            -0.00
 Best Year            29.44%          31.37%        31.14%           27.26%
 Worst Year           -12.17%         -7.49%        -3.51%           -8.03%
 
@@ -1525,7 +1531,7 @@ Win 12m %            88.70%          89.57%        88.70%           92.17%
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../_images/8f866d987077d590a05e61c007e399cdb7bce8d3331c8bd287a87374e7e56a42.png" src="../_images/8f866d987077d590a05e61c007e399cdb7bce8d3331c8bd287a87374e7e56a42.png" />
+<img alt="../_images/44f74820ad50df9e0dc17226f84e262f45345622db54ec773a1b2a06af3d66fe.png" src="../_images/44f74820ad50df9e0dc17226f84e262f45345622db54ec773a1b2a06af3d66fe.png" />
 </div>
 </div>
 <p>Now let’s look at how the portfolio weights change over time for the SMA crossover strategy. This shows which sectors the strategy is invested in at each point. When a sector drops below the moving average crossover, it gets excluded and the remaining sectors share the portfolio equally.</p>
@@ -1543,7 +1549,7 @@ Win 12m %            88.70%          89.57%        88.70%           92.17%
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../_images/3e2c8837d540efe1de40a7a119d3c36516ce8a399a3e37872be202c9685b6c06.png" src="../_images/3e2c8837d540efe1de40a7a119d3c36516ce8a399a3e37872be202c9685b6c06.png" />
+<img alt="../_images/d4d5ab55f9800bc7a80ed24055843ce3f88d64e54d84e79134e67d933c0b61d0.png" src="../_images/d4d5ab55f9800bc7a80ed24055843ce3f88d64e54d84e79134e67d933c0b61d0.png" />
 </div>
 </div>
 </section>
@@ -1585,19 +1591,19 @@ Win 12m %            88.70%          89.57%        88.70%           92.17%
 <div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>  0%|          | 0/4 [00:00&lt;?, ?it/s]
 </pre></div>
 </div>
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span> 25%|██▌       | 1/4 [00:01&lt;00:03,  1.06s/it]
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span> 25%|██▌       | 1/4 [00:01&lt;00:03,  1.00s/it]
 </pre></div>
 </div>
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span> 50%|█████     | 2/4 [00:02&lt;00:02,  1.41s/it]
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span> 50%|█████     | 2/4 [00:02&lt;00:02,  1.36s/it]
 </pre></div>
 </div>
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span> 75%|███████▌  | 3/4 [00:04&lt;00:01,  1.45s/it]
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span> 75%|███████▌  | 3/4 [00:03&lt;00:01,  1.37s/it]
 </pre></div>
 </div>
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>100%|██████████| 4/4 [00:05&lt;00:00,  1.40s/it]
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>100%|██████████| 4/4 [00:05&lt;00:00,  1.33s/it]
 </pre></div>
 </div>
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>100%|██████████| 4/4 [00:05&lt;00:00,  1.39s/it]
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>100%|██████████| 4/4 [00:05&lt;00:00,  1.31s/it]
 </pre></div>
 </div>
 <div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>
@@ -1612,7 +1618,7 @@ Win 12m %            88.70%          89.57%        88.70%           92.17%
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../_images/5a80109730d15c29a84852b0e2a6226bf36578ea3f7f3fc7df195c3547a9ad46.png" src="../_images/5a80109730d15c29a84852b0e2a6226bf36578ea3f7f3fc7df195c3547a9ad46.png" />
+<img alt="../_images/921b0db25e2d662bca725aa2e042015b89dbdf16739e159b77f0d6ea965d245c.png" src="../_images/921b0db25e2d662bca725aa2e042015b89dbdf16739e159b77f0d6ea965d245c.png" />
 </div>
 </div>
 <div class="cell docutils container">
@@ -1628,47 +1634,47 @@ Start                2015-10-07      2015-10-07    2015-10-07       2015-10-07
 End                  2026-03-11      2026-03-11    2026-03-11       2026-03-11
 Risk-free rate       0.00%           0.00%         0.00%            0.00%
 
-Total Return         229.42%         230.28%       169.14%          168.95%
+Total Return         228.96%         229.86%       168.80%          168.70%
 Daily Sharpe         0.76            0.77          0.67             0.65
 Daily Sortino        1.17            1.18          1.01             1.00
-CAGR                 12.11%          12.14%        9.96%            9.95%
+CAGR                 12.10%          12.13%        9.95%            9.94%
 Max Drawdown         -35.71%         -36.88%       -34.67%          -35.83%
 Calmar Ratio         0.34            0.33          0.29             0.28
 
-MTD                  -2.71%          -3.22%        -3.27%           -3.72%
-3m                   1.84%           4.35%         3.60%            2.28%
-6m                   5.59%           7.11%         5.69%            4.10%
-YTD                  2.65%           4.83%         4.06%            3.07%
-1Y                   20.33%          18.72%        14.38%           14.37%
-3Y (ann.)            17.13%          16.10%        12.85%           12.49%
-5Y (ann.)            11.31%          11.60%        9.74%            8.58%
-10Y (ann.)           12.48%          12.50%        10.41%           10.40%
-Since Incep. (ann.)  12.11%          12.14%        9.96%            9.95%
+MTD                  -2.85%          -3.35%        -3.39%           -3.82%
+3m                   1.70%           4.22%         3.47%            2.18%
+6m                   5.44%           6.98%         5.56%            4.00%
+YTD                  2.51%           4.70%         3.93%            2.97%
+1Y                   20.16%          18.57%        14.23%           14.26%
+3Y (ann.)            17.08%          16.05%        12.80%           12.46%
+5Y (ann.)            11.28%          11.57%        9.71%            8.56%
+10Y (ann.)           12.47%          12.48%        10.39%           10.39%
+Since Incep. (ann.)  12.10%          12.13%        9.95%            9.94%
 
 Daily Sharpe         0.76            0.77          0.67             0.65
 Daily Sortino        1.17            1.18          1.01             1.00
-Daily Mean (ann.)    12.92%          12.92%        10.86%           10.91%
+Daily Mean (ann.)    12.91%          12.91%        10.85%           10.90%
 Daily Vol (ann.)     17.03%          16.83%        16.30%           16.67%
 Daily Skew           -0.49           -0.58         -0.59            -0.45
-Daily Kurt           19.01           19.75         20.38            20.59
+Daily Kurt           19.01           19.74         20.38            20.59
 Best Day             10.04%          10.18%        9.71%            10.62%
 Worst Day            -12.05%         -11.95%       -11.81%          -11.98%
 
 Monthly Sharpe       0.86            0.85          0.76             0.74
 Monthly Sortino      1.49            1.48          1.34             1.30
-Monthly Mean (ann.)  12.31%          12.37%        10.47%           10.55%
-Monthly Vol (ann.)   14.34%          14.55%        13.70%           14.30%
+Monthly Mean (ann.)  12.30%          12.36%        10.46%           10.54%
+Monthly Vol (ann.)   14.35%          14.55%        13.70%           14.30%
 Monthly Skew         -0.49           -0.46         -0.28            -0.35
 Monthly Kurt         1.09            1.58          1.48             0.78
 Best Month           11.82%          12.99%        13.36%           11.82%
 Worst Month          -13.41%         -14.63%       -12.42%          -12.44%
 
-Yearly Sharpe        0.94            1.00          0.88             0.96
-Yearly Sortino       3.07            4.40          7.93             3.77
-Yearly Mean          12.09%          12.00%        9.92%            9.85%
-Yearly Vol           12.92%          12.00%        11.21%           10.28%
+Yearly Sharpe        0.93            1.00          0.88             0.96
+Yearly Sortino       3.07            4.40          7.92             3.76
+Yearly Mean          12.08%          11.99%        9.91%            9.84%
+Yearly Vol           12.93%          12.00%        11.22%           10.28%
 Yearly Skew          -0.61           -0.14         0.80             -0.08
-Yearly Kurt          -0.00           -0.15         -0.23            0.06
+Yearly Kurt          -0.02           -0.16         -0.23            0.05
 Best Year            29.44%          31.33%        31.07%           26.58%
 Worst Year           -12.17%         -7.52%        -3.89%           -8.66%
 
@@ -1743,13 +1749,13 @@ Out-of-sample: 2020-12-21 to 2026-03-11
 <div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>  0%|          | 0/2 [00:00&lt;?, ?it/s]
 </pre></div>
 </div>
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span> 50%|█████     | 1/2 [00:00&lt;00:00,  1.90it/s]
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span> 50%|█████     | 1/2 [00:00&lt;00:00,  1.95it/s]
 </pre></div>
 </div>
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>100%|██████████| 2/2 [00:01&lt;00:00,  1.56it/s]
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>100%|██████████| 2/2 [00:01&lt;00:00,  1.63it/s]
 </pre></div>
 </div>
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>100%|██████████| 2/2 [00:01&lt;00:00,  1.61it/s]
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>100%|██████████| 2/2 [00:01&lt;00:00,  1.67it/s]
 </pre></div>
 </div>
 <div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>
@@ -1758,13 +1764,13 @@ Out-of-sample: 2020-12-21 to 2026-03-11
 <div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>  0%|          | 0/2 [00:00&lt;?, ?it/s]
 </pre></div>
 </div>
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span> 50%|█████     | 1/2 [00:00&lt;00:00,  1.90it/s]
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span> 50%|█████     | 1/2 [00:00&lt;00:00,  1.97it/s]
 </pre></div>
 </div>
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>100%|██████████| 2/2 [00:01&lt;00:00,  1.60it/s]
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>100%|██████████| 2/2 [00:01&lt;00:00,  1.68it/s]
 </pre></div>
 </div>
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>100%|██████████| 2/2 [00:01&lt;00:00,  1.64it/s]
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>100%|██████████| 2/2 [00:01&lt;00:00,  1.72it/s]
 </pre></div>
 </div>
 <div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>
@@ -1788,7 +1794,7 @@ Out-of-sample: 2020-12-21 to 2026-03-11
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../_images/9cbfd1f89009fac057590eda03e8aecd8e02205501dfcc4f26a18d2982e8be8b.png" src="../_images/9cbfd1f89009fac057590eda03e8aecd8e02205501dfcc4f26a18d2982e8be8b.png" />
+<img alt="../_images/905328c718d778670e9aaa4b60ed06cf098d27ca7eaca78790c96e7094762db7.png" src="../_images/905328c718d778670e9aaa4b60ed06cf098d27ca7eaca78790c96e7094762db7.png" />
 </div>
 </div>
 <div class="cell docutils container">
@@ -1867,54 +1873,54 @@ Start                2020-12-20      2020-12-20
 End                  2026-03-11      2026-03-11
 Risk-free rate       0.00%           0.00%
 
-Total Return         89.64%          38.35%
+Total Return         89.44%          38.18%
 Daily Sharpe         0.91            0.50
 Daily Sortino        1.47            0.78
-CAGR                 13.04%          6.42%
+CAGR                 13.02%          6.39%
 Max Drawdown         -17.56%         -16.89%
 Calmar Ratio         0.74            0.38
 
-MTD                  -2.68%          -3.25%
-3m                   5.04%           3.67%
-6m                   8.14%           5.79%
-YTD                  5.76%           4.13%
-1Y                   19.89%          14.85%
-3Y (ann.)            15.74%          13.27%
-5Y (ann.)            11.58%          6.71%
+MTD                  -2.79%          -3.37%
+3m                   4.93%           3.53%
+6m                   8.03%           5.66%
+YTD                  5.65%           4.00%
+1Y                   19.76%          14.70%
+3Y (ann.)            15.70%          13.23%
+5Y (ann.)            11.55%          6.68%
 10Y (ann.)           -               -
-Since Incep. (ann.)  13.04%          6.42%
+Since Incep. (ann.)  13.02%          6.39%
 
 Daily Sharpe         0.91            0.50
 Daily Sortino        1.47            0.78
-Daily Mean (ann.)    13.40%          7.29%
+Daily Mean (ann.)    13.38%          7.27%
 Daily Vol (ann.)     14.77%          14.47%
 Daily Skew           -0.14           -0.25
 Daily Kurt           6.45            6.34
 Best Day             7.56%           6.89%
 Worst Day            -6.32%          -5.90%
 
-Monthly Sharpe       0.91            0.52
-Monthly Sortino      1.73            0.95
-Monthly Mean (ann.)  12.96%          7.11%
-Monthly Vol (ann.)   14.32%          13.67%
-Monthly Skew         -0.31           0.15
-Monthly Kurt         -0.04           1.43
+Monthly Sharpe       0.90            0.52
+Monthly Sortino      1.72            0.95
+Monthly Mean (ann.)  12.94%          7.09%
+Monthly Vol (ann.)   14.33%          13.67%
+Monthly Skew         -0.31           0.14
+Monthly Kurt         -0.04           1.42
 Best Month           10.52%          13.36%
 Worst Month          -9.37%          -10.41%
 
-Yearly Sharpe        0.99            1.16
-Yearly Sortino       5.68            9.33
-Yearly Mean          11.47%          5.65%
-Yearly Vol           11.61%          4.89%
-Yearly Skew          0.46            0.21
-Yearly Kurt          1.74            1.13
+Yearly Sharpe        0.98            1.15
+Yearly Sortino       5.67            9.29
+Yearly Mean          11.45%          5.63%
+Yearly Vol           11.62%          4.89%
+Yearly Skew          0.46            0.23
+Yearly Kurt          1.72            1.09
 Best Year            30.59%          13.27%
 Worst Year           -4.95%          -1.48%
 
 Avg. Drawdown        -1.73%          -2.21%
 Avg. Drawdown Days   17.35           26.48
 Avg. Up Month        3.63%           3.47%
-Avg. Down Month      -3.36%          -2.37%
+Avg. Down Month      -3.36%          -2.38%
 Win Year %           83.33%          83.33%
 Win 12m %            84.91%          83.02%
 </pre></div>
@@ -1970,38 +1976,38 @@ Win 12m %            84.91%          83.02%
   <tbody>
     <tr>
       <th>2026-03-05</th>
-      <td>334.078607</td>
-      <td>336.501151</td>
-      <td>282.621758</td>
-      <td>286.749435</td>
+      <td>334.078617</td>
+      <td>336.501157</td>
+      <td>282.621810</td>
+      <td>286.749441</td>
     </tr>
     <tr>
       <th>2026-03-06</th>
-      <td>330.070455</td>
-      <td>333.166362</td>
-      <td>279.820967</td>
-      <td>284.422758</td>
+      <td>330.070465</td>
+      <td>333.166367</td>
+      <td>279.821019</td>
+      <td>284.422764</td>
     </tr>
     <tr>
       <th>2026-03-09</th>
-      <td>331.929271</td>
-      <td>334.341176</td>
-      <td>280.807588</td>
-      <td>285.354066</td>
+      <td>331.929281</td>
+      <td>334.341181</td>
+      <td>280.807640</td>
+      <td>285.354072</td>
     </tr>
     <tr>
       <th>2026-03-10</th>
-      <td>330.659158</td>
-      <td>332.845365</td>
-      <td>279.551299</td>
-      <td>283.412775</td>
+      <td>330.659168</td>
+      <td>332.845371</td>
+      <td>279.551351</td>
+      <td>283.412781</td>
     </tr>
     <tr>
       <th>2026-03-11</th>
-      <td>329.756263</td>
-      <td>331.673198</td>
-      <td>278.566809</td>
-      <td>283.323231</td>
+      <td>329.293650</td>
+      <td>331.254769</td>
+      <td>278.215433</td>
+      <td>283.055996</td>
     </tr>
   </tbody>
 </table>
@@ -2043,24 +2049,24 @@ Win 12m %            84.91%          83.02%
   <tbody>
     <tr>
       <th>total_return</th>
-      <td>2.297563</td>
-      <td>2.316732</td>
-      <td>1.785668</td>
-      <td>1.833232</td>
+      <td>2.292936</td>
+      <td>2.312548</td>
+      <td>1.782154</td>
+      <td>1.83056</td>
     </tr>
     <tr>
       <th>cagr</th>
-      <td>0.121252</td>
-      <td>0.121876</td>
-      <td>0.103255</td>
-      <td>0.105048</td>
+      <td>0.121101</td>
+      <td>0.12174</td>
+      <td>0.103122</td>
+      <td>0.104948</td>
     </tr>
     <tr>
       <th>daily_sharpe</th>
-      <td>0.759656</td>
-      <td>0.769783</td>
-      <td>0.686865</td>
-      <td>0.684692</td>
+      <td>0.758852</td>
+      <td>0.769049</td>
+      <td>0.686108</td>
+      <td>0.684144</td>
     </tr>
     <tr>
       <th>max_drawdown</th>
@@ -2071,10 +2077,10 @@ Win 12m %            84.91%          83.02%
     </tr>
     <tr>
       <th>daily_vol</th>
-      <td>0.170262</td>
-      <td>0.168332</td>
-      <td>0.162889</td>
-      <td>0.166687</td>
+      <td>0.170266</td>
+      <td>0.168335</td>
+      <td>0.162892</td>
+      <td>0.166688</td>
     </tr>
   </tbody>
 </table>
@@ -2104,7 +2110,7 @@ Win 12m %            84.91%          83.02%
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../_images/1b0e30709e2268c3a142a8c436be9910701d897b73b3989b609c3d5f23bf6de1.png" src="../_images/1b0e30709e2268c3a142a8c436be9910701d897b73b3989b609c3d5f23bf6de1.png" />
+<img alt="../_images/821c5d037fdcd70284712d037c67336dd5e318a0ab8e937619f18e3d4de41bfd.png" src="../_images/821c5d037fdcd70284712d037c67336dd5e318a0ab8e937619f18e3d4de41bfd.png" />
 </div>
 </div>
 <p>Notice how much the Sharpe ratio bounces around. A strategy with a great overall Sharpe might have long periods where it’s negative. This is the reality of trading – even good strategies go through painful drawdowns. The question is whether you have the discipline (and the capital) to stick with it.</p>
@@ -2149,12 +2155,62 @@ Win 12m %            84.91%          83.02%
 </ol>
 </section>
 <section id="other-tools">
-<h2>Other tools<a class="headerlink" href="#other-tools" title="Link to this heading">#</a></h2>
-<p>This <code class="docutils literal notranslate"><span class="pre">bt</span> <span class="pre">package</span></code> is just one of many out there. I chose it because it seems to be more actively maintained.</p>
-<p>There are also a set of tools from the now defunct <a class="reference external" href="https://www.bloomberg.com/news/articles/2020-12-16/quant-trading-platform-quantopian-closes-down">Quantopian platform</a>. I believe that some former Quantopian engineers are still working on the tools.</p>
-<p>These include <a class="reference external" href="https://zipline.ml4trading.io">zipline</a>, a backtesting tool, <a class="reference external" href="https://alphalens.ml4trading.io">alphalens</a>, for looking at sources of risk and return, and <a class="reference external" href="https://pyfolio.ml4trading.io">pyfolio</a>, which creates performance tear sheets.</p>
-<p>There’s also a package simply called <a class="reference external" href="https://pypi.org/project/Backtesting/">Backtesting</a>.</p>
+<h2>Other Tools<a class="headerlink" href="#other-tools" title="Link to this heading">#</a></h2>
+<p>The <code class="docutils literal notranslate"><span class="pre">bt</span></code> package is just one of many backtesting frameworks out there. I chose it because the <strong>declarative, algo-tree approach</strong> lets you focus on <em>what</em> a strategy does rather than wiring up an event loop. That makes it a good fit for learning. But it’s worth knowing what else is available.</p>
+<section id="zipline">
+<h3>Zipline<a class="headerlink" href="#zipline" title="Link to this heading">#</a></h3>
+<p><a class="reference external" href="https://zipline.ml4trading.io">Zipline</a> was originally built by <a class="reference external" href="https://www.bloomberg.com/news/articles/2020-12-16/quant-trading-platform-quantopian-closes-down">Quantopian</a>, a now-defunct platform that let retail investors build and test trading strategies. It is now maintained as <code class="docutils literal notranslate"><span class="pre">zipline-reloaded</span></code>. Zipline uses an <strong>event-driven</strong> architecture — your code processes data bar-by-bar, giving you much more granular control over order types, slippage models, and execution logic. The trade-off is a steeper learning curve and heavier dependencies. Related tools from the same ecosystem include <a class="reference external" href="https://alphalens.ml4trading.io">alphalens</a> for analyzing sources of risk and return, and <a class="reference external" href="https://pyfolio.ml4trading.io">pyfolio</a> for creating performance tear sheets.</p>
+</section>
+<section id="backtrader">
+<h3>Backtrader<a class="headerlink" href="#backtrader" title="Link to this heading">#</a></h3>
+<p><a class="reference external" href="https://www.backtrader.com">Backtrader</a> is another event-driven framework, similar in philosophy to Zipline. It is more flexible than <code class="docutils literal notranslate"><span class="pre">bt</span></code> for complex order logic and supports <strong>live trading</strong> connections to brokers like Interactive Brokers. It has good documentation and an active community, but the API is more complex.</p>
+</section>
+<section id="backtesting-py">
+<h3>Backtesting.py<a class="headerlink" href="#backtesting-py" title="Link to this heading">#</a></h3>
+<p>There is also a package simply called <a class="reference external" href="https://pypi.org/project/Backtesting/">Backtesting</a>. It is lightweight and easy to get started with, though less feature-rich than the others.</p>
+</section>
+<section id="how-do-they-compare">
+<h3>How Do They Compare?<a class="headerlink" href="#how-do-they-compare" title="Link to this heading">#</a></h3>
+<div class="pst-scrollable-table-container"><table class="table">
+<thead>
+<tr class="row-odd"><th class="head text-left"><p>Feature</p></th>
+<th class="head text-left"><p>bt</p></th>
+<th class="head text-left"><p>Zipline</p></th>
+<th class="head text-left"><p>Backtrader</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td class="text-left"><p><strong>Approach</strong></p></td>
+<td class="text-left"><p>Declarative (algo trees)</p></td>
+<td class="text-left"><p>Event-driven</p></td>
+<td class="text-left"><p>Event-driven</p></td>
+</tr>
+<tr class="row-odd"><td class="text-left"><p><strong>Best for</strong></p></td>
+<td class="text-left"><p>Asset allocation, strategy comparison</p></td>
+<td class="text-left"><p>Granular trade simulation</p></td>
+<td class="text-left"><p>Complex strategies, live trading</p></td>
+</tr>
+<tr class="row-even"><td class="text-left"><p><strong>Learning curve</strong></p></td>
+<td class="text-left"><p>Low</p></td>
+<td class="text-left"><p>High</p></td>
+<td class="text-left"><p>Medium</p></td>
+</tr>
+<tr class="row-odd"><td class="text-left"><p><strong>Live trading</strong></p></td>
+<td class="text-left"><p>No</p></td>
+<td class="text-left"><p>No</p></td>
+<td class="text-left"><p>Yes (Interactive Brokers)</p></td>
+</tr>
+<tr class="row-even"><td class="text-left"><p><strong>Trade-level control</strong></p></td>
+<td class="text-left"><p>Limited</p></td>
+<td class="text-left"><p>Extensive</p></td>
+<td class="text-left"><p>Extensive</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<p>For this course, <code class="docutils literal notranslate"><span class="pre">bt</span></code> is the right choice — the simple API lets us focus on the <em>ideas</em> behind backtesting rather than implementation details. If you move into more serious quantitative work, Zipline or Backtrader give you the control you would need.</p>
 <p>Trading firms and hedge funds will have developed most of this in-house. For example, <a class="reference external" href="https://developer.gs.com/docs/gsquant/">Goldman Sachs has their own tools</a>.</p>
+</section>
 </section>
 </section>
 
@@ -2256,7 +2312,13 @@ Win 12m %            84.91%          83.02%
 </ul>
 </li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#key-takeaways">Key Takeaways</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#other-tools">Other tools</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#other-tools">Other Tools</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#zipline">Zipline</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#backtrader">Backtrader</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#backtesting-py">Backtesting.py</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#how-do-they-compare">How Do They Compare?</a></li>
+</ul>
+</li>
 </ul>
   </nav></div>
 
