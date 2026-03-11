@@ -245,7 +245,11 @@
 <li class="toctree-l1"><a class="reference internal" href="15_monte_carlo.html">Monte Carlo and portfolios</a></li>
 <li class="toctree-l1"><a class="reference internal" href="16_decision_trees.html">Decision Trees</a></li>
 <li class="toctree-l1"><a class="reference internal" href="17_options.html">Option basics</a></li>
-<li class="toctree-l1"><a class="reference internal" href="18_trading_bt.html">Trading Strategies and the BT Package</a></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="18_intro.html">Trading strategies and backtesting</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="18_0_trading_bt.html">Backtesting with the BT Package</a></li>
+<li class="toctree-l2"><a class="reference internal" href="18_1_alphalens.html">Factor Analysis with Alphalens</a></li>
+</ul>
+</details></li>
 <li class="toctree-l1"><a class="reference internal" href="19_textual_analysis.html">Textual Analysis in Finance</a></li>
 <li class="toctree-l1"><a class="reference internal" href="20_llms.html">How Large Language Models Work</a></li>
 </ul>
@@ -487,21 +491,21 @@ document.write(`
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;class &#39;pandas.DataFrame&#39;&gt;
-RangeIndex: 29092 entries, 1 to 29092
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;class &#39;pandas.core.frame.DataFrame&#39;&gt;
+Index: 29092 entries, 1 to 29092
 Data columns (total 8 columns):
  #   Column          Non-Null Count  Dtype  
 ---  ------          --------------  -----  
  0   loan_status     29092 non-null  int64  
  1   loan_amnt       29092 non-null  int64  
  2   int_rate        26316 non-null  float64
- 3   grade           29092 non-null  str    
+ 3   grade           29092 non-null  object 
  4   emp_length      28283 non-null  float64
- 5   home_ownership  29092 non-null  str    
+ 5   home_ownership  29092 non-null  object 
  6   annual_inc      29092 non-null  float64
  7   age             29092 non-null  int64  
-dtypes: float64(3), int64(3), str(2)
-memory usage: 1.8 MB
+dtypes: float64(3), int64(3), object(2)
+memory usage: 2.0+ MB
 </pre></div>
 </div>
 </div>
@@ -631,14 +635,14 @@ memory usage: 1.8 MB
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>loan_status         int64
-loan_amnt           int64
-int_rate          float64
-grade                 str
-emp_length        float64
-home_ownership        str
-annual_inc        float64
-age                 int64
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>loan_status          int64
+loan_amnt            int64
+int_rate           float64
+grade             category
+emp_length         float64
+home_ownership    category
+annual_inc         float64
+age                  int64
 dtype: object
 </pre></div>
 </div>
@@ -1294,7 +1298,7 @@ Dep. Variable:            loan_status   R-squared:                       0.003
 Model:                            OLS   Adj. R-squared:                  0.003
 Method:                 Least Squares   F-statistic:                     67.76
 Date:                Wed, 11 Mar 2026   Prob (F-statistic):           1.93e-16
-Time:                        12:59:43   Log-Likelihood:                -6455.7
+Time:                        15:04:27   Log-Likelihood:                -6455.7
 No. Observations:               25570   AIC:                         1.292e+04
 Df Residuals:                   25568   BIC:                         1.293e+04
 Df Model:                           1                                         
@@ -1345,7 +1349,7 @@ strong multicollinearity or other numerical problems.
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../_images/89dab5409fc6ece462de4104334ef78bce0c68b39144d3b55d8d1bcda1a883f8.png" src="../_images/89dab5409fc6ece462de4104334ef78bce0c68b39144d3b55d8d1bcda1a883f8.png" />
+<img alt="../_images/b5b283f4a46e9d3ca58fa4cea1f48d3bad1dff40f2b5e03c7b5f6b35eda5cfe0.png" src="../_images/b5b283f4a46e9d3ca58fa4cea1f48d3bad1dff40f2b5e03c7b5f6b35eda5cfe0.png" />
 </div>
 </div>
 <p>Yeah, that really doesn’t make sense. <code class="docutils literal notranslate"><span class="pre">seaborn</span></code> lets us also add the fit from a logistic regression, though.</p>
@@ -1357,7 +1361,7 @@ strong multicollinearity or other numerical problems.
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../_images/a71a2ba1cc96c3b28965d27c554b44fb8a51d0fc07160dd80a693d24849816fd.png" src="../_images/a71a2ba1cc96c3b28965d27c554b44fb8a51d0fc07160dd80a693d24849816fd.png" />
+<img alt="../_images/813ba23fbf39246b1c4ef2d8ed3e49cff08cea771530c7dd39caad768cce57c9.png" src="../_images/813ba23fbf39246b1c4ef2d8ed3e49cff08cea771530c7dd39caad768cce57c9.png" />
 </div>
 </div>
 <p>OK, that still looks a bit strange, but at least loan status is never below 0!</p>
@@ -1390,7 +1394,7 @@ Dep. Variable:            loan_status   R-squared:                       0.003
 Model:                            OLS   Adj. R-squared:                  0.003
 Method:                 Least Squares   F-statistic:                     21.92
 Date:                Wed, 11 Mar 2026   Prob (F-statistic):           4.44e-18
-Time:                        12:59:58   Log-Likelihood:                -6445.8
+Time:                        15:04:42   Log-Likelihood:                -6445.8
 No. Observations:               25570   AIC:                         1.290e+04
 Df Residuals:                   25565   BIC:                         1.294e+04
 Df Model:                           4                                         
@@ -1427,32 +1431,32 @@ strong multicollinearity or other numerical problems.
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;class &#39;pandas.DataFrame&#39;&gt;
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;class &#39;pandas.core.frame.DataFrame&#39;&gt;
 Index: 25570 entries, 1 to 29091
 Data columns (total 19 columns):
- #   Column          Non-Null Count  Dtype  
----  ------          --------------  -----  
- 0   loan_status     25570 non-null  int64  
- 1   loan_amnt       25570 non-null  int64  
- 2   int_rate        25570 non-null  float64
- 3   grade           25570 non-null  str    
- 4   emp_length      25570 non-null  float64
- 5   home_ownership  25570 non-null  str    
- 6   annual_inc      25570 non-null  float64
- 7   age             25570 non-null  int64  
- 8   loan_grade_A    25570 non-null  bool   
- 9   loan_grade_B    25570 non-null  bool   
- 10  loan_grade_C    25570 non-null  bool   
- 11  loan_grade_D    25570 non-null  bool   
- 12  loan_grade_E    25570 non-null  bool   
- 13  loan_grade_F    25570 non-null  bool   
- 14  loan_grade_G    25570 non-null  bool   
- 15  home_MORTGAGE   25570 non-null  bool   
- 16  home_OTHER      25570 non-null  bool   
- 17  home_OWN        25570 non-null  bool   
- 18  home_RENT       25570 non-null  bool   
-dtypes: bool(11), float64(3), int64(3), str(2)
-memory usage: 2.0 MB
+ #   Column          Non-Null Count  Dtype   
+---  ------          --------------  -----   
+ 0   loan_status     25570 non-null  int64   
+ 1   loan_amnt       25570 non-null  int64   
+ 2   int_rate        25570 non-null  float64 
+ 3   grade           25570 non-null  category
+ 4   emp_length      25570 non-null  float64 
+ 5   home_ownership  25570 non-null  category
+ 6   annual_inc      25570 non-null  float64 
+ 7   age             25570 non-null  int64   
+ 8   loan_grade_A    25570 non-null  bool    
+ 9   loan_grade_B    25570 non-null  bool    
+ 10  loan_grade_C    25570 non-null  bool    
+ 11  loan_grade_D    25570 non-null  bool    
+ 12  loan_grade_E    25570 non-null  bool    
+ 13  loan_grade_F    25570 non-null  bool    
+ 14  loan_grade_G    25570 non-null  bool    
+ 15  home_MORTGAGE   25570 non-null  bool    
+ 16  home_OTHER      25570 non-null  bool    
+ 17  home_OWN        25570 non-null  bool    
+ 18  home_RENT       25570 non-null  bool    
+dtypes: bool(11), category(2), float64(3), int64(3)
+memory usage: 1.7 MB
 </pre></div>
 </div>
 </div>
@@ -1472,7 +1476,7 @@ Dep. Variable:            loan_status   R-squared:                       0.028
 Model:                            OLS   Adj. R-squared:                  0.028
 Method:                 Least Squares   F-statistic:                     52.76
 Date:                Wed, 11 Mar 2026   Prob (F-statistic):          2.32e-146
-Time:                        12:59:58   Log-Likelihood:                -6125.3
+Time:                        15:04:42   Log-Likelihood:                -6125.3
 No. Observations:               25570   AIC:                         1.228e+04
 Df Residuals:                   25555   BIC:                         1.240e+04
 Df Model:                          14                                         
@@ -1517,8 +1521,8 @@ strong multicollinearity or other numerical problems.
 <h2>Logit models<a class="headerlink" href="#id1" title="Link to this heading">#</a></h2>
 <p>OK, so let’s look at a <a class="reference external" href="https://www.andrewvillazon.com/logistic-regression-python-statsmodels/#fitting-a-logistic-regression">logit model</a>. We can look at the signs of the coefficients from the OLS model, but we can’t really interpret much else. Those coefficients are not probabilities.</p>
 <p>The true probability of defaulting must fall between 0 and 1. A <strong>logit function</strong>, show below, will satisfy this requirement.</p>
-<div class="amsmath math notranslate nohighlight" id="equation-f0d5d8a1-4c3e-4bf4-997b-751a2029ac76">
-<span class="eqno">(21)<a class="headerlink" href="#equation-f0d5d8a1-4c3e-4bf4-997b-751a2029ac76" title="Permalink to this equation">#</a></span>\[\begin{align}
+<div class="amsmath math notranslate nohighlight" id="equation-c4c62fd7-92d4-4ea0-a6e9-fbf3100ff616">
+<span class="eqno">(21)<a class="headerlink" href="#equation-c4c62fd7-92d4-4ea0-a6e9-fbf3100ff616" title="Permalink to this equation">#</a></span>\[\begin{align}
 {\displaystyle \mathbb{P}(Y=1\mid X) = \frac{1}{1 + e^{-X'\beta}}}
 \end{align}\]</div>
 <p>The left-hand side is the probability that Y = 1, or, in our case, that a loan is in default, <strong>conditional</strong> on the X variables, or the variables that we are using to predict loan status. The right-hand side is the function that <strong>links</strong> our X variables to the probability that Y = 1.</p>
@@ -1548,7 +1552,7 @@ Dep. Variable:            loan_status   No. Observations:                25570
 Model:                          Logit   Df Residuals:                    25568
 Method:                           MLE   Df Model:                            1
 Date:                Wed, 11 Mar 2026   Pseudo R-squ.:                0.001567
-Time:                        12:59:58   Log-Likelihood:                -8803.2
+Time:                        15:04:42   Log-Likelihood:                -8803.2
 converged:                       True   LL-Null:                       -8817.0
 Covariance Type:            nonrobust   LLR p-value:                 1.473e-07
 =====================================================================================
@@ -1565,8 +1569,8 @@ home_RENT[T.True]     0.2114      0.040      5.243      0.000       0.132       
 <p>Also note that we don’t have <em>t</em>-statistics. With logit, you can <em>z</em>-scores. You can look at the p-values to see how you should interpret the score. The hypothesis is the same as in linear regression: can we reject the null hypothesis that this coefficient is zero?</p>
 <p>The output from the logit regression is still hard to interpret, though. What does the coefficient on home_RENT of 0.2114 mean? This is a <strong>log odds ratio</strong>. Let’s convert this to an <strong>odds ratio</strong>, which is easier to think about.</p>
 <p>An odds ratio is defined as:</p>
-<div class="amsmath math notranslate nohighlight" id="equation-ccf111b6-3df5-48f6-a76b-cf07100ba725">
-<span class="eqno">(22)<a class="headerlink" href="#equation-ccf111b6-3df5-48f6-a76b-cf07100ba725" title="Permalink to this equation">#</a></span>\[\begin{align}
+<div class="amsmath math notranslate nohighlight" id="equation-ff245047-eaad-4c67-a2d9-4d2b82da2168">
+<span class="eqno">(22)<a class="headerlink" href="#equation-ff245047-eaad-4c67-a2d9-4d2b82da2168" title="Permalink to this equation">#</a></span>\[\begin{align}
 {\displaystyle \text{odds(success)} = \frac{p}{1-p}}
 \end{align}\]</div>
 <p>where p = probability of the event happening. So, an 80% chance of happening = .8/.2 = 4:1 odds. 1:1 odds is a 50/50 chance. The logit model gives us the log of this number. So, we can use the inverse of the log, the natural number e, to “undo” the log and get us the odds.</p>
@@ -1671,15 +1675,13 @@ home_RENT[T.True]  1.235453  1.141559  1.337070
 <div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Optimization terminated successfully.
          Current function value: 0.342899
          Iterations 7
-</pre></div>
-</div>
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>                           Logit Regression Results                           
+                           Logit Regression Results                           
 ==============================================================================
 Dep. Variable:            loan_status   No. Observations:                25570
 Model:                          Logit   Df Residuals:                    25568
 Method:                           MLE   Df Model:                            1
 Date:                Wed, 11 Mar 2026   Pseudo R-squ.:                0.005569
-Time:                        12:59:58   Log-Likelihood:                -8767.9
+Time:                        15:04:42   Log-Likelihood:                -8767.9
 converged:                       True   LL-Null:                       -8817.0
 Covariance Type:            nonrobust   LLR p-value:                 3.765e-23
 ==============================================================================
@@ -1765,13 +1767,15 @@ annual_inc  0.948297  0.937414  0.959307
 <div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Optimization terminated successfully.
          Current function value: 0.330446
          Iterations 7
-                           Logit Regression Results                           
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>                           Logit Regression Results                           
 ==============================================================================
 Dep. Variable:            loan_status   No. Observations:                25570
 Model:                          Logit   Df Residuals:                    25555
 Method:                           MLE   Df Model:                           14
 Date:                Wed, 11 Mar 2026   Pseudo R-squ.:                 0.04168
-Time:                        12:59:59   Log-Likelihood:                -8449.5
+Time:                        15:04:42   Log-Likelihood:                -8449.5
 converged:                       True   LL-Null:                       -8817.0
 Covariance Type:            nonrobust   LLR p-value:                8.432e-148
 =====================================================================================================================

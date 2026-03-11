@@ -243,7 +243,11 @@
 <li class="toctree-l1"><a class="reference internal" href="15_monte_carlo.html">Monte Carlo and portfolios</a></li>
 <li class="toctree-l1"><a class="reference internal" href="16_decision_trees.html">Decision Trees</a></li>
 <li class="toctree-l1"><a class="reference internal" href="17_options.html">Option basics</a></li>
-<li class="toctree-l1"><a class="reference internal" href="18_trading_bt.html">Trading Strategies and the BT Package</a></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="18_intro.html">Trading strategies and backtesting</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="18_0_trading_bt.html">Backtesting with the BT Package</a></li>
+<li class="toctree-l2"><a class="reference internal" href="18_1_alphalens.html">Factor Analysis with Alphalens</a></li>
+</ul>
+</details></li>
 <li class="toctree-l1"><a class="reference internal" href="19_textual_analysis.html">Textual Analysis in Finance</a></li>
 <li class="toctree-l1"><a class="reference internal" href="20_llms.html">How Large Language Models Work</a></li>
 </ul>
@@ -463,15 +467,15 @@ document.write(`
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;class &#39;pandas.DataFrame&#39;&gt;
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;class &#39;pandas.core.frame.DataFrame&#39;&gt;
 RangeIndex: 2610 entries, 0 to 2609
 Data columns (total 24 columns):
  #   Column                        Non-Null Count  Dtype  
 ---  ------                        --------------  -----  
- 0   RegionType                    2610 non-null   str    
- 1   RegionName                    2610 non-null   str    
- 2   StateName                     2609 non-null   str    
- 3   MSAName                       1071 non-null   str    
+ 0   RegionType                    2610 non-null   object 
+ 1   RegionName                    2610 non-null   object 
+ 2   StateName                     2609 non-null   object 
+ 3   MSAName                       1071 non-null   object 
  4   AllHomes_Tier1                2610 non-null   float64
  5   AllHomes_Tier2                2610 non-null   float64
  6   AllHomes_Tier3                2610 non-null   float64
@@ -492,8 +496,8 @@ Data columns (total 24 columns):
  21  UWHomes_ShareInTier1          2610 non-null   float64
  22  UWHomes_ShareInTier2          2610 non-null   float64
  23  UWHomes_ShareInTier3          2610 non-null   float64
-dtypes: float64(19), int64(1), str(4)
-memory usage: 489.5 KB
+dtypes: float64(19), int64(1), object(4)
+memory usage: 489.5+ KB
 </pre></div>
 </div>
 </div>
@@ -507,15 +511,15 @@ memory usage: 489.5 KB
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;class &#39;pandas.DataFrame&#39;&gt;
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;class &#39;pandas.core.frame.DataFrame&#39;&gt;
 RangeIndex: 2610 entries, 0 to 2609
 Data columns (total 24 columns):
  #   Column                        Non-Null Count  Dtype  
 ---  ------                        --------------  -----  
- 0   RegionType                    2610 non-null   str    
- 1   RegionName                    2610 non-null   str    
- 2   StateName                     2609 non-null   str    
- 3   MSAName                       1071 non-null   str    
+ 0   RegionType                    2610 non-null   object 
+ 1   RegionName                    2610 non-null   object 
+ 2   StateName                     2609 non-null   object 
+ 3   MSAName                       1071 non-null   object 
  4   AllHomes_Tier1                2610 non-null   float64
  5   AllHomes_Tier2                2610 non-null   float64
  6   AllHomes_Tier3                2610 non-null   float64
@@ -536,8 +540,8 @@ Data columns (total 24 columns):
  21  UWHomes_ShareInTier1          2610 non-null   float64
  22  UWHomes_ShareInTier2          2610 non-null   float64
  23  UWHomes_ShareInTier3          2610 non-null   float64
-dtypes: float64(20), str(4)
-memory usage: 489.5 KB
+dtypes: float64(20), object(4)
+memory usage: 489.5+ KB
 </pre></div>
 </div>
 </div>
@@ -1263,7 +1267,7 @@ memory usage: 489.5 KB
 2607       Zip
 2608       Zip
 2609       Zip
-Name: RegionType, Length: 2610, dtype: str
+Name: RegionType, Length: 2610, dtype: object
 </pre></div>
 </div>
 </div>
@@ -1287,7 +1291,7 @@ Name: RegionType, Length: 2610, dtype: str
 2607       Zip
 2608       Zip
 2609       Zip
-Name: RegionType, Length: 2610, dtype: str
+Name: RegionType, Length: 2610, dtype: object
 </pre></div>
 </div>
 </div>
@@ -4172,7 +4176,7 @@ True
                &#39;2018-06-18&#39;, &#39;2018-06-19&#39;, &#39;2018-06-20&#39;, &#39;2018-06-21&#39;,
                &#39;2018-06-22&#39;, &#39;2018-06-25&#39;, &#39;2018-06-26&#39;, &#39;2018-06-27&#39;,
                &#39;2018-06-28&#39;, &#39;2018-06-29&#39;],
-              dtype=&#39;datetime64[us]&#39;, name=&#39;Date&#39;, length=2216, freq=None)
+              dtype=&#39;datetime64[ns]&#39;, name=&#39;Date&#39;, length=2216, freq=None)
 </pre></div>
 </div>
 </div>

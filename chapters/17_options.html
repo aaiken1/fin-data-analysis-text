@@ -64,7 +64,7 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
-    <link rel="next" title="Trading Strategies and the BT Package" href="18_trading_bt.html" />
+    <link rel="next" title="Trading strategies and backtesting" href="18_intro.html" />
     <link rel="prev" title="Decision Trees" href="16_decision_trees.html" />
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="en"/>
@@ -245,7 +245,11 @@
 <li class="toctree-l1"><a class="reference internal" href="15_monte_carlo.html">Monte Carlo and portfolios</a></li>
 <li class="toctree-l1"><a class="reference internal" href="16_decision_trees.html">Decision Trees</a></li>
 <li class="toctree-l1 current active"><a class="current reference internal" href="#">Option basics</a></li>
-<li class="toctree-l1"><a class="reference internal" href="18_trading_bt.html">Trading Strategies and the BT Package</a></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="18_intro.html">Trading strategies and backtesting</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="18_0_trading_bt.html">Backtesting with the BT Package</a></li>
+<li class="toctree-l2"><a class="reference internal" href="18_1_alphalens.html">Factor Analysis with Alphalens</a></li>
+</ul>
+</details></li>
 <li class="toctree-l1"><a class="reference internal" href="19_textual_analysis.html">Textual Analysis in Finance</a></li>
 <li class="toctree-l1"><a class="reference internal" href="20_llms.html">How Large Language Models Work</a></li>
 </ul>
@@ -494,8 +498,8 @@ document.write(`
 <p>For example, suppose that K = 100 and the stock ends up at 101 at the call options maturity. You will exercise the option, with a payoff of 1 and a profit of 1 - C. But, if the stock ends up at 99, you just lose C. If you buy a stock at 100 and it ends up at 99, you still have 99 worth of stock.</p>
 <p><strong>European options</strong> can only be exercised on the maturity date of the option. <strong>American options</strong> can be exercised early. The terms don’t have anything to do with where the options are traded.</p>
 <p>Finally, there is an important relationship between the call price, the put price, the current stock price, and the borrowing needed to form the portfolio called <a class="reference external" href="https://en.wikipedia.org/wiki/Put%E2%80%93call_parity">put-call parity</a>.</p>
-<div class="amsmath math notranslate nohighlight" id="equation-314a4090-6a87-42b3-bccf-d060823642b6">
-<span class="eqno">(25)<a class="headerlink" href="#equation-314a4090-6a87-42b3-bccf-d060823642b6" title="Permalink to this equation">#</a></span>\[\begin{align}
+<div class="amsmath math notranslate nohighlight" id="equation-0afad7c2-bd62-40a0-9c74-05b3a2fcf820">
+<span class="eqno">(25)<a class="headerlink" href="#equation-0afad7c2-bd62-40a0-9c74-05b3a2fcf820" title="Permalink to this equation">#</a></span>\[\begin{align}
 C - P = S - Ke^{-rt}
 \end{align}\]</div>
 <p>This is an <strong>arbitrage relationship</strong>, as there is free money to be had if it doesn’t hold. If you think you observe a situation where it isn’t true, it is likely because <strong>transactions costs</strong> (i.e. the costs associated with trading) are preventing market participants from exploiting the difference.</p>
@@ -571,8 +575,8 @@ C - P = S - Ke^{-rt}
 <p>Let’s write a <strong>function</strong> that takes the inputs into the BSM model and values a <strong>call option</strong>. You would do something very similar for a <strong>put option</strong>. Again, we are trying to find the <strong>price</strong> that you would pay for the right to buy or sell a stock at a certain price in the future. This price is going to depend on the option contract parameters and, crucially, an assumption about the <strong>volatility</strong> of the asset.</p>
 <p>Notice what <strong>does not</strong> appear in the BSM formula - the expected return on the stock! This is the magic. We don’t need to have any expectations for Apple’s return in order to price their options.</p>
 <p>The BSM formula for a call option price at time 0 (today) is:</p>
-<div class="amsmath math notranslate nohighlight" id="equation-06a31dcb-351b-44ea-8449-76e247ff56d3">
-<span class="eqno">(26)<a class="headerlink" href="#equation-06a31dcb-351b-44ea-8449-76e247ff56d3" title="Permalink to this equation">#</a></span>\[\begin{align}
+<div class="amsmath math notranslate nohighlight" id="equation-f4f21980-ad67-4098-a864-613ba87893a3">
+<span class="eqno">(26)<a class="headerlink" href="#equation-f4f21980-ad67-4098-a864-613ba87893a3" title="Permalink to this equation">#</a></span>\[\begin{align}
 C_0 = S_0N(d_1) - e^{-rT}KN(d_2)
 \end{align}\]</div>
 <p>where <span class="math notranslate nohighlight">\(C_0\)</span> is the call price, <span class="math notranslate nohighlight">\(S_0\)</span> is the stock price today, <span class="math notranslate nohighlight">\(K\)</span> is the strike price, <span class="math notranslate nohighlight">\(r\)</span> is the risk-free rate, and <span class="math notranslate nohighlight">\(T\)</span> is the time-to-maturity. You’ll also see <span class="math notranslate nohighlight">\(T-t\)</span>, where <span class="math notranslate nohighlight">\(T\)</span> is the maturity date and <span class="math notranslate nohighlight">\(t\)</span> is today’s date. We’re using <span class="math notranslate nohighlight">\(T\)</span> as the number of years (fractional) until the maturity date.</p>
@@ -580,18 +584,18 @@ C_0 = S_0N(d_1) - e^{-rT}KN(d_2)
 <p>One of the <strong>key ideas</strong> with option pricing is the idea of <strong>risk neutral pricing</strong>. This comes from the idea of the arbitrage relationship and allows us to discount payoffs at a known risk-free rate, rather than something more difficult to calculate, like the required return on equity for a stock based on the CAPM.</p>
 <p>Now, what is <span class="math notranslate nohighlight">\(N()\)</span>? This is the <strong>cumulative density function (CDF)</strong> for the standard normal distribution with a mean of 0 and a standard deviation of 1. What is a <strong>CDF</strong>? Put a number into this function. The CDF gives the probability that a random draw from that distribution will be less than or equal to that number (i.e. the area under the curve of the distribution up to that number on the x-axis). So, N(0) = 0.5, since half of the distribution is to the left of the mean.</p>
 <p>Finally, what are <span class="math notranslate nohighlight">\(d_1\)</span> and <span class="math notranslate nohighlight">\(d_2\)</span>? They are defined as:</p>
-<div class="amsmath math notranslate nohighlight" id="equation-1330684d-24d5-4c16-b904-e43273fd8c0b">
-<span class="eqno">(27)<a class="headerlink" href="#equation-1330684d-24d5-4c16-b904-e43273fd8c0b" title="Permalink to this equation">#</a></span>\[\begin{align}
+<div class="amsmath math notranslate nohighlight" id="equation-d5b24f90-c0a3-4fc8-90cd-f7b1c3bbab1c">
+<span class="eqno">(27)<a class="headerlink" href="#equation-d5b24f90-c0a3-4fc8-90cd-f7b1c3bbab1c" title="Permalink to this equation">#</a></span>\[\begin{align}
 d_1 = \frac{log\frac{S_0}{K} + (r + \frac{1}{2} \sigma^2)T}{\sigma\sqrt(T)}
 \end{align}\]</div>
-<div class="amsmath math notranslate nohighlight" id="equation-78c37795-1813-4fe9-8e2c-ce001c2aa2cd">
-<span class="eqno">(28)<a class="headerlink" href="#equation-78c37795-1813-4fe9-8e2c-ce001c2aa2cd" title="Permalink to this equation">#</a></span>\[\begin{align}
+<div class="amsmath math notranslate nohighlight" id="equation-8f70a72a-b9ab-4730-b669-7fbcc5a99a6d">
+<span class="eqno">(28)<a class="headerlink" href="#equation-8f70a72a-b9ab-4730-b669-7fbcc5a99a6d" title="Permalink to this equation">#</a></span>\[\begin{align}
 d_2 = d_1 - \sigma\sqrt(T) = \frac{log\frac{S_0}{K} + (r - \frac{1}{2} \sigma^2)T}{\sigma\sqrt(T)}
 \end{align}\]</div>
 <p>You see how there’s some more <span class="math notranslate nohighlight">\(\frac{1}{2}\sigma^2\)</span>, logs, <span class="math notranslate nohighlight">\(T\)</span>, and <span class="math notranslate nohighlight">\(\sqrt(T)\)</span>, like with our simulations? The underlying math (Brownian motion) is the same. <span class="math notranslate nohighlight">\(\sigma^2\)</span> is the variance of the continuously compounded rate of return (log returns) for the asset. Note that we do need to calculate this using data, or some other set of assumptions.</p>
 <p>How can we interpret these formulas? Let’s re-write the BSM formula:</p>
-<div class="amsmath math notranslate nohighlight" id="equation-b74a65f7-d07b-42e8-b11f-4d3eee867435">
-<span class="eqno">(29)<a class="headerlink" href="#equation-b74a65f7-d07b-42e8-b11f-4d3eee867435" title="Permalink to this equation">#</a></span>\[\begin{align}
+<div class="amsmath math notranslate nohighlight" id="equation-616afd6b-6f8d-47f7-85db-fe295f9dbc58">
+<span class="eqno">(29)<a class="headerlink" href="#equation-616afd6b-6f8d-47f7-85db-fe295f9dbc58" title="Permalink to this equation">#</a></span>\[\begin{align}
 C_0 = e^{-rT}(S_0e^{rT}N(d_1) - KN(d_2))
 \end{align}\]</div>
 <p>The BSM formula has two pieces. The pieces represent this idea of an <strong>arbitrage</strong> relationship. In other words, we can create an option from other securities. For a call option, we can <strong>replicate the option</strong> by purchasing the stock and then financing that purchase by borrowing the money needed. Like we say with put-call parity, the option is a combination of the stock and borrowing.</p>
@@ -860,11 +864,11 @@ difference is equal to 9.009966106532374e-10
       </div>
     </a>
     <a class="right-next"
-       href="18_trading_bt.html"
+       href="18_intro.html"
        title="next page">
       <div class="prev-next-info">
         <p class="prev-next-subtitle">next</p>
-        <p class="prev-next-title">Trading Strategies and the BT Package</p>
+        <p class="prev-next-title">Trading strategies and backtesting</p>
       </div>
       <i class="fa-solid fa-angle-right"></i>
     </a>

@@ -245,7 +245,11 @@
 <li class="toctree-l1"><a class="reference internal" href="15_monte_carlo.html">Monte Carlo and portfolios</a></li>
 <li class="toctree-l1"><a class="reference internal" href="16_decision_trees.html">Decision Trees</a></li>
 <li class="toctree-l1"><a class="reference internal" href="17_options.html">Option basics</a></li>
-<li class="toctree-l1"><a class="reference internal" href="18_trading_bt.html">Trading Strategies and the BT Package</a></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="18_intro.html">Trading strategies and backtesting</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="18_0_trading_bt.html">Backtesting with the BT Package</a></li>
+<li class="toctree-l2"><a class="reference internal" href="18_1_alphalens.html">Factor Analysis with Alphalens</a></li>
+</ul>
+</details></li>
 <li class="toctree-l1"><a class="reference internal" href="19_textual_analysis.html">Textual Analysis in Finance</a></li>
 <li class="toctree-l1"><a class="reference internal" href="20_llms.html">How Large Language Models Work</a></li>
 </ul>
@@ -482,14 +486,14 @@ document.write(`
 <p>Instead, you need to change your variables. Scale or normalize them. Create categories. Take logs. All to help with interpretation and create better models.</p>
 <p>The purpose of feature scaling is to ensure that the features are given equal importance in a model. You’re trying to capture how different a variable is from its typical value and whether or not this relates to some other value, the one that you’re trying to predict.</p>
 <p>The text discusses <strong>normalization</strong>. You’ve probably seen this calculation in your stats class.</p>
-<div class="amsmath math notranslate nohighlight" id="equation-e7441fef-40b1-468d-89c2-99ad21d4c68b">
-<span class="eqno">(9)<a class="headerlink" href="#equation-e7441fef-40b1-468d-89c2-99ad21d4c68b" title="Permalink to this equation">#</a></span>\[\begin{align}
+<div class="amsmath math notranslate nohighlight" id="equation-96a398fd-c66b-4506-846c-b4719f0b0414">
+<span class="eqno">(9)<a class="headerlink" href="#equation-96a398fd-c66b-4506-846c-b4719f0b0414" title="Permalink to this equation">#</a></span>\[\begin{align}
 \text{Scaled Feature Value} = \frac{V - \mu}{\sigma}
 \end{align}\]</div>
 <p>where V is the value of an observation, <span class="math notranslate nohighlight">\(\mu\)</span> is the mean of all of the observations, and <span class="math notranslate nohighlight">\(\sigma\)</span> is the standard deviation of the values. This is called a <strong>Z-score normalization</strong>.</p>
 <p>You can also do <strong>min-max scaling</strong>.</p>
-<div class="amsmath math notranslate nohighlight" id="equation-60f7e620-31d3-40ed-a6c5-e89581ee1a8d">
-<span class="eqno">(10)<a class="headerlink" href="#equation-60f7e620-31d3-40ed-a6c5-e89581ee1a8d" title="Permalink to this equation">#</a></span>\[\begin{align}
+<div class="amsmath math notranslate nohighlight" id="equation-a2a680d1-6fca-4dd5-a8a4-0d19a2834d9b">
+<span class="eqno">(10)<a class="headerlink" href="#equation-a2a680d1-6fca-4dd5-a8a4-0d19a2834d9b" title="Permalink to this equation">#</a></span>\[\begin{align}
 \text{Scaled Feature Value} = \frac{V - min(V)}{max(V) - min(V)}
 \end{align}\]</div>
 <p>Finally, note that use of <strong>training set</strong> and <strong>validation set</strong>. We are going to start splitting our data up as we use <strong>machine learning</strong> techniques to make predictions. We use these data sets to build our model and, in particular, look for <strong>hyperparameters</strong>, a subject we’ll get to when discussing regression and logit in Chapter 3 of Hull. We’ll also create a <strong>testing set</strong> where we take the trained model and see how well it <strong>predicts values</strong> using data we’ve <strong>pulled out</strong> and not used.</p>
@@ -514,8 +518,8 @@ document.write(`
 </figcaption>
 </figure>
 <p>How do you know if your clustering method is any good? A measure of the performance of a clustering algorithm is the within-cluster sum of squares, also known as the <strong>inertia</strong>. Define <span class="math notranslate nohighlight">\(d_i\)</span> as the  distance of the ith observation from the center of the cluster to which it belongs.</p>
-<div class="amsmath math notranslate nohighlight" id="equation-f9f86b4e-61da-4a03-b768-853e5b1a0579">
-<span class="eqno">(11)<a class="headerlink" href="#equation-f9f86b4e-61da-4a03-b768-853e5b1a0579" title="Permalink to this equation">#</a></span>\[\begin{align}
+<div class="amsmath math notranslate nohighlight" id="equation-1a180440-bbb8-492d-8d04-248e658f3ff2">
+<span class="eqno">(11)<a class="headerlink" href="#equation-1a180440-bbb8-492d-8d04-248e658f3ff2" title="Permalink to this equation">#</a></span>\[\begin{align}
 \text{Inertia} = \sum_{i=1}^{N} d_i
 \end{align}\]</div>
 <p>The larger the inertia value, the worse the fit. Now, you can always get smaller inertia by adding more clusters. In fact, each observation could be its own cluster! But, that defeats the purpose. At some point, there’s an “optimal” number of clusters to try and divide your data into.</p>
@@ -747,7 +751,7 @@ GDP Growth   -0.123545 -0.004428 -0.150369    1.000000
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;class &#39;pandas.DataFrame&#39;&gt;
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;class &#39;pandas.core.frame.DataFrame&#39;&gt;
 RangeIndex: 121 entries, 0 to 120
 Data columns (total 3 columns):
  #   Column      Non-Null Count  Dtype  

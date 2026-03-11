@@ -245,7 +245,11 @@
 <li class="toctree-l1"><a class="reference internal" href="15_monte_carlo.html">Monte Carlo and portfolios</a></li>
 <li class="toctree-l1"><a class="reference internal" href="16_decision_trees.html">Decision Trees</a></li>
 <li class="toctree-l1"><a class="reference internal" href="17_options.html">Option basics</a></li>
-<li class="toctree-l1"><a class="reference internal" href="18_trading_bt.html">Trading Strategies and the BT Package</a></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="18_intro.html">Trading strategies and backtesting</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="18_0_trading_bt.html">Backtesting with the BT Package</a></li>
+<li class="toctree-l2"><a class="reference internal" href="18_1_alphalens.html">Factor Analysis with Alphalens</a></li>
+</ul>
+</details></li>
 <li class="toctree-l1"><a class="reference internal" href="19_textual_analysis.html">Textual Analysis in Finance</a></li>
 <li class="toctree-l1"><a class="reference internal" href="20_llms.html">How Large Language Models Work</a></li>
 </ul>
@@ -477,8 +481,8 @@ document.write(`
 <p>As you’ll see, sometimes we only use two separate data sets, training and test data. We’ll validate the model within the training data.</p>
 <p><code class="docutils literal notranslate"><span class="pre">sklearn</span></code> has many built-in features to help, like ways to automatically split your data, though the textbook tends to do things manually.</p>
 <p>Chapter 3.2 introduces <strong>multiple features</strong>. Again, this just means multiple explanatory X variables. Eq. 3.1 gives us the general form of a linear regression model:</p>
-<div class="amsmath math notranslate nohighlight" id="equation-6d7a0422-887d-4760-ae18-13a20d12be94">
-<span class="eqno">(15)<a class="headerlink" href="#equation-6d7a0422-887d-4760-ae18-13a20d12be94" title="Permalink to this equation">#</a></span>\[\begin{align}
+<div class="amsmath math notranslate nohighlight" id="equation-eaf2c87a-bfff-45cb-83f1-97ebf5336ebd">
+<span class="eqno">(15)<a class="headerlink" href="#equation-eaf2c87a-bfff-45cb-83f1-97ebf5336ebd" title="Permalink to this equation">#</a></span>\[\begin{align}
 Y = a + b_1 X_1 + b_2 X_2 + \cdots + b_m X_m + \varepsilon
 \end{align}\]</div>
 <p>The <a class="reference external" href="https://www.statsmodels.org/dev/examples/notebooks/generated/ols.html">statsmodel</a> page for linear regression has helpful code examples, including how to generate dummy variables (see below).</p>
@@ -489,13 +493,13 @@ Y = a + b_1 X_1 + b_2 X_2 + \cdots + b_m X_m + \varepsilon
 <p>In short, the linear regression algorithm selects values for <span class="math notranslate nohighlight">\(a\)</span> and each <span class="math notranslate nohighlight">\(b\)</span> above that minimize the sum of the squared differences between each Y and its predicted value (i.e. the right-hand side of the equation). This is shown in Eq. 3.2. Why do we square the differences? The direction of the error doesn’t matter - we want predicted values to be close to the actual value.</p>
 <p>The text notes that <span class="math notranslate nohighlight">\(a\)</span> is called the model <strong>bias</strong> and the <span class="math notranslate nohighlight">\(b\)</span> values are called the model <strong>weights</strong>. In econometrics, we call <span class="math notranslate nohighlight">\(a\)</span> the <strong>intercept</strong> and the <span class="math notranslate nohighlight">\(b\)</span> values <strong>coefficients</strong>.</p>
 <p>Machine learning techniques are all about <strong>prediction</strong>. How well does the model predict or fit the data? To measure this, we can use the <strong>R-Squared</strong> value for the model.</p>
-<div class="amsmath math notranslate nohighlight" id="equation-901169d1-81c7-4f2b-8696-31c0fd1b1010">
-<span class="eqno">(16)<a class="headerlink" href="#equation-901169d1-81c7-4f2b-8696-31c0fd1b1010" title="Permalink to this equation">#</a></span>\[\begin{align}
+<div class="amsmath math notranslate nohighlight" id="equation-d975d3f1-ecef-464e-8d76-c2571bb073d8">
+<span class="eqno">(16)<a class="headerlink" href="#equation-d975d3f1-ecef-464e-8d76-c2571bb073d8" title="Permalink to this equation">#</a></span>\[\begin{align}
 R^2 = 1 - \frac{\sum_{i=1}^{n} (y_i - \hat{y}_i)^2}{\sum_{i=1}^{n} (y_i - \bar{y})^2}
 \end{align}\]</div>
 <p>We can also put this into words:</p>
-<div class="amsmath math notranslate nohighlight" id="equation-49f46a28-c128-4092-9908-f86b30492d36">
-<span class="eqno">(17)<a class="headerlink" href="#equation-49f46a28-c128-4092-9908-f86b30492d36" title="Permalink to this equation">#</a></span>\[\begin{align}
+<div class="amsmath math notranslate nohighlight" id="equation-7225a6e6-bf4a-44ea-ad00-0d716a59b07c">
+<span class="eqno">(17)<a class="headerlink" href="#equation-7225a6e6-bf4a-44ea-ad00-0d716a59b07c" title="Permalink to this equation">#</a></span>\[\begin{align}
 R^2 = 1 - \frac{\text{Variance of the errors } \epsilon}{\text{Variation of the observations on the target Y}}
 \end{align}\]</div>
 <p>As noted by the text:</p>
@@ -537,8 +541,8 @@ R^2 = 1 - \frac{\text{Variance of the errors } \epsilon}{\text{Variation of the 
 <div><p>Feature scaling through standardization, also called Z-score normalization, is an important preprocessing step for many machine learning algorithms. It involves rescaling each feature such that it has a standard deviation of 1 and a mean of 0.</p>
 </div></blockquote>
 <p>One way to regularize our model is to use a <strong>Ridge regression</strong>. This algorithm chooses <span class="math notranslate nohighlight">\(a\)</span> and <span class="math notranslate nohighlight">\(b\)</span> parameters to minimize this function:</p>
-<div class="amsmath math notranslate nohighlight" id="equation-7a929f2d-e3b1-4db7-b2d6-0ac0c73972f3">
-<span class="eqno">(18)<a class="headerlink" href="#equation-7a929f2d-e3b1-4db7-b2d6-0ac0c73972f3" title="Permalink to this equation">#</a></span>\[\begin{align}
+<div class="amsmath math notranslate nohighlight" id="equation-cc2818ab-d3c0-4a01-81de-2f526676c69d">
+<span class="eqno">(18)<a class="headerlink" href="#equation-cc2818ab-d3c0-4a01-81de-2f526676c69d" title="Permalink to this equation">#</a></span>\[\begin{align}
 \frac{1}{n}\sum_{i=1}^{n}(Y_i - a - b_1X_{i1} - b_2X_{i2} - \cdots - b_mX_{im})^2 + \lambda\sum_{j=1}^{m}b_j^2
 \end{align}\]</div>
 <p>Note that this looks a lot like a normal regression, except that we now have the last term with <span class="math notranslate nohighlight">\(\lambda\)</span> and <span class="math notranslate nohighlight">\(b^2\)</span>. From the text:</p>
@@ -563,8 +567,8 @@ R^2 = 1 - \frac{\text{Variance of the errors } \epsilon}{\text{Variation of the 
 <div><p>In Ridge, we added a constant times the sum of the squared weights to the objective function. In LASSO, we add a constant times the sum of the <strong>absolute weights</strong>.</p>
 </div></blockquote>
 <p>LASSO is also called <strong>L1 regularization</strong>. This changes the last term in the equation that we are trying to minimize:</p>
-<div class="amsmath math notranslate nohighlight" id="equation-b7df34b3-5785-445f-b527-69bd817da735">
-<span class="eqno">(19)<a class="headerlink" href="#equation-b7df34b3-5785-445f-b527-69bd817da735" title="Permalink to this equation">#</a></span>\[\begin{align}
+<div class="amsmath math notranslate nohighlight" id="equation-7c87a89c-5946-45dc-b756-afe3deee98fa">
+<span class="eqno">(19)<a class="headerlink" href="#equation-7c87a89c-5946-45dc-b756-afe3deee98fa" title="Permalink to this equation">#</a></span>\[\begin{align}
 \frac{1}{n}\sum_{i=1}^{n}(Y_i - a - b_1X_{i1} - b_2X_{i2} - \cdots - b_mX_{im})^2 + \lambda\sum_{j=1}^{m}|b_j|
 \end{align}\]</div>
 <p>I asked Claude to explain this equation:</p>
@@ -576,8 +580,8 @@ R^2 = 1 - \frac{\text{Variance of the errors } \epsilon}{\text{Variation of the 
 <section id="elastic-net-regression">
 <h3>Elastic net regression<a class="headerlink" href="#elastic-net-regression" title="Link to this heading">#</a></h3>
 <p>Elastic Net regression is a <strong>mixture of Ridge and LASSO</strong>. The function to be minimized includes both a constant times the sum of the squared weights and a different constant times the sum of the absolute values of the weights.</p>
-<div class="amsmath math notranslate nohighlight" id="equation-672a42d1-49c6-45c1-9ae6-cf1a813d0885">
-<span class="eqno">(20)<a class="headerlink" href="#equation-672a42d1-49c6-45c1-9ae6-cf1a813d0885" title="Permalink to this equation">#</a></span>\[\begin{align}
+<div class="amsmath math notranslate nohighlight" id="equation-257b3d5a-dc61-46a5-8f5d-b266b51a43ff">
+<span class="eqno">(20)<a class="headerlink" href="#equation-257b3d5a-dc61-46a5-8f5d-b266b51a43ff" title="Permalink to this equation">#</a></span>\[\begin{align}
 \frac{1}{n}\sum_{i=1}^{n}(Y_i - a - b_1X_{i1} - b_2X_{i2} - \cdots - b_mX_{im})^2 + \lambda_1\sum_{j=1}^{m}b_j^2 + \lambda_2\sum_{j=1}^{m}|b_j|
 \end{align}\]</div>
 <p>From the text:</p>
@@ -1940,7 +1944,7 @@ Dep. Variable:             Sale Price   R-squared:                       0.886
 Model:                            OLS   Adj. R-squared:                  0.883
 Method:                 Least Squares   F-statistic:                     295.9
 Date:                Wed, 11 Mar 2026   Prob (F-statistic):               0.00
-Time:                        12:59:12   Log-Likelihood:                -599.81
+Time:                        15:03:58   Log-Likelihood:                -599.81
 No. Observations:                1800   AIC:                             1294.
 Df Residuals:                    1753   BIC:                             1552.
 Df Model:                          46                                         
@@ -2148,7 +2152,7 @@ Coefficient of determination: 0.90
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[&lt;matplotlib.lines.Line2D at 0x135d9baa0&gt;]
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[&lt;matplotlib.lines.Line2D at 0x133d0d400&gt;]
 </pre></div>
 </div>
 <img alt="../_images/0ff0cf9ebe136d8ce916bf6faef9730b711c925b6f515c635148448a59e08e39.png" src="../_images/0ff0cf9ebe136d8ce916bf6faef9730b711c925b6f515c635148448a59e08e39.png" />
@@ -3290,7 +3294,7 @@ forceTheme('sk-container-id-2');</script></body></div></div>
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[&lt;matplotlib.lines.Line2D at 0x135e2bce0&gt;]
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[&lt;matplotlib.lines.Line2D at 0x133d91cd0&gt;]
 </pre></div>
 </div>
 <img alt="../_images/a7925b922e4c3c837e97cb0d5c7d50715003e6aadfe09ed8eaffc32bc2394abc.png" src="../_images/a7925b922e4c3c837e97cb0d5c7d50715003e6aadfe09ed8eaffc32bc2394abc.png" />
