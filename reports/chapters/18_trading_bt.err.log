@@ -19,27 +19,29 @@ Traceback (most recent call last):
 nbclient.exceptions.CellExecutionError: An error occurred while executing the following cell:
 ------------------
 test_ew = bt.Backtest(ew, data)
-res_ew = bt.run(test_ew)
+test_sma50 = bt.Backtest(sma50, data)
 
-print(type(test_ew))
-print(type(res_ew))
+# Run both backtests together
+res = bt.run(test_ew, test_sma50)
+
+print(type(res))
 ------------------
 
 ----- stderr -----
-  0%|          | 0/1 [00:00<?, ?it/s]
+  0%|          | 0/2 [00:00<?, ?it/s]
 ----- stderr -----
-  0%|          | 0/1 [00:00<?, ?it/s]
+  0%|          | 0/2 [00:00<?, ?it/s]
 ----- stderr -----
 
 ------------------
 
 [31m---------------------------------------------------------------------------[39m
 [31mValueError[39m                                Traceback (most recent call last)
-[36mCell[39m[36m [39m[32mIn[9][39m[32m, line 2[39m
-[32m      1[39m test_ew = bt.Backtest(ew, data)
-[32m----> [39m[32m2[39m res_ew = [43mbt[49m[43m.[49m[43mrun[49m[43m([49m[43mtest_ew[49m[43m)[49m
-[32m      4[39m [38;5;28mprint[39m([38;5;28mtype[39m(test_ew))
-[32m      5[39m [38;5;28mprint[39m([38;5;28mtype[39m(res_ew))
+[36mCell[39m[36m [39m[32mIn[9][39m[32m, line 5[39m
+[32m      2[39m test_sma50 = bt.Backtest(sma50, data)
+[32m      4[39m [38;5;66;03m# Run both backtests together[39;00m
+[32m----> [39m[32m5[39m res = [43mbt[49m[43m.[49m[43mrun[49m[43m([49m[43mtest_ew[49m[43m,[49m[43m [49m[43mtest_sma50[49m[43m)[49m
+[32m      7[39m [38;5;28mprint[39m([38;5;28mtype[39m(res))
 
 [36mFile [39m[32m~/Documents/fin-data-analysis-text/.venv/lib/python3.12/site-packages/bt/backtest.py:31[39m, in [36mrun[39m[34m(*backtests)[39m
 [32m     29[39m [38;5;66;03m# run each backtest[39;00m

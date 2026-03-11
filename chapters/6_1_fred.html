@@ -603,12 +603,64 @@ document.write(`
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>2026-03-04    72776.66
-2026-03-05    70955.49
-2026-03-06    68350.00
-2026-03-07    67193.87
-2026-03-08    66055.14
-dtype: float64
+<div class="output traceback highlight-ipythontb notranslate"><div class="highlight"><pre><span></span><span class="gt">---------------------------------------------------------------------------</span>
+<span class="ne">HTTPError</span><span class="g g-Whitespace">                                 </span>Traceback (most recent call last)
+<span class="nn">File ~/Documents/fin-data-analysis-text/.venv/lib/python3.12/site-packages/fredapi/fred.py:84,</span> in <span class="ni">Fred.__fetch_data</span><span class="nt">(self, url)</span>
+<span class="g g-Whitespace">     </span><span class="mi">83</span> <span class="k">try</span><span class="p">:</span>
+<span class="ne">---&gt; </span><span class="mi">84</span>     <span class="n">response</span> <span class="o">=</span> <span class="n">urlopen</span><span class="p">(</span><span class="n">url</span><span class="p">)</span>
+<span class="g g-Whitespace">     </span><span class="mi">85</span>     <span class="n">root</span> <span class="o">=</span> <span class="n">ET</span><span class="o">.</span><span class="n">fromstring</span><span class="p">(</span><span class="n">response</span><span class="o">.</span><span class="n">read</span><span class="p">())</span>
+
+<span class="nn">File ~/.pyenv/versions/3.12.3/lib/python3.12/urllib/request.py:215,</span> in <span class="ni">urlopen</span><span class="nt">(url, data, timeout, cafile, capath, cadefault, context)</span>
+<span class="g g-Whitespace">    </span><span class="mi">214</span>     <span class="n">opener</span> <span class="o">=</span> <span class="n">_opener</span>
+<span class="ne">--&gt; </span><span class="mi">215</span> <span class="k">return</span> <span class="n">opener</span><span class="o">.</span><span class="n">open</span><span class="p">(</span><span class="n">url</span><span class="p">,</span> <span class="n">data</span><span class="p">,</span> <span class="n">timeout</span><span class="p">)</span>
+
+<span class="nn">File ~/.pyenv/versions/3.12.3/lib/python3.12/urllib/request.py:521,</span> in <span class="ni">OpenerDirector.open</span><span class="nt">(self, fullurl, data, timeout)</span>
+<span class="g g-Whitespace">    </span><span class="mi">520</span>     <span class="n">meth</span> <span class="o">=</span> <span class="nb">getattr</span><span class="p">(</span><span class="n">processor</span><span class="p">,</span> <span class="n">meth_name</span><span class="p">)</span>
+<span class="ne">--&gt; </span><span class="mi">521</span>     <span class="n">response</span> <span class="o">=</span> <span class="n">meth</span><span class="p">(</span><span class="n">req</span><span class="p">,</span> <span class="n">response</span><span class="p">)</span>
+<span class="g g-Whitespace">    </span><span class="mi">523</span> <span class="k">return</span> <span class="n">response</span>
+
+<span class="nn">File ~/.pyenv/versions/3.12.3/lib/python3.12/urllib/request.py:630,</span> in <span class="ni">HTTPErrorProcessor.http_response</span><span class="nt">(self, request, response)</span>
+<span class="g g-Whitespace">    </span><span class="mi">629</span> <span class="k">if</span> <span class="ow">not</span> <span class="p">(</span><span class="mi">200</span> <span class="o">&lt;=</span> <span class="n">code</span> <span class="o">&lt;</span> <span class="mi">300</span><span class="p">):</span>
+<span class="ne">--&gt; </span><span class="mi">630</span>     <span class="n">response</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">parent</span><span class="o">.</span><span class="n">error</span><span class="p">(</span>
+<span class="g g-Whitespace">    </span><span class="mi">631</span>         <span class="s1">&#39;http&#39;</span><span class="p">,</span> <span class="n">request</span><span class="p">,</span> <span class="n">response</span><span class="p">,</span> <span class="n">code</span><span class="p">,</span> <span class="n">msg</span><span class="p">,</span> <span class="n">hdrs</span><span class="p">)</span>
+<span class="g g-Whitespace">    </span><span class="mi">633</span> <span class="k">return</span> <span class="n">response</span>
+
+<span class="nn">File ~/.pyenv/versions/3.12.3/lib/python3.12/urllib/request.py:559,</span> in <span class="ni">OpenerDirector.error</span><span class="nt">(self, proto, *args)</span>
+<span class="g g-Whitespace">    </span><span class="mi">558</span> <span class="n">args</span> <span class="o">=</span> <span class="p">(</span><span class="nb">dict</span><span class="p">,</span> <span class="s1">&#39;default&#39;</span><span class="p">,</span> <span class="s1">&#39;http_error_default&#39;</span><span class="p">)</span> <span class="o">+</span> <span class="n">orig_args</span>
+<span class="ne">--&gt; </span><span class="mi">559</span> <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_call_chain</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">)</span>
+
+<span class="nn">File ~/.pyenv/versions/3.12.3/lib/python3.12/urllib/request.py:492,</span> in <span class="ni">OpenerDirector._call_chain</span><span class="nt">(self, chain, kind, meth_name, *args)</span>
+<span class="g g-Whitespace">    </span><span class="mi">491</span> <span class="n">func</span> <span class="o">=</span> <span class="nb">getattr</span><span class="p">(</span><span class="n">handler</span><span class="p">,</span> <span class="n">meth_name</span><span class="p">)</span>
+<span class="ne">--&gt; </span><span class="mi">492</span> <span class="n">result</span> <span class="o">=</span> <span class="n">func</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">)</span>
+<span class="g g-Whitespace">    </span><span class="mi">493</span> <span class="k">if</span> <span class="n">result</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+
+<span class="nn">File ~/.pyenv/versions/3.12.3/lib/python3.12/urllib/request.py:639,</span> in <span class="ni">HTTPDefaultErrorHandler.http_error_default</span><span class="nt">(self, req, fp, code, msg, hdrs)</span>
+<span class="g g-Whitespace">    </span><span class="mi">638</span> <span class="k">def</span><span class="w"> </span><span class="nf">http_error_default</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">req</span><span class="p">,</span> <span class="n">fp</span><span class="p">,</span> <span class="n">code</span><span class="p">,</span> <span class="n">msg</span><span class="p">,</span> <span class="n">hdrs</span><span class="p">):</span>
+<span class="ne">--&gt; </span><span class="mi">639</span>     <span class="k">raise</span> <span class="n">HTTPError</span><span class="p">(</span><span class="n">req</span><span class="o">.</span><span class="n">full_url</span><span class="p">,</span> <span class="n">code</span><span class="p">,</span> <span class="n">msg</span><span class="p">,</span> <span class="n">hdrs</span><span class="p">,</span> <span class="n">fp</span><span class="p">)</span>
+
+<span class="ne">HTTPError</span>: HTTP Error 500: Internal Server Error
+
+<span class="n">During</span> <span class="n">handling</span> <span class="n">of</span> <span class="n">the</span> <span class="n">above</span> <span class="n">exception</span><span class="p">,</span> <span class="n">another</span> <span class="n">exception</span> <span class="n">occurred</span><span class="p">:</span>
+
+<span class="ne">ValueError</span><span class="g g-Whitespace">                                </span>Traceback (most recent call last)
+<span class="n">Cell</span> <span class="n">In</span><span class="p">[</span><span class="mi">3</span><span class="p">],</span> <span class="n">line</span> <span class="mi">1</span>
+<span class="ne">----&gt; </span><span class="mi">1</span> <span class="n">btc</span> <span class="o">=</span> <span class="n">fred</span><span class="o">.</span><span class="n">get_series</span><span class="p">(</span><span class="s1">&#39;CBBTCUSD&#39;</span><span class="p">)</span>
+<span class="g g-Whitespace">      </span><span class="mi">2</span> <span class="n">btc</span><span class="o">.</span><span class="n">tail</span><span class="p">()</span>
+
+<span class="nn">File ~/Documents/fin-data-analysis-text/.venv/lib/python3.12/site-packages/fredapi/fred.py:151,</span> in <span class="ni">Fred.get_series</span><span class="nt">(self, series_id, observation_start, observation_end, **kwargs)</span>
+<span class="g g-Whitespace">    </span><span class="mi">149</span> <span class="k">if</span> <span class="n">kwargs</span><span class="o">.</span><span class="n">keys</span><span class="p">():</span>
+<span class="g g-Whitespace">    </span><span class="mi">150</span>     <span class="n">url</span> <span class="o">+=</span> <span class="s1">&#39;&amp;&#39;</span> <span class="o">+</span> <span class="n">urlencode</span><span class="p">(</span><span class="n">kwargs</span><span class="p">)</span>
+<span class="ne">--&gt; </span><span class="mi">151</span> <span class="n">root</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">__fetch_data</span><span class="p">(</span><span class="n">url</span><span class="p">)</span>
+<span class="g g-Whitespace">    </span><span class="mi">152</span> <span class="k">if</span> <span class="n">root</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+<span class="g g-Whitespace">    </span><span class="mi">153</span>     <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s1">&#39;No data exists for series id: &#39;</span> <span class="o">+</span> <span class="n">series_id</span><span class="p">)</span>
+
+<span class="nn">File ~/Documents/fin-data-analysis-text/.venv/lib/python3.12/site-packages/fredapi/fred.py:88,</span> in <span class="ni">Fred.__fetch_data</span><span class="nt">(self, url)</span>
+<span class="g g-Whitespace">     </span><span class="mi">86</span> <span class="k">except</span> <span class="n">HTTPError</span> <span class="k">as</span> <span class="n">exc</span><span class="p">:</span>
+<span class="g g-Whitespace">     </span><span class="mi">87</span>     <span class="n">root</span> <span class="o">=</span> <span class="n">ET</span><span class="o">.</span><span class="n">fromstring</span><span class="p">(</span><span class="n">exc</span><span class="o">.</span><span class="n">read</span><span class="p">())</span>
+<span class="ne">---&gt; </span><span class="mi">88</span>     <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="n">root</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;message&#39;</span><span class="p">))</span>
+<span class="g g-Whitespace">     </span><span class="mi">89</span> <span class="k">return</span> <span class="n">root</span>
+
+<span class="ne">ValueError</span>: Internal Server Error
 </pre></div>
 </div>
 </div>
@@ -674,28 +726,28 @@ dtype: float64
       <td>...</td>
     </tr>
     <tr>
-      <th>2026-03-04</th>
-      <td>72776.66</td>
+      <th>2026-01-23</th>
+      <td>89365.99</td>
     </tr>
     <tr>
-      <th>2026-03-05</th>
-      <td>70955.49</td>
+      <th>2026-01-24</th>
+      <td>89155.13</td>
     </tr>
     <tr>
-      <th>2026-03-06</th>
-      <td>68350.00</td>
+      <th>2026-01-25</th>
+      <td>86978.89</td>
     </tr>
     <tr>
-      <th>2026-03-07</th>
-      <td>67193.87</td>
+      <th>2026-01-26</th>
+      <td>88136.48</td>
     </tr>
     <tr>
-      <th>2026-03-08</th>
-      <td>66055.14</td>
+      <th>2026-01-27</th>
+      <td>89296.00</td>
     </tr>
   </tbody>
 </table>
-<p>4116 rows × 1 columns</p>
+<p>4076 rows × 1 columns</p>
 </div></div></div>
 </div>
 <div class="cell docutils container">
@@ -713,6 +765,16 @@ dtype: float64
 </pre></div>
 </div>
 </div>
+<div class="cell_output docutils container">
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>/var/folders/kx/y8vj3n6n5kq_d74vj24jsnh40000gn/T/ipykernel_84807/1503532820.py:2: SettingWithCopyWarning: 
+A value is trying to be set on a copy of a slice from a DataFrame.
+Try using .loc[row_indexer,col_indexer] = value instead
+
+See the caveats in the documentation: https://pandas.pydata.org/pandas-docs/stable/user_guide/indexing.html#returning-a-view-versus-a-copy
+  btc[&#39;ret&#39;] = btc[&#39;btc&#39;].pct_change()
+</pre></div>
+</div>
+</div>
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -725,7 +787,7 @@ dtype: float64
 <div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;Axes: xlabel=&#39;date&#39;&gt;
 </pre></div>
 </div>
-<img alt="../_images/78c0feb31c34e6f7a583d35412b333db3d515ec72ab9965575311248d5f33dad.png" src="../_images/78c0feb31c34e6f7a583d35412b333db3d515ec72ab9965575311248d5f33dad.png" />
+<img alt="../_images/9c91a00307cdc0b571a52d56871e7919ad0f22542838736fc6d2b9359f906cf2.png" src="../_images/9c91a00307cdc0b571a52d56871e7919ad0f22542838736fc6d2b9359f906cf2.png" />
 </div>
 </div>
 <p>That’s not a very good graph - the returns and price levels are in different units. Let’s format the average return nicely:</p>
@@ -736,7 +798,7 @@ dtype: float64
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Average return: 0.20%
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Average return: 0.21%
 </pre></div>
 </div>
 </div>
@@ -829,43 +891,43 @@ dtype: float64
       <td>...</td>
     </tr>
     <tr>
-      <th>2026-03-04</th>
-      <td>72776.66</td>
-      <td>0.066750</td>
-      <td>1.066750</td>
-      <td>213.049000</td>
+      <th>2026-01-23</th>
+      <td>89365.99</td>
+      <td>-0.001746</td>
+      <td>0.998254</td>
+      <td>261.841147</td>
     </tr>
     <tr>
-      <th>2026-03-05</th>
-      <td>70955.49</td>
-      <td>-0.025024</td>
-      <td>0.974976</td>
-      <td>207.692618</td>
+      <th>2026-01-24</th>
+      <td>89155.13</td>
+      <td>-0.002360</td>
+      <td>0.997640</td>
+      <td>261.220971</td>
     </tr>
     <tr>
-      <th>2026-03-06</th>
-      <td>68350.00</td>
-      <td>-0.036720</td>
-      <td>0.963280</td>
-      <td>200.029412</td>
+      <th>2026-01-25</th>
+      <td>86978.89</td>
+      <td>-0.024410</td>
+      <td>0.975590</td>
+      <td>254.820265</td>
     </tr>
     <tr>
-      <th>2026-03-07</th>
-      <td>67193.87</td>
-      <td>-0.016915</td>
-      <td>0.983085</td>
-      <td>196.629029</td>
+      <th>2026-01-26</th>
+      <td>88136.48</td>
+      <td>0.013309</td>
+      <td>1.013309</td>
+      <td>258.224941</td>
     </tr>
     <tr>
-      <th>2026-03-08</th>
-      <td>66055.14</td>
-      <td>-0.016947</td>
-      <td>0.983053</td>
-      <td>193.279824</td>
+      <th>2026-01-27</th>
+      <td>89296.00</td>
+      <td>0.013156</td>
+      <td>1.013156</td>
+      <td>261.635294</td>
     </tr>
   </tbody>
 </table>
-<p>4072 rows × 4 columns</p>
+<p>4032 rows × 4 columns</p>
 </div></div></div>
 </div>
 <div class="cell docutils container">
@@ -884,7 +946,7 @@ dtype: float64
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../_images/969d5625d8e80aa4719c4f9aedd207bcf323c29ba39e14e5c17da524a79c8661.png" src="../_images/969d5625d8e80aa4719c4f9aedd207bcf323c29ba39e14e5c17da524a79c8661.png" />
+<img alt="../_images/817c4f334daf514f980c9246292767bc812c0c5b4e287abca04c568b8f5877ad.png" src="../_images/817c4f334daf514f980c9246292767bc812c0c5b4e287abca04c568b8f5877ad.png" />
 </div>
 </div>
 </section>
@@ -958,7 +1020,7 @@ dtype: float64
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../_images/399f4bb30fcde8ba44dbf47c6af8efb54c3dd9aa0380923ca27b3153a2711c42.png" src="../_images/399f4bb30fcde8ba44dbf47c6af8efb54c3dd9aa0380923ca27b3153a2711c42.png" />
+<img alt="../_images/d4bccc6c9ec3fbe5023cfe823b27fc4474ad1e86da65726aa16a6fe555c036cb.png" src="../_images/d4bccc6c9ec3fbe5023cfe823b27fc4474ad1e86da65726aa16a6fe555c036cb.png" />
 </div>
 </div>
 <p>The y-axis has a wide range because some extreme values are possible given Bitcoin’s high volatility.</p>
@@ -975,52 +1037,6 @@ dtype: float64
 </pre></div>
 </div>
 </div>
-<div class="cell_output docutils container">
-<div class="output text_html"><div>
-<style scoped>
-    .dataframe tbody tr th:only-of-type {
-        vertical-align: middle;
-    }
-
-    .dataframe tbody tr th {
-        vertical-align: top;
-    }
-
-    .dataframe thead th {
-        text-align: right;
-    }
-</style>
-<table border="1" class="dataframe">
-  <thead>
-    <tr style="text-align: right;">
-      <th></th>
-      <th>GDP</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <th>2010-01-01</th>
-      <td>14764.610</td>
-    </tr>
-    <tr>
-      <th>2010-04-01</th>
-      <td>14980.193</td>
-    </tr>
-    <tr>
-      <th>2010-07-01</th>
-      <td>15141.607</td>
-    </tr>
-    <tr>
-      <th>2010-10-01</th>
-      <td>15309.474</td>
-    </tr>
-    <tr>
-      <th>2011-01-01</th>
-      <td>15351.448</td>
-    </tr>
-  </tbody>
-</table>
-</div></div></div>
 </div>
 <p>You can browse available series on the <a class="reference external" href="https://fred.stlouisfed.org/">FRED website</a> and use their series codes with <code class="docutils literal notranslate"><span class="pre">fred.get_series()</span></code>. Check the <a class="reference external" href="https://github.com/mortada/fredapi">fredapi documentation</a> for more options, like searching for series by keyword.</p>
 </section>

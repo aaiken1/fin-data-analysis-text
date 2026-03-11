@@ -417,6 +417,32 @@ document.write(`
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#step-3-backtest-your-strategy">Step 3 - Backtest your strategy</a></li>
 </ul>
 </li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#backtesting-pitfalls">Backtesting Pitfalls</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#look-ahead-bias">Look-Ahead Bias</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#survivorship-bias">Survivorship Bias</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#overfitting">Overfitting</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#transaction-costs">Transaction Costs</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#data-snooping">Data Snooping</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#regime-changes">Regime Changes</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#a-more-realistic-example-trend-following-with-sector-etfs">A More Realistic Example: Trend Following with Sector ETFs</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#strategy-1-buy-and-hold-benchmark">Strategy 1: Buy-and-Hold Benchmark</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#strategy-2-monthly-rebalanced-equal-weight">Strategy 2: Monthly Rebalanced Equal Weight</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#strategy-3-sma-crossover-trend-following">Strategy 3: SMA Crossover Trend Following</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#strategy-4-momentum-return-based-signal">Strategy 4: Momentum (Return-Based Signal)</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#running-all-strategies">Running All Strategies</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#adding-transaction-costs">Adding Transaction Costs</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#in-sample-vs-out-of-sample-testing">In-Sample vs. Out-of-Sample Testing</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#working-with-bt-results">Working with BT Results</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#accessing-returns-and-prices">Accessing Returns and Prices</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#rolling-sharpe-ratio">Rolling Sharpe Ratio</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#return-distributions">Return Distributions</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#key-takeaways">Key Takeaways</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#other-tools">Other tools</a></li>
 </ul>
             </nav>
@@ -435,29 +461,29 @@ document.write(`
 <div><p>I think that good quant investment managers … can really be thought of as financial economists who have codified their beliefs into a repeatable process. They are distinguished by diversification, sticking to their process with discipline, and the ability to engineer portfolio characteristics.
 — Cliff Asness of AQR (2007)</p>
 </div></blockquote>
-<p>These notes are based, in part, of Chapter 3.3 of <a class="reference external" href="https://press.princeton.edu/books/hardcover/9780691166193/efficiently-inefficient">Efficiently Inefficient by Lasse Pedersen</a>. It is a nice introduction to more sophisticated investing strategies, like quantitative equity and fixed income arbitrage strategies. I provide many more resources below.</p>
-<p>Broadly speaking, <strong>quantitative investing</strong> tries to turn a investment thesis into a repeatable process. The thesis is often <strong>model driven</strong>, perhaps related to some economic rationale that repeats itself. For example, maybe stocks with certain characteristics generate positive risk-adjusted returns, on average.</p>
+<p>These notes are based, in part, on Chapter 3.3 of <a class="reference external" href="https://press.princeton.edu/books/hardcover/9780691166193/efficiently-inefficient">Efficiently Inefficient by Lasse Pedersen</a>. It is a nice introduction to more sophisticated investing strategies, like quantitative equity and fixed income arbitrage strategies. I provide many more resources below.</p>
+<p>Broadly speaking, <strong>quantitative investing</strong> tries to turn an investment thesis into a repeatable process. The thesis is often <strong>model driven</strong>, perhaps related to some economic rationale that repeats itself. For example, maybe stocks with certain characteristics generate positive risk-adjusted returns, on average.</p>
 <p>This process often means using <strong>historical</strong> or <strong>simulated</strong> data to test a hypothesis. This process is called <strong>backtesting</strong> – there’s an entire literature that has developed around the best way to backtest strategies. We’ll discuss the basic idea here.</p>
 <p>Quantitative strategies, regardless of security type, usually have a small amount of alpha per trade. These are not “big swings”, like betting against housing in 2007. The model identifies <strong>entry and exit points across a large number of securities</strong>, leading to significant <strong>diversification</strong>, or at least that’s the hope.</p>
-<p>If you can identify something in the data, then you can trade on it. This might be traditional measures, like value and momentum. Other accounting data gets used to create measures like earnings quality. You can try to quantify management quality. You can look at flow in and out of security, trying to identify who is trading. You can use the limit order book itself. You can use natural language processing (NLP) and text data. I give you some examples below.</p>
+<p>If you can identify something in the data, then you can trade on it. This might be traditional measures, like value and momentum. Other accounting data gets used to create measures like earnings quality. You can try to quantify management quality. You can look at flow in and out of a security, trying to identify who is trading. You can use the limit order book itself. You can use natural language processing (NLP) and text data. I give you some examples below.</p>
 <p>Some quantitative trading strategies are very short-term and high turnover, like those that use the limit order book. Others hold securities for months, if not years, like value.</p>
-<p>Many strategies have a <strong>long and short component</strong>. You buy a basket of securities (e.g. stocks, currencies, crypto, etc.) that have the positive set of characteristics that you’re looking at and short a basic of securities that have the negative set. Going long and short can help mitigate risk, but there’s a lot that goes into it. Exactly how should you weight your positions? Should you try to be market beta neutral in you overall portfolio? What about sector bets? Going long deep value will have you buying lots and lots of bank stocks. How do you feel about that kind of concentration?</p>
-<p>The end-goal: create a portfolio with the risks and characteristics that you want, while eliminating that ones that you don’t want. This, somewhat optimistically, is sometimes called a <strong>market neutral portfolio</strong>. Like an equity market neutral hedge fund – they try to make money no matter what the overall market is doing. Quants try to estimate the relation between the signal value and the expected return and construct the portfolio and the rebalancing strategy that maximizes performance after transaction costs.</p>
+<p>Many strategies have a <strong>long and short component</strong>. You buy a basket of securities (e.g. stocks, currencies, crypto, etc.) that have the positive set of characteristics that you’re looking at and short a basket of securities that have the negative set. Going long and short can help mitigate risk, but there’s a lot that goes into it. Exactly how should you weight your positions? Should you try to be market beta neutral in your overall portfolio? What about sector bets? Going long deep value will have you buying lots and lots of bank stocks. How do you feel about that kind of concentration?</p>
+<p>The end-goal: create a portfolio with the risks and characteristics that you want, while eliminating the ones that you don’t want. This, somewhat optimistically, is sometimes called a <strong>market neutral portfolio</strong>. Like an equity market neutral hedge fund – they try to make money no matter what the overall market is doing. Quants try to estimate the relation between the signal value and the expected return and construct the portfolio and the rebalancing strategy that maximizes performance after transaction costs.</p>
 <p>For differences between risk factors and anomalies, see the chapter on factor models. Both could be present in a quantitative trading portfolio. Understand your market to know what the risks and anomalies are. It is often hard (impossible?) to know which is which.</p>
 <section id="steps-in-strategy-development">
 <h2>Steps in Strategy Development<a class="headerlink" href="#steps-in-strategy-development" title="Link to this heading">#</a></h2>
-<p>Here are a typical set of steps for developing a quantitative trading strategy.</p>
+<p>Here are the typical steps for developing a quantitative trading strategy.</p>
 <ol class="arabic simple">
 <li><p><strong>Identify a hypothesis or market inefficiency</strong>: Develop a hypothesis about a market inefficiency that your strategy will exploit. This could be based on trends, patterns, or relationships between financial instruments or market data. <strong>This is the hard part!</strong> If you want to do this for real, I strongly suggest trying to find a niche market, something without a lot of volume, something too small for larger investors to trade in. You are very unlikely to have any kind of advantage trading U.S. equities. You could try to re-create one of the well-known strategies used by some <a class="reference external" href="https://www.blackrock.com/us/financial-professionals/products/factor-etfs#Minimum-Volatility">factor-based ETFs</a>, but you will be at a trading-cost disadvantage.</p></li>
 <li><p><strong>Gather and preprocess data</strong>: Collect relevant historical data for your hypothesis, such as price, volume, and other financial indicators. Preprocess the data to ensure it is clean and consistent, accounting for issues like missing values, outliers, and data errors. This crucial step is why we spent so much time mucking around in <code class="docutils literal notranslate"><span class="pre">pandas</span></code> looking for <strong>NA</strong> values and <a class="reference external" href="https://www.youtube.com/watch?v=0qIMTA4_YdU">bad dates</a>. What are your data sources? Do you have a data advantage? Everyone has moved to <a class="reference external" href="https://data.nasdaq.com/alternative-data">alternative data</a> the past decade, with varying degrees of success. Data costs get very expensive, very quickly. Even just having a Bloomberg terminal is going to be too much for an individual investor. <strong>Play in markets where you don’t need one.</strong></p></li>
 <li><p><strong>Feature engineering and selection</strong>: Create features or variables (features are the machine learning way of saying “variable”) that capture relevant information for your strategy. This could include technical indicators, fundamental analysis, or sentiment analysis. Perform feature selection to identify the most important variables for your strategy. Steps 2 and 3 are the <strong>data engineering</strong> steps. These jobs often <a class="reference external" href="https://www.efinancialcareers.com/news/2023/03/quant-developers-vs-quant-researchers">pay more</a> than the hypothesis development roles!</p></li>
-<li><p><strong>Develop a trading model</strong>: Use your selected features to build a quantitative model. This could involve statistical methods, machine learning techniques, or optimization algorithms. Split your data into training and testing sets to avoid overfitting and to assess your model’s performance. Most of these models are “off the shelf” these days. In other words, there’s little alpha in fancy math. <strong>Linear regression</strong> and logit are commonly used. Even the fanciest machine learning techniques available have already been coded up in Python (or another language) by our friend’s in the computer science world. Still, different techniques come in and out of fashion, so the quant researcher wants to stay up on what’s going on. Then, we just go back to calculating conditional means in our OLS model.</p></li>
+<li><p><strong>Develop a trading model</strong>: Use your selected features to build a quantitative model. This could involve statistical methods, machine learning techniques, or optimization algorithms. Split your data into training and testing sets to avoid overfitting and to assess your model’s performance. Most of these models are “off the shelf” these days. In other words, there’s little alpha in fancy math. <strong>Linear regression</strong> and logit are commonly used. Even the fanciest machine learning techniques available have already been coded up in Python (or another language) by our friends in the computer science world. Still, different techniques come in and out of fashion, so the quant researcher wants to stay up on what’s going on. Then, we just go back to calculating conditional means in our OLS model.</p></li>
 <li><p><strong>Backtesting</strong>: Test your strategy on historical data to evaluate its performance. This step is crucial to determine if the strategy would have been profitable in the past. Assess various performance metrics, such as the Sharpe ratio, maximum drawdown, and annualized returns. <strong>These notes focus on this step</strong>. We are going to use the <a class="reference external" href="https://pypi.org/project/bt/">bt package</a>. There’s obviously much more that goes into it.</p></li>
 <li><p><strong>Risk management</strong>: Incorporate risk management rules to protect your capital and minimize losses. This could include position sizing, stop-loss orders, and diversification techniques.</p></li>
 <li><p><strong>Optimization and sensitivity analysis</strong>: Optimize your strategy’s parameters and perform sensitivity analysis to assess its robustness. Ensure that your strategy is not overly sensitive to small changes in input parameters. We’ve seen these last two steps in previous chapters. Your quant model might use an optimizer to form portfolios, while calculating various risk measures in order to understand sources of returns and the possible downside.</p></li>
 <li><p><strong>Walk-forward analysis or out-of-sample testing</strong>: Validate your strategy on new, unseen data to assess its real-world performance. This step helps to mitigate the risk of overfitting and provides a more realistic assessment of the strategy’s potential success. You are going to find strategies that look great in a backtest. That’s pretty easy, especially if you overfit your model. You will quickly find out that your strategy doesn’t work out-of-sample (i.e. in new data).</p></li>
 <li><p><strong>Implementation</strong>: Develop a trading infrastructure to execute your strategy. This can involve creating a trading algorithm, selecting a broker, and ensuring low-latency execution. Monitor the strategy’s performance and make adjustments as necessary. This step is especially important if your strategy trades a lot – trading costs will destroy any alpha that you have. If you trade less frequently (e.g. every quarter), then it’s not as big a deal.</p></li>
-<li><p><strong>Review and refine</strong>: Continuously monitor and evaluate your strategy’s performance. Update your models and data as needed, and be prepared to refine your strategy if market conditions change or if its performance begins to deteriorate. But, also know when to leave things along. All strategies underperform. You have to know when things are going to revert back to normal vs. when your strategy is cooked.</p></li>
+<li><p><strong>Review and refine</strong>: Continuously monitor and evaluate your strategy’s performance. Update your models and data as needed, and be prepared to refine your strategy if market conditions change or if its performance begins to deteriorate. But, also know when to leave things alone. All strategies underperform at some point. You have to know when things are going to revert back to normal vs. when your strategy is cooked.</p></li>
 </ol>
 </section>
 <section id="ideas-and-resources">
@@ -502,6 +528,7 @@ document.write(`
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># The usual type of set-up.</span>
 <span class="kn">import</span><span class="w"> </span><span class="nn">pandas</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">pd</span>
 <span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">matplotlib.pyplot</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">plt</span>
 <span class="kn">import</span><span class="w"> </span><span class="nn">bt</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">bt</span>
 <span class="kn">import</span><span class="w"> </span><span class="nn">ffn</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">ffn</span>
 
@@ -516,13 +543,14 @@ document.write(`
 </div>
 <section id="step-1-get-your-data">
 <h3>Step 1 - Get your data<a class="headerlink" href="#step-1-get-your-data" title="Link to this heading">#</a></h3>
-<p>The first step is to get the appropriate data. Now, we are going to bring in some basic stock and bond data. This is silly, but instructive. You’ll likely spend a lot of time here dealing with APIs to bring in more unusual data. We’re going to look at a strategy this <strong>just uses prices</strong>. What about fundamental data, like earnings quality? How about text? This is why the data engineering steps are so important.</p>
+<p>The first step is to get the appropriate data. Now, we are going to bring in some basic stock and bond data. This is silly, but instructive. You’ll likely spend a lot of time here dealing with APIs to bring in more unusual data. We’re going to look at a strategy that <strong>just uses prices</strong>. What about fundamental data, like earnings quality? How about text? This is why the data engineering steps are so important.</p>
 <p>Note that <code class="docutils literal notranslate"><span class="pre">ffn.get</span></code> works as well to get data from Yahoo! Finance.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">tickers</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;SPY&#39;</span><span class="p">,</span> <span class="s1">&#39;AGG&#39;</span><span class="p">]</span>
 <span class="n">data</span> <span class="o">=</span> <span class="n">yf</span><span class="o">.</span><span class="n">download</span><span class="p">(</span><span class="n">tickers</span><span class="p">,</span> <span class="n">start</span><span class="o">=</span><span class="s1">&#39;2010-01-01&#39;</span><span class="p">)</span>
-<span class="n">data</span> <span class="o">=</span> <span class="n">data</span><span class="p">[</span><span class="s1">&#39;Close&#39;</span><span class="p">]</span>
+<span class="n">data</span> <span class="o">=</span> <span class="n">data</span><span class="p">[</span><span class="s1">&#39;Close&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
+<span class="n">data</span> <span class="o">=</span> <span class="n">data</span><span class="o">.</span><span class="n">dropna</span><span class="p">()</span>
 <span class="n">data</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
 </pre></div>
 </div>
@@ -567,28 +595,28 @@ document.write(`
   <tbody>
     <tr>
       <th>2010-01-04</th>
-      <td>66.067192</td>
-      <td>85.027977</td>
+      <td>66.067215</td>
+      <td>85.027969</td>
     </tr>
     <tr>
       <th>2010-01-05</th>
       <td>66.367737</td>
-      <td>85.253029</td>
+      <td>85.253044</td>
     </tr>
     <tr>
       <th>2010-01-06</th>
-      <td>66.329384</td>
+      <td>66.329399</td>
       <td>85.313049</td>
     </tr>
     <tr>
       <th>2010-01-07</th>
       <td>66.252655</td>
-      <td>85.673180</td>
+      <td>85.673187</td>
     </tr>
     <tr>
       <th>2010-01-08</th>
-      <td>66.291016</td>
-      <td>85.958267</td>
+      <td>66.291039</td>
+      <td>85.958305</td>
     </tr>
   </tbody>
 </table>
@@ -599,7 +627,7 @@ document.write(`
 <h3>Step 2 - Define your strategy<a class="headerlink" href="#step-2-define-your-strategy" title="Link to this heading">#</a></h3>
 <p>The <code class="docutils literal notranslate"><span class="pre">bt</span></code> package has you create a <strong>strategy object</strong>. This object has a name and contains various characteristics for your strategy, such as how often to run your strategy, the securities to select from your data, your weighting scheme, and your rebalancing frequency.</p>
 <p>The code example below runs monthly, selects all of the securities from the data given to it, weights the securities equally, and then rebalances to get back to those target weights.</p>
-<p>Our strategy is going to be called <strong>ew</strong>, since this strategy is going to end up equally weighting all of the securities each month. Not much of an algo there! It then gets saved as a strategy object also called <strong>ew</strong>.</p>
+<p>Our strategy is going to be called <strong>ew</strong>, since this strategy equally weights all of the securities each month. Not much of an algo there! It then gets saved as a strategy object also called <strong>ew</strong>.</p>
 <p>Note that this <strong>is not</strong> a “buy-and-hold” strategy, since we are rebalancing back to equally weighted each month. There’s a <code class="docutils literal notranslate"><span class="pre">bt.algos.RunOnce</span></code> for that.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -618,11 +646,11 @@ document.write(`
 </div>
 </div>
 </div>
-<p>Now, note that there’s no trading strategy yet. <strong>We haven’t included any real trading logic.</strong> What is an algorithm, or <strong>algo</strong>, in quant trading? Basically, it is a series of rules to get you a boolean (1/0) output. Do you include this security in your portfolio? Do you exclude it? Or, you can add a -1 outcome and ask if you short it.</p>
+<p>Now, note that there’s no real trading strategy yet. <strong>We haven’t included any trading logic.</strong> What is an algorithm, or <strong>algo</strong>, in quant trading? Basically, it is a series of rules to get you a boolean (1/0) output. Do you include this security in your portfolio? Do you exclude it? Or, you can add a -1 outcome and ask if you short it.</p>
 <p>What do I mean by <strong>rules</strong>? This is the trading strategy! Does the security have positive trend? Momentum? Meet some quality measure? Is it being impacted by retail trading flow and will mean revert in the next hour? Are you predicting that the firm will be a target of a shareholder activist? These are all rules that might lead you to go long or short the security.</p>
-<p>Let’s create some actual, simple trading logic. I’ll follow the <a class="reference external" href="http://pmorissette.github.io/bt/examples.html">moving average example</a> from the author. We can then compare strategies.</p>
-<p>I’ll use a 50-day moving average, like the author. We’ll then compare our two securities to their moving average. If they are above, let’s call that positive trend and buy. If not, we’ll exclude them from the portfolio. So, some simple <strong>boolean logic</strong>.</p>
-<p>Again, this is very dumb strategy to do on a stock and a bond index!</p>
+<p>Let’s create some actual, simple trading logic. I’ll follow the <a class="reference external" href="http://pmorissette.github.io/bt/examples.html">moving average example</a> from the <code class="docutils literal notranslate"><span class="pre">bt</span></code> author. We can then compare strategies.</p>
+<p>I’ll use a 50-day moving average, like the author. We’ll then compare our two securities to their moving average. If the price is above the moving average, let’s call that positive trend and buy. If not, we’ll exclude the security from the portfolio. Simple <strong>boolean logic</strong>.</p>
+<p>Again, this is a very simple strategy on a stock and a bond index! We’ll make things more interesting later in this chapter.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">sma</span> <span class="o">=</span> <span class="n">data</span><span class="o">.</span><span class="n">rolling</span><span class="p">(</span><span class="mi">50</span><span class="p">)</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span>
@@ -697,16 +725,6 @@ document.write(`
       <td>...</td>
     </tr>
     <tr>
-      <th>2026-03-03</th>
-      <td>99.976565</td>
-      <td>688.071536</td>
-    </tr>
-    <tr>
-      <th>2026-03-04</th>
-      <td>99.993677</td>
-      <td>688.284597</td>
-    </tr>
-    <tr>
       <th>2026-03-05</th>
       <td>100.007900</td>
       <td>688.298997</td>
@@ -721,9 +739,19 @@ document.write(`
       <td>100.039540</td>
       <td>687.856196</td>
     </tr>
+    <tr>
+      <th>2026-03-10</th>
+      <td>100.047574</td>
+      <td>687.592196</td>
+    </tr>
+    <tr>
+      <th>2026-03-11</th>
+      <td>100.046409</td>
+      <td>687.305496</td>
+    </tr>
   </tbody>
 </table>
-<p>4069 rows × 2 columns</p>
+<p>4071 rows × 2 columns</p>
 </div></div></div>
 </div>
 <p>See how the first rows are missing? This is a 50-day moving average, so you don’t get an average until 50 days have passed.</p>
@@ -735,7 +763,7 @@ document.write(`
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../_images/6e358c155ce1c92501e124c4eb157a65fa25e172dedcc2763947a5203e86a65e.png" src="../_images/6e358c155ce1c92501e124c4eb157a65fa25e172dedcc2763947a5203e86a65e.png" />
+<img alt="../_images/3c8fbef0a68d09ac7c68b11e2b1d4dc40eb4ff01e7e90cc31e590bd1a3def569.png" src="../_images/3c8fbef0a68d09ac7c68b11e2b1d4dc40eb4ff01e7e90cc31e590bd1a3def569.png" />
 </div>
 </div>
 <p>Now, let’s use that <strong>Boolean logic</strong> to create our <strong>signal</strong>. When do we buy? When the price is above the 50-day moving average. Just compare the two DataFrames and get a new one full of <em>True</em> and <em>False</em> values! We’ll call that DataFrame <strong>signal</strong>.</p>
@@ -811,16 +839,6 @@ document.write(`
       <td>...</td>
     </tr>
     <tr>
-      <th>2026-03-03</th>
-      <td>True</td>
-      <td>False</td>
-    </tr>
-    <tr>
-      <th>2026-03-04</th>
-      <td>True</td>
-      <td>False</td>
-    </tr>
-    <tr>
       <th>2026-03-05</th>
       <td>True</td>
       <td>False</td>
@@ -835,9 +853,19 @@ document.write(`
       <td>True</td>
       <td>False</td>
     </tr>
+    <tr>
+      <th>2026-03-10</th>
+      <td>True</td>
+      <td>False</td>
+    </tr>
+    <tr>
+      <th>2026-03-11</th>
+      <td>False</td>
+      <td>False</td>
+    </tr>
   </tbody>
 </table>
-<p>4069 rows × 2 columns</p>
+<p>4071 rows × 2 columns</p>
 </div></div></div>
 </div>
 <p>We can now create a <strong>new strategy</strong> with that logic. The new strategy is called <strong>above50sma</strong> and is saved in the <strong>sma50</strong> object. Notice the new first line that has the <code class="docutils literal notranslate"><span class="pre">.SelectWhere</span></code> method. This is going to select securities where <code class="docutils literal notranslate"><span class="pre">signal</span> <span class="pre">==</span> <span class="pre">True</span></code>.</p>
@@ -855,225 +883,1250 @@ document.write(`
 </section>
 <section id="step-3-backtest-your-strategy">
 <h3>Step 3 - Backtest your strategy<a class="headerlink" href="#step-3-backtest-your-strategy" title="Link to this heading">#</a></h3>
-<p>Once you have your strategy object, you can backtest on your data on a particular strategy. You feed the function <code class="docutils literal notranslate"><span class="pre">bt.Backtest</span></code> your strategy and your data. This creates a <strong>test</strong> object. Then, you use <code class="docutils literal notranslate"><span class="pre">bt.run</span></code> on that object to get your <strong>results</strong>.</p>
+<p>Once you have your strategy object, you can backtest it on your data. You feed the function <code class="docutils literal notranslate"><span class="pre">bt.Backtest</span></code> your strategy and your data. This creates a <strong>test</strong> object. Then, you use <code class="docutils literal notranslate"><span class="pre">bt.run</span></code> on that object to get your <strong>results</strong>.</p>
+<p>One nice feature of <code class="docutils literal notranslate"><span class="pre">bt</span></code>: you can run <strong>multiple backtests at once</strong> and compare them side by side. Let’s do that with our equal-weight and moving average strategies.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">test_ew</span> <span class="o">=</span> <span class="n">bt</span><span class="o">.</span><span class="n">Backtest</span><span class="p">(</span><span class="n">ew</span><span class="p">,</span> <span class="n">data</span><span class="p">)</span>
-<span class="n">res_ew</span> <span class="o">=</span> <span class="n">bt</span><span class="o">.</span><span class="n">run</span><span class="p">(</span><span class="n">test_ew</span><span class="p">)</span>
+<span class="n">test_sma50</span> <span class="o">=</span> <span class="n">bt</span><span class="o">.</span><span class="n">Backtest</span><span class="p">(</span><span class="n">sma50</span><span class="p">,</span> <span class="n">data</span><span class="p">)</span>
 
-<span class="nb">print</span><span class="p">(</span><span class="nb">type</span><span class="p">(</span><span class="n">test_ew</span><span class="p">))</span>
-<span class="nb">print</span><span class="p">(</span><span class="nb">type</span><span class="p">(</span><span class="n">res_ew</span><span class="p">))</span>
+<span class="c1"># Run both backtests together</span>
+<span class="n">res</span> <span class="o">=</span> <span class="n">bt</span><span class="o">.</span><span class="n">run</span><span class="p">(</span><span class="n">test_ew</span><span class="p">,</span> <span class="n">test_sma50</span><span class="p">)</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="nb">type</span><span class="p">(</span><span class="n">res</span><span class="p">))</span>
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>  0%|          | 0/1 [00:00&lt;?, ?it/s]
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>  0%|          | 0/2 [00:00&lt;?, ?it/s]
 </pre></div>
 </div>
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>  0%|          | 0/1 [00:00&lt;?, ?it/s]
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span> 50%|█████     | 1/2 [00:01&lt;00:01,  1.53s/it]
+</pre></div>
+</div>
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>100%|██████████| 2/2 [00:04&lt;00:00,  2.09s/it]
+</pre></div>
+</div>
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>100%|██████████| 2/2 [00:04&lt;00:00,  2.00s/it]
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;class &#39;bt.backtest.Result&#39;&gt;
 </pre></div>
 </div>
 <div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>
 </pre></div>
 </div>
-<div class="output traceback highlight-ipythontb notranslate"><div class="highlight"><pre><span></span><span class="gt">---------------------------------------------------------------------------</span>
-<span class="ne">ValueError</span><span class="g g-Whitespace">                                </span>Traceback (most recent call last)
-<span class="n">Cell</span> <span class="n">In</span><span class="p">[</span><span class="mi">9</span><span class="p">],</span> <span class="n">line</span> <span class="mi">2</span>
-<span class="g g-Whitespace">      </span><span class="mi">1</span> <span class="n">test_ew</span> <span class="o">=</span> <span class="n">bt</span><span class="o">.</span><span class="n">Backtest</span><span class="p">(</span><span class="n">ew</span><span class="p">,</span> <span class="n">data</span><span class="p">)</span>
-<span class="ne">----&gt; </span><span class="mi">2</span> <span class="n">res_ew</span> <span class="o">=</span> <span class="n">bt</span><span class="o">.</span><span class="n">run</span><span class="p">(</span><span class="n">test_ew</span><span class="p">)</span>
-<span class="g g-Whitespace">      </span><span class="mi">4</span> <span class="nb">print</span><span class="p">(</span><span class="nb">type</span><span class="p">(</span><span class="n">test_ew</span><span class="p">))</span>
-<span class="g g-Whitespace">      </span><span class="mi">5</span> <span class="nb">print</span><span class="p">(</span><span class="nb">type</span><span class="p">(</span><span class="n">res_ew</span><span class="p">))</span>
-
-<span class="nn">File ~/Documents/fin-data-analysis-text/.venv/lib/python3.12/site-packages/bt/backtest.py:31,</span> in <span class="ni">run</span><span class="nt">(*backtests)</span>
-<span class="g g-Whitespace">     </span><span class="mi">29</span> <span class="c1"># run each backtest</span>
-<span class="g g-Whitespace">     </span><span class="mi">30</span> <span class="k">for</span> <span class="n">bkt</span> <span class="ow">in</span> <span class="n">tqdm</span><span class="p">(</span><span class="n">backtests</span><span class="p">):</span>
-<span class="ne">---&gt; </span><span class="mi">31</span>     <span class="n">bkt</span><span class="o">.</span><span class="n">run</span><span class="p">()</span>
-<span class="g g-Whitespace">     </span><span class="mi">33</span> <span class="k">return</span> <span class="n">Result</span><span class="p">(</span><span class="o">*</span><span class="n">backtests</span><span class="p">)</span>
-
-<span class="nn">File ~/Documents/fin-data-analysis-text/.venv/lib/python3.12/site-packages/bt/backtest.py:241,</span> in <span class="ni">Backtest.run</span><span class="nt">(self)</span>
-<span class="g g-Whitespace">    </span><span class="mi">237</span>     <span class="n">bar</span> <span class="o">=</span> <span class="n">pyprind</span><span class="o">.</span><span class="n">ProgBar</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">dates</span><span class="p">),</span> <span class="n">title</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">name</span><span class="p">,</span> <span class="n">stream</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
-<span class="g g-Whitespace">    </span><span class="mi">239</span> <span class="c1"># since there is a dummy row at time 0, start backtest at date 1.</span>
-<span class="g g-Whitespace">    </span><span class="mi">240</span> <span class="c1"># we must still update for t0</span>
-<span class="ne">--&gt; </span><span class="mi">241</span> <span class="bp">self</span><span class="o">.</span><span class="n">strategy</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">dates</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
-<span class="g g-Whitespace">    </span><span class="mi">243</span> <span class="c1"># and for the backtest loop, start at date 1</span>
-<span class="g g-Whitespace">    </span><span class="mi">244</span> <span class="k">for</span> <span class="n">dt</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">dates</span><span class="p">[</span><span class="mi">1</span><span class="p">:]:</span>
-<span class="g g-Whitespace">    </span><span class="mi">245</span>     <span class="c1"># update progress bar</span>
-
-<span class="nn">File ~/Documents/fin-data-analysis-text/.venv/lib/python3.12/site-packages/bt/core.py:734,</span> in <span class="ni">bt.core.StrategyBase.update</span><span class="nt">()</span>
-
-<span class="ne">ValueError</span>: assignment destination is read-only
-</pre></div>
 </div>
 </div>
-</div>
-<p>Note the arguments for the backtest function. You give it the strategy <strong>ew</strong> and your <strong>data</strong>. Remember, you data are prices for the securities. The backtest is using these prices to generate returns.</p>
-<p>Let’s run the backtest and results for the moving average strategy as well.</p>
+<p>Note the arguments for the backtest function. You give it the strategy and your <strong>data</strong>. Remember, your data are prices for the securities. The backtest uses these prices to generate returns. We pass both backtests into <code class="docutils literal notranslate"><span class="pre">bt.run</span></code> together so that we can compare them easily.</p>
+<p>With the results object, we can plot the value of both strategies (starting at 100) and look at some descriptive statistics side by side.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">test_sma50</span> <span class="o">=</span> <span class="n">bt</span><span class="o">.</span><span class="n">Backtest</span><span class="p">(</span><span class="n">sma50</span><span class="p">,</span> <span class="n">data</span><span class="p">)</span>
-<span class="n">res_sma50</span>  <span class="o">=</span> <span class="n">bt</span><span class="o">.</span><span class="n">run</span><span class="p">(</span><span class="n">test_sma50</span><span class="p">)</span>
-</pre></div>
-</div>
-</div>
-</div>
-<p>With the results object, we can plot the value of the strategy (starting at 100) and look at some descriptive statistics.</p>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">res_ew</span><span class="o">.</span><span class="n">plot</span><span class="p">();</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">res</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">12</span><span class="p">,</span> <span class="mi">5</span><span class="p">),</span> <span class="n">title</span><span class="o">=</span><span class="s1">&#39;Strategy Comparison: Equal Weight vs. 50-Day SMA&#39;</span><span class="p">);</span>
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../_images/a1ff1968408f95ebec701b5e2d9b9b9167cb2f9ba1b70e39dd81b841848af474.png" src="../_images/a1ff1968408f95ebec701b5e2d9b9b9167cb2f9ba1b70e39dd81b841848af474.png" />
+<img alt="../_images/7d530e74efba434664dc60b270d909cc10e2808ad1e33facf113b74ac973ca59.png" src="../_images/7d530e74efba434664dc60b270d909cc10e2808ad1e33facf113b74ac973ca59.png" />
 </div>
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">res_sma50</span><span class="o">.</span><span class="n">plot</span><span class="p">();</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">res</span><span class="o">.</span><span class="n">display</span><span class="p">()</span>
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../_images/11c0e3a79fe2926796f0b5d643e7ac6bcaaae0245980d2e278edd89b7fd00399.png" src="../_images/11c0e3a79fe2926796f0b5d643e7ac6bcaaae0245980d2e278edd89b7fd00399.png" />
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Stat                 ew          above50sma
+-------------------  ----------  ------------
+Start                2010-01-03  2010-01-03
+End                  2026-03-11  2026-03-11
+Risk-free rate       0.00%       0.00%
+
+Total Return         264.04%     113.77%
+Daily Sharpe         0.95        0.64
+Daily Sortino        1.49        0.95
+CAGR                 8.31%       4.81%
+Max Drawdown         -19.87%     -21.94%
+Calmar Ratio         0.42        0.22
+
+MTD                  -1.43%      -1.40%
+3m                   -0.71%      -5.13%
+6m                   2.04%       -3.96%
+YTD                  -0.37%      -4.24%
+1Y                   13.72%      7.00%
+3Y (ann.)            12.84%      10.32%
+5Y (ann.)            6.61%       3.63%
+10Y (ann.)           8.38%       5.10%
+Since Incep. (ann.)  8.31%       4.81%
+
+Daily Sharpe         0.95        0.64
+Daily Sortino        1.49        0.95
+Daily Mean (ann.)    8.39%       5.01%
+Daily Vol (ann.)     8.80%       7.78%
+Daily Skew           -0.54       -0.91
+Daily Kurt           14.30       10.07
+Best Day             5.08%       3.48%
+Worst Day            -6.63%      -4.35%
+
+Monthly Sharpe       1.06        0.63
+Monthly Sortino      1.95        1.05
+Monthly Mean (ann.)  8.46%       5.03%
+Monthly Vol (ann.)   7.97%       7.99%
+Monthly Skew         -0.35       -0.52
+Monthly Kurt         1.06        1.03
+Best Month           7.57%       6.68%
+Worst Month          -6.68%      -7.97%
+
+Yearly Sharpe        0.94        0.46
+Yearly Sortino       2.12        0.84
+Yearly Mean          8.10%       4.60%
+Yearly Vol           8.64%       9.99%
+Yearly Skew          -1.42       -1.13
+Yearly Kurt          2.40        0.47
+Best Year            19.64%      16.05%
+Worst Year           -15.30%     -17.78%
+
+Avg. Drawdown        -0.86%      -1.22%
+Avg. Drawdown Days   14.86       34.68
+Avg. Up Month        1.88%       1.89%
+Avg. Down Month      -1.93%      -1.72%
+Win Year %           81.25%      75.00%
+Win 12m %            91.30%      76.63%
+</pre></div>
 </div>
 </div>
+</div>
+<p>Let’s also look at <strong>drawdowns</strong>. A drawdown measures the decline from a portfolio’s peak value. This is one of the most important risk measures – investors feel losses more than gains. The <strong>maximum drawdown</strong> tells you the worst peak-to-trough decline over the backtest period. We can calculate drawdowns from the strategy’s price series.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">res_ew</span><span class="o">.</span><span class="n">display</span><span class="p">()</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Calculate and plot drawdowns manually</span>
+<span class="c1"># Drawdown = (current price - running max) / running max</span>
+<span class="n">drawdowns</span> <span class="o">=</span> <span class="n">res</span><span class="o">.</span><span class="n">prices</span> <span class="o">/</span> <span class="n">res</span><span class="o">.</span><span class="n">prices</span><span class="o">.</span><span class="n">cummax</span><span class="p">()</span> <span class="o">-</span> <span class="mi">1</span>
+
+<span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">12</span><span class="p">,</span> <span class="mi">5</span><span class="p">))</span>
+<span class="n">drawdowns</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">ax</span><span class="o">=</span><span class="n">ax</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s1">&#39;Strategy Drawdowns&#39;</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s1">&#39;Drawdown (%)&#39;</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">legend</span><span class="p">()</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">tight_layout</span><span class="p">()</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Stat                 ew
--------------------  ----------
-Start                2010-01-03
-End                  2025-03-27
-Risk-free rate       0.00%
-
-Total Return         223.89%
-Daily Sharpe         0.93
-Daily Sortino        1.44
-CAGR                 8.02%
-Max Drawdown         -19.87%
-Calmar Ratio         0.40
-
-MTD                  -2.48%
-3m                   -1.06%
-6m                   -0.67%
-YTD                  -0.44%
-1Y                   7.18%
-3Y (ann.)            4.99%
-5Y (ann.)            9.23%
-10Y (ann.)           7.20%
-Since Incep. (ann.)  8.02%
-
-Daily Sharpe         0.93
-Daily Sortino        1.44
-Daily Mean (ann.)    8.11%
-Daily Vol (ann.)     8.74%
-Daily Skew           -0.70
-Daily Kurt           13.57
-Best Day             4.77%
-Worst Day            -6.63%
-
-Monthly Sharpe       1.01
-Monthly Sortino      1.86
-Monthly Mean (ann.)  8.23%
-Monthly Vol (ann.)   8.13%
-Monthly Skew         -0.33
-Monthly Kurt         0.96
-Best Month           7.57%
-Worst Month          -6.68%
-
-Yearly Sharpe        0.88
-Yearly Sortino       1.99
-Yearly Mean          7.82%
-Yearly Vol           8.88%
-Yearly Skew          -1.31
-Yearly Kurt          2.05
-Best Year            19.64%
-Worst Year           -15.30%
-
-Avg. Drawdown        -0.87%
-Avg. Drawdown Days   15.22
-Avg. Up Month        1.91%
-Avg. Down Month      -1.99%
-Win Year %           80.00%
-Win 12m %            90.70%
-</pre></div>
+<img alt="../_images/a65c44645617b062580f1ee21bca0bf1ca0eeeee28428da3c35f5130e8b451a2.png" src="../_images/a65c44645617b062580f1ee21bca0bf1ca0eeeee28428da3c35f5130e8b451a2.png" />
 </div>
 </div>
-</div>
+<p>We can also look at the <strong>security weights over time</strong>. This shows you how the portfolio allocation changes at each rebalance. For the equal-weight strategy, you’ll see it stays roughly 50/50. For the SMA strategy, securities drop out when they fall below their moving average.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">res_sma50</span><span class="o">.</span><span class="n">display</span><span class="p">()</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">res</span><span class="o">.</span><span class="n">plot_security_weights</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">12</span><span class="p">,</span> <span class="mi">8</span><span class="p">));</span>
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Stat                 above50sma
--------------------  ------------
-Start                2010-01-03
-End                  2025-03-27
-Risk-free rate       0.00%
-
-Total Return         100.06%
-Daily Sharpe         0.62
-Daily Sortino        0.92
-CAGR                 4.66%
-Max Drawdown         -21.95%
-Calmar Ratio         0.21
-
-MTD                  -0.79%
-3m                   -0.58%
-6m                   1.74%
-YTD                  0.57%
-1Y                   4.11%
-3Y (ann.)            0.39%
-5Y (ann.)            5.05%
-10Y (ann.)           3.51%
-Since Incep. (ann.)  4.66%
-
-Daily Sharpe         0.62
-Daily Sortino        0.92
-Daily Mean (ann.)    4.87%
-Daily Vol (ann.)     7.80%
-Daily Skew           -1.01
-Daily Kurt           9.99
-Best Day             3.48%
-Worst Day            -4.35%
-
-Monthly Sharpe       0.61
-Monthly Sortino      1.01
-Monthly Mean (ann.)  4.91%
-Monthly Vol (ann.)   8.06%
-Monthly Skew         -0.54
-Monthly Kurt         1.08
-Best Month           6.68%
-Worst Month          -7.97%
-
-Yearly Sharpe        0.45
-Yearly Sortino       0.78
-Yearly Mean          4.41%
-Yearly Vol           9.91%
-Yearly Skew          -1.18
-Yearly Kurt          0.76
-Best Year            16.05%
-Worst Year           -17.78%
-
-Avg. Drawdown        -1.29%
-Avg. Drawdown Days   38.29
-Avg. Up Month        1.88%
-Avg. Down Month      -1.74%
-Win Year %           80.00%
-Win 12m %            75.00%
-</pre></div>
+<img alt="../_images/748d89758a80648715c86aca98df615290654d7e35d83cb39ae2a79af451d28b.png" src="../_images/748d89758a80648715c86aca98df615290654d7e35d83cb39ae2a79af451d28b.png" />
 </div>
 </div>
-</div>
-<p>You’d have been much better off equally weighting the two indices and rebalancing each month!</p>
-<p>Finally, notice what we <strong>did not do</strong>. We were just testing a simple strategy. <strong>We didn’t do anything with in-sample vs. out-of-sample data</strong>. We weren’t training a model using one set of data in a backtest and then testing it on some data that we withheld from the strategy development algorithm. When you’re developing a model and not just stating that you’re using one, like our 50-day moving average, things get more complicated.</p>
+<p>You’d have been much better off equally weighting the two indices and rebalancing each month! The SMA strategy spent a lot of time out of the market, missing rallies, and that hurt performance.</p>
+<p>But this was a very simple example with just two securities. Let’s make things more realistic and explore more of what the <code class="docutils literal notranslate"><span class="pre">bt</span></code> package can do.</p>
 </section>
+</section>
+<section id="backtesting-pitfalls">
+<h2>Backtesting Pitfalls<a class="headerlink" href="#backtesting-pitfalls" title="Link to this heading">#</a></h2>
+<p>Before we build more strategies, let’s talk about what can go wrong. Backtesting is seductive – you can always find a strategy that looks great on historical data. The hard part is finding one that works <strong>going forward</strong>. Here are the most common pitfalls.</p>
+<section id="look-ahead-bias">
+<h3>Look-Ahead Bias<a class="headerlink" href="#look-ahead-bias" title="Link to this heading">#</a></h3>
+<p><strong>Look-ahead bias</strong> occurs when your backtest uses information that would not have been available at the time of the trade. For example, if you use tomorrow’s closing price to make today’s trading decision, your backtest will look fantastic, but you’d never be able to replicate it in real time. This also happens with fundamental data – quarterly earnings aren’t available on the last day of the quarter. They’re reported weeks later.</p>
+<p>The <code class="docutils literal notranslate"><span class="pre">bt</span></code> package helps with this by design. When you create a signal using historical prices (like our moving average), you’re only using past data. But be careful when constructing your own signals outside of <code class="docutils literal notranslate"><span class="pre">bt</span></code> – it’s easy to accidentally peek into the future.</p>
+</section>
+<section id="survivorship-bias">
+<h3>Survivorship Bias<a class="headerlink" href="#survivorship-bias" title="Link to this heading">#</a></h3>
+<p><strong>Survivorship bias</strong> happens when your data set only includes securities that still exist today. If a stock went bankrupt in 2015, it won’t show up in today’s Yahoo Finance data. Your backtest never sees the losers, making performance look better than it actually would have been. This is a huge problem with stock data.</p>
+<p>For our examples using ETFs like SPY, this isn’t as big a deal – these are diversified indices. But if you were backtesting a strategy that picks individual stocks, you’d need a database that includes <strong>delisted securities</strong>. That kind of data costs money.</p>
+</section>
+<section id="overfitting">
+<h3>Overfitting<a class="headerlink" href="#overfitting" title="Link to this heading">#</a></h3>
+<p><strong>Overfitting</strong> is the cardinal sin of backtesting. If you try enough parameter combinations, you’ll find something that works beautifully on your historical data but fails on new data. Did you try a 50-day moving average and it didn’t work, so you tried 47 days and that looked better? Congratulations, you may have just overfit your model.</p>
+<p>A good rule of thumb: the simpler the strategy, the less likely it is to be overfit. Strategies with fewer parameters are more robust. If your strategy requires 15 precisely tuned parameters, you’re probably fitting noise, not signal.</p>
+</section>
+<section id="transaction-costs">
+<h3>Transaction Costs<a class="headerlink" href="#transaction-costs" title="Link to this heading">#</a></h3>
+<p>Every trade costs money. There’s the <strong>bid-ask spread</strong> (you buy at the ask and sell at the bid), <strong>commissions</strong> (smaller these days, but not zero for all brokers), and <strong>market impact</strong> (your trade moves the price, especially in less liquid markets). A strategy that rebalances daily with 50 securities will generate a lot of trades. Even small transaction costs compound quickly and can turn a profitable backtest into a losing real-world strategy.</p>
+<p>We’ll see how to add transaction costs to <code class="docutils literal notranslate"><span class="pre">bt</span></code> backtests below.</p>
+</section>
+<section id="data-snooping">
+<h3>Data Snooping<a class="headerlink" href="#data-snooping" title="Link to this heading">#</a></h3>
+<p>Related to overfitting, <strong>data snooping</strong> or <strong>p-hacking</strong> happens when you test many strategies on the same data set. If you test 100 strategies, about 5 will “work” at the 5% significance level purely by chance. The academic literature has grappled with this problem extensively – see the Cam Harvey papers referenced above.</p>
+</section>
+<section id="regime-changes">
+<h3>Regime Changes<a class="headerlink" href="#regime-changes" title="Link to this heading">#</a></h3>
+<p>Markets change over time. Interest rates, volatility, correlations, regulations, and market microstructure all evolve. A strategy calibrated to the low-volatility, low-rate environment of 2012-2019 may not work in a rising rate environment. This is why <strong>out-of-sample testing</strong> is so important – and why you should be skeptical of any backtest that only covers a single market regime.</p>
+</section>
+</section>
+<section id="a-more-realistic-example-trend-following-with-sector-etfs">
+<h2>A More Realistic Example: Trend Following with Sector ETFs<a class="headerlink" href="#a-more-realistic-example-trend-following-with-sector-etfs" title="Link to this heading">#</a></h2>
+<p>Let’s build something more interesting. We’ll use a set of <strong>sector ETFs</strong> and apply a trend-following strategy. This is closer to what a real quantitative strategy might look like, at least in spirit. The universe is larger, we’ll compare multiple signal definitions, and we’ll consider transaction costs.</p>
+<p>Our investment universe will be the major U.S. sector ETFs. These are liquid, have long histories, and each represents a different part of the economy. A trend-following strategy will try to identify which sectors have positive momentum and overweight or buy those, while avoiding sectors in a downtrend.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Sector ETFs - these cover the major S&amp;P 500 sectors</span>
+<span class="n">sector_tickers</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;XLK&#39;</span><span class="p">,</span>  <span class="c1"># Technology</span>
+                  <span class="s1">&#39;XLF&#39;</span><span class="p">,</span>  <span class="c1"># Financials</span>
+                  <span class="s1">&#39;XLV&#39;</span><span class="p">,</span>  <span class="c1"># Health Care</span>
+                  <span class="s1">&#39;XLE&#39;</span><span class="p">,</span>  <span class="c1"># Energy</span>
+                  <span class="s1">&#39;XLY&#39;</span><span class="p">,</span>  <span class="c1"># Consumer Discretionary</span>
+                  <span class="s1">&#39;XLP&#39;</span><span class="p">,</span>  <span class="c1"># Consumer Staples</span>
+                  <span class="s1">&#39;XLI&#39;</span><span class="p">,</span>  <span class="c1"># Industrials</span>
+                  <span class="s1">&#39;XLU&#39;</span><span class="p">,</span>  <span class="c1"># Utilities</span>
+                  <span class="s1">&#39;XLB&#39;</span><span class="p">,</span>  <span class="c1"># Materials</span>
+                  <span class="s1">&#39;XLRE&#39;</span><span class="p">]</span> <span class="c1"># Real Estate (started in 2015)</span>
+
+<span class="n">sector_data</span> <span class="o">=</span> <span class="n">yf</span><span class="o">.</span><span class="n">download</span><span class="p">(</span><span class="n">sector_tickers</span><span class="p">,</span> <span class="n">start</span><span class="o">=</span><span class="s1">&#39;2015-01-01&#39;</span><span class="p">)</span>
+<span class="n">sector_data</span> <span class="o">=</span> <span class="n">sector_data</span><span class="p">[</span><span class="s1">&#39;Close&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
+
+<span class="c1"># Drop any rows with NaN values (incomplete trading days)</span>
+<span class="n">sector_data</span> <span class="o">=</span> <span class="n">sector_data</span><span class="o">.</span><span class="n">dropna</span><span class="p">()</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Data shape: </span><span class="si">{</span><span class="n">sector_data</span><span class="o">.</span><span class="n">shape</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Date range: </span><span class="si">{</span><span class="n">sector_data</span><span class="o">.</span><span class="n">index</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">strftime</span><span class="p">(</span><span class="s1">&#39;%Y-%m-</span><span class="si">%d</span><span class="s1">&#39;</span><span class="p">)</span><span class="si">}</span><span class="s2"> to </span><span class="si">{</span><span class="n">sector_data</span><span class="o">.</span><span class="n">index</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">strftime</span><span class="p">(</span><span class="s1">&#39;%Y-%m-</span><span class="si">%d</span><span class="s1">&#39;</span><span class="p">)</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+<span class="n">sector_data</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[                       0%                       ]
+</pre></div>
+</div>
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[**********            20%                       ]  2 of 10 completed
+[**********            20%                       ]  2 of 10 completed
+</pre></div>
+</div>
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[*******************   40%                       ]  4 of 10 completed
+</pre></div>
+</div>
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[**********************50%                       ]  5 of 10 completed
+[**********************50%                       ]  5 of 10 completed
+[**********************50%                       ]  5 of 10 completed
+[**********************50%                       ]  5 of 10 completed
+</pre></div>
+</div>
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[**********************50%                       ]  5 of 10 completed
+</pre></div>
+</div>
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[*********************100%***********************]  10 of 10 completed
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Data shape: (2620, 10)
+Date range: 2015-10-08 to 2026-03-11
+</pre></div>
+</div>
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>
+</pre></div>
+</div>
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th>Ticker</th>
+      <th>XLB</th>
+      <th>XLE</th>
+      <th>XLF</th>
+      <th>XLI</th>
+      <th>XLK</th>
+      <th>XLP</th>
+      <th>XLRE</th>
+      <th>XLU</th>
+      <th>XLV</th>
+      <th>XLY</th>
+    </tr>
+    <tr>
+      <th>Date</th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>2015-10-08</th>
+      <td>17.947430</td>
+      <td>22.906593</td>
+      <td>15.673985</td>
+      <td>44.282909</td>
+      <td>18.358351</td>
+      <td>37.508671</td>
+      <td>21.185574</td>
+      <td>15.831940</td>
+      <td>57.437988</td>
+      <td>34.710793</td>
+    </tr>
+    <tr>
+      <th>2015-10-09</th>
+      <td>17.939304</td>
+      <td>22.758038</td>
+      <td>15.573468</td>
+      <td>44.432751</td>
+      <td>18.438364</td>
+      <td>37.592262</td>
+      <td>21.150515</td>
+      <td>15.756383</td>
+      <td>57.699333</td>
+      <td>34.751038</td>
+    </tr>
+    <tr>
+      <th>2015-10-12</th>
+      <td>17.784889</td>
+      <td>22.464230</td>
+      <td>15.586876</td>
+      <td>44.441071</td>
+      <td>18.460579</td>
+      <td>37.691082</td>
+      <td>21.283754</td>
+      <td>15.896708</td>
+      <td>57.851086</td>
+      <td>34.916466</td>
+    </tr>
+    <tr>
+      <th>2015-10-13</th>
+      <td>17.715822</td>
+      <td>22.229849</td>
+      <td>15.466250</td>
+      <td>43.966599</td>
+      <td>18.420574</td>
+      <td>37.463051</td>
+      <td>21.150515</td>
+      <td>15.860729</td>
+      <td>57.126068</td>
+      <td>34.728680</td>
+    </tr>
+    <tr>
+      <th>2015-10-14</th>
+      <td>17.858040</td>
+      <td>22.421322</td>
+      <td>15.338930</td>
+      <td>43.492146</td>
+      <td>18.385017</td>
+      <td>37.029823</td>
+      <td>21.150515</td>
+      <td>15.857130</td>
+      <td>57.016441</td>
+      <td>34.375446</td>
+    </tr>
+  </tbody>
+</table>
+</div></div></div>
+</div>
+<section id="strategy-1-buy-and-hold-benchmark">
+<h3>Strategy 1: Buy-and-Hold Benchmark<a class="headerlink" href="#strategy-1-buy-and-hold-benchmark" title="Link to this heading">#</a></h3>
+<p>Every strategy comparison needs a <strong>benchmark</strong>. The simplest benchmark is buy-and-hold: buy equal weights of all sectors on day one and never rebalance. This is your baseline. If your fancy trading strategy can’t beat buy-and-hold, why bother?</p>
+<p>In <code class="docutils literal notranslate"><span class="pre">bt</span></code>, we use <code class="docutils literal notranslate"><span class="pre">bt.algos.RunOnce()</span></code> to set up a buy-and-hold strategy. The algo runs only once at the start, selects all securities, weights them equally, and then sits there.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Buy-and-hold: invest once, never rebalance</span>
+<span class="n">benchmark</span> <span class="o">=</span> <span class="n">bt</span><span class="o">.</span><span class="n">Strategy</span><span class="p">(</span><span class="s1">&#39;buy_and_hold&#39;</span><span class="p">,</span> <span class="p">[</span><span class="n">bt</span><span class="o">.</span><span class="n">algos</span><span class="o">.</span><span class="n">RunOnce</span><span class="p">(),</span>
+                                         <span class="n">bt</span><span class="o">.</span><span class="n">algos</span><span class="o">.</span><span class="n">SelectAll</span><span class="p">(),</span>
+                                         <span class="n">bt</span><span class="o">.</span><span class="n">algos</span><span class="o">.</span><span class="n">WeighEqually</span><span class="p">(),</span>
+                                         <span class="n">bt</span><span class="o">.</span><span class="n">algos</span><span class="o">.</span><span class="n">Rebalance</span><span class="p">()])</span>
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="strategy-2-monthly-rebalanced-equal-weight">
+<h3>Strategy 2: Monthly Rebalanced Equal Weight<a class="headerlink" href="#strategy-2-monthly-rebalanced-equal-weight" title="Link to this heading">#</a></h3>
+<p>Like our earlier example, but across all sectors. Rebalance to equal weight each month. This is an active strategy in the sense that it sells winners and buys losers each month to maintain equal weights – a mild <strong>contrarian</strong> tilt.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Monthly rebalanced equal weight</span>
+<span class="n">ew_monthly</span> <span class="o">=</span> <span class="n">bt</span><span class="o">.</span><span class="n">Strategy</span><span class="p">(</span><span class="s1">&#39;ew_monthly&#39;</span><span class="p">,</span> <span class="p">[</span><span class="n">bt</span><span class="o">.</span><span class="n">algos</span><span class="o">.</span><span class="n">RunMonthly</span><span class="p">(),</span>
+                                        <span class="n">bt</span><span class="o">.</span><span class="n">algos</span><span class="o">.</span><span class="n">SelectAll</span><span class="p">(),</span>
+                                        <span class="n">bt</span><span class="o">.</span><span class="n">algos</span><span class="o">.</span><span class="n">WeighEqually</span><span class="p">(),</span>
+                                        <span class="n">bt</span><span class="o">.</span><span class="n">algos</span><span class="o">.</span><span class="n">Rebalance</span><span class="p">()])</span>
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="strategy-3-sma-crossover-trend-following">
+<h3>Strategy 3: SMA Crossover Trend Following<a class="headerlink" href="#strategy-3-sma-crossover-trend-following" title="Link to this heading">#</a></h3>
+<p>Now for our actual trading strategy. This is a classic <strong>moving average crossover</strong>: buy a sector when its <strong>short-term moving average</strong> crosses above its <strong>long-term moving average</strong>. This is a stronger trend signal than just comparing the price to a single moving average, because the short-term average smooths out daily noise.</p>
+<p>We’ll use a <strong>50-day</strong> and <strong>200-day</strong> moving average. When the 50-day crosses above the 200-day, the sector is in an uptrend (sometimes called a “golden cross” in technical analysis). When it crosses below, the sector is in a downtrend (“death cross”). This is one of the oldest technical indicators out there.</p>
+<p>Sectors that pass the filter get equally weighted. Sectors that don’t pass get excluded – the strategy holds cash for that portion instead.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Calculate short and long moving averages</span>
+<span class="n">sma_short</span> <span class="o">=</span> <span class="n">sector_data</span><span class="o">.</span><span class="n">rolling</span><span class="p">(</span><span class="mi">50</span><span class="p">)</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span>
+<span class="n">sma_long</span> <span class="o">=</span> <span class="n">sector_data</span><span class="o">.</span><span class="n">rolling</span><span class="p">(</span><span class="mi">200</span><span class="p">)</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span>
+
+<span class="c1"># Signal: short MA above long MA = uptrend</span>
+<span class="n">crossover_signal</span> <span class="o">=</span> <span class="n">sma_short</span> <span class="o">&gt;</span> <span class="n">sma_long</span>
+
+<span class="c1"># Let&#39;s look at the signal for one ETF to see what&#39;s happening</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;XLK trend signal (last 10 rows):&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">crossover_signal</span><span class="p">[</span><span class="s1">&#39;XLK&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">tail</span><span class="p">(</span><span class="mi">10</span><span class="p">))</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>XLK trend signal (last 10 rows):
+Date
+2026-02-26    True
+2026-02-27    True
+2026-03-02    True
+2026-03-03    True
+2026-03-04    True
+2026-03-05    True
+2026-03-06    True
+2026-03-09    True
+2026-03-10    True
+2026-03-11    True
+Name: XLK, dtype: bool
+</pre></div>
+</div>
+</div>
+</div>
+<p>Let’s visualize the moving averages and signal for one sector to see what’s going on. When the blue 50-day line is above the orange 200-day line, that’s our buy signal.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">12</span><span class="p">,</span> <span class="mi">5</span><span class="p">))</span>
+
+<span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">sector_data</span><span class="p">[</span><span class="s1">&#39;XLK&#39;</span><span class="p">],</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;XLK Price&#39;</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.5</span><span class="p">,</span> <span class="n">linewidth</span><span class="o">=</span><span class="mf">0.8</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">sma_short</span><span class="p">[</span><span class="s1">&#39;XLK&#39;</span><span class="p">],</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;50-Day SMA&#39;</span><span class="p">,</span> <span class="n">linewidth</span><span class="o">=</span><span class="mf">1.2</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">sma_long</span><span class="p">[</span><span class="s1">&#39;XLK&#39;</span><span class="p">],</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;200-Day SMA&#39;</span><span class="p">,</span> <span class="n">linewidth</span><span class="o">=</span><span class="mf">1.2</span><span class="p">)</span>
+
+<span class="c1"># Shade the regions where we&#39;d be invested</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">fill_between</span><span class="p">(</span><span class="n">crossover_signal</span><span class="o">.</span><span class="n">index</span><span class="p">,</span> 
+                <span class="n">ax</span><span class="o">.</span><span class="n">get_ylim</span><span class="p">()[</span><span class="mi">0</span><span class="p">],</span> <span class="n">ax</span><span class="o">.</span><span class="n">get_ylim</span><span class="p">()[</span><span class="mi">1</span><span class="p">],</span>
+                <span class="n">where</span><span class="o">=</span><span class="n">crossover_signal</span><span class="p">[</span><span class="s1">&#39;XLK&#39;</span><span class="p">],</span> 
+                <span class="n">alpha</span><span class="o">=</span><span class="mf">0.1</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;green&#39;</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;Long Signal&#39;</span><span class="p">)</span>
+
+<span class="n">ax</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s1">&#39;XLK: 50/200 Day Moving Average Crossover&#39;</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s1">&#39;Price ($)&#39;</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">legend</span><span class="p">(</span><span class="n">loc</span><span class="o">=</span><span class="s1">&#39;upper left&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">tight_layout</span><span class="p">()</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../_images/dfa938d1aea197b7bb2d1f7bede056b8ef81e0457d261c2d2d807e8a49da4590.png" src="../_images/dfa938d1aea197b7bb2d1f7bede056b8ef81e0457d261c2d2d807e8a49da4590.png" />
+</div>
+</div>
+<p>Now let’s build the <code class="docutils literal notranslate"><span class="pre">bt</span></code> strategy. We’ll rebalance monthly – we don’t need to trade every day just because we have a daily signal. Monthly rebalancing is more realistic and keeps transaction costs lower. The <code class="docutils literal notranslate"><span class="pre">RunMonthly</span></code> algo checks the signal at the end of each month.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># SMA crossover: only buy sectors in an uptrend (50-day &gt; 200-day)</span>
+<span class="n">sma_crossover</span> <span class="o">=</span> <span class="n">bt</span><span class="o">.</span><span class="n">Strategy</span><span class="p">(</span><span class="s1">&#39;sma_crossover&#39;</span><span class="p">,</span> <span class="p">[</span><span class="n">bt</span><span class="o">.</span><span class="n">algos</span><span class="o">.</span><span class="n">RunMonthly</span><span class="p">(),</span>
+                                               <span class="n">bt</span><span class="o">.</span><span class="n">algos</span><span class="o">.</span><span class="n">SelectWhere</span><span class="p">(</span><span class="n">crossover_signal</span><span class="p">),</span>
+                                               <span class="n">bt</span><span class="o">.</span><span class="n">algos</span><span class="o">.</span><span class="n">WeighEqually</span><span class="p">(),</span>
+                                               <span class="n">bt</span><span class="o">.</span><span class="n">algos</span><span class="o">.</span><span class="n">Rebalance</span><span class="p">()])</span>
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="strategy-4-momentum-return-based-signal">
+<h3>Strategy 4: Momentum (Return-Based Signal)<a class="headerlink" href="#strategy-4-momentum-return-based-signal" title="Link to this heading">#</a></h3>
+<p>Let’s try a different kind of trend signal. Instead of moving averages, we’ll use <strong>past returns</strong> directly. This is a <strong>momentum</strong> strategy: buy the sectors that have done well over the past few months. We’ll rank sectors by their trailing 6-month return and only hold the <strong>top half</strong>.</p>
+<p>Why the top half? In a pure long-only context, we want to concentrate on winners. In a long-short strategy, you’d go long the top and short the bottom. We’ll keep it long-only here.</p>
+<p>The <code class="docutils literal notranslate"><span class="pre">bt</span></code> package has <code class="docutils literal notranslate"><span class="pre">SelectMomentum</span></code> for this – it ranks securities by their trailing return over a <code class="docutils literal notranslate"><span class="pre">lookback</span></code> period and selects the top <code class="docutils literal notranslate"><span class="pre">n</span></code>. We use <code class="docutils literal notranslate"><span class="pre">SelectAll</span></code> first to give it the full universe to rank from.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># How many sectors do we want to hold? Top half.</span>
+<span class="n">n_sectors</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">sector_data</span><span class="o">.</span><span class="n">columns</span><span class="p">)</span>
+<span class="n">n_hold</span> <span class="o">=</span> <span class="n">n_sectors</span> <span class="o">//</span> <span class="mi">2</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Universe: </span><span class="si">{</span><span class="n">n_sectors</span><span class="si">}</span><span class="s2"> sectors, holding top </span><span class="si">{</span><span class="n">n_hold</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+
+<span class="c1"># Momentum strategy: buy the top N sectors by trailing 6-month return</span>
+<span class="c1"># SelectAll first gives SelectMomentum the full universe to rank</span>
+<span class="n">momentum</span> <span class="o">=</span> <span class="n">bt</span><span class="o">.</span><span class="n">Strategy</span><span class="p">(</span><span class="s1">&#39;momentum&#39;</span><span class="p">,</span> <span class="p">[</span><span class="n">bt</span><span class="o">.</span><span class="n">algos</span><span class="o">.</span><span class="n">RunMonthly</span><span class="p">(),</span>
+                                     <span class="n">bt</span><span class="o">.</span><span class="n">algos</span><span class="o">.</span><span class="n">SelectAll</span><span class="p">(),</span>
+                                     <span class="n">bt</span><span class="o">.</span><span class="n">algos</span><span class="o">.</span><span class="n">SelectMomentum</span><span class="p">(</span><span class="n">n</span><span class="o">=</span><span class="n">n_hold</span><span class="p">,</span> 
+                                                             <span class="n">lookback</span><span class="o">=</span><span class="n">pd</span><span class="o">.</span><span class="n">DateOffset</span><span class="p">(</span><span class="n">months</span><span class="o">=</span><span class="mi">6</span><span class="p">)),</span>
+                                     <span class="n">bt</span><span class="o">.</span><span class="n">algos</span><span class="o">.</span><span class="n">WeighEqually</span><span class="p">(),</span>
+                                     <span class="n">bt</span><span class="o">.</span><span class="n">algos</span><span class="o">.</span><span class="n">Rebalance</span><span class="p">()])</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Universe: 10 sectors, holding top 5
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="running-all-strategies">
+<h3>Running All Strategies<a class="headerlink" href="#running-all-strategies" title="Link to this heading">#</a></h3>
+<p>Now let’s run all four strategies and compare them. This is where <code class="docutils literal notranslate"><span class="pre">bt</span></code> really shines – you can run multiple backtests in a single call and get side-by-side comparisons.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Create backtests for all strategies</span>
+<span class="n">test_bh</span> <span class="o">=</span> <span class="n">bt</span><span class="o">.</span><span class="n">Backtest</span><span class="p">(</span><span class="n">benchmark</span><span class="p">,</span> <span class="n">sector_data</span><span class="p">)</span>
+<span class="n">test_ew_m</span> <span class="o">=</span> <span class="n">bt</span><span class="o">.</span><span class="n">Backtest</span><span class="p">(</span><span class="n">ew_monthly</span><span class="p">,</span> <span class="n">sector_data</span><span class="p">)</span>
+<span class="n">test_cross</span> <span class="o">=</span> <span class="n">bt</span><span class="o">.</span><span class="n">Backtest</span><span class="p">(</span><span class="n">sma_crossover</span><span class="p">,</span> <span class="n">sector_data</span><span class="p">)</span>
+<span class="n">test_mom</span> <span class="o">=</span> <span class="n">bt</span><span class="o">.</span><span class="n">Backtest</span><span class="p">(</span><span class="n">momentum</span><span class="p">,</span> <span class="n">sector_data</span><span class="p">)</span>
+
+<span class="c1"># Run them all at once</span>
+<span class="n">sector_res</span> <span class="o">=</span> <span class="n">bt</span><span class="o">.</span><span class="n">run</span><span class="p">(</span><span class="n">test_bh</span><span class="p">,</span> <span class="n">test_ew_m</span><span class="p">,</span> <span class="n">test_cross</span><span class="p">,</span> <span class="n">test_mom</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>  0%|          | 0/4 [00:00&lt;?, ?it/s]
+</pre></div>
+</div>
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span> 25%|██▌       | 1/4 [00:01&lt;00:03,  1.04s/it]
+</pre></div>
+</div>
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span> 50%|█████     | 2/4 [00:02&lt;00:02,  1.42s/it]
+</pre></div>
+</div>
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span> 75%|███████▌  | 3/4 [00:04&lt;00:01,  1.43s/it]
+</pre></div>
+</div>
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>100%|██████████| 4/4 [00:05&lt;00:00,  1.39s/it]
+</pre></div>
+</div>
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>100%|██████████| 4/4 [00:05&lt;00:00,  1.38s/it]
+</pre></div>
+</div>
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">sector_res</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">12</span><span class="p">,</span> <span class="mi">6</span><span class="p">),</span> <span class="n">title</span><span class="o">=</span><span class="s1">&#39;Sector ETF Strategy Comparison&#39;</span><span class="p">);</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../_images/94263d422fb79fe933b1bb45918b2eab2bfcdc04e5ae70828df46acd0921ca8c.png" src="../_images/94263d422fb79fe933b1bb45918b2eab2bfcdc04e5ae70828df46acd0921ca8c.png" />
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">sector_res</span><span class="o">.</span><span class="n">display</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Stat                 buy_and_hold    ew_monthly    sma_crossover    momentum
+-------------------  --------------  ------------  ---------------  ----------
+Start                2015-10-07      2015-10-07    2015-10-07       2015-10-07
+End                  2026-03-11      2026-03-11    2026-03-11       2026-03-11
+Risk-free rate       0.00%           0.00%         0.00%            0.00%
+
+Total Return         230.15%         232.05%       178.88%          183.76%
+Daily Sharpe         0.76            0.77          0.69             0.69
+Daily Sortino        1.17            1.18          1.04             1.05
+CAGR                 12.14%          12.20%        10.34%           10.52%
+Max Drawdown         -35.71%         -36.88%       -34.67%          -35.83%
+Calmar Ratio         0.34            0.33          0.30             0.29
+
+MTD                  -2.60%          -3.11%        -3.14%           -3.53%
+3m                   1.96%           4.48%         3.78%            2.60%
+6m                   5.71%           7.25%         5.91%            4.56%
+YTD                  2.78%           4.96%         4.24%            3.40%
+1Y                   20.47%          18.89%        14.98%           15.29%
+3Y (ann.)            17.18%          16.18%        13.32%           13.18%
+5Y (ann.)            11.34%          11.66%        10.15%           9.18%
+10Y (ann.)           12.49%          12.55%        10.80%           10.99%
+Since Incep. (ann.)  12.14%          12.20%        10.34%           10.52%
+
+Daily Sharpe         0.76            0.77          0.69             0.69
+Daily Sortino        1.17            1.18          1.04             1.05
+Daily Mean (ann.)    12.95%          12.97%        11.20%           11.43%
+Daily Vol (ann.)     17.03%          16.83%        16.29%           16.67%
+Daily Skew           -0.49           -0.58         -0.59            -0.45
+Daily Kurt           19.01           19.75         20.40            20.61
+Best Day             10.04%          10.18%        9.71%            10.62%
+Worst Day            -12.05%         -11.95%       -11.81%          -11.98%
+
+Monthly Sharpe       0.86            0.85          0.79             0.77
+Monthly Sortino      1.49            1.49          1.39             1.37
+Monthly Mean (ann.)  12.32%          12.41%        10.82%           11.07%
+Monthly Vol (ann.)   14.34%          14.55%        13.72%           14.30%
+Monthly Skew         -0.49           -0.46         -0.28            -0.36
+Monthly Kurt         1.10            1.58          1.49             0.80
+Best Month           11.82%          12.99%        13.36%           11.82%
+Worst Month          -13.41%         -14.63%       -12.42%          -12.44%
+
+Yearly Sharpe        0.94            1.00          0.92             1.01
+Yearly Sortino       3.08            4.44          9.27             4.30
+Yearly Mean          12.10%          12.04%        10.27%           10.39%
+Yearly Vol           12.91%          11.99%        11.15%           10.31%
+Yearly Skew          -0.62           -0.14         0.79             -0.06
+Yearly Kurt          0.01            -0.14         -0.26            0.02
+Best Year            29.44%          31.37%        31.14%           27.26%
+Worst Year           -12.17%         -7.49%        -3.51%           -8.03%
+
+Avg. Drawdown        -1.80%          -1.77%        -1.76%           -2.36%
+Avg. Drawdown Days   18.24           18.08         18.98            24.35
+Avg. Up Month        3.20%           3.29%         3.15%            3.42%
+Avg. Down Month      -3.58%          -3.43%        -2.84%           -2.95%
+Win Year %           81.82%          81.82%        81.82%           81.82%
+Win 12m %            88.70%          89.57%        88.70%           92.17%
+</pre></div>
+</div>
+</div>
+</div>
+<p>Let’s look at the drawdowns. This tells us about the <strong>worst periods</strong> for each strategy. A key question: does the trend-following strategy protect you during drawdowns? That’s one of the main selling points of trend following – it gets you out before the big losses.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Calculate drawdowns for sector strategies</span>
+<span class="n">sector_dd</span> <span class="o">=</span> <span class="n">sector_res</span><span class="o">.</span><span class="n">prices</span> <span class="o">/</span> <span class="n">sector_res</span><span class="o">.</span><span class="n">prices</span><span class="o">.</span><span class="n">cummax</span><span class="p">()</span> <span class="o">-</span> <span class="mi">1</span>
+
+<span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">12</span><span class="p">,</span> <span class="mi">6</span><span class="p">))</span>
+<span class="n">sector_dd</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">ax</span><span class="o">=</span><span class="n">ax</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s1">&#39;Strategy Drawdowns&#39;</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s1">&#39;Drawdown (%)&#39;</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">legend</span><span class="p">()</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">tight_layout</span><span class="p">()</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../_images/b5bfb1d6ef17eb35f8d944be52caaf11b6180892de94815f731fb7bf2d1e4445.png" src="../_images/b5bfb1d6ef17eb35f8d944be52caaf11b6180892de94815f731fb7bf2d1e4445.png" />
+</div>
+</div>
+<p>Now let’s look at how the portfolio weights change over time for the SMA crossover strategy. This shows which sectors the strategy is invested in at each point. When a sector drops below the moving average crossover, it gets excluded and the remaining sectors share the portfolio equally.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">sector_res</span><span class="o">.</span><span class="n">plot_security_weights</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">12</span><span class="p">,</span> <span class="mi">10</span><span class="p">));</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../_images/4934d3810c562d1d3e6c7a767d966d98f15d46295556f824188a6bd2ae0e313f.png" src="../_images/4934d3810c562d1d3e6c7a767d966d98f15d46295556f824188a6bd2ae0e313f.png" />
+</div>
+</div>
+</section>
+</section>
+<section id="adding-transaction-costs">
+<h2>Adding Transaction Costs<a class="headerlink" href="#adding-transaction-costs" title="Link to this heading">#</a></h2>
+<p>So far, our backtests assume <strong>zero transaction costs</strong>. That’s not realistic. Every time you buy or sell, you incur costs. For liquid ETFs, these costs are small but not zero. A reasonable estimate might be <strong>10 basis points (0.10%)</strong> per trade for ETFs, accounting for bid-ask spreads and any commissions. For less liquid securities, costs could be much higher.</p>
+<p>The <code class="docutils literal notranslate"><span class="pre">bt.Backtest</span></code> function accepts a <code class="docutils literal notranslate"><span class="pre">commissions</span></code> argument. This is specified as a function that takes the quantity and price and returns the commission cost. We can use a simple percentage-based cost.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Define a simple commission function: 10 bps (0.10%) per trade</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">commission_10bps</span><span class="p">(</span><span class="n">q</span><span class="p">,</span> <span class="n">p</span><span class="p">):</span>
+    <span class="k">return</span> <span class="nb">abs</span><span class="p">(</span><span class="n">q</span><span class="p">)</span> <span class="o">*</span> <span class="n">p</span> <span class="o">*</span> <span class="mf">0.001</span>
+
+<span class="c1"># Need new strategy objects -- bt doesn&#39;t let you reuse them</span>
+<span class="n">benchmark_tc</span> <span class="o">=</span> <span class="n">bt</span><span class="o">.</span><span class="n">Strategy</span><span class="p">(</span><span class="s1">&#39;buy_and_hold&#39;</span><span class="p">,</span> <span class="p">[</span><span class="n">bt</span><span class="o">.</span><span class="n">algos</span><span class="o">.</span><span class="n">RunOnce</span><span class="p">(),</span> <span class="n">bt</span><span class="o">.</span><span class="n">algos</span><span class="o">.</span><span class="n">SelectAll</span><span class="p">(),</span>
+                                             <span class="n">bt</span><span class="o">.</span><span class="n">algos</span><span class="o">.</span><span class="n">WeighEqually</span><span class="p">(),</span> <span class="n">bt</span><span class="o">.</span><span class="n">algos</span><span class="o">.</span><span class="n">Rebalance</span><span class="p">()])</span>
+<span class="n">ew_monthly_tc</span> <span class="o">=</span> <span class="n">bt</span><span class="o">.</span><span class="n">Strategy</span><span class="p">(</span><span class="s1">&#39;ew_monthly&#39;</span><span class="p">,</span> <span class="p">[</span><span class="n">bt</span><span class="o">.</span><span class="n">algos</span><span class="o">.</span><span class="n">RunMonthly</span><span class="p">(),</span> <span class="n">bt</span><span class="o">.</span><span class="n">algos</span><span class="o">.</span><span class="n">SelectAll</span><span class="p">(),</span>
+                                            <span class="n">bt</span><span class="o">.</span><span class="n">algos</span><span class="o">.</span><span class="n">WeighEqually</span><span class="p">(),</span> <span class="n">bt</span><span class="o">.</span><span class="n">algos</span><span class="o">.</span><span class="n">Rebalance</span><span class="p">()])</span>
+<span class="n">sma_crossover_tc</span> <span class="o">=</span> <span class="n">bt</span><span class="o">.</span><span class="n">Strategy</span><span class="p">(</span><span class="s1">&#39;sma_crossover&#39;</span><span class="p">,</span> <span class="p">[</span><span class="n">bt</span><span class="o">.</span><span class="n">algos</span><span class="o">.</span><span class="n">RunMonthly</span><span class="p">(),</span> 
+                                                   <span class="n">bt</span><span class="o">.</span><span class="n">algos</span><span class="o">.</span><span class="n">SelectWhere</span><span class="p">(</span><span class="n">crossover_signal</span><span class="p">),</span>
+                                                   <span class="n">bt</span><span class="o">.</span><span class="n">algos</span><span class="o">.</span><span class="n">WeighEqually</span><span class="p">(),</span> <span class="n">bt</span><span class="o">.</span><span class="n">algos</span><span class="o">.</span><span class="n">Rebalance</span><span class="p">()])</span>
+<span class="n">momentum_tc</span> <span class="o">=</span> <span class="n">bt</span><span class="o">.</span><span class="n">Strategy</span><span class="p">(</span><span class="s1">&#39;momentum&#39;</span><span class="p">,</span> <span class="p">[</span><span class="n">bt</span><span class="o">.</span><span class="n">algos</span><span class="o">.</span><span class="n">RunMonthly</span><span class="p">(),</span> <span class="n">bt</span><span class="o">.</span><span class="n">algos</span><span class="o">.</span><span class="n">SelectAll</span><span class="p">(),</span>
+                                        <span class="n">bt</span><span class="o">.</span><span class="n">algos</span><span class="o">.</span><span class="n">SelectMomentum</span><span class="p">(</span><span class="n">n</span><span class="o">=</span><span class="n">n_hold</span><span class="p">,</span> 
+                                                                <span class="n">lookback</span><span class="o">=</span><span class="n">pd</span><span class="o">.</span><span class="n">DateOffset</span><span class="p">(</span><span class="n">months</span><span class="o">=</span><span class="mi">6</span><span class="p">)),</span>
+                                        <span class="n">bt</span><span class="o">.</span><span class="n">algos</span><span class="o">.</span><span class="n">WeighEqually</span><span class="p">(),</span> <span class="n">bt</span><span class="o">.</span><span class="n">algos</span><span class="o">.</span><span class="n">Rebalance</span><span class="p">()])</span>
+
+<span class="c1"># Re-run our strategies with transaction costs</span>
+<span class="n">test_bh_tc</span> <span class="o">=</span> <span class="n">bt</span><span class="o">.</span><span class="n">Backtest</span><span class="p">(</span><span class="n">benchmark_tc</span><span class="p">,</span> <span class="n">sector_data</span><span class="p">,</span> <span class="n">commissions</span><span class="o">=</span><span class="n">commission_10bps</span><span class="p">)</span>
+<span class="n">test_ew_tc</span> <span class="o">=</span> <span class="n">bt</span><span class="o">.</span><span class="n">Backtest</span><span class="p">(</span><span class="n">ew_monthly_tc</span><span class="p">,</span> <span class="n">sector_data</span><span class="p">,</span> <span class="n">commissions</span><span class="o">=</span><span class="n">commission_10bps</span><span class="p">)</span>
+<span class="n">test_cross_tc</span> <span class="o">=</span> <span class="n">bt</span><span class="o">.</span><span class="n">Backtest</span><span class="p">(</span><span class="n">sma_crossover_tc</span><span class="p">,</span> <span class="n">sector_data</span><span class="p">,</span> <span class="n">commissions</span><span class="o">=</span><span class="n">commission_10bps</span><span class="p">)</span>
+<span class="n">test_mom_tc</span> <span class="o">=</span> <span class="n">bt</span><span class="o">.</span><span class="n">Backtest</span><span class="p">(</span><span class="n">momentum_tc</span><span class="p">,</span> <span class="n">sector_data</span><span class="p">,</span> <span class="n">commissions</span><span class="o">=</span><span class="n">commission_10bps</span><span class="p">)</span>
+
+<span class="n">sector_res_tc</span> <span class="o">=</span> <span class="n">bt</span><span class="o">.</span><span class="n">run</span><span class="p">(</span><span class="n">test_bh_tc</span><span class="p">,</span> <span class="n">test_ew_tc</span><span class="p">,</span> <span class="n">test_cross_tc</span><span class="p">,</span> <span class="n">test_mom_tc</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>  0%|          | 0/4 [00:00&lt;?, ?it/s]
+</pre></div>
+</div>
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span> 25%|██▌       | 1/4 [00:01&lt;00:03,  1.01s/it]
+</pre></div>
+</div>
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span> 50%|█████     | 2/4 [00:02&lt;00:02,  1.40s/it]
+</pre></div>
+</div>
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span> 75%|███████▌  | 3/4 [00:04&lt;00:01,  1.43s/it]
+</pre></div>
+</div>
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>100%|██████████| 4/4 [00:05&lt;00:00,  1.37s/it]
+</pre></div>
+</div>
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>100%|██████████| 4/4 [00:05&lt;00:00,  1.36s/it]
+</pre></div>
+</div>
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">sector_res_tc</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">12</span><span class="p">,</span> <span class="mi">6</span><span class="p">),</span> <span class="n">title</span><span class="o">=</span><span class="s1">&#39;Strategy Comparison with 10 bps Transaction Costs&#39;</span><span class="p">);</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../_images/6c94141a926d9ed243529de18b06310c1523c750c1269851991bab652e46f670.png" src="../_images/6c94141a926d9ed243529de18b06310c1523c750c1269851991bab652e46f670.png" />
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">sector_res_tc</span><span class="o">.</span><span class="n">display</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Stat                 buy_and_hold    ew_monthly    sma_crossover    momentum
+-------------------  --------------  ------------  ---------------  ----------
+Start                2015-10-07      2015-10-07    2015-10-07       2015-10-07
+End                  2026-03-11      2026-03-11    2026-03-11       2026-03-11
+Risk-free rate       0.00%           0.00%         0.00%            0.00%
+
+Total Return         229.81%         230.65%       169.44%          169.37%
+Daily Sharpe         0.76            0.77          0.67             0.66
+Daily Sortino        1.17            1.18          1.01             1.01
+CAGR                 12.13%          12.15%        9.97%            9.97%
+Max Drawdown         -35.71%         -36.88%       -34.67%          -35.83%
+Calmar Ratio         0.34            0.33          0.29             0.28
+
+MTD                  -2.60%          -3.12%        -3.16%           -3.58%
+3m                   1.96%           4.47%         3.72%            2.43%
+6m                   5.71%           7.23%         5.81%            4.26%
+YTD                  2.77%           4.95%         4.18%            3.23%
+1Y                   20.47%          18.85%        14.50%           14.55%
+3Y (ann.)            17.18%          16.14%        12.89%           12.55%
+5Y (ann.)            11.34%          11.62%        9.76%            8.61%
+10Y (ann.)           12.49%          12.51%        10.42%           10.42%
+Since Incep. (ann.)  12.13%          12.15%        9.97%            9.97%
+
+Daily Sharpe         0.76            0.77          0.67             0.66
+Daily Sortino        1.17            1.18          1.01             1.01
+Daily Mean (ann.)    12.94%          12.93%        10.87%           10.93%
+Daily Vol (ann.)     17.03%          16.83%        16.30%           16.67%
+Daily Skew           -0.49           -0.58         -0.59            -0.45
+Daily Kurt           19.01           19.75         20.38            20.59
+Best Day             10.04%          10.18%        9.71%            10.62%
+Worst Day            -12.05%         -11.95%       -11.81%          -11.98%
+
+Monthly Sharpe       0.86            0.85          0.77             0.74
+Monthly Sortino      1.49            1.49          1.34             1.30
+Monthly Mean (ann.)  12.32%          12.38%        10.49%           10.57%
+Monthly Vol (ann.)   14.34%          14.55%        13.70%           14.30%
+Monthly Skew         -0.49           -0.46         -0.28            -0.36
+Monthly Kurt         1.10            1.58          1.49             0.79
+Best Month           11.82%          12.99%        13.36%           11.82%
+Worst Month          -13.41%         -14.63%       -12.42%          -12.44%
+
+Yearly Sharpe        0.94            1.00          0.89             0.96
+Yearly Sortino       3.08            4.40          7.94             3.77
+Yearly Mean          12.10%          12.01%        9.93%            9.87%
+Yearly Vol           12.91%          11.99%        11.21%           10.27%
+Yearly Skew          -0.62           -0.14         0.80             -0.08
+Yearly Kurt          0.01            -0.14         -0.23            0.07
+Best Year            29.44%          31.33%        31.07%           26.58%
+Worst Year           -12.17%         -7.52%        -3.89%           -8.66%
+
+Avg. Drawdown        -1.81%          -1.79%        -1.78%           -2.46%
+Avg. Drawdown Days   18.36           18.32         19.85            25.66
+Avg. Up Month        3.20%           3.29%         3.12%            3.42%
+Avg. Down Month      -3.58%          -3.43%        -2.86%           -2.93%
+Win Year %           81.82%          81.82%        81.82%           81.82%
+Win 12m %            88.70%          89.57%        87.83%           90.43%
+</pre></div>
+</div>
+</div>
+</div>
+<p>Compare these results to the zero-cost versions above. Transaction costs hurt the more active strategies (momentum, SMA crossover) more than buy-and-hold. This is a fundamental insight: <strong>the more you trade, the more you pay</strong>. Your strategy needs to generate enough alpha to overcome those costs. The buy-and-hold strategy barely notices, since it only trades once.</p>
+</section>
+<section id="in-sample-vs-out-of-sample-testing">
+<h2>In-Sample vs. Out-of-Sample Testing<a class="headerlink" href="#in-sample-vs-out-of-sample-testing" title="Link to this heading">#</a></h2>
+<p>One of the most important concepts in backtesting is the distinction between <strong>in-sample</strong> and <strong>out-of-sample</strong> data.</p>
+<ul class="simple">
+<li><p><strong>In-sample</strong> (training): the data you use to develop and calibrate your strategy. You look at the data, spot patterns, and design your rules.</p></li>
+<li><p><strong>Out-of-sample</strong> (testing): data that you <strong>set aside</strong> and don’t look at until your strategy is finalized. This tells you how the strategy would have performed on data it’s never seen.</p></li>
+</ul>
+<p>Why does this matter? Because it’s easy to design a strategy that works on data you’ve already seen. That’s just curve fitting. The real test is whether your strategy generalizes to new data.</p>
+<p>Let’s split our sector data in half and see how our strategies perform in each period. We’ll use the first half to “develop” our strategy (in-sample) and the second half to test it (out-of-sample). Note that our simple moving average strategy doesn’t have parameters that we optimized on the in-sample data – we picked 50 and 200 days based on convention, not because we searched for the best values. But even so, it’s instructive to see how performance differs across time periods.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Split data roughly in half</span>
+<span class="n">midpoint</span> <span class="o">=</span> <span class="n">sector_data</span><span class="o">.</span><span class="n">index</span><span class="p">[</span><span class="nb">len</span><span class="p">(</span><span class="n">sector_data</span><span class="p">)</span> <span class="o">//</span> <span class="mi">2</span><span class="p">]</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Split date: </span><span class="si">{</span><span class="n">midpoint</span><span class="o">.</span><span class="n">strftime</span><span class="p">(</span><span class="s1">&#39;%Y-%m-</span><span class="si">%d</span><span class="s1">&#39;</span><span class="p">)</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;In-sample:    </span><span class="si">{</span><span class="n">sector_data</span><span class="o">.</span><span class="n">index</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">strftime</span><span class="p">(</span><span class="s1">&#39;%Y-%m-</span><span class="si">%d</span><span class="s1">&#39;</span><span class="p">)</span><span class="si">}</span><span class="s2"> to </span><span class="si">{</span><span class="n">midpoint</span><span class="o">.</span><span class="n">strftime</span><span class="p">(</span><span class="s1">&#39;%Y-%m-</span><span class="si">%d</span><span class="s1">&#39;</span><span class="p">)</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Out-of-sample: </span><span class="si">{</span><span class="n">midpoint</span><span class="o">.</span><span class="n">strftime</span><span class="p">(</span><span class="s1">&#39;%Y-%m-</span><span class="si">%d</span><span class="s1">&#39;</span><span class="p">)</span><span class="si">}</span><span class="s2"> to </span><span class="si">{</span><span class="n">sector_data</span><span class="o">.</span><span class="n">index</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">strftime</span><span class="p">(</span><span class="s1">&#39;%Y-%m-</span><span class="si">%d</span><span class="s1">&#39;</span><span class="p">)</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+
+<span class="n">data_in</span> <span class="o">=</span> <span class="n">sector_data</span><span class="o">.</span><span class="n">loc</span><span class="p">[:</span><span class="n">midpoint</span><span class="p">]</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
+<span class="n">data_out</span> <span class="o">=</span> <span class="n">sector_data</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">midpoint</span><span class="p">:]</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Split date: 2020-12-21
+In-sample:    2015-10-08 to 2020-12-21
+Out-of-sample: 2020-12-21 to 2026-03-11
+</pre></div>
+</div>
+</div>
+</div>
+<p>We need to redefine our strategies for each sub-period. The <code class="docutils literal notranslate"><span class="pre">bt</span></code> package requires new strategy objects for each backtest (you can’t reuse the same strategy object). Note that for the SMA crossover strategy, the signal is recalculated from the data in each sub-period.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Recalculate signals for each sub-period</span>
+<span class="n">signal_in</span> <span class="o">=</span> <span class="n">data_in</span><span class="o">.</span><span class="n">rolling</span><span class="p">(</span><span class="mi">50</span><span class="p">)</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span> <span class="o">&gt;</span> <span class="n">data_in</span><span class="o">.</span><span class="n">rolling</span><span class="p">(</span><span class="mi">200</span><span class="p">)</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span>
+<span class="n">signal_out</span> <span class="o">=</span> <span class="n">data_out</span><span class="o">.</span><span class="n">rolling</span><span class="p">(</span><span class="mi">50</span><span class="p">)</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span> <span class="o">&gt;</span> <span class="n">data_out</span><span class="o">.</span><span class="n">rolling</span><span class="p">(</span><span class="mi">200</span><span class="p">)</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span>
+
+<span class="c1"># In-sample strategies</span>
+<span class="n">bh_in</span> <span class="o">=</span> <span class="n">bt</span><span class="o">.</span><span class="n">Strategy</span><span class="p">(</span><span class="s1">&#39;buy_and_hold&#39;</span><span class="p">,</span> <span class="p">[</span><span class="n">bt</span><span class="o">.</span><span class="n">algos</span><span class="o">.</span><span class="n">RunOnce</span><span class="p">(),</span> <span class="n">bt</span><span class="o">.</span><span class="n">algos</span><span class="o">.</span><span class="n">SelectAll</span><span class="p">(),</span> 
+                                      <span class="n">bt</span><span class="o">.</span><span class="n">algos</span><span class="o">.</span><span class="n">WeighEqually</span><span class="p">(),</span> <span class="n">bt</span><span class="o">.</span><span class="n">algos</span><span class="o">.</span><span class="n">Rebalance</span><span class="p">()])</span>
+<span class="n">cross_in</span> <span class="o">=</span> <span class="n">bt</span><span class="o">.</span><span class="n">Strategy</span><span class="p">(</span><span class="s1">&#39;sma_crossover&#39;</span><span class="p">,</span> <span class="p">[</span><span class="n">bt</span><span class="o">.</span><span class="n">algos</span><span class="o">.</span><span class="n">RunMonthly</span><span class="p">(),</span> <span class="n">bt</span><span class="o">.</span><span class="n">algos</span><span class="o">.</span><span class="n">SelectWhere</span><span class="p">(</span><span class="n">signal_in</span><span class="p">),</span>
+                                          <span class="n">bt</span><span class="o">.</span><span class="n">algos</span><span class="o">.</span><span class="n">WeighEqually</span><span class="p">(),</span> <span class="n">bt</span><span class="o">.</span><span class="n">algos</span><span class="o">.</span><span class="n">Rebalance</span><span class="p">()])</span>
+
+<span class="c1"># Out-of-sample strategies</span>
+<span class="n">bh_out</span> <span class="o">=</span> <span class="n">bt</span><span class="o">.</span><span class="n">Strategy</span><span class="p">(</span><span class="s1">&#39;buy_and_hold&#39;</span><span class="p">,</span> <span class="p">[</span><span class="n">bt</span><span class="o">.</span><span class="n">algos</span><span class="o">.</span><span class="n">RunOnce</span><span class="p">(),</span> <span class="n">bt</span><span class="o">.</span><span class="n">algos</span><span class="o">.</span><span class="n">SelectAll</span><span class="p">(),</span> 
+                                       <span class="n">bt</span><span class="o">.</span><span class="n">algos</span><span class="o">.</span><span class="n">WeighEqually</span><span class="p">(),</span> <span class="n">bt</span><span class="o">.</span><span class="n">algos</span><span class="o">.</span><span class="n">Rebalance</span><span class="p">()])</span>
+<span class="n">cross_out</span> <span class="o">=</span> <span class="n">bt</span><span class="o">.</span><span class="n">Strategy</span><span class="p">(</span><span class="s1">&#39;sma_crossover&#39;</span><span class="p">,</span> <span class="p">[</span><span class="n">bt</span><span class="o">.</span><span class="n">algos</span><span class="o">.</span><span class="n">RunMonthly</span><span class="p">(),</span> <span class="n">bt</span><span class="o">.</span><span class="n">algos</span><span class="o">.</span><span class="n">SelectWhere</span><span class="p">(</span><span class="n">signal_out</span><span class="p">),</span>
+                                           <span class="n">bt</span><span class="o">.</span><span class="n">algos</span><span class="o">.</span><span class="n">WeighEqually</span><span class="p">(),</span> <span class="n">bt</span><span class="o">.</span><span class="n">algos</span><span class="o">.</span><span class="n">Rebalance</span><span class="p">()])</span>
+
+<span class="c1"># Run backtests</span>
+<span class="n">res_in</span> <span class="o">=</span> <span class="n">bt</span><span class="o">.</span><span class="n">run</span><span class="p">(</span><span class="n">bt</span><span class="o">.</span><span class="n">Backtest</span><span class="p">(</span><span class="n">bh_in</span><span class="p">,</span> <span class="n">data_in</span><span class="p">),</span> <span class="n">bt</span><span class="o">.</span><span class="n">Backtest</span><span class="p">(</span><span class="n">cross_in</span><span class="p">,</span> <span class="n">data_in</span><span class="p">))</span>
+<span class="n">res_out</span> <span class="o">=</span> <span class="n">bt</span><span class="o">.</span><span class="n">run</span><span class="p">(</span><span class="n">bt</span><span class="o">.</span><span class="n">Backtest</span><span class="p">(</span><span class="n">bh_out</span><span class="p">,</span> <span class="n">data_out</span><span class="p">),</span> <span class="n">bt</span><span class="o">.</span><span class="n">Backtest</span><span class="p">(</span><span class="n">cross_out</span><span class="p">,</span> <span class="n">data_out</span><span class="p">))</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>  0%|          | 0/2 [00:00&lt;?, ?it/s]
+</pre></div>
+</div>
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span> 50%|█████     | 1/2 [00:00&lt;00:00,  1.89it/s]
+</pre></div>
+</div>
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>100%|██████████| 2/2 [00:01&lt;00:00,  1.58it/s]
+</pre></div>
+</div>
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>100%|██████████| 2/2 [00:01&lt;00:00,  1.62it/s]
+</pre></div>
+</div>
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>
+</pre></div>
+</div>
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>  0%|          | 0/2 [00:00&lt;?, ?it/s]
+</pre></div>
+</div>
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span> 50%|█████     | 1/2 [00:00&lt;00:00,  1.96it/s]
+</pre></div>
+</div>
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>100%|██████████| 2/2 [00:01&lt;00:00,  1.62it/s]
+</pre></div>
+</div>
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>100%|██████████| 2/2 [00:01&lt;00:00,  1.67it/s]
+</pre></div>
+</div>
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">fig</span><span class="p">,</span> <span class="n">axes</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">14</span><span class="p">,</span> <span class="mi">5</span><span class="p">))</span>
+
+<span class="n">res_in</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">ax</span><span class="o">=</span><span class="n">axes</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+<span class="n">axes</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s1">&#39;In-Sample Performance&#39;</span><span class="p">)</span>
+
+<span class="n">res_out</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">ax</span><span class="o">=</span><span class="n">axes</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span>
+<span class="n">axes</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s1">&#39;Out-of-Sample Performance&#39;</span><span class="p">)</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">tight_layout</span><span class="p">()</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../_images/d4292122a5c904250f8c554c60c5f737be2608e7cc7f67320c3de568a210c8cc.png" src="../_images/d4292122a5c904250f8c554c60c5f737be2608e7cc7f67320c3de568a210c8cc.png" />
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="s2">&quot;=== In-Sample Results ===&quot;</span><span class="p">)</span>
+<span class="n">res_in</span><span class="o">.</span><span class="n">display</span><span class="p">()</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">=== Out-of-Sample Results ===&quot;</span><span class="p">)</span>
+<span class="n">res_out</span><span class="o">.</span><span class="n">display</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>=== In-Sample Results ===
+Stat                 buy_and_hold    sma_crossover
+-------------------  --------------  ---------------
+Start                2015-10-07      2015-10-07
+End                  2020-12-21      2020-12-21
+Risk-free rate       0.00%           0.00%
+
+Total Return         79.76%          56.92%
+Daily Sharpe         0.70            0.59
+Daily Sortino        1.04            0.86
+CAGR                 11.92%          9.04%
+Max Drawdown         -35.71%         -34.67%
+Calmar Ratio         0.33            0.26
+
+MTD                  1.41%           0.98%
+3m                   12.09%          10.18%
+6m                   18.60%          21.65%
+YTD                  10.49%          6.72%
+1Y                   10.96%          7.14%
+3Y (ann.)            10.18%          9.35%
+5Y (ann.)            12.60%          9.43%
+10Y (ann.)           -               -
+Since Incep. (ann.)  11.92%          9.04%
+
+Daily Sharpe         0.70            0.59
+Daily Sortino        1.04            0.86
+Daily Mean (ann.)    13.01%          10.16%
+Daily Vol (ann.)     18.58%          17.27%
+Daily Skew           -0.77           -0.79
+Daily Kurt           23.61           29.38
+Best Day             10.04%          9.71%
+Worst Day            -12.05%         -11.81%
+
+Monthly Sharpe       0.83            0.74
+Monthly Sortino      1.35            1.18
+Monthly Mean (ann.)  11.99%          9.60%
+Monthly Vol (ann.)   14.39%          13.02%
+Monthly Skew         -0.65           -0.61
+Monthly Kurt         2.69            2.85
+Best Month           11.82%          10.15%
+Worst Month          -13.41%         -12.42%
+
+Yearly Sharpe        1.01            0.81
+Yearly Sortino       4.74            6.36
+Yearly Mean          12.86%          9.98%
+Yearly Vol           12.74%          12.35%
+Yearly Skew          -0.53           0.49
+Yearly Kurt          1.18            -1.47
+Best Year            28.74%          26.74%
+Worst Year           -6.07%          -3.51%
+
+Avg. Drawdown        -1.91%          -1.61%
+Avg. Drawdown Days   18.81           17.88
+Avg. Up Month        2.80%           2.77%
+Avg. Down Month      -3.77%          -2.32%
+Win Year %           80.00%          80.00%
+Win 12m %            96.15%          86.54%
+
+=== Out-of-Sample Results ===
+Stat                 buy_and_hold    sma_crossover
+-------------------  --------------  ---------------
+Start                2020-12-20      2020-12-20
+End                  2026-03-11      2026-03-11
+Risk-free rate       0.00%           0.00%
+
+Total Return         89.87%          38.51%
+Daily Sharpe         0.91            0.51
+Daily Sortino        1.47            0.79
+CAGR                 13.07%          6.44%
+Max Drawdown         -17.56%         -16.89%
+Calmar Ratio         0.74            0.38
+
+MTD                  -2.57%          -3.14%
+3m                   5.17%           3.78%
+6m                   8.27%           5.91%
+YTD                  5.89%           4.24%
+1Y                   20.03%          14.97%
+3Y (ann.)            15.79%          13.32%
+5Y (ann.)            11.60%          6.73%
+10Y (ann.)           -               -
+Since Incep. (ann.)  13.07%          6.44%
+
+Daily Sharpe         0.91            0.51
+Daily Sortino        1.47            0.79
+Daily Mean (ann.)    13.43%          7.32%
+Daily Vol (ann.)     14.77%          14.47%
+Daily Skew           -0.14           -0.25
+Daily Kurt           6.45            6.34
+Best Day             7.56%           6.89%
+Worst Day            -6.32%          -5.90%
+
+Monthly Sharpe       0.91            0.52
+Monthly Sortino      1.73            0.96
+Monthly Mean (ann.)  12.98%          7.13%
+Monthly Vol (ann.)   14.32%          13.66%
+Monthly Skew         -0.31           0.15
+Monthly Kurt         -0.04           1.44
+Best Month           10.52%          13.36%
+Worst Month          -9.37%          -10.41%
+
+Yearly Sharpe        0.99            1.16
+Yearly Sortino       5.69            9.36
+Yearly Mean          11.49%          5.67%
+Yearly Vol           11.60%          4.88%
+Yearly Skew          0.46            0.20
+Yearly Kurt          1.77            1.16
+Best Year            30.59%          13.27%
+Worst Year           -4.95%          -1.48%
+
+Avg. Drawdown        -1.73%          -2.21%
+Avg. Drawdown Days   17.35           26.48
+Avg. Up Month        3.63%           3.47%
+Avg. Down Month      -3.35%          -2.37%
+Win Year %           83.33%          83.33%
+Win 12m %            84.91%          83.02%
+</pre></div>
+</div>
+</div>
+</div>
+<p>Look at the Sharpe ratios and total returns across the two periods. Does the SMA crossover strategy perform consistently? Or does it do well in one period and poorly in another? This kind of analysis is essential before putting real money behind a strategy. If performance is wildly different across periods, your strategy may be capturing noise rather than a real signal.</p>
+<p>In practice, more sophisticated approaches use <strong>walk-forward analysis</strong>: you train on a rolling window of data, test on the next period, then roll forward. This gives you a series of out-of-sample results that better reflect how the strategy would have performed in real time.</p>
+</section>
+<section id="working-with-bt-results">
+<h2>Working with BT Results<a class="headerlink" href="#working-with-bt-results" title="Link to this heading">#</a></h2>
+<p>The <code class="docutils literal notranslate"><span class="pre">bt</span></code> results object contains a lot of useful data beyond the summary statistics. You can access the underlying return series, look at individual strategy stats as DataFrames, and create custom analyses.</p>
+<section id="accessing-returns-and-prices">
+<h3>Accessing Returns and Prices<a class="headerlink" href="#accessing-returns-and-prices" title="Link to this heading">#</a></h3>
+<p>You can pull out the strategy’s daily prices and returns as <code class="docutils literal notranslate"><span class="pre">pandas</span></code> objects for your own analysis.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># The .prices attribute gives you the daily portfolio value (indexed to 100)</span>
+<span class="n">prices</span> <span class="o">=</span> <span class="n">sector_res</span><span class="o">.</span><span class="n">prices</span>
+<span class="nb">print</span><span class="p">(</span><span class="nb">type</span><span class="p">(</span><span class="n">prices</span><span class="p">))</span>
+<span class="n">prices</span><span class="o">.</span><span class="n">tail</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;class &#39;pandas.DataFrame&#39;&gt;
+</pre></div>
+</div>
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>buy_and_hold</th>
+      <th>ew_monthly</th>
+      <th>sma_crossover</th>
+      <th>momentum</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>2026-03-05</th>
+      <td>334.078612</td>
+      <td>336.501159</td>
+      <td>282.621413</td>
+      <td>286.749511</td>
+    </tr>
+    <tr>
+      <th>2026-03-06</th>
+      <td>330.070460</td>
+      <td>333.166369</td>
+      <td>279.820622</td>
+      <td>284.422834</td>
+    </tr>
+    <tr>
+      <th>2026-03-09</th>
+      <td>331.929276</td>
+      <td>334.341183</td>
+      <td>280.807243</td>
+      <td>285.354141</td>
+    </tr>
+    <tr>
+      <th>2026-03-10</th>
+      <td>330.659163</td>
+      <td>332.845372</td>
+      <td>279.550953</td>
+      <td>283.412850</td>
+    </tr>
+    <tr>
+      <th>2026-03-11</th>
+      <td>330.147565</td>
+      <td>332.045697</td>
+      <td>278.879303</td>
+      <td>283.760912</td>
+    </tr>
+  </tbody>
+</table>
+</div></div></div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Get the stats as a DataFrame for custom analysis</span>
+<span class="n">stats_df</span> <span class="o">=</span> <span class="n">sector_res</span><span class="o">.</span><span class="n">stats</span>
+<span class="n">stats_df</span><span class="o">.</span><span class="n">loc</span><span class="p">[[</span><span class="s1">&#39;total_return&#39;</span><span class="p">,</span> <span class="s1">&#39;cagr&#39;</span><span class="p">,</span> <span class="s1">&#39;daily_sharpe&#39;</span><span class="p">,</span> <span class="s1">&#39;max_drawdown&#39;</span><span class="p">,</span> <span class="s1">&#39;daily_vol&#39;</span><span class="p">]]</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>buy_and_hold</th>
+      <th>ew_monthly</th>
+      <th>sma_crossover</th>
+      <th>momentum</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>total_return</th>
+      <td>2.301476</td>
+      <td>2.320457</td>
+      <td>1.788793</td>
+      <td>1.837609</td>
+    </tr>
+    <tr>
+      <th>cagr</th>
+      <td>0.12138</td>
+      <td>0.121996</td>
+      <td>0.103374</td>
+      <td>0.105212</td>
+    </tr>
+    <tr>
+      <th>daily_sharpe</th>
+      <td>0.760333</td>
+      <td>0.770433</td>
+      <td>0.687535</td>
+      <td>0.685582</td>
+    </tr>
+    <tr>
+      <th>max_drawdown</th>
+      <td>-0.357105</td>
+      <td>-0.368802</td>
+      <td>-0.34666</td>
+      <td>-0.358264</td>
+    </tr>
+    <tr>
+      <th>daily_vol</th>
+      <td>0.170261</td>
+      <td>0.16833</td>
+      <td>0.162887</td>
+      <td>0.166687</td>
+    </tr>
+  </tbody>
+</table>
+</div></div></div>
+</div>
+</section>
+<section id="rolling-sharpe-ratio">
+<h3>Rolling Sharpe Ratio<a class="headerlink" href="#rolling-sharpe-ratio" title="Link to this heading">#</a></h3>
+<p>A strategy’s Sharpe ratio can change dramatically over time. Looking at a <strong>rolling Sharpe ratio</strong> helps you understand whether the strategy’s risk-adjusted performance is stable or if it goes through long stretches of underperformance. Let’s calculate a 1-year rolling Sharpe for each strategy using the daily returns.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Calculate daily returns from the strategy prices</span>
+<span class="n">daily_returns</span> <span class="o">=</span> <span class="n">sector_res</span><span class="o">.</span><span class="n">prices</span><span class="o">.</span><span class="n">pct_change</span><span class="p">()</span><span class="o">.</span><span class="n">dropna</span><span class="p">()</span>
+
+<span class="c1"># Rolling 1-year (252 trading days) Sharpe ratio</span>
+<span class="n">rolling_sharpe</span> <span class="o">=</span> <span class="p">(</span><span class="n">daily_returns</span><span class="o">.</span><span class="n">rolling</span><span class="p">(</span><span class="mi">252</span><span class="p">)</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span> <span class="o">/</span> <span class="n">daily_returns</span><span class="o">.</span><span class="n">rolling</span><span class="p">(</span><span class="mi">252</span><span class="p">)</span><span class="o">.</span><span class="n">std</span><span class="p">())</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="mi">252</span><span class="p">)</span>
+
+<span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">12</span><span class="p">,</span> <span class="mi">5</span><span class="p">))</span>
+<span class="n">rolling_sharpe</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">ax</span><span class="o">=</span><span class="n">ax</span><span class="p">,</span> <span class="n">linewidth</span><span class="o">=</span><span class="mf">0.8</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">axhline</span><span class="p">(</span><span class="n">y</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;black&#39;</span><span class="p">,</span> <span class="n">linestyle</span><span class="o">=</span><span class="s1">&#39;--&#39;</span><span class="p">,</span> <span class="n">linewidth</span><span class="o">=</span><span class="mf">0.5</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s1">&#39;Rolling 1-Year Sharpe Ratio&#39;</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s1">&#39;Sharpe Ratio&#39;</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">legend</span><span class="p">(</span><span class="n">loc</span><span class="o">=</span><span class="s1">&#39;lower left&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">tight_layout</span><span class="p">()</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../_images/23dcb7fe19ae1a1971a7a2a9e486c6e9cf1966aa08f412712936ad10a37fa5ab.png" src="../_images/23dcb7fe19ae1a1971a7a2a9e486c6e9cf1966aa08f412712936ad10a37fa5ab.png" />
+</div>
+</div>
+<p>Notice how much the Sharpe ratio bounces around. A strategy with a great overall Sharpe might have long periods where it’s negative. This is the reality of trading – even good strategies go through painful drawdowns. The question is whether you have the discipline (and the capital) to stick with it.</p>
+</section>
+<section id="return-distributions">
+<h3>Return Distributions<a class="headerlink" href="#return-distributions" title="Link to this heading">#</a></h3>
+<p>Let’s look at how the monthly returns are distributed for each strategy. This gives you a sense of the <strong>shape</strong> of returns – are they symmetric? Do they have fat tails? Strategies with similar average returns can have very different distributions.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Monthly returns for each strategy</span>
+<span class="n">monthly_returns</span> <span class="o">=</span> <span class="n">sector_res</span><span class="o">.</span><span class="n">prices</span><span class="o">.</span><span class="n">resample</span><span class="p">(</span><span class="s1">&#39;ME&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">last</span><span class="p">()</span><span class="o">.</span><span class="n">pct_change</span><span class="p">()</span><span class="o">.</span><span class="n">dropna</span><span class="p">()</span>
+
+<span class="n">fig</span><span class="p">,</span> <span class="n">axes</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">12</span><span class="p">,</span> <span class="mi">8</span><span class="p">))</span>
+<span class="k">for</span> <span class="n">ax</span><span class="p">,</span> <span class="n">col</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="n">axes</span><span class="o">.</span><span class="n">flat</span><span class="p">,</span> <span class="n">monthly_returns</span><span class="o">.</span><span class="n">columns</span><span class="p">):</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">hist</span><span class="p">(</span><span class="n">monthly_returns</span><span class="p">[</span><span class="n">col</span><span class="p">],</span> <span class="n">bins</span><span class="o">=</span><span class="mi">30</span><span class="p">,</span> <span class="n">edgecolor</span><span class="o">=</span><span class="s1">&#39;black&#39;</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.7</span><span class="p">)</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="n">col</span><span class="p">)</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s1">&#39;Monthly Return&#39;</span><span class="p">)</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">axvline</span><span class="p">(</span><span class="n">x</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;red&#39;</span><span class="p">,</span> <span class="n">linestyle</span><span class="o">=</span><span class="s1">&#39;--&#39;</span><span class="p">,</span> <span class="n">linewidth</span><span class="o">=</span><span class="mf">0.8</span><span class="p">)</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">suptitle</span><span class="p">(</span><span class="s1">&#39;Distribution of Monthly Returns&#39;</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="mf">1.02</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">tight_layout</span><span class="p">()</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../_images/0c9984449dfbcbb92a22048e6aa80042a0cec4e3e1040a98b6310842407c7836.png" src="../_images/0c9984449dfbcbb92a22048e6aa80042a0cec4e3e1040a98b6310842407c7836.png" />
+</div>
+</div>
+</section>
+</section>
+<section id="key-takeaways">
+<h2>Key Takeaways<a class="headerlink" href="#key-takeaways" title="Link to this heading">#</a></h2>
+<p>Let’s summarize what we’ve learned about backtesting.</p>
+<ol class="arabic simple">
+<li><p><strong>Always compare to a benchmark.</strong> It doesn’t matter if your strategy makes money in absolute terms. What matters is whether it makes money <strong>relative to doing nothing</strong> (or something simple, like buy-and-hold). If your complex strategy can’t beat equal weight, it’s not worth the complexity.</p></li>
+<li><p><strong>Transaction costs matter.</strong> A strategy that looks great with zero costs may look mediocre or bad once you account for real-world trading frictions. Always include realistic cost assumptions.</p></li>
+<li><p><strong>Test out-of-sample.</strong> In-sample performance tells you how well your strategy fits the past. Out-of-sample performance tells you whether it might work in the future. The gap between the two is a measure of how much you’ve overfit.</p></li>
+<li><p><strong>Simpler is usually better.</strong> Strategies with fewer parameters are harder to overfit and more likely to work going forward. A 50/200-day moving average crossover has essentially zero free parameters (those numbers are industry convention, not optimized).</p></li>
+<li><p><strong>Look beyond total return.</strong> Sharpe ratio, maximum drawdown, turnover, and how performance varies over time all matter. A strategy that returns 15% per year with a 50% max drawdown is very different from one that returns 10% with a 15% max drawdown.</p></li>
+<li><p><strong>Be skeptical.</strong> Most backtested strategies don’t work in real life. Survivorship bias, look-ahead bias, transaction costs, and regime changes all conspire against you. If a strategy seems too good to be true, it probably is.</p></li>
+</ol>
 </section>
 <section id="other-tools">
 <h2>Other tools<a class="headerlink" href="#other-tools" title="Link to this heading">#</a></h2>
@@ -1157,6 +2210,32 @@ Win 12m %            75.00%
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#step-3-backtest-your-strategy">Step 3 - Backtest your strategy</a></li>
 </ul>
 </li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#backtesting-pitfalls">Backtesting Pitfalls</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#look-ahead-bias">Look-Ahead Bias</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#survivorship-bias">Survivorship Bias</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#overfitting">Overfitting</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#transaction-costs">Transaction Costs</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#data-snooping">Data Snooping</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#regime-changes">Regime Changes</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#a-more-realistic-example-trend-following-with-sector-etfs">A More Realistic Example: Trend Following with Sector ETFs</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#strategy-1-buy-and-hold-benchmark">Strategy 1: Buy-and-Hold Benchmark</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#strategy-2-monthly-rebalanced-equal-weight">Strategy 2: Monthly Rebalanced Equal Weight</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#strategy-3-sma-crossover-trend-following">Strategy 3: SMA Crossover Trend Following</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#strategy-4-momentum-return-based-signal">Strategy 4: Momentum (Return-Based Signal)</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#running-all-strategies">Running All Strategies</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#adding-transaction-costs">Adding Transaction Costs</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#in-sample-vs-out-of-sample-testing">In-Sample vs. Out-of-Sample Testing</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#working-with-bt-results">Working with BT Results</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#accessing-returns-and-prices">Accessing Returns and Prices</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#rolling-sharpe-ratio">Rolling Sharpe Ratio</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#return-distributions">Return Distributions</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#key-takeaways">Key Takeaways</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#other-tools">Other tools</a></li>
 </ul>
   </nav></div>
