@@ -9,7 +9,7 @@ logo: images/cat.png
 # See https://jupyterbook.org/content/execute.html
 execute:
   execute_notebooks: force
-  timeout: 120  
+  timeout: 300
 
 # Define the name of the latex output file for PDF builds
 latex:
@@ -44,19 +44,15 @@ parse:
 # Don't build files (e.g. labs) that aren't in TOC
 only_build_toc_files: true
 
-# To get plotly to work in Jupyter books
+# Sphinx configuration (consolidated)
+# - Plotly support
+# - MathJax for equations
+# - Custom Elon University styling
 sphinx:
   config:
     html_js_files:
     - https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js
-
-
-sphinx:
-  config:
     mathjax_path: https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js
-
-sphinx:
-  config:
     html_show_copyright: false
-
-notebook.experimental.useMarkdownRenderer: true
+    html_css_files:
+    - custom.css

@@ -1,0 +1,1630 @@
+
+<!DOCTYPE html>
+
+
+<html lang="en" data-content_root="../" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>AI Coding Assistants &#8212; Data Analysis in Finance</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
+  </script>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../_static/styles/theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="../_static/styles/bootstrap.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="../_static/styles/pydata-sphinx-theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+
+  
+  <link href="../_static/vendor/fontawesome/6.5.2/css/all.min.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.2/webfonts/fa-solid-900.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.2/webfonts/fa-brands-400.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.2/webfonts/fa-regular-400.woff2" />
+
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=03e43079" />
+    <link rel="stylesheet" type="text/css" href="../_static/styles/sphinx-book-theme.css?v=eba8b062" />
+    <link rel="stylesheet" type="text/css" href="../_static/togglebutton.css?v=9c3e77be" />
+    <link rel="stylesheet" type="text/css" href="../_static/copybutton.css?v=76b2166b" />
+    <link rel="stylesheet" type="text/css" href="../_static/mystnb.8ecb98da25f57f5357bf6f572d296f466b2cfe2517ffebfabe82451661e28f02.css?v=6644e6bb" />
+    <link rel="stylesheet" type="text/css" href="../_static/sphinx-thebe.css?v=4fa983c6" />
+    <link rel="stylesheet" type="text/css" href="../_static/sphinx-design.min.css?v=95c83b7e" />
+    <link rel="stylesheet" type="text/css" href="../_static/custom.css?v=b00ee380" />
+  
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b" />
+<link rel="preload" as="script" href="../_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b" />
+  <script src="../_static/vendor/fontawesome/6.5.2/js/all.min.js?digest=dfe6caa3a7d634c4db9b"></script>
+
+    <script src="../_static/documentation_options.js?v=9eb32ce0"></script>
+    <script src="../_static/doctools.js?v=9a2dae69"></script>
+    <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../_static/clipboard.min.js?v=a7894cd8"></script>
+    <script src="../_static/copybutton.js?v=f281be69"></script>
+    <script src="../_static/scripts/sphinx-book-theme.js?v=887ef09a"></script>
+    <script>let toggleHintShow = 'Click to show';</script>
+    <script>let toggleHintHide = 'Click to hide';</script>
+    <script>let toggleOpenOnPrint = 'true';</script>
+    <script src="../_static/togglebutton.js?v=1ae7504c"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script src="../_static/design-tabs.js?v=f930bc37"></script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script async="async" src="../_static/sphinx-thebe.js?v=c100c467"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'chapters/2_4_using_ai';</script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="CompSci 101: Types, control, and numpy arrays" href="3_intro.html" />
+    <link rel="prev" title="Code style, PEP8, and linting" href="2_3_style.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+
+  
+  
+  <div id="pst-skip-link" class="skip-link d-print-none"><a href="#main-content">Skip to main content</a></div>
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>Back to top</button>
+
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-primary-sidebar-checkbox"/>
+  <label class="overlay overlay-primary" for="pst-primary-sidebar-checkbox"></label>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-secondary-sidebar-checkbox"/>
+  <label class="overlay overlay-secondary" for="pst-secondary-sidebar-checkbox"></label>
+  
+  <div class="search-button__wrapper">
+    <div class="search-button__overlay"></div>
+    <div class="search-button__search-container">
+<form class="bd-search d-flex align-items-center"
+      action="../search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         id="search-input"
+         placeholder="Search this book..."
+         aria-label="Search this book..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form></div>
+  </div>
+
+  <div class="pst-async-banner-revealer d-none">
+  <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
+</div>
+
+  
+    <header class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
+    </header>
+  
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      
+      
+      <div class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+    
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+
+  
+    
+  
+
+<a class="navbar-brand logo" href="../intro.html">
+  
+  
+  
+  
+  
+    
+    
+      
+    
+    
+    <img src="../_static/cat.png" class="logo__image only-light" alt="Data Analysis in Finance - Home"/>
+    <script>document.write(`<img src="../_static/cat.png" class="logo__image only-dark" alt="Data Analysis in Finance - Home"/>`);</script>
+  
+  
+</a></div>
+        <div class="sidebar-primary-item">
+
+ <script>
+ document.write(`
+   <button class="btn search-button-field search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass"></i>
+    <span class="search-button__default-text">Search</span>
+    <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+   </button>
+ `);
+ </script></div>
+        <div class="sidebar-primary-item"><nav class="bd-links bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item navbar-nav active">
+        
+        <ul class="nav bd-sidenav bd-sidenav__home-link">
+            <li class="toctree-l1">
+                <a class="reference internal" href="../intro.html">
+                    Welcome
+                </a>
+            </li>
+        </ul>
+        <p aria-level="2" class="caption" role="heading"><span class="caption-text">Getting Started</span></p>
+<ul class="current nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="1_finpyth.html">Why Python and finance?</a></li>
+<li class="toctree-l1 current active has-children"><a class="reference internal" href="2_intro.html">Python set-up <a id="python_set-up"></a></a><details open="open"><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="2_0_git.html">Using Github and Github Codespaces</a></li>
+<li class="toctree-l2"><a class="reference internal" href="2_1_markdown.html">Markdown</a></li>
+<li class="toctree-l2"><a class="reference internal" href="2_2_packages.html">Packages</a></li>
+<li class="toctree-l2"><a class="reference internal" href="2_3_style.html">Code style, PEP8, and linting</a></li>
+<li class="toctree-l2 current active"><a class="current reference internal" href="#">AI Coding Assistants</a></li>
+</ul>
+</details></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">The Basics</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1 has-children"><a class="reference internal" href="3_intro.html">CompSci 101: Types, control, and numpy arrays</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="3_0_comp101.html">The Basics</a></li>
+<li class="toctree-l2"><a class="reference internal" href="3_1_numpy.html">Numpy and arrays</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="4_intro.html">Working with data</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="4_0_dataframes.html">Importing data</a></li>
+<li class="toctree-l2"><a class="reference internal" href="4_1_pandas.html">pandas</a></li>
+<li class="toctree-l2"><a class="reference internal" href="4_2_cleaning_data.html">Cleaning our data</a></li>
+<li class="toctree-l2"><a class="reference internal" href="4_3_eda.html">Exploratory data analysis (EDA)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="4_4_merge_shape.html">Merging and reshaping data</a></li>
+<li class="toctree-l2"><a class="reference internal" href="4_5_sql.html">Using SQL in Python</a></li>
+<li class="toctree-l2"><a class="reference internal" href="4_6_polar.html">polars: A fast, fancy pandas alternative</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="5_intro.html">Data visualization</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="5_0_seaborn.html">seaborn</a></li>
+<li class="toctree-l2"><a class="reference internal" href="5_1_matplotlib.html">matplotlib</a></li>
+<li class="toctree-l2"><a class="reference internal" href="5_2_plotly.html">plotly</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="6_intro.html">Data APIs</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="6_1_fred.html">FRED API</a></li>
+<li class="toctree-l2"><a class="reference internal" href="6_2_nasdaq.html">NASDAQ Data Link</a></li>
+<li class="toctree-l2"><a class="reference internal" href="6_3_databento.html">Databento</a></li>
+<li class="toctree-l2"><a class="reference internal" href="6_4_wrds.html">WRDS (Wharton Research Data Services)</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1"><a class="reference internal" href="7_financial_ts.html">Financial time series <a id="financial-time-series"></a></a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Applications</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="8_port_math.html">Essential portfolio math</a></li>
+<li class="toctree-l1"><a class="reference internal" href="9_portfolio_opt.html">Portfolio optimization</a></li>
+<li class="toctree-l1"><a class="reference internal" href="10_unsupervised_learning.html">Machine learning and unsupervised learning <a id="unsupervised_learning"></a></a></li>
+<li class="toctree-l1"><a class="reference internal" href="11_factor_models.html">Factor models <a id="factor_models"></a></a></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="12_intro.html">Regression and supervised machine learning</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="12_0_ols.html">OLS regression in Python</a></li>
+<li class="toctree-l2"><a class="reference internal" href="12_1_regularization.html">Regularization: Ridge, Lasso, and Elastic Net</a></li>
+<li class="toctree-l2"><a class="reference internal" href="12_2_ml_workflow.html">The machine learning workflow with sklearn</a></li>
+<li class="toctree-l2"><a class="reference internal" href="12_3_ml_markets.html">From Regression to Prediction: Can ML Beat the Market?</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1"><a class="reference internal" href="13_logit_credit.html">Logit models</a></li>
+<li class="toctree-l1"><a class="reference internal" href="14_risk_mang.html">Risk management</a></li>
+<li class="toctree-l1"><a class="reference internal" href="15_monte_carlo.html">Monte Carlo and portfolios</a></li>
+<li class="toctree-l1"><a class="reference internal" href="16_decision_trees.html">Decision Trees</a></li>
+<li class="toctree-l1"><a class="reference internal" href="17_options.html">Option basics</a></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="18_intro.html">Trading strategies and backtesting</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="18_0_trading_bt.html">Backtesting with the BT Package</a></li>
+<li class="toctree-l2"><a class="reference internal" href="18_1_alphalens.html">Factor Analysis with Alphalens</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1"><a class="reference internal" href="19_textual_analysis.html">Textual Analysis in Finance</a></li>
+<li class="toctree-l1"><a class="reference internal" href="20_llms.html">How Large Language Models Work</a></li>
+</ul>
+
+    </div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+  </div>
+  
+  <div id="rtd-footer-container"></div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main" role="main">
+        
+        
+
+<div class="sbt-scroll-pixel-helper"></div>
+
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article d-print-none">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item"><button class="sidebar-toggle primary-toggle btn btn-sm" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <span class="fa-solid fa-bars"></span>
+</button></div>
+      
+    </div>
+  
+  
+    <div class="header-article-items__end">
+      
+        <div class="header-article-item">
+
+<div class="article-header-buttons">
+
+
+<a href="https://github.com/executablebooks/jupyter-book" target="_blank"
+   class="btn btn-sm btn-source-repository-button"
+   title="Source repository"
+   data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fab fa-github"></i>
+  </span>
+
+</a>
+
+
+
+
+
+
+<div class="dropdown dropdown-download-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Download this page">
+    <i class="fas fa-download"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="../_sources/chapters/2_4_using_ai.ipynb" target="_blank"
+   class="btn btn-sm btn-download-source-button dropdown-item"
+   title="Download source file"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="btn__text-container">.ipynb</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li>
+<button onclick="window.print()"
+  class="btn btn-sm btn-download-pdf-button dropdown-item"
+  title="Print to PDF"
+  data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="btn__text-container">.pdf</span>
+</button>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+<button onclick="toggleFullScreen()"
+  class="btn btn-sm btn-fullscreen-button"
+  title="Fullscreen mode"
+  data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="theme-switch fa-solid fa-sun fa-lg" data-mode="light"></i>
+    <i class="theme-switch fa-solid fa-moon fa-lg" data-mode="dark"></i>
+    <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"></i>
+  </button>
+`);
+</script>
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm pst-navbar-icon search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass fa-lg"></i>
+  </button>
+`);
+</script>
+<button class="sidebar-toggle secondary-toggle btn btn-sm" title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="fa-solid fa-list"></span>
+</button>
+</div></div>
+      
+    </div>
+  
+</div>
+</div>
+              
+              
+
+<div id="jb-print-docs-body" class="onlyprint">
+    <h1>AI Coding Assistants</h1>
+    <!-- Table of contents -->
+    <div id="print-main-content">
+        <div id="jb-print-toc">
+            
+            <div>
+                <h2> Contents </h2>
+            </div>
+            <nav aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#the-state-of-ai-coding-in-2026">The State of AI Coding in 2026</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#llms-are-now-undeniably-good-at-code">LLMs Are Now Undeniably Good at Code</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#the-danger-cognitive-debt">The Danger: Cognitive Debt</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#ai-doesn-t-reduce-workit-intensifies-it">AI Doesn’t Reduce Work—It Intensifies It</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#what-this-means-for-finance-and-analytics">What This Means for Finance and Analytics</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#rapidly-changing-coding-world">Rapidly Changing Coding World</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#anthropic-courses-on-claude">Anthropic Courses on Claude</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#bloomberg-odd-lots-on-claude-code">Bloomberg Odd Lots on Claude Code</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#the-tools-we-ll-use">The Tools We’ll Use</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#two-styles-of-ai-coding-help">Two Styles of AI Coding Help</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#autocomplete-style-github-copilot">Autocomplete Style (GitHub Copilot)</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#agentic-style-claude-code">Agentic Style (Claude Code)</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#side-by-side-comparison">Side-by-Side Comparison</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#when-to-use-which">When to Use Which</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#github-copilot-in-codespaces">GitHub Copilot in Codespaces</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#setting-up-copilot">Setting Up Copilot</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#how-copilot-works">How Copilot Works</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#copilot-keyboard-shortcuts">Copilot Keyboard Shortcuts</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#copilot-chat">Copilot Chat</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#tips-for-using-copilot">Tips for Using Copilot</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#claude-in-codespaces-browser">Claude in Codespaces (Browser)</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#when-to-use-claude-browser">When to Use Claude (Browser)</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#example-workflow">Example Workflow</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#writing-good-prompts-for-claude">Writing Good Prompts for Claude</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#conversations-not-commands">Conversations, Not Commands</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#claude-code-desktop-app">Claude Code (Desktop App)</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#getting-claude-code">Getting Claude Code</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#opening-a-project">Opening a Project</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#the-claude-code-interface">The Claude Code Interface</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#what-claude-code-can-do">What Claude Code Can Do</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#example-conversation">Example Conversation</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#approving-changes">Approving Changes</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#when-to-use-claude-code">When to Use Claude Code</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#tips-for-claude-code">Tips for Claude Code</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#comparing-the-tools">Comparing the Tools</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#prompt-engineering-for-finance">Prompt Engineering for Finance</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#five-principles-for-better-prompts">Five Principles for Better Prompts</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#finance-specific-prompt-patterns">Finance-Specific Prompt Patterns</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#example-ai-assisted-function-writing">Example: AI-Assisted Function Writing</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#example-ai-assisted-debugging">Example: AI-Assisted Debugging</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#best-practices-for-ai-assisted-coding">Best Practices for AI-Assisted Coding</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#start-with-a-plan">1. Start with a Plan</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#be-specific-in-your-requests">2. Be Specific in Your Requests</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#verify-the-output">3. Verify the Output</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#learn-from-the-code">4. Learn From the Code</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#know-when-ai-struggles">5. Know When AI Struggles</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#what-ai-means-for-your-career">What AI Means for Your Career</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#domain-expertise">Domain Expertise</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#systems-thinking">Systems Thinking</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#project-management">Project Management</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#critical-evaluation">Critical Evaluation</a></li>
+</ul>
+</li>
+</ul>
+            </nav>
+        </div>
+    </div>
+</div>
+
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                  
+  <section class="tex2jax_ignore mathjax_ignore" id="ai-coding-assistants">
+<h1>AI Coding Assistants<a class="headerlink" href="#ai-coding-assistants" title="Link to this heading">#</a></h1>
+<figure class="align-center" id="ai-learning-curve-png">
+<img alt="../_images/24-ai-learning-curve.png" class="with-border" src="../_images/24-ai-learning-curve.png" />
+<figcaption>
+<p><span class="caption-number">Fig. 28 </span><span class="caption-text">There’s no learning curve. You can always pick it up later. (There is a learning curve, it just feels different from any other I’ve experienced.)</span><a class="headerlink" href="#ai-learning-curve-png" title="Link to this image">#</a></p>
+</figcaption>
+</figure>
+<p>The best way to learn AI tools is to <strong>use them</strong>. Don’t wait for training. Don’t wait for the perfect tutorial. Just start experimenting. The tools are changing so fast that any formal training will be outdated by the time you finish it. The people who are getting the most value from AI coding assistants are the ones who dove in early and learned by doing.</p>
+<section id="the-state-of-ai-coding-in-2026">
+<h2>The State of AI Coding in 2026<a class="headerlink" href="#the-state-of-ai-coding-in-2026" title="Link to this heading">#</a></h2>
+<p>The world of AI-assisted coding is changing fast. Three recent pieces capture where we are:</p>
+<section id="llms-are-now-undeniably-good-at-code">
+<h3>LLMs Are Now Undeniably Good at Code<a class="headerlink" href="#llms-are-now-undeniably-good-at-code" title="Link to this heading">#</a></h3>
+<p>Simon Willison, a respected voice in the developer community, made this prediction for 2026: <strong>“It will become undeniable that LLMs write good code.”</strong> He notes that his own hand-written code has dropped to a “single digit percentage” of his total output since late 2025.</p>
+<p><a class="reference external" href="https://simonwillison.net/2026/Jan/8/llm-predictions-for-2026/">https://simonwillison.net/2026/Jan/8/llm-predictions-for-2026/</a></p>
+<p>What does this mean for you? The skills that matter are shifting:</p>
+<ul class="simple">
+<li><p><strong>Syntax memorization</strong> → less important (AI handles this)</p></li>
+<li><p><strong>Problem specification</strong> → more important (telling AI what to build)</p></li>
+<li><p><strong>Architectural thinking</strong> → more important (how pieces fit together)</p></li>
+<li><p><strong>Critical evaluation</strong> → essential (knowing when output is wrong)</p></li>
+</ul>
+<p>Willison argues that “the job of being paid money to type code” will disappear, but software engineering demands “enormous skill, experience and depth of understanding.” The typing was never the hard part.</p>
+</section>
+<section id="the-danger-cognitive-debt">
+<h3>The Danger: Cognitive Debt<a class="headerlink" href="#the-danger-cognitive-debt" title="Link to this heading">#</a></h3>
+<p>But there’s a risk. Margaret-Anne Storey introduces the concept of <strong>cognitive debt</strong>—the erosion of shared understanding about what software does and how it works.</p>
+<p><a class="reference external" href="https://margaretstorey.com/blog/2026/02/09/cognitive-debt/">https://margaretstorey.com/blog/2026/02/09/cognitive-debt/</a></p>
+<p>Unlike technical debt (messy code you’ll clean up later), cognitive debt lives in your head. When AI generates code faster than you can understand it, you accumulate cognitive debt. Storey describes a student team that hit a wall mid-semester: they had working code but couldn’t explain their own architectural choices. They were paralyzed.</p>
+<p>Her key insight: <strong>“Velocity without understanding is not sustainable.”</strong></p>
+</section>
+<section id="ai-doesn-t-reduce-workit-intensifies-it">
+<h3>AI Doesn’t Reduce Work—It Intensifies It<a class="headerlink" href="#ai-doesn-t-reduce-workit-intensifies-it" title="Link to this heading">#</a></h3>
+<p>Research from Harvard Business Review confirms another counterintuitive finding: AI tools don’t lighten workloads—they amplify them.</p>
+<p><a class="reference external" href="https://hbr.org/2026/02/ai-doesnt-reduce-work-it-intensifies-it">https://hbr.org/2026/02/ai-doesnt-reduce-work-it-intensifies-it</a></p>
+<p>An eight-month study found that workers voluntarily expanded their responsibilities because AI made “doing more” feel achievable. Designers started coding. Researchers started engineering. The conversational nature of AI prompting blurred boundaries—work slipped into breaks and evenings without people noticing. As one engineer put it: “You don’t work less. You just work the same amount or even more.”</p>
+<p>The risk isn’t just burnout. It’s <strong>cognitive overload masked by feelings of productivity</strong>.</p>
+<div class="admonition warning">
+<p class="admonition-title">Warning</p>
+<p>When using Claude Code or Copilot, resist the temptation to just accept working code. Ask yourself: Do I understand <em>why</em> this works? Could I explain it to someone else? If not, slow down.</p>
+</div>
+</section>
+<section id="what-this-means-for-finance-and-analytics">
+<h3>What This Means for Finance and Analytics<a class="headerlink" href="#what-this-means-for-finance-and-analytics" title="Link to this heading">#</a></h3>
+<p>These trends hit data science and analytics particularly hard:</p>
+<ul class="simple">
+<li><p>Basic analysis in Python or Excel? <strong>Everyone can do that now.</strong></p></li>
+<li><p>Building a DCF model or running a regression? <strong>AI handles the syntax.</strong></p></li>
+<li><p>The comparative advantage is in knowing <strong>what questions to ask</strong>, <strong>what the output means</strong>, and <strong>how to communicate it</strong>.</p></li>
+</ul>
+<p>The workflow now is a <strong>back-and-forth conversation</strong> with tools like Claude Code. You’re not just writing code—you’re <em>monitoring the process</em>, steering the direction, catching mistakes before they compound.</p>
+<p>Think of it as managing a <strong>“garden of forking paths.”</strong> At every step in an analysis, you could go in many directions. Which variables to include? Which model to use? How to handle missing data? AI makes it trivially easy to explore any path—but that means you need even stronger judgment about <em>which</em> paths to explore and <em>when</em> to stop. The freedom is exhilarating but also dangerous. You can wander far down the wrong path very quickly.</p>
+<p>This class is about developing that judgment—not just getting code to run.</p>
+<hr class="docutils" />
+<p>This is a coding class. And a data analysis class. AI tools are freeing us, though. Different skills are increasing in relative importance. Project management, data engineering, domain expertise, and communication skills are key, while the AI writes the code.</p>
+<p>However, I still think you need to be able to understand the code and, especially, the process. This is about developing <strong>taste</strong>. Can you lead the AI tools down the correct paths? Can you connect all of the tools? Does the output answer the right question? Can you convince someone else that you’ve arrived at the right answer?</p>
+</section>
+</section>
+<section id="rapidly-changing-coding-world">
+<h2>Rapidly Changing Coding World<a class="headerlink" href="#rapidly-changing-coding-world" title="Link to this heading">#</a></h2>
+<p>In this class, we’ll use several tools that can:</p>
+<ul class="simple">
+<li><p>Generate code from natural language descriptions</p></li>
+<li><p>Explain existing code line by line</p></li>
+<li><p>Find and fix bugs</p></li>
+<li><p>Suggest completions as you type</p></li>
+<li><p>Help you learn new libraries and techniques</p></li>
+</ul>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Think of AI assistants as <strong>very fast junior programmers</strong>. They can handle routine tasks quickly, but you’re still the one who needs to understand the problem, evaluate the solution, and know when something is wrong. The more you understand about coding and finance, the more effectively you can direct these tools.</p>
+</div>
+<p>This is a great discussion on how to use LLMs for coding: <a class="reference external" href="https://simonwillison.net/2025/Mar/11/using-llms-for-code/">https://simonwillison.net/2025/Mar/11/using-llms-for-code/</a>. The key insight:</p>
+<blockquote>
+<div><p>My current favorite mental model is to think of them as an <strong>over-confident pair programming assistant</strong> who’s lightning fast at looking things up, can churn out relevant examples at a moment’s notice and can execute on tedious tasks without complaint. — Simon Willison</p>
+</div></blockquote>
+<p>Be precise. Tell them exactly what you want. But be careful — they are overconfident and “think” they are right. They also “want” to please you, which means they’ll sometimes make things up rather than admit they don’t know.</p>
+<p>That said, that quote is from March of 2025. Claude Code and other agentic tools have changed things even more: <a class="reference external" href="https://claude.com/blog/introduction-to-agentic-coding">https://claude.com/blog/introduction-to-agentic-coding</a></p>
+<section id="anthropic-courses-on-claude">
+<h3>Anthropic Courses on Claude<a class="headerlink" href="#anthropic-courses-on-claude" title="Link to this heading">#</a></h3>
+<p>Learning how to use agentic AI tools might be the most important thing you can spend your time on right now. Anthropic has a number of free courses that you can do.</p>
+<p><a class="reference external" href="https://www.anthropic.com/learn">https://www.anthropic.com/learn</a></p>
+</section>
+<section id="bloomberg-odd-lots-on-claude-code">
+<h3>Bloomberg Odd Lots on Claude Code<a class="headerlink" href="#bloomberg-odd-lots-on-claude-code" title="Link to this heading">#</a></h3>
+<p>Want to learn more about how professionals are using Claude Code? Check out this Bloomberg Odd Lots podcast episode:</p>
+<p><a href="https://www.bloomberg.com/news/audio/2026-01-19/odd-lots-why-the-tech-world-is-crazy-for-claude-code-podcast" target="_blank">Bloomberg Odd Lots: Why The Tech World is Crazy for Claude Code</a></p>
+<div class="admonition warning">
+<p class="admonition-title">Warning</p>
+<p>Remember, everyone has these tools now. So, there’s no comparative advantage in just being able to basic analysis in Python or Excel. Everyone can make a DCF model or run a regression. We have to be better. It’s about putting all of the pieces together.</p>
+</div>
+</section>
+</section>
+<section id="the-tools-we-ll-use">
+<h2>The Tools We’ll Use<a class="headerlink" href="#the-tools-we-ll-use" title="Link to this heading">#</a></h2>
+<p>In this course, you have access to three powerful AI coding assistants:</p>
+<div class="pst-scrollable-table-container"><table class="table">
+<thead>
+<tr class="row-odd"><th class="head"><p>Tool</p></th>
+<th class="head"><p>Where</p></th>
+<th class="head"><p>Best For</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><strong>GitHub Copilot</strong></p></td>
+<td><p>Inside Codespaces</p></td>
+<td><p>Autocomplete, inline suggestions, quick edits</p></td>
+</tr>
+<tr class="row-odd"><td><p><strong>Claude</strong> (browser)</p></td>
+<td><p>claude.ai</p></td>
+<td><p>Longer conversations, explaining concepts, planning</p></td>
+</tr>
+<tr class="row-even"><td><p><strong>Claude Code</strong></p></td>
+<td><p>Desktop app</p></td>
+<td><p>Complex projects, file editing, running commands</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<p>Before diving into each tool, it’s important to understand that these tools work in fundamentally different ways.</p>
+</section>
+<section id="two-styles-of-ai-coding-help">
+<h2>Two Styles of AI Coding Help<a class="headerlink" href="#two-styles-of-ai-coding-help" title="Link to this heading">#</a></h2>
+<p>AI coding assistants come in two main flavors: <strong>autocomplete</strong> and <strong>agentic</strong>. Understanding the difference will help you choose the right tool for each task.</p>
+<section id="autocomplete-style-github-copilot">
+<h3>Autocomplete Style (GitHub Copilot)<a class="headerlink" href="#autocomplete-style-github-copilot" title="Link to this heading">#</a></h3>
+<p>Autocomplete AI works like a very smart predictive text. As you type, it suggests what might come next:</p>
+<ul class="simple">
+<li><p><strong>You’re in control</strong>: You’re writing the code, AI just offers suggestions</p></li>
+<li><p><strong>Line-by-line</strong>: Suggestions appear as you type, one chunk at a time</p></li>
+<li><p><strong>Accept or ignore</strong>: Press Tab to accept, keep typing to ignore</p></li>
+<li><p><strong>Context-aware</strong>: It reads your current file to make relevant suggestions</p></li>
+<li><p><strong>Fast and lightweight</strong>: Suggestions appear in milliseconds</p></li>
+</ul>
+<p>Think of it like <strong>autocomplete on your phone</strong>, but for code. You’re still driving — the AI is just finishing your sentences.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>You type:     def calculate_sharpe
+Copilot suggests:   _ratio(returns, risk_free_rate=0.02):
+You press Tab → suggestion is inserted
+</pre></div>
+</div>
+<p><strong>Best for</strong>: Writing code when you know what you want, filling in boilerplate, staying in flow.</p>
+</section>
+<section id="agentic-style-claude-code">
+<h3>Agentic Style (Claude Code)<a class="headerlink" href="#agentic-style-claude-code" title="Link to this heading">#</a></h3>
+<p>Agentic AI is fundamentally different. Instead of suggesting completions, it <strong>takes actions</strong> on your behalf:</p>
+<ul class="simple">
+<li><p><strong>AI takes the wheel</strong>: You describe what you want, AI figures out how to do it</p></li>
+<li><p><strong>Multi-step tasks</strong>: AI can plan, execute, check results, and iterate</p></li>
+<li><p><strong>Reads and writes files</strong>: Can navigate your entire project, not just the current file</p></li>
+<li><p><strong>Runs commands</strong>: Can execute code, run tests, install packages</p></li>
+<li><p><strong>You supervise</strong>: AI proposes changes, you approve or reject them</p></li>
+</ul>
+<p>Think of it like having a <strong>junior developer working alongside you</strong>. You give them a task (“add error handling to this function”), they go do it, and come back with proposed changes for you to review.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>You say:      &quot;Add a function to calculate maximum drawdown to portfolio.py&quot;
+Claude:       [Reads file] [Writes new function] [Shows you the diff]
+              &quot;Here&#39;s what I&#39;d like to add. Want me to save this?&quot;
+You:          &quot;Yes&quot; → file is updated
+</pre></div>
+</div>
+<p><strong>Best for</strong>: Complex tasks, multi-file changes, refactoring, learning a new codebase, building features from scratch.</p>
+</section>
+<section id="side-by-side-comparison">
+<h3>Side-by-Side Comparison<a class="headerlink" href="#side-by-side-comparison" title="Link to this heading">#</a></h3>
+<div class="pst-scrollable-table-container"><table class="table">
+<thead>
+<tr class="row-odd"><th class="head"><p>Aspect</p></th>
+<th class="head"><p>Autocomplete (Copilot)</p></th>
+<th class="head"><p>Agentic (Claude Code)</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><strong>Who’s typing?</strong></p></td>
+<td><p>You</p></td>
+<td><p>AI</p></td>
+</tr>
+<tr class="row-odd"><td><p><strong>Scope</strong></p></td>
+<td><p>Current line/function</p></td>
+<td><p>Entire project</p></td>
+</tr>
+<tr class="row-even"><td><p><strong>Speed</strong></p></td>
+<td><p>Instant suggestions</p></td>
+<td><p>Takes time to think</p></td>
+</tr>
+<tr class="row-odd"><td><p><strong>Control</strong></p></td>
+<td><p>You decide every keystroke</p></td>
+<td><p>You approve/reject changes</p></td>
+</tr>
+<tr class="row-even"><td><p><strong>File access</strong></p></td>
+<td><p>Current file only</p></td>
+<td><p>All files in project</p></td>
+</tr>
+<tr class="row-odd"><td><p><strong>Can run code?</strong></p></td>
+<td><p>No</p></td>
+<td><p>Yes</p></td>
+</tr>
+<tr class="row-even"><td><p><strong>Best analogy</strong></p></td>
+<td><p>Smart autocomplete</p></td>
+<td><p>Junior developer</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+</section>
+<section id="when-to-use-which">
+<h3>When to Use Which<a class="headerlink" href="#when-to-use-which" title="Link to this heading">#</a></h3>
+<p><strong>Use autocomplete (Copilot) when:</strong></p>
+<ul class="simple">
+<li><p>You’re actively coding and want to stay in flow</p></li>
+<li><p>You know roughly what you want to write</p></li>
+<li><p>You’re working on a single file</p></li>
+<li><p>You want quick syntax help</p></li>
+</ul>
+<p><strong>Use agentic (Claude Code) when:</strong></p>
+<ul class="simple">
+<li><p>You have a larger task to accomplish</p></li>
+<li><p>Changes span multiple files</p></li>
+<li><p>You want AI to figure out the approach</p></li>
+<li><p>You’re learning how existing code works</p></li>
+<li><p>You want to automate tedious refactoring</p></li>
+</ul>
+<p>In practice, you’ll often use both. Copilot keeps you productive while writing code; Claude Code handles the bigger tasks where you’d rather describe what you want than write every line yourself.</p>
+<p>Let’s look at each tool in detail.</p>
+</section>
+</section>
+<section id="github-copilot-in-codespaces">
+<h2>GitHub Copilot in Codespaces<a class="headerlink" href="#github-copilot-in-codespaces" title="Link to this heading">#</a></h2>
+<p><a class="reference external" href="https://github.com/features/copilot/">GitHub Copilot</a> is built directly into VS Code and Codespaces. As a student with GitHub Education, you get <strong>free access</strong>.</p>
+<section id="setting-up-copilot">
+<h3>Setting Up Copilot<a class="headerlink" href="#setting-up-copilot" title="Link to this heading">#</a></h3>
+<ol class="arabic simple">
+<li><p>Make sure you’ve joined <a class="reference external" href="https://docs.github.com/en/education/explore-the-benefits-of-teaching-and-learning-with-github-education/github-education-for-students/apply-to-github-education-as-a-student">GitHub Education for Students</a></p></li>
+<li><p>In your Codespace, go to <strong>Extensions</strong> (left sidebar)</p></li>
+<li><p>Search for “GitHub Copilot” and install it</p></li>
+<li><p>You may need to sign in and authorize the extension</p></li>
+</ol>
+<p>You can read more here: <a class="reference external" href="https://docs.github.com/en/codespaces/reference/using-github-copilot-in-github-codespaces">https://docs.github.com/en/codespaces/reference/using-github-copilot-in-github-codespaces</a> and <a class="reference external" href="https://docs.github.com/en/copilot/how-tos/chat-with-copilot/chat-in-ide">https://docs.github.com/en/copilot/how-tos/chat-with-copilot/chat-in-ide</a></p>
+<figure class="align-center" id="codespace-copilot-png">
+<img alt="../_images/24-codespace-copilot.png" src="../_images/24-codespace-copilot.png" />
+<figcaption>
+<p><span class="caption-number">Fig. 29 </span><span class="caption-text">Installing Copilot in your Codespace.</span><a class="headerlink" href="#codespace-copilot-png" title="Link to this image">#</a></p>
+</figcaption>
+</figure>
+</section>
+<section id="how-copilot-works">
+<h3>How Copilot Works<a class="headerlink" href="#how-copilot-works" title="Link to this heading">#</a></h3>
+<p>Copilot provides <strong>inline suggestions</strong> as you type. It reads your code, your comments, and the context of your file to predict what you want to write next.</p>
+<p><strong>Example:</strong> Type a comment describing what you want, and Copilot will suggest the code:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Calculate the Sharpe ratio for a portfolio</span>
+<span class="c1"># Copilot will suggest something like:</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">sharpe_ratio</span><span class="p">(</span><span class="n">returns</span><span class="p">,</span> <span class="n">risk_free_rate</span><span class="o">=</span><span class="mf">0.02</span><span class="p">):</span>
+    <span class="n">excess_returns</span> <span class="o">=</span> <span class="n">returns</span> <span class="o">-</span> <span class="n">risk_free_rate</span> <span class="o">/</span> <span class="mi">252</span>
+    <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="mi">252</span><span class="p">)</span> <span class="o">*</span> <span class="n">excess_returns</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span> <span class="o">/</span> <span class="n">excess_returns</span><span class="o">.</span><span class="n">std</span><span class="p">()</span>
+</pre></div>
+</div>
+</section>
+<section id="copilot-keyboard-shortcuts">
+<h3>Copilot Keyboard Shortcuts<a class="headerlink" href="#copilot-keyboard-shortcuts" title="Link to this heading">#</a></h3>
+<div class="pst-scrollable-table-container"><table class="table">
+<thead>
+<tr class="row-odd"><th class="head"><p>Action</p></th>
+<th class="head"><p>Mac</p></th>
+<th class="head"><p>Windows</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>Accept suggestion</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">Tab</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">Tab</span></code></p></td>
+</tr>
+<tr class="row-odd"><td><p>Dismiss suggestion</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">Esc</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">Esc</span></code></p></td>
+</tr>
+<tr class="row-even"><td><p>See next suggestion</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">Option</span> <span class="pre">+</span> <span class="pre">]</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">Alt</span> <span class="pre">+</span> <span class="pre">]</span></code></p></td>
+</tr>
+<tr class="row-odd"><td><p>See previous suggestion</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">Option</span> <span class="pre">+</span> <span class="pre">[</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">Alt</span> <span class="pre">+</span> <span class="pre">[</span></code></p></td>
+</tr>
+<tr class="row-even"><td><p>Trigger suggestion</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">Option</span> <span class="pre">+</span> <span class="pre">\</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">Alt</span> <span class="pre">+</span> <span class="pre">\</span></code></p></td>
+</tr>
+</tbody>
+</table>
+</div>
+</section>
+<section id="copilot-chat">
+<h3>Copilot Chat<a class="headerlink" href="#copilot-chat" title="Link to this heading">#</a></h3>
+<p>Copilot also includes a <strong>chat interface</strong> directly in VS Code. Click the Copilot icon in the sidebar (or use <code class="docutils literal notranslate"><span class="pre">Cmd+Shift+I</span></code> / <code class="docutils literal notranslate"><span class="pre">Ctrl+Shift+I</span></code>) to open it.</p>
+<p>With Copilot Chat, you can:</p>
+<ul class="simple">
+<li><p>Ask questions about your code: “What does this function do?”</p></li>
+<li><p>Request changes: “Refactor this to use list comprehension”</p></li>
+<li><p>Debug errors: “Why am I getting this KeyError?”</p></li>
+<li><p>Generate tests: “Write unit tests for this function”</p></li>
+</ul>
+<figure class="align-center" id="codespace-copilot-chat-png">
+<img alt="../_images/24-codespace-copilot-chat.png" src="../_images/24-codespace-copilot-chat.png" />
+<figcaption>
+<p><span class="caption-number">Fig. 30 </span><span class="caption-text">Installing Copilot in your Codespace.</span><a class="headerlink" href="#codespace-copilot-chat-png" title="Link to this image">#</a></p>
+</figcaption>
+</figure>
+</section>
+<section id="tips-for-using-copilot">
+<h3>Tips for Using Copilot<a class="headerlink" href="#tips-for-using-copilot" title="Link to this heading">#</a></h3>
+<ol class="arabic simple">
+<li><p><strong>Write clear comments first</strong> — Copilot uses your comments to understand intent</p></li>
+<li><p><strong>Be specific about variable names</strong> — Use descriptive names like <code class="docutils literal notranslate"><span class="pre">portfolio_returns</span></code> not <code class="docutils literal notranslate"><span class="pre">x</span></code></p></li>
+<li><p><strong>Review every suggestion</strong> — Copilot makes mistakes, especially with finance-specific logic</p></li>
+<li><p><strong>Use it for boilerplate</strong> — Great for imports, setup code, and repetitive patterns</p></li>
+</ol>
+</section>
+</section>
+<section id="claude-in-codespaces-browser">
+<h2>Claude in Codespaces (Browser)<a class="headerlink" href="#claude-in-codespaces-browser" title="Link to this heading">#</a></h2>
+<p><a class="reference external" href="https://claude.ai">Claude</a> is Anthropic’s AI assistant. You can use it in a browser tab alongside your Codespace for longer conversations and more complex explanations.</p>
+<section id="when-to-use-claude-browser">
+<h3>When to Use Claude (Browser)<a class="headerlink" href="#when-to-use-claude-browser" title="Link to this heading">#</a></h3>
+<p>Claude in the browser is best for:</p>
+<ul class="simple">
+<li><p><strong>Learning concepts</strong>: “Explain what a covariance matrix is and why it matters for portfolio optimization”</p></li>
+<li><p><strong>Planning your approach</strong>: “I need to analyze 10 years of stock returns and find the optimal portfolio. What steps should I take?”</p></li>
+<li><p><strong>Debugging complex issues</strong>: Paste your code and error message for detailed help</p></li>
+<li><p><strong>Understanding documentation</strong>: “Explain how the <code class="docutils literal notranslate"><span class="pre">scipy.optimize.minimize</span></code> function works”</p></li>
+</ul>
+</section>
+<section id="example-workflow">
+<h3>Example Workflow<a class="headerlink" href="#example-workflow" title="Link to this heading">#</a></h3>
+<ol class="arabic simple">
+<li><p>Open <a class="reference external" href="https://claude.ai">claude.ai</a> in a browser tab</p></li>
+<li><p>Describe your task or paste your code</p></li>
+<li><p>Copy Claude’s suggestions back into your Codespace</p></li>
+<li><p>Test and iterate</p></li>
+</ol>
+</section>
+<section id="writing-good-prompts-for-claude">
+<h3>Writing Good Prompts for Claude<a class="headerlink" href="#writing-good-prompts-for-claude" title="Link to this heading">#</a></h3>
+<p>The better your prompt, the better the response. Include:</p>
+<ol class="arabic simple">
+<li><p><strong>Context</strong>: What are you trying to accomplish?</p></li>
+<li><p><strong>Specifics</strong>: What data do you have? What format?</p></li>
+<li><p><strong>Constraints</strong>: Are there requirements or limitations?</p></li>
+<li><p><strong>Examples</strong>: Show sample input/output if helpful</p></li>
+</ol>
+<p><strong>Weak prompt:</strong></p>
+<blockquote>
+<div><p>How do I calculate returns?</p>
+</div></blockquote>
+<p><strong>Strong prompt:</strong></p>
+<blockquote>
+<div><p>I have a pandas DataFrame called <code class="docutils literal notranslate"><span class="pre">prices</span></code> with daily closing prices for 5 stocks. The index is dates and the columns are ticker symbols. How do I calculate daily percentage returns and then annualized mean returns for each stock?</p>
+</div></blockquote>
+</section>
+<section id="conversations-not-commands">
+<h3>Conversations, Not Commands<a class="headerlink" href="#conversations-not-commands" title="Link to this heading">#</a></h3>
+<p>Think of using Claude as a <strong>conversation</strong>. You can:</p>
+<ul class="simple">
+<li><p>Ask follow-up questions: “Can you explain that last part more simply?”</p></li>
+<li><p>Request changes: “Can you modify that to use log returns instead?”</p></li>
+<li><p>Challenge the answer: “Are you sure that’s the right formula for the Sharpe ratio?”</p></li>
+<li><p>Build incrementally: Start simple, then add complexity</p></li>
+</ul>
+</section>
+</section>
+<section id="claude-code-desktop-app">
+<h2>Claude Code (Desktop App)<a class="headerlink" href="#claude-code-desktop-app" title="Link to this heading">#</a></h2>
+<p><a class="reference external" href="https://docs.anthropic.com/en/docs/claude-code">Claude Code</a> is a powerful desktop application that brings Claude directly into your local development environment. Unlike browser-based Claude, it can <strong>read your files</strong>, <strong>write code</strong>, and <strong>run commands</strong> — all while you supervise.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Claude Code is the most powerful option for complex projects. It can navigate your entire codebase, make edits across multiple files, and execute your code to test it. Think of it as having a knowledgeable assistant sitting next to you who can actually touch the keyboard.</p>
+</div>
+<p>You can read more here: <a class="reference external" href="https://code.claude.com/docs/en/how-claude-code-works">https://code.claude.com/docs/en/how-claude-code-works</a></p>
+<section id="getting-claude-code">
+<h3>Getting Claude Code<a class="headerlink" href="#getting-claude-code" title="Link to this heading">#</a></h3>
+<p>Claude Code runs on your local machine (not in Codespaces). Here’s how to get started:</p>
+<ol class="arabic simple">
+<li><p><strong>Get Claude Pro</strong>: You’ll need a Claude Pro subscription ($20/month, but worth it for serious coding work)</p></li>
+<li><p><strong>Download the app</strong>: Go to <a class="reference external" href="https://claude.ai/download">claude.ai/download</a> and download the Claude desktop app for your Mac or Windows computer</p></li>
+<li><p><strong>Install and sign in</strong>: Run the installer and sign in with your Claude account</p></li>
+</ol>
+</section>
+<section id="opening-a-project">
+<h3>Opening a Project<a class="headerlink" href="#opening-a-project" title="Link to this heading">#</a></h3>
+<p>Once Claude is installed, you can open any folder on your computer as a project:</p>
+<ol class="arabic simple">
+<li><p><strong>Open Claude</strong> from your Applications folder (Mac) or Start menu (Windows)</p></li>
+<li><p><strong>Click “Open Project”</strong> or drag a folder into the Claude window</p></li>
+<li><p><strong>Grant permissions</strong> when prompted — Claude needs access to read and edit files in that folder</p></li>
+<li><p><strong>Start chatting</strong> — Claude now has full context of your project</p></li>
+</ol>
+</section>
+<section id="the-claude-code-interface">
+<h3>The Claude Code Interface<a class="headerlink" href="#the-claude-code-interface" title="Link to this heading">#</a></h3>
+<p>The Claude Code desktop app has three main areas:</p>
+<div class="pst-scrollable-table-container"><table class="table">
+<thead>
+<tr class="row-odd"><th class="head"><p>Area</p></th>
+<th class="head"><p>What It Does</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><strong>Chat panel</strong></p></td>
+<td><p>Where you type requests and see Claude’s responses</p></td>
+</tr>
+<tr class="row-odd"><td><p><strong>File browser</strong></p></td>
+<td><p>Shows the files in your project (Claude can see these)</p></td>
+</tr>
+<tr class="row-even"><td><p><strong>Code viewer</strong></p></td>
+<td><p>Shows file contents and proposed changes with highlighting</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<p>When Claude suggests code changes, you’ll see a <strong>diff view</strong> that highlights exactly what’s being added (green) or removed (red). You can approve or reject each change.</p>
+</section>
+<section id="what-claude-code-can-do">
+<h3>What Claude Code Can Do<a class="headerlink" href="#what-claude-code-can-do" title="Link to this heading">#</a></h3>
+<div class="pst-scrollable-table-container"><table class="table">
+<thead>
+<tr class="row-odd"><th class="head"><p>Capability</p></th>
+<th class="head"><p>Example</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><strong>Read files</strong></p></td>
+<td><p>“Look at my data_cleaning.py file and explain what it does”</p></td>
+</tr>
+<tr class="row-odd"><td><p><strong>Write code</strong></p></td>
+<td><p>“Create a function that calculates Value at Risk”</p></td>
+</tr>
+<tr class="row-even"><td><p><strong>Edit files</strong></p></td>
+<td><p>“Add error handling to the portfolio_analysis.ipynb notebook”</p></td>
+</tr>
+<tr class="row-odd"><td><p><strong>Run code</strong></p></td>
+<td><p>“Run this script and tell me if there are any errors”</p></td>
+</tr>
+<tr class="row-even"><td><p><strong>Search code</strong></p></td>
+<td><p>“Find all places where I calculate returns”</p></td>
+</tr>
+<tr class="row-odd"><td><p><strong>Create files</strong></p></td>
+<td><p>“Create a new notebook for analyzing sector performance”</p></td>
+</tr>
+<tr class="row-even"><td><p><strong>Explain errors</strong></p></td>
+<td><p>“I’m getting a KeyError — help me debug”</p></td>
+</tr>
+<tr class="row-odd"><td><p><strong>Refactor</strong></p></td>
+<td><p>“Rename the variable <code class="docutils literal notranslate"><span class="pre">x</span></code> to <code class="docutils literal notranslate"><span class="pre">daily_returns</span></code> everywhere”</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+</section>
+<section id="example-conversation">
+<h3>Example Conversation<a class="headerlink" href="#example-conversation" title="Link to this heading">#</a></h3>
+<p>Here’s what working with Claude Code looks like:</p>
+<p><strong>You:</strong> Look at my portfolio.py file and add a function to calculate the maximum drawdown of a returns series.</p>
+<p><strong>Claude:</strong> I’ll read your portfolio.py file and add a max drawdown function.</p>
+<p><em>[Claude reads the file and shows you the contents]</em></p>
+<p>I see you have functions for calculating returns and volatility. I’ll add a <code class="docutils literal notranslate"><span class="pre">max_drawdown</span></code> function that follows your existing code style:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span><span class="w"> </span><span class="nf">max_drawdown</span><span class="p">(</span><span class="n">returns</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Calculate the maximum drawdown of a returns series.</span>
+<span class="sd">    </span>
+<span class="sd">    Parameters:</span>
+<span class="sd">    -----------</span>
+<span class="sd">    returns : pd.Series</span>
+<span class="sd">        Series of periodic returns</span>
+<span class="sd">        </span>
+<span class="sd">    Returns:</span>
+<span class="sd">    --------</span>
+<span class="sd">    float</span>
+<span class="sd">        Maximum drawdown as a negative decimal</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">cumulative</span> <span class="o">=</span> <span class="p">(</span><span class="mi">1</span> <span class="o">+</span> <span class="n">returns</span><span class="p">)</span><span class="o">.</span><span class="n">cumprod</span><span class="p">()</span>
+    <span class="n">running_max</span> <span class="o">=</span> <span class="n">cumulative</span><span class="o">.</span><span class="n">cummax</span><span class="p">()</span>
+    <span class="n">drawdown</span> <span class="o">=</span> <span class="p">(</span><span class="n">cumulative</span> <span class="o">-</span> <span class="n">running_max</span><span class="p">)</span> <span class="o">/</span> <span class="n">running_max</span>
+    <span class="k">return</span> <span class="n">drawdown</span><span class="o">.</span><span class="n">min</span><span class="p">()</span>
+</pre></div>
+</div>
+<p>Would you like me to add this to portfolio.py?</p>
+<p><strong>You:</strong> Yes, and add a docstring explaining what maximum drawdown means.</p>
+<p><strong>Claude:</strong> <em>[Shows the diff view with proposed changes]</em></p>
+<p>I’ve added the function with an expanded docstring. Click “Accept” to save the changes to your file.</p>
+</section>
+<hr class="docutils" />
+<section id="approving-changes">
+<h3>Approving Changes<a class="headerlink" href="#approving-changes" title="Link to this heading">#</a></h3>
+<p>This is important: <strong>Claude always asks before making changes</strong>. When Claude proposes an edit:</p>
+<ol class="arabic simple">
+<li><p><strong>Review the diff</strong> — Green shows additions, red shows deletions</p></li>
+<li><p><strong>Click “Accept”</strong> to apply the change, or <strong>“Reject”</strong> to skip it</p></li>
+<li><p><strong>Claude will confirm</strong> once the file has been saved</p></li>
+</ol>
+<p>You’re always in control. Claude won’t modify your files without your approval.</p>
+</section>
+<section id="when-to-use-claude-code">
+<h3>When to Use Claude Code<a class="headerlink" href="#when-to-use-claude-code" title="Link to this heading">#</a></h3>
+<p>Claude Code shines for:</p>
+<ul class="simple">
+<li><p><strong>Multi-file projects</strong>: When changes span several files</p></li>
+<li><p><strong>Working on your own computer</strong>: When you’re not in Codespaces</p></li>
+<li><p><strong>Refactoring</strong>: “Rename this variable everywhere it’s used”</p></li>
+<li><p><strong>Learning a codebase</strong>: “Explain how the data pipeline works”</p></li>
+<li><p><strong>Building features end-to-end</strong>: “Create a new analysis notebook for sector returns”</p></li>
+<li><p><strong>Tedious tasks</strong>: “Add type hints to all my functions”</p></li>
+</ul>
+</section>
+<section id="tips-for-claude-code">
+<h3>Tips for Claude Code<a class="headerlink" href="#tips-for-claude-code" title="Link to this heading">#</a></h3>
+<ol class="arabic simple">
+<li><p><strong>Start with small requests</strong> — Get comfortable with the approve/reject workflow</p></li>
+<li><p><strong>Be specific about file names</strong> — “Edit portfolio.py” is better than “edit my portfolio file”</p></li>
+<li><p><strong>Review every change</strong> — Even if it looks right, make sure you understand it</p></li>
+<li><p><strong>Use it for learning</strong> — Ask “Why did you do it this way?” after Claude makes changes</p></li>
+<li><p><strong>Save your work</strong> — While Claude is careful, it’s good practice to commit to git before big refactoring sessions</p></li>
+</ol>
+<div class="admonition warning">
+<p class="admonition-title">Warning</p>
+<p>Claude Code is powerful — it can modify and delete files. Always review proposed changes before accepting them, and consider committing your work to git before asking Claude to make major changes. That way you can always undo if something goes wrong.</p>
+</div>
+<div class="admonition tip">
+<p class="admonition-title">Tip</p>
+<p><strong>Claude Code Output Styles for Learning.</strong> Claude Code has built-in output styles that change how it responds. Run <code class="docutils literal notranslate"><span class="pre">/output-style</span></code> in Claude Code and choose from three options:</p>
+<ul class="simple">
+<li><p><strong>Default</strong> — Standard responses, concise and focused on the task.</p></li>
+<li><p><strong>Explanatory</strong> — Adds educational context about <em>why</em> Claude made particular implementation choices.</p></li>
+<li><p><strong>Learning</strong> — Designed for students. Adds “Insights” as Claude works, highlighting concepts worth understanding. Also inserts <code class="docutils literal notranslate"><span class="pre">TODO(human)</span></code> markers in code where you should try completing a step yourself.</p></li>
+</ul>
+<p><strong>Learning mode</strong> is particularly useful in this course. Instead of just giving you the answer, Claude will pause and explain what’s happening, point out patterns you should recognize, and leave spots for you to practice. You can also create your own custom output styles with <code class="docutils literal notranslate"><span class="pre">/output-style:new</span></code>.</p>
+</div>
+</section>
+</section>
+<section id="comparing-the-tools">
+<h2>Comparing the Tools<a class="headerlink" href="#comparing-the-tools" title="Link to this heading">#</a></h2>
+<p>Here’s when to reach for each tool:</p>
+<div class="pst-scrollable-table-container"><table class="table">
+<thead>
+<tr class="row-odd"><th class="head"><p>Situation</p></th>
+<th class="head"><p>Best Tool</p></th>
+<th class="head"><p>Why</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>Writing code in a notebook</p></td>
+<td><p><strong>Copilot</strong></p></td>
+<td><p>Inline suggestions, no context switching</p></td>
+</tr>
+<tr class="row-odd"><td><p>Understanding a concept</p></td>
+<td><p><strong>Claude (browser)</strong></p></td>
+<td><p>Good for longer explanations</p></td>
+</tr>
+<tr class="row-even"><td><p>Debugging an error</p></td>
+<td><p><strong>Copilot Chat</strong> or <strong>Claude</strong></p></td>
+<td><p>Paste error, get explanation</p></td>
+</tr>
+<tr class="row-odd"><td><p>Planning a project</p></td>
+<td><p><strong>Claude (browser)</strong></p></td>
+<td><p>Think through approach first</p></td>
+</tr>
+<tr class="row-even"><td><p>Multi-file changes</p></td>
+<td><p><strong>Claude Code</strong></p></td>
+<td><p>Can read and edit multiple files</p></td>
+</tr>
+<tr class="row-odd"><td><p>Quick syntax help</p></td>
+<td><p><strong>Copilot</strong></p></td>
+<td><p>Just start typing</p></td>
+</tr>
+<tr class="row-even"><td><p>Learning a new library</p></td>
+<td><p><strong>Claude (browser)</strong></p></td>
+<td><p>Can explain with examples</p></td>
+</tr>
+<tr class="row-odd"><td><p>Building a feature from scratch</p></td>
+<td><p><strong>Claude Code</strong></p></td>
+<td><p>End-to-end implementation</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<p>In practice, you’ll often use multiple tools together. Start with Claude to plan your approach, use Copilot for the actual coding, and come back to Claude when you get stuck.</p>
+</section>
+<section id="prompt-engineering-for-finance">
+<h2>Prompt Engineering for Finance<a class="headerlink" href="#prompt-engineering-for-finance" title="Link to this heading">#</a></h2>
+<p>No matter which AI tool you use – Copilot, Claude in the browser, or Claude Code – the quality of your output depends on the quality of your input. <strong>Prompt engineering</strong> is the skill of crafting effective instructions for AI systems.</p>
+<p>This idea comes up in Professor Jonathan Hersh’s course on Generative AI in Finance at Chapman University (Spring 2026). He frames it simply: a <strong>prompt</strong> is the instruction you give to an AI system, and better instructions produce dramatically better results.</p>
+<figure class="align-center" id="prompt-engineering-what-png">
+<img alt="../_images/24-prompt-engineering-what.png" class="with-border" src="../_images/24-prompt-engineering-what.png" />
+<figcaption>
+<p><span class="caption-number">Fig. 31 </span><span class="caption-text">The difference between a bad and good prompt. A vague request gets a vague response. A specific, structured request gets focused, actionable output. Source: Professor Jonathan Hersh, BUS 696: Generative AI in Finance, Chapman University, Spring 2026.</span><a class="headerlink" href="#prompt-engineering-what-png" title="Link to this image">#</a></p>
+</figcaption>
+</figure>
+<section id="five-principles-for-better-prompts">
+<h3>Five Principles for Better Prompts<a class="headerlink" href="#five-principles-for-better-prompts" title="Link to this heading">#</a></h3>
+<p>Hersh identifies five principles that will improve your interactions with any AI tool. These apply whether you’re using Claude, Copilot Chat, ChatGPT, or any other LLM.</p>
+<figure class="align-center" id="prompt-engineering-principles-png">
+<img alt="../_images/24-prompt-engineering-principles.png" class="with-border" src="../_images/24-prompt-engineering-principles.png" />
+<figcaption>
+<p><span class="caption-number">Fig. 32 </span><span class="caption-text">Five prompt engineering principles. Source: Professor Jonathan Hersh, BUS 696: Generative AI in Finance, Chapman University, Spring 2026.</span><a class="headerlink" href="#prompt-engineering-principles-png" title="Link to this image">#</a></p>
+</figcaption>
+</figure>
+<p>Let’s unpack each one with finance-specific context:</p>
+<p><strong>1. Be Specific.</strong> Don’t say “analyze this data.” Say “calculate the annualized Sharpe Ratio for each stock and compare it to the S&amp;P 500 benchmark over the same period.” The more precise your request, the less you’ll need to go back and forth.</p>
+<p><strong>2. Provide Context.</strong> Tell the AI who you are and what you’re trying to accomplish. “I’m an undergraduate finance student building a portfolio optimization model for a class project” gives the AI very different context than “I’m preparing a risk report for our firm’s investment committee.” The AI adjusts its language, level of detail, and assumptions based on this.</p>
+<p><strong>3. Give Examples.</strong> If you want output in a particular format, show it. “Format the output like this: Ticker: AAPL, Annual Return: 15.2%, Sharpe: 0.82” is much more effective than “give me the results in a nice format.”</p>
+<p><strong>4. Specify Format.</strong> Tell the AI what kind of response you want: bullet points, a table, executable Python code with comments, a one-paragraph summary, etc. This is especially important when asking for code – “give me executable Python code with comments explaining each step” produces much better learning material than just “write the code.”</p>
+<p><strong>5. Iterate Continuously.</strong> Your first prompt rarely produces the perfect result. Treat it as a conversation. If the response isn’t quite right, refine your prompt based on what you got back. This is normal and expected – even experienced users iterate.</p>
+<div class="admonition tip">
+<p class="admonition-title">Tip</p>
+<p>Think of prompt engineering like giving directions. “Go to the store” is vague. “Drive north on Main Street for 2 miles, turn right on Oak, and the store is on the left with a blue awning” gets you there. Same idea with AI – specificity and context are everything.</p>
+</div>
+</section>
+<section id="finance-specific-prompt-patterns">
+<h3>Finance-Specific Prompt Patterns<a class="headerlink" href="#finance-specific-prompt-patterns" title="Link to this heading">#</a></h3>
+<p>Here are three prompt patterns that come up constantly in finance work. These are adapted from examples in Professor Hersh’s course.</p>
+<figure class="align-center" id="prompt-examples-finance-png">
+<img alt="../_images/24-prompt-examples-finance.png" class="with-border" src="../_images/24-prompt-examples-finance.png" />
+<figcaption>
+<p><span class="caption-number">Fig. 33 </span><span class="caption-text">Three categories of finance prompts: explaining concepts, analyzing data, and writing code. Each demonstrates how specificity and structure lead to better AI output. Source: Professor Jonathan Hersh, BUS 696: Generative AI in Finance, Chapman University, Spring 2026.</span><a class="headerlink" href="#prompt-examples-finance-png" title="Link to this image">#</a></p>
+</figcaption>
+</figure>
+<p><strong>Explaining Concepts:</strong> When you need to understand something, tell the AI your level and what kind of explanation you want. For example: <em>“Explain the covariance matrix to someone who has taken intro stats but not linear algebra. Start with the intuition, then show a 2x2 example with real stock data.”</em> This is far better than just asking “what is a covariance matrix?”</p>
+<p><strong>Analyzing Data:</strong> When you have results and need interpretation, give the AI the actual numbers and ask it to put them in context. For example: <em>“I have a portfolio with an annualized return of 12%, annual volatility of 18%, and a max drawdown of -25%. How does this compare to typical equity portfolios? What does the drawdown tell me that the Sharpe Ratio doesn’t?”</em></p>
+<p><strong>Writing Code:</strong> When asking for code, specify the libraries, the data format, and what you want the output to look like. For example: <em>“Write Python code using pandas and yfinance to download 3 years of daily data for AAPL and SPY, calculate rolling 60-day correlations, and plot the result with matplotlib. Include comments explaining each step.”</em></p>
+<div class="admonition important">
+<p class="admonition-title">Important</p>
+<p>These prompt patterns aren’t just about getting better AI output – they’re about developing <strong>analytical thinking</strong>. When you force yourself to be specific about what you want, you’re also forcing yourself to think clearly about what you’re trying to accomplish. That skill transfers well beyond AI tools.</p>
+</div>
+</section>
+</section>
+<section id="example-ai-assisted-function-writing">
+<h2>Example: AI-Assisted Function Writing<a class="headerlink" href="#example-ai-assisted-function-writing" title="Link to this heading">#</a></h2>
+<p>Let’s see how AI can help us write a function. I’ll ask Claude to write a function that simulates asset prices using <strong>geometric Brownian motion</strong> (GBM) — the same model we use in the Monte Carlo chapter.</p>
+<p><strong>My prompt:</strong></p>
+<blockquote>
+<div><p>Write a function in Python that simulates geometric Brownian motion for any number of assets. The inputs should be: number of assets, mean for each asset, standard deviation for each asset, number of periods, initial value of each asset, and number of simulations. The output should be an array containing all simulations. These are uncorrelated assets.</p>
+</div></blockquote>
+<p>Here’s what Claude generated:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
+
+<span class="k">def</span><span class="w"> </span><span class="nf">geometric_brownian_motion</span><span class="p">(</span><span class="n">num_assets</span><span class="p">,</span> <span class="n">means</span><span class="p">,</span> <span class="n">std_devs</span><span class="p">,</span> <span class="n">num_periods</span><span class="p">,</span> <span class="n">initial_values</span><span class="p">,</span> <span class="n">num_simulations</span><span class="p">,</span> <span class="n">seed</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Simulate asset prices using Geometric Brownian Motion.</span>
+<span class="sd">    </span>
+<span class="sd">    Parameters:</span>
+<span class="sd">    -----------</span>
+<span class="sd">    num_assets : int</span>
+<span class="sd">        Number of assets to simulate</span>
+<span class="sd">    means : array-like</span>
+<span class="sd">        Expected return for each asset</span>
+<span class="sd">    std_devs : array-like</span>
+<span class="sd">        Volatility (standard deviation) for each asset</span>
+<span class="sd">    num_periods : int</span>
+<span class="sd">        Number of time periods to simulate</span>
+<span class="sd">    initial_values : array-like</span>
+<span class="sd">        Starting price for each asset</span>
+<span class="sd">    num_simulations : int</span>
+<span class="sd">        Number of simulation paths to generate</span>
+<span class="sd">    seed : int, optional</span>
+<span class="sd">        Random seed for reproducibility</span>
+<span class="sd">        </span>
+<span class="sd">    Returns:</span>
+<span class="sd">    --------</span>
+<span class="sd">    ndarray</span>
+<span class="sd">        Array of shape (num_simulations, num_periods + 1, num_assets)</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">means</span><span class="p">)</span> <span class="o">!=</span> <span class="n">num_assets</span> <span class="ow">or</span> <span class="nb">len</span><span class="p">(</span><span class="n">std_devs</span><span class="p">)</span> <span class="o">!=</span> <span class="n">num_assets</span> <span class="ow">or</span> <span class="nb">len</span><span class="p">(</span><span class="n">initial_values</span><span class="p">)</span> <span class="o">!=</span> <span class="n">num_assets</span><span class="p">:</span>
+        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;Length of means, std_devs, and initial_values must equal num_assets&quot;</span><span class="p">)</span>
+
+    <span class="c1"># Initialize random number generator (modern numpy approach)</span>
+    <span class="n">rng</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">default_rng</span><span class="p">(</span><span class="n">seed</span><span class="p">)</span>
+    
+    <span class="c1"># Initialize array to store simulations</span>
+    <span class="n">simulations</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">((</span><span class="n">num_simulations</span><span class="p">,</span> <span class="n">num_periods</span> <span class="o">+</span> <span class="mi">1</span><span class="p">,</span> <span class="n">num_assets</span><span class="p">))</span>
+    <span class="n">simulations</span><span class="p">[:,</span> <span class="mi">0</span><span class="p">,</span> <span class="p">:]</span> <span class="o">=</span> <span class="n">initial_values</span>
+
+    <span class="n">dt</span> <span class="o">=</span> <span class="mf">1.0</span>  <span class="c1"># Time step</span>
+
+    <span class="k">for</span> <span class="n">sim</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">num_simulations</span><span class="p">):</span>
+        <span class="k">for</span> <span class="n">t</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="n">num_periods</span> <span class="o">+</span> <span class="mi">1</span><span class="p">):</span>
+            <span class="k">for</span> <span class="n">asset</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">num_assets</span><span class="p">):</span>
+                <span class="n">random_shock</span> <span class="o">=</span> <span class="n">rng</span><span class="o">.</span><span class="n">standard_normal</span><span class="p">()</span>
+                <span class="n">change</span> <span class="o">=</span> <span class="n">means</span><span class="p">[</span><span class="n">asset</span><span class="p">]</span> <span class="o">*</span> <span class="n">dt</span> <span class="o">+</span> <span class="n">std_devs</span><span class="p">[</span><span class="n">asset</span><span class="p">]</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="n">dt</span><span class="p">)</span> <span class="o">*</span> <span class="n">random_shock</span>
+                <span class="n">simulations</span><span class="p">[</span><span class="n">sim</span><span class="p">,</span> <span class="n">t</span><span class="p">,</span> <span class="n">asset</span><span class="p">]</span> <span class="o">=</span> <span class="n">simulations</span><span class="p">[</span><span class="n">sim</span><span class="p">,</span> <span class="n">t</span> <span class="o">-</span> <span class="mi">1</span><span class="p">,</span> <span class="n">asset</span><span class="p">]</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">exp</span><span class="p">(</span><span class="n">change</span><span class="p">)</span>
+
+    <span class="k">return</span> <span class="n">simulations</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Example usage</span>
+<span class="n">num_assets</span> <span class="o">=</span> <span class="mi">3</span>
+<span class="n">means</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mf">0.05</span><span class="p">,</span> <span class="mf">0.06</span><span class="p">,</span> <span class="mf">0.07</span><span class="p">])</span>
+<span class="n">std_devs</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mf">0.1</span><span class="p">,</span> <span class="mf">0.12</span><span class="p">,</span> <span class="mf">0.14</span><span class="p">])</span>
+<span class="n">num_periods</span> <span class="o">=</span> <span class="mi">100</span>
+<span class="n">initial_values</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mi">100</span><span class="p">,</span> <span class="mi">120</span><span class="p">,</span> <span class="mi">140</span><span class="p">])</span>
+<span class="n">num_simulations</span> <span class="o">=</span> <span class="mi">1000</span>
+
+<span class="n">simulations</span> <span class="o">=</span> <span class="n">geometric_brownian_motion</span><span class="p">(</span><span class="n">num_assets</span><span class="p">,</span> <span class="n">means</span><span class="p">,</span> <span class="n">std_devs</span><span class="p">,</span> <span class="n">num_periods</span><span class="p">,</span> <span class="n">initial_values</span><span class="p">,</span> <span class="n">num_simulations</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Output shape: </span><span class="si">{</span><span class="n">simulations</span><span class="o">.</span><span class="n">shape</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Output shape: (1000, 101, 3)
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Look at the first simulation for the first asset</span>
+<span class="n">simulations</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="p">:,</span> <span class="mi">0</span><span class="p">]</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>array([ 100.        ,   93.51604649,   77.56977161,   83.6272825 ,
+         76.95243666,   90.20065336,   87.80343834,   86.98726753,
+         94.52359331,  107.18151849,  112.10700568,  106.2568266 ,
+        117.77298295,  139.87833255,  147.42462277,  126.06292495,
+        138.30745675,  118.42863329,  109.45968634,  127.33482722,
+        153.61723285,  161.59904652,  140.9122446 ,  157.91153419,
+        185.55780657,  193.0053255 ,  262.65587744,  290.17605314,
+        368.49412034,  349.22157216,  375.83160531,  372.21516597,
+        415.06765783,  371.6522726 ,  398.48381543,  500.36804435,
+        484.72339472,  467.73897388,  496.16715168,  517.1591273 ,
+        496.55388797,  548.59069691,  614.27275178,  678.17217252,
+        651.76589659,  842.96546327,  767.66871916,  763.0662452 ,
+        753.39067627,  762.70298891,  771.97282126,  715.48522328,
+        661.23416452,  733.6515312 ,  723.35646831,  771.90760953,
+        880.78460774,  893.52019863,  803.37594908,  960.92868504,
+        990.49767198, 1140.57278998, 1053.57787915, 1070.71274722,
+       1286.67328808, 1540.10172715, 1540.53699917, 1631.95385512,
+       1934.87612848, 1794.19520792, 1575.55538841, 1788.89917424,
+       1833.03544452, 1980.55378303, 1859.97747342, 2112.17464567,
+       2174.63327454, 2312.59383053, 2396.12715711, 2220.24299341,
+       1996.27132172, 2319.57814759, 1652.09986564, 1797.03620997,
+       2211.65521037, 2077.19347741, 2272.19747582, 2311.20164956,
+       2366.27683407, 2086.11147607, 2238.63757483, 2472.14694177,
+       2757.79993813, 3751.80776329, 4019.39152548, 4090.21727588,
+       4207.10934181, 3807.23511551, 3773.75585812, 3833.08964126,
+       4460.25753668])
+</pre></div>
+</div>
+</div>
+</div>
+<p><strong>What should you notice here?</strong></p>
+<ol class="arabic simple">
+<li><p>The AI added a proper <strong>docstring</strong> explaining inputs and outputs</p></li>
+<li><p>It included <strong>input validation</strong> to catch errors early</p></li>
+<li><p>The logic matches the GBM formula we discuss in the Monte Carlo chapter</p></li>
+<li><p>But — you should still <strong>verify the math</strong> and <strong>test with known values</strong></p></li>
+</ol>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Notice that this AI-generated code uses <strong>nested for loops</strong>. In Chapter 3, you’ll learn about <strong>vectorization</strong>, which would make this code 10-100x faster. AI tools don’t always write optimized code — they write code that works. Part of developing good taste is knowing when to ask for improvements: “Can you rewrite this using vectorized numpy operations instead of loops?”</p>
+</div>
+<p>AI is great for generating this kind of code quickly. But the real skill is knowing:</p>
+<ul class="simple">
+<li><p>What function to ask for in the first place</p></li>
+<li><p>Whether the output makes financial sense</p></li>
+<li><p>How to integrate it into a larger analysis</p></li>
+</ul>
+</section>
+<section id="example-ai-assisted-debugging">
+<h2>Example: AI-Assisted Debugging<a class="headerlink" href="#example-ai-assisted-debugging" title="Link to this heading">#</a></h2>
+<p>AI tools excel at finding bugs. Here’s code with a subtle error — can you spot it?</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># This code has a bug!</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">pandas</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">pd</span>
+
+<span class="c1"># Read some price data</span>
+<span class="n">raw</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s1">&#39;https://raw.githubusercontent.com/aaiken1/fin-data-analysis-python/main/data/tr_eikon_eod_data.csv&#39;</span><span class="p">,</span>
+                  <span class="n">index_col</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">parse_dates</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span><span class="o">.</span><span class="n">dropna</span><span class="p">()</span> 
+
+<span class="n">symbols</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;AAPL.O&#39;</span><span class="p">,</span> <span class="s1">&#39;MSFT.O&#39;</span><span class="p">,</span> <span class="s1">&#39;SPY&#39;</span><span class="p">,</span> <span class="s1">&#39;GLD&#39;</span><span class="p">]</span>
+<span class="n">data</span> <span class="o">=</span> <span class="n">raw</span><span class="p">[</span><span class="n">symbols</span><span class="p">]</span>
+<span class="n">rets</span> <span class="o">=</span> <span class="n">data</span><span class="o">.</span><span class="n">pct_change</span><span class="p">()</span><span class="o">.</span><span class="n">dropna</span><span class="p">()</span>
+
+<span class="c1"># Random portfolio weights (using modern numpy random generator)</span>
+<span class="n">rng</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">default_rng</span><span class="p">(</span><span class="mi">42</span><span class="p">)</span>
+<span class="n">weights</span> <span class="o">=</span> <span class="n">rng</span><span class="o">.</span><span class="n">random</span><span class="p">(</span><span class="mi">4</span><span class="p">)</span>
+<span class="n">weights</span> <span class="o">/=</span> <span class="n">np</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">weights</span><span class="p">)</span>
+
+<span class="c1"># Define portfolio functions</span>
+<span class="n">ann_rets</span> <span class="o">=</span> <span class="n">rets</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span> <span class="o">*</span> <span class="mi">252</span>
+
+<span class="k">def</span><span class="w"> </span><span class="nf">port_ret</span><span class="p">(</span><span class="n">weights</span><span class="p">):</span>
+    <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">ann_rets</span> <span class="o">*</span> <span class="n">weights</span><span class="p">)</span>
+
+<span class="k">def</span><span class="w"> </span><span class="nf">port_vol</span><span class="p">(</span><span class="n">weights</span><span class="p">):</span>
+    <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">sort</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">dot</span><span class="p">(</span><span class="n">weights</span><span class="o">.</span><span class="n">T</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">dot</span><span class="p">(</span><span class="n">rets</span><span class="o">.</span><span class="n">cov</span><span class="p">()</span> <span class="o">*</span> <span class="mi">252</span><span class="p">,</span> <span class="n">weights</span><span class="p">)))</span>  <span class="c1"># BUG HERE!</span>
+
+<span class="k">def</span><span class="w"> </span><span class="nf">sharpe</span><span class="p">(</span><span class="n">weights</span><span class="p">):</span>  
+    <span class="k">return</span> <span class="n">port_ret</span><span class="p">(</span><span class="n">weights</span><span class="p">)</span> <span class="o">/</span> <span class="n">port_vol</span><span class="p">(</span><span class="n">weights</span><span class="p">)</span>  
+
+<span class="c1"># This will throw an error</span>
+<span class="c1"># sharpe(weights)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>The error is <code class="docutils literal notranslate"><span class="pre">np.sort</span></code> instead of <code class="docutils literal notranslate"><span class="pre">np.sqrt</span></code>. A one-letter typo!</p>
+<p>I pasted this code into Claude and asked: “This code gives me an AxisError. Can you find the bug?”</p>
+<figure class="align-center" id="gpt-find-error-png">
+<img alt="../_images/17-gpt-find-error.png" class="with-border" src="../_images/17-gpt-find-error.png" />
+<figcaption>
+<p><span class="caption-number">Fig. 34 </span><span class="caption-text">AI tools can quickly identify bugs that might take you hours to find.</span><a class="headerlink" href="#gpt-find-error-png" title="Link to this image">#</a></p>
+</figcaption>
+</figure>
+<p>Claude immediately identified the typo. These are exactly the kinds of errors that can waste hours of your time — and AI finds them in seconds.</p>
+</section>
+<section id="best-practices-for-ai-assisted-coding">
+<h2>Best Practices for AI-Assisted Coding<a class="headerlink" href="#best-practices-for-ai-assisted-coding" title="Link to this heading">#</a></h2>
+<p>After using these tools extensively, here’s what works:</p>
+<section id="start-with-a-plan">
+<h3>1. Start with a Plan<a class="headerlink" href="#start-with-a-plan" title="Link to this heading">#</a></h3>
+<p>Before writing any code, think about:</p>
+<ul class="simple">
+<li><p>What problem are you solving?</p></li>
+<li><p>What data do you need?</p></li>
+<li><p>What should the output look like?</p></li>
+<li><p>What are the steps to get there?</p></li>
+</ul>
+<p>AI can help you code each step, but <strong>you</strong> need to know what steps are needed. This is where your finance knowledge matters.</p>
+</section>
+<section id="be-specific-in-your-requests">
+<h3>2. Be Specific in Your Requests<a class="headerlink" href="#be-specific-in-your-requests" title="Link to this heading">#</a></h3>
+<p>Vague prompts get vague results.</p>
+<div class="pst-scrollable-table-container"><table class="table">
+<thead>
+<tr class="row-odd"><th class="head"><p>Instead of…</p></th>
+<th class="head"><p>Try…</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>“Make a chart”</p></td>
+<td><p>“Create a line chart showing cumulative returns for AAPL, with the y-axis as percentage and proper labels”</p></td>
+</tr>
+<tr class="row-odd"><td><p>“Analyze this data”</p></td>
+<td><p>“Calculate the mean, standard deviation, and Sharpe ratio for each stock in my DataFrame”</p></td>
+</tr>
+<tr class="row-even"><td><p>“Fix this error”</p></td>
+<td><p>“I’m getting a KeyError on line 15. Here’s my code and the full error message…”</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+</section>
+<section id="verify-the-output">
+<h3>3. Verify the Output<a class="headerlink" href="#verify-the-output" title="Link to this heading">#</a></h3>
+<p>AI tools make mistakes. Always:</p>
+<ul class="simple">
+<li><p><strong>Test with simple cases</strong> where you know the answer</p></li>
+<li><p><strong>Check the math</strong> for financial calculations</p></li>
+<li><p><strong>Read the code</strong> to make sure you understand it</p></li>
+<li><p><strong>Run it</strong> and verify the output makes sense</p></li>
+</ul>
+<div class="admonition warning">
+<p class="admonition-title">Warning</p>
+<p>Just because code runs without errors doesn’t mean it’s correct. A Sharpe ratio of 15.0 should make you suspicious, even if the code “works.”</p>
+</div>
+</section>
+<section id="learn-from-the-code">
+<h3>4. Learn From the Code<a class="headerlink" href="#learn-from-the-code" title="Link to this heading">#</a></h3>
+<p>Don’t just copy-paste. Ask:</p>
+<ul class="simple">
+<li><p>“Why did you use this approach?”</p></li>
+<li><p>“What does this line do?”</p></li>
+<li><p>“Are there other ways to do this?”</p></li>
+</ul>
+<p>The goal is to learn, not just to get working code.</p>
+</section>
+<section id="know-when-ai-struggles">
+<h3>5. Know When AI Struggles<a class="headerlink" href="#know-when-ai-struggles" title="Link to this heading">#</a></h3>
+<p>AI assistants are less reliable for:</p>
+<ul class="simple">
+<li><p><strong>Very recent libraries</strong> — Training data has a cutoff</p></li>
+<li><p><strong>Domain-specific logic</strong> — It may not know your firm’s conventions</p></li>
+<li><p><strong>Multi-step reasoning</strong> — It can lose track over long chains of logic</p></li>
+<li><p><strong>Edge cases</strong> — It optimizes for common patterns</p></li>
+</ul>
+<p>For these cases, you’ll need to rely more on documentation, your own knowledge, and testing.</p>
+</section>
+</section>
+<section id="what-ai-means-for-your-career">
+<h2>What AI Means for Your Career<a class="headerlink" href="#what-ai-means-for-your-career" title="Link to this heading">#</a></h2>
+<p>AI tools change what skills are valuable. Some things become less important:</p>
+<ul class="simple">
+<li><p>Memorizing syntax</p></li>
+<li><p>Writing boilerplate code</p></li>
+<li><p>Looking up function arguments</p></li>
+</ul>
+<p>But other skills become <strong>more important</strong>:</p>
+<section id="domain-expertise">
+<h3>Domain Expertise<a class="headerlink" href="#domain-expertise" title="Link to this heading">#</a></h3>
+<p>AI can write code to calculate a Sharpe ratio, but it may not know:</p>
+<ul class="simple">
+<li><p>Whether that’s the right metric for your analysis</p></li>
+<li><p>What assumptions you’re making</p></li>
+<li><p>How to interpret the results for a client</p></li>
+<li><p>What questions to ask in the first place</p></li>
+</ul>
+<p>Your finance knowledge is what makes the code <strong>meaningful</strong>.</p>
+</section>
+<section id="systems-thinking">
+<h3>Systems Thinking<a class="headerlink" href="#systems-thinking" title="Link to this heading">#</a></h3>
+<p>Modern finance runs on complex systems:</p>
+<ul class="simple">
+<li><p>Cloud platforms (AWS, Azure, Databricks)</p></li>
+<li><p>Data pipelines and ETL processes</p></li>
+<li><p>Databases and data warehouses</p></li>
+<li><p>APIs and data vendors</p></li>
+<li><p>Deployment and monitoring</p></li>
+</ul>
+<p>AI can help with individual pieces, but <strong>you</strong> need to understand how they fit together. This is <strong>data engineering</strong> — increasingly valuable as AI handles more of the basic coding.</p>
+</section>
+<section id="project-management">
+<h3>Project Management<a class="headerlink" href="#project-management" title="Link to this heading">#</a></h3>
+<p>Real projects involve:</p>
+<ul class="simple">
+<li><p>Understanding stakeholder needs</p></li>
+<li><p>Breaking complex problems into pieces</p></li>
+<li><p>Managing timelines and dependencies</p></li>
+<li><p>Communicating results clearly</p></li>
+</ul>
+<p>AI is a tool that makes you faster at execution. But knowing <strong>what</strong> to execute, and <strong>why</strong>, is still up to you.</p>
+</section>
+<section id="critical-evaluation">
+<h3>Critical Evaluation<a class="headerlink" href="#critical-evaluation" title="Link to this heading">#</a></h3>
+<p>Perhaps most importantly: the ability to look at AI output and know whether it’s right. This requires:</p>
+<ul class="simple">
+<li><p>Understanding the underlying concepts</p></li>
+<li><p>Knowing what “reasonable” looks like</p></li>
+<li><p>Testing and verification skills</p></li>
+<li><p>Healthy skepticism</p></li>
+</ul>
+<div class="admonition tip">
+<p class="admonition-title">Tip</p>
+<p>The best way to get good at using AI tools is to <strong>already understand the fundamentals</strong>. The more you know about Python and finance, the better you can direct AI assistants. It’s not even about catching mistakes or hallucinations. It’s about <strong>taste</strong> and sending the agentic AI tools down the right paths.</p>
+</div>
+</section>
+</section>
+</section>
+
+    <script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "binder-examples/jupyter-stacks-datascience",
+            ref: "master",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "python"
+        },
+        kernelOptions: {
+            name: "python3",
+            path: "./chapters"
+        },
+        predefinedOutput: true
+    }
+    </script>
+    <script>kernelName = 'python3'</script>
+
+                </article>
+              
+
+              
+              
+              
+              
+                <footer class="prev-next-footer d-print-none">
+                  
+<div class="prev-next-area">
+    <a class="left-prev"
+       href="2_3_style.html"
+       title="previous page">
+      <i class="fa-solid fa-angle-left"></i>
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">previous</p>
+        <p class="prev-next-title">Code style, PEP8, and linting</p>
+      </div>
+    </a>
+    <a class="right-next"
+       href="3_intro.html"
+       title="next page">
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-title">CompSci 101: Types, control, and numpy arrays</p>
+      </div>
+      <i class="fa-solid fa-angle-right"></i>
+    </a>
+</div>
+                </footer>
+              
+            </div>
+            
+            
+              
+                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+
+  <div class="sidebar-secondary-item">
+  <div class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> Contents
+  </div>
+  <nav class="bd-toc-nav page-toc">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#the-state-of-ai-coding-in-2026">The State of AI Coding in 2026</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#llms-are-now-undeniably-good-at-code">LLMs Are Now Undeniably Good at Code</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#the-danger-cognitive-debt">The Danger: Cognitive Debt</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#ai-doesn-t-reduce-workit-intensifies-it">AI Doesn’t Reduce Work—It Intensifies It</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#what-this-means-for-finance-and-analytics">What This Means for Finance and Analytics</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#rapidly-changing-coding-world">Rapidly Changing Coding World</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#anthropic-courses-on-claude">Anthropic Courses on Claude</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#bloomberg-odd-lots-on-claude-code">Bloomberg Odd Lots on Claude Code</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#the-tools-we-ll-use">The Tools We’ll Use</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#two-styles-of-ai-coding-help">Two Styles of AI Coding Help</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#autocomplete-style-github-copilot">Autocomplete Style (GitHub Copilot)</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#agentic-style-claude-code">Agentic Style (Claude Code)</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#side-by-side-comparison">Side-by-Side Comparison</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#when-to-use-which">When to Use Which</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#github-copilot-in-codespaces">GitHub Copilot in Codespaces</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#setting-up-copilot">Setting Up Copilot</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#how-copilot-works">How Copilot Works</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#copilot-keyboard-shortcuts">Copilot Keyboard Shortcuts</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#copilot-chat">Copilot Chat</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#tips-for-using-copilot">Tips for Using Copilot</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#claude-in-codespaces-browser">Claude in Codespaces (Browser)</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#when-to-use-claude-browser">When to Use Claude (Browser)</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#example-workflow">Example Workflow</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#writing-good-prompts-for-claude">Writing Good Prompts for Claude</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#conversations-not-commands">Conversations, Not Commands</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#claude-code-desktop-app">Claude Code (Desktop App)</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#getting-claude-code">Getting Claude Code</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#opening-a-project">Opening a Project</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#the-claude-code-interface">The Claude Code Interface</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#what-claude-code-can-do">What Claude Code Can Do</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#example-conversation">Example Conversation</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#approving-changes">Approving Changes</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#when-to-use-claude-code">When to Use Claude Code</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#tips-for-claude-code">Tips for Claude Code</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#comparing-the-tools">Comparing the Tools</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#prompt-engineering-for-finance">Prompt Engineering for Finance</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#five-principles-for-better-prompts">Five Principles for Better Prompts</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#finance-specific-prompt-patterns">Finance-Specific Prompt Patterns</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#example-ai-assisted-function-writing">Example: AI-Assisted Function Writing</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#example-ai-assisted-debugging">Example: AI-Assisted Debugging</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#best-practices-for-ai-assisted-coding">Best Practices for AI-Assisted Coding</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#start-with-a-plan">1. Start with a Plan</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#be-specific-in-your-requests">2. Be Specific in Your Requests</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#verify-the-output">3. Verify the Output</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#learn-from-the-code">4. Learn From the Code</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#know-when-ai-struggles">5. Know When AI Struggles</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#what-ai-means-for-your-career">What AI Means for Your Career</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#domain-expertise">Domain Expertise</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#systems-thinking">Systems Thinking</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#project-management">Project Management</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#critical-evaluation">Critical Evaluation</a></li>
+</ul>
+</li>
+</ul>
+  </nav></div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+<div class="bd-footer-content__inner container">
+  
+  <div class="footer-item">
+    
+<p class="component-author">
+By Prof. Adam Aiken
+</p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+</div>
+          </footer>
+        
+
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="../_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b"></script>
+<script src="../_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b"></script>
+
+  <footer class="bd-footer">
+  </footer>
+  </body>
+</html>

@@ -1,0 +1,1169 @@
+
+<!DOCTYPE html>
+
+
+<html lang="en" data-content_root="../" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>FRED API &#8212; Data Analysis in Finance</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
+  </script>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../_static/styles/theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="../_static/styles/bootstrap.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="../_static/styles/pydata-sphinx-theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+
+  
+  <link href="../_static/vendor/fontawesome/6.5.2/css/all.min.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.2/webfonts/fa-solid-900.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.2/webfonts/fa-brands-400.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.2/webfonts/fa-regular-400.woff2" />
+
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=03e43079" />
+    <link rel="stylesheet" type="text/css" href="../_static/styles/sphinx-book-theme.css?v=eba8b062" />
+    <link rel="stylesheet" type="text/css" href="../_static/togglebutton.css?v=9c3e77be" />
+    <link rel="stylesheet" type="text/css" href="../_static/copybutton.css?v=76b2166b" />
+    <link rel="stylesheet" type="text/css" href="../_static/mystnb.8ecb98da25f57f5357bf6f572d296f466b2cfe2517ffebfabe82451661e28f02.css?v=6644e6bb" />
+    <link rel="stylesheet" type="text/css" href="../_static/sphinx-thebe.css?v=4fa983c6" />
+    <link rel="stylesheet" type="text/css" href="../_static/sphinx-design.min.css?v=95c83b7e" />
+    <link rel="stylesheet" type="text/css" href="../_static/custom.css?v=b00ee380" />
+  
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b" />
+<link rel="preload" as="script" href="../_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b" />
+  <script src="../_static/vendor/fontawesome/6.5.2/js/all.min.js?digest=dfe6caa3a7d634c4db9b"></script>
+
+    <script src="../_static/documentation_options.js?v=9eb32ce0"></script>
+    <script src="../_static/doctools.js?v=9a2dae69"></script>
+    <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../_static/clipboard.min.js?v=a7894cd8"></script>
+    <script src="../_static/copybutton.js?v=f281be69"></script>
+    <script src="../_static/scripts/sphinx-book-theme.js?v=887ef09a"></script>
+    <script>let toggleHintShow = 'Click to show';</script>
+    <script>let toggleHintHide = 'Click to hide';</script>
+    <script>let toggleOpenOnPrint = 'true';</script>
+    <script src="../_static/togglebutton.js?v=1ae7504c"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script src="../_static/design-tabs.js?v=f930bc37"></script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script async="async" src="../_static/sphinx-thebe.js?v=c100c467"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script>window.MathJax = {"options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
+    <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'chapters/6_1_fred';</script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="NASDAQ Data Link" href="6_2_nasdaq.html" />
+    <link rel="prev" title="Data APIs" href="6_intro.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+
+  
+  
+  <div id="pst-skip-link" class="skip-link d-print-none"><a href="#main-content">Skip to main content</a></div>
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>Back to top</button>
+
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-primary-sidebar-checkbox"/>
+  <label class="overlay overlay-primary" for="pst-primary-sidebar-checkbox"></label>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-secondary-sidebar-checkbox"/>
+  <label class="overlay overlay-secondary" for="pst-secondary-sidebar-checkbox"></label>
+  
+  <div class="search-button__wrapper">
+    <div class="search-button__overlay"></div>
+    <div class="search-button__search-container">
+<form class="bd-search d-flex align-items-center"
+      action="../search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         id="search-input"
+         placeholder="Search this book..."
+         aria-label="Search this book..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form></div>
+  </div>
+
+  <div class="pst-async-banner-revealer d-none">
+  <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
+</div>
+
+  
+    <header class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
+    </header>
+  
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      
+      
+      <div class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+    
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+
+  
+    
+  
+
+<a class="navbar-brand logo" href="../intro.html">
+  
+  
+  
+  
+  
+    
+    
+      
+    
+    
+    <img src="../_static/cat.png" class="logo__image only-light" alt="Data Analysis in Finance - Home"/>
+    <script>document.write(`<img src="../_static/cat.png" class="logo__image only-dark" alt="Data Analysis in Finance - Home"/>`);</script>
+  
+  
+</a></div>
+        <div class="sidebar-primary-item">
+
+ <script>
+ document.write(`
+   <button class="btn search-button-field search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass"></i>
+    <span class="search-button__default-text">Search</span>
+    <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+   </button>
+ `);
+ </script></div>
+        <div class="sidebar-primary-item"><nav class="bd-links bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item navbar-nav active">
+        
+        <ul class="nav bd-sidenav bd-sidenav__home-link">
+            <li class="toctree-l1">
+                <a class="reference internal" href="../intro.html">
+                    Welcome
+                </a>
+            </li>
+        </ul>
+        <p aria-level="2" class="caption" role="heading"><span class="caption-text">Getting Started</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="1_finpyth.html">Why Python and finance?</a></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="2_intro.html">Python set-up <a id="python_set-up"></a></a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="2_0_git.html">Using Github and Github Codespaces</a></li>
+<li class="toctree-l2"><a class="reference internal" href="2_1_markdown.html">Markdown</a></li>
+<li class="toctree-l2"><a class="reference internal" href="2_2_packages.html">Packages</a></li>
+<li class="toctree-l2"><a class="reference internal" href="2_3_style.html">Code style, PEP8, and linting</a></li>
+<li class="toctree-l2"><a class="reference internal" href="2_4_using_ai.html">AI Coding Assistants</a></li>
+</ul>
+</details></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">The Basics</span></p>
+<ul class="current nav bd-sidenav">
+<li class="toctree-l1 has-children"><a class="reference internal" href="3_intro.html">CompSci 101: Types, control, and numpy arrays</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="3_0_comp101.html">The Basics</a></li>
+<li class="toctree-l2"><a class="reference internal" href="3_1_numpy.html">Numpy and arrays</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="4_intro.html">Working with data</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="4_0_dataframes.html">Importing data</a></li>
+<li class="toctree-l2"><a class="reference internal" href="4_1_pandas.html">pandas</a></li>
+<li class="toctree-l2"><a class="reference internal" href="4_2_cleaning_data.html">Cleaning our data</a></li>
+<li class="toctree-l2"><a class="reference internal" href="4_3_eda.html">Exploratory data analysis (EDA)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="4_4_merge_shape.html">Merging and reshaping data</a></li>
+<li class="toctree-l2"><a class="reference internal" href="4_5_sql.html">Using SQL in Python</a></li>
+<li class="toctree-l2"><a class="reference internal" href="4_6_polar.html">polars: A fast, fancy pandas alternative</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="5_intro.html">Data visualization</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="5_0_seaborn.html">seaborn</a></li>
+<li class="toctree-l2"><a class="reference internal" href="5_1_matplotlib.html">matplotlib</a></li>
+<li class="toctree-l2"><a class="reference internal" href="5_2_plotly.html">plotly</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 current active has-children"><a class="reference internal" href="6_intro.html">Data APIs</a><details open="open"><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul class="current">
+<li class="toctree-l2 current active"><a class="current reference internal" href="#">FRED API</a></li>
+<li class="toctree-l2"><a class="reference internal" href="6_2_nasdaq.html">NASDAQ Data Link</a></li>
+<li class="toctree-l2"><a class="reference internal" href="6_3_databento.html">Databento</a></li>
+<li class="toctree-l2"><a class="reference internal" href="6_4_wrds.html">WRDS (Wharton Research Data Services)</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1"><a class="reference internal" href="7_financial_ts.html">Financial time series <a id="financial-time-series"></a></a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Applications</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="8_port_math.html">Essential portfolio math</a></li>
+<li class="toctree-l1"><a class="reference internal" href="9_portfolio_opt.html">Portfolio optimization</a></li>
+<li class="toctree-l1"><a class="reference internal" href="10_unsupervised_learning.html">Machine learning and unsupervised learning <a id="unsupervised_learning"></a></a></li>
+<li class="toctree-l1"><a class="reference internal" href="11_factor_models.html">Factor models <a id="factor_models"></a></a></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="12_intro.html">Regression and supervised machine learning</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="12_0_ols.html">OLS regression in Python</a></li>
+<li class="toctree-l2"><a class="reference internal" href="12_1_regularization.html">Regularization: Ridge, Lasso, and Elastic Net</a></li>
+<li class="toctree-l2"><a class="reference internal" href="12_2_ml_workflow.html">The machine learning workflow with sklearn</a></li>
+<li class="toctree-l2"><a class="reference internal" href="12_3_ml_markets.html">From Regression to Prediction: Can ML Beat the Market?</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1"><a class="reference internal" href="13_logit_credit.html">Logit models</a></li>
+<li class="toctree-l1"><a class="reference internal" href="14_risk_mang.html">Risk management</a></li>
+<li class="toctree-l1"><a class="reference internal" href="15_monte_carlo.html">Monte Carlo and portfolios</a></li>
+<li class="toctree-l1"><a class="reference internal" href="16_decision_trees.html">Decision Trees</a></li>
+<li class="toctree-l1"><a class="reference internal" href="17_options.html">Option basics</a></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="18_intro.html">Trading strategies and backtesting</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="18_0_trading_bt.html">Backtesting with the BT Package</a></li>
+<li class="toctree-l2"><a class="reference internal" href="18_1_alphalens.html">Factor Analysis with Alphalens</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1"><a class="reference internal" href="19_textual_analysis.html">Textual Analysis in Finance</a></li>
+<li class="toctree-l1"><a class="reference internal" href="20_llms.html">How Large Language Models Work</a></li>
+</ul>
+
+    </div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+  </div>
+  
+  <div id="rtd-footer-container"></div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main" role="main">
+        
+        
+
+<div class="sbt-scroll-pixel-helper"></div>
+
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article d-print-none">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item"><button class="sidebar-toggle primary-toggle btn btn-sm" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <span class="fa-solid fa-bars"></span>
+</button></div>
+      
+    </div>
+  
+  
+    <div class="header-article-items__end">
+      
+        <div class="header-article-item">
+
+<div class="article-header-buttons">
+
+
+<a href="https://github.com/executablebooks/jupyter-book" target="_blank"
+   class="btn btn-sm btn-source-repository-button"
+   title="Source repository"
+   data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fab fa-github"></i>
+  </span>
+
+</a>
+
+
+
+
+
+
+<div class="dropdown dropdown-download-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Download this page">
+    <i class="fas fa-download"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="../_sources/chapters/6_1_fred.ipynb" target="_blank"
+   class="btn btn-sm btn-download-source-button dropdown-item"
+   title="Download source file"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="btn__text-container">.ipynb</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li>
+<button onclick="window.print()"
+  class="btn btn-sm btn-download-pdf-button dropdown-item"
+  title="Print to PDF"
+  data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="btn__text-container">.pdf</span>
+</button>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+<button onclick="toggleFullScreen()"
+  class="btn btn-sm btn-fullscreen-button"
+  title="Fullscreen mode"
+  data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="theme-switch fa-solid fa-sun fa-lg" data-mode="light"></i>
+    <i class="theme-switch fa-solid fa-moon fa-lg" data-mode="dark"></i>
+    <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"></i>
+  </button>
+`);
+</script>
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm pst-navbar-icon search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass fa-lg"></i>
+  </button>
+`);
+</script>
+<button class="sidebar-toggle secondary-toggle btn btn-sm" title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="fa-solid fa-list"></span>
+</button>
+</div></div>
+      
+    </div>
+  
+</div>
+</div>
+              
+              
+
+<div id="jb-print-docs-body" class="onlyprint">
+    <h1>FRED API</h1>
+    <!-- Table of contents -->
+    <div id="print-main-content">
+        <div id="jb-print-toc">
+            
+            <div>
+                <h2> Contents </h2>
+            </div>
+            <nav aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#getting-started-with-fred">Getting Started with FRED</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#set-up">Set-up</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#secure-api-key-storage">Secure API Key Storage</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#using-a-env-file-recommended-for-local-development">Using a <code class="docutils literal notranslate"><span class="pre">.env</span></code> File (Recommended for Local Development)</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#using-github-secrets-recommended-for-codespaces">Using GitHub Secrets (Recommended for Codespaces)</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#troubleshooting-github-secrets">Troubleshooting GitHub Secrets</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#fred-example-bitcoin-data">FRED Example: Bitcoin Data</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#visualizing-cumulative-returns">Visualizing Cumulative Returns</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#a-bitcoin-simulation">A Bitcoin Simulation <a id="btc-sim"></a></a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#what-is-gbm">What is GBM?</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#fred-example-gdp-data">FRED Example: GDP Data</a></li>
+</ul>
+            </nav>
+        </div>
+    </div>
+</div>
+
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                  
+  <section class="tex2jax_ignore mathjax_ignore" id="fred-api">
+<h1>FRED API<a class="headerlink" href="#fred-api" title="Link to this heading">#</a></h1>
+<p>The <a class="reference external" href="https://fred.stlouisfed.org/">Federal Reserve Economic Data (FRED)</a> is maintained by the Federal Reserve Bank of St. Louis. It contains over 800,000 economic time series from dozens of sources, including:</p>
+<ul class="simple">
+<li><p>GDP and economic growth indicators</p></li>
+<li><p>Inflation measures (CPI, PCE)</p></li>
+<li><p>Interest rates and yield curves</p></li>
+<li><p>Employment and labor market data</p></li>
+<li><p>International economic data</p></li>
+<li><p>Cryptocurrency prices</p></li>
+</ul>
+<section id="getting-started-with-fred">
+<h2>Getting Started with FRED<a class="headerlink" href="#getting-started-with-fred" title="Link to this heading">#</a></h2>
+<p>To use the FRED API, you need to:</p>
+<ol class="arabic simple">
+<li><p>Create a <a class="reference external" href="https://fred.stlouisfed.org">FRED account</a></p></li>
+<li><p>Request an <a class="reference external" href="https://fredaccount.stlouisfed.org/apikeys">API key</a></p></li>
+<li><p>Store your key securely (never hardcode it!)</p></li>
+</ol>
+<p>Install the package:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">pip</span> <span class="n">install</span> <span class="n">fredapi</span>
+</pre></div>
+</div>
+</section>
+<section id="set-up">
+<h2>Set-up<a class="headerlink" href="#set-up" title="Link to this heading">#</a></h2>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Core packages</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">fredapi</span><span class="w"> </span><span class="kn">import</span> <span class="n">Fred</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">os</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">dotenv</span><span class="w"> </span><span class="kn">import</span> <span class="n">load_dotenv</span>
+
+<span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">pandas</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">pd</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">datetime</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">dt</span>
+
+<span class="kn">import</span><span class="w"> </span><span class="nn">matplotlib</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">mpl</span> 
+<span class="kn">import</span><span class="w"> </span><span class="nn">matplotlib.pyplot</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">plt</span>
+
+<span class="c1"># Include this to have plots show up in your Jupyter notebook.</span>
+<span class="o">%</span><span class="k">matplotlib</span> inline 
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Load API keys from .env file</span>
+<span class="n">load_dotenv</span><span class="p">()</span>
+
+<span class="c1"># Retrieve API keys</span>
+<span class="n">FRED_API_KEY</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">getenv</span><span class="p">(</span><span class="s1">&#39;FRED_API_KEY&#39;</span><span class="p">)</span>
+
+<span class="c1"># Initialize FRED API</span>
+<span class="n">fred</span> <span class="o">=</span> <span class="n">Fred</span><span class="p">(</span><span class="n">api_key</span><span class="o">=</span><span class="n">FRED_API_KEY</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="secure-api-key-storage">
+<h2>Secure API Key Storage<a class="headerlink" href="#secure-api-key-storage" title="Link to this heading">#</a></h2>
+<p>Here’s the <strong>wrong</strong> way to use your API key:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># DON&#39;T DO THIS!</span>
+<span class="n">fred</span> <span class="o">=</span> <span class="n">Fred</span><span class="p">(</span><span class="n">api_key</span><span class="o">=</span><span class="s1">&#39;your_api_key_here&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>If you push this code to GitHub, your key is exposed to the world!</p>
+<section id="using-a-env-file-recommended-for-local-development">
+<h3>Using a <code class="docutils literal notranslate"><span class="pre">.env</span></code> File (Recommended for Local Development)<a class="headerlink" href="#using-a-env-file-recommended-for-local-development" title="Link to this heading">#</a></h3>
+<p>A <code class="docutils literal notranslate"><span class="pre">.env</span></code> file is a simple text file that stores your API keys as key-value pairs. It lives in your project folder but is <strong>never</strong> committed to GitHub.</p>
+<p><strong>Step 1</strong>: Create a file called <code class="docutils literal notranslate"><span class="pre">.env</span></code> in your project’s root folder (the same folder as your notebooks). You can do this in VS Code or any text editor. The file contents look like this:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">FRED_API_KEY</span><span class="o">=</span><span class="n">your_actual_key_here</span>
+</pre></div>
+</div>
+<p>No quotes, no spaces around the <code class="docutils literal notranslate"><span class="pre">=</span></code>. Just the variable name and the key.</p>
+<p><strong>Step 2</strong>: Make sure <code class="docutils literal notranslate"><span class="pre">.env</span></code> is in your <code class="docutils literal notranslate"><span class="pre">.gitignore</span></code> file so it doesn’t get pushed to GitHub:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="c1"># .gitignore</span>
+<span class="o">.</span><span class="n">env</span>
+</pre></div>
+</div>
+<p><strong>Step 3</strong>: In your Python code, use <code class="docutils literal notranslate"><span class="pre">python-dotenv</span></code> to load the key:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">dotenv</span><span class="w"> </span><span class="kn">import</span> <span class="n">load_dotenv</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">os</span>
+
+<span class="n">load_dotenv</span><span class="p">()</span>  <span class="c1"># Reads the .env file and loads variables into the environment</span>
+<span class="n">FRED_API_KEY</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">getenv</span><span class="p">(</span><span class="s1">&#39;FRED_API_KEY&#39;</span><span class="p">)</span>
+
+<span class="n">fred</span> <span class="o">=</span> <span class="n">Fred</span><span class="p">(</span><span class="n">api_key</span><span class="o">=</span><span class="n">FRED_API_KEY</span><span class="p">)</span>
+</pre></div>
+</div>
+<p><code class="docutils literal notranslate"><span class="pre">load_dotenv()</span></code> reads the <code class="docutils literal notranslate"><span class="pre">.env</span></code> file and makes its variables available through <code class="docutils literal notranslate"><span class="pre">os.getenv()</span></code>. This is exactly what our set-up cell above does.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Install <code class="docutils literal notranslate"><span class="pre">python-dotenv</span></code> if you don’t have it: <code class="docutils literal notranslate"><span class="pre">pip</span> <span class="pre">install</span> <span class="pre">python-dotenv</span></code></p>
+</div>
+</section>
+<section id="using-github-secrets-recommended-for-codespaces">
+<h3>Using GitHub Secrets (Recommended for Codespaces)<a class="headerlink" href="#using-github-secrets-recommended-for-codespaces" title="Link to this heading">#</a></h3>
+<p>If you’re using GitHub Codespaces, you can store keys as <strong>Codespace Secrets</strong> instead of a <code class="docutils literal notranslate"><span class="pre">.env</span></code> file. These are encrypted and automatically available as environment variables inside your Codespace.</p>
+<p>Here’s how to add a secret:</p>
+<ol class="arabic simple">
+<li><p>Go to <a class="reference external" href="https://github.com">github.com</a> and click your <strong>profile picture</strong> in the upper-right corner</p></li>
+<li><p>Click <strong>Settings</strong></p></li>
+<li><p>In the left sidebar, scroll down to the <strong>“Code, planning, and automation”</strong> section and click <strong>Codespaces</strong></p></li>
+<li><p>Next to <strong>“Codespaces secrets”</strong>, click <strong>New secret</strong></p></li>
+<li><p>In the <strong>Name</strong> field, type your secret name (e.g., <code class="docutils literal notranslate"><span class="pre">FRED_API_KEY</span></code>)</p></li>
+<li><p>In the <strong>Value</strong> field, paste your API key</p></li>
+<li><p>Click the <strong>Repository access</strong> dropdown and select the repo(s) that should have access to this secret</p></li>
+<li><p>Click <strong>Add secret</strong></p></li>
+</ol>
+<figure class="align-center" id="secrets1-png">
+<img alt="../_images/07-secrets1.png" src="../_images/07-secrets1.png" />
+<figcaption>
+<p><span class="caption-number">Fig. 40 </span><span class="caption-text">GitHub Codespaces secrets settings.</span><a class="headerlink" href="#secrets1-png" title="Link to this image">#</a></p>
+</figcaption>
+</figure>
+<figure class="align-center" id="secrets2-png">
+<img alt="../_images/07-secrets2.png" src="../_images/07-secrets2.png" />
+<figcaption>
+<p><span class="caption-number">Fig. 41 </span><span class="caption-text">Adding a new secret.</span><a class="headerlink" href="#secrets2-png" title="Link to this image">#</a></p>
+</figcaption>
+</figure>
+<p>Codespace Secrets are automatically available as environment variables, so you can access them the same way:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">FRED_API_KEY</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">getenv</span><span class="p">(</span><span class="s1">&#39;FRED_API_KEY&#39;</span><span class="p">)</span>
+<span class="n">fred</span> <span class="o">=</span> <span class="n">Fred</span><span class="p">(</span><span class="n">api_key</span><span class="o">=</span><span class="n">FRED_API_KEY</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>You don’t need <code class="docutils literal notranslate"><span class="pre">load_dotenv()</span></code> for Codespace Secrets, but it doesn’t hurt to include it – if no <code class="docutils literal notranslate"><span class="pre">.env</span></code> file exists, it just does nothing.</p>
+</section>
+<section id="troubleshooting-github-secrets">
+<h3>Troubleshooting GitHub Secrets<a class="headerlink" href="#troubleshooting-github-secrets" title="Link to this heading">#</a></h3>
+<p>If your code can’t find your API key (e.g., you get an error like <code class="docutils literal notranslate"><span class="pre">ValueError</span></code> or <code class="docutils literal notranslate"><span class="pre">None</span></code> when you try to use it), work through this checklist:</p>
+<p><strong>1. Check your secret name for typos.</strong> The name you use in <code class="docutils literal notranslate"><span class="pre">os.getenv('FRED_API_KEY')</span></code> must <strong>exactly match</strong> the name you entered on GitHub. Secret names are not case-sensitive on GitHub’s side, but it’s good practice to keep them consistent. Only letters, numbers, and underscores are allowed – no spaces or special characters.</p>
+<p><strong>2. Check the API key value itself.</strong> When you paste your key into the <strong>Value</strong> field on GitHub, make sure you haven’t accidentally copied extra spaces or characters before or after the key. A trailing space or newline character will silently break things.</p>
+<p><strong>3. Make sure you granted repository access.</strong> When you created the secret, you needed to select which repositories can use it. If you forgot to add your lab repo, the secret won’t be available in that Codespace. Go back to <strong>Settings &gt; Codespaces &gt; Codespaces secrets</strong>, click on the secret name, and make sure your repo is listed under repository access.</p>
+<p><strong>4. Stop and restart your Codespace.</strong> Secrets are loaded when a Codespace starts up. If you added or changed a secret while your Codespace was already running, it won’t pick up the change automatically. You need to <strong>stop</strong> the Codespace and then reopen it. Here’s how:</p>
+<ol class="arabic simple">
+<li><p><strong>Save your work first.</strong> Do a <code class="docutils literal notranslate"><span class="pre">git</span> <span class="pre">add</span></code>, <code class="docutils literal notranslate"><span class="pre">git</span> <span class="pre">commit</span></code>, and <code class="docutils literal notranslate"><span class="pre">git</span> <span class="pre">push</span></code> (or use the Source Control panel in VS Code to sync) so your files are backed up to GitHub.</p></li>
+<li><p><strong>Close the Codespace browser tab</strong> (or VS Code window). Note that closing the tab alone does <strong>not</strong> stop the Codespace – it keeps running in the background.</p></li>
+<li><p>Go to <a class="reference external" href="https://github.com/codespaces">github.com/codespaces</a>. This page lists all of your Codespaces.</p></li>
+<li><p>Find the Codespace you want to restart. Click the <strong>three dots</strong> (<code class="docutils literal notranslate"><span class="pre">...</span></code>) to the right of it.</p></li>
+<li><p>Click <strong>Stop codespace</strong>.</p></li>
+<li><p>Once it has stopped, go back to your lab repository on GitHub and click the green <strong>Code</strong> button, then <strong>Codespaces</strong>, and open your existing Codespace. It will restart with the updated secrets.</p></li>
+</ol>
+<p><strong>5. Verify the secret is loaded.</strong> You can add a quick check in your notebook to make sure the key was found (without printing the actual key!):</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">FRED_API_KEY</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">getenv</span><span class="p">(</span><span class="s1">&#39;FRED_API_KEY&#39;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="nb">type</span><span class="p">(</span><span class="n">FRED_API_KEY</span><span class="p">))</span>  <span class="c1"># Should print &lt;class &#39;str&#39;&gt;, not &lt;class &#39;NoneType&#39;&gt;</span>
+</pre></div>
+</div>
+<p>If it prints <code class="docutils literal notranslate"><span class="pre">&lt;class</span> <span class="pre">'NoneType'&gt;</span></code>, the secret isn’t being found. Go back through the steps above.</p>
+</section>
+</section>
+<section id="fred-example-bitcoin-data">
+<h2>FRED Example: Bitcoin Data<a class="headerlink" href="#fred-example-bitcoin-data" title="Link to this heading">#</a></h2>
+<p>Let’s pull Bitcoin price data from FRED. You can find the series <a class="reference external" href="https://fred.stlouisfed.org/series/CBBTCUSD">here</a>.</p>
+<p>When you find data on FRED, note the <strong>series code</strong> - that’s how you’ll request it via the API.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">btc</span> <span class="o">=</span> <span class="n">fred</span><span class="o">.</span><span class="n">get_series</span><span class="p">(</span><span class="s1">&#39;CBBTCUSD&#39;</span><span class="p">)</span>
+<span class="n">btc</span><span class="o">.</span><span class="n">tail</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>2026-03-06    68350.00
+2026-03-07    67193.87
+2026-03-08    66055.14
+2026-03-09    68480.54
+2026-03-10    69847.95
+dtype: float64
+</pre></div>
+</div>
+</div>
+</div>
+<p>That’s just a plain <strong>Series</strong>, not a DataFrame. Let’s convert it and clean it up.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">btc</span> <span class="o">=</span> <span class="n">btc</span><span class="o">.</span><span class="n">to_frame</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="s1">&#39;btc&#39;</span><span class="p">)</span>
+<span class="n">btc</span> <span class="o">=</span> <span class="n">btc</span><span class="o">.</span><span class="n">rename_axis</span><span class="p">(</span><span class="s1">&#39;date&#39;</span><span class="p">)</span>
+<span class="n">btc</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>btc</th>
+    </tr>
+    <tr>
+      <th>date</th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>2014-12-01</th>
+      <td>370.00</td>
+    </tr>
+    <tr>
+      <th>2014-12-02</th>
+      <td>378.00</td>
+    </tr>
+    <tr>
+      <th>2014-12-03</th>
+      <td>378.00</td>
+    </tr>
+    <tr>
+      <th>2014-12-04</th>
+      <td>377.10</td>
+    </tr>
+    <tr>
+      <th>2014-12-05</th>
+      <td>NaN</td>
+    </tr>
+    <tr>
+      <th>...</th>
+      <td>...</td>
+    </tr>
+    <tr>
+      <th>2026-03-06</th>
+      <td>68350.00</td>
+    </tr>
+    <tr>
+      <th>2026-03-07</th>
+      <td>67193.87</td>
+    </tr>
+    <tr>
+      <th>2026-03-08</th>
+      <td>66055.14</td>
+    </tr>
+    <tr>
+      <th>2026-03-09</th>
+      <td>68480.54</td>
+    </tr>
+    <tr>
+      <th>2026-03-10</th>
+      <td>69847.95</td>
+    </tr>
+  </tbody>
+</table>
+<p>4118 rows × 1 columns</p>
+</div></div></div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Drop missing values</span>
+<span class="n">btc</span> <span class="o">=</span> <span class="n">btc</span><span class="o">.</span><span class="n">dropna</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Calculate returns</span>
+<span class="n">btc</span><span class="p">[</span><span class="s1">&#39;ret&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">btc</span><span class="p">[</span><span class="s1">&#39;btc&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">pct_change</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>/var/folders/kx/y8vj3n6n5kq_d74vj24jsnh40000gn/T/ipykernel_31063/1503532820.py:2: SettingWithCopyWarning: 
+A value is trying to be set on a copy of a slice from a DataFrame.
+Try using .loc[row_indexer,col_indexer] = value instead
+
+See the caveats in the documentation: https://pandas.pydata.org/pandas-docs/stable/user_guide/indexing.html#returning-a-view-versus-a-copy
+  btc[&#39;ret&#39;] = btc[&#39;btc&#39;].pct_change()
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">btc</span> <span class="o">=</span> <span class="n">btc</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="s1">&#39;2015-01-01&#39;</span><span class="p">:,</span> <span class="p">[</span><span class="s1">&#39;btc&#39;</span><span class="p">,</span> <span class="s1">&#39;ret&#39;</span><span class="p">]]</span>
+<span class="n">btc</span><span class="o">.</span><span class="n">plot</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;Axes: xlabel=&#39;date&#39;&gt;
+</pre></div>
+</div>
+<img alt="../_images/3249351b93f9bb09190caac7be0b0dbca0984aa6c314f03f2864808365132cec.png" src="../_images/3249351b93f9bb09190caac7be0b0dbca0984aa6c314f03f2864808365132cec.png" />
+</div>
+</div>
+<p>That’s not a very good graph - the returns and price levels are in different units. Let’s format the average return nicely:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;Average return: </span><span class="si">{</span><span class="mi">100</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">btc</span><span class="o">.</span><span class="n">ret</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span><span class="si">:</span><span class="s1">.2f</span><span class="si">}</span><span class="s1">%&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Average return: 0.20%
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="visualizing-cumulative-returns">
+<h2>Visualizing Cumulative Returns<a class="headerlink" href="#visualizing-cumulative-returns" title="Link to this heading">#</a></h2>
+<p>Let’s create a cumulative return chart and daily return chart, stacked on top of each other.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">btc</span><span class="p">[</span><span class="s1">&#39;ret_g&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">btc</span><span class="o">.</span><span class="n">ret</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>  <span class="c1"># gross return</span>
+<span class="n">btc</span><span class="p">[</span><span class="s1">&#39;ret_c&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">btc</span><span class="o">.</span><span class="n">ret_g</span><span class="o">.</span><span class="n">cumprod</span><span class="p">()</span><span class="o">.</span><span class="n">sub</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>  <span class="c1"># cumulative return</span>
+<span class="n">btc</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>btc</th>
+      <th>ret</th>
+      <th>ret_g</th>
+      <th>ret_c</th>
+    </tr>
+    <tr>
+      <th>date</th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>2015-01-08</th>
+      <td>288.99</td>
+      <td>-0.150029</td>
+      <td>0.849971</td>
+      <td>-0.150029</td>
+    </tr>
+    <tr>
+      <th>2015-01-13</th>
+      <td>260.00</td>
+      <td>-0.100315</td>
+      <td>0.899685</td>
+      <td>-0.235294</td>
+    </tr>
+    <tr>
+      <th>2015-01-14</th>
+      <td>120.00</td>
+      <td>-0.538462</td>
+      <td>0.461538</td>
+      <td>-0.647059</td>
+    </tr>
+    <tr>
+      <th>2015-01-15</th>
+      <td>204.22</td>
+      <td>0.701833</td>
+      <td>1.701833</td>
+      <td>-0.399353</td>
+    </tr>
+    <tr>
+      <th>2015-01-16</th>
+      <td>199.46</td>
+      <td>-0.023308</td>
+      <td>0.976692</td>
+      <td>-0.413353</td>
+    </tr>
+    <tr>
+      <th>...</th>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+    </tr>
+    <tr>
+      <th>2026-03-06</th>
+      <td>68350.00</td>
+      <td>-0.036720</td>
+      <td>0.963280</td>
+      <td>200.029412</td>
+    </tr>
+    <tr>
+      <th>2026-03-07</th>
+      <td>67193.87</td>
+      <td>-0.016915</td>
+      <td>0.983085</td>
+      <td>196.629029</td>
+    </tr>
+    <tr>
+      <th>2026-03-08</th>
+      <td>66055.14</td>
+      <td>-0.016947</td>
+      <td>0.983053</td>
+      <td>193.279824</td>
+    </tr>
+    <tr>
+      <th>2026-03-09</th>
+      <td>68480.54</td>
+      <td>0.036718</td>
+      <td>1.036718</td>
+      <td>200.413353</td>
+    </tr>
+    <tr>
+      <th>2026-03-10</th>
+      <td>69847.95</td>
+      <td>0.019968</td>
+      <td>1.019968</td>
+      <td>204.435147</td>
+    </tr>
+  </tbody>
+</table>
+<p>4074 rows × 4 columns</p>
+</div></div></div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">fig</span><span class="p">,</span> <span class="n">axs</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="n">sharex</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">sharey</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span> <span class="mi">6</span><span class="p">))</span>
+
+<span class="n">axs</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">btc</span><span class="o">.</span><span class="n">ret_c</span><span class="p">,</span> <span class="s1">&#39;g&#39;</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;BTC Cumulative Return&#39;</span><span class="p">)</span>
+<span class="n">axs</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">btc</span><span class="o">.</span><span class="n">ret</span><span class="p">,</span> <span class="s1">&#39;b&#39;</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;BTC Daily Return&#39;</span><span class="p">)</span>
+            
+<span class="n">axs</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s1">&#39;BTC Cumulative Returns&#39;</span><span class="p">)</span>
+<span class="n">axs</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s1">&#39;BTC Daily Returns&#39;</span><span class="p">)</span>
+
+<span class="n">axs</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">legend</span><span class="p">()</span>
+<span class="n">axs</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">legend</span><span class="p">();</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../_images/8c4fa194effb29ce2a5ce20bd92630c26fdffc02c26a2e9d525d658796556307.png" src="../_images/8c4fa194effb29ce2a5ce20bd92630c26fdffc02c26a2e9d525d658796556307.png" />
+</div>
+</div>
+</section>
+<section id="a-bitcoin-simulation">
+<h2>A Bitcoin Simulation <a id='btc-sim'></a><a class="headerlink" href="#a-bitcoin-simulation" title="Link to this heading">#</a></h2>
+<p>Let’s put together some ideas, write a function, and run a simulation using <strong>Geometric Brownian Motion (GBM)</strong>.</p>
+<section id="what-is-gbm">
+<h3>What is GBM?<a class="headerlink" href="#what-is-gbm" title="Link to this heading">#</a></h3>
+<p>GBM is a stochastic differential equation commonly used to model asset prices:</p>
+<div class="math notranslate nohighlight">
+\[dS = \mu S dt + \sigma S dW_t\]</div>
+<p>This says the change in stock price has two components:</p>
+<ul class="simple">
+<li><p>A <strong>drift</strong> (<span class="math notranslate nohighlight">\(\mu\)</span>): the average increase over time</p></li>
+<li><p>A <strong>shock</strong> (<span class="math notranslate nohighlight">\(\sigma dW_t\)</span>): random noise scaled by volatility</p></li>
+</ul>
+<p>The solution gives us the price at any time <span class="math notranslate nohighlight">\(t\)</span>:</p>
+<div class="math notranslate nohighlight">
+\[S(t) = S(0) \exp \left(\left(\mu - \frac{1}{2}\sigma^2\right)t + \sigma W(t)\right)\]</div>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>We’re not predicting here. We’re capturing basic dynamics of how an asset moves and seeing what’s possible in the future.</p>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Simulation parameters</span>
+<span class="n">T</span> <span class="o">=</span> <span class="mi">30</span>        <span class="c1"># Time horizon (days)</span>
+<span class="n">N</span> <span class="o">=</span> <span class="mi">30</span>        <span class="c1"># Number of time steps</span>
+<span class="n">S_0</span> <span class="o">=</span> <span class="n">btc</span><span class="o">.</span><span class="n">btc</span><span class="o">.</span><span class="n">iloc</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>  <span class="c1"># Initial BTC price</span>
+<span class="n">N_SIM</span> <span class="o">=</span> <span class="mi">100</span>   <span class="c1"># Number of simulations</span>
+<span class="n">mu</span> <span class="o">=</span> <span class="n">btc</span><span class="o">.</span><span class="n">ret</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span>
+<span class="n">sigma</span> <span class="o">=</span> <span class="n">btc</span><span class="o">.</span><span class="n">ret</span><span class="o">.</span><span class="n">std</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span><span class="w"> </span><span class="nf">simulate_gbm</span><span class="p">(</span><span class="n">s_0</span><span class="p">,</span> <span class="n">mu</span><span class="p">,</span> <span class="n">sigma</span><span class="p">,</span> <span class="n">n_sims</span><span class="p">,</span> <span class="n">T</span><span class="p">,</span> <span class="n">N</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Simulate asset prices using Geometric Brownian Motion.&quot;&quot;&quot;</span>
+    <span class="n">dt</span> <span class="o">=</span> <span class="n">T</span> <span class="o">/</span> <span class="n">N</span>  <span class="c1"># One day</span>
+    <span class="n">dW</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">normal</span><span class="p">(</span><span class="n">scale</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="n">dt</span><span class="p">),</span> <span class="n">size</span><span class="o">=</span><span class="p">(</span><span class="n">n_sims</span><span class="p">,</span> <span class="n">N</span><span class="p">))</span>  <span class="c1"># Random shocks</span>
+    <span class="n">W</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">cumsum</span><span class="p">(</span><span class="n">dW</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>  <span class="c1"># Cumulative sum of shocks</span>
+    <span class="n">time_step</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="n">dt</span><span class="p">,</span> <span class="n">T</span><span class="p">,</span> <span class="n">N</span><span class="p">)</span>
+    <span class="n">time_steps</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">broadcast_to</span><span class="p">(</span><span class="n">time_step</span><span class="p">,</span> <span class="p">(</span><span class="n">n_sims</span><span class="p">,</span> <span class="n">N</span><span class="p">))</span>
+    <span class="n">S_t</span> <span class="o">=</span> <span class="n">s_0</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">exp</span><span class="p">((</span><span class="n">mu</span> <span class="o">-</span> <span class="mf">0.5</span> <span class="o">*</span> <span class="n">sigma</span> <span class="o">**</span> <span class="mi">2</span><span class="p">)</span> <span class="o">*</span> <span class="n">time_steps</span> <span class="o">+</span> <span class="n">sigma</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="n">time_steps</span><span class="p">)</span> <span class="o">*</span> <span class="n">W</span><span class="p">)</span>
+    <span class="n">S_t</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">insert</span><span class="p">(</span><span class="n">S_t</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="n">s_0</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">S_t</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Run the simulation</span>
+<span class="n">gbm_simulations</span> <span class="o">=</span> <span class="n">simulate_gbm</span><span class="p">(</span><span class="n">S_0</span><span class="p">,</span> <span class="n">mu</span><span class="p">,</span> <span class="n">sigma</span><span class="p">,</span> <span class="n">N_SIM</span><span class="p">,</span> <span class="n">T</span><span class="p">,</span> <span class="n">N</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Plot all simulations</span>
+<span class="n">gbm_simulations_df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">transpose</span><span class="p">(</span><span class="n">gbm_simulations</span><span class="p">))</span>
+
+<span class="n">ax</span> <span class="o">=</span> <span class="n">gbm_simulations_df</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">alpha</span><span class="o">=</span><span class="mf">0.2</span><span class="p">,</span> <span class="n">legend</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s1">&#39;BTC Price Simulations (30 days)&#39;</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">16</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s1">&#39;Days&#39;</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s1">&#39;Price ($)&#39;</span><span class="p">);</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../_images/72ad673fb2b85191d665fe640c60907c2308877a9d0931767f79254e65beca1e.png" src="../_images/72ad673fb2b85191d665fe640c60907c2308877a9d0931767f79254e65beca1e.png" />
+</div>
+</div>
+<p>The y-axis has a wide range because some extreme values are possible given Bitcoin’s high volatility.</p>
+</section>
+</section>
+<section id="fred-example-gdp-data">
+<h2>FRED Example: GDP Data<a class="headerlink" href="#fred-example-gdp-data" title="Link to this heading">#</a></h2>
+<p>Let’s pull another common series - U.S. GDP. The series code is <code class="docutils literal notranslate"><span class="pre">GDP</span></code>.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">gdp</span> <span class="o">=</span> <span class="n">fred</span><span class="o">.</span><span class="n">get_series</span><span class="p">(</span><span class="s1">&#39;GDP&#39;</span><span class="p">,</span> <span class="n">observation_start</span><span class="o">=</span><span class="s1">&#39;2010-01-01&#39;</span><span class="p">,</span> <span class="n">observation_end</span><span class="o">=</span><span class="s1">&#39;2023-01-27&#39;</span><span class="p">)</span>
+<span class="n">gdp</span> <span class="o">=</span> <span class="n">gdp</span><span class="o">.</span><span class="n">to_frame</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="s1">&#39;GDP&#39;</span><span class="p">)</span>
+<span class="n">gdp</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>GDP</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>2010-01-01</th>
+      <td>14764.610</td>
+    </tr>
+    <tr>
+      <th>2010-04-01</th>
+      <td>14980.193</td>
+    </tr>
+    <tr>
+      <th>2010-07-01</th>
+      <td>15141.607</td>
+    </tr>
+    <tr>
+      <th>2010-10-01</th>
+      <td>15309.474</td>
+    </tr>
+    <tr>
+      <th>2011-01-01</th>
+      <td>15351.448</td>
+    </tr>
+  </tbody>
+</table>
+</div></div></div>
+</div>
+<p>You can browse available series on the <a class="reference external" href="https://fred.stlouisfed.org/">FRED website</a> and use their series codes with <code class="docutils literal notranslate"><span class="pre">fred.get_series()</span></code>. Check the <a class="reference external" href="https://github.com/mortada/fredapi">fredapi documentation</a> for more options, like searching for series by keyword.</p>
+</section>
+</section>
+
+    <script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "binder-examples/jupyter-stacks-datascience",
+            ref: "master",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "python"
+        },
+        kernelOptions: {
+            name: "python3",
+            path: "./chapters"
+        },
+        predefinedOutput: true
+    }
+    </script>
+    <script>kernelName = 'python3'</script>
+
+                </article>
+              
+
+              
+              
+              
+              
+                <footer class="prev-next-footer d-print-none">
+                  
+<div class="prev-next-area">
+    <a class="left-prev"
+       href="6_intro.html"
+       title="previous page">
+      <i class="fa-solid fa-angle-left"></i>
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">previous</p>
+        <p class="prev-next-title">Data APIs</p>
+      </div>
+    </a>
+    <a class="right-next"
+       href="6_2_nasdaq.html"
+       title="next page">
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-title">NASDAQ Data Link</p>
+      </div>
+      <i class="fa-solid fa-angle-right"></i>
+    </a>
+</div>
+                </footer>
+              
+            </div>
+            
+            
+              
+                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+
+  <div class="sidebar-secondary-item">
+  <div class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> Contents
+  </div>
+  <nav class="bd-toc-nav page-toc">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#getting-started-with-fred">Getting Started with FRED</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#set-up">Set-up</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#secure-api-key-storage">Secure API Key Storage</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#using-a-env-file-recommended-for-local-development">Using a <code class="docutils literal notranslate"><span class="pre">.env</span></code> File (Recommended for Local Development)</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#using-github-secrets-recommended-for-codespaces">Using GitHub Secrets (Recommended for Codespaces)</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#troubleshooting-github-secrets">Troubleshooting GitHub Secrets</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#fred-example-bitcoin-data">FRED Example: Bitcoin Data</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#visualizing-cumulative-returns">Visualizing Cumulative Returns</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#a-bitcoin-simulation">A Bitcoin Simulation <a id="btc-sim"></a></a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#what-is-gbm">What is GBM?</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#fred-example-gdp-data">FRED Example: GDP Data</a></li>
+</ul>
+  </nav></div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+<div class="bd-footer-content__inner container">
+  
+  <div class="footer-item">
+    
+<p class="component-author">
+By Prof. Adam Aiken
+</p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+</div>
+          </footer>
+        
+
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="../_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b"></script>
+<script src="../_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b"></script>
+
+  <footer class="bd-footer">
+  </footer>
+  </body>
+</html>

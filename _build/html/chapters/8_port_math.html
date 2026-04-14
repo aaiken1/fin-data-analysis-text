@@ -1,114 +1,180 @@
 
 <!DOCTYPE html>
 
-<html>
+
+<html lang="en" data-content_root="../" >
+
   <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
-    <title>8. Essential portfolio math &#8212; Data Analysis in Finance</title>
-    
+    <title>Essential portfolio math &#8212; Data Analysis in Finance</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
+  </script>
+  
   <!-- Loaded before other Sphinx assets -->
-  <link href="../_static/styles/theme.css?digest=1999514e3f237ded88cf" rel="stylesheet">
-<link href="../_static/styles/pydata-sphinx-theme.css?digest=1999514e3f237ded88cf" rel="stylesheet">
+  <link href="../_static/styles/theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="../_static/styles/bootstrap.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="../_static/styles/pydata-sphinx-theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
 
-    
-  <link rel="stylesheet"
-    href="../_static/vendor/fontawesome/5.13.0/css/all.min.css">
-  <link rel="preload" as="font" type="font/woff2" crossorigin
-    href="../_static/vendor/fontawesome/5.13.0/webfonts/fa-solid-900.woff2">
-  <link rel="preload" as="font" type="font/woff2" crossorigin
-    href="../_static/vendor/fontawesome/5.13.0/webfonts/fa-brands-400.woff2">
+  
+  <link href="../_static/vendor/fontawesome/6.5.2/css/all.min.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.2/webfonts/fa-solid-900.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.2/webfonts/fa-brands-400.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.2/webfonts/fa-regular-400.woff2" />
 
-    <link rel="stylesheet" type="text/css" href="../_static/pygments.css" />
-    <link rel="stylesheet" href="../_static/styles/sphinx-book-theme.css?digest=5115cc725059bd94278eecd172e13a965bf8f5a9" type="text/css" />
-    <link rel="stylesheet" type="text/css" href="../_static/togglebutton.css" />
-    <link rel="stylesheet" type="text/css" href="../_static/copybutton.css" />
-    <link rel="stylesheet" type="text/css" href="../_static/mystnb.css" />
-    <link rel="stylesheet" type="text/css" href="../_static/sphinx-thebe.css" />
-    <link rel="stylesheet" type="text/css" href="../_static/design-style.b7bb847fb20b106c3d81b95245e65545.min.css" />
-    
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=03e43079" />
+    <link rel="stylesheet" type="text/css" href="../_static/styles/sphinx-book-theme.css?v=eba8b062" />
+    <link rel="stylesheet" type="text/css" href="../_static/togglebutton.css?v=9c3e77be" />
+    <link rel="stylesheet" type="text/css" href="../_static/copybutton.css?v=76b2166b" />
+    <link rel="stylesheet" type="text/css" href="../_static/mystnb.8ecb98da25f57f5357bf6f572d296f466b2cfe2517ffebfabe82451661e28f02.css?v=6644e6bb" />
+    <link rel="stylesheet" type="text/css" href="../_static/sphinx-thebe.css?v=4fa983c6" />
+    <link rel="stylesheet" type="text/css" href="../_static/sphinx-design.min.css?v=95c83b7e" />
+    <link rel="stylesheet" type="text/css" href="../_static/custom.css?v=b00ee380" />
+  
   <!-- Pre-loaded scripts that we'll load fully later -->
-  <link rel="preload" as="script" href="../_static/scripts/pydata-sphinx-theme.js?digest=1999514e3f237ded88cf">
+  <link rel="preload" as="script" href="../_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b" />
+<link rel="preload" as="script" href="../_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b" />
+  <script src="../_static/vendor/fontawesome/6.5.2/js/all.min.js?digest=dfe6caa3a7d634c4db9b"></script>
 
-    <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
-    <script src="../_static/jquery.js"></script>
-    <script src="../_static/underscore.js"></script>
-    <script src="../_static/doctools.js"></script>
-    <script src="../_static/clipboard.min.js"></script>
-    <script src="../_static/copybutton.js"></script>
-    <script src="../_static/scripts/sphinx-book-theme.js?digest=9c920249402e914e316237a7dbc6769907cce411"></script>
+    <script src="../_static/documentation_options.js?v=9eb32ce0"></script>
+    <script src="../_static/doctools.js?v=9a2dae69"></script>
+    <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../_static/clipboard.min.js?v=a7894cd8"></script>
+    <script src="../_static/copybutton.js?v=f281be69"></script>
+    <script src="../_static/scripts/sphinx-book-theme.js?v=887ef09a"></script>
     <script>let toggleHintShow = 'Click to show';</script>
     <script>let toggleHintHide = 'Click to hide';</script>
     <script>let toggleOpenOnPrint = 'true';</script>
-    <script src="../_static/togglebutton.js"></script>
-    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown, .tag_hide_input div.cell_input, .tag_hide-input div.cell_input, .tag_hide_output div.cell_output, .tag_hide-output div.cell_output, .tag_hide_cell.cell, .tag_hide-cell.cell';</script>
-    <script src="../_static/design-tabs.js"></script>
-    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"
-const thebe_selector = ".thebe,.cell"
-const thebe_selector_input = "pre"
-const thebe_selector_output = ".output, .cell_output"
-</script>
-    <script async="async" src="../_static/sphinx-thebe.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
-    <script src="https://unpkg.com/@jupyter-widgets/html-manager@^0.20.0/dist/embed-amd.js"></script>
+    <script src="../_static/togglebutton.js?v=1ae7504c"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script src="../_static/design-tabs.js?v=f930bc37"></script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script async="async" src="../_static/sphinx-thebe.js?v=c100c467"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
     <script>window.MathJax = {"options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
     <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'chapters/8_port_math';</script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
-    <link rel="next" title="9. Portfolio optimization" href="9_portfolio_opt.html" />
-    <link rel="prev" title="7. Financial time series" href="7_financial_ts.html" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <meta name="docsearch:language" content="None">
-    
-
-    <!-- Google Analytics -->
-    
+    <link rel="next" title="Portfolio optimization" href="9_portfolio_opt.html" />
+    <link rel="prev" title="Financial time series" href="7_financial_ts.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
   </head>
-  <body data-spy="scroll" data-target="#bd-toc-nav" data-offset="60">
-<!-- Checkboxes to toggle the left sidebar -->
-<input type="checkbox" class="sidebar-toggle" name="__navigation" id="__navigation" aria-label="Toggle navigation sidebar">
-<label class="overlay overlay-navbar" for="__navigation">
-    <div class="visually-hidden">Toggle navigation sidebar</div>
-</label>
-<!-- Checkboxes to toggle the in-page toc -->
-<input type="checkbox" class="sidebar-toggle" name="__page-toc" id="__page-toc" aria-label="Toggle in-page Table of Contents">
-<label class="overlay overlay-pagetoc" for="__page-toc">
-    <div class="visually-hidden">Toggle in-page Table of Contents</div>
-</label>
-<!-- Headers at the top -->
-<div class="announcement header-item noprint"></div>
-<div class="header header-item noprint"></div>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
 
-    
-    <div class="container-fluid" id="banner"></div>
+  
+  
+  <div id="pst-skip-link" class="skip-link d-print-none"><a href="#main-content">Skip to main content</a></div>
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>Back to top</button>
 
-    
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-primary-sidebar-checkbox"/>
+  <label class="overlay overlay-primary" for="pst-primary-sidebar-checkbox"></label>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-secondary-sidebar-checkbox"/>
+  <label class="overlay overlay-secondary" for="pst-secondary-sidebar-checkbox"></label>
+  
+  <div class="search-button__wrapper">
+    <div class="search-button__overlay"></div>
+    <div class="search-button__search-container">
+<form class="bd-search d-flex align-items-center"
+      action="../search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         id="search-input"
+         placeholder="Search this book..."
+         aria-label="Search this book..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form></div>
+  </div>
 
-    <div class="container-xl">
-      <div class="row">
-          
-<!-- Sidebar -->
-<div class="bd-sidebar noprint" id="site-navigation">
-    <div class="bd-sidebar__content">
-        <div class="bd-sidebar__top"><div class="navbar-brand-box">
-    <a class="navbar-brand text-wrap" href="../index.html">
+  <div class="pst-async-banner-revealer d-none">
+  <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
+</div>
+
+  
+    <header class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
+    </header>
+  
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
       
-        <!-- `logo` is deprecated in Sphinx 4.0, so remove this when we stop supporting 3 -->
+      
+      
+      <div class="bd-sidebar-primary bd-sidebar">
         
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+    
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+
+  
+    
+  
+
+<a class="navbar-brand logo" href="../intro.html">
+  
+  
+  
+  
+  
+    
+    
       
-      
-      <img src="../_static/cat.png" class="logo" alt="logo">
-      
-      
-      <h1 class="site-logo" id="site-title">Data Analysis in Finance</h1>
-      
-    </a>
-</div><form class="bd-search d-flex align-items-center" action="../search.html" method="get">
-  <i class="icon fas fa-search"></i>
-  <input type="search" class="form-control" name="q" id="search-input" placeholder="Search this book..." aria-label="Search this book..." autocomplete="off" >
-</form><nav class="bd-links" id="bd-docs-nav" aria-label="Main">
-    <div class="bd-toc-item active">
+    
+    
+    <img src="../_static/cat.png" class="logo__image only-light" alt="Data Analysis in Finance - Home"/>
+    <script>document.write(`<img src="../_static/cat.png" class="logo__image only-dark" alt="Data Analysis in Finance - Home"/>`);</script>
+  
+  
+</a></div>
+        <div class="sidebar-primary-item">
+
+ <script>
+ document.write(`
+   <button class="btn search-button-field search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass"></i>
+    <span class="search-button__default-text">Search</span>
+    <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+   </button>
+ `);
+ </script></div>
+        <div class="sidebar-primary-item"><nav class="bd-links bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item navbar-nav active">
         
         <ul class="nav bd-sidenav bd-sidenav__home-link">
             <li class="toctree-l1">
@@ -117,562 +183,285 @@ const thebe_selector_output = ".output, .cell_output"
                 </a>
             </li>
         </ul>
-        <p aria-level="2" class="caption" role="heading">
- <span class="caption-text">
-  Getting Started
- </span>
-</p>
+        <p aria-level="2" class="caption" role="heading"><span class="caption-text">Getting Started</span></p>
 <ul class="nav bd-sidenav">
- <li class="toctree-l1">
-  <a class="reference internal" href="1_finpyth.html">
-   1. Why Python and finance?
-  </a>
- </li>
- <li class="toctree-l1 has-children">
-  <a class="reference internal" href="2_1_intro.html">
-   2. Python set-up
-   <a id="python_set-up">
-   </a>
-  </a>
-  <input class="toctree-checkbox" id="toctree-checkbox-1" name="toctree-checkbox-1" type="checkbox"/>
-  <label for="toctree-checkbox-1">
-   <i class="fas fa-chevron-down">
-   </i>
-  </label>
-  <ul>
-   <li class="toctree-l2">
-    <a class="reference internal" href="2_2_git.html">
-     2.2. Using Github and Github Codespaces
-    </a>
-   </li>
-   <li class="toctree-l2">
-    <a class="reference internal" href="2_3_install.html">
-     2.3. Local Installation
-    </a>
-   </li>
-   <li class="toctree-l2">
-    <a class="reference internal" href="2_4_jupyter.html">
-     2.4. Jupyter notebooks
-    </a>
-   </li>
-   <li class="toctree-l2">
-    <a class="reference internal" href="2_5_vscode.html">
-     2.5. VS Code
-    </a>
-   </li>
-   <li class="toctree-l2">
-    <a class="reference internal" href="2_6_googlecolab.html">
-     2.6. Google Colab
-    </a>
-   </li>
-   <li class="toctree-l2">
-    <a class="reference internal" href="2_7_markdown.html">
-     2.7. Markdown
-    </a>
-   </li>
-   <li class="toctree-l2">
-    <a class="reference internal" href="2_8_packages.html">
-     2.8. Packages
-    </a>
-   </li>
-   <li class="toctree-l2">
-    <a class="reference internal" href="2_9_style.html">
-     2.9. Code style, PEP8, and linting
-    </a>
-   </li>
-   <li class="toctree-l2">
-    <a class="reference internal" href="2_10_using_chatgpt.html">
-     2.10. Using ChatGPT
-    </a>
-   </li>
-  </ul>
- </li>
+<li class="toctree-l1"><a class="reference internal" href="1_finpyth.html">Why Python and finance?</a></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="2_intro.html">Python set-up <a id="python_set-up"></a></a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="2_0_git.html">Using Github and Github Codespaces</a></li>
+<li class="toctree-l2"><a class="reference internal" href="2_1_markdown.html">Markdown</a></li>
+<li class="toctree-l2"><a class="reference internal" href="2_2_packages.html">Packages</a></li>
+<li class="toctree-l2"><a class="reference internal" href="2_3_style.html">Code style, PEP8, and linting</a></li>
+<li class="toctree-l2"><a class="reference internal" href="2_4_using_ai.html">AI Coding Assistants</a></li>
 </ul>
-<p aria-level="2" class="caption" role="heading">
- <span class="caption-text">
-  The Basics
- </span>
-</p>
+</details></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">The Basics</span></p>
 <ul class="nav bd-sidenav">
- <li class="toctree-l1 has-children">
-  <a class="reference internal" href="3_1_intro.html">
-   3. CompSci 101: Types, control, and numpy arrays
-  </a>
-  <input class="toctree-checkbox" id="toctree-checkbox-2" name="toctree-checkbox-2" type="checkbox"/>
-  <label for="toctree-checkbox-2">
-   <i class="fas fa-chevron-down">
-   </i>
-  </label>
-  <ul>
-   <li class="toctree-l2">
-    <a class="reference internal" href="3_2_comp101.html">
-     3.1. The Basics
-    </a>
-   </li>
-   <li class="toctree-l2">
-    <a class="reference internal" href="3_3_numpy.html">
-     3.2. Numpy and arrays
-    </a>
-   </li>
-  </ul>
- </li>
- <li class="toctree-l1 has-children">
-  <a class="reference internal" href="4_intro.html">
-   4. Working with data
-  </a>
-  <input class="toctree-checkbox" id="toctree-checkbox-3" name="toctree-checkbox-3" type="checkbox"/>
-  <label for="toctree-checkbox-3">
-   <i class="fas fa-chevron-down">
-   </i>
-  </label>
-  <ul>
-   <li class="toctree-l2">
-    <a class="reference internal" href="4_0_dataframes.html">
-     4.2. Importing data
-    </a>
-   </li>
-   <li class="toctree-l2">
-    <a class="reference internal" href="4_1_pandas.html">
-     4.3. pandas
-    </a>
-   </li>
-   <li class="toctree-l2">
-    <a class="reference internal" href="4_2_cleaning_data.html">
-     4.4. Cleaning our data
-    </a>
-   </li>
-   <li class="toctree-l2">
-    <a class="reference internal" href="4_3_eda.html">
-     4.5. Exploratory data analysis (EDA)
-    </a>
-   </li>
-   <li class="toctree-l2">
-    <a class="reference internal" href="4_4_merge_shape.html">
-     4.6. Merging and reshaping data
-    </a>
-   </li>
-   <li class="toctree-l2">
-    <a class="reference internal" href="4_5_sql.html">
-     4.7. Using SQL in Python
-    </a>
-   </li>
-   <li class="toctree-l2">
-    <a class="reference internal" href="4_6_polar.html">
-     4.8. polars: A fast, fancy pandas alternative
-    </a>
-   </li>
-  </ul>
- </li>
- <li class="toctree-l1 has-children">
-  <a class="reference internal" href="5_intro.html">
-   5. Data visualization
-  </a>
-  <input class="toctree-checkbox" id="toctree-checkbox-4" name="toctree-checkbox-4" type="checkbox"/>
-  <label for="toctree-checkbox-4">
-   <i class="fas fa-chevron-down">
-   </i>
-  </label>
-  <ul>
-   <li class="toctree-l2">
-    <a class="reference internal" href="5_0_seaborn.html">
-     5.1. seaborn
-    </a>
-   </li>
-   <li class="toctree-l2">
-    <a class="reference internal" href="5_1_matplotlib.html">
-     5.2. matplotlib
-    </a>
-   </li>
-   <li class="toctree-l2">
-    <a class="reference internal" href="5_2_plotly.html">
-     5.3. plotly
-    </a>
-   </li>
-  </ul>
- </li>
- <li class="toctree-l1">
-  <a class="reference internal" href="6_nasdaq_api.html">
-   6. Using APIs for Data Imports
-   <a id="btc-sim">
-   </a>
-  </a>
- </li>
- <li class="toctree-l1">
-  <a class="reference internal" href="7_financial_ts.html">
-   7. Financial time series
-   <a id="financial-time-series">
-   </a>
-  </a>
- </li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="3_intro.html">CompSci 101: Types, control, and numpy arrays</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="3_0_comp101.html">The Basics</a></li>
+<li class="toctree-l2"><a class="reference internal" href="3_1_numpy.html">Numpy and arrays</a></li>
 </ul>
-<p aria-level="2" class="caption" role="heading">
- <span class="caption-text">
-  Applications
- </span>
-</p>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="4_intro.html">Working with data</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="4_0_dataframes.html">Importing data</a></li>
+<li class="toctree-l2"><a class="reference internal" href="4_1_pandas.html">pandas</a></li>
+<li class="toctree-l2"><a class="reference internal" href="4_2_cleaning_data.html">Cleaning our data</a></li>
+<li class="toctree-l2"><a class="reference internal" href="4_3_eda.html">Exploratory data analysis (EDA)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="4_4_merge_shape.html">Merging and reshaping data</a></li>
+<li class="toctree-l2"><a class="reference internal" href="4_5_sql.html">Using SQL in Python</a></li>
+<li class="toctree-l2"><a class="reference internal" href="4_6_polar.html">polars: A fast, fancy pandas alternative</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="5_intro.html">Data visualization</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="5_0_seaborn.html">seaborn</a></li>
+<li class="toctree-l2"><a class="reference internal" href="5_1_matplotlib.html">matplotlib</a></li>
+<li class="toctree-l2"><a class="reference internal" href="5_2_plotly.html">plotly</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="6_intro.html">Data APIs</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="6_1_fred.html">FRED API</a></li>
+<li class="toctree-l2"><a class="reference internal" href="6_2_nasdaq.html">NASDAQ Data Link</a></li>
+<li class="toctree-l2"><a class="reference internal" href="6_3_databento.html">Databento</a></li>
+<li class="toctree-l2"><a class="reference internal" href="6_4_wrds.html">WRDS (Wharton Research Data Services)</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1"><a class="reference internal" href="7_financial_ts.html">Financial time series <a id="financial-time-series"></a></a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Applications</span></p>
 <ul class="current nav bd-sidenav">
- <li class="toctree-l1 current active">
-  <a class="current reference internal" href="#">
-   8. Essential portfolio math
-  </a>
- </li>
- <li class="toctree-l1">
-  <a class="reference internal" href="9_portfolio_opt.html">
-   9. Portfolio optimization
-  </a>
- </li>
- <li class="toctree-l1">
-  <a class="reference internal" href="10_unsupervised_learning.html">
-   10. Unsupervised Learning
-   <a id="unsupervised_learning">
-   </a>
-  </a>
- </li>
- <li class="toctree-l1">
-  <a class="reference internal" href="11_factor_models.html">
-   11. Factor models
-   <a id="factor_models">
-   </a>
-  </a>
- </li>
- <li class="toctree-l1">
-  <a class="reference internal" href="12_regression_topics.html">
-   12. Regression topics
-  </a>
- </li>
- <li class="toctree-l1">
-  <a class="reference internal" href="13_logit_credit.html">
-   13. Logit models
-  </a>
- </li>
- <li class="toctree-l1">
-  <a class="reference internal" href="14_decision_trees.html">
-   14. Decision Trees
-  </a>
- </li>
- <li class="toctree-l1">
-  <a class="reference internal" href="15_svm.html">
-   15. SVM
-  </a>
- </li>
- <li class="toctree-l1">
-  <a class="reference internal" href="16_risk_mang.html">
-   16. Risk management
-  </a>
- </li>
- <li class="toctree-l1">
-  <a class="reference internal" href="17_monte_carlo.html">
-   17. Monte Carlo and portfolios
-  </a>
- </li>
- <li class="toctree-l1">
-  <a class="reference internal" href="18_options.html">
-   18. Option basics
-  </a>
- </li>
- <li class="toctree-l1">
-  <a class="reference internal" href="19_reinforcement_learning.html">
-   19. Reinforcement Learning
-  </a>
- </li>
- <li class="toctree-l1">
-  <a class="reference internal" href="20_trading_bt.html">
-   20. Trading Strategies and the BT Package
-  </a>
- </li>
+<li class="toctree-l1 current active"><a class="current reference internal" href="#">Essential portfolio math</a></li>
+<li class="toctree-l1"><a class="reference internal" href="9_portfolio_opt.html">Portfolio optimization</a></li>
+<li class="toctree-l1"><a class="reference internal" href="10_unsupervised_learning.html">Machine learning and unsupervised learning <a id="unsupervised_learning"></a></a></li>
+<li class="toctree-l1"><a class="reference internal" href="11_factor_models.html">Factor models <a id="factor_models"></a></a></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="12_intro.html">Regression and supervised machine learning</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="12_0_ols.html">OLS regression in Python</a></li>
+<li class="toctree-l2"><a class="reference internal" href="12_1_regularization.html">Regularization: Ridge, Lasso, and Elastic Net</a></li>
+<li class="toctree-l2"><a class="reference internal" href="12_2_ml_workflow.html">The machine learning workflow with sklearn</a></li>
+<li class="toctree-l2"><a class="reference internal" href="12_3_ml_markets.html">From Regression to Prediction: Can ML Beat the Market?</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1"><a class="reference internal" href="13_logit_credit.html">Logit models</a></li>
+<li class="toctree-l1"><a class="reference internal" href="14_risk_mang.html">Risk management</a></li>
+<li class="toctree-l1"><a class="reference internal" href="15_monte_carlo.html">Monte Carlo and portfolios</a></li>
+<li class="toctree-l1"><a class="reference internal" href="16_decision_trees.html">Decision Trees</a></li>
+<li class="toctree-l1"><a class="reference internal" href="17_options.html">Option basics</a></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="18_intro.html">Trading strategies and backtesting</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="18_0_trading_bt.html">Backtesting with the BT Package</a></li>
+<li class="toctree-l2"><a class="reference internal" href="18_1_alphalens.html">Factor Analysis with Alphalens</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1"><a class="reference internal" href="19_textual_analysis.html">Textual Analysis in Finance</a></li>
+<li class="toctree-l1"><a class="reference internal" href="20_llms.html">How Large Language Models Work</a></li>
 </ul>
 
     </div>
 </nav></div>
-        <div class="bd-sidebar__bottom">
-             <!-- To handle the deprecated key -->
-            
-            <div class="navbar_extra_footer">
-            Powered by <a href="https://jupyterbook.org">Jupyter Book</a>
-            </div>
-            
-        </div>
     </div>
-    <div id="rtd-footer-container"></div>
-</div>
-
-
-          
-
-
-          
-<!-- A tiny helper pixel to detect if we've scrolled -->
-<div class="sbt-scroll-pixel-helper"></div>
-<!-- Main content -->
-<div class="col py-0 content-container">
-    
-    <div class="header-article row sticky-top noprint">
-        
-
-
-
-<div class="col py-1 d-flex header-article-main">
-    <div class="header-article__left">
-        
-        <label for="__navigation"
-  class="headerbtn"
-  data-toggle="tooltip"
-data-placement="right"
-title="Toggle navigation"
->
   
-
-<span class="headerbtn__icon-container">
-  <i class="fas fa-bars"></i>
-  </span>
-
-</label>
-
-        
-    </div>
-    <div class="header-article__right">
-<div class="menu-dropdown menu-dropdown-launch-buttons">
-  <button class="headerbtn menu-dropdown__trigger"
-      aria-label="Launch interactive content">
-      <i class="fas fa-rocket"></i>
-  </button>
-  <div class="menu-dropdown__content">
-    <ul>
-      <li>
-        <a href="https://mybinder.org/v2/gh/executablebooks/jupyter-book/master?urlpath=tree/docs/chapters/8_port_math.ipynb"
-   class="headerbtn"
-   data-toggle="tooltip"
-data-placement="left"
-title="Launch on Binder"
->
   
-
-<span class="headerbtn__icon-container">
-  
-    <img src="../_static/images/logo_binder.svg">
-  </span>
-<span class="headerbtn__text-container">Binder</span>
-</a>
-
-      </li>
-      
-    </ul>
+  <div class="sidebar-primary-items__end sidebar-primary__section">
   </div>
-</div>
+  
+  <div id="rtd-footer-container"></div>
 
-<button onclick="toggleFullScreen()"
-  class="headerbtn"
-  data-toggle="tooltip"
-data-placement="bottom"
-title="Fullscreen mode"
+
+      </div>
+      
+      <main id="main-content" class="bd-main" role="main">
+        
+        
+
+<div class="sbt-scroll-pixel-helper"></div>
+
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article d-print-none">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item"><button class="sidebar-toggle primary-toggle btn btn-sm" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <span class="fa-solid fa-bars"></span>
+</button></div>
+      
+    </div>
+  
+  
+    <div class="header-article-items__end">
+      
+        <div class="header-article-item">
+
+<div class="article-header-buttons">
+
+
+<a href="https://github.com/executablebooks/jupyter-book" target="_blank"
+   class="btn btn-sm btn-source-repository-button"
+   title="Source repository"
+   data-bs-placement="bottom" data-bs-toggle="tooltip"
 >
   
 
-<span class="headerbtn__icon-container">
-  <i class="fas fa-expand"></i>
-  </span>
-
-</button>
-<a href="https://github.com/executablebooks/jupyter-book"
-   class="headerbtn"
-   data-toggle="tooltip"
-data-placement="bottom"
-title="Source repository"
->
-  
-
-<span class="headerbtn__icon-container">
+<span class="btn__icon-container">
   <i class="fab fa-github"></i>
   </span>
 
 </a>
 
-<div class="menu-dropdown menu-dropdown-download-buttons">
-  <button class="headerbtn menu-dropdown__trigger"
-      aria-label="Download this page">
-      <i class="fas fa-download"></i>
+
+
+
+
+
+<div class="dropdown dropdown-download-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Download this page">
+    <i class="fas fa-download"></i>
   </button>
-  <div class="menu-dropdown__content">
-    <ul>
-      <li>
-        <a href="../_sources/chapters/8_port_math.ipynb"
-   class="headerbtn"
-   data-toggle="tooltip"
-data-placement="left"
-title="Download source file"
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="../_sources/chapters/8_port_math.ipynb" target="_blank"
+   class="btn btn-sm btn-download-source-button dropdown-item"
+   title="Download source file"
+   data-bs-placement="left" data-bs-toggle="tooltip"
 >
   
 
-<span class="headerbtn__icon-container">
+<span class="btn__icon-container">
   <i class="fas fa-file"></i>
   </span>
-<span class="headerbtn__text-container">.ipynb</span>
+<span class="btn__text-container">.ipynb</span>
 </a>
-
-      </li>
+</li>
+      
+      
+      
       
       <li>
-        
-<button onclick="printPdf(this)"
-  class="headerbtn"
-  data-toggle="tooltip"
-data-placement="left"
-title="Print to PDF"
+<button onclick="window.print()"
+  class="btn btn-sm btn-download-pdf-button dropdown-item"
+  title="Print to PDF"
+  data-bs-placement="left" data-bs-toggle="tooltip"
 >
   
 
-<span class="headerbtn__icon-container">
+<span class="btn__icon-container">
   <i class="fas fa-file-pdf"></i>
   </span>
-<span class="headerbtn__text-container">.pdf</span>
+<span class="btn__text-container">.pdf</span>
 </button>
-
-      </li>
+</li>
       
-    </ul>
-  </div>
+  </ul>
 </div>
-<label for="__page-toc"
-  class="headerbtn headerbtn-page-toc"
-  
+
+
+
+
+<button onclick="toggleFullScreen()"
+  class="btn btn-sm btn-fullscreen-button"
+  title="Fullscreen mode"
+  data-bs-placement="bottom" data-bs-toggle="tooltip"
 >
   
 
-<span class="headerbtn__icon-container">
-  <i class="fas fa-list"></i>
+<span class="btn__icon-container">
+  <i class="fas fa-expand"></i>
   </span>
 
-</label>
+</button>
 
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="theme-switch fa-solid fa-sun fa-lg" data-mode="light"></i>
+    <i class="theme-switch fa-solid fa-moon fa-lg" data-mode="dark"></i>
+    <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"></i>
+  </button>
+`);
+</script>
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm pst-navbar-icon search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass fa-lg"></i>
+  </button>
+`);
+</script>
+<button class="sidebar-toggle secondary-toggle btn btn-sm" title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="fa-solid fa-list"></span>
+</button>
+</div></div>
+      
     </div>
+  
 </div>
-
-<!-- Table of contents -->
-<div class="col-md-3 bd-toc show noprint">
-    <div class="tocsection onthispage pt-5 pb-3">
-        <i class="fas fa-list"></i> Contents
-    </div>
-    <nav id="bd-toc-nav" aria-label="Page">
-        <ul class="visible nav section-nav flex-column">
- <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#geometric-vs-arithmetic-averages">
-   8.1. Geometric vs. arithmetic averages
-  </a>
- </li>
- <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#portfolio-level-returns">
-   8.2. Portfolio-level returns
-  </a>
- </li>
- <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#risk-measures-at-the-portfolio-level">
-   8.3. Risk measures at the portfolio-level
-  </a>
- </li>
- <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#skewness-and-kurtosis">
-   8.4. Skewness and kurtosis
-  </a>
- </li>
- <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#annualizing-and-adjusting-for-risk">
-   8.5. Annualizing and adjusting for risk
-  </a>
- </li>
- <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#drawdowns">
-   8.6. Drawdowns
-  </a>
- </li>
-</ul>
-
-    </nav>
 </div>
-    </div>
-    <div class="article row">
-        <div class="col pl-md-3 pl-lg-5 content-container">
-            <!-- Table of contents that is only displayed when printing the page -->
-            <div id="jb-print-docs-body" class="onlyprint">
-                <h1>Essential portfolio math</h1>
-                <!-- Table of contents -->
-                <div id="print-main-content">
-                    <div id="jb-print-toc">
-                        
-                        <div>
-                            <h2> Contents </h2>
-                        </div>
-                        <nav aria-label="Page">
-                            <ul class="visible nav section-nav flex-column">
- <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#geometric-vs-arithmetic-averages">
-   8.1. Geometric vs. arithmetic averages
-  </a>
- </li>
- <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#portfolio-level-returns">
-   8.2. Portfolio-level returns
-  </a>
- </li>
- <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#risk-measures-at-the-portfolio-level">
-   8.3. Risk measures at the portfolio-level
-  </a>
- </li>
- <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#skewness-and-kurtosis">
-   8.4. Skewness and kurtosis
-  </a>
- </li>
- <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#annualizing-and-adjusting-for-risk">
-   8.5. Annualizing and adjusting for risk
-  </a>
- </li>
- <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#drawdowns">
-   8.6. Drawdowns
-  </a>
- </li>
-</ul>
+              
+              
 
-                        </nav>
-                    </div>
-                </div>
+<div id="jb-print-docs-body" class="onlyprint">
+    <h1>Essential portfolio math</h1>
+    <!-- Table of contents -->
+    <div id="print-main-content">
+        <div id="jb-print-toc">
+            
+            <div>
+                <h2> Contents </h2>
             </div>
-            <main id="main-content" role="main">
+            <nav aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#geometric-vs-arithmetic-averages">Geometric vs. arithmetic averages</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#portfolio-level-returns">Portfolio-level returns</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#risk-measures-at-the-portfolio-level">Risk measures at the portfolio-level</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#skewness-and-kurtosis">Skewness and kurtosis</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#annualizing-and-adjusting-for-risk">Annualizing and adjusting for risk</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#drawdowns">Drawdowns</a></li>
+</ul>
+            </nav>
+        </div>
+    </div>
+</div>
+
+              
                 
-              <div>
-                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                  
   <section class="tex2jax_ignore mathjax_ignore" id="essential-portfolio-math">
-<h1><span class="section-number">8. </span>Essential portfolio math<a class="headerlink" href="#essential-portfolio-math" title="Permalink to this headline">#</a></h1>
+<h1>Essential portfolio math<a class="headerlink" href="#essential-portfolio-math" title="Link to this heading">#</a></h1>
 <p>This brief chapter will cover the type of statistics that we often see when looking at <strong>portfolios</strong>. Parts of the material, such as skewness and kurtosis, are also covered in <strong>Chapter 13</strong> of <a class="reference external" href="https://www.oreilly.com/library/view/python-for-finance/9781492024323/">Python for Finance, 2e</a></p>
-<p>This material will have us thinking about <strong>portfolio construction</strong>. This type of portfolio construction is, typically, most helpful in a quantitative, or “quant”, strategy. If you’re picking 20 stocks to buy, you aren’t going to run an optimizer. You’ll probably just 1/n, or equally-weight, the positions.</p>
+<p>This material will have us thinking about <strong>portfolio construction</strong>. This type of portfolio construction is, typically, most helpful in a quantitative, or “quant”, strategy. If you’re picking 20 stocks to buy, you aren’t going to run an optimizer. You’ll probably just 1/n, or equal-weight, the positions.</p>
 <p>But, what if you have a lot of positions, probably chosen by some kind of quant or algorithmic strategy? You will be choosing and sizing the various trades (or, assets, more generally) to achieve a good trade-off between risk and expected return. What should you consider?</p>
-<ol class="simple">
+<ol class="arabic simple">
 <li><p>Diversification! Quant strategies might have 1000’s of positions.</p></li>
 <li><p>Position limits and risk limits: At the level of securities, asset classes, and overall portfolio.</p></li>
-<li><p>Larger bets on higher conviction trade. You can weight a position based on the strength of your signal.</p></li>
+<li><p>Larger bets on higher conviction trades. You can weight a position based on the strength of your signal.</p></li>
 <li><p>Size bets in terms of risk.</p></li>
 <li><p>Correlations matter: For a long position, correlation with other longs is bad, corr. with shorts is good. Powerful to go long/short within each industry, diversify across industries. Can use ETFs and futures to “hedge” out sector and market exposure.</p></li>
 <li><p>Resize positions according to forward-looking risk and conviction.</p></li>
 </ol>
 <p>We won’t start with full-on quantitative-based strategies though. Let’s look at a few, basic return series.</p>
-<p>We’ll start by bringing in some <strong>monthly hedge fund return data</strong>. We’ll calculate some portfolio returns, using assumed weights. We’ll then move on to portfolio-level <strong>variance and standard deviation</strong>. We’ll see how to <strong>annualize returns and volatility</strong>. We’ll look at other risk measures, like <strong>skewness</strong> and <strong>kurtosis</strong>. We’ll see <strong>Sharpe</strong> and <strong>Sortino</strong> ratios. Finally, we’ll make a graph showing the <strong>drawdown</strong>, or worse loss, of our portfolio.</p>
+<p>We’ll start by bringing in some <strong>monthly hedge fund return data</strong>. We’ll calculate some portfolio returns, using assumed weights. We’ll then move on to portfolio-level <strong>variance and standard deviation</strong>. We’ll see how to <strong>annualize returns and volatility</strong>. We’ll look at other risk measures, like <strong>skewness</strong> and <strong>kurtosis</strong>. We’ll see <strong>Sharpe</strong> and <strong>Sortino</strong> ratios. Finally, we’ll make a graph showing the <strong>drawdown</strong>, or worst loss, of our portfolio.</p>
 <p>These ideas will get us thinking about portfolios, trading strategies, risk management, and portfolio optimization. We’ll go into more detail in later chapters.</p>
 <p>The formulas are <strong>must knows</strong> for finance folks! For example, you need these on CFA Level 1.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
-<span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
-<span class="kn">import</span> <span class="nn">statsmodels.formula.api</span> <span class="k">as</span> <span class="nn">smf</span>
-<span class="kn">import</span> <span class="nn">janitor</span>
-<span class="kn">from</span> <span class="nn">janitor</span> <span class="kn">import</span> <span class="n">clean_names</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">pandas</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">pd</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">statsmodels.formula.api</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">smf</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">janitor</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">janitor</span><span class="w"> </span><span class="kn">import</span> <span class="n">clean_names</span>
 
 <span class="c1"># This brings in all of matplotlib</span>
-<span class="kn">import</span> <span class="nn">matplotlib</span> <span class="k">as</span> <span class="nn">mpl</span> 
+<span class="kn">import</span><span class="w"> </span><span class="nn">matplotlib</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">mpl</span> 
 
 <span class="c1"># This lets us refer to the pyplot part of matplot lib more easily. Just use plt!</span>
-<span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">matplotlib.pyplot</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">plt</span>
 
 <span class="c1"># Include this to have plots show up in your Jupyter notebook.</span>
 <span class="o">%</span><span class="k">matplotlib</span> inline 
@@ -1001,7 +790,7 @@ title="Print to PDF"
 </div>
 <p>I used <code class="docutils literal notranslate"><span class="pre">.iloc</span></code> to keep the columns I wanted. Easier to use a column number reference than type out these long names.</p>
 <section id="geometric-vs-arithmetic-averages">
-<h2><span class="section-number">8.1. </span>Geometric vs. arithmetic averages<a class="headerlink" href="#geometric-vs-arithmetic-averages" title="Permalink to this headline">#</a></h2>
+<h2>Geometric vs. arithmetic averages<a class="headerlink" href="#geometric-vs-arithmetic-averages" title="Link to this heading">#</a></h2>
 <p>In order to think about portfolio returns, we also need to understand the relationship between an arithmetic average and the geometric average, and when to use one vs. another.</p>
 <p>This article, <a class="reference external" href="https://www.kitces.com/blog/volatility-drag-variance-drain-mean-arithmetic-vs-geometric-average-investment-returns/">by the financial planner Michael Kitches</a>, is a great explanation of why the difference matters and how <strong>volatility drag</strong> affects your total return. From his summary:</p>
 <blockquote>
@@ -1017,11 +806,15 @@ title="Print to PDF"
 <div><p>However, the variance drain on a sequence of volatile returns still matters when financial advisors use Monte Carlo analysis, which by design actually projects sequences of random volatile returns (based on the probability that they will occur) to determine the outcome of particular retirement strategies. Because the fact that volatility drag is already part of a Monte Carlo analysis means that the return assumption plugged into a Monte Carlo projection should actually be the (higher) arithmetic return, and not the investment’s long-term compound average growth rate. Otherwise, the impact of volatility drag is effectively counted twice, which can understate long-term returns and overstate the actual risk of the prospective retirement plan!</p>
 </div></blockquote>
 <p>We can put that reasoning into a simple, but important formula.</p>
-<div class="amsmath math notranslate nohighlight" id="equation-7e12f1bc-c148-46c2-97a7-20cd87c303ca">
-<span class="eqno">(8.1)<a class="headerlink" href="#equation-7e12f1bc-c148-46c2-97a7-20cd87c303ca" title="Permalink to this equation">#</a></span>\[\begin{align}
-\text{Compound Return}_i = E[R_p] - \frac{1}{2}\sigma^2_p
+<div class="amsmath math notranslate nohighlight" id="equation-c0853514-b325-4aa7-bc29-2d7c2d91162f">
+<span class="eqno">(4)<a class="headerlink" href="#equation-c0853514-b325-4aa7-bc29-2d7c2d91162f" title="Permalink to this equation">#</a></span>\[\begin{align}
+\text{Geometric Return} \approx E[R] - \frac{1}{2}\sigma^2
 \end{align}\]</div>
-<p>where <span class="math notranslate nohighlight">\(E[R_i]\)</span> is the arithmetic mean of the portfolio (i.e. the expected return) and <span class="math notranslate nohighlight">\(\sigma^2_p\)</span> is the variance of the portfolio. Note that this math works for single assets, too. It isn’t portfolio specific.</p>
+<p>where <span class="math notranslate nohighlight">\(E[R]\)</span> is the arithmetic mean return (i.e. the expected return) and <span class="math notranslate nohighlight">\(\sigma^2\)</span> is the variance. Note that this math works for single assets and portfolios alike.</p>
+<div class="admonition important">
+<p class="admonition-title">Important</p>
+<p>The geometric return is <strong>always</strong> less than or equal to the arithmetic return. The difference is the <strong>volatility drag</strong>, approximately <span class="math notranslate nohighlight">\(\frac{1}{2}\sigma^2\)</span>. More volatile assets have a bigger gap between their arithmetic and geometric averages. This is why two investments with the same arithmetic average return but different volatilities will produce different ending wealth – the less volatile one wins.</p>
+</div>
 <div class="admonition hint">
 <p class="admonition-title">Hint</p>
 <p>This is yet another formula that appears on the CFA and CFP exams.</p>
@@ -1035,9 +828,13 @@ title="Print to PDF"
 <div><p>The theoretical arithmetic mean result of playing the lotto might be losing 50% of your $2 Powerball ticket (which is another way of saying you are paying 2x what the ticket is mathematically worth). The median result is you lit your cash on fire. You plan your life around the median, especially when it’s far away from the mean. We’ll come back to that.</p>
 </div></blockquote>
 <p>Here’s <a class="reference external" href="https://www.dropbox.com/s/ph4xmjt5wsobeuv/Well%20What%20Did%20You%20%22Expect%22%3F%20-%20Party%20at%20the%20Moontower.pdf?dl=0">a link</a> to a PDF of that Substack post. If you’re interested in trading, options, math puzzles, etc., check out his work. I don’t agree with every conclusion, but I like the way he breaks things down into the step-by-step logic of underlying math.</p>
+<div class="admonition tip">
+<p class="admonition-title">Tip</p>
+<p><strong>Podcast</strong>: <a class="reference external" href="https://rationalreminder.ca/podcast/397">Rational Reminder Episode 397 — Hendrik Bessembinder: Constant Leverage &amp; Measuring Investor Outcomes</a>. Prof. Bessembinder discusses the mechanics and costs of leveraged single-stock ETFs (what “volatility decay” actually means) and how long-term investment returns should be measured, including his concept of “sustainable return” as an alternative to traditional metrics. A great companion to the arithmetic vs. geometric return discussion above.</p>
+</div>
 </section>
 <section id="portfolio-level-returns">
-<h2><span class="section-number">8.2. </span>Portfolio-level returns<a class="headerlink" href="#portfolio-level-returns" title="Permalink to this headline">#</a></h2>
+<h2>Portfolio-level returns<a class="headerlink" href="#portfolio-level-returns" title="Link to this heading">#</a></h2>
 <p>Let’s define an array of weights. We’ll put 25% of our money into each style category. This isn’t actually an investable strategy, since you can’t invest in the average hedge fund!</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -1066,30 +863,30 @@ title="Print to PDF"
 <div class="cell_output docutils container">
 <div class="output text_html"><style type="text/css">
 </style>
-<table id="T_5e7e1">
+<table id="T_e74b2">
   <caption>Hedge Fund Style Returns</caption>
   <thead>
     <tr>
       <th class="blank level0" >&nbsp;</th>
-      <th id="T_5e7e1_level0_col0" class="col_heading level0 col0" >Monthly Return</th>
+      <th id="T_e74b2_level0_col0" class="col_heading level0 col0" >Monthly Return</th>
     </tr>
   </thead>
   <tbody>
     <tr>
-      <th id="T_5e7e1_level0_row0" class="row_heading level0 row0" >L/S Equity</th>
-      <td id="T_5e7e1_row0_col0" class="data row0 col0" >0.754%</td>
+      <th id="T_e74b2_level0_row0" class="row_heading level0 row0" >L/S Equity</th>
+      <td id="T_e74b2_row0_col0" class="data row0 col0" >0.754%</td>
     </tr>
     <tr>
-      <th id="T_5e7e1_level0_row1" class="row_heading level0 row1" >Equity Market Neutral</th>
-      <td id="T_5e7e1_row1_col0" class="data row1 col0" >0.441%</td>
+      <th id="T_e74b2_level0_row1" class="row_heading level0 row1" >Equity Market Neutral</th>
+      <td id="T_e74b2_row1_col0" class="data row1 col0" >0.441%</td>
     </tr>
     <tr>
-      <th id="T_5e7e1_level0_row2" class="row_heading level0 row2" >Global Macro</th>
-      <td id="T_5e7e1_row2_col0" class="data row2 col0" >0.959%</td>
+      <th id="T_e74b2_level0_row2" class="row_heading level0 row2" >Global Macro</th>
+      <td id="T_e74b2_row2_col0" class="data row2 col0" >0.959%</td>
     </tr>
     <tr>
-      <th id="T_5e7e1_level0_row3" class="row_heading level0 row3" >Managed Futures</th>
-      <td id="T_5e7e1_row3_col0" class="data row3 col0" >0.511%</td>
+      <th id="T_e74b2_level0_row3" class="row_heading level0 row3" >Managed Futures</th>
+      <td id="T_e74b2_row3_col0" class="data row3 col0" >0.511%</td>
     </tr>
   </tbody>
 </table>
@@ -1114,30 +911,30 @@ title="Print to PDF"
 <div class="cell_output docutils container">
 <div class="output text_html"><style type="text/css">
 </style>
-<table id="T_3ce8c">
+<table id="T_cf690">
   <caption>Hedge Fund Style Returns</caption>
   <thead>
     <tr>
       <th class="blank level0" >&nbsp;</th>
-      <th id="T_3ce8c_level0_col0" class="col_heading level0 col0" >Monthly Return</th>
+      <th id="T_cf690_level0_col0" class="col_heading level0 col0" >Monthly Return</th>
     </tr>
   </thead>
   <tbody>
     <tr>
-      <th id="T_3ce8c_level0_row0" class="row_heading level0 row0" >L/S Equity</th>
-      <td id="T_3ce8c_row0_col0" class="data row0 col0" >0.754%</td>
+      <th id="T_cf690_level0_row0" class="row_heading level0 row0" >L/S Equity</th>
+      <td id="T_cf690_row0_col0" class="data row0 col0" >0.754%</td>
     </tr>
     <tr>
-      <th id="T_3ce8c_level0_row1" class="row_heading level0 row1" >Equity Market Neutral</th>
-      <td id="T_3ce8c_row1_col0" class="data row1 col0" >0.441%</td>
+      <th id="T_cf690_level0_row1" class="row_heading level0 row1" >Equity Market Neutral</th>
+      <td id="T_cf690_row1_col0" class="data row1 col0" >0.441%</td>
     </tr>
     <tr>
-      <th id="T_3ce8c_level0_row2" class="row_heading level0 row2" >Global Macro</th>
-      <td id="T_3ce8c_row2_col0" class="data row2 col0" >0.959%</td>
+      <th id="T_cf690_level0_row2" class="row_heading level0 row2" >Global Macro</th>
+      <td id="T_cf690_row2_col0" class="data row2 col0" >0.959%</td>
     </tr>
     <tr>
-      <th id="T_3ce8c_level0_row3" class="row_heading level0 row3" >Managed Futures</th>
-      <td id="T_3ce8c_row3_col0" class="data row3 col0" >0.511%</td>
+      <th id="T_cf690_level0_row3" class="row_heading level0 row3" >Managed Futures</th>
+      <td id="T_cf690_row3_col0" class="data row3 col0" >0.511%</td>
     </tr>
   </tbody>
 </table>
@@ -1153,7 +950,7 @@ title="Print to PDF"
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>0.0066618444208333735
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>0.006661844420833372
 </pre></div>
 </div>
 </div>
@@ -1182,12 +979,12 @@ title="Print to PDF"
 </div>
 </div>
 </div>
-<p>And, I can calculate cumulative returns and then graph them. As we’ve seen using a function like <code class="docutils literal notranslate"><span class="pre">.cumprod()</span></code> like this is an example of <strong>broadcasting</strong> and <strong>vectorization</strong>. I am adding 1 to every monthly return and then applying the <code class="docutils literal notranslate"><span class="pre">.cumprod()</span></code> function to each observation. Take a look at the result to see what happened.</p>
-<p>I’ll also rename the columns a slightly different way. Notice that I’m using <code class="docutils literal notranslate"><span class="pre">inplace=True</span></code> and have the column names inside of a <strong>dictionary</strong>.</p>
+<p>And, I can calculate cumulative returns and then graph them. As we’ve seen, using a function like <code class="docutils literal notranslate"><span class="pre">.cumprod()</span></code> like this is an example of <strong>broadcasting</strong> and <strong>vectorization</strong>. I am adding 1 to every monthly return and then applying the <code class="docutils literal notranslate"><span class="pre">.cumprod()</span></code> function to each observation. Take a look at the result to see what happened.</p>
+<p>I’ll also rename the columns using <code class="docutils literal notranslate"><span class="pre">.rename()</span></code> with a <strong>dictionary</strong> that maps the old names to new ones.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">monthly_cum_rets</span> <span class="o">=</span> <span class="p">(</span><span class="mi">1</span><span class="o">+</span><span class="n">rets_with_port</span><span class="p">)</span><span class="o">.</span><span class="n">cumprod</span><span class="p">()</span>
-<span class="n">monthly_cum_rets</span><span class="o">.</span><span class="n">rename</span><span class="p">(</span><span class="n">columns</span><span class="o">=</span><span class="p">{</span><span class="s1">&#39;ln_sh_eq_hedge_fund_usd&#39;</span><span class="p">:</span><span class="s1">&#39;L/S Equity&#39;</span><span class="p">,</span> <span class="s1">&#39;eq_mkt_ntr_hedge_fund_usd&#39;</span><span class="p">:</span><span class="s1">&#39;Equity Market Neutral&#39;</span><span class="p">,</span> <span class="s1">&#39;global_mac_hedge_fund_usd&#39;</span><span class="p">:</span><span class="s1">&#39;Global Macro&#39;</span><span class="p">,</span> <span class="s1">&#39;mngd_fut_hedge_fund_usd&#39;</span><span class="p">:</span><span class="s1">&#39;Managed Futures&#39;</span><span class="p">,</span> <span class="s1">&#39;port_ret&#39;</span><span class="p">:</span><span class="s1">&#39;EW Port Ret&#39;</span> <span class="p">},</span> <span class="n">inplace</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="n">monthly_cum_rets</span> <span class="o">=</span> <span class="n">monthly_cum_rets</span><span class="o">.</span><span class="n">rename</span><span class="p">(</span><span class="n">columns</span><span class="o">=</span><span class="p">{</span><span class="s1">&#39;ln_sh_eq_hedge_fund_usd&#39;</span><span class="p">:</span><span class="s1">&#39;L/S Equity&#39;</span><span class="p">,</span> <span class="s1">&#39;eq_mkt_ntr_hedge_fund_usd&#39;</span><span class="p">:</span><span class="s1">&#39;Equity Market Neutral&#39;</span><span class="p">,</span> <span class="s1">&#39;global_mac_hedge_fund_usd&#39;</span><span class="p">:</span><span class="s1">&#39;Global Macro&#39;</span><span class="p">,</span> <span class="s1">&#39;mngd_fut_hedge_fund_usd&#39;</span><span class="p">:</span><span class="s1">&#39;Managed Futures&#39;</span><span class="p">,</span> <span class="s1">&#39;port_ret&#39;</span><span class="p">:</span><span class="s1">&#39;EW Port Ret&#39;</span> <span class="p">})</span>
 </pre></div>
 </div>
 </div>
@@ -1199,26 +996,30 @@ title="Print to PDF"
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../_images/8_port_math_22_0.png" src="../_images/8_port_math_22_0.png" />
+<img alt="../_images/4568323fb539f1346a517dde378c8b77eeb29e2f8e6c068fc9fb441b2a46debf.png" src="../_images/4568323fb539f1346a517dde378c8b77eeb29e2f8e6c068fc9fb441b2a46debf.png" />
 </div>
 </div>
 <p>Yikes! Check out the orange line - equity market neutral funds aren’t necessarily very market neutral!</p>
 </section>
 <section id="risk-measures-at-the-portfolio-level">
-<h2><span class="section-number">8.3. </span>Risk measures at the portfolio-level<a class="headerlink" href="#risk-measures-at-the-portfolio-level" title="Permalink to this headline">#</a></h2>
+<h2>Risk measures at the portfolio-level<a class="headerlink" href="#risk-measures-at-the-portfolio-level" title="Link to this heading">#</a></h2>
 <p>As you know from your investments class, the variance of a portfolio is <strong>not</strong> the average variance of the assets in the portfolio. We need to take into account the effects of <strong>diversification</strong>. For example, here’s the formula for the variance of a portfolio with two assets. We need weights, variances, and the covariance between the two.</p>
-<div class="amsmath math notranslate nohighlight" id="equation-a1b9240b-d4f6-4303-9ee7-3c5c15987507">
-<span class="eqno">(8.2)<a class="headerlink" href="#equation-a1b9240b-d4f6-4303-9ee7-3c5c15987507" title="Permalink to this equation">#</a></span>\[\begin{align}
+<div class="amsmath math notranslate nohighlight" id="equation-2e5abfe0-a21a-45cd-9cfe-184f23a14bcb">
+<span class="eqno">(5)<a class="headerlink" href="#equation-2e5abfe0-a21a-45cd-9cfe-184f23a14bcb" title="Permalink to this equation">#</a></span>\[\begin{align}
 \sigma^2_p = w^2_1 \sigma^2_1 + w^2_2 \sigma^2_2 + 2 w_1 w_2 \sigma^2_{1,2}
 \end{align}\]</div>
 <p>That last sigma, <span class="math notranslate nohighlight">\(\sigma^2_{1,2}\)</span>, is the <strong>covariance</strong> between the two assets.</p>
 <p>This formula generalizes for <strong>any number of assets</strong>.</p>
-<div class="amsmath math notranslate nohighlight" id="equation-f4ea800e-59cf-478a-8137-fdfbb26d28fd">
-<span class="eqno">(8.3)<a class="headerlink" href="#equation-f4ea800e-59cf-478a-8137-fdfbb26d28fd" title="Permalink to this equation">#</a></span>\[\begin{align}
+<div class="amsmath math notranslate nohighlight" id="equation-dc408b66-d10f-405a-8eee-d4c87d665f5f">
+<span class="eqno">(6)<a class="headerlink" href="#equation-dc408b66-d10f-405a-8eee-d4c87d665f5f" title="Permalink to this equation">#</a></span>\[\begin{align}
 \sigma^2_p = w^T \Sigma w
 \end{align}\]</div>
 <p>where <span class="math notranslate nohighlight">\(w\)</span> is a <strong>vector</strong> containing all of our portfolio weights and sigma is the variance-covariance matrix for our assets. The “T” means the matrix operation <strong>transpose</strong>. This is necessary for the matrix multiplication.</p>
-<p>Let’s use Python to find the variance-covariance matrix. There are variances along with diagonal of the matrix and covariance terms <strong>between assets</strong> in the off-diagonals. Note that upper-right and lower-left of the matrix are identical. This is because the covariance between Asset 1 and Asset 2 is the same as the covariance between Asset 2 and Asset 1.</p>
+<div class="admonition important">
+<p class="admonition-title">Important</p>
+<p>Portfolio variance depends on the <strong>covariances</strong> between assets, not just individual variances. This is the mathematical basis for <strong>diversification</strong> – by combining assets that aren’t perfectly correlated, you can reduce portfolio risk below the weighted average of individual risks.</p>
+</div>
+<p>Let’s use Python to find the variance-covariance matrix. There are variances along the diagonal of the matrix and covariance terms <strong>between assets</strong> in the off-diagonals. Note that the upper-right and lower-left of the matrix are identical. This is because the covariance between Asset 1 and Asset 2 is the same as the covariance between Asset 2 and Asset 1.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">cov_matrix</span> <span class="o">=</span> <span class="n">rets</span><span class="o">.</span><span class="n">cov</span><span class="p">()</span>
@@ -1365,7 +1166,126 @@ title="Print to PDF"
 </div>
 </div>
 </div>
-<p>Here’s a <a class="reference external" href="https://www.mathsisfun.com/algebra/matrix-multiplying.html">refresher on matrix multiplication</a> in case you need it.</p>
+<p>You can also use the <code class="docutils literal notranslate"><span class="pre">&#64;</span></code> symbol in Python 3.5 and later to do matrix multiplication.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">port_variance</span> <span class="o">=</span> <span class="n">wgts</span><span class="o">.</span><span class="n">T</span> <span class="o">@</span> <span class="n">cov_matrix</span> <span class="o">@</span> <span class="n">wgts</span>
+<span class="n">port_variance</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>0.0003495578603062862
+</pre></div>
+</div>
+</div>
+</div>
+<p>We need to understand the math a bit here. Suppose we have n assets. Let \mathbf{w} be an  n <span class="math notranslate nohighlight">\(\times\)</span> 1  <strong>column vector</strong> of asset weights:</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}
+\mathbf{w} =
+\begin{bmatrix}
+w_1 \\
+w_2 \\
+\vdots \\
+w_n
+\end{bmatrix}
+\end{split}\]</div>
+<p>Let <span class="math notranslate nohighlight">\(\Sigma\)</span> be the n <span class="math notranslate nohighlight">\(\times\)</span> n covariance matrix, with asset variances along the diagonal of the matrix. The off-diagonals are the covariances between assets. The matrix is symmetric.</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}
+\Sigma =
+\begin{bmatrix}
+\sigma_{11} &amp; \sigma_{12} &amp; \cdots &amp; \sigma_{1n} \\
+\sigma_{21} &amp; \sigma_{22} &amp; \cdots &amp; \sigma_{2n} \\
+\vdots &amp; \vdots &amp; \ddots &amp; \vdots \\
+\sigma_{n1} &amp; \sigma_{n2} &amp; \cdots &amp; \sigma_{nn}
+\end{bmatrix}
+\end{split}\]</div>
+<p><span class="math notranslate nohighlight">\(\mathbf{w}^\top\)</span>  is a  1 <span class="math notranslate nohighlight">\(\times\)</span> n <strong>row vector</strong>. The transpose flips the vector around. This is important.</p>
+<p>Finding portfolio variance, or <span class="math notranslate nohighlight">\(\mathbf{w}^\top \Sigma \mathbf{w}\)</span>,  is done in two steps:</p>
+<p>First, multiply the row vector by the covariance matrix. Let’s pay attention to the dimensions of the resulting matrix. In matrix multiplication, the inner numbers (columns of the first matrix and rows of the second matrix) need to match. The resulting matrix is the outer numbers.</p>
+<p><span class="math notranslate nohighlight">\(\mathbf{w}^\top \Sigma\)</span></p>
+<p>Dimensions:  (1 <span class="math notranslate nohighlight">\(\times\)</span> n) <span class="math notranslate nohighlight">\(\cdot\)</span> (n <span class="math notranslate nohighlight">\(\times\)</span> n) = 1 <span class="math notranslate nohighlight">\(\times\)</span> n</p>
+<p>So, this results in a 1 × n row vector.</p>
+<p>Second, multiply the result by <span class="math notranslate nohighlight">\(\mathbf{w}\)</span>.</p>
+<p><span class="math notranslate nohighlight">\((\mathbf{w}^\top \Sigma) \cdot \mathbf{w}\)</span></p>
+<p>Dimensions:  (1 <span class="math notranslate nohighlight">\(\times\)</span> n) <span class="math notranslate nohighlight">\(\cdot\)</span> (n <span class="math notranslate nohighlight">\(\times\)</span> 1) = 1 <span class="math notranslate nohighlight">\(\times\)</span> 1</p>
+<p>The result is a <strong>scalar</strong> — the portfolio variance <span class="math notranslate nohighlight">\(\sigma_p^2\)</span>.</p>
+<p>Now, let’s prove that the general matrix-based portfolio variance formula:</p>
+<div class="math notranslate nohighlight">
+\[\sigma_p^2 = \mathbf{w}^\top \Sigma \mathbf{w}\]</div>
+<p>reduces to the familiar two-asset portfolio variance formula taught in your investments course:</p>
+<div class="math notranslate nohighlight">
+\[\sigma_p^2 = w_1^2 \sigma_1^2 + w_2^2 \sigma_2^2 + 2 w_1 w_2 \sigma_{12}\]</div>
+<p>Let:
+•	Asset 1 has weight <span class="math notranslate nohighlight">\(w_1\)</span> , variance <span class="math notranslate nohighlight">\(\sigma_1^2\)</span>
+•	Asset 2 has weight <span class="math notranslate nohighlight">\(w_2\)</span> , variance <span class="math notranslate nohighlight">\(\sigma_2^2\)</span>
+•	Covariance between the two assets is <span class="math notranslate nohighlight">\(\sigma_{12}\)</span></p>
+<p>Weight vector <span class="math notranslate nohighlight">\(\mathbf{w}\)</span>:</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}
+\mathbf{w} =
+\begin{bmatrix}
+w_1 \\
+w_2
+\end{bmatrix}
+\quad
+\Rightarrow
+\mathbf{w}^\top =
+\begin{bmatrix}
+w_1 &amp; w_2
+\end{bmatrix}
+\end{split}\]</div>
+<p>Covariance matrix <span class="math notranslate nohighlight">\(\Sigma\)</span>:</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}
+\Sigma =
+\begin{bmatrix}
+\sigma_1^2 &amp; \sigma_{12} \\
+\sigma_{12} &amp; \sigma_2^2
+\end{bmatrix}
+\end{split}\]</div>
+<p>First, find <span class="math notranslate nohighlight">\(\mathbf{w}^\top \Sigma\)</span>:</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}
+\mathbf{w}^\top \Sigma =
+\begin{bmatrix}
+w_1 &amp; w_2
+\end{bmatrix}
+\begin{bmatrix}
+\sigma_1^2 &amp; \sigma_{12} \\
+\sigma_{12} &amp; \sigma_2^2
+\end{bmatrix}
+\end{split}\]</div>
+<div class="math notranslate nohighlight">
+\[
+\begin{bmatrix}
+w_1 \sigma_1^2 + w_2 \sigma_{12} &amp; w_1 \sigma_{12} + w_2 \sigma_2^2
+\end{bmatrix}
+\]</div>
+<p>Next, multiply by <span class="math notranslate nohighlight">\(\mathbf{w}\)</span>:</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}
+(\mathbf{w}^\top \Sigma) \mathbf{w} =
+\begin{bmatrix}
+w_1 \sigma_1^2 + w_2 \sigma_{12} &amp; w_1 \sigma_{12} + w_2 \sigma_2^2
+\end{bmatrix}
+\begin{bmatrix}
+w_1 \\
+w_2
+\end{bmatrix}
+\end{split}\]</div>
+<p>Now compute the dot product:</p>
+<div class="math notranslate nohighlight">
+\[= w_1(w_1 \sigma_1^2 + w_2 \sigma_{12}) + w_2(w_1 \sigma_{12} + w_2 \sigma_2^2)\]</div>
+<p>Then distribute:</p>
+<div class="math notranslate nohighlight">
+\[= w_1^2 \sigma_1^2 + w_1 w_2 \sigma_{12} + w_1 w_2 \sigma_{12} + w_2^2 \sigma_2^2\]</div>
+<p>Finally, combine like terms:</p>
+<div class="math notranslate nohighlight">
+\[\sigma_p^2 = w_1^2 \sigma_1^2 + w_2^2 \sigma_2^2 + 2 w_1 w_2 \sigma_{12}\]</div>
+<p>This matrix-based formula is a generalization of the two-asset formula. It works for any number of assets.</p>
 <p>Portfolio standard deviation is, of course, just the square root of variance. We can use <code class="docutils literal notranslate"><span class="pre">np.sqrt()</span></code>.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -1382,7 +1302,7 @@ title="Print to PDF"
 </div>
 </section>
 <section id="skewness-and-kurtosis">
-<h2><span class="section-number">8.4. </span>Skewness and kurtosis<a class="headerlink" href="#skewness-and-kurtosis" title="Permalink to this headline">#</a></h2>
+<h2>Skewness and kurtosis<a class="headerlink" href="#skewness-and-kurtosis" title="Link to this heading">#</a></h2>
 <p>We’ll look more at the distribution of asset returns when we get to a more formal treatment of risk management. But, for now, we need to know that asset returns, like stocks, and even portfolio returns, like those of a hedge fund, are not typically normally distributed. They “lean”, or have <strong>skewness</strong>. That skewness can be either positive or negative, depending on the strategy. They also have <strong>kurtosis</strong>, or “fat tails”. This means that there are more extreme returns than you would expect if they followed a normal distribution.</p>
 <p>It is easy to find both in Python.</p>
 <div class="cell docutils container">
@@ -1406,7 +1326,7 @@ dtype: float64
 <figure class="align-center" id="skew-png">
 <img alt="../_images/08-skew.png" src="../_images/08-skew.png" />
 <figcaption>
-<p><span class="caption-number">Fig. 8.1 </span><span class="caption-text">Some strategies, like selling options, have negative skewness. You make a small profit much of the time – until you don’t. Other investments have positive skewness. You’ll lose money much of the time, but occasionally get a large payoff. Some volatility-protection strategies look like this. Source: DataCamp.</span><a class="headerlink" href="#skew-png" title="Permalink to this image">#</a></p>
+<p><span class="caption-number">Fig. 54 </span><span class="caption-text">Some strategies, like selling options, have negative skewness. You make a small profit much of the time – until you don’t. Other investments have positive skewness. You’ll lose money much of the time, but occasionally get a large payoff. Some volatility-protection strategies look like this. Source: DataCamp.</span><a class="headerlink" href="#skew-png" title="Link to this image">#</a></p>
 </figcaption>
 </figure>
 <div class="cell docutils container">
@@ -1429,20 +1349,20 @@ dtype: float64
 <figure class="align-center" id="kurt-png">
 <img alt="../_images/08-kurt.png" src="../_images/08-kurt.png" />
 <figcaption>
-<p><span class="caption-number">Fig. 8.2 </span><span class="caption-text">Many investment strategies have more “rare events” or larger gains and losses than you would expect if returns followed the normal distribution. Source: DataCamp.</span><a class="headerlink" href="#kurt-png" title="Permalink to this image">#</a></p>
+<p><span class="caption-number">Fig. 55 </span><span class="caption-text">Many investment strategies have more “rare events” or larger gains and losses than you would expect if returns followed the normal distribution. Source: DataCamp.</span><a class="headerlink" href="#kurt-png" title="Link to this image">#</a></p>
 </figcaption>
 </figure>
 </section>
 <section id="annualizing-and-adjusting-for-risk">
-<h2><span class="section-number">8.5. </span>Annualizing and adjusting for risk<a class="headerlink" href="#annualizing-and-adjusting-for-risk" title="Permalink to this headline">#</a></h2>
-<p>There are many ways to report returns. We’ve seen discrete vs. log returns. There are returns for specific period, like a day or a month. We can then take that specific period return and <strong>annualize</strong> it. This takes a return over a shorter time frame and asks what are return would be if we earned that return over a year.</p>
+<h2>Annualizing and adjusting for risk<a class="headerlink" href="#annualizing-and-adjusting-for-risk" title="Link to this heading">#</a></h2>
+<p>There are many ways to report returns. We’ve seen discrete vs. log returns. There are returns for a specific period, like a day or a month. We can then take that specific period return and <strong>annualize</strong> it. This takes a return over a shorter time frame and asks what our return would be if we earned that return over a year.</p>
 <p>We can also annualize a multi-year return and ask what annual return would have gotten us the same multi-year return.</p>
-<p>Both of these ideas are really the same thing mathematically and take into account <strong>compounding</strong>. They let us compare returns that are different time periods. Fund managers that fall under the SEC ‘40 Act are required to report calculations like this.</p>
+<p>Both of these ideas are really the same thing mathematically and take into account <strong>compounding</strong>. They let us compare returns over different time periods. Fund managers that fall under the SEC ‘40 Act are required to report calculations like this.</p>
 <p>There are also many ways to <strong>adjust for risk</strong>. Why do we need to adjust for risk? Simply put, you can go to a casino and put all of your money on black, get lucky, and double your “investment”. But I don’t want you managing my money! Your risk-adjusted return is zero.</p>
-<p>The same thing is true for trading securities, like stocks, bonds, options, and crypto. You can buy a penny stock, or a Dog coin, or a deep out-of-the-money call option and make a lot of money. And that money is real - you can spend it! But, we need ways to disentangle return, risk, and luck if we’re going to assign skill to someone’s good forture.</p>
-<p>Let’s combine these two ideas, getting our return and risk measures in the same time units and taking risk into account, to calculate to basic risk-adjustment measures: the <strong>Sharpe Ratio</strong> and the <strong>Sortino Ratio</strong>.</p>
+<p>The same thing is true for trading securities, like stocks, bonds, options, and crypto. You can buy a penny stock, or a Dog coin, or a deep out-of-the-money call option and make a lot of money. And that money is real - you can spend it! But, we need ways to disentangle return, risk, and luck if we’re going to assign skill to someone’s good fortune.</p>
+<p>Let’s combine these two ideas, getting our return and risk measures in the same time units and taking risk into account, to calculate two basic risk-adjustment measures: the <strong>Sharpe Ratio</strong> and the <strong>Sortino Ratio</strong>.</p>
 <p>We’ll look at <strong>factor models</strong> in another chapter. This is a more comprehensive way to adjust our returns for the risks that we’re taking in order to see if we have skill.</p>
-<p>Let’s use the monthly portfolio returns that I created above to find our measures of risk/return trade-off. I will first annualize my monthly return. I will then annualize my monthly standard deviation, or volatility as we say in finance. I am “cheating” a bit on my volatility annualization. These are discrete returns. Multiplying by the square root of the number of your time periods in a year (12, because we have montly returns) really only works if you have log returns.</p>
+<p>Let’s use the monthly portfolio returns that I created above to find our measures of risk/return trade-off. I will first annualize my monthly return. I will then annualize my monthly standard deviation, or volatility as we say in finance. I am “cheating” a bit on my volatility annualization. These are discrete returns. Multiplying by the square root of the number of your time periods in a year (12, because we have monthly returns) really only works if you have log returns.</p>
 <p>See your Principles of Finance notes for more on these calculations.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -1477,6 +1397,15 @@ Name: port_ret, dtype: float64
 </div>
 <p>Note that <code class="docutils literal notranslate"><span class="pre">**</span></code> denotes exponent, while <code class="docutils literal notranslate"><span class="pre">*</span></code> is multiplication in Python.</p>
 <p>We can then calculate the <strong>Sharpe Ratio</strong>, which is the ratio of returns above the risk-free rate to the volatility (i.e. the risk) in the portfolio.</p>
+<div class="amsmath math notranslate nohighlight" id="equation-593197e1-ecb5-4439-81f0-f5931f1ed38f">
+<span class="eqno">(7)<a class="headerlink" href="#equation-593197e1-ecb5-4439-81f0-f5931f1ed38f" title="Permalink to this equation">#</a></span>\[\begin{align}
+\text{Sharpe Ratio} = \frac{R_p - R_f}{\sigma_p}
+\end{align}\]</div>
+<p>where <span class="math notranslate nohighlight">\(R_p\)</span> is the annualized portfolio return, <span class="math notranslate nohighlight">\(R_f\)</span> is the risk-free rate, and <span class="math notranslate nohighlight">\(\sigma_p\)</span> is the annualized portfolio standard deviation.</p>
+<div class="admonition important">
+<p class="admonition-title">Important</p>
+<p>The Sharpe Ratio tells you how much <strong>excess return</strong> you earn per unit of <strong>total risk</strong>. A Sharpe of 1.0 means you earn 1% of excess return for every 1% of volatility. Higher is better. In practice, a Sharpe above 0.5 is decent, above 1.0 is very good, and sustained Sharpes above 2.0 are exceptional (and rare).</p>
+</div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">sharpe_ratio</span> <span class="o">=</span> <span class="p">(</span><span class="n">annualized_return</span> <span class="o">-</span> <span class="n">risk_free</span><span class="p">)</span> <span class="o">/</span> <span class="n">annualized_vol</span>
@@ -1491,8 +1420,18 @@ Name: port_ret, dtype: float64
 </div>
 </div>
 <p>We have a Sharpe near 1. That’s pretty high! Hedge fund strategies often take risks that are not well-defined by standard deviation. For example, if a strategy has a lot of negative skewness, then we would expect to occasionally have large losses. Volatility doesn’t capture that type of risk.</p>
-<p>Returns that are “too smooth” can also create artificially low Sharpe Ratios. For example, if a strategy holds illiquid securities that are not marked-to-market (or priced) consistently, then the reported returns won’t affect the actual volatility of the positions if they were priced, say, daily. For example, many venture capital and private equity strategies only mark, or change the prices of their investments, quarterly. A mutual fund is going to see their positions market daily. ETFs trade throughout the day. Private equity strategies look less volatile than they really are and, so, have higher Sharpe ratios than they do in reality.</p>
-<p>We can also calculate the <strong>Sortino Ratio</strong>. This looks very similar to the Sharpe Ratio, expect that we only calculate the standard deviation using returns below some target, or threshold. So, we are interesting in volatility during bad times, not just overall volatility. We often use a target of 0 to look at negative returns, but you can choose something else if that’s appropriate.</p>
+<p>Returns that are “too smooth” can also create artificially <strong>high</strong> Sharpe Ratios. For example, if a strategy holds illiquid securities that are not marked-to-market (or priced) consistently, then the reported returns won’t reflect the actual volatility of the positions if they were priced, say, daily. For example, many venture capital and private equity strategies only mark, or change the prices of their investments, quarterly. A mutual fund is going to see their positions marked daily. ETFs trade throughout the day. Private equity strategies look less volatile than they really are and, so, have higher Sharpe Ratios than they do in reality.</p>
+<div class="admonition warning">
+<p class="admonition-title">Warning</p>
+<p>Be skeptical of very high Sharpe Ratios! They can be inflated by illiquid holdings (smoothed returns), negative skewness (selling insurance-like strategies), or short track records. Always look at the full return distribution, not just the Sharpe.</p>
+</div>
+<p>We can also calculate the <strong>Sortino Ratio</strong>. This looks very similar to the Sharpe Ratio, except that we only calculate the standard deviation using returns below some target, or threshold. This measure of risk is called the <strong>downside deviation</strong>. So, we are interested in volatility during bad times, not just overall volatility. We often use a target of 0 to look at negative returns, but you can choose something else if that’s appropriate.</p>
+<div class="amsmath math notranslate nohighlight" id="equation-4cc75e5c-5b06-41bd-b97b-774534e6a6de">
+<span class="eqno">(8)<a class="headerlink" href="#equation-4cc75e5c-5b06-41bd-b97b-774534e6a6de" title="Permalink to this equation">#</a></span>\[\begin{align}
+\text{Sortino Ratio} = \frac{R_p - R_f}{\sigma_{\text{downside}}}
+\end{align}\]</div>
+<p>where <span class="math notranslate nohighlight">\(\sigma_{\text{downside}}\)</span> is the standard deviation calculated using only returns below the target.</p>
+<p>The Sortino Ratio will generally be higher than the Sharpe Ratio, since downside deviation is typically smaller than total standard deviation. The Sortino is arguably a better measure for strategies with asymmetric return distributions (positive or negative skewness).</p>
 <p>Note that I am masking with <code class="docutils literal notranslate"><span class="pre">.loc</span></code> to get just the negative returns from the <em>port_ret</em> Series.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -1516,8 +1455,13 @@ Name: port_ret, dtype: float64
 </div>
 </section>
 <section id="drawdowns">
-<h2><span class="section-number">8.6. </span>Drawdowns<a class="headerlink" href="#drawdowns" title="Permalink to this headline">#</a></h2>
-<p>We might also be interested in draw-downs, or what the bad times look like, how long they last, and how long it takes to get our money back.</p>
+<h2>Drawdowns<a class="headerlink" href="#drawdowns" title="Link to this heading">#</a></h2>
+<p>We might also be interested in drawdowns, or what the bad times look like, how long they last, and how long it takes to get our money back.</p>
+<p>A <strong>drawdown</strong> measures the decline from a previous peak in cumulative returns. The <strong>maximum drawdown</strong> is the largest peak-to-trough decline over the entire period – it tells you the worst loss you would have experienced if you had invested at the worst possible time.</p>
+<div class="admonition important">
+<p class="admonition-title">Important</p>
+<p>Maximum drawdown is one of the most important risk metrics in practice. Investors care deeply about the worst-case scenario. A strategy with a great Sharpe Ratio but a 50% maximum drawdown may be unacceptable for many investors, because it means you lost half your money at some point, even if you eventually recovered.</p>
+</div>
 <p>We will calculate the cumulative portfolio return, the previous maximum cumulative return (often called a <strong>high water mark</strong>), and the percentage below the high water mark at any point.</p>
 <p>I print my index, just to show you that <em>date</em> is the index of the <em>port_drawdown</em> DataFrame. So, my x-axis in my plots can just be <code class="docutils literal notranslate"><span class="pre">port_drawdown.index</span></code>.</p>
 <p>I am using <code class="docutils literal notranslate"><span class="pre">matplotlib</span></code> and <code class="docutils literal notranslate"><span class="pre">plt.plot</span></code> to make two stacked line charts. I find this to be the easiest way, even if it is more verbose. You can really see what you’re doing in each step.</p>
@@ -1546,7 +1490,7 @@ Name: port_ret, dtype: float64
 </div>
 </div>
 </div>
-<p>Let’s make the graph. You’ll see that the Great Financial Crisis was the high water mark, at least in this data.</p>
+<p>Let’s make the graph. You’ll see that the Great Financial Crisis produced the largest drawdown in this data. The portfolio took years to recover back to its previous high water mark.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span> <span class="mi">6</span><span class="p">))</span>
@@ -1567,7 +1511,7 @@ Name: port_ret, dtype: float64
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../_images/8_port_math_49_0.png" src="../_images/8_port_math_49_0.png" />
+<img alt="../_images/dbf59d87d499707582dd08182a62e45f4ed67a40479e19af1d5d2f3d005fce22.png" src="../_images/dbf59d87d499707582dd08182a62e45f4ed67a40479e19af1d5d2f3d005fce22.png" />
 </div>
 </div>
 </section>
@@ -1585,7 +1529,7 @@ Name: port_ret, dtype: float64
             mode: "python"
         },
         kernelOptions: {
-            kernelName: "python3",
+            name: "python3",
             path: "./chapters"
         },
         predefinedOutput: true
@@ -1593,49 +1537,101 @@ Name: port_ret, dtype: float64
     </script>
     <script>kernelName = 'python3'</script>
 
-              </div>
+                </article>
               
-            </main>
-            <footer class="footer-article noprint">
-                
-    <!-- Previous / next buttons -->
-<div class='prev-next-area'>
-    <a class='left-prev' id="prev-link" href="7_financial_ts.html" title="previous page">
-        <i class="fas fa-angle-left"></i>
-        <div class="prev-next-info">
-            <p class="prev-next-subtitle">previous</p>
-            <p class="prev-next-title"><span class="section-number">7. </span>Financial time series <a id='financial-time-series'></a></p>
-        </div>
-    </a>
-    <a class='right-next' id="next-link" href="9_portfolio_opt.html" title="next page">
-    <div class="prev-next-info">
-        <p class="prev-next-subtitle">next</p>
-        <p class="prev-next-title"><span class="section-number">9. </span>Portfolio optimization</p>
-    </div>
-    <i class="fas fa-angle-right"></i>
-    </a>
-</div>
-            </footer>
-        </div>
-    </div>
-    <div class="footer-content row">
-        <footer class="col footer"><p>
-  
-    By Prof. Adam Aiken<br/>
-  
-</p>
-        </footer>
-    </div>
-    
-</div>
 
-
+              
+              
+              
+              
+                <footer class="prev-next-footer d-print-none">
+                  
+<div class="prev-next-area">
+    <a class="left-prev"
+       href="7_financial_ts.html"
+       title="previous page">
+      <i class="fa-solid fa-angle-left"></i>
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">previous</p>
+        <p class="prev-next-title">Financial time series <a id='financial-time-series'></a></p>
       </div>
+    </a>
+    <a class="right-next"
+       href="9_portfolio_opt.html"
+       title="next page">
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-title">Portfolio optimization</p>
+      </div>
+      <i class="fa-solid fa-angle-right"></i>
+    </a>
+</div>
+                </footer>
+              
+            </div>
+            
+            
+              
+                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+
+  <div class="sidebar-secondary-item">
+  <div class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> Contents
+  </div>
+  <nav class="bd-toc-nav page-toc">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#geometric-vs-arithmetic-averages">Geometric vs. arithmetic averages</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#portfolio-level-returns">Portfolio-level returns</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#risk-measures-at-the-portfolio-level">Risk measures at the portfolio-level</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#skewness-and-kurtosis">Skewness and kurtosis</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#annualizing-and-adjusting-for-risk">Annualizing and adjusting for risk</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#drawdowns">Drawdowns</a></li>
+</ul>
+  </nav></div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+<div class="bd-footer-content__inner container">
+  
+  <div class="footer-item">
+    
+<p class="component-author">
+By Prof. Adam Aiken
+</p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+</div>
+          </footer>
+        
+
+      </main>
     </div>
+  </div>
   
   <!-- Scripts loaded after <body> so the DOM is not blocked -->
-  <script src="../_static/scripts/pydata-sphinx-theme.js?digest=1999514e3f237ded88cf"></script>
+  <script src="../_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b"></script>
+<script src="../_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b"></script>
 
-
+  <footer class="bd-footer">
+  </footer>
   </body>
 </html>

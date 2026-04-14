@@ -1,0 +1,1364 @@
+
+<!DOCTYPE html>
+
+
+<html lang="en" data-content_root="../" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>WRDS (Wharton Research Data Services) &#8212; Data Analysis in Finance</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
+  </script>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../_static/styles/theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="../_static/styles/bootstrap.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="../_static/styles/pydata-sphinx-theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+
+  
+  <link href="../_static/vendor/fontawesome/6.5.2/css/all.min.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.2/webfonts/fa-solid-900.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.2/webfonts/fa-brands-400.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.2/webfonts/fa-regular-400.woff2" />
+
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=03e43079" />
+    <link rel="stylesheet" type="text/css" href="../_static/styles/sphinx-book-theme.css?v=eba8b062" />
+    <link rel="stylesheet" type="text/css" href="../_static/togglebutton.css?v=9c3e77be" />
+    <link rel="stylesheet" type="text/css" href="../_static/copybutton.css?v=76b2166b" />
+    <link rel="stylesheet" type="text/css" href="../_static/mystnb.8ecb98da25f57f5357bf6f572d296f466b2cfe2517ffebfabe82451661e28f02.css?v=6644e6bb" />
+    <link rel="stylesheet" type="text/css" href="../_static/sphinx-thebe.css?v=4fa983c6" />
+    <link rel="stylesheet" type="text/css" href="../_static/sphinx-design.min.css?v=95c83b7e" />
+    <link rel="stylesheet" type="text/css" href="../_static/custom.css?v=b00ee380" />
+  
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b" />
+<link rel="preload" as="script" href="../_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b" />
+  <script src="../_static/vendor/fontawesome/6.5.2/js/all.min.js?digest=dfe6caa3a7d634c4db9b"></script>
+
+    <script src="../_static/documentation_options.js?v=9eb32ce0"></script>
+    <script src="../_static/doctools.js?v=9a2dae69"></script>
+    <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../_static/clipboard.min.js?v=a7894cd8"></script>
+    <script src="../_static/copybutton.js?v=f281be69"></script>
+    <script src="../_static/scripts/sphinx-book-theme.js?v=887ef09a"></script>
+    <script>let toggleHintShow = 'Click to show';</script>
+    <script>let toggleHintHide = 'Click to hide';</script>
+    <script>let toggleOpenOnPrint = 'true';</script>
+    <script src="../_static/togglebutton.js?v=1ae7504c"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script src="../_static/design-tabs.js?v=f930bc37"></script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script async="async" src="../_static/sphinx-thebe.js?v=c100c467"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'chapters/6_4_wrds';</script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="Financial time series" href="7_financial_ts.html" />
+    <link rel="prev" title="Databento" href="6_3_databento.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+
+  
+  
+  <div id="pst-skip-link" class="skip-link d-print-none"><a href="#main-content">Skip to main content</a></div>
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>Back to top</button>
+
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-primary-sidebar-checkbox"/>
+  <label class="overlay overlay-primary" for="pst-primary-sidebar-checkbox"></label>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-secondary-sidebar-checkbox"/>
+  <label class="overlay overlay-secondary" for="pst-secondary-sidebar-checkbox"></label>
+  
+  <div class="search-button__wrapper">
+    <div class="search-button__overlay"></div>
+    <div class="search-button__search-container">
+<form class="bd-search d-flex align-items-center"
+      action="../search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         id="search-input"
+         placeholder="Search this book..."
+         aria-label="Search this book..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form></div>
+  </div>
+
+  <div class="pst-async-banner-revealer d-none">
+  <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
+</div>
+
+  
+    <header class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
+    </header>
+  
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      
+      
+      <div class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+    
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+
+  
+    
+  
+
+<a class="navbar-brand logo" href="../intro.html">
+  
+  
+  
+  
+  
+    
+    
+      
+    
+    
+    <img src="../_static/cat.png" class="logo__image only-light" alt="Data Analysis in Finance - Home"/>
+    <script>document.write(`<img src="../_static/cat.png" class="logo__image only-dark" alt="Data Analysis in Finance - Home"/>`);</script>
+  
+  
+</a></div>
+        <div class="sidebar-primary-item">
+
+ <script>
+ document.write(`
+   <button class="btn search-button-field search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass"></i>
+    <span class="search-button__default-text">Search</span>
+    <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+   </button>
+ `);
+ </script></div>
+        <div class="sidebar-primary-item"><nav class="bd-links bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item navbar-nav active">
+        
+        <ul class="nav bd-sidenav bd-sidenav__home-link">
+            <li class="toctree-l1">
+                <a class="reference internal" href="../intro.html">
+                    Welcome
+                </a>
+            </li>
+        </ul>
+        <p aria-level="2" class="caption" role="heading"><span class="caption-text">Getting Started</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="1_finpyth.html">Why Python and finance?</a></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="2_intro.html">Python set-up <a id="python_set-up"></a></a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="2_0_git.html">Using Github and Github Codespaces</a></li>
+<li class="toctree-l2"><a class="reference internal" href="2_1_markdown.html">Markdown</a></li>
+<li class="toctree-l2"><a class="reference internal" href="2_2_packages.html">Packages</a></li>
+<li class="toctree-l2"><a class="reference internal" href="2_3_style.html">Code style, PEP8, and linting</a></li>
+<li class="toctree-l2"><a class="reference internal" href="2_4_using_ai.html">AI Coding Assistants</a></li>
+</ul>
+</details></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">The Basics</span></p>
+<ul class="current nav bd-sidenav">
+<li class="toctree-l1 has-children"><a class="reference internal" href="3_intro.html">CompSci 101: Types, control, and numpy arrays</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="3_0_comp101.html">The Basics</a></li>
+<li class="toctree-l2"><a class="reference internal" href="3_1_numpy.html">Numpy and arrays</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="4_intro.html">Working with data</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="4_0_dataframes.html">Importing data</a></li>
+<li class="toctree-l2"><a class="reference internal" href="4_1_pandas.html">pandas</a></li>
+<li class="toctree-l2"><a class="reference internal" href="4_2_cleaning_data.html">Cleaning our data</a></li>
+<li class="toctree-l2"><a class="reference internal" href="4_3_eda.html">Exploratory data analysis (EDA)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="4_4_merge_shape.html">Merging and reshaping data</a></li>
+<li class="toctree-l2"><a class="reference internal" href="4_5_sql.html">Using SQL in Python</a></li>
+<li class="toctree-l2"><a class="reference internal" href="4_6_polar.html">polars: A fast, fancy pandas alternative</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="5_intro.html">Data visualization</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="5_0_seaborn.html">seaborn</a></li>
+<li class="toctree-l2"><a class="reference internal" href="5_1_matplotlib.html">matplotlib</a></li>
+<li class="toctree-l2"><a class="reference internal" href="5_2_plotly.html">plotly</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 current active has-children"><a class="reference internal" href="6_intro.html">Data APIs</a><details open="open"><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="6_1_fred.html">FRED API</a></li>
+<li class="toctree-l2"><a class="reference internal" href="6_2_nasdaq.html">NASDAQ Data Link</a></li>
+<li class="toctree-l2"><a class="reference internal" href="6_3_databento.html">Databento</a></li>
+<li class="toctree-l2 current active"><a class="current reference internal" href="#">WRDS (Wharton Research Data Services)</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1"><a class="reference internal" href="7_financial_ts.html">Financial time series <a id="financial-time-series"></a></a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Applications</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="8_port_math.html">Essential portfolio math</a></li>
+<li class="toctree-l1"><a class="reference internal" href="9_portfolio_opt.html">Portfolio optimization</a></li>
+<li class="toctree-l1"><a class="reference internal" href="10_unsupervised_learning.html">Machine learning and unsupervised learning <a id="unsupervised_learning"></a></a></li>
+<li class="toctree-l1"><a class="reference internal" href="11_factor_models.html">Factor models <a id="factor_models"></a></a></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="12_intro.html">Regression and supervised machine learning</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="12_0_ols.html">OLS regression in Python</a></li>
+<li class="toctree-l2"><a class="reference internal" href="12_1_regularization.html">Regularization: Ridge, Lasso, and Elastic Net</a></li>
+<li class="toctree-l2"><a class="reference internal" href="12_2_ml_workflow.html">The machine learning workflow with sklearn</a></li>
+<li class="toctree-l2"><a class="reference internal" href="12_3_ml_markets.html">From Regression to Prediction: Can ML Beat the Market?</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1"><a class="reference internal" href="13_logit_credit.html">Logit models</a></li>
+<li class="toctree-l1"><a class="reference internal" href="14_risk_mang.html">Risk management</a></li>
+<li class="toctree-l1"><a class="reference internal" href="15_monte_carlo.html">Monte Carlo and portfolios</a></li>
+<li class="toctree-l1"><a class="reference internal" href="16_decision_trees.html">Decision Trees</a></li>
+<li class="toctree-l1"><a class="reference internal" href="17_options.html">Option basics</a></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="18_intro.html">Trading strategies and backtesting</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="18_0_trading_bt.html">Backtesting with the BT Package</a></li>
+<li class="toctree-l2"><a class="reference internal" href="18_1_alphalens.html">Factor Analysis with Alphalens</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1"><a class="reference internal" href="19_textual_analysis.html">Textual Analysis in Finance</a></li>
+<li class="toctree-l1"><a class="reference internal" href="20_llms.html">How Large Language Models Work</a></li>
+</ul>
+
+    </div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+  </div>
+  
+  <div id="rtd-footer-container"></div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main" role="main">
+        
+        
+
+<div class="sbt-scroll-pixel-helper"></div>
+
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article d-print-none">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item"><button class="sidebar-toggle primary-toggle btn btn-sm" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <span class="fa-solid fa-bars"></span>
+</button></div>
+      
+    </div>
+  
+  
+    <div class="header-article-items__end">
+      
+        <div class="header-article-item">
+
+<div class="article-header-buttons">
+
+
+<a href="https://github.com/executablebooks/jupyter-book" target="_blank"
+   class="btn btn-sm btn-source-repository-button"
+   title="Source repository"
+   data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fab fa-github"></i>
+  </span>
+
+</a>
+
+
+
+
+
+
+<div class="dropdown dropdown-download-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Download this page">
+    <i class="fas fa-download"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="../_sources/chapters/6_4_wrds.ipynb" target="_blank"
+   class="btn btn-sm btn-download-source-button dropdown-item"
+   title="Download source file"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="btn__text-container">.ipynb</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li>
+<button onclick="window.print()"
+  class="btn btn-sm btn-download-pdf-button dropdown-item"
+  title="Print to PDF"
+  data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="btn__text-container">.pdf</span>
+</button>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+<button onclick="toggleFullScreen()"
+  class="btn btn-sm btn-fullscreen-button"
+  title="Fullscreen mode"
+  data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="theme-switch fa-solid fa-sun fa-lg" data-mode="light"></i>
+    <i class="theme-switch fa-solid fa-moon fa-lg" data-mode="dark"></i>
+    <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"></i>
+  </button>
+`);
+</script>
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm pst-navbar-icon search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass fa-lg"></i>
+  </button>
+`);
+</script>
+<button class="sidebar-toggle secondary-toggle btn btn-sm" title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="fa-solid fa-list"></span>
+</button>
+</div></div>
+      
+    </div>
+  
+</div>
+</div>
+              
+              
+
+<div id="jb-print-docs-body" class="onlyprint">
+    <h1>WRDS (Wharton Research Data Services)</h1>
+    <!-- Table of contents -->
+    <div id="print-main-content">
+        <div id="jb-print-toc">
+            
+            <div>
+                <h2> Contents </h2>
+            </div>
+            <nav aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#what-is-wrds">What is WRDS?</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#getting-access-student-class-accounts">Getting Access: Student Class Accounts</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#new-to-wrds-how-to-enroll">New to WRDS? How to Enroll</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#already-have-a-wrds-account">Already Have a WRDS Account?</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#need-help">Need Help?</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#data-strategy-what-s-available-and-how-to-combine-it">Data Strategy: What’s Available and How to Combine It</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#elon-s-wrds-subscriptions">Elon’s WRDS Subscriptions</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#the-identifier-problem">The Identifier Problem</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#combining-wrds-with-other-data-sources">Combining WRDS with Other Data Sources</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#practical-workflow">Practical Workflow</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#what-to-ask-claude-code">What to Ask Claude Code</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#set-up">Set-up</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#connecting-to-wrds">Connecting to WRDS</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#how-wrds-data-is-organized">How WRDS Data is Organized</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#discovering-what-s-available">Discovering What’s Available</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#querying-wrds-data">Querying WRDS Data</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#using-get-table">Using get_table()</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#using-raw-sql">Using raw_sql()</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#always-limit-results-while-developing">Always Limit Results While Developing</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#example-workflow-exploring-crsp-data">Example Workflow: Exploring CRSP Data</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#step-1-explore-the-data-structure">Step 1: Explore the Data Structure</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#step-2-preview-the-data">Step 2: Preview the Data</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#step-3-select-specific-columns">Step 3: Select Specific Columns</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#step-4-filter-for-specific-securities">Step 4: Filter for Specific Securities</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#step-5-filter-by-date-range-and-conditions">Step 5: Filter by Date Range and Conditions</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#step-6-aggregate-and-analyze">Step 6: Aggregate and Analyze</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#step-7-work-with-results-in-pandas">Step 7: Work with Results in Pandas</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#key-crsp-variables">Key CRSP Variables</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#example-compustat-financial-data">Example: Compustat Financial Data</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#key-compustat-variables">Key Compustat Variables</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#joining-tables">Joining Tables</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#passing-python-variables-to-sql">Passing Python Variables to SQL</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#another-example">Another Example</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#managing-your-connection">Managing Your Connection</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#using-a-context-manager-recommended">Using a Context Manager (Recommended)</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#resources">Resources</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#wrds-documentation">WRDS Documentation</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#dataset-manuals">Dataset Manuals</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#getting-help">Getting Help</a></li>
+</ul>
+</li>
+</ul>
+            </nav>
+        </div>
+    </div>
+</div>
+
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                  
+  <section class="tex2jax_ignore mathjax_ignore" id="wrds-wharton-research-data-services">
+<h1>WRDS (Wharton Research Data Services)<a class="headerlink" href="#wrds-wharton-research-data-services" title="Link to this heading">#</a></h1>
+<p><a class="reference external" href="https://wrds-www.wharton.upenn.edu/">WRDS</a> is the gold standard for academic financial research. It provides access to dozens of research databases used in peer-reviewed finance and accounting research.</p>
+<section id="what-is-wrds">
+<h2>What is WRDS?<a class="headerlink" href="#what-is-wrds" title="Link to this heading">#</a></h2>
+<p>WRDS is a data platform maintained by the Wharton School at the University of Pennsylvania. It hosts:</p>
+<ul class="simple">
+<li><p><strong>CRSP</strong> - Stock prices, returns, and market data back to 1926</p></li>
+<li><p><strong>Compustat</strong> - Financial statements for public companies</p></li>
+<li><p><strong>IBES</strong> - Analyst earnings forecasts</p></li>
+<li><p><strong>TAQ</strong> - High-frequency trade and quote data</p></li>
+<li><p><strong>Thomson Reuters</strong> - Institutional holdings (13F filings)</p></li>
+<li><p><strong>And many more…</strong></p></li>
+</ul>
+</section>
+<section id="getting-access-student-class-accounts">
+<h2>Getting Access: Student Class Accounts<a class="headerlink" href="#getting-access-student-class-accounts" title="Link to this heading">#</a></h2>
+<p>WRDS class accounts let you work with real financial data to complete assignments. You’ll need a <strong>Class Code</strong> from your instructor.</p>
+<section id="new-to-wrds-how-to-enroll">
+<h3>New to WRDS? How to Enroll<a class="headerlink" href="#new-to-wrds-how-to-enroll" title="Link to this heading">#</a></h3>
+<ol class="arabic simple">
+<li><p>Go to the <a class="reference external" href="https://wrds-www.wharton.upenn.edu/register/?user_type=class-student">WRDS Registration form</a></p></li>
+<li><p>Enter your identifying information</p></li>
+<li><p>Select <strong>Elon University</strong> from the Subscriber drop-down</p></li>
+<li><p>Your User type should be <strong>Class - Students with Code</strong> (selected by default)</p></li>
+<li><p>Enter the <strong>Class Code</strong> provided by your instructor</p></li>
+<li><p>Click <strong>Register for WRDS</strong></p></li>
+</ol>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>WRDS requires <strong>two-factor authentication</strong>. Install the <strong>Duo Mobile</strong> app on your smartphone before registering. You’ll use this for all future logins.</p>
+</div>
+</section>
+<section id="already-have-a-wrds-account">
+<h3>Already Have a WRDS Account?<a class="headerlink" href="#already-have-a-wrds-account" title="Link to this heading">#</a></h3>
+<p>If you already have a WRDS account from a previous class:</p>
+<ol class="arabic simple">
+<li><p>Log in at <a class="reference external" href="https://wrds-www.wharton.upenn.edu/">wrds-www.wharton.upenn.edu</a></p></li>
+<li><p>Go to <strong>Your Account</strong> → <strong>Your Account Info</strong> (top right)</p></li>
+<li><p>Scroll to the <strong>Your Classes</strong> table</p></li>
+<li><p>Click <strong>Enroll in a Class</strong></p></li>
+<li><p>Enter your new <strong>Class Code</strong> and click Submit</p></li>
+</ol>
+<div class="admonition tip">
+<p class="admonition-title">Tip</p>
+<p>If your previous class has expired, you’ll see a message when you try to log in. Just enter your new Class Code in the box provided and confirm enrollment.</p>
+</div>
+</section>
+<section id="need-help">
+<h3>Need Help?<a class="headerlink" href="#need-help" title="Link to this heading">#</a></h3>
+<p>If you have trouble setting up your account, contact <a class="reference external" href="https://wrds-www.wharton.upenn.edu/contact-support/">WRDS Support</a>. Use the email associated with your WRDS account when opening a support ticket.</p>
+</section>
+</section>
+<section id="data-strategy-what-s-available-and-how-to-combine-it">
+<h2>Data Strategy: What’s Available and How to Combine It<a class="headerlink" href="#data-strategy-what-s-available-and-how-to-combine-it" title="Link to this heading">#</a></h2>
+<p>Before diving into code, think about <strong>what data you need</strong> and <strong>where to get it</strong>. WRDS is powerful, but it’s just one piece of your data toolkit. With Claude Code, you don’t need to memorize SQL syntax—focus on understanding what data exists and how to link it together.</p>
+<section id="elon-s-wrds-subscriptions">
+<h3>Elon’s WRDS Subscriptions<a class="headerlink" href="#elon-s-wrds-subscriptions" title="Link to this heading">#</a></h3>
+<div class="pst-scrollable-table-container"><table class="table">
+<thead>
+<tr class="row-odd"><th class="head"><p>Database</p></th>
+<th class="head"><p>Library</p></th>
+<th class="head"><p>What It Contains</p></th>
+<th class="head"><p>Key Identifiers</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><strong>CRSP</strong></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">crsp</span></code></p></td>
+<td><p>Stock prices, returns, volume (back to 1926)</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">permno</span></code>, <code class="docutils literal notranslate"><span class="pre">cusip</span></code></p></td>
+</tr>
+<tr class="row-odd"><td><p><strong>Compustat</strong></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">comp</span></code></p></td>
+<td><p>Financial statements (income, balance sheet, cash flow)</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">gvkey</span></code>, <code class="docutils literal notranslate"><span class="pre">tic</span></code> (ticker)</p></td>
+</tr>
+<tr class="row-even"><td><p><strong>IBES</strong></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">ibes</span></code></p></td>
+<td><p>Analyst earnings forecasts and recommendations</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">ticker</span></code></p></td>
+</tr>
+<tr class="row-odd"><td><p><strong>Dow Jones</strong></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">djones</span></code></p></td>
+<td><p>Dow Jones Index historical data</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">date</span></code></p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>WRDS also offers many <strong>free datasets</strong> including Dow Jones Averages, Penn World Tables, and others. Use <code class="docutils literal notranslate"><span class="pre">db.list_libraries()</span></code> to see everything available.</p>
+</div>
+</section>
+<section id="the-identifier-problem">
+<h3>The Identifier Problem<a class="headerlink" href="#the-identifier-problem" title="Link to this heading">#</a></h3>
+<p>Different databases use different identifiers for the same company:</p>
+<div class="pst-scrollable-table-container"><table class="table">
+<thead>
+<tr class="row-odd"><th class="head"><p>Source</p></th>
+<th class="head"><p>Identifier</p></th>
+<th class="head"><p>Example (Apple)</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>CRSP</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">permno</span></code></p></td>
+<td><p>14593</p></td>
+</tr>
+<tr class="row-odd"><td><p>Compustat</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">gvkey</span></code></p></td>
+<td><p>1690</p></td>
+</tr>
+<tr class="row-even"><td><p>Compustat</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">tic</span></code></p></td>
+<td><p>AAPL</p></td>
+</tr>
+<tr class="row-odd"><td><p>Bloomberg</p></td>
+<td><p>Ticker</p></td>
+<td><p>AAPL US Equity</p></td>
+</tr>
+<tr class="row-even"><td><p>Yahoo Finance</p></td>
+<td><p>Ticker</p></td>
+<td><p>AAPL</p></td>
+</tr>
+<tr class="row-odd"><td><p>SEC EDGAR</p></td>
+<td><p>CIK</p></td>
+<td><p>0000320193</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<p><strong>Ticker symbols are the easiest way to link datasets</strong>, but be careful:</p>
+<ul class="simple">
+<li><p>Tickers change (Google was <code class="docutils literal notranslate"><span class="pre">GOOG</span></code>, then added <code class="docutils literal notranslate"><span class="pre">GOOGL</span></code>)</p></li>
+<li><p>Tickers get reused (old companies’ tickers assigned to new ones)</p></li>
+<li><p>Different sources format tickers differently</p></li>
+</ul>
+</section>
+<section id="combining-wrds-with-other-data-sources">
+<h3>Combining WRDS with Other Data Sources<a class="headerlink" href="#combining-wrds-with-other-data-sources" title="Link to this heading">#</a></h3>
+<p>You’ll often need to combine WRDS data with other sources:</p>
+<div class="pst-scrollable-table-container"><table class="table">
+<thead>
+<tr class="row-odd"><th class="head"><p>Data Need</p></th>
+<th class="head"><p>WRDS Source</p></th>
+<th class="head"><p>External Source</p></th>
+<th class="head"><p>Link By</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>Stock returns + financials</p></td>
+<td><p>CRSP + Compustat</p></td>
+<td><p>—</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">tic</span></code> (ticker) in pandas</p></td>
+</tr>
+<tr class="row-odd"><td><p>Fundamentals + real-time prices</p></td>
+<td><p>Compustat</p></td>
+<td><p>Yahoo Finance, Bloomberg</p></td>
+<td><p>Ticker symbol</p></td>
+</tr>
+<tr class="row-even"><td><p>Historical returns + ESG scores</p></td>
+<td><p>CRSP</p></td>
+<td><p>Bloomberg, Refinitiv</p></td>
+<td><p>Ticker symbol</p></td>
+</tr>
+<tr class="row-odd"><td><p>Analyst forecasts + stock performance</p></td>
+<td><p>IBES + CRSP</p></td>
+<td><p>—</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">ticker</span></code> → <code class="docutils literal notranslate"><span class="pre">tic</span></code></p></td>
+</tr>
+<tr class="row-even"><td><p>Macro data + stock returns</p></td>
+<td><p>CRSP</p></td>
+<td><p>FRED API</p></td>
+<td><p>Date alignment</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+</section>
+<section id="practical-workflow">
+<h3>Practical Workflow<a class="headerlink" href="#practical-workflow" title="Link to this heading">#</a></h3>
+<p>Since you have <strong>Claude Code</strong>, here’s a realistic workflow:</p>
+<ol class="arabic simple">
+<li><p><strong>Pull historical data from WRDS</strong> (CRSP for returns, Compustat for financials)</p></li>
+<li><p><strong>Export to CSV or keep in DataFrame</strong></p></li>
+<li><p><strong>Pull complementary data</strong> from Bloomberg, Yahoo Finance, or FRED</p></li>
+<li><p><strong>Merge in pandas using ticker symbol and date</strong></p></li>
+</ol>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Example: Merge WRDS data with Yahoo Finance data</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">yfinance</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">yf</span>
+
+<span class="c1"># Get fundamentals from Compustat (via WRDS)</span>
+<span class="n">compustat_data</span> <span class="o">=</span> <span class="n">db</span><span class="o">.</span><span class="n">raw_sql</span><span class="p">(</span><span class="s2">&quot;&quot;&quot;</span>
+<span class="s2">    SELECT tic, datadate, at, ni, sale</span>
+<span class="s2">    FROM comp.funda</span>
+<span class="s2">    WHERE tic = &#39;AAPL&#39; AND datafmt = &#39;STD&#39;</span>
+<span class="s2">&quot;&quot;&quot;</span><span class="p">)</span>
+
+<span class="c1"># Get recent prices from Yahoo Finance</span>
+<span class="n">aapl</span> <span class="o">=</span> <span class="n">yf</span><span class="o">.</span><span class="n">download</span><span class="p">(</span><span class="s1">&#39;AAPL&#39;</span><span class="p">,</span> <span class="n">start</span><span class="o">=</span><span class="s1">&#39;2023-01-01&#39;</span><span class="p">)</span>
+
+<span class="c1"># Now you have both historical fundamentals AND current prices</span>
+</pre></div>
+</div>
+</section>
+<section id="what-to-ask-claude-code">
+<h3>What to Ask Claude Code<a class="headerlink" href="#what-to-ask-claude-code" title="Link to this heading">#</a></h3>
+<p>When working with WRDS, tell Claude Code:</p>
+<ul class="simple">
+<li><p><strong>What data you need</strong> (e.g., “daily stock returns for Apple from 2020-2023”)</p></li>
+<li><p><strong>Which database to use</strong> (e.g., “use CRSP for returns, Compustat for financials”)</p></li>
+<li><p><strong>What identifiers you have</strong> (e.g., “I have ticker symbols” or “I have permno values”)</p></li>
+<li><p><strong>How you want to combine data</strong> (e.g., “merge with Yahoo Finance data by ticker”)</p></li>
+</ul>
+<p>Claude Code will handle the SQL syntax—you focus on the research question.</p>
+</section>
+</section>
+<section id="set-up">
+<h2>Set-up<a class="headerlink" href="#set-up" title="Link to this heading">#</a></h2>
+<p>Install the WRDS Python library:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>pip<span class="w"> </span>install<span class="w"> </span>wrds
+</pre></div>
+</div>
+<section id="connecting-to-wrds">
+<h3>Connecting to WRDS<a class="headerlink" href="#connecting-to-wrds" title="Link to this heading">#</a></h3>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">wrds</span>
+
+<span class="c1"># First time: will prompt for username/password</span>
+<span class="c1"># Creates a .pgpass file for future connections</span>
+<span class="n">db</span> <span class="o">=</span> <span class="n">wrds</span><span class="o">.</span><span class="n">Connection</span><span class="p">()</span>
+</pre></div>
+</div>
+<p>After your first connection, credentials are stored locally and you won’t need to enter them again.</p>
+</section>
+</section>
+<section id="how-wrds-data-is-organized">
+<h2>How WRDS Data is Organized<a class="headerlink" href="#how-wrds-data-is-organized" title="Link to this heading">#</a></h2>
+<p>Before querying data, it helps to understand WRDS’s structure:</p>
+<ul class="simple">
+<li><p><strong>Libraries</strong> - Top-level data providers (e.g., <code class="docutils literal notranslate"><span class="pre">crsp</span></code>, <code class="docutils literal notranslate"><span class="pre">comp</span></code>, <code class="docutils literal notranslate"><span class="pre">djones</span></code>)</p></li>
+<li><p><strong>Tables</strong> - Datasets within each library (e.g., <code class="docutils literal notranslate"><span class="pre">dsf</span></code>, <code class="docutils literal notranslate"><span class="pre">funda</span></code>, <code class="docutils literal notranslate"><span class="pre">djdaily</span></code>)</p></li>
+<li><p><strong>Variables</strong> - Column headers within each table (e.g., <code class="docutils literal notranslate"><span class="pre">date</span></code>, <code class="docutils literal notranslate"><span class="pre">ret</span></code>, <code class="docutils literal notranslate"><span class="pre">prc</span></code>)</p></li>
+</ul>
+<p>Think of it like: <code class="docutils literal notranslate"><span class="pre">library.table</span></code> → <code class="docutils literal notranslate"><span class="pre">crsp.dsf</span></code> (CRSP Daily Stock File)</p>
+<section id="discovering-what-s-available">
+<h3>Discovering What’s Available<a class="headerlink" href="#discovering-what-s-available" title="Link to this heading">#</a></h3>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">wrds</span>
+<span class="n">db</span> <span class="o">=</span> <span class="n">wrds</span><span class="o">.</span><span class="n">Connection</span><span class="p">()</span>
+
+<span class="c1"># List all available libraries</span>
+<span class="nb">sorted</span><span class="p">(</span><span class="n">db</span><span class="o">.</span><span class="n">list_libraries</span><span class="p">())</span>
+
+<span class="c1"># List tables in a specific library</span>
+<span class="n">db</span><span class="o">.</span><span class="n">list_tables</span><span class="p">(</span><span class="n">library</span><span class="o">=</span><span class="s1">&#39;crsp&#39;</span><span class="p">)</span>
+
+<span class="c1"># Describe a table&#39;s columns (variables)</span>
+<span class="n">db</span><span class="o">.</span><span class="n">describe_table</span><span class="p">(</span><span class="n">library</span><span class="o">=</span><span class="s1">&#39;crsp&#39;</span><span class="p">,</span> <span class="n">table</span><span class="o">=</span><span class="s1">&#39;dsf&#39;</span><span class="p">)</span>
+
+<span class="c1"># Get the row count for a table</span>
+<span class="n">db</span><span class="o">.</span><span class="n">get_row_count</span><span class="p">(</span><span class="n">library</span><span class="o">=</span><span class="s1">&#39;djones&#39;</span><span class="p">,</span> <span class="n">table</span><span class="o">=</span><span class="s1">&#39;djdaily&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+<div class="admonition tip">
+<p class="admonition-title">Tip</p>
+<p>You can also browse the <a class="reference external" href="https://wrds-www.wharton.upenn.edu/pages/get-data/">WRDS Dataset List</a> online to explore available data without writing code.</p>
+</div>
+<div class="admonition warning">
+<p class="admonition-title">Warning</p>
+<p>Library and table names must be <strong>all lowercase</strong>. Using <code class="docutils literal notranslate"><span class="pre">CRSP</span></code> instead of <code class="docutils literal notranslate"><span class="pre">crsp</span></code> will cause errors.</p>
+</div>
+</section>
+</section>
+<section id="querying-wrds-data">
+<h2>Querying WRDS Data<a class="headerlink" href="#querying-wrds-data" title="Link to this heading">#</a></h2>
+<p>The <code class="docutils literal notranslate"><span class="pre">wrds</span></code> module provides two main methods for retrieving data:</p>
+<div class="pst-scrollable-table-container"><table class="table">
+<thead>
+<tr class="row-odd"><th class="head"><p>Method</p></th>
+<th class="head"><p>Best For</p></th>
+<th class="head"><p>Flexibility</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">get_table()</span></code></p></td>
+<td><p>Simple queries, quick exploration</p></td>
+<td><p>Lower</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">raw_sql()</span></code></p></td>
+<td><p>Complex queries, joins, filters</p></td>
+<td><p>Higher</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<p>All query results are returned as <strong>pandas DataFrames</strong>, ready for analysis.</p>
+<section id="using-get-table">
+<h3>Using get_table()<a class="headerlink" href="#using-get-table" title="Link to this heading">#</a></h3>
+<p>The simplest way to retrieve data—good for exploring datasets:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Get first 10 rows of Dow Jones data</span>
+<span class="n">data</span> <span class="o">=</span> <span class="n">db</span><span class="o">.</span><span class="n">get_table</span><span class="p">(</span><span class="n">library</span><span class="o">=</span><span class="s1">&#39;djones&#39;</span><span class="p">,</span> <span class="n">table</span><span class="o">=</span><span class="s1">&#39;djdaily&#39;</span><span class="p">,</span> <span class="n">obs</span><span class="o">=</span><span class="mi">10</span><span class="p">)</span>
+
+<span class="c1"># Select specific columns only</span>
+<span class="n">data</span> <span class="o">=</span> <span class="n">db</span><span class="o">.</span><span class="n">get_table</span><span class="p">(</span><span class="s1">&#39;djones&#39;</span><span class="p">,</span> <span class="s1">&#39;djdaily&#39;</span><span class="p">,</span> 
+                    <span class="n">columns</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;date&#39;</span><span class="p">,</span> <span class="s1">&#39;dji&#39;</span><span class="p">],</span> 
+                    <span class="n">obs</span><span class="o">=</span><span class="mi">10</span><span class="p">)</span>
+</pre></div>
+</div>
+<p><strong>Key parameters:</strong></p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">library</span></code> - The library to query (required)</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">table</span></code> - The dataset to query (required)</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">columns</span></code> - List of columns to include (optional)</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">obs</span></code> - Number of observations to return (optional)</p></li>
+</ul>
+</section>
+<section id="using-raw-sql">
+<h3>Using raw_sql()<a class="headerlink" href="#using-raw-sql" title="Link to this heading">#</a></h3>
+<p>For more control, write SQL queries directly. This is what you’ll use for most research:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Basic SQL query</span>
+<span class="n">data</span> <span class="o">=</span> <span class="n">db</span><span class="o">.</span><span class="n">raw_sql</span><span class="p">(</span><span class="s2">&quot;&quot;&quot;</span>
+<span class="s2">    SELECT date, dji </span>
+<span class="s2">    FROM djones.djdaily </span>
+<span class="s2">    LIMIT 10</span>
+<span class="s2">&quot;&quot;&quot;</span><span class="p">,</span> <span class="n">date_cols</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;date&#39;</span><span class="p">])</span>
+
+<span class="c1"># Query with filters</span>
+<span class="n">data</span> <span class="o">=</span> <span class="n">db</span><span class="o">.</span><span class="n">raw_sql</span><span class="p">(</span><span class="s2">&quot;&quot;&quot;</span>
+<span class="s2">    SELECT permno, date, prc, ret</span>
+<span class="s2">    FROM crsp.dsf</span>
+<span class="s2">    WHERE permno = 14593</span>
+<span class="s2">    AND date BETWEEN &#39;2023-01-01&#39; AND &#39;2023-12-31&#39;</span>
+<span class="s2">&quot;&quot;&quot;</span><span class="p">,</span> <span class="n">date_cols</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;date&#39;</span><span class="p">])</span>
+</pre></div>
+</div>
+<p><strong>Key parameters:</strong></p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">sql</span></code> - The SQL query string (required)</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">date_cols</span></code> - List of columns to parse as dates (recommended)</p></li>
+</ul>
+<div class="admonition important">
+<p class="admonition-title">Important</p>
+<p><strong>SQL Basics</strong>:</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">SELECT</span></code> specifies which columns you want</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">FROM</span> <span class="pre">library.table</span></code> specifies the data source</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">WHERE</span></code> filters rows based on conditions</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">LIMIT</span></code> restricts the number of rows returned</p></li>
+</ul>
+</div>
+</section>
+<section id="always-limit-results-while-developing">
+<h3>Always Limit Results While Developing<a class="headerlink" href="#always-limit-results-while-developing" title="Link to this heading">#</a></h3>
+<p>WRDS datasets can be <strong>huge</strong>. Always limit your results while testing:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># With get_table(): use obs parameter</span>
+<span class="n">data</span> <span class="o">=</span> <span class="n">db</span><span class="o">.</span><span class="n">get_table</span><span class="p">(</span><span class="s1">&#39;crsp&#39;</span><span class="p">,</span> <span class="s1">&#39;dsf&#39;</span><span class="p">,</span> <span class="n">obs</span><span class="o">=</span><span class="mi">100</span><span class="p">)</span>
+
+<span class="c1"># With raw_sql(): use LIMIT clause</span>
+<span class="n">data</span> <span class="o">=</span> <span class="n">db</span><span class="o">.</span><span class="n">raw_sql</span><span class="p">(</span><span class="s2">&quot;SELECT * FROM crsp.dsf LIMIT 100&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>Once your query is working correctly, remove the limit to get the full dataset.</p>
+<div class="admonition warning">
+<p class="admonition-title">Warning</p>
+<p>Running queries without limits on large tables (like <code class="docutils literal notranslate"><span class="pre">crsp.dsf</span></code>) can take a very long time and may timeout. Start small!</p>
+</div>
+</section>
+</section>
+<section id="example-workflow-exploring-crsp-data">
+<h2>Example Workflow: Exploring CRSP Data<a class="headerlink" href="#example-workflow-exploring-crsp-data" title="Link to this heading">#</a></h2>
+<p>Let’s walk through a typical research workflow using the CRSP Daily Stock File (<code class="docutils literal notranslate"><span class="pre">crsp.dsf</span></code>). This mirrors how you’d approach a real analysis.</p>
+<section id="step-1-explore-the-data-structure">
+<h3>Step 1: Explore the Data Structure<a class="headerlink" href="#step-1-explore-the-data-structure" title="Link to this heading">#</a></h3>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">wrds</span>
+<span class="n">db</span> <span class="o">=</span> <span class="n">wrds</span><span class="o">.</span><span class="n">Connection</span><span class="p">()</span>
+
+<span class="c1"># What tables are in CRSP?</span>
+<span class="n">db</span><span class="o">.</span><span class="n">list_tables</span><span class="p">(</span><span class="s1">&#39;crsp&#39;</span><span class="p">)</span>
+
+<span class="c1"># What variables are in the Daily Stock File?</span>
+<span class="n">db</span><span class="o">.</span><span class="n">describe_table</span><span class="p">(</span><span class="s1">&#39;crsp&#39;</span><span class="p">,</span> <span class="s1">&#39;dsf&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</section>
+<section id="step-2-preview-the-data">
+<h3>Step 2: Preview the Data<a class="headerlink" href="#step-2-preview-the-data" title="Link to this heading">#</a></h3>
+<p>Always look at a small sample first:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Get first 100 rows to see what we&#39;re working with</span>
+<span class="n">sample</span> <span class="o">=</span> <span class="n">db</span><span class="o">.</span><span class="n">get_table</span><span class="p">(</span><span class="s1">&#39;crsp&#39;</span><span class="p">,</span> <span class="s1">&#39;dsf&#39;</span><span class="p">,</span> <span class="n">obs</span><span class="o">=</span><span class="mi">100</span><span class="p">)</span>
+<span class="n">sample</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
+</pre></div>
+</div>
+</section>
+<section id="step-3-select-specific-columns">
+<h3>Step 3: Select Specific Columns<a class="headerlink" href="#step-3-select-specific-columns" title="Link to this heading">#</a></h3>
+<p>Based on our preview, let’s focus on the variables we need:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Get specific columns only</span>
+<span class="n">data</span> <span class="o">=</span> <span class="n">db</span><span class="o">.</span><span class="n">raw_sql</span><span class="p">(</span><span class="s2">&quot;&quot;&quot;</span>
+<span class="s2">    SELECT cusip, permno, date, bidlo, askhi, prc, ret</span>
+<span class="s2">    FROM crsp.dsf </span>
+<span class="s2">    LIMIT 100</span>
+<span class="s2">&quot;&quot;&quot;</span><span class="p">,</span> <span class="n">date_cols</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;date&#39;</span><span class="p">])</span>
+</pre></div>
+</div>
+</section>
+<section id="step-4-filter-for-specific-securities">
+<h3>Step 4: Filter for Specific Securities<a class="headerlink" href="#step-4-filter-for-specific-securities" title="Link to this heading">#</a></h3>
+<p>Query data for specific companies using <code class="docutils literal notranslate"><span class="pre">permno</span></code> (CRSP’s permanent identifier):</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Query multiple stocks for a single day</span>
+<span class="n">data</span> <span class="o">=</span> <span class="n">db</span><span class="o">.</span><span class="n">raw_sql</span><span class="p">(</span><span class="s2">&quot;&quot;&quot;</span>
+<span class="s2">    SELECT cusip, permno, date, bidlo, askhi</span>
+<span class="s2">    FROM crsp.dsf</span>
+<span class="s2">    WHERE permno IN (14593, 90319, 12490, 17778)</span>
+<span class="s2">    AND date = &#39;2013-01-04&#39;</span>
+<span class="s2">&quot;&quot;&quot;</span><span class="p">,</span> <span class="n">date_cols</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;date&#39;</span><span class="p">])</span>
+</pre></div>
+</div>
+</section>
+<section id="step-5-filter-by-date-range-and-conditions">
+<h3>Step 5: Filter by Date Range and Conditions<a class="headerlink" href="#step-5-filter-by-date-range-and-conditions" title="Link to this heading">#</a></h3>
+<p>Add more sophisticated filters:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Find high ask prices between 2010-2013</span>
+<span class="n">data</span> <span class="o">=</span> <span class="n">db</span><span class="o">.</span><span class="n">raw_sql</span><span class="p">(</span><span class="s2">&quot;&quot;&quot;</span>
+<span class="s2">    SELECT cusip, permno, date, bidlo, askhi </span>
+<span class="s2">    FROM crsp.dsf </span>
+<span class="s2">    WHERE permno IN (14593, 90319, 12490, 17778) </span>
+<span class="s2">    AND date BETWEEN &#39;2010-01-01&#39; AND &#39;2013-12-31&#39; </span>
+<span class="s2">    AND askhi &gt; 2000</span>
+<span class="s2">&quot;&quot;&quot;</span><span class="p">,</span> <span class="n">date_cols</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;date&#39;</span><span class="p">])</span>
+</pre></div>
+</div>
+</section>
+<section id="step-6-aggregate-and-analyze">
+<h3>Step 6: Aggregate and Analyze<a class="headerlink" href="#step-6-aggregate-and-analyze" title="Link to this heading">#</a></h3>
+<p>Use SQL aggregation functions:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Find all stocks that ever had ask price &gt; $2000</span>
+<span class="n">data</span> <span class="o">=</span> <span class="n">db</span><span class="o">.</span><span class="n">raw_sql</span><span class="p">(</span><span class="s2">&quot;&quot;&quot;</span>
+<span class="s2">    SELECT DISTINCT permno </span>
+<span class="s2">    FROM crsp.dsf </span>
+<span class="s2">    WHERE askhi &gt; 2000</span>
+<span class="s2">&quot;&quot;&quot;</span><span class="p">)</span>
+
+<span class="c1"># Find the highest ask price ever recorded</span>
+<span class="n">data</span> <span class="o">=</span> <span class="n">db</span><span class="o">.</span><span class="n">raw_sql</span><span class="p">(</span><span class="s2">&quot;&quot;&quot;</span>
+<span class="s2">    SELECT permno, askhi, date </span>
+<span class="s2">    FROM crsp.dsf </span>
+<span class="s2">    WHERE askhi &gt; 2000 </span>
+<span class="s2">    ORDER BY askhi DESC </span>
+<span class="s2">    LIMIT 1</span>
+<span class="s2">&quot;&quot;&quot;</span><span class="p">,</span> <span class="n">date_cols</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;date&#39;</span><span class="p">])</span>
+</pre></div>
+</div>
+</section>
+<section id="step-7-work-with-results-in-pandas">
+<h3>Step 7: Work with Results in Pandas<a class="headerlink" href="#step-7-work-with-results-in-pandas" title="Link to this heading">#</a></h3>
+<p>Once you have your data, use pandas for further analysis:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Query returns data</span>
+<span class="n">returns</span> <span class="o">=</span> <span class="n">db</span><span class="o">.</span><span class="n">raw_sql</span><span class="p">(</span><span class="s2">&quot;&quot;&quot;</span>
+<span class="s2">    SELECT permno, date, ret</span>
+<span class="s2">    FROM crsp.dsf</span>
+<span class="s2">    WHERE permno = 14593</span>
+<span class="s2">    AND date BETWEEN &#39;2023-01-01&#39; AND &#39;2023-12-31&#39;</span>
+<span class="s2">&quot;&quot;&quot;</span><span class="p">,</span> <span class="n">date_cols</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;date&#39;</span><span class="p">])</span>
+
+<span class="c1"># Set date as index</span>
+<span class="n">returns</span> <span class="o">=</span> <span class="n">returns</span><span class="o">.</span><span class="n">set_index</span><span class="p">(</span><span class="s1">&#39;date&#39;</span><span class="p">)</span>
+
+<span class="c1"># Calculate cumulative returns</span>
+<span class="n">returns</span><span class="p">[</span><span class="s1">&#39;cum_ret&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span><span class="mi">1</span> <span class="o">+</span> <span class="n">returns</span><span class="p">[</span><span class="s1">&#39;ret&#39;</span><span class="p">])</span><span class="o">.</span><span class="n">cumprod</span><span class="p">()</span> <span class="o">-</span> <span class="mi">1</span>
+
+<span class="c1"># Plot</span>
+<span class="n">returns</span><span class="p">[</span><span class="s1">&#39;cum_ret&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">title</span><span class="o">=</span><span class="s1">&#39;Apple Cumulative Returns 2023&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</section>
+<section id="key-crsp-variables">
+<h3>Key CRSP Variables<a class="headerlink" href="#key-crsp-variables" title="Link to this heading">#</a></h3>
+<div class="pst-scrollable-table-container"><table class="table">
+<thead>
+<tr class="row-odd"><th class="head"><p>Variable</p></th>
+<th class="head"><p>Description</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">permno</span></code></p></td>
+<td><p>Permanent security identifier</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">cusip</span></code></p></td>
+<td><p>CUSIP identifier</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">date</span></code></p></td>
+<td><p>Trading date</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">prc</span></code></p></td>
+<td><p>Closing price (negative = bid/ask average)</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">ret</span></code></p></td>
+<td><p>Holding period return</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">bidlo</span></code></p></td>
+<td><p>Lowest bid price</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">askhi</span></code></p></td>
+<td><p>Highest ask price</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">vol</span></code></p></td>
+<td><p>Trading volume (shares)</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">shrout</span></code></p></td>
+<td><p>Shares outstanding (thousands)</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+</section>
+</section>
+<section id="example-compustat-financial-data">
+<h2>Example: Compustat Financial Data<a class="headerlink" href="#example-compustat-financial-data" title="Link to this heading">#</a></h2>
+<p>Compustat (<code class="docutils literal notranslate"><span class="pre">comp</span></code>) contains accounting data from financial statements.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Query annual financial data for Apple</span>
+<span class="n">query</span> <span class="o">=</span> <span class="s2">&quot;&quot;&quot;</span>
+<span class="s2">SELECT gvkey, datadate, conm, tic, at, sale, ni, ceq</span>
+<span class="s2">FROM comp.funda</span>
+<span class="s2">WHERE tic = &#39;AAPL&#39;</span>
+<span class="s2">AND datafmt = &#39;STD&#39;</span>
+<span class="s2">AND indfmt = &#39;INDL&#39;</span>
+<span class="s2">AND consol = &#39;C&#39;</span>
+<span class="s2">AND popsrc = &#39;D&#39;</span>
+<span class="s2">ORDER BY datadate</span>
+<span class="s2">&quot;&quot;&quot;</span>
+
+<span class="n">aapl_financials</span> <span class="o">=</span> <span class="n">db</span><span class="o">.</span><span class="n">raw_sql</span><span class="p">(</span><span class="n">query</span><span class="p">,</span> <span class="n">date_cols</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;datadate&#39;</span><span class="p">])</span>
+</pre></div>
+</div>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>The filters <code class="docutils literal notranslate"><span class="pre">datafmt</span> <span class="pre">=</span> <span class="pre">'STD'</span></code>, <code class="docutils literal notranslate"><span class="pre">indfmt</span> <span class="pre">=</span> <span class="pre">'INDL'</span></code>, <code class="docutils literal notranslate"><span class="pre">consol</span> <span class="pre">=</span> <span class="pre">'C'</span></code>, and <code class="docutils literal notranslate"><span class="pre">popsrc</span> <span class="pre">=</span> <span class="pre">'D'</span></code> are standard Compustat filters that select standardized, consolidated, domestic data. Always include them.</p>
+</div>
+<section id="key-compustat-variables">
+<h3>Key Compustat Variables<a class="headerlink" href="#key-compustat-variables" title="Link to this heading">#</a></h3>
+<div class="pst-scrollable-table-container"><table class="table">
+<thead>
+<tr class="row-odd"><th class="head"><p>Variable</p></th>
+<th class="head"><p>Description</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">gvkey</span></code></p></td>
+<td><p>Global company key (Compustat identifier)</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">tic</span></code></p></td>
+<td><p>Ticker symbol</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">conm</span></code></p></td>
+<td><p>Company name</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">datadate</span></code></p></td>
+<td><p>Fiscal period end date</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">at</span></code></p></td>
+<td><p>Total assets</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">sale</span></code></p></td>
+<td><p>Net sales/revenue</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">ni</span></code></p></td>
+<td><p>Net income</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">ceq</span></code></p></td>
+<td><p>Common equity</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">lt</span></code></p></td>
+<td><p>Total liabilities</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+</section>
+</section>
+<section id="joining-tables">
+<h2>Joining Tables<a class="headerlink" href="#joining-tables" title="Link to this heading">#</a></h2>
+<p>You can join multiple tables within the same library in a single query:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Join Compustat fundamentals with monthly pricing</span>
+<span class="n">query</span> <span class="o">=</span> <span class="s2">&quot;&quot;&quot;</span>
+<span class="s2">SELECT a.gvkey, a.datadate, a.tic, a.conm, a.at, a.lt, </span>
+<span class="s2">       b.prccm, b.cshoq</span>
+<span class="s2">FROM comp.funda a</span>
+<span class="s2">JOIN comp.secm b </span>
+<span class="s2">    ON a.gvkey = b.gvkey </span>
+<span class="s2">    AND a.datadate = b.datadate</span>
+<span class="s2">WHERE a.tic = &#39;IBM&#39; </span>
+<span class="s2">AND a.datafmt = &#39;STD&#39; </span>
+<span class="s2">AND a.consol = &#39;C&#39; </span>
+<span class="s2">AND a.indfmt = &#39;INDL&#39;</span>
+<span class="s2">&quot;&quot;&quot;</span>
+
+<span class="n">ibm_data</span> <span class="o">=</span> <span class="n">db</span><span class="o">.</span><span class="n">raw_sql</span><span class="p">(</span><span class="n">query</span><span class="p">,</span> <span class="n">date_cols</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;datadate&#39;</span><span class="p">])</span>
+</pre></div>
+</div>
+<div class="admonition warning">
+<p class="admonition-title">Warning</p>
+<p>Joining large datasets can be slow. Always filter by date range or specific securities.</p>
+</div>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Some institutions subscribe to the <strong>CRSP/Compustat Merged</strong> database, which provides a linking table to connect stock returns (CRSP) with financial statements (Compustat). Check with your instructor about which databases are available through your class subscription.</p>
+</div>
+</section>
+<section id="passing-python-variables-to-sql">
+<h2>Passing Python Variables to SQL<a class="headerlink" href="#passing-python-variables-to-sql" title="Link to this heading">#</a></h2>
+<p>You can pass Python variables to your SQL queries. This is cleaner than building strings manually:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Define parameters as a dictionary</span>
+<span class="n">params</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="s2">&quot;tickers&quot;</span><span class="p">:</span> <span class="p">(</span><span class="s2">&quot;AAPL&quot;</span><span class="p">,</span> <span class="s2">&quot;MSFT&quot;</span><span class="p">,</span> <span class="s2">&quot;GOOGL&quot;</span><span class="p">,</span> <span class="s2">&quot;AMZN&quot;</span><span class="p">),</span>
+    <span class="s2">&quot;start_date&quot;</span><span class="p">:</span> <span class="s2">&quot;2020-01-01&quot;</span>
+<span class="p">}</span>
+
+<span class="c1"># Use %(param_name)s syntax in SQL</span>
+<span class="n">data</span> <span class="o">=</span> <span class="n">db</span><span class="o">.</span><span class="n">raw_sql</span><span class="p">(</span><span class="s2">&quot;&quot;&quot;</span>
+<span class="s2">    SELECT gvkey, datadate, tic, at, ni</span>
+<span class="s2">    FROM comp.funda</span>
+<span class="s2">    WHERE tic IN </span><span class="si">%(tickers)s</span>
+<span class="s2">    AND datafmt = &#39;STD&#39;</span>
+<span class="s2">    AND datadate &gt;= </span><span class="si">%(start_date)s</span>
+<span class="s2">&quot;&quot;&quot;</span><span class="p">,</span> <span class="n">params</span><span class="o">=</span><span class="n">params</span><span class="p">,</span> <span class="n">date_cols</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;datadate&#39;</span><span class="p">])</span>
+</pre></div>
+</div>
+<section id="another-example">
+<h3>Another Example<a class="headerlink" href="#another-example" title="Link to this heading">#</a></h3>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Pass a list of CRSP identifiers</span>
+<span class="n">params</span> <span class="o">=</span> <span class="p">{</span><span class="s2">&quot;permnos&quot;</span><span class="p">:</span> <span class="p">(</span><span class="mi">14593</span><span class="p">,</span> <span class="mi">10107</span><span class="p">,</span> <span class="mi">93436</span><span class="p">)}</span>  <span class="c1"># AAPL, MSFT, AMZN</span>
+
+<span class="n">data</span> <span class="o">=</span> <span class="n">db</span><span class="o">.</span><span class="n">raw_sql</span><span class="p">(</span><span class="s2">&quot;&quot;&quot;</span>
+<span class="s2">    SELECT permno, date, ret </span>
+<span class="s2">    FROM crsp.dsf</span>
+<span class="s2">    WHERE permno IN </span><span class="si">%(permnos)s</span>
+<span class="s2">    AND date BETWEEN &#39;2023-01-01&#39; AND &#39;2023-12-31&#39;</span>
+<span class="s2">&quot;&quot;&quot;</span><span class="p">,</span> <span class="n">params</span><span class="o">=</span><span class="n">params</span><span class="p">,</span> <span class="n">date_cols</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;date&#39;</span><span class="p">])</span>
+</pre></div>
+</div>
+<p>This is especially useful when your list of securities comes from another data source or earlier analysis.</p>
+</section>
+</section>
+<section id="managing-your-connection">
+<h2>Managing Your Connection<a class="headerlink" href="#managing-your-connection" title="Link to this heading">#</a></h2>
+<p>WRDS limits you to <strong>5 simultaneous connections</strong>. Always close your connection when done:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">wrds</span>
+
+<span class="c1"># Connect</span>
+<span class="n">db</span> <span class="o">=</span> <span class="n">wrds</span><span class="o">.</span><span class="n">Connection</span><span class="p">()</span>
+
+<span class="c1"># Do your work</span>
+<span class="n">data</span> <span class="o">=</span> <span class="n">db</span><span class="o">.</span><span class="n">raw_sql</span><span class="p">(</span><span class="s2">&quot;SELECT date, dji FROM djones.djdaily LIMIT 10&quot;</span><span class="p">)</span>
+
+<span class="c1"># Close when finished</span>
+<span class="n">db</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
+</pre></div>
+</div>
+<p>You can still use your <code class="docutils literal notranslate"><span class="pre">data</span></code> DataFrame after closing—only the database link is severed.</p>
+<section id="using-a-context-manager-recommended">
+<h3>Using a Context Manager (Recommended)<a class="headerlink" href="#using-a-context-manager-recommended" title="Link to this heading">#</a></h3>
+<p>Python’s <code class="docutils literal notranslate"><span class="pre">with</span></code> statement automatically closes the connection:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">wrds</span>
+
+<span class="k">with</span> <span class="n">wrds</span><span class="o">.</span><span class="n">Connection</span><span class="p">()</span> <span class="k">as</span> <span class="n">db</span><span class="p">:</span>
+    <span class="n">data</span> <span class="o">=</span> <span class="n">db</span><span class="o">.</span><span class="n">raw_sql</span><span class="p">(</span><span class="s2">&quot;SELECT date, dji FROM djones.djdaily&quot;</span><span class="p">)</span>
+<span class="c1"># Connection closes automatically here</span>
+</pre></div>
+</div>
+<div class="admonition tip">
+<p class="admonition-title">Tip</p>
+<p>If you get “too many connections” errors:</p>
+<ol class="arabic simple">
+<li><p>Close any open connections with <code class="docutils literal notranslate"><span class="pre">db.close()</span></code></p></li>
+<li><p>Restart your Jupyter kernel</p></li>
+<li><p>Wait a few minutes for old connections to timeout</p></li>
+</ol>
+</div>
+</section>
+</section>
+<section id="resources">
+<h2>Resources<a class="headerlink" href="#resources" title="Link to this heading">#</a></h2>
+<section id="wrds-documentation">
+<h3>WRDS Documentation<a class="headerlink" href="#wrds-documentation" title="Link to this heading">#</a></h3>
+<ul class="simple">
+<li><p><a class="reference external" href="https://wrds-www.wharton.upenn.edu/pages/support/">WRDS Support Home</a></p></li>
+<li><p><a class="reference external" href="https://wrds-www.wharton.upenn.edu/pages/support/programming-wrds/programming-python/">Python at WRDS</a></p></li>
+<li><p><a class="reference external" href="https://wrds-www.wharton.upenn.edu/pages/get-data/">WRDS Dataset List</a></p></li>
+</ul>
+</section>
+<section id="dataset-manuals">
+<h3>Dataset Manuals<a class="headerlink" href="#dataset-manuals" title="Link to this heading">#</a></h3>
+<ul class="simple">
+<li><p><a class="reference external" href="https://wrds-www.wharton.upenn.edu/documents/396/CRSP_US_Stock_Indices_Data_Descriptions.pdf">CRSP Stock Data Guide</a></p></li>
+<li><p><a class="reference external" href="https://wrds-www.wharton.upenn.edu/documents/1583/Compustat_Data_Guide.pdf">Compustat Data Guide</a></p></li>
+</ul>
+</section>
+<section id="getting-help">
+<h3>Getting Help<a class="headerlink" href="#getting-help" title="Link to this heading">#</a></h3>
+<ul class="simple">
+<li><p><a class="reference external" href="https://wrds-www.wharton.upenn.edu/contact-support/">WRDS Support Contact</a></p></li>
+<li><p>Python inline help: <code class="docutils literal notranslate"><span class="pre">help(db.raw_sql)</span></code> or <code class="docutils literal notranslate"><span class="pre">help(db.get_table)</span></code></p></li>
+</ul>
+</section>
+</section>
+</section>
+
+    <script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "binder-examples/jupyter-stacks-datascience",
+            ref: "master",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "python"
+        },
+        kernelOptions: {
+            name: "python3",
+            path: "./chapters"
+        },
+        predefinedOutput: true
+    }
+    </script>
+    <script>kernelName = 'python3'</script>
+
+                </article>
+              
+
+              
+              
+              
+              
+                <footer class="prev-next-footer d-print-none">
+                  
+<div class="prev-next-area">
+    <a class="left-prev"
+       href="6_3_databento.html"
+       title="previous page">
+      <i class="fa-solid fa-angle-left"></i>
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">previous</p>
+        <p class="prev-next-title">Databento</p>
+      </div>
+    </a>
+    <a class="right-next"
+       href="7_financial_ts.html"
+       title="next page">
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-title">Financial time series <a id='financial-time-series'></a></p>
+      </div>
+      <i class="fa-solid fa-angle-right"></i>
+    </a>
+</div>
+                </footer>
+              
+            </div>
+            
+            
+              
+                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+
+  <div class="sidebar-secondary-item">
+  <div class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> Contents
+  </div>
+  <nav class="bd-toc-nav page-toc">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#what-is-wrds">What is WRDS?</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#getting-access-student-class-accounts">Getting Access: Student Class Accounts</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#new-to-wrds-how-to-enroll">New to WRDS? How to Enroll</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#already-have-a-wrds-account">Already Have a WRDS Account?</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#need-help">Need Help?</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#data-strategy-what-s-available-and-how-to-combine-it">Data Strategy: What’s Available and How to Combine It</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#elon-s-wrds-subscriptions">Elon’s WRDS Subscriptions</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#the-identifier-problem">The Identifier Problem</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#combining-wrds-with-other-data-sources">Combining WRDS with Other Data Sources</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#practical-workflow">Practical Workflow</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#what-to-ask-claude-code">What to Ask Claude Code</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#set-up">Set-up</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#connecting-to-wrds">Connecting to WRDS</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#how-wrds-data-is-organized">How WRDS Data is Organized</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#discovering-what-s-available">Discovering What’s Available</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#querying-wrds-data">Querying WRDS Data</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#using-get-table">Using get_table()</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#using-raw-sql">Using raw_sql()</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#always-limit-results-while-developing">Always Limit Results While Developing</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#example-workflow-exploring-crsp-data">Example Workflow: Exploring CRSP Data</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#step-1-explore-the-data-structure">Step 1: Explore the Data Structure</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#step-2-preview-the-data">Step 2: Preview the Data</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#step-3-select-specific-columns">Step 3: Select Specific Columns</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#step-4-filter-for-specific-securities">Step 4: Filter for Specific Securities</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#step-5-filter-by-date-range-and-conditions">Step 5: Filter by Date Range and Conditions</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#step-6-aggregate-and-analyze">Step 6: Aggregate and Analyze</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#step-7-work-with-results-in-pandas">Step 7: Work with Results in Pandas</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#key-crsp-variables">Key CRSP Variables</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#example-compustat-financial-data">Example: Compustat Financial Data</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#key-compustat-variables">Key Compustat Variables</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#joining-tables">Joining Tables</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#passing-python-variables-to-sql">Passing Python Variables to SQL</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#another-example">Another Example</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#managing-your-connection">Managing Your Connection</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#using-a-context-manager-recommended">Using a Context Manager (Recommended)</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#resources">Resources</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#wrds-documentation">WRDS Documentation</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#dataset-manuals">Dataset Manuals</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#getting-help">Getting Help</a></li>
+</ul>
+</li>
+</ul>
+  </nav></div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+<div class="bd-footer-content__inner container">
+  
+  <div class="footer-item">
+    
+<p class="component-author">
+By Prof. Adam Aiken
+</p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+</div>
+          </footer>
+        
+
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="../_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b"></script>
+<script src="../_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b"></script>
+
+  <footer class="bd-footer">
+  </footer>
+  </body>
+</html>

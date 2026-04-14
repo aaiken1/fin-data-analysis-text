@@ -1,0 +1,166 @@
+Traceback (most recent call last):
+  File "/Users/adamaiken/Documents/fin-data-analysis-text/.venv/lib/python3.12/site-packages/jupyter_cache/executors/utils.py", line 58, in single_nb_execution
+    executenb(
+  File "/Users/adamaiken/Documents/fin-data-analysis-text/.venv/lib/python3.12/site-packages/nbclient/client.py", line 1323, in execute
+    return NotebookClient(nb=nb, resources=resources, km=km, **kwargs).execute()
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/adamaiken/Documents/fin-data-analysis-text/.venv/lib/python3.12/site-packages/jupyter_core/utils/__init__.py", line 165, in wrapped
+    return loop.run_until_complete(inner)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/adamaiken/.pyenv/versions/3.12.3/lib/python3.12/asyncio/base_events.py", line 687, in run_until_complete
+    return future.result()
+           ^^^^^^^^^^^^^^^
+  File "/Users/adamaiken/Documents/fin-data-analysis-text/.venv/lib/python3.12/site-packages/nbclient/client.py", line 709, in async_execute
+    await self.async_execute_cell(
+  File "/Users/adamaiken/Documents/fin-data-analysis-text/.venv/lib/python3.12/site-packages/nbclient/client.py", line 1062, in async_execute_cell
+    await self._check_raise_for_error(cell, cell_index, exec_reply)
+  File "/Users/adamaiken/Documents/fin-data-analysis-text/.venv/lib/python3.12/site-packages/nbclient/client.py", line 918, in _check_raise_for_error
+    raise CellExecutionError.from_cell_and_msg(cell, exec_reply_content)
+nbclient.exceptions.CellExecutionError: An error occurred while executing the following cell:
+------------------
+(
+    nc.groupby('type')
+    .mean()['beer_count']
+    .to_frame()
+    .style
+        .format(precision=0)
+        .set_caption('Beer Count by Brewery Type')   
+)
+------------------
+
+----- stderr -----
+/var/folders/kx/y8vj3n6n5kq_d74vj24jsnh40000gn/T/ipykernel_31034/452258875.py:2: FutureWarning: The default of observed=False is deprecated and will be changed to True in a future version of pandas. Pass observed=False to retain current behavior or observed=True to adopt the future default and silence this warning.
+  nc.groupby('type')
+------------------
+
+[31m---------------------------------------------------------------------------[39m
+[31mTypeError[39m                                 Traceback (most recent call last)
+[36mFile [39m[32m~/Documents/fin-data-analysis-text/.venv/lib/python3.12/site-packages/pandas/core/groupby/groupby.py:1942[39m, in [36mGroupBy._agg_py_fallback[39m[34m(self, how, values, ndim, alt)[39m
+[32m   1941[39m [38;5;28;01mtry[39;00m:
+[32m-> [39m[32m1942[39m     res_values = [38;5;28;43mself[39;49m[43m.[49m[43m_grouper[49m[43m.[49m[43magg_series[49m[43m([49m[43mser[49m[43m,[49m[43m [49m[43malt[49m[43m,[49m[43m [49m[43mpreserve_dtype[49m[43m=[49m[38;5;28;43;01mTrue[39;49;00m[43m)[49m
+[32m   1943[39m [38;5;28;01mexcept[39;00m [38;5;167;01mException[39;00m [38;5;28;01mas[39;00m err:
+
+[36mFile [39m[32m~/Documents/fin-data-analysis-text/.venv/lib/python3.12/site-packages/pandas/core/groupby/ops.py:864[39m, in [36mBaseGrouper.agg_series[39m[34m(self, obj, func, preserve_dtype)[39m
+[32m    862[39m     preserve_dtype = [38;5;28;01mTrue[39;00m
+[32m--> [39m[32m864[39m result = [38;5;28;43mself[39;49m[43m.[49m[43m_aggregate_series_pure_python[49m[43m([49m[43mobj[49m[43m,[49m[43m [49m[43mfunc[49m[43m)[49m
+[32m    866[39m npvalues = lib.maybe_convert_objects(result, try_float=[38;5;28;01mFalse[39;00m)
+
+[36mFile [39m[32m~/Documents/fin-data-analysis-text/.venv/lib/python3.12/site-packages/pandas/core/groupby/ops.py:885[39m, in [36mBaseGrouper._aggregate_series_pure_python[39m[34m(self, obj, func)[39m
+[32m    884[39m [38;5;28;01mfor[39;00m i, group [38;5;129;01min[39;00m [38;5;28menumerate[39m(splitter):
+[32m--> [39m[32m885[39m     res = [43mfunc[49m[43m([49m[43mgroup[49m[43m)[49m
+[32m    886[39m     res = extract_result(res)
+
+[36mFile [39m[32m~/Documents/fin-data-analysis-text/.venv/lib/python3.12/site-packages/pandas/core/groupby/groupby.py:2454[39m, in [36mGroupBy.mean.<locals>.<lambda>[39m[34m(x)[39m
+[32m   2451[39m [38;5;28;01melse[39;00m:
+[32m   2452[39m     result = [38;5;28mself[39m._cython_agg_general(
+[32m   2453[39m         [33m"[39m[33mmean[39m[33m"[39m,
+[32m-> [39m[32m2454[39m         alt=[38;5;28;01mlambda[39;00m x: [43mSeries[49m[43m([49m[43mx[49m[43m,[49m[43m [49m[43mcopy[49m[43m=[49m[38;5;28;43;01mFalse[39;49;00m[43m)[49m[43m.[49m[43mmean[49m[43m([49m[43mnumeric_only[49m[43m=[49m[43mnumeric_only[49m[43m)[49m,
+[32m   2455[39m         numeric_only=numeric_only,
+[32m   2456[39m     )
+[32m   2457[39m     [38;5;28;01mreturn[39;00m result.__finalize__([38;5;28mself[39m.obj, method=[33m"[39m[33mgroupby[39m[33m"[39m)
+
+[36mFile [39m[32m~/Documents/fin-data-analysis-text/.venv/lib/python3.12/site-packages/pandas/core/series.py:6549[39m, in [36mSeries.mean[39m[34m(self, axis, skipna, numeric_only, **kwargs)[39m
+[32m   6541[39m [38;5;129m@doc[39m(make_doc([33m"[39m[33mmean[39m[33m"[39m, ndim=[32m1[39m))
+[32m   6542[39m [38;5;28;01mdef[39;00m[38;5;250m [39m[34mmean[39m(
+[32m   6543[39m     [38;5;28mself[39m,
+[32m   (...)[39m[32m   6547[39m     **kwargs,
+[32m   6548[39m ):
+[32m-> [39m[32m6549[39m     [38;5;28;01mreturn[39;00m [43mNDFrame[49m[43m.[49m[43mmean[49m[43m([49m[38;5;28;43mself[39;49m[43m,[49m[43m [49m[43maxis[49m[43m,[49m[43m [49m[43mskipna[49m[43m,[49m[43m [49m[43mnumeric_only[49m[43m,[49m[43m [49m[43m*[49m[43m*[49m[43mkwargs[49m[43m)[49m
+
+[36mFile [39m[32m~/Documents/fin-data-analysis-text/.venv/lib/python3.12/site-packages/pandas/core/generic.py:12420[39m, in [36mNDFrame.mean[39m[34m(self, axis, skipna, numeric_only, **kwargs)[39m
+[32m  12413[39m [38;5;28;01mdef[39;00m[38;5;250m [39m[34mmean[39m(
+[32m  12414[39m     [38;5;28mself[39m,
+[32m  12415[39m     axis: Axis | [38;5;28;01mNone[39;00m = [32m0[39m,
+[32m   (...)[39m[32m  12418[39m     **kwargs,
+[32m  12419[39m ) -> Series | [38;5;28mfloat[39m:
+[32m> [39m[32m12420[39m     [38;5;28;01mreturn[39;00m [38;5;28;43mself[39;49m[43m.[49m[43m_stat_function[49m[43m([49m
+[32m  12421[39m [43m        [49m[33;43m"[39;49m[33;43mmean[39;49m[33;43m"[39;49m[43m,[49m[43m [49m[43mnanops[49m[43m.[49m[43mnanmean[49m[43m,[49m[43m [49m[43maxis[49m[43m,[49m[43m [49m[43mskipna[49m[43m,[49m[43m [49m[43mnumeric_only[49m[43m,[49m[43m [49m[43m*[49m[43m*[49m[43mkwargs[49m
+[32m  12422[39m [43m    [49m[43m)[49m
+
+[36mFile [39m[32m~/Documents/fin-data-analysis-text/.venv/lib/python3.12/site-packages/pandas/core/generic.py:12377[39m, in [36mNDFrame._stat_function[39m[34m(self, name, func, axis, skipna, numeric_only, **kwargs)[39m
+[32m  12375[39m validate_bool_kwarg(skipna, [33m"[39m[33mskipna[39m[33m"[39m, none_allowed=[38;5;28;01mFalse[39;00m)
+[32m> [39m[32m12377[39m [38;5;28;01mreturn[39;00m [38;5;28;43mself[39;49m[43m.[49m[43m_reduce[49m[43m([49m
+[32m  12378[39m [43m    [49m[43mfunc[49m[43m,[49m[43m [49m[43mname[49m[43m=[49m[43mname[49m[43m,[49m[43m [49m[43maxis[49m[43m=[49m[43maxis[49m[43m,[49m[43m [49m[43mskipna[49m[43m=[49m[43mskipna[49m[43m,[49m[43m [49m[43mnumeric_only[49m[43m=[49m[43mnumeric_only[49m
+[32m  12379[39m [43m[49m[43m)[49m
+
+[36mFile [39m[32m~/Documents/fin-data-analysis-text/.venv/lib/python3.12/site-packages/pandas/core/series.py:6443[39m, in [36mSeries._reduce[39m[34m(self, op, name, axis, skipna, numeric_only, filter_type, **kwds)[39m
+[32m   6441[39m [38;5;28;01mif[39;00m [38;5;28misinstance[39m(delegate, ExtensionArray):
+[32m   6442[39m     [38;5;66;03m# dispatch to ExtensionArray interface[39;00m
+[32m-> [39m[32m6443[39m     [38;5;28;01mreturn[39;00m [43mdelegate[49m[43m.[49m[43m_reduce[49m[43m([49m[43mname[49m[43m,[49m[43m [49m[43mskipna[49m[43m=[49m[43mskipna[49m[43m,[49m[43m [49m[43m*[49m[43m*[49m[43mkwds[49m[43m)[49m
+[32m   6445[39m [38;5;28;01melse[39;00m:
+[32m   6446[39m     [38;5;66;03m# dispatch to numpy arrays[39;00m
+
+[36mFile [39m[32m~/Documents/fin-data-analysis-text/.venv/lib/python3.12/site-packages/pandas/core/arrays/string_.py:523[39m, in [36mStringArray._reduce[39m[34m(self, name, skipna, axis, **kwargs)[39m
+[32m    521[39m     [38;5;28;01mreturn[39;00m [38;5;28mgetattr[39m([38;5;28mself[39m, name)(skipna=skipna, axis=axis)
+[32m--> [39m[32m523[39m [38;5;28;01mraise[39;00m [38;5;167;01mTypeError[39;00m([33mf[39m[33m"[39m[33mCannot perform reduction [39m[33m'[39m[38;5;132;01m{[39;00mname[38;5;132;01m}[39;00m[33m'[39m[33m with string dtype[39m[33m"[39m)
+
+[31mTypeError[39m: Cannot perform reduction 'mean' with string dtype
+
+The above exception was the direct cause of the following exception:
+
+[31mTypeError[39m                                 Traceback (most recent call last)
+[36mCell[39m[36m [39m[32mIn[17][39m[32m, line 3[39m
+[32m      1[39m (
+[32m      2[39m     [43mnc[49m[43m.[49m[43mgroupby[49m[43m([49m[33;43m'[39;49m[33;43mtype[39;49m[33;43m'[39;49m[43m)[49m
+[32m----> [39m[32m3[39m [43m    [49m[43m.[49m[43mmean[49m[43m([49m[43m)[49m[[33m'[39m[33mbeer_count[39m[33m'[39m]
+[32m      4[39m     .to_frame()
+[32m      5[39m     .style
+[32m      6[39m         .format(precision=[32m0[39m)
+[32m      7[39m         .set_caption([33m'[39m[33mBeer Count by Brewery Type[39m[33m'[39m)   
+[32m      8[39m )
+
+[36mFile [39m[32m~/Documents/fin-data-analysis-text/.venv/lib/python3.12/site-packages/pandas/core/groupby/groupby.py:2452[39m, in [36mGroupBy.mean[39m[34m(self, numeric_only, engine, engine_kwargs)[39m
+[32m   2445[39m     [38;5;28;01mreturn[39;00m [38;5;28mself[39m._numba_agg_general(
+[32m   2446[39m         grouped_mean,
+[32m   2447[39m         executor.float_dtype_mapping,
+[32m   2448[39m         engine_kwargs,
+[32m   2449[39m         min_periods=[32m0[39m,
+[32m   2450[39m     )
+[32m   2451[39m [38;5;28;01melse[39;00m:
+[32m-> [39m[32m2452[39m     result = [38;5;28;43mself[39;49m[43m.[49m[43m_cython_agg_general[49m[43m([49m
+[32m   2453[39m [43m        [49m[33;43m"[39;49m[33;43mmean[39;49m[33;43m"[39;49m[43m,[49m
+[32m   2454[39m [43m        [49m[43malt[49m[43m=[49m[38;5;28;43;01mlambda[39;49;00m[43m [49m[43mx[49m[43m:[49m[43m [49m[43mSeries[49m[43m([49m[43mx[49m[43m,[49m[43m [49m[43mcopy[49m[43m=[49m[38;5;28;43;01mFalse[39;49;00m[43m)[49m[43m.[49m[43mmean[49m[43m([49m[43mnumeric_only[49m[43m=[49m[43mnumeric_only[49m[43m)[49m[43m,[49m
+[32m   2455[39m [43m        [49m[43mnumeric_only[49m[43m=[49m[43mnumeric_only[49m[43m,[49m
+[32m   2456[39m [43m    [49m[43m)[49m
+[32m   2457[39m     [38;5;28;01mreturn[39;00m result.__finalize__([38;5;28mself[39m.obj, method=[33m"[39m[33mgroupby[39m[33m"[39m)
+
+[36mFile [39m[32m~/Documents/fin-data-analysis-text/.venv/lib/python3.12/site-packages/pandas/core/groupby/groupby.py:1998[39m, in [36mGroupBy._cython_agg_general[39m[34m(self, how, alt, numeric_only, min_count, **kwargs)[39m
+[32m   1995[39m     result = [38;5;28mself[39m._agg_py_fallback(how, values, ndim=data.ndim, alt=alt)
+[32m   1996[39m     [38;5;28;01mreturn[39;00m result
+[32m-> [39m[32m1998[39m new_mgr = [43mdata[49m[43m.[49m[43mgrouped_reduce[49m[43m([49m[43marray_func[49m[43m)[49m
+[32m   1999[39m res = [38;5;28mself[39m._wrap_agged_manager(new_mgr)
+[32m   2000[39m [38;5;28;01mif[39;00m how [38;5;129;01min[39;00m [[33m"[39m[33midxmin[39m[33m"[39m, [33m"[39m[33midxmax[39m[33m"[39m]:
+
+[36mFile [39m[32m~/Documents/fin-data-analysis-text/.venv/lib/python3.12/site-packages/pandas/core/internals/managers.py:1472[39m, in [36mBlockManager.grouped_reduce[39m[34m(self, func)[39m
+[32m   1470[39m             result_blocks = extend_blocks(applied, result_blocks)
+[32m   1471[39m     [38;5;28;01melse[39;00m:
+[32m-> [39m[32m1472[39m         applied = [43mblk[49m[43m.[49m[43mapply[49m[43m([49m[43mfunc[49m[43m)[49m
+[32m   1473[39m         result_blocks = extend_blocks(applied, result_blocks)
+[32m   1475[39m [38;5;28;01mif[39;00m [38;5;28mlen[39m(result_blocks) == [32m0[39m:
+
+[36mFile [39m[32m~/Documents/fin-data-analysis-text/.venv/lib/python3.12/site-packages/pandas/core/internals/blocks.py:393[39m, in [36mBlock.apply[39m[34m(self, func, **kwargs)[39m
+[32m    387[39m [38;5;129m@final[39m
+[32m    388[39m [38;5;28;01mdef[39;00m[38;5;250m [39m[34mapply[39m([38;5;28mself[39m, func, **kwargs) -> [38;5;28mlist[39m[Block]:
+[32m    389[39m [38;5;250m    [39m[33;03m"""[39;00m
+[32m    390[39m [33;03m    apply the function to my values; return a block if we are not[39;00m
+[32m    391[39m [33;03m    one[39;00m
+[32m    392[39m [33;03m    """[39;00m
+[32m--> [39m[32m393[39m     result = [43mfunc[49m[43m([49m[38;5;28;43mself[39;49m[43m.[49m[43mvalues[49m[43m,[49m[43m [49m[43m*[49m[43m*[49m[43mkwargs[49m[43m)[49m
+[32m    395[39m     result = maybe_coerce_values(result)
+[32m    396[39m     [38;5;28;01mreturn[39;00m [38;5;28mself[39m._split_op_result(result)
+
+[36mFile [39m[32m~/Documents/fin-data-analysis-text/.venv/lib/python3.12/site-packages/pandas/core/groupby/groupby.py:1995[39m, in [36mGroupBy._cython_agg_general.<locals>.array_func[39m[34m(values)[39m
+[32m   1992[39m     [38;5;28;01mreturn[39;00m result
+[32m   1994[39m [38;5;28;01massert[39;00m alt [38;5;129;01mis[39;00m [38;5;129;01mnot[39;00m [38;5;28;01mNone[39;00m
+[32m-> [39m[32m1995[39m result = [38;5;28;43mself[39;49m[43m.[49m[43m_agg_py_fallback[49m[43m([49m[43mhow[49m[43m,[49m[43m [49m[43mvalues[49m[43m,[49m[43m [49m[43mndim[49m[43m=[49m[43mdata[49m[43m.[49m[43mndim[49m[43m,[49m[43m [49m[43malt[49m[43m=[49m[43malt[49m[43m)[49m
+[32m   1996[39m [38;5;28;01mreturn[39;00m result
+
+[36mFile [39m[32m~/Documents/fin-data-analysis-text/.venv/lib/python3.12/site-packages/pandas/core/groupby/groupby.py:1946[39m, in [36mGroupBy._agg_py_fallback[39m[34m(self, how, values, ndim, alt)[39m
+[32m   1944[39m     msg = [33mf[39m[33m"[39m[33magg function failed [how->[39m[38;5;132;01m{[39;00mhow[38;5;132;01m}[39;00m[33m,dtype->[39m[38;5;132;01m{[39;00mser.dtype[38;5;132;01m}[39;00m[33m][39m[33m"[39m
+[32m   1945[39m     [38;5;66;03m# preserve the kind of exception that raised[39;00m
+[32m-> [39m[32m1946[39m     [38;5;28;01mraise[39;00m [38;5;28mtype[39m(err)(msg) [38;5;28;01mfrom[39;00m[38;5;250m [39m[34;01merr[39;00m
+[32m   1948[39m [38;5;28;01mif[39;00m ser.dtype == [38;5;28mobject[39m:
+[32m   1949[39m     res_values = res_values.astype([38;5;28mobject[39m, copy=[38;5;28;01mFalse[39;00m)
+
+[31mTypeError[39m: agg function failed [how->mean,dtype->string]
+

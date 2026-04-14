@@ -2,7 +2,7 @@
 
 Chapter 4 of our course notes discusses how to store our data, indexing, column names, converting `numpy` arrays to `pandas` DataFrames, dates, and summarizing our data, especially **by group**. 
 
-We'll see with how to **merge** and **reshape** our data. I'll also discuss **SQL** and the `polar` library, two alternatives to `pandas`.
+We'll see how to **merge** and **reshape** our data. I'll also discuss **SQL** and the `polars` library, two alternatives to `pandas`.
 
 **DataFrames** are the main way that we are going to organize our data. They come from the `pandas` package, which along with `numpy`, `matplotlib`, and a few others, form the core of our Python and finance toolbox.
 
@@ -27,12 +27,46 @@ For now, focus on Section 1.5 of Hull on **data cleaning**. Data cleaning will l
 Sketch your data! What do you have? What do you want it to look like? Then, go look for the syntax you need to get that done.
 ```
 
+## Using AI for pandas
+
+This is the chapter where AI assistance becomes incredibly valuable. The `pandas` library has hundreds of methods and many ways to accomplish the same task. You don't need to memorize them all - you need to know what's possible and be able to read the code that AI generates.
+
+### Why AI excels at pandas
+
+| Task | Why AI Helps |
+|------|--------------|
+| Syntax lookup | "How do I filter rows where column X > 5?" |
+| Method selection | "Should I use `merge`, `join`, or `concat`?" |
+| Reshaping data | "Convert this wide data to long format" |
+| Cleaning pipelines | "Remove duplicates and fill missing values" |
+| Complex aggregations | "Group by date and calculate multiple statistics" |
+
+### What you'll see in AI-generated code
+
+AI-generated pandas code often uses **method chaining** - stringing multiple operations together with dots:
+
+```python
+# AI often writes code like this
+result = (df
+    .query('year >= 2020')
+    .groupby('sector')
+    .agg({'returns': ['mean', 'std']})
+    .reset_index()
+)
+```
+
+This looks different from step-by-step code, but does the same thing. We'll cover how to read these patterns in this chapter.
+
+```{tip}
+When asking AI for pandas help, be specific about your data structure. Say things like "I have a DataFrame with columns date, ticker, and price" rather than just "I have stock data."
+```
+
 ## Other important sources
 
 As always, my notes are not comprehensive - that's an impossible task.
 
 From [Coding for Economists](https://aeturrell.github.io/coding-for-economists/intro.html)
-- [Working with Data](https://aeturrell.github.io/coding-for-economists/data-intro.html) has `pandas` examples. Note the discussion of ***tidy data**. 
+- [Working with Data](https://aeturrell.github.io/coding-for-economists/data-intro.html) has `pandas` examples. Note the discussion of **tidy data**. 
 - [Data Transformation](https://aeturrell.github.io/coding-for-economists/data-transformation.html) has data aggregation and summary examples.
 - [Exploratory Data Analysis](https://aeturrell.github.io/coding-for-economists/data-exploratory-analysis.html) has more summary examples, including making summary tables. 
 - [Missing Values](https://aeturrell.github.io/coding-for-economists/data-missing-values.html) covers what to do with missing values in your data.

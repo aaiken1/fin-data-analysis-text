@@ -1,0 +1,891 @@
+
+<!DOCTYPE html>
+
+
+<html lang="en" data-content_root="../" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>Code style, PEP8, and linting &#8212; Data Analysis in Finance</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
+  </script>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../_static/styles/theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="../_static/styles/bootstrap.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="../_static/styles/pydata-sphinx-theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+
+  
+  <link href="../_static/vendor/fontawesome/6.5.2/css/all.min.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.2/webfonts/fa-solid-900.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.2/webfonts/fa-brands-400.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.2/webfonts/fa-regular-400.woff2" />
+
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=03e43079" />
+    <link rel="stylesheet" type="text/css" href="../_static/styles/sphinx-book-theme.css?v=eba8b062" />
+    <link rel="stylesheet" type="text/css" href="../_static/togglebutton.css?v=9c3e77be" />
+    <link rel="stylesheet" type="text/css" href="../_static/copybutton.css?v=76b2166b" />
+    <link rel="stylesheet" type="text/css" href="../_static/mystnb.8ecb98da25f57f5357bf6f572d296f466b2cfe2517ffebfabe82451661e28f02.css?v=6644e6bb" />
+    <link rel="stylesheet" type="text/css" href="../_static/sphinx-thebe.css?v=4fa983c6" />
+    <link rel="stylesheet" type="text/css" href="../_static/sphinx-design.min.css?v=95c83b7e" />
+    <link rel="stylesheet" type="text/css" href="../_static/custom.css?v=b00ee380" />
+  
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b" />
+<link rel="preload" as="script" href="../_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b" />
+  <script src="../_static/vendor/fontawesome/6.5.2/js/all.min.js?digest=dfe6caa3a7d634c4db9b"></script>
+
+    <script src="../_static/documentation_options.js?v=9eb32ce0"></script>
+    <script src="../_static/doctools.js?v=9a2dae69"></script>
+    <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../_static/clipboard.min.js?v=a7894cd8"></script>
+    <script src="../_static/copybutton.js?v=f281be69"></script>
+    <script src="../_static/scripts/sphinx-book-theme.js?v=887ef09a"></script>
+    <script>let toggleHintShow = 'Click to show';</script>
+    <script>let toggleHintHide = 'Click to hide';</script>
+    <script>let toggleOpenOnPrint = 'true';</script>
+    <script src="../_static/togglebutton.js?v=1ae7504c"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script src="../_static/design-tabs.js?v=f930bc37"></script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script async="async" src="../_static/sphinx-thebe.js?v=c100c467"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'chapters/2_3_style';</script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="AI Coding Assistants" href="2_4_using_ai.html" />
+    <link rel="prev" title="Packages" href="2_2_packages.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+
+  
+  
+  <div id="pst-skip-link" class="skip-link d-print-none"><a href="#main-content">Skip to main content</a></div>
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>Back to top</button>
+
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-primary-sidebar-checkbox"/>
+  <label class="overlay overlay-primary" for="pst-primary-sidebar-checkbox"></label>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-secondary-sidebar-checkbox"/>
+  <label class="overlay overlay-secondary" for="pst-secondary-sidebar-checkbox"></label>
+  
+  <div class="search-button__wrapper">
+    <div class="search-button__overlay"></div>
+    <div class="search-button__search-container">
+<form class="bd-search d-flex align-items-center"
+      action="../search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         id="search-input"
+         placeholder="Search this book..."
+         aria-label="Search this book..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form></div>
+  </div>
+
+  <div class="pst-async-banner-revealer d-none">
+  <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
+</div>
+
+  
+    <header class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
+    </header>
+  
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      
+      
+      <div class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+    
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+
+  
+    
+  
+
+<a class="navbar-brand logo" href="../intro.html">
+  
+  
+  
+  
+  
+    
+    
+      
+    
+    
+    <img src="../_static/cat.png" class="logo__image only-light" alt="Data Analysis in Finance - Home"/>
+    <script>document.write(`<img src="../_static/cat.png" class="logo__image only-dark" alt="Data Analysis in Finance - Home"/>`);</script>
+  
+  
+</a></div>
+        <div class="sidebar-primary-item">
+
+ <script>
+ document.write(`
+   <button class="btn search-button-field search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass"></i>
+    <span class="search-button__default-text">Search</span>
+    <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+   </button>
+ `);
+ </script></div>
+        <div class="sidebar-primary-item"><nav class="bd-links bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item navbar-nav active">
+        
+        <ul class="nav bd-sidenav bd-sidenav__home-link">
+            <li class="toctree-l1">
+                <a class="reference internal" href="../intro.html">
+                    Welcome
+                </a>
+            </li>
+        </ul>
+        <p aria-level="2" class="caption" role="heading"><span class="caption-text">Getting Started</span></p>
+<ul class="current nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="1_finpyth.html">Why Python and finance?</a></li>
+<li class="toctree-l1 current active has-children"><a class="reference internal" href="2_intro.html">Python set-up <a id="python_set-up"></a></a><details open="open"><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="2_0_git.html">Using Github and Github Codespaces</a></li>
+<li class="toctree-l2"><a class="reference internal" href="2_1_markdown.html">Markdown</a></li>
+<li class="toctree-l2"><a class="reference internal" href="2_2_packages.html">Packages</a></li>
+<li class="toctree-l2 current active"><a class="current reference internal" href="#">Code style, PEP8, and linting</a></li>
+<li class="toctree-l2"><a class="reference internal" href="2_4_using_ai.html">AI Coding Assistants</a></li>
+</ul>
+</details></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">The Basics</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1 has-children"><a class="reference internal" href="3_intro.html">CompSci 101: Types, control, and numpy arrays</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="3_0_comp101.html">The Basics</a></li>
+<li class="toctree-l2"><a class="reference internal" href="3_1_numpy.html">Numpy and arrays</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="4_intro.html">Working with data</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="4_0_dataframes.html">Importing data</a></li>
+<li class="toctree-l2"><a class="reference internal" href="4_1_pandas.html">pandas</a></li>
+<li class="toctree-l2"><a class="reference internal" href="4_2_cleaning_data.html">Cleaning our data</a></li>
+<li class="toctree-l2"><a class="reference internal" href="4_3_eda.html">Exploratory data analysis (EDA)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="4_4_merge_shape.html">Merging and reshaping data</a></li>
+<li class="toctree-l2"><a class="reference internal" href="4_5_sql.html">Using SQL in Python</a></li>
+<li class="toctree-l2"><a class="reference internal" href="4_6_polar.html">polars: A fast, fancy pandas alternative</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="5_intro.html">Data visualization</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="5_0_seaborn.html">seaborn</a></li>
+<li class="toctree-l2"><a class="reference internal" href="5_1_matplotlib.html">matplotlib</a></li>
+<li class="toctree-l2"><a class="reference internal" href="5_2_plotly.html">plotly</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="6_intro.html">Data APIs</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="6_1_fred.html">FRED API</a></li>
+<li class="toctree-l2"><a class="reference internal" href="6_2_nasdaq.html">NASDAQ Data Link</a></li>
+<li class="toctree-l2"><a class="reference internal" href="6_3_databento.html">Databento</a></li>
+<li class="toctree-l2"><a class="reference internal" href="6_4_wrds.html">WRDS (Wharton Research Data Services)</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1"><a class="reference internal" href="7_financial_ts.html">Financial time series <a id="financial-time-series"></a></a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Applications</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="8_port_math.html">Essential portfolio math</a></li>
+<li class="toctree-l1"><a class="reference internal" href="9_portfolio_opt.html">Portfolio optimization</a></li>
+<li class="toctree-l1"><a class="reference internal" href="10_unsupervised_learning.html">Machine learning and unsupervised learning <a id="unsupervised_learning"></a></a></li>
+<li class="toctree-l1"><a class="reference internal" href="11_factor_models.html">Factor models <a id="factor_models"></a></a></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="12_intro.html">Regression and supervised machine learning</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="12_0_ols.html">OLS regression in Python</a></li>
+<li class="toctree-l2"><a class="reference internal" href="12_1_regularization.html">Regularization: Ridge, Lasso, and Elastic Net</a></li>
+<li class="toctree-l2"><a class="reference internal" href="12_2_ml_workflow.html">The machine learning workflow with sklearn</a></li>
+<li class="toctree-l2"><a class="reference internal" href="12_3_ml_markets.html">From Regression to Prediction: Can ML Beat the Market?</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1"><a class="reference internal" href="13_logit_credit.html">Logit models</a></li>
+<li class="toctree-l1"><a class="reference internal" href="14_risk_mang.html">Risk management</a></li>
+<li class="toctree-l1"><a class="reference internal" href="15_monte_carlo.html">Monte Carlo and portfolios</a></li>
+<li class="toctree-l1"><a class="reference internal" href="16_decision_trees.html">Decision Trees</a></li>
+<li class="toctree-l1"><a class="reference internal" href="17_options.html">Option basics</a></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="18_intro.html">Trading strategies and backtesting</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="18_0_trading_bt.html">Backtesting with the BT Package</a></li>
+<li class="toctree-l2"><a class="reference internal" href="18_1_alphalens.html">Factor Analysis with Alphalens</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1"><a class="reference internal" href="19_textual_analysis.html">Textual Analysis in Finance</a></li>
+<li class="toctree-l1"><a class="reference internal" href="20_llms.html">How Large Language Models Work</a></li>
+</ul>
+
+    </div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+  </div>
+  
+  <div id="rtd-footer-container"></div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main" role="main">
+        
+        
+
+<div class="sbt-scroll-pixel-helper"></div>
+
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article d-print-none">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item"><button class="sidebar-toggle primary-toggle btn btn-sm" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <span class="fa-solid fa-bars"></span>
+</button></div>
+      
+    </div>
+  
+  
+    <div class="header-article-items__end">
+      
+        <div class="header-article-item">
+
+<div class="article-header-buttons">
+
+
+<a href="https://github.com/executablebooks/jupyter-book" target="_blank"
+   class="btn btn-sm btn-source-repository-button"
+   title="Source repository"
+   data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fab fa-github"></i>
+  </span>
+
+</a>
+
+
+
+
+
+
+<div class="dropdown dropdown-download-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Download this page">
+    <i class="fas fa-download"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="../_sources/chapters/2_3_style.ipynb" target="_blank"
+   class="btn btn-sm btn-download-source-button dropdown-item"
+   title="Download source file"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="btn__text-container">.ipynb</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li>
+<button onclick="window.print()"
+  class="btn btn-sm btn-download-pdf-button dropdown-item"
+  title="Print to PDF"
+  data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="btn__text-container">.pdf</span>
+</button>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+<button onclick="toggleFullScreen()"
+  class="btn btn-sm btn-fullscreen-button"
+  title="Fullscreen mode"
+  data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="theme-switch fa-solid fa-sun fa-lg" data-mode="light"></i>
+    <i class="theme-switch fa-solid fa-moon fa-lg" data-mode="dark"></i>
+    <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"></i>
+  </button>
+`);
+</script>
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm pst-navbar-icon search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass fa-lg"></i>
+  </button>
+`);
+</script>
+<button class="sidebar-toggle secondary-toggle btn btn-sm" title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="fa-solid fa-list"></span>
+</button>
+</div></div>
+      
+    </div>
+  
+</div>
+</div>
+              
+              
+
+<div id="jb-print-docs-body" class="onlyprint">
+    <h1>Code style, PEP8, and linting</h1>
+    <!-- Table of contents -->
+    <div id="print-main-content">
+        <div id="jb-print-toc">
+            
+            <div>
+                <h2> Contents </h2>
+            </div>
+            <nav aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#good-vs-bad-style-examples">Good vs. Bad Style: Examples</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#variable-naming">Variable Naming</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#spacing-and-operators">Spacing and Operators</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#import-statements">Import Statements</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#function-definitions">Function Definitions</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#comments-when-and-how">Comments: When and How</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#type-hints-optional-but-increasingly-common">Type Hints (Optional but Increasingly Common)</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#files-file-paths-and-the-names-of-things">Files, file paths, and the names of things</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#linting-and-formatting-tools">Linting and Formatting Tools</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#why-use-a-linter">Why Use a Linter?</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#linting-in-vs-code-and-codespaces">Linting in VS Code and Codespaces</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#auto-formatting">Auto-Formatting</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#quick-reference-common-style-rules">Quick Reference: Common Style Rules</a></li>
+</ul>
+</li>
+</ul>
+            </nav>
+        </div>
+    </div>
+</div>
+
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                  
+  <section class="tex2jax_ignore mathjax_ignore" id="code-style-pep8-and-linting">
+<h1>Code style, PEP8, and linting<a class="headerlink" href="#code-style-pep8-and-linting" title="Link to this heading">#</a></h1>
+<p>As we learn to write code, we want to strive for <strong>readable</strong> code. This means code that is both easy for someone else to read and code that is easy for a <strong>future you</strong> to read!</p>
+<p>I don’t want to overwhelm you with rules right now, but we should be aware of how to format our Python code for readability and consistency. Python programmers like to follow a certain style, called <a class="reference external" href="https://pep8.org">PEP8</a>.</p>
+<p>PEP8 lays out conventions for indentation, spacing, commenting, naming, line length, etc. Some basics rules to know for now:</p>
+<ul class="simple">
+<li><p>Use 4 spaces per indentation level.</p></li>
+<li><p>Limit your code line length to 79 characters. You can indent onto the next line.</p></li>
+<li><p>Package imports should be at the top and on separate lines.</p></li>
+<li><p>Pay attention to how you are naming your variables, functions, etc. Pick a style and be consistent.</p></li>
+</ul>
+<p>Here are some other style guides for you. Just keep them handy.</p>
+<p><a class="reference external" href="https://realpython.com/python-pep8/">https://realpython.com/python-pep8/</a></p>
+<p><a class="reference external" href="https://www.datacamp.com/tutorial/pep8-tutorial-python-code">https://www.datacamp.com/tutorial/pep8-tutorial-python-code</a></p>
+<p><a class="reference external" href="https://google.github.io/styleguide/pyguide.html">https://google.github.io/styleguide/pyguide.html</a></p>
+<p>For the Google Style Guide, check out Section 3 first.</p>
+<p>All of this will make sense as we start to code. But, I think it is helpful to be aware that there are conventions before we start. However, don’t get too hung up on them at first. They will start to feel natural as we look at examples and write our own.</p>
+<p>Here’s an example of a style guide from the DataCamp tutorial.</p>
+<figure class="align-center" id="style-png">
+<img alt="../_images/02-style.png" class="with-border" src="../_images/02-style.png" />
+<figcaption>
+<p><span class="caption-number">Fig. 25 </span><span class="caption-text">Indentation is important in Python. Improper indentation will lead to syntax errors and your code won’t run.</span><a class="headerlink" href="#style-png" title="Link to this image">#</a></p>
+</figcaption>
+</figure>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># This prints Hello World!</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Hello World!&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Hello World!
+</pre></div>
+</div>
+</div>
+</div>
+<p>Notice the one space after the <code class="docutils literal notranslate"><span class="pre">#</span></code> in the comment. This is part of commenting style in Python.</p>
+<section id="good-vs-bad-style-examples">
+<h2>Good vs. Bad Style: Examples<a class="headerlink" href="#good-vs-bad-style-examples" title="Link to this heading">#</a></h2>
+<p>Let’s look at some concrete examples. These will make more sense as you learn Python, but bookmark this section and come back to it.</p>
+<section id="variable-naming">
+<h3>Variable Naming<a class="headerlink" href="#variable-naming" title="Link to this heading">#</a></h3>
+<p>Variable names should be descriptive and use <code class="docutils literal notranslate"><span class="pre">snake_case</span></code> (lowercase with underscores).</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Bad - what do these mean?</span>
+<span class="n">x</span> <span class="o">=</span> <span class="mf">0.05</span>
+<span class="n">y</span> <span class="o">=</span> <span class="mi">100000</span>
+<span class="n">z</span> <span class="o">=</span> <span class="n">x</span> <span class="o">*</span> <span class="n">y</span>
+
+<span class="c1"># Good - self-documenting code</span>
+<span class="n">interest_rate</span> <span class="o">=</span> <span class="mf">0.05</span>
+<span class="n">principal</span> <span class="o">=</span> <span class="mi">100000</span>
+<span class="n">annual_interest</span> <span class="o">=</span> <span class="n">interest_rate</span> <span class="o">*</span> <span class="n">principal</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>The good version reads almost like English. Six months from now, you’ll thank yourself for using descriptive names.</p>
+<div class="admonition tip">
+<p class="admonition-title">Tip</p>
+<p>A good rule of thumb: if you need a comment to explain what a variable is, the variable name probably isn’t descriptive enough.</p>
+</div>
+</section>
+<section id="spacing-and-operators">
+<h3>Spacing and Operators<a class="headerlink" href="#spacing-and-operators" title="Link to this heading">#</a></h3>
+<p>Put spaces around operators and after commas. It makes code much easier to scan.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Bad - cramped and hard to read</span>
+<span class="n">portfolio_return</span><span class="o">=</span><span class="n">weights</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">*</span><span class="n">returns</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">+</span><span class="n">weights</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">*</span><span class="n">returns</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">+</span><span class="n">weights</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span><span class="o">*</span><span class="n">returns</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span>
+
+<span class="c1"># Good - breathing room</span>
+<span class="n">portfolio_return</span> <span class="o">=</span> <span class="n">weights</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">*</span> <span class="n">returns</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">+</span> <span class="n">weights</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">*</span> <span class="n">returns</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">+</span> <span class="n">weights</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span> <span class="o">*</span> <span class="n">returns</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span>
+
+<span class="c1"># Even better - break long lines</span>
+<span class="n">portfolio_return</span> <span class="o">=</span> <span class="p">(</span><span class="n">weights</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">*</span> <span class="n">returns</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> 
+                    <span class="o">+</span> <span class="n">weights</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">*</span> <span class="n">returns</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> 
+                    <span class="o">+</span> <span class="n">weights</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span> <span class="o">*</span> <span class="n">returns</span><span class="p">[</span><span class="mi">2</span><span class="p">])</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output traceback highlight-ipythontb notranslate"><div class="highlight"><pre><span></span><span class="gt">---------------------------------------------------------------------------</span>
+<span class="ne">NameError</span><span class="g g-Whitespace">                                 </span>Traceback (most recent call last)
+<span class="n">Cell</span> <span class="n">In</span><span class="p">[</span><span class="mi">3</span><span class="p">],</span> <span class="n">line</span> <span class="mi">2</span>
+<span class="g g-Whitespace">      </span><span class="mi">1</span> <span class="c1"># Bad - cramped and hard to read</span>
+<span class="ne">----&gt; </span><span class="mi">2</span> <span class="n">portfolio_return</span><span class="o">=</span><span class="n">weights</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">*</span><span class="n">returns</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">+</span><span class="n">weights</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">*</span><span class="n">returns</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">+</span><span class="n">weights</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span><span class="o">*</span><span class="n">returns</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span>
+<span class="g g-Whitespace">      </span><span class="mi">4</span> <span class="c1"># Good - breathing room</span>
+<span class="g g-Whitespace">      </span><span class="mi">5</span> <span class="n">portfolio_return</span> <span class="o">=</span> <span class="n">weights</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">*</span> <span class="n">returns</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">+</span> <span class="n">weights</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">*</span> <span class="n">returns</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">+</span> <span class="n">weights</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span> <span class="o">*</span> <span class="n">returns</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span>
+
+<span class="ne">NameError</span>: name &#39;weights&#39; is not defined
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="import-statements">
+<h3>Import Statements<a class="headerlink" href="#import-statements" title="Link to this heading">#</a></h3>
+<p>Imports go at the top of your file, with standard library imports first, then third-party packages, then your own modules. Each import on its own line.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Bad - messy imports scattered throughout</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">pandas</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">pd</span><span class="o">,</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">matplotlib.pyplot</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">plt</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">datetime</span><span class="w"> </span><span class="kn">import</span> <span class="n">datetime</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">yfinance</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">yf</span>
+
+<span class="c1"># Good - organized and on separate lines</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">datetime</span>
+
+<span class="kn">import</span><span class="w"> </span><span class="nn">matplotlib.pyplot</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">plt</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">pandas</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">pd</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">yfinance</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">yf</span>
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="function-definitions">
+<h3>Function Definitions<a class="headerlink" href="#function-definitions" title="Link to this heading">#</a></h3>
+<p>Functions should have descriptive names (verbs are good), and ideally a <strong>docstring</strong> explaining what they do.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Bad - what does this do? What are a and b?</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">calc</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="n">b</span><span class="p">):</span>
+    <span class="k">return</span> <span class="p">(</span><span class="n">a</span> <span class="o">-</span> <span class="n">b</span><span class="p">)</span> <span class="o">/</span> <span class="n">b</span>
+
+<span class="c1"># Good - clear name and docstring</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">calculate_return</span><span class="p">(</span><span class="n">current_price</span><span class="p">,</span> <span class="n">previous_price</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Calculate the simple return between two prices.</span>
+<span class="sd">    </span>
+<span class="sd">    Parameters:</span>
+<span class="sd">    -----------</span>
+<span class="sd">    current_price : float</span>
+<span class="sd">        The current price</span>
+<span class="sd">    previous_price : float</span>
+<span class="sd">        The previous price</span>
+<span class="sd">        </span>
+<span class="sd">    Returns:</span>
+<span class="sd">    --------</span>
+<span class="sd">    float</span>
+<span class="sd">        The simple return as a decimal</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">return</span> <span class="p">(</span><span class="n">current_price</span> <span class="o">-</span> <span class="n">previous_price</span><span class="p">)</span> <span class="o">/</span> <span class="n">previous_price</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>The docstring (the text in triple quotes) explains what the function does. This is especially important in finance where formulas can be ambiguous. Is that return simple or log? Annualized or not? The docstring tells you.</p>
+</section>
+</section>
+<section id="comments-when-and-how">
+<h2>Comments: When and How<a class="headerlink" href="#comments-when-and-how" title="Link to this heading">#</a></h2>
+<p><strong>Comments</strong> explain the <em>why</em>, not the <em>what</em>. Good code is self-documenting for <em>what</em> it does; comments explain <em>why</em> you’re doing it.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Bad comment - just restates the code</span>
+<span class="c1"># Multiply price by quantity</span>
+<span class="n">total</span> <span class="o">=</span> <span class="n">price</span> <span class="o">*</span> <span class="n">quantity</span>
+
+<span class="c1"># Good comment - explains WHY</span>
+<span class="c1"># Using mid-price to avoid bid-ask spread issues</span>
+<span class="n">execution_price</span> <span class="o">=</span> <span class="p">(</span><span class="n">bid</span> <span class="o">+</span> <span class="n">ask</span><span class="p">)</span> <span class="o">/</span> <span class="mi">2</span>
+
+<span class="c1"># Good comment - explains a non-obvious business rule</span>
+<span class="c1"># Exclude first 30 minutes of trading (9:30-10:00 AM) </span>
+<span class="c1"># due to higher volatility at market open</span>
+<span class="n">filtered_data</span> <span class="o">=</span> <span class="n">data</span><span class="p">[</span><span class="n">data</span><span class="o">.</span><span class="n">index</span><span class="o">.</span><span class="n">time</span> <span class="o">&gt;=</span> <span class="n">datetime</span><span class="o">.</span><span class="n">time</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span> <span class="mi">0</span><span class="p">)]</span>
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="type-hints-optional-but-increasingly-common">
+<h2>Type Hints (Optional but Increasingly Common)<a class="headerlink" href="#type-hints-optional-but-increasingly-common" title="Link to this heading">#</a></h2>
+<p>Modern Python supports <strong>type hints</strong> — annotations that tell readers (and tools) what types of data your functions expect and return. You don’t need to use them in this class, but you’ll see them in professional code and AI-generated code.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Type hints are optional in Python — your code will run the same with or without them. But they make code easier to understand and help catch bugs before you run the code.</p>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Without type hints</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">calculate_sharpe</span><span class="p">(</span><span class="n">returns</span><span class="p">,</span> <span class="n">risk_free_rate</span><span class="p">):</span>
+    <span class="n">excess_returns</span> <span class="o">=</span> <span class="n">returns</span> <span class="o">-</span> <span class="n">risk_free_rate</span>
+    <span class="k">return</span> <span class="n">excess_returns</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span> <span class="o">/</span> <span class="n">excess_returns</span><span class="o">.</span><span class="n">std</span><span class="p">()</span>
+
+<span class="c1"># With type hints</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">pandas</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">pd</span>
+
+<span class="k">def</span><span class="w"> </span><span class="nf">calculate_sharpe_typed</span><span class="p">(</span><span class="n">returns</span><span class="p">:</span> <span class="n">pd</span><span class="o">.</span><span class="n">Series</span><span class="p">,</span> <span class="n">risk_free_rate</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mf">0.0</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">float</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Calculate the Sharpe ratio for a returns series.&quot;&quot;&quot;</span>
+    <span class="n">excess_returns</span> <span class="o">=</span> <span class="n">returns</span> <span class="o">-</span> <span class="n">risk_free_rate</span>
+    <span class="k">return</span> <span class="n">excess_returns</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span> <span class="o">/</span> <span class="n">excess_returns</span><span class="o">.</span><span class="n">std</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>The type hints tell you:</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">returns:</span> <span class="pre">pd.Series</span></code> — the first argument should be a pandas Series</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">risk_free_rate:</span> <span class="pre">float</span> <span class="pre">=</span> <span class="pre">0.0</span></code> — the second argument should be a float, defaulting to 0.0</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">-&gt;</span> <span class="pre">float</span></code> — the function returns a float</p></li>
+</ul>
+<p>When you use AI tools like Copilot or Claude, they often generate code with type hints. Now you know what they mean!</p>
+</section>
+<section id="files-file-paths-and-the-names-of-things">
+<h2>Files, file paths, and the names of things<a class="headerlink" href="#files-file-paths-and-the-names-of-things" title="Link to this heading">#</a></h2>
+<p>We’re using Github classroom for assignments, so we are worried about <strong>repo locations</strong>. But, there can be multiple files and folders in a repo and then again on our computers.</p>
+<aside class="margin sidebar">
+<p class="sidebar-title">Know where your stuff is!</p>
+<p>It is very important that you use a consistent organization and structure. Files, folders, and paths are very important. <strong>If you are using the lab computers, bring your own USB Drive</strong>.</p>
+</aside>
+<p>My layout is simple. A folder for this class. Then, inside that folder, I have the following sub-folders: data, output, images, and code.</p>
+<figure class="align-center" id="my-files-png">
+<img alt="../_images/02-my-files.png" class="with-border" src="../_images/02-my-files.png" />
+<figcaption>
+<p><span class="caption-number">Fig. 26 </span><span class="caption-text">My class folder, <strong>fin-data-analysis-python</strong> and sub-folders. You won’t have the readme.md file. That is generating the Read Me text on Github. You also probably don’t have hidden files and folders visible on your machine.</span><a class="headerlink" href="#my-files-png" title="Link to this image">#</a></p>
+</figcaption>
+</figure>
+<p>When I open up Jupyter or VS Code, I open up that class folder. Then, I can see my folder structure. I then use <strong>relative file paths</strong> to open and save files.</p>
+<p>And, instead of a single code folder, you can set-up a folder for each assignment. Then, inside each of these folders are folders called <em>code</em>, <em>data</em>, etc.</p>
+<figure class="align-center" id="file-paths-png">
+<img alt="../_images/02-file-paths.png" class="with-border" src="../_images/02-file-paths.png" />
+<figcaption>
+<p><span class="caption-number">Fig. 27 </span><span class="caption-text">Each assignment can get its own folder and sub-folder structure.</span><a class="headerlink" href="#file-paths-png" title="Link to this image">#</a></p>
+</figcaption>
+</figure>
+<p>And, this is a <a class="reference external" href="https://speakerdeck.com/jennybc/how-to-name-files">great presentation</a> on how to name files. You want your file names to be machine readable, human readable, easily searchable, and easily sorted. There’s something of a science to doing this correctly.</p>
+<p>Getting this stuff right will make your life easier.</p>
+</section>
+<section id="linting-and-formatting-tools">
+<h2>Linting and Formatting Tools<a class="headerlink" href="#linting-and-formatting-tools" title="Link to this heading">#</a></h2>
+<p><strong>Linting</strong> refers to automatically checking your code for style issues and potential bugs — things like undefined variables, unused imports, or inconsistent formatting. A <strong>linter</strong> is a tool that does this checking for you.</p>
+<section id="why-use-a-linter">
+<h3>Why Use a Linter?<a class="headerlink" href="#why-use-a-linter" title="Link to this heading">#</a></h3>
+<p>Linters catch mistakes before you run your code:</p>
+<ul class="simple">
+<li><p>Typos in variable names</p></li>
+<li><p>Missing imports</p></li>
+<li><p>Unused variables (often a sign of a bug)</p></li>
+<li><p>Style inconsistencies</p></li>
+</ul>
+<p>Think of it like spell-check for code.</p>
+</section>
+<section id="linting-in-vs-code-and-codespaces">
+<h3>Linting in VS Code and Codespaces<a class="headerlink" href="#linting-in-vs-code-and-codespaces" title="Link to this heading">#</a></h3>
+<p>VS Code has built-in linting support. When you install the <strong>Python</strong> extension (which you need anyway), you get basic linting automatically.</p>
+<p>For more powerful linting, you can install <strong>Pylint</strong> or <strong>Ruff</strong>:</p>
+<ol class="arabic simple">
+<li><p>Open the <strong>Extensions</strong> panel in VS Code (left sidebar)</p></li>
+<li><p>Search for “Pylint” or “Ruff” and install</p></li>
+<li><p>You’ll start seeing squiggly underlines for potential issues</p></li>
+</ol>
+<p><strong>Ruff</strong> is the newer, faster option and is increasingly popular. It combines linting and formatting in one tool.</p>
+<p><a class="reference external" href="https://code.visualstudio.com/docs/python/linting">https://code.visualstudio.com/docs/python/linting</a></p>
+</section>
+<section id="auto-formatting">
+<h3>Auto-Formatting<a class="headerlink" href="#auto-formatting" title="Link to this heading">#</a></h3>
+<p>Even better than checking style manually: let a tool <strong>fix it for you</strong>. Auto-formatters reformat your code to follow style guidelines automatically.</p>
+<p>Popular formatters:</p>
+<ul class="simple">
+<li><p><strong>Black</strong> — “The uncompromising code formatter.” Very opinionated, but removes all style debates.</p></li>
+<li><p><strong>Ruff</strong> — Can also format code, not just lint it.</p></li>
+</ul>
+<p>In VS Code, you can set up “Format on Save” so your code is automatically cleaned up every time you save. This is a huge time-saver.</p>
+<div class="admonition tip">
+<p class="admonition-title">Tip</p>
+<p>Don’t worry about memorizing all the style rules. Use a linter to catch issues and a formatter to fix them automatically. Your job is to write code that works; let the tools handle the formatting.</p>
+</div>
+</section>
+<section id="quick-reference-common-style-rules">
+<h3>Quick Reference: Common Style Rules<a class="headerlink" href="#quick-reference-common-style-rules" title="Link to this heading">#</a></h3>
+<div class="pst-scrollable-table-container"><table class="table">
+<thead>
+<tr class="row-odd"><th class="head"><p>Rule</p></th>
+<th class="head"><p>Example</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>Use <code class="docutils literal notranslate"><span class="pre">snake_case</span></code> for variables and functions</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">portfolio_return</span></code>, <code class="docutils literal notranslate"><span class="pre">calculate_sharpe()</span></code></p></td>
+</tr>
+<tr class="row-odd"><td><p>Use <code class="docutils literal notranslate"><span class="pre">UPPER_CASE</span></code> for constants</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">RISK_FREE_RATE</span> <span class="pre">=</span> <span class="pre">0.02</span></code></p></td>
+</tr>
+<tr class="row-even"><td><p>Use <code class="docutils literal notranslate"><span class="pre">PascalCase</span></code> for classes</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">PortfolioOptimizer</span></code></p></td>
+</tr>
+<tr class="row-odd"><td><p>Spaces around operators</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">x</span> <span class="pre">=</span> <span class="pre">a</span> <span class="pre">+</span> <span class="pre">b</span></code>, not <code class="docutils literal notranslate"><span class="pre">x=a+b</span></code></p></td>
+</tr>
+<tr class="row-even"><td><p>Space after commas</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">func(a,</span> <span class="pre">b,</span> <span class="pre">c)</span></code>, not <code class="docutils literal notranslate"><span class="pre">func(a,b,c)</span></code></p></td>
+</tr>
+<tr class="row-odd"><td><p>Imports at the top</p></td>
+<td><p>Always</p></td>
+</tr>
+<tr class="row-even"><td><p>One import per line</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">import</span> <span class="pre">numpy</span> <span class="pre">as</span> <span class="pre">np</span></code> on its own line</p></td>
+</tr>
+<tr class="row-odd"><td><p>Maximum line length</p></td>
+<td><p>79-100 characters</p></td>
+</tr>
+<tr class="row-even"><td><p>Two blank lines before functions</p></td>
+<td><p>Helps readability</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+</section>
+</section>
+</section>
+
+    <script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "binder-examples/jupyter-stacks-datascience",
+            ref: "master",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "python"
+        },
+        kernelOptions: {
+            name: "python3",
+            path: "./chapters"
+        },
+        predefinedOutput: true
+    }
+    </script>
+    <script>kernelName = 'python3'</script>
+
+                </article>
+              
+
+              
+              
+              
+              
+                <footer class="prev-next-footer d-print-none">
+                  
+<div class="prev-next-area">
+    <a class="left-prev"
+       href="2_2_packages.html"
+       title="previous page">
+      <i class="fa-solid fa-angle-left"></i>
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">previous</p>
+        <p class="prev-next-title">Packages</p>
+      </div>
+    </a>
+    <a class="right-next"
+       href="2_4_using_ai.html"
+       title="next page">
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-title">AI Coding Assistants</p>
+      </div>
+      <i class="fa-solid fa-angle-right"></i>
+    </a>
+</div>
+                </footer>
+              
+            </div>
+            
+            
+              
+                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+
+  <div class="sidebar-secondary-item">
+  <div class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> Contents
+  </div>
+  <nav class="bd-toc-nav page-toc">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#good-vs-bad-style-examples">Good vs. Bad Style: Examples</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#variable-naming">Variable Naming</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#spacing-and-operators">Spacing and Operators</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#import-statements">Import Statements</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#function-definitions">Function Definitions</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#comments-when-and-how">Comments: When and How</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#type-hints-optional-but-increasingly-common">Type Hints (Optional but Increasingly Common)</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#files-file-paths-and-the-names-of-things">Files, file paths, and the names of things</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#linting-and-formatting-tools">Linting and Formatting Tools</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#why-use-a-linter">Why Use a Linter?</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#linting-in-vs-code-and-codespaces">Linting in VS Code and Codespaces</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#auto-formatting">Auto-Formatting</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#quick-reference-common-style-rules">Quick Reference: Common Style Rules</a></li>
+</ul>
+</li>
+</ul>
+  </nav></div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+<div class="bd-footer-content__inner container">
+  
+  <div class="footer-item">
+    
+<p class="component-author">
+By Prof. Adam Aiken
+</p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+</div>
+          </footer>
+        
+
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="../_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b"></script>
+<script src="../_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b"></script>
+
+  <footer class="bd-footer">
+  </footer>
+  </body>
+</html>
