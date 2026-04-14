@@ -413,6 +413,11 @@ document.write(`
             <nav aria-label="Page">
                 <ul class="visible nav section-nav flex-column">
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#topics-to-cover">Topics to Cover</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#agentic-engineering">Agentic Engineering</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#guide-overview">Guide Overview</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#how-coding-agents-work">How Coding Agents Work</a></li>
+</ul>
+</li>
 </ul>
             </nav>
         </div>
@@ -451,6 +456,36 @@ document.write(`
 </li>
 <li><p>Limitations and considerations</p></li>
 </ul>
+</section>
+<section id="agentic-engineering">
+<h2>Agentic Engineering<a class="headerlink" href="#agentic-engineering" title="Link to this heading">#</a></h2>
+<p>Simon Willison has put together a guide on <strong>agentic engineering patterns</strong> — how to work effectively with AI coding agents like Claude Code, GitHub Copilot, and OpenAI Codex. This is essential reading for anyone using these tools.</p>
+<ul class="simple">
+<li><p><a class="reference external" href="https://simonwillison.net/guides/agentic-engineering-patterns/">Agentic Engineering Patterns</a> — The full guide.</p></li>
+<li><p><a class="reference external" href="https://simonwillison.net/guides/agentic-engineering-patterns/how-coding-agents-work/">How Coding Agents Work</a> — A detailed look at the internals of coding agents.</p></li>
+</ul>
+<section id="guide-overview">
+<h3>Guide Overview<a class="headerlink" href="#guide-overview" title="Link to this heading">#</a></h3>
+<p>The guide covers several key topics:</p>
+<p><strong>What is Agentic Engineering?</strong> Agentic engineering is the practice of developing software with coding agents — AI systems that write and execute code in loops to achieve goals. Rather than replacing developers, it shifts the focus from writing code to the more strategic work of defining problems, choosing solutions, and verifying results.</p>
+<p><strong>Writing Code is Cheap Now.</strong> While AI coding agents have made writing code nearly free, producing <em>good</em> code still requires substantial developer effort to ensure correctness, testing, documentation, and maintainability. Developers should experiment more freely with agent-generated code, since the cost of failure has dropped significantly.</p>
+<p><strong>Knowledge Retention.</strong> Willison advocates “hoarding” working code examples and solutions as a core professional skill. Having proven implementations lets you spot applications others might miss. These curated collections become powerful inputs for coding agents, which can rapidly combine multiple examples to solve new problems.</p>
+<p><strong>Improving Code Quality.</strong> Coding agents should be leveraged to <em>improve</em> code quality rather than reduce it. Agents excel at tedious refactoring tasks — fixing API designs, renaming concepts across codebases — that are simple but time-consuming, thereby eliminating technical debt without sacrificing quality.</p>
+<p><strong>Traps to Avoid.</strong> The key anti-pattern is submitting unreviewed agent-generated code to collaborators. Developers must personally verify code functionality and quality before creating pull requests, rather than delegating the review burden to others.</p>
+<p><strong>Red/Green Testing.</strong> Red/green test-driven development is an effective pattern for coding agents: write automated tests first, confirm they fail (red phase), then have the agent implement code until the tests pass (green phase). This prevents common agent mistakes like producing non-functional code.</p>
+<p><strong>Understanding Code.</strong> Agents can produce structured walkthroughs of codebases — useful for understanding projects you built with AI assistance without fully grasping every detail. Willison warns about <em>cognitive debt</em> that accumulates when AI-generated code is incomprehensible, and advocates for interactive explanations that help developers understand complex algorithms.</p>
+</section>
+<section id="how-coding-agents-work">
+<h3>How Coding Agents Work<a class="headerlink" href="#how-coding-agents-work" title="Link to this heading">#</a></h3>
+<p>A coding agent is a piece of software that acts as a <strong>harness</strong> for an LLM, extending it with additional capabilities through tools. The key components are:</p>
+<ul class="simple">
+<li><p><strong>LLMs</strong> are the foundation — machine learning models that predict the next token in a sequence. They process text by converting it into integer tokens, which matters because providers charge per token. Vision LLMs can also accept images as input.</p></li>
+<li><p><strong>Chat-Templated Prompts.</strong> Modern agents use a simulated conversation format. Since LLMs are stateless, the system must replay entire conversations for each new input, making longer conversations progressively more expensive.</p></li>
+<li><p><strong>Tool Calling.</strong> The distinguishing feature of agents is their ability to invoke tools — functions the harness makes available. Powerful agents include execution tools like <code class="docutils literal notranslate"><span class="pre">Bash()</span></code> or <code class="docutils literal notranslate"><span class="pre">Python()</span></code> for running code. The LLM generates tool-call requests in special markup, which the harness extracts and executes.</p></li>
+<li><p><strong>System Prompts.</strong> Lengthy initial instructions (sometimes hundreds of lines) inform the model about available tools and desired behavior, though users never see them.</p></li>
+<li><p><strong>Reasoning.</strong> Recent advances enable models to generate internal “thinking” text before responding, spending additional tokens on problem-solving — particularly valuable for debugging complex code.</p></li>
+</ul>
+<p>Building a basic agent loop requires just a few dozen lines of code, though production-quality implementations demand substantially more effort.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Placeholder for imports</span>
@@ -460,6 +495,7 @@ document.write(`
 </div>
 </div>
 </div>
+</section>
 </section>
 </section>
 
@@ -519,6 +555,11 @@ document.write(`
   <nav class="bd-toc-nav page-toc">
     <ul class="visible nav section-nav flex-column">
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#topics-to-cover">Topics to Cover</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#agentic-engineering">Agentic Engineering</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#guide-overview">Guide Overview</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#how-coding-agents-work">How Coding Agents Work</a></li>
+</ul>
+</li>
 </ul>
   </nav></div>
 
